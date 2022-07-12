@@ -473,104 +473,6 @@ StEntry:hover, StEntry:focus, StEntry:active{ background-color: #85b5ef;}
   border-radius: 10px;
 }
 
-.db-bg{
-  spacing: 12px;
-  /* padding: 8px; */
-  /* background-color: #222; */
-  /* border: 1px solid rgba(255,255,255,0.08) !important; */
-  /* box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.6); */
-  /* border-radius: 13px; */
-  color: black;
-}
-.db-box,
-.db-actor{
-  background-color: transparent;
-  box-shadow: none;
-  border: none;
-}
-.db-widget
-{
-  background-color: ivory;
-  border: 2px solid black !important;
-  border-radius: 12px;
-  padding: 10px;
-  spacing: 10px;
-}
-.db-container{ spacing: 10px; }
-.db-img{
-  border-radius: 12px;
-}
-
-/* leftBox */
-.db-userImage{
-  width: 120px;
-  height: 120px;
-}
-.db-welcomeBox{ width: 220px; }
-.db-userBox{ 
-  background-color: rgb(245, 245, 230);
-  border: 2px solid black !important;
-  border-radius: 12px;
-  padding: 6px;
-  spacing: 6px;
-}
-.db-slider StIcon{ icon-size: 24px; margin-right: 8px; }
-.db-slider { font-size: 0; } /* for power percentage label */
-.db-powerSlider .slider{ -slider-handle-radius: 0; -barlevel-active-border-color: #8ff0a4; -barlevel-active-background-color: #8ff0a4;}
-.db-powerSlider:red .slider{     -barlevel-active-border-color: #f66151; -barlevel-active-background-color: #f66151;}
-.db-powerSlider:orange .slider{  -barlevel-active-border-color: #ffbe6f; -barlevel-active-background-color: #ffbe6f;}
-.db-powerSlider:yellow .slider{  -barlevel-active-border-color: #f9f06b; -barlevel-active-background-color: #f9f06b;}
-.db-brightnessSlider .slider{ color: #99c1f1; -barlevel-active-border-color: #ffffff; -barlevel-active-background-color: #ffffff;}
-
-/* rightBox */
-.db-controls{ icon-size: 44px; margin: 6px;}
-.db-dirIcon{ icon-size: 1em; margin: 0 0.4em;}
-.db-dirBtn{ padding: 2px; border-radius: 7px !important;}
-.db-dirBox{ spacing: 2px; }
-
-/* centerBox */
-.db-mediaBox{ width: 520px;}
-.db-mediaCover{
-  width:  200px;
-  height: 200px;
-  background-color: rgb(245, 245, 230);
-  margin-right: 8px;
-}
-.db-mediaBtn{
-  icon-size: 1.4em;
-  color: rgba(0, 0, 0, 0.5);
-  padding: 6px;
-}
-.db-playerBtn{ icon-size: 2em; }
-.db-mediaBtn:active{ color: black; }
-
-.db-appBox{
-  width:  220px;
-  height: 220px;
-}
-.db-appBtn{ icon-size: 50px; }
-.db-linkBtn{ icon-size: 3.8em; }
-.db-shellBox StIcon{ icon-size: 58px; }
-.db-clock{
-  font-size: 2.2em;
-  font-weight: 900;
-}
-.db-date, .db-day{font-size: 1em;}
-
-/* buttons */
-.db-btn{
-  border: 2px solid transparent;
-}
-.db-btn:hover, .db-btn:focus{
-  background-color: rgb(245, 245, 230);
-  border-color: black;
-  border-radius: 12px;
-}
-.db-btn:active{
-  background-color: #99c1f1;
-  color: black;
-}
-
 /* ws-bar */
 .desktop-label-nonempty-active,
 .desktop-label-empty-active,
@@ -606,6 +508,19 @@ StEntry:hover, StEntry:focus, StEntry:active{ background-color: #85b5ef;}
 .just-perfection-api-workspace-background-radius-size22 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
 .just-perfection-api-workspace-background-radius-size23 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
 .just-perfection-api-workspace-background-radius-size24 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
+
+.pm-container{ spacing: 12px; padding: 12px;}
+.pm-btn{
+  border-radius: 12px;
+  padding: 6px;
+  border: 2px solid black;
+  background-color: #99c1f1;
+  color: black;
+}
+.pm-btn:hover, .pm-btn:focus{
+  background-color: #62a0ea;
+}
+.pm-btn:active{ background-color: #3584e4; }
 
 /* dash-board */
 .db-main-box{
