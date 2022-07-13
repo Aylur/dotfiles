@@ -256,6 +256,7 @@
 
 /* NOTIFICATIONS */
 .notification-banner{
+  margin-top: 8px;
   box-shadow: inset 0 0 0 2px black;
   background-color: ivory;
   border-radius: 12px;
@@ -538,7 +539,7 @@ StEntry:hover, StEntry:focus, StEntry:active{ background-color: #85b5ef;}
 .db-container{ spacing: 10px; }
 .db-widget{
   background-color: ivory;
-  border: 2px solid black;
+  border: 2px solid black !important;
   border-radius: 16px;
   padding: 6px;
   spacing: 6px;
@@ -627,3 +628,31 @@ StEntry:hover, StEntry:focus, StEntry:active{ background-color: #85b5ef;}
 /* .db-canvas{ background-color: #a42b27; } */
 /* .db-gmail{ background-color: #ad4237; } */
 /* .db-ncore{ background-color: #436608; } */
+
+/* media-controller */
+.mc-main-box,
+.mc-right-box{ spacing: 10px; }
+.mc-right-box{ padding: 6px; }
+
+.mc-panel-label{ max-width: 500px; }
+
+.mc-media-cover{
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    background-color: #99c1f1;
+}
+.mc-info-box{ font-size: 1.2em; }
+
+.mc-controls-box,
+.mc-volume-box{ spacing: 6px; }
+.mc-volume-box StIcon{ icon-size: 22px; }
+
+.mc-btn{ border-radius: 8px; padding: 4px;}
+.mc-btn:hover, .mc-btn:focus{ background-color: #99c1f1; }
+.mc-btn:active { background-color: #3584e4; }
+
+.mc-media-icon{ icon-size: 26px;  color: rgba(0, 0, 0, 0.5);}
+.mc-player-icon{ icon-size: 30px; }
+
+.mc-media-icon:active{ color: rgb(0, 0, 0); }

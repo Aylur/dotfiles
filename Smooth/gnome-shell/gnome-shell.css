@@ -730,3 +730,35 @@ StEntry:hover, StEntry:focus, StEntry:active{
 /* .db-canvas{ background-color: #a42b27; } */
 /* .db-gmail{ background-color: #ad4237; } */
 /* .db-ncore{ background-color: #436608; } */
+
+/* media-controller */
+.mc-main-box,
+.mc-right-box{ spacing: 10px; }
+.mc-right-box{ padding: 6px; }
+
+.mc-panel-label{ max-width: 500px; }
+
+.mc-media-cover{
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.mc-info-box{ font-size: 1.2em; }
+
+.mc-controls-box,
+.mc-volume-box{ spacing: 6px; }
+.mc-volume-box StIcon{ icon-size: 22px; }
+
+.mc-btn{ border-radius: 8px; padding: 4px; border: 1px solid transparent;}
+.mc-btn:hover, .mc-btn:focus{ 
+  background-color: #474747;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 3px 4px -4px black;
+}
+.mc-btn:active { background-color: #99c1f1; }
+
+.mc-media-icon{ icon-size: 26px;  color: rgba(255, 255, 255, 0.5);}
+.mc-player-icon{ icon-size: 30px; }
+
+.mc-media-icon:active{ color: white; }
