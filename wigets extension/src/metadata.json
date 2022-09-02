@@ -1,0 +1,6 @@
+{
+  "name": "Aylur's Widgets",
+  "description": "A better looking aggregateMenu",
+  "uuid": "widgets@aylur",
+  "shell-version": [ "42" ]
+}
