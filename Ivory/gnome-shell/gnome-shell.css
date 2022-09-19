@@ -6,17 +6,15 @@
 /* active: #85b5ef */
 /* slider_red: #ec767c */
 
+.workspace-background{
+  border: 2px solid black;
+}
+
 #overviewGroup{ background-color: /* #e0e9f4 */rgb(245, 245, 240);}
 .workspace-animation{ background-color: rgb(245, 245, 240); }
 
-#panelLeft .panel-button,
-#panelLeft .clock{
-  margin-left: 6px;
-}
-#panelRight .panel-button,
-#panelRight .clock{
-  margin-right: 6px;
-}
+#panelLeft{ padding-left: 6px; }
+#panelRight{ padding-left: 6px; }
 
 #panel,
 #panel:overview{
@@ -28,13 +26,17 @@
   border-radius: 12px;
 }
 .panel-button,
-.clock{
-  border-radius: 10px;
-  border: none;
-  box-shadow: none;
+.clock,
+.clock-display StIcon{
+  border-radius: 16px;
+  border: 6px solid transparent;
+  box-shadow: inset 0 0 0 1px transparent;
   color: black;
   background-color: #c2daf6;
-  margin: 6px 0;
+}
+.clock-display StIcon{
+  padding: 6px;
+  margin: 0;
 }
 .panel-button:active,
 .panel-button:overview, /* activites */
@@ -60,18 +62,13 @@
 }
 
 /* POPOVERS */
-.popup-menu-boxpointer {
-  -arrow-rise: 10px;
-}
 .popup-menu-content{
   background-color: ivory;
   border: 2px solid black;
-  border-radius: 16px;
   padding: 6px;
   color: black;
 }
 .popup-menu-item{
-  border-radius: 10px;
   padding: 8px;
   color: black;
 }
@@ -88,7 +85,6 @@
   border: 2px solid black;
   border-bottom: none;
   background-color: #c2daf6 !important;
-  border-radius: 10px 10px 0 0;
   box-shadow: none;
 }
 .popup-menu-item:checked:hover{
@@ -102,7 +98,6 @@
   background-color: #c2daf6;
   border: 2px solid black;
   border-top: none;
-  border-radius: 0 0 10px 10px;
 }
 .popup-sub-menu .popup-menu-item{
   box-shadow: none;
@@ -119,12 +114,12 @@
 }
 .popup-sub-menu .popup-menu-item:last-child{
   box-shadow: none;
-  border-radius: 0 0 10px 10px;
   border-bottom: none;
 }
 .popup-separator-menu-item-separator{
   background-color: black;
 }
+
 /* calendar */
 #calendarArea {
   padding: 0;
@@ -134,12 +129,6 @@
 }
 .datemenu-today-button{
   color: black;
-}
-.calendar{
-  color: black;
-  background-color: #c2daf6;
-  border-radius: 10px;
-  border: 2px solid black;
 }
 .calendar-month-label{
   color: black;
@@ -176,16 +165,16 @@
 .calendar-other-month-day{ color: rgba(0,0,0,0.3);}
 .calendar-day-with-events{
   font-weight: 800;
-  text-decoration: underline;
-  background-image: none;
+  background-image: url("resource:///org/gnome/shell/theme/calendar-today-light.svg");
 }
 /* events */
+.calendar,
 .events-button,
 .world-clocks-button,
 .weather-button{
   color: black;
   background-color: #c2daf6;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 2px solid black;
   box-shadow: none;
 }
@@ -213,7 +202,8 @@
 
 /* message-list */
 .message{
-  box-shadow: inset 0 0 0 2px black;
+  box-shadow: none;
+  border: 2px solid black;
   background-color: #c2daf6;
   border-radius: 12px !important;
   color: black;
@@ -241,13 +231,14 @@
 .toggle-switch{
   background-image: url("./toggle-on.svg");
   background-color: #c2daf6;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: inset 0 0 0 2px black;
 }
 .toggle-switch:checked{
   background-image: url("./toggle-off.svg");
   background-color: #3584e4;
 }
+
 .button{
   box-shadow: inset 0 0 0 2px black;
   background-color: #c2daf6;
@@ -262,24 +253,55 @@
 .button:hover{background-color: #85b5ef;}
 .button:active{background-color: #3584e4;}
 
+
+/* quick-settings */
+.icon-button{
+  box-shadow: inset 0 0 0 2px black;
+  background-color: #c2daf6;
+  color: black;
+  border-radius: 16px;
+}
+.icon-button:hover{ background-color: #85b5ef; }
+.icon-button:active{ background-color: #3584e4; }
+.quick-settings{
+  padding: 20px;
+  border-radius: 24px;
+}
+.quick-toggle{ border-radius: 12px; }
+.quick-toggle:checked{ background-color: #3584e4; }
+.quick-toggle-arrow { border-radius: 0 12px 12px 0; }
+
+.quick-slider{
+  background-color: #c2daf6;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 2px black;
+}
+.quick-slider .icon-button{ box-shadow: none; background-color: transparent; }
+.quick-toggle-menu{
+  box-shadow: inset 0 0 0 2px black;
+  background-color: #c2daf6;
+  color: black;
+}
+.quick-toggle-menu .header .icon{ background-color: #85b5ef; box-shadow: inset 0 0 0 2px black; }
+
 /* NOTIFICATIONS */
 .notification-banner{
   margin-top: 8px;
-  box-shadow: inset 0 0 0 2px black;
   background-color: ivory;
   border-radius: 12px;
   color: black;
 }
 .notification-button{
-  box-shadow: inset 0 0 0 2px black;
-  background-color: #c2daf6;
+  border: none;
+  box-shadow: inset 0 0 0 2px black !important;
+  background-color: #c2daf6 !important;
   border-radius: 8px !important;
   color: black;
   margin: 6px !important;
 }
 .notification-button:hover,
-.notification-banner:active{ background-color: #85b5ef; }
-.notification-button:active{ background-color: #3584e4; }
+.notification-banner:active{ background-color: #85b5ef !important; }
+.notification-button:active{ background-color: #3584e4 !important; }
 
 .slider,
 .level {
@@ -290,7 +312,7 @@
   -barlevel-background-color: rgba(53, 132, 228, 0.2);
   -barlevel-border-width: 2px;
   -barlevel-border-color: black;
-  -barlevel-active-background-color: #85b5ef;
+  -barlevel-active-background-color: #3584e4;
   -barlevel-active-border-color: black;
   -barlevel-overdrive-color: #ec767c;
   -barlevel-overdrive-border-color: black;
@@ -304,6 +326,8 @@
 .workspace-thumbnail{
   border: 2px solid black;
   border-radius: 6px;
+  background-image: url('/home/demeter/.config/background');
+  background-size: cover;
 }
 .workspace-thumbnail-indicator {
   border-color: #3584e4;
@@ -319,12 +343,10 @@
 .app-well-app:selected .overview-icon{
   box-shadow: inset 0 0 0 2px black;
   background-color: #85b5ef;
-  border-radius: 12px;
 }
 .app-well-app.app-folder .overview-icon{
   box-shadow: inset 0 0 0 2px black;
   background-color: #c2daf6;
-  border-radius: 12px;
 }
 .app-well-app.app-folder:hover .overview-icon{ background-color: #85b5ef; }
 .app-well-app.app-folder:active .overview-icon{ background-color: #3584e4; }
@@ -332,12 +354,8 @@
 
 /* DASH */
 #dash .dash-background{
-  border-radius: 99px;
-  border: 30px solid transparent;
-  border-top: none;
-  border-bottom: none;
-  box-shadow: inset 0 0 0 2px black;
   background-color: #c2daf6;
+  border: 2px solid black;
 }
 .dash-label {
   color: black;
@@ -355,17 +373,11 @@ StWidget.focused .app-well-app-running-dot {
   width: 18px;
   background-color: #3584e4;
 }
-.show-apps .overview-icon{
-  color: transparent;
-  background-image: url(./show-app_crayon.png);
-  background-size: 64px;
-}
 .show-apps:hover .overview-icon,
 .show-apps:focus .overview-icon,
 .show-apps:selected .overview-icon{
   box-shadow: inset 0 0 0 2px black;
   background-color: #85b5ef;
-  border-radius: 12px;
 }
 #dash .app-well-app:hover .overview-icon,
 #dash .app-well-app:focus .overview-icon,
@@ -373,7 +385,6 @@ StWidget.focused .app-well-app-running-dot {
 .show-apps:active .overview-icon,
 .show-apps:checked .overview-icon,
 #dash .app-well-app:active .overview-icon{
-  border-radius: 12px;
   box-shadow: inset 0 0 0 2px black;
   background-color: #3584e4;
 }
@@ -383,7 +394,6 @@ StWidget.focused .app-well-app-running-dot {
   color: black;
   box-shadow: inset 0 0 0 2px black;
   background-color: ivory;
-  border-radius: 12px;
 }
 .folder-name-label,
 .folder-name-entry{color: black;}
@@ -438,7 +448,7 @@ StEntry:hover, StEntry:focus, StEntry:active{ background-color: #85b5ef;}
   box-shadow: none;
   border: 2px solid black;
   background-color: ivory;
-  border-radius: 12px;
+  border-radius: 20px;
 }
 .ws-switcher-indicator{
   background-color: transparent;
@@ -448,20 +458,20 @@ StEntry:hover, StEntry:focus, StEntry:active{ background-color: #85b5ef;}
 }
 .ws-switcher-indicator:active{
   padding: 8px 14px;
-  background-color: #3584e4;
+  background-color: black;
   box-shadow: inset 0 0 0 2px ivory;
 }
+.switcher-list .item{ border: 2px solid transparent;}
 .switcher-list .item-box:hover,
 .switcher-list .item-box:focus,
 .switcher-list .item-box:selected{
-  box-shadow: inset 0 0 0 2px black;
+  border-color: black;
   background-color: #85b5ef;
-  border-radius: 10px;
 }
 .switcher-arrow{color: black;}
 .modal-dialog-linked-button {
   padding: 10px 0 !important;
-  margin: 10px !important;
+  margin: 12px !important;
   color: black;
   box-shadow: inset 0 0 0 2px black;
   background-color: #c2daf6;
@@ -473,50 +483,3 @@ StEntry:hover, StEntry:focus, StEntry:active{ background-color: #85b5ef;}
   background-color: #85b5ef;
 }
 .modal-dialog-linked-button:active{background-color: #3584e4;}
-.nm-dialog-scroll-view{
-  box-shadow: inset 0 0 0 2px black;
-  background-color: #c2daf6;
-  border-radius: 10px;
-}
-.nm-dialog-item:selected{
-  color: black;
-  box-shadow: inset 0 0 0 2px black;
-  background-color: #85b5ef;
-  border-radius: 10px;
-}
-
-/* ws-bar */
-.desktop-label-nonempty-active,
-.desktop-label-empty-active,
-.desktop-label-nonempty-inactive, 
-.desktop-label-empty-inactive {
-  margin: 0 2px;
-  width: 12px;
-  height: 12px;
-  font-size: 0;
-  border-radius: 7px;
-  border: 2px solid black;
-}
-.desktop-label-nonempty-active,
-.desktop-label-empty-active{
-  box-shadow: inset 0 0 0 2px ivory;
-  background-color: black;
-}
-
-.just-perfection-api-workspace-background-radius-size8 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size9 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size10 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size11 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size12 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size13 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size14 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size15 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size16 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size17 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size18 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size19 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size20 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size21 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size22 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size23 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
-.just-perfection-api-workspace-background-radius-size24 .workspace-background { box-shadow: none !important; border: 2px solid black !important; }
