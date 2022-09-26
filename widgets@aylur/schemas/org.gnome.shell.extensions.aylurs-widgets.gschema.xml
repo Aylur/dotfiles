@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+
+  <schema id="org.gnome.shell.extensions.aylurs-widgets"
+    path="/org/gnome/shell/extensions/aylurs-widgets/">
+
+    <!-- enables -->
+    <key name="battery-bar" type="b">
+      <default>true</default>
+    </key>
+    <key name="dash-board" type="b">
+      <default>true</default>
+    </key>
+    <key name="date-menu-mod" type="b">
+      <default>true</default>
+    </key>
+    <key name="media-player" type="b">
+      <default>true</default>
+    </key>
+    <key name="power-menu" type="b">
+      <default>true</default>
+    </key>
+    <key name="workspace-indicator" type="b">
+      <default>true</default>
+    </key>
+    <key name="quick-toggles" type="b">
+      <default>true</default>
+    </key>
+
+    <!-- batter-bar -->
+    <key name="battery-bar-position" type="i">
+      <default>2</default>
+    </key>
+
+    <key name="battery-bar-offset" type="i">
+      <default>0</default>
+    </key>
+
+    <key name="battery-bar-show-icon" type="b">
+      <default>true</default>
+    </key>
+
+    <key name="battery-bar-icon-position" type="i">
+      <default>0</default>
+    </key>
+
+    <key name="battery-bar-show-percentage" type="b">
+      <default>true</default>
+    </key>
+
+    <key name="battery-bar-width" type="i">
+      <default>200</default>
+    </key>
+
+    <!-- dash -->
+    <key name="dash-button-hide" type="b">
+      <default>false</default>
+    </key>
+
+    <key name="dash-replace-activities-button" type="b">
+      <default>false</default> 
+    </key>
+
+    <key name="dash-button-position" type="i">
+      <default>0</default> 
+    </key>
+
+    <key name="dash-button-offset" type="i">
+      <default>0</default> 
+    </key>
+
+    <key name="dash-button-label" type="s">
+      <default>"Dash"</default>
+    </key>
+
+    <key name="dash-button-icon-path" type="s">
+      <default>""</default>
+    </key>
+
+    <key name="dash-button-icon-hide" type="b">
+      <default>true</default>
+    </key>
+
+    <key name="dash-shortcut" type="as">
+      <default><![CDATA[['<Super>d']]]></default>
+    </key>
+
+    <key name="dash-layout" type="i">
+      <default>1</default>
+    </key>
+
+    <key name="dash-link-names" type="as">
+      <default>['reddit', 'youtube', 'gmail', 'twitter', 'github']</default>
+      <description>needs shell reload for this</description>
+    </key>
+
+    <key name="dash-link-urls" type="as">
+      <default>['https://www.reddit.com/', 'https://www.youtube.com/', 'https://www.gmail.com/', 'https://twitter.com/', 'https://www.github.com/']</default>
+      <description>needs shell reload for this</description>
+    </key>
+
+    <!-- date-menu-mod -->
+    <key name="date-menu-remove-padding" type="b">
+      <default>true</default> 
+    </key>
+
+    <key name="date-menu-indicator-position" type="i">
+      <default>1</default> 
+    </key>
+
+    <key name="date-menu-date-format" type="s">
+      <default>"%H:%M | %a:%d"</default> 
+    </key>
+
+    <key name="date-menu-mirror" type="b">
+      <default>false</default> 
+    </key>
+
+    <!-- media-player -->
+    <key name="media-player-position" type="i">
+      <default>1</default> 
+    </key>
+
+    <key name="media-player-offset" type="i">
+      <default>0</default> 
+    </key>
+
+    <key name="media-player-prefer" type="s">
+      <default>"spotify"</default> 
+    </key>
+
+    <key name="media-player-layout" type="i">
+      <default>0</default> 
+    </key>
+
+    <key name="media-player-controls-position" type="i">
+      <default>1</default> 
+    </key>
+
+    <key name="media-player-controls-offset" type="i">
+      <default>0</default> 
+    </key>
+
+    <key name="media-player-hide-controls" type="b">
+      <default>false</default> 
+    </key>
+
+    <key name="media-player-max-width" type="i">
+      <default>0</default> 
+    </key>
+
+    <key name="media-player-hide-track" type="b">
+      <default>false</default>
+    </key>
+
+    <!-- power-menu -->
+    <key name="power-menu-position" type="i">
+      <default>0</default> 
+    </key>
+    
+    <key name="power-menu-layout" type="i">
+      <default>0</default> 
+    </key>
+
+    <key name="power-menu-style" type="i">
+      <default>0</default> 
+    </key>
+
+    <!-- workspace-indicator -->
+    <key name="workspace-indicator-position" type="i">
+      <default>0</default>
+    </key>
+
+    <key name="workspace-indicator-offset" type="i">
+      <default>2</default> 
+    </key>
+
+    <key name="workspace-indicator-show-names" type="b">
+      <default>false</default> 
+    </key>
+
+  </schema>
+</schemalist>

@@ -10,8 +10,6 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-#panelLeft{ padding-left: 4px; }
-#panelRight{ padding-right: 4px; }
 #panel{
   background-color: #0f0f0f;
   height: 38px;
@@ -176,26 +174,22 @@
 .message-list .button{ border-radius: 10px; }
 
 /* quick-settings */
-.icon-button{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-}
+.icon-button{ box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
 .quick-settings{
   padding: 20px;
   border-radius: 24px;
 }
-.quick-toggle{
-  border-radius: 12px;
-}
-.quick-toggle-arrow {
-  border-radius: 0 12px 12px 0;
-}
-.quick-slider{
-  background-color: #3d3d3d;
-  border-radius: 12px;
+.quick-toggle{ border-radius: 12px; }
+.quick-toggle-arrow { border-radius: 0 12px 12px 0; }
+.quick-slider .icon-button{ box-shadow: none; }
+.quick-slider .icon-button:hover{ 
+  background-color: #474747;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
-.quick-slider .icon-button{ box-shadow: none; }
+.quick-slider .icon-button:active{
+  background-color: #3584e4;
+  color: #ffffff;
+}
 .quick-toggle-menu{
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
