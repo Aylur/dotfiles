@@ -152,9 +152,10 @@ class DateMenuModPage extends Adw.PreferencesPage{
         this.add(group);
 
         group.add(new Switch('Remove Padding', settings, 'date-menu-remove-padding'));
-        group.add(new DropDown('Indicator Position', settings, 'date-menu-indicator-position', ["Left", "Right"]));
+        group.add(new DropDown('Indicator Position', settings, 'date-menu-indicator-position', ["Left", "Right", "Hide"]));
         group.add(new Entry('Date Format', settings, 'date-menu-date-format'));
         group.add(new Switch('Mirrored', settings, 'date-menu-mirror'));
+        group.add(new Switch('Hide Notifications', settings, 'date-menu-hide-notifications'));
     }
 });
 

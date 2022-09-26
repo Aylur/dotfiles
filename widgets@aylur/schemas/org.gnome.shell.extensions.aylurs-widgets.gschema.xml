@@ -27,6 +27,7 @@
       <default>true</default>
     </key>
 
+
     <!-- batter-bar -->
     <key name="battery-bar-position" type="i">
       <default>2</default>
@@ -113,6 +114,10 @@
     </key>
 
     <key name="date-menu-mirror" type="b">
+      <default>false</default> 
+    </key>
+
+    <key name="date-menu-hide-notifications" type="b">
       <default>false</default> 
     </key>
 

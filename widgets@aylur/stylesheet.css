@@ -148,12 +148,12 @@
     box-shadow: none;
     spacing: 10px;
 }
-.quick-settings-main .quick-settings{ width: 420px; spacing: 10px; }
+.quick-settings-main .quick-settings{ width: 400px; spacing: 10px; }
 
 .quick-settings-main .quick-settings > .button{ border-radius: 14px;}
 .quick-settings-main .quick-settings .quick-toggle{ border-radius: 14px; }
 .quick-settings-main .quick-settings .quick-toggle .quick-toggle-arrow{ border-radius: 0 14px 14px 0; }
-.quick-settings-main .quick-settings .levels-container{ spacing: 10px; border-radius: 14px; }
+.quick-settings-main .quick-settings .levels-container{ spacing: 10px; border-radius: 14px; padding: 8px; width: 120px; }
 
 /* system */
 .quick-settings-main .quick-settings .quick-toggles-system{ spacing: 8px; }

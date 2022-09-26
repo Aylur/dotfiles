@@ -4,10 +4,9 @@
   "name": "Aylur's Widgets",
   "settings-schema": "org.gnome.shell.extensions.aylurs-widgets",
   "shell-version": [
-    "42",
     "43"
   ],
   "url": "https://github.com/Aylur/gnome-extensions",
   "uuid": "widgets@aylur",
-  "version": 5
+  "version": 6
 }

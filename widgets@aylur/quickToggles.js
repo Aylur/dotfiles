@@ -237,7 +237,10 @@ class MediaBox extends St.Bin{
         let box = new St.BoxLayout({ style_class: 'media-container' });
         let vbox = new St.BoxLayout({
             vertical: true,
-            style_class: 'media-container'
+            style_class: 'media-container',
+            y_align: Clutter.ActorAlign.CENTER,
+            x_align: Clutter.ActorAlign.CENTER,
+            x_expand: true
         });
         vbox.add_child(elements.titleBox);
         vbox.add_child(elements.controlsBox);
@@ -421,6 +424,10 @@ class Notifications extends St.BoxLayout{
         let datemenu = new imports.ui.dateMenu.DateMenuButton();
         datemenu._messageList.get_parent().remove_child(datemenu._messageList);
 
+        this.notificationList = datemenu._messageList._notificationSection;
+        this.notificationList._list.connect('actor-added', () => this._syncCounter());
+        this.notificationList._list.connect('actor-removed', () => this._syncCounter());
+
         this.clearBtn = datemenu._messageList._clearButton;
         this.list = datemenu._messageList._scrollView;
         this.mediaSection = datemenu._messageList._mediaSection;
@@ -441,6 +448,49 @@ class Notifications extends St.BoxLayout{
 
         this.add_child(hbox);
         this.add_child(this.list);
+
+        // notification indicator
+        this.indicator = new St.BoxLayout();
+        this.icon = new St.Icon({ style_class: 'system-status-icon' });
+        this.counter = new St.Label({ y_align: Clutter.ActorAlign.CENTER });
+        this.indicator.add_child(this.icon);
+        this.indicator.add_child(this.counter);
+
+        Main.panel.statusArea.quickSettings._indicators.add_child(this.indicator);
+
+        this._settings = new Gio.Settings({
+            schema_id: 'org.gnome.desktop.notifications',
+        });
+        this._settings.connect('changed::show-banners',
+            () => this._syncIndicator());
+
+        this._syncIndicator();
+        this._syncCounter();
+ 
+        this.connect('destroy', () => {
+            this._settings.run_dispose();
+        });
+    }
+    _syncIndicator(){
+        if(this._settings.get_boolean('show-banners')){
+            this.icon.icon_name = 'org.gnome.Settings-notifications-symbolic';
+            this._syncCounter();
+        }else{
+            this.counter.hide();
+            this.icon.icon_name = 'notifications-disabled-symbolic';
+        }
+    }
+    _syncCounter(){
+        let count = this.notificationList._messages.length;
+        if(count > 0){
+            this.counter.text = `${count}`;
+            this.counter.show();
+            this.icon.show();
+        }
+        else{
+            this.counter.hide();
+            this.icon.hide();
+        }
     }
 });
 
@@ -485,7 +535,7 @@ var Extension = class Extension {
         this.qs.menu.box.add_child(new Notifications());
 
         let maxHeight = Main.layoutManager.primaryMonitor.height - 50;
-        this.qs.menu.box.style = `max-height: ${maxHeight}px`;
+        this.qs.menu.box.style = `max-height: ${maxHeight}px; `;
 
         Main.panel.statusArea.quickSettings.menu.connect('open-state-changed', (self, open) => {
             if(open) this.levelsBox.startTimeout();
