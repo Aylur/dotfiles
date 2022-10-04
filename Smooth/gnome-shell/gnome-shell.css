@@ -7,7 +7,7 @@
 /* slider_red: #bb6271 */
 
 .workspace-background{
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 #panel{
@@ -20,8 +20,8 @@
 .clock-display StIcon{
   border-radius: 14px;
   border: 3px solid transparent;
-  background-color: #212121;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  background-color: #333;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .clock-display StIcon{
   padding: 8px;
@@ -50,17 +50,18 @@
 /* POPOVERS */
 .popup-menu-content{
   padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 .popup-menu-item{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .popup-menu-item:active{
   background-color: #3584e4;
   color: #ffffff;
 }
 .popup-sub-menu{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .popup-sub-menu .popup-menu-item{
   box-shadow: none;
@@ -73,7 +74,7 @@
 .pager-button:focus{
   background-color: #595959;
   border-radius: 10px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 /* calendar-days */
 .calendar-day-base{ border-radius: 10px; }
@@ -82,7 +83,7 @@
 .calendar-day-base:active:hover,
 .calendar-day-base:selected:hover{
   background-color: #595959;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .calendar-day-base:active,
 .calendar-day-base:selected{
@@ -99,13 +100,13 @@
 .calendar{
   border-radius: 11px;
   background-color: #3f3f3f;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03) !important;
 }
 .events-button,
 .world-clocks-button,
 .weather-button{
   border-radius: 11px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .events-button:active,
 .world-clock-button:active,
@@ -120,11 +121,11 @@
   padding: 5px 0 0 5px;
 }
 .message{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .message-close-button{
   border-radius: 10px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .message-close-button:active{
   background-color: #3584e4;
@@ -132,7 +133,7 @@
 }
 
 .message-media-control:hover{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .message-media-control:active{
   background-color: #3584e4;
@@ -155,14 +156,14 @@
 .dnd-button{
   width: 48px;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid rgba(255, 255, 255, 0.03);
   background-color: #474747;
   /* box-shadow: 0 2px 5px -4px black !important; */
   box-shadow: none !important;
 }
 
 .button{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); 
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03); 
 }
 .button:insensitive{
   box-shadow: none;
@@ -171,10 +172,10 @@
   background-color: #3584e4;
   color: #ffffff;
 }
-.message-list .button{ border-radius: 10px; }
+.message-list-clear-button{ border-radius: 10px; }
 
 /* quick-settings */
-.icon-button{ box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
+.icon-button{ box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03); }
 .quick-settings{
   padding: 20px;
   border-radius: 24px;
@@ -184,25 +185,25 @@
 .quick-slider .icon-button{ box-shadow: none; }
 .quick-slider .icon-button:hover{ 
   background-color: #474747;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .quick-slider .icon-button:active{
   background-color: #3584e4;
   color: #ffffff;
 }
 .quick-toggle-menu{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
 
 /* NOTIFICATIONS */
 .notification-banner{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .notification-button{
   border-radius: 10px !important;
   margin: 6px !important;
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 .notification-button:active{
   background-color: #3584e4;
@@ -213,7 +214,10 @@
 .level {
   height: 16px;
   -barlevel-height: 16px;
+  -barlevel-background-color: #595959;
+  /* fill */
   -barlevel-active-background-color: #3584e4;
+  /* overfill */
   -barlevel-overdrive-color: #bb6271;
   -barlevel-overdrive-separator-width: 2px;
   -slider-handle-radius: 7px;
@@ -221,9 +225,10 @@
 
 /* overview-ws-thumbnail */
 .workspace-thumbnail{
+  background-color: #595959;
   border: none;
   border-radius: 9px;
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid rgba(255, 255, 255, 0.03);
   background-image: url('/home/demeter/.config/background');
   background-size: cover;
 }
@@ -238,7 +243,7 @@
 .app-well-app:focus .overview-icon,
 .app-well-app:selected .overview-icon,
 .app-well-app.app-folder .overview-icon{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .app-well-app.app-folder:active .overview-icon,
 .app-well-app:active .overview-icon{
@@ -248,12 +253,12 @@
 
 /* DASH */
 #dash .dash-background{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .dash-label {
   background-color: #303030;
   border-radius: 11px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .app-well-app-running-dot{
   width: 10px;
@@ -263,23 +268,23 @@
 .show-apps:hover .overview-icon,
 .show-apps:focus .overview-icon,
 .show-apps:selected .overview-icon{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .show-apps:active .overview-icon,
 .show-apps:checked .overview-icon,
 #dash .app-well-app:active .overview-icon{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
   background-color: #3584e4;
   color: #ffffff;
 }
 
 /* folder */
 .app-folder-dialog{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .edit-folder-button{
   border-radius: 12px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .edit-folder-button:active{
   background-color: #3584e4;
@@ -289,7 +294,7 @@
 /* SEARCH */
 StEntry{
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 StEntry:hover, StEntry:focus, StEntry:active{
   border: 1px solid #3584e4;
@@ -297,14 +302,14 @@ StEntry:hover, StEntry:focus, StEntry:active{
 }
 
 .search-section-content{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
   border-radius: 17px;
 }
 
 .list-search-result:focus, .search-provider-icon:focus,
 .list-search-result:hover, .search-provider-icon:hover,
 .list-search-result:selected, .search-provider-icon:selected{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .list-search-result:active, .search-provider-icon:active{
   background-color: #3584e4;
@@ -315,13 +320,15 @@ StEntry:hover, StEntry:focus, StEntry:active{
 .modal-dialog{
   border-radius: 16px;
   background-color: #272727;
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
-/* .switcher-list, */
-/* .resize-popup, */
+.switcher-list,
+.resize-popup,
 .workspace-switcher,
 .osd-window{
   border-radius: 22px;
   box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 .ws-switcher-indicator{
   height: 10px;
@@ -330,13 +337,13 @@ StEntry:hover, StEntry:focus, StEntry:active{
 .switcher-list .item-box:hover,
 .switcher-list .item-box:focus,
 .switcher-list .item-box:selected{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .modal-dialog-linked-button {
   padding: 10px 0 !important;
   margin: 12px !important;
   border-radius: 10px !important;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .modal-dialog-linked-button:focus{
   box-shadow: inset 0 0 0 2px #3584e4;
@@ -347,8 +354,11 @@ StEntry:hover, StEntry:focus, StEntry:active{
   color: #ffffff;
 }
 .nm-dialog-scroll-view{
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 .nm-dialog-item:selected{
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
+
+/*  */
+.level-bar{ background-color: #595959; }
