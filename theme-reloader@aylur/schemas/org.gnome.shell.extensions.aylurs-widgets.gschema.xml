@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <schemalist>
+
+    <schema id="org.gnome.shell.extensions.theme-reloader"
+      path="/org/gnome/shell/extensions/theme-reloader/">
+
+      <key name="shortcut" type="as">
+        <default><![CDATA[['<Super><Ctrl>s']]]></default>
+      </key>
+
+    </schema>
+</schemalist>

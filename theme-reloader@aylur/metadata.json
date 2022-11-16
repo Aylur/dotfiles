@@ -1,0 +1,9 @@
+{
+  "name": "Theme Reloader",
+  "description": "Realod theme with a hot key to help making themes",
+  "uuid": "theme-reloader@aylur",
+  "shell-version": [
+    "43"
+  ],
+  "settings-schema": "org.gnome.shell.extensions.theme-reloader"
+}
