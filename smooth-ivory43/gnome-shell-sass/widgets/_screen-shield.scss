@@ -1,0 +1,78 @@
+/* Screen Shield */
+
+.unlock-dialog-clock {
+  color: white;
+  font-weight: 300;
+  text-align: center;
+  spacing: 24px;
+  padding-bottom: 2.5em;
+}
+
+.unlock-dialog-clock-time {
+  font-size: 64pt;
+  padding-top: 42px;
+  @extend %numeric;
+}
+
+.unlock-dialog-clock-date {
+  font-size: 16pt;
+  font-weight: normal;
+}
+
+.unlock-dialog-clock-hint {
+  font-weight: normal;
+  padding-top: 48px;
+}
+
+.unlock-dialog-notifications-container {
+  margin: 12px;
+  spacing: 6px;
+  width: 23em;
+  background-color: transparent;
+
+  .summary-notification-stack-scrollview {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .notification,
+  .unlock-dialog-notification-source {
+    padding: 12px 16px;
+    border: none;
+    background-color: transparentize($osd_fg_color,0.9);
+    color: $osd_fg_color;
+    border-radius: $modal_radius;
+
+    &.critical { background-color: transparentize($osd_fg_color,0.8) }
+  }
+}
+
+.unlock-dialog-notification-label {
+  padding-left: 12px;
+  padding-right: 0;
+  &:rtl { padding-right: 12px; padding-left: 0; }
+}
+
+.unlock-dialog-notification-count-text {
+  font-weight: bold;
+  padding: 0 12px;
+  color: $osd_fg_color;
+  background-color: transparentize($osd_fg_color, 0.9);
+  border-radius: 99px;
+}
+
+.screen-shield-background { //just the shadow, really
+  background: black;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+#lockDialogGroup {
+  background-color: $system_bg_color;
+}
+#unlockDialogNotifications {
+  StButton#vhandle, StButton#hhandle {
+    background-color: transparentize($bg_color,0.7);
+    &:hover, &:focus { background-color: transparentize($bg_color,0.5); }
+    &:active { background-color: transparentize($selected_bg_color,0.5); }
+  }
+}

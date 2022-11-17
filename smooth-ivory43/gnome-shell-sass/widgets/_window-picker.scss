@@ -1,0 +1,54 @@
+/* Window Picker */
+
+$window_picker_spacing: $base_padding; // 6px
+$window_picker_padding: $base_padding * 2; // 12px
+
+$window_thumbnail_label_color: transparentize($osd_bg_color, 0.4);
+
+$window_close_button_color: transparentize(lighten($osd_bg_color, 7%), .02);
+$window_close_button_size: 30px;
+$window_close_button_padding: 3px;
+
+// Window picker
+.window-picker {
+  // Space between window thumbnails
+  spacing: $window_picker_spacing;
+}
+
+// Window titles
+.window-caption {
+  color: $osd_fg_color;
+  background-color: lighten($osd_bg_color, 5%);
+  border-radius: 99px;
+  padding: $base_padding $base_padding * 2;
+}
+
+// Close button
+.window-close {
+  background-color: $window_close_button_color;
+  color: $osd_fg_color;
+  border-radius: 99px;
+  box-shadow: 0 2px 4px 0 $shadow_color;
+  padding: $window_close_button_padding;
+  height: $window_close_button_size;
+  width: $window_close_button_size;
+  transition-duration: 100ms;
+
+  & StIcon { icon-size: 24px; } // uses non standard icon size
+
+  &:hover {
+    background-color: mix($destructive_color, $window_close_button_color, 30%);
+  }
+
+  &:active {
+    background-color: mix($destructive_color, $window_close_button_color, 60%);
+  }
+}
+
+.workspace-background {
+  // keep in sync with BACKGROUND_CORNER_RADIUS_PIXELS in workspace.js
+  border-radius: 24px;
+  background-color: $invisible_occluded_bg_color;
+  box-shadow: 0 4px 16px 4px rgba(0,0,0,0.4);
+  @extend %border-colored;
+}

@@ -1,0 +1,77 @@
+/* Dash */
+
+$dash_background_color: if($variant == 'light', lighten($selected_bg_color, 10%), lighten($system_bg_color, 5%));
+$dash_placeholder_size: 32px;
+$dash_padding: $base_padding*2; // 12px
+$dash_border_radius: $modal_radius + $dash_padding;
+
+// container for the dash
+#dash {
+  @extend %caption;
+  margin-top: $dash_padding;
+
+  .placeholder {
+    // background-image: url("resource:///org/gnome/shell/theme/dash-placeholder.svg");
+    background-image:none;
+    background-size: contain;
+    height: $dash_placeholder_size;
+  }
+
+  .empty-dash-drop-target {
+    width: $dash_placeholder_size;
+    height: $dash_placeholder_size;
+  }
+
+  // Running app indicator (also shown in app grid)
+  .app-well-app-running-dot {
+    margin-bottom: 14px; // hardcoded
+  }
+}
+
+// background of the dash behind app icons
+.dash-background {
+  background-color: $dash_background_color;
+  border-radius: $dash_border_radius;
+  padding: $dash_padding;
+  spacing: $base_padding;
+  margin-bottom: $dash_padding;
+  box-shadow: 0 6px 6px 0 rgba(0,0,0,0.1);
+  @extend %border-colored;
+}
+
+// items on the dash
+.dash-item-container {
+  > * {margin: 0 2px;}
+  &:ltr:first-child {margin-left: 0;}
+  &:rtl:first-child {margin-right: 0;}
+
+  // each app item on the dash
+  .app-well-app .overview-icon {
+    padding: $base_padding;
+  }
+
+  // show apps button
+  .show-apps { @include overview_icon($osd_fg_color);}
+
+  .show-apps, .app-well-app {
+    padding-bottom: $dash_padding;
+  }
+}
+
+// separator between favourites and running apps
+.dash-separator {
+  width: 1px;
+  margin: 0 $base_margin;
+  background-color: $borders_color;
+  margin-bottom: $dash_padding;
+}
+
+// OSD Tooltip
+.dash-label {
+  color: $osd_fg_color;
+  background-color: $osd_bg_color;
+  border-radius: 99px;
+  padding: $base_padding $base_padding * 2;
+  text-align: center;
+  -y-offset: $base_margin * 2; // distance from the dash edge
+}

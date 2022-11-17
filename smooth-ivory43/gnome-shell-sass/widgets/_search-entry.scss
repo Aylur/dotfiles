@@ -1,0 +1,26 @@
+// Search entry
+
+$search_entry_width: 320px;
+$search_entry_height: 36px;
+
+%search_entry,
+.search-entry {
+  border-radius: $base_border_radius !important;
+
+  margin-top: $base_padding * 2;
+  margin-bottom: $base_padding;
+  padding: $base_padding+1 $base_padding+3;
+  width: $search_entry_width;
+
+  @include entry(normal);
+  &:hover { @include entry(hover);}
+  &:focus { @include entry(focus);}
+  &:insensitive { @include entry(insensitive);}
+
+  .search-entry-icon {
+    color: inherit;
+    icon-size: $base_icon_size;
+    margin-top: 2px; // center vertically
+    padding: 0 4px;
+  }
+}

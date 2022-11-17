@@ -1,0 +1,201 @@
+/* Login Dialog */
+
+.login-dialog-banner-view {
+  padding-top: 24px;
+  max-width: 23em;
+}
+
+.login-dialog,
+.unlock-dialog {
+  //reset
+  border: none;
+  background-color: transparent;
+
+  $_gdm_bg: $system_bg_color;
+
+  .modal-dialog-button-box { spacing: 3px; }
+  .modal-dialog-button {
+    padding: 4px 18px;
+    background-color: darken($system_bg_color, 3%);
+    border-color: darken($system_bg_color, 3%);
+    color: $osd_fg_color;
+
+    $_hover_c: lighten($_gdm_bg, 5%);
+    &:hover, &:focus {
+      background-color: $_hover_c;
+      border-color: $_hover_c;
+    }
+    &:active {
+      $_active_c: darken($_gdm_bg, 5%);
+      background-color: $_active_c;
+      border-color: $_active_c;
+    }
+    &:insensitive {
+      @include button(insensitive);
+      border-color: darken($_gdm_bg, 5%);
+      background-color: darken($_gdm_bg, 5%);
+      color: transparentize($osd_fg_color, 0.3);
+    }
+    &:default {
+      @include button(default);
+    }
+  }
+
+  .cancel-button,
+  .switch-user-button,
+  .login-dialog-session-list-button {
+    padding: 0;
+    border-radius: 99px;
+    width: $large_icon_size;
+    height: $large_icon_size;
+    border-color: darken($system_bg_color, 3%);
+    background-color: darken($system_bg_color, 3%);
+
+    StIcon { icon-size: $base_icon_size; }
+  }
+
+  .caps-lock-warning-label,
+  .login-dialog-message-warning {
+    color: $osd_fg_color;
+  }
+}
+
+.login-dialog-logo-bin { padding: 24px 0px; }
+.login-dialog-banner { color: darken($osd_fg_color,10%); }
+.login-dialog-button-box { width: 23em; spacing: 5px; }
+.login-dialog-message { text-align: center; }
+.login-dialog-user-selection-box { padding: 100px 0px; }
+.login-dialog-not-listed-label {
+  padding-left: 2px;
+  .login-dialog-not-listed-button:focus &,
+  .login-dialog-not-listed-button:hover & {
+    color: $osd_fg_color;
+  }
+}
+
+.login-dialog-not-listed-label {
+  @extend %caption;
+  font-weight: bold;
+  color: darken($osd_fg_color,30%);
+  padding-top: 1em;
+}
+
+.login-dialog-auth-list-view { -st-vfade-offset: 1em; }
+.login-dialog-auth-list {
+  spacing: 6px;
+  margin-left: 2em;
+}
+
+.login-dialog-auth-list-title {
+  margin-left: 2em;
+}
+
+.login-dialog-auth-list-item {
+  border-radius: $base_border_radius + 4px;
+  padding: 6px;
+  color: darken($osd_fg_color,30%);
+  &:focus, &:selected { background-color: $selected_bg_color; color: $selected_fg_color; }
+}
+
+.login-dialog-auth-list-label {
+  @include fontsize($base_font_size + 2);
+  font-weight: bold;
+  padding-left: 15px;
+  &:ltr { padding-left: 14px; text-align: left; }
+  &:rtl { padding-right: 14px; text-align: right; }
+}
+
+.login-dialog-user-list-view { -st-vfade-offset: 1em; }
+.login-dialog-user-list {
+  spacing: 12px;
+  width: 23em;
+  &:expanded .login-dialog-user-list-item:selected { background-color: $selected_bg_color; color: $selected_fg_color; }
+  &:expanded .login-dialog-user-list-item:logged-in { border-right: 2px solid $selected_bg_color; }
+}
+
+.login-dialog-user-list-item {
+  border-radius: $base_border_radius + 4px;
+  padding: 6px;
+  color: darken($osd_fg_color,30%);
+  &:ltr .user-widget { padding-right: 1em; }
+  &:rtl .user-widget { padding-left: 1em; }
+  .login-dialog-timed-login-indicator {
+    height: 2px;
+    margin-top: 6px;
+    background-color: $osd_fg_color;
+  }
+  &:focus .login-dialog-timed-login-indicator { background-color: $selected_fg_color; }
+}
+
+.user-widget-label {
+  color: $osd_fg_color;
+}
+
+.user-widget.horizontal .user-widget-label {
+  @include fontsize($base_font_size + 2);
+  font-weight: bold;
+  padding-left: 15px;
+
+  &:ltr { padding-left: 14px; text-align: left; }
+  &:rtl { padding-right: 14px; text-align: right; }
+}
+
+.user-widget.vertical .user-widget-label {
+  @include fontsize($base_font_size + 5);
+  text-align: center;
+  font-weight: normal;
+  padding-top: 16px;
+}
+
+.login-dialog-timed-login-indicator {
+    height: 2px;
+    background-color: darken($fg_color,40%);
+}
+
+.login-dialog-prompt-layout {
+  padding-top: 24px;
+  padding-bottom: 12px;
+  spacing: $base_padding * 2;
+  width: 23em;
+}
+
+.login-dialog-prompt-entry {
+  height: 1.5em;
+}
+
+.login-dialog-prompt-label {
+  color: darken($osd_fg_color, 20%);
+  @include fontsize($base_font_size + 1);
+  padding-top: 1em;
+}
+
+.login-dialog {
+  StEntry {
+    @if $variant=='dark' {
+      $_gdm_entry_bg: darken($system_bg_color, 3%);
+      background-color: $_gdm_entry_bg;
+      color: $fg_color;
+    }
+  }
+}
+
+// Custom styling for unlock entry
+.unlock-dialog {
+  StEntry {
+    border:none !important;
+    &:focus {
+      background-color: if($variant == 'light', transparentize(white, 0.9), transparentize($fg_color, 0.9));
+    }
+    &:insensitive { 
+      color: if($variant == 'light', transparentize(white, 0.5), transparentize($fg_color, 0.5));
+      background-color: if($variant == 'light', transparentize(white, 0.95), transparentize($fg_color, 0.95));
+    }
+  }
+
+  .cancel-button,
+  .switch-user-button,
+  .login-dialog-session-list-button {
+    border-color: transparent;
+    background-color: transparentize($fg_color, 0.9);
+  }
+}

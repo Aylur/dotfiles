@@ -1,0 +1,234 @@
+//This is the RIGHT PLACE to edit the stylesheet
+
+//let's start by telling people not to edit the generated CSS:
+$cakeisalie: "This stylesheet is generated, DO NOT EDIT";
+/* #{$cakeisalie} */
+
+/* Copyright 2009, 2015 Red Hat, Inc.
+ *
+ * Portions adapted from Mx's data/style/default.css
+ *   Copyright 2009 Intel Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms and conditions of the GNU Lesser General Public License,
+ * version 2.1, as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St - Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+/* Global Values */
+$border-width: if($variant == 'light', 2px, 1px);
+$border-color: if($variant == 'light', rgba(0,0,0,0.8), rgba(255,255,255,0.05));
+%border { border: $border-width solid transparent; }
+%border-colored{
+  border: $border-width solid $border-color;
+}
+
+// padding, margin and spacing
+$base_padding: 6px;
+$base_margin: 4px;
+
+// border radii
+$base_border_radius: 8px;
+
+// radii of things that display over other things, e.g. popovers
+$modal_radius: $base_border_radius*2;
+
+// Chroma key to flag when a background-color is always occluded, not visible.
+// This allows any box-shadow behind it to be rendered more efficiently by
+// omitting the middle rectangle.
+$invisible_occluded_bg_color: rgba(3,2,1,0);
+
+// fonts
+$base_font_size: 11;
+$text_shadow_color: if($variant == 'light', rgba(255,255,255,0.3), rgba(0,0,0,0.2));
+
+// icons
+$base_icon_size: 1.09em;
+$large_icon_size: $base_icon_size*2; // 32px
+// $base_icon_size: 16px;
+
+// Stage
+stage {
+  @include fontsize($base_font_size);
+  color: $fg_color;
+}
+
+/* Common Stylings */
+
+// osd panels
+%osd_panel {
+  color: $osd_fg_color;
+  background-color: if($variant == 'light', $osd_bg_color, darken($osd_bg_color, 2%));
+  border-radius: $modal_radius;
+  padding: $base_padding*2;
+
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1);
+  @extend %border-colored;
+}
+
+// Overview panels
+// for the dash and workspace switcher
+%overview_panel {
+  color: $osd_fg_color;
+  background-color: transparentize($osd_fg_color, 0.9);
+}
+
+// icon tiles
+%tile {
+  border-radius: $base_border_radius * 2; // 16px
+  padding: $base_padding;
+  spacing: $base_padding;
+  transition-duration: 200ms;
+  text-align: center;
+
+  @extend %border;
+}
+
+// dialogs
+%bubble_panel {
+  color: $fg_color;
+  background-color: $bg_color;
+  border-radius: $modal_radius;
+
+  @extend %border-colored;
+}
+
+// normal button styling
+%button {
+  border-radius: $base_border_radius - 2px; // 6px
+  @extend %border;
+  font-weight: bold;
+  padding: $base_padding*.5 $base_padding*4;
+
+  @include button(normal);
+  &:focus { @include button(focus);}
+  &:hover { @include button(hover);}
+  &:insensitive { @include button(insensitive);}
+  &:active { @include button(active);}
+  &:checked { @include button(checked);}
+
+  &.flat {
+    @include button(normal, $flat:true);
+    &:focus { @include button(focus, $flat:true);}
+    &:hover { @include button(hover, $flat:true);}
+    &:insensitive { @include button(insensitive, $flat:true);}
+    &:active { @include button(active, $flat:true);}
+    &:checked { @include button(checked, $flat:true);}
+  }
+}
+
+// buttons in dialogs/notifications
+// lighter in color and have a greater radius
+
+$bubble_button_radius:$base_border_radius*1.25;
+
+%bubble_button {
+  padding: $base_padding * 1.4;
+  margin: $base_margin*3;
+  font-weight: bold !important;
+
+  &:ltr {margin-right: 1px;}
+  &:rtl {margin-left: 1px;}
+
+  @include button(normal, $c:$bubble_buttons_color);
+  &:insensitive { @include button(insensitive, $c:$bubble_buttons_color);}
+  &:focus { @include button(focus, $c:$bubble_buttons_color);}
+  &:hover { @include button(hover, $c:$bubble_buttons_color);}
+  &:active { @include button(active, $c:$bubble_buttons_color);}
+  &:checked { @include button(checked, $c:$bubble_buttons_color);}
+
+  &:first-child:ltr {
+    border-radius: $bubble_button_radius;
+    margin-right: $base_margin*2 !important;
+  }
+
+  &:last-child:ltr {
+    border-radius: $bubble_button_radius;
+    margin-right: $base_margin*3 !important;
+    margin-left: $base_margin*2 !important;
+  }
+
+  &:first-child:rtl {
+    border-radius: $bubble_button_radius;
+  }
+
+  &:last-child:rtl {
+    border-radius: $bubble_button_radius;
+    margin-left: $base_margin*3 !important;
+  }
+
+  &:first-child:last-child {
+    border-radius: $bubble_button_radius $bubble_button_radius !important;
+    margin-left: $base_margin*3 !important;
+    margin-right: $base_margin*3 !important;
+  }
+}
+
+// buttons on OSD elements
+// that are undecorated by default and use OSD colors
+%osd_button {
+  @include button(undecorated);
+  &:insensitive { @include button(undecorated, $tc:$osd_fg_color, $c:$osd_bg_color);}
+  &:focus { @include button(focus, $tc:$osd_fg_color, $c:$osd_bg_color);}
+  &:hover { @include button(hover, $tc:$osd_fg_color, $c:$osd_bg_color);}
+  &:active { @include button(active, $tc:$osd_fg_color, $c:$osd_bg_color);}
+  &:outlined,&:checked { @include button(checked, $tc:$osd_fg_color, $c:$osd_bg_color);}
+}
+
+/* General Typography */
+
+%large_title {
+  font-weight: 300;
+  @include fontsize(24);
+}
+
+%title_1 {
+  font-weight: 800;
+  @include fontsize(20);
+}
+
+%title_2 {
+  font-weight: 800;
+  @include fontsize(15);
+}
+
+%title_3 {
+  font-weight: 700;
+  @include fontsize(15);
+}
+
+%title_4 {
+  font-weight: 700;
+  @include fontsize(13);
+}
+
+%heading {
+  font-weight: 700;
+  @include fontsize(11);
+}
+
+%caption_heading {
+  font-weight: 700;
+  @include fontsize(9);
+}
+
+%caption {
+  font-weight: 400;
+  @include fontsize(9);
+}
+
+%smaller {
+  font-weight: 400;
+  @include fontsize(8);
+}
+
+%monospace {font-family: monospace;}
+%numeric { font-feature-settings: "tnum";}

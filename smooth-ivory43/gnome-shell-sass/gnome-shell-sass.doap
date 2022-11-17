@@ -1,0 +1,37 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+
+  <name xml:lang="en">GNOME Shell Sass</name>
+  <shortdesc xml:lang="en">Sass sources of GNOME Shell</shortdesc>
+  <description>GNOME Shell Sass is a project intended to allow the sharing of the
+ sass theme sources between gnome-shell and other projects like gnome-shell-extensions.</description>
+
+  <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
+  <programming-language>sass</programming-language>
+  <programming-language>css</programming-language>
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Carlos Soriano</foaf:name>
+      <foaf:mbox rdf:resource="mailto:csoriano@gnome.org" />
+      <gnome:userid>csoriano</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Florian Müllner</foaf:name>
+      <foaf:mbox rdf:resource="mailto:fmuellner@gnome.org" />
+      <gnome:userid>fmuellner</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Jakub Steiner</foaf:name>
+      <foaf:mbox rdf:resource="mailto:jimmac@gmail.com" />
+      <gnome:userid>jimmac</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+</Project>

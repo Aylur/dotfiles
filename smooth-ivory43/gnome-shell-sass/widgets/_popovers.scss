@@ -1,0 +1,182 @@
+/* Popovers/Menus */
+
+// the popover itself
+.popup-menu-boxpointer {
+  -arrow-rise: $base_margin+2px; // distance from the panel & screen edge
+}
+
+// container of the popover menu
+.popup-menu {
+  min-width: 15em;
+  color: $fg_color;
+
+  //.popup-status-menu-item {font-weight: normal;  color: pink;} //dunno what that is
+  &.panel-menu {
+    margin-bottom: 1.75em; // so it doesn't touch the bottom of the screen
+  }
+}
+
+// popover content
+.popup-menu-content {
+  padding: $base_padding;
+  border-radius: $modal_radius*1.6;
+  @extend %border-colored;
+  box-shadow: 0 2px 4px 0 $shadow_color;
+  background-color: $bg_color;
+}
+
+// menu items
+.popup-menu-item {
+  padding: $base_padding*1.5 $base_padding*2;
+  border-radius: $base_border_radius*1.5;
+  spacing: $base_padding;
+  transition-duration: 100ms;
+  background-color: transparent;
+
+  &:ltr {padding-left: $base_padding;}
+  &:rtl {padding-right: $base_padding;}
+
+  &:focus, &:hover {
+    background-color: $hover_bg_color !important;
+    &:active { background-color: $active_bg_color !important;}
+  }
+
+  &:checked {background-color: $checked_bg_color !important;}
+
+  &:checked {
+    margin-bottom: 0;
+    box-shadow: inset 0 -1px 0 0 darken($checked_bg_color, 5%);
+    border-radius: $base_border_radius $base_border_radius 0 0;
+    &:focus,&:hover { background-color: lighten($checked_bg_color, 3%) !important;}
+    &:active { background-color: lighten($checked_bg_color, 5%) !important;}
+  }
+
+  &:active {
+    background-color: lighten($active_bg_color, 5%);
+    color: $active_fg_color;
+  }
+
+  &:insensitive {color: transparentize($fg_color,0.5);}
+
+  // add margin to switches in menu items
+  .toggle-switch {
+    &:ltr { margin-left: $base_margin;}
+    &:rtl { margin-right: $base_margin;}
+  }
+}
+
+
+// all other graphical elements (sliders)
+.popup-inactive-menu-item {
+  color: $fg_color;
+  &:insensitive { color: $insensitive_fg_color; }
+}
+
+// symbolic icons in popover
+.popup-menu-arrow,
+.popup-menu-icon {
+  icon-size: 16px !important; // for some reason the variable doesn't work here
+}
+
+.popup-menu-arrow {
+}
+
+
+// popover submenus
+.popup-sub-menu {
+  background-color: $checked_bg_color;
+  border-radius: 0 0 $base_border_radius $base_border_radius;
+
+  .popup-menu-ornament {
+    min-width: $base_icon_size !important;
+  }
+
+  // submenu specific styles
+  .popup-menu-item {
+    border-radius: 0;
+    margin: 0;
+
+    &:last-child {
+      border-radius: 0 0 $base_border_radius $base_border_radius;
+    }
+
+    &:focus,&:hover { background-color: $hover_bg_color !important;}
+    &:checked {
+      background-color: $checked_bg_color !important;
+      &:focus,&:hover { background-color: lighten($checked_bg_color, 8%) !important;}
+    }
+    &:active { background-color: $active_bg_color !important;}
+  }
+
+  .popup-menu-section {
+    .popup-menu-item:last-child {
+      &:hover,&:focus { border-radius: 0;}
+    }
+    &:last-child .popup-menu-item:last-child {
+      border-radius: 0 0 $base_border_radius $base_border_radius;
+    }
+  }
+}
+
+// container for radio and check boxes
+.popup-menu-ornament {
+  @extend %heading;
+  width: 1.2em;
+  text-align: center !important;
+
+  &:ltr { text-align: right;}
+  &:rtl { text-align: left;}
+}
+
+// separator
+.popup-separator-menu-item {
+  margin: 6px 0;
+  padding:0 !important;
+  &:ltr { margin-right: $base_margin;}
+  &:rtl { margin-left: $base_margin;}
+
+  .popup-separator-menu-item-separator {
+    height: 1px; //not really the whole box
+    background-color: $borders_color;
+  }
+
+  .popup-menu-ornament {
+    width: 0 !important;
+  }
+
+  // separators in submenus
+  .popup-sub-menu & {
+    background-color: transparent;
+
+    // account for ornament
+    &:ltr { margin-right: 2.5em;}
+    &:rtl { margin-left: 2.5em;}
+
+    .popup-separator-menu-item-separator {
+      background-color: lighten($borders_color, 7%);
+    }
+  }
+}
+
+// desktop background menu
+.background-menu {
+  -boxpointer-gap: 0px;
+  -arrow-rise: 0px; // hide the beak on the menu
+}
+
+// right-click (and panel) app menu
+.app-menu {
+  max-width: 27.25em;
+
+  // this is unneeded at the top-level in this menu, hide it
+  .popup-menu-ornament { width: 0 !important; }
+
+  .popup-inactive-menu-item:first-child {
+    // "Open Windows" label
+    > StLabel {
+      @extend %caption_heading;
+      &:ltr {margin-right: $base_margin*2;}
+      &:rtl {margin-left: $base_margin*2;}
+    }
+  }
+}

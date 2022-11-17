@@ -1,0 +1,24 @@
+/* Slider */
+
+$slider_size: 16px;
+
+.slider {
+  // slider trough
+  height: 20px;
+  -barlevel-height: 16px;
+  -barlevel-background-color: if($variant == 'light', transparentize($selected_bg_color, 0.8), transparentize($fg_color, 0.8)); //background of the trough
+  -barlevel-border-width: $border_width; 
+  -barlevel-border-color: $border-color; // trough border color
+  // fill style
+  -barlevel-active-background-color: $selected_bg_color;
+  -barlevel-active-border-color: $border-color;
+  // overfill style (red in this case)
+  -barlevel-overdrive-color: $destructive_color;
+  -barlevel-overdrive-border-color: $border-color; //trough border when red;
+  -barlevel-overdrive-separator-width:1px;
+  // slider handler
+  -slider-handle-radius: $slider_size * 0.5; // half the size of the size
+  -slider-handle-border-width: 0;
+  -slider-handle-border-color: transparent; // because 0 width
+
+}
