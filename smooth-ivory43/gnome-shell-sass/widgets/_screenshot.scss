@@ -103,8 +103,8 @@ $screenshot_ui_button_red: $error_color;
   }
   &:active { background-color: if($variant == 'light', $selected_bg_color, lighten($osd_bg_color,10%));}
   &:checked {
-    background-color: iv($variant == 'light', $bg_color, lighten($osd_bg_color,14%));
-    color: $fg_color;
+    background-color: $selected_bg_color;
+    color: $selected_fg_color;
     @extend %border-colored;
   }
   &:insensitive { color: transparentize($osd_fg_color, 0.5);}

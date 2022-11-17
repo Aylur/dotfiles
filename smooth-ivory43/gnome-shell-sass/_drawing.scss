@@ -44,8 +44,9 @@
 
   @if $t==focus {
     background-color: if($variant == 'light', $selected_bg_color, lighten($bg_color, 7%));
-    @extend %border;
-    border-color: $selected_bg_color;
+    @extend %border-colored;
+    border-color: if($variant == 'light', $border-color, transparent);
+    box-shadow: inset 0 0 0 2px if($variant == 'light', transparent, $selected_bg_color);
     color: if($variant == 'light', $selected_fg_color, $fg_color);
   }
 

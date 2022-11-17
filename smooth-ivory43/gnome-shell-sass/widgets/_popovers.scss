@@ -18,7 +18,7 @@
 
 // popover content
 .popup-menu-content {
-  padding: $base_padding;
+  padding: $base_padding*2;
   border-radius: $modal_radius*1.6;
   @extend %border-colored;
   box-shadow: 0 2px 4px 0 $shadow_color;
@@ -32,12 +32,14 @@
   spacing: $base_padding;
   transition-duration: 100ms;
   background-color: transparent;
+  @extend %border;
 
   &:ltr {padding-left: $base_padding;}
   &:rtl {padding-right: $base_padding;}
 
   &:focus, &:hover {
     background-color: $hover_bg_color !important;
+    @extend %border-colored;
     &:active { background-color: $active_bg_color !important;}
   }
 

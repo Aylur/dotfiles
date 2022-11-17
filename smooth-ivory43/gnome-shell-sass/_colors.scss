@@ -10,7 +10,7 @@ $bg_color: if($variant == 'light', #fff, lighten($base_color, 5%));
 $fg_color: if($variant == 'light', black, white);
 
 $selected_fg_color: #000;
-$selected_bg_color: #99c1f1;
+$selected_bg_color: #62a0ea;
 $selected_borders_color: if($variant== 'light', darken($selected_bg_color, 15%), darken($selected_bg_color, 30%));
 
 $borders_color: if($variant == 'light', transparentize($fg_color, .5), transparentize($fg_color, .9));
@@ -37,7 +37,7 @@ $shadow_color: if($variant == 'light', rgba(0,0,0,0.1), rgba(0,0,0,0.2));
 $button_mix_factor: 5%;
 
 // cards
-$card_bg_color: if($variant == 'light', darken($bg_color, 5%), lighten($bg_color, 2%));
+$card_bg_color: if($variant == 'light', mix($bg_color, $selected_bg_color, 70%), lighten($bg_color, 2%));
 $card_outer_borders_color: transparentize($fg_color, 0.98);
 
 // notifications
@@ -61,13 +61,13 @@ $backdrop_dark_fill: mix($backdrop_borders_color,$backdrop_bg_color, 35%);
 
 
 // derived checked colors
-$checked_bg_color: if($variant=='light', darken($bg_color, 7%), lighten($bg_color, 7%));
+$checked_bg_color: if($variant=='light', transparentize($selected_bg_color, 0.4), lighten($bg_color, 7%));
 $checked_fg_color: if($variant=='light', darken($fg_color, 7%), lighten($fg_color, 7%));
 
 // derived hover colors
-$hover_bg_color: if($variant=='light', darken($bg_color, 3%), lighten($bg_color, 10%));
+$hover_bg_color: if($variant=='light', transparentize($selected_bg_color, .5), lighten($bg_color, 10%));
 $hover_fg_color: if($variant=='light', darken($fg_color, 5%), lighten($fg_color, 10%));
 
 // derived active colors
-$active_bg_color: if($variant=='light', darken($bg_color, 5%), lighten($bg_color, 12%));
-$active_fg_color: if($variant=='light', darken($fg_color, 5%), lighten($fg_color, 12%));
+$active_bg_color: $selected_bg_color;
+$active_fg_color: $selected_fg_color;

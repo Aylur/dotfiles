@@ -6,6 +6,116 @@ $panel_fg_color: if($variant == 'light', transparentize($fg_color, 0.1), darken(
 $panel_height: 2.4em;
 $panel_transition_duration: 250ms; // same as the overview transition duration
 
+$float: 8px;
+#panel.floating{
+  height: 46px;
+
+  #panelLeft{
+    margin-left: $float;
+    .panel-button{ margin-right: $float; }
+  }
+  #panelRight{
+    margin-right: $float;
+    .panel-button{ margin-left: $float; }
+  }
+  #panelCenter{
+    margin-left: $float;
+    .panel-button{ margin-right: $float; }
+  }
+
+  .panel-button{
+    margin-top: $float;
+    margin-bottom: $float;
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
+    border: $border-width solid transparent;
+
+    &.clock-display {
+        background-color: transparent;
+        box-shadow: 0 0 0 0 transparent;
+        border-color: transparent;
+      .clock {
+        background-color: transparent;
+        box-shadow: 0 0 0 0 transparent;
+        border: $border-width solid transparent;
+      }
+    }
+  }
+  &:floating{
+    background-color: transparent;
+
+    .panel-button{
+      background-color: $panel_bg_color;
+      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+      border: $border-width solid $border-color;
+
+      &.clock-display {
+        background-color: transparent;
+        box-shadow: 0 0 0 0 transparent;
+        border-color: transparent;
+
+        .clock {
+          background-color: $panel_bg_color;
+          box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+          border: $border-width solid $border-color;
+        }
+      }
+
+      &:active, &:overview, &:focus, &:checked{
+        background-color: $selected_bg_color;
+        color: $selected_fg_color;
+
+        &.clock-display {
+          background-color: transparent;
+  
+          .clock {
+            background-color: $selected_bg_color;
+            color: $selected_fg_color;
+          }
+        }
+        &.screen-recording-indicator {
+          background-color: transparentize($screenshot_ui_button_red, 0.15);
+        }
+        &.screen-sharing-indicator {
+          background-color: transparentize($warning_color, 0.15);
+        }
+      }
+
+      &:hover {
+        background-color: if($variant == 'light', mix($panel_bg_color, $selected_bg_color, 50%), mix($panel_bg_color, $panel_fg_color, 85%));
+        &.clock-display {
+          background-color: transparent;
+          .clock {
+            background-color: if($variant == 'light', mix($panel_bg_color, $selected_bg_color, 50%), mix($panel_bg_color, $panel_fg_color, 85%));
+          }
+        }      
+        &.screen-recording-indicator {
+          background-color: transparentize($screenshot_ui_button_red, 0.1);
+        }
+        &.screen-sharing-indicator {
+          background-color: transparentize($warning_color, 0.1);
+        }
+      }
+      
+      &:active:hover, &:overview:hover, &:focus:hover, &:checked:hover {
+        background-color: if($variant == 'light', mix($panel_bg_color, $selected_bg_color, 25%), mix($panel_bg_color, $panel_fg_color, 85%));
+        &.clock-display {
+          background-color: transparent;
+          .clock {
+            box-shadow: inset 0 0 0 $border-width $border-color;
+          }
+        }      
+        &.screen-recording-indicator {
+          background-color: transparentize($screenshot_ui_button_red, 0.2);
+        }
+        &.screen-sharing-indicator {
+          background-color: transparentize($warning_color, 0.2);
+        }
+      }
+    }
+  }
+}
+
 #panel {
   background-color: $panel_bg_color;
   font-weight: bold;
