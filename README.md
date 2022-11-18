@@ -13,7 +13,8 @@
 
 ```css
 //workspace switcher
-/* */
+//I recommend ~/.config/background, because
+//if you set your bg with nautilus, it will put it there.
 .workspace-thumbnail{
   background-image: url("/home/demeter/.config/background");
   background-size: cover;
