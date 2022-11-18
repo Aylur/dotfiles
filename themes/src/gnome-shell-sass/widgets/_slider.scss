@@ -8,7 +8,7 @@ $slider_size: 16px;
   -barlevel-height: 16px;
   -barlevel-background-color: if($variant == 'light', transparentize($selected_bg_color, 0.8), transparentize($fg_color, 0.8)); //background of the trough
   -barlevel-border-width: $border_width; 
-  -barlevel-border-color: $border-color; // trough border color
+  -barlevel-border-color: $border-color;
   // fill style
   -barlevel-active-background-color: $selected_bg_color;
   -barlevel-active-border-color: $border-color;

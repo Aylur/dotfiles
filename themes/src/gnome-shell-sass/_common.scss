@@ -24,12 +24,6 @@ $cakeisalie: "This stylesheet is generated, DO NOT EDIT";
  */
 
 /* Global Values */
-$border-width: if($variant == 'light', 2px, 1px);
-$border-color: if($variant == 'light', rgba(0,0,0,0.8), rgba(255,255,255,0.05));
-%border { border: $border-width solid transparent; }
-%border-colored{
-  border: $border-width solid $border-color;
-}
 
 // padding, margin and spacing
 $base_padding: 6px;

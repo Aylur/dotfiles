@@ -1,6 +1,6 @@
 /* Dash */
 
-$dash_background_color: if($variant == 'light', lighten($selected_bg_color, 10%), lighten($system_bg_color, 5%));
+$dash_background_color: if($variant == 'light', mix($bg_color, $selected_bg_color, 70%), transparentize($fg_color, .84));
 $dash_placeholder_size: 32px;
 $dash_padding: $base_padding*2; // 12px
 $dash_border_radius: $modal_radius + $dash_padding;
@@ -35,7 +35,7 @@ $dash_border_radius: $modal_radius + $dash_padding;
   padding: $dash_padding;
   spacing: $base_padding;
   margin-bottom: $dash_padding;
-  box-shadow: 0 6px 6px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
   @extend %border-colored;
 }
 

@@ -5,6 +5,9 @@
 //
 
 /* WIDGETS */
+.level-bar{
+    background-color: if($variant == 'light', mix($bg_color, $selected_bg_color, 50%), lighten($bg_color, 14%)) !important;
+}
 
 // Primary widgets
 @import 'widgets/base';

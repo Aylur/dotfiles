@@ -31,6 +31,8 @@ $app_icon_size: 96px;
 // app folders
 .app-well-app.app-folder {
   @include overview_icon($osd_fg_color, $flat: false);
+  border-radius: $base_border_radius * 2; // 16px
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
 }
 
 // expanded folder
@@ -57,7 +59,7 @@ $app_icon_size: 96px;
       padding: 0;
       width: 36px;
       height: 36px;
-      border-radius: 99px;
+      border-radius: $base_border_radius;
       & > StIcon { icon-size: $base_icon_size }
     }
   }

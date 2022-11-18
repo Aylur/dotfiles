@@ -1,0 +1,27 @@
+$variant: 'dark'; //light ivory, dark smooth
+
+$border-width: if($variant == 'light', 2px, 1px);
+$border-color: if($variant == 'light', rgba(0,0,0,0.8), rgba(255,255,255,0.05));
+%border { border: $border-width solid transparent; }
+%border-colored{
+  border: $border-width solid $border-color;
+}
+
+$base_color: if($variant == 'light', #ffd7ef, #181818);
+$bg_color: if($variant == 'light', #ffc4e6, lighten($base_color, 5%));
+$fg_color: if($variant == 'light', black, white);
+
+$panel_bg_color: if($variant == 'light', $bg_color, darken($bg_color, 10%));
+$panel_fg_color: if($variant == 'light', transparentize($fg_color, 0.1), darken($fg_color, 5%));
+
+$selected_fg_color: #fff;
+$selected_bg_color: #3584e4;
+
+$warning_color: if($variant == 'light', #f8e45c, #cd9309);
+$error_color: if($variant == 'light', #e01b24, #e01b24);
+$success_color: if($variant == 'light', #57e389, #26a269);
+
+@import "gnome-shell-sass/_colors";
+@import "gnome-shell-sass/_drawing";
+@import "gnome-shell-sass/_common";
+@import "gnome-shell-sass/_widgets";
