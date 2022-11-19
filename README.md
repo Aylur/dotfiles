@@ -9,6 +9,15 @@
 - [Rounded Window Corners](https://extensions.gnome.org/extension/5237/rounded-window-corners/): best thing ever on Gnome.
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/): self explanatory.
 
+### Install and apply theme
+
+```
+git clone https://github.com/Aylur/dotfiles.git
+cd dotfiles/themes/
+cp -r Ivory/ ~/.local/themes
+dconf write /org/gnome/shell/extensions/user-theme/name "'Ivory'"
+```
+
 ### Adding Background to workspace switcher
 
 ```css
