@@ -66,7 +66,7 @@
 
 .quick-toggle-menu {
   background-color: $card_bg_color;
-  border-radius: $base_border_radius*3;
+  border-radius: $base_border_radius*1.6;
   padding: $base_padding*2;
   margin: $base_padding*2 $base_padding*3 0;
   @extend %border-colored;
