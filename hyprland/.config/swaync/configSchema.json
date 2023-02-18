@@ -1,0 +1,332 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SwayNotificationCenter JSON schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Pointer to the schema against which this document should be validated."
+    },
+    "positionX": {
+      "type": "string",
+      "description": "Horizontal position of control center and notification window",
+      "default": "right",
+      "enum": ["right", "left", "center"]
+    },
+    "layer": {
+      "type": "string",
+      "description": "Layer of control center window",
+      "default": "top",
+      "enum": ["background", "bottom", "top", "overlay"]
+    },
+    "cssPriority": {
+      "type": "string",
+      "description": "Which GTK priority to use when loading the default and user CSS files. Pick \"user\" to override XDG_CONFIG_HOME/gtk-3.0/gtk.css",
+      "default": "application",
+      "enum": ["application", "user"]
+    },
+    "positionY": {
+      "type": "string",
+      "description": "Vertical position of control center and notification window",
+      "default": "top",
+      "enum": ["top", "bottom"]
+    },
+    "control-center-margin-top": {
+      "type": "integer",
+      "description": "The margin (in pixels) at the top of the notification center. 0 to disable",
+      "default": 0
+    },
+    "control-center-margin-bottom": {
+      "type": "integer",
+      "description": "The margin (in pixels) at the bottom of the notification center. 0 to disable",
+      "default": 0
+    },
+    "control-center-margin-right": {
+      "type": "integer",
+      "description": "The margin (in pixels) at the right of the notification center. 0 to disable",
+      "default": 0
+    },
+    "control-center-margin-left": {
+      "type": "integer",
+      "description": "The margin (in pixels) at the left of the notification center. 0 to disable",
+      "default": 0
+    },
+    "notification-icon-size": {
+      "type": "integer",
+      "description": "The notification icon size (in pixels)",
+      "default": 64,
+      "minimum": 16
+    },
+    "notification-body-image-height": {
+      "type": "integer",
+      "description": "The notification body image height (in pixels)",
+      "default": 100,
+      "minimum": 100
+    },
+    "notification-body-image-width": {
+      "type": "integer",
+      "description": "The notification body image width (in pixels)",
+      "default": 200,
+      "minimum": 200
+    },
+    "timeout": {
+      "type": "integer",
+      "description": "The notification timeout for notifications with normal priority",
+      "default": 10
+    },
+    "timeout-low": {
+      "type": "integer",
+      "description": "The notification timeout for notifications with low priority",
+      "default": 5
+    },
+    "timeout-critical": {
+      "type": "integer",
+      "description": "The notification timeout for notifications with critical priority. 0 to disable",
+      "default": 0
+    },
+    "notification-window-width": {
+      "type": "integer",
+      "description": "Width of the notification in pixels",
+      "default": 500
+    },
+    "fit-to-screen": {
+      "type": "boolean",
+      "description": "If the control center should expand to both edges of the screen",
+      "default": true
+    },
+    "control-center-height": {
+      "type": "integer",
+      "description": "Height of the control center in pixels. Ignored when 'fit-to-screen' is set to 'true'",
+      "default": 600,
+      "minimum": 300
+    },
+    "control-center-width": {
+      "type": "integer",
+      "description": "Width of the control center in pixels",
+      "default": 500,
+      "minimum": 300
+    },
+    "keyboard-shortcuts": {
+      "type": "boolean",
+      "description": "If control center should use keyboard shortcuts",
+      "default": true
+    },
+    "image-visibility": {
+      "type": "string",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "when-available",
+      "enum": ["always", "when-available", "never"]
+    },
+    "transition-time": {
+      "type": "integer",
+      "description": "The notification animation duration. 0 to disable",
+      "default": 200
+    },
+    "hide-on-clear": {
+      "type": "boolean",
+      "description": "Hides the control center after pressing \"Clear All\"",
+      "default": false
+    },
+    "hide-on-action": {
+      "type": "boolean",
+      "description": "Hides the control center when clicking on notification action",
+      "default": true
+    },
+    "script-fail-notify": {
+      "type": "boolean",
+      "description": "Sends a notification if a script fails to run",
+      "default": true
+    },
+    "scripts": {
+      "type": "object",
+      "description": "Which scripts to check and potentially run for every notification. If the notification doesn't include one of the properties, that property will be ignored. All properties (except for exec) use regex. If all properties match the given notification, the script will be run. Only the first matching script will be run.",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.{1,}$": {
+          "type": "object",
+          "description": "Your script object.",
+          "required": ["exec"],
+          "minProperties": 2,
+          "additionalProperties": false,
+          "properties": {
+            "exec": {
+              "type": "string",
+              "description": "The script to run. Can also run regular shell commands."
+            },
+            "app-name": {
+              "type": "string",
+              "description": "The app-name. Uses Regex."
+            },
+            "summary": {
+              "type": "string",
+              "description": "The summary of the notification. Uses Regex."
+            },
+            "body": {
+              "type": "string",
+              "description": "The body of the notification. Uses Regex."
+            },
+            "urgency": {
+              "type": "string",
+              "description": "The urgency of the notification.",
+              "default": "Normal",
+              "enum": ["Low", "Normal", "Critical"]
+            },
+            "category": {
+              "type": "string",
+              "description": "Which category the notification belongs to. Uses Regex."
+            }
+          }
+        }
+      }
+    },
+    "notification-visibility": {
+      "type": "object",
+      "description": "Set the visibility of each incoming notification. If the notification doesn't include one of the properties, that property will be ignored. All properties (except for state) use regex. If all properties match the given notification, the notification will be follow the provided state. Only the first matching object will be used.",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.{1,}$": {
+          "type": "object",
+          "description": "Your script object.",
+          "required": ["state"],
+          "minProperties": 2,
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "type": "string",
+              "description": "The notification visibility state.",
+              "default": "enabled",
+              "enum": ["ignored", "muted", "enabled", "transient"]
+            },
+            "app-name": {
+              "type": "string",
+              "description": "The app-name. Uses Regex."
+            },
+            "summary": {
+              "type": "string",
+              "description": "The summary of the notification. Uses Regex."
+            },
+            "body": {
+              "type": "string",
+              "description": "The body of the notification. Uses Regex."
+            },
+            "urgency": {
+              "type": "string",
+              "description": "The urgency of the notification.",
+              "default": "Normal",
+              "enum": ["Low", "Normal", "Critical"]
+            },
+            "category": {
+              "type": "string",
+              "description": "Which category the notification belongs to. Uses Regex."
+            }
+          }
+        }
+      }
+    },
+    "widgets": {
+      "type": "array",
+      "description": "Which order and which widgets to display. If the \"notifications\" widget isn't specified, it will be placed at the bottom.",
+      "default": ["title", "dnd", "notifications"],
+      "items": {
+        "type": "string",
+        // Sadly can't use regex and enums at the same time. Fix in the future?
+        "pattern": "^[a-zA-Z0-9_-]{1,}(#[a-zA-Z0-9_-]{1,}){0,1}?$"
+      }
+    },
+    "widget-config": {
+      "type": "object",
+      "description": "Configure specific widget properties.",
+      "additionalProperties": false,
+      "patternProperties": {
+        // New widgets go here
+        "^title(#[a-zA-Z0-9_-]{1,}){0,1}?$": {
+          // References the widget structure from "widgets" below
+          "$ref": "#/widgets/title"
+        },
+        "^dnd(#[a-zA-Z0-9_-]{1,}){0,1}?$": {
+          "$ref": "#/widgets/dnd"
+        },
+        "^label(#[a-zA-Z0-9_-]{1,}){0,1}?$": {
+          "$ref": "#/widgets/label"
+        },
+        "^mpris(#[a-zA-Z0-9_-]{1,}){0,1}?$": {
+          "$ref": "#/widgets/mpris"
+        }
+      }
+    }
+  },
+  "widgets": {
+    // New widgets go here
+    "title": {
+      "type": "object",
+      "description": "Control Center Title Widget",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The title of the widget",
+          "default": "Notifications"
+        },
+        "clear-all-button": {
+          "type": "boolean",
+          "description": "Wether to display a \"Clear All\" button",
+          "default": true
+        },
+        "button-text": {
+          "type": "string",
+          "description": "\"Clear All\" button text",
+          "default": "Clear All"
+        }
+      }
+    },
+    "dnd": {
+      "type": "object",
+      "description": "Control Center Do Not Disturb Widget",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The title of the widget",
+          "default": "Do Not Disturb"
+        }
+      }
+    },
+    "label": {
+      "type": "object",
+      "description": "A generic widget that allows the user to add custom text",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The text content of the widget",
+          "default": "Label Text"
+        },
+        "max-lines": {
+          "type": "integer",
+          "description": "The maximum lines",
+          "default": 5
+        }
+      }
+    },
+    "mpris": {
+      "type": "object",
+      "description": "A widget that displays multiple music players",
+      "additionalProperties": false,
+      "properties": {
+        "image-size": {
+          "type": "integer",
+          "description": "The size of the album art",
+          "default": 96
+        },
+        "image-radius": {
+          "type": "integer",
+          "description": "The border radius of the album art",
+          "default": 12
+        }
+      }
+    }
+  }
+}

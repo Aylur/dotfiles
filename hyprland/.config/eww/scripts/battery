@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+function icon {
+    ARRAY=( '' '' '' '' '' '' '' '' '' '' '' )
+    IND=$(( $(level) / 10))
+    echo ${ARRAY[$IND]}
+}
+
+function status {
+    echo $(cat /sys/class/power_supply/BAT0/status)
+}
+
+function level {
+    echo $(cat /sys/class/power_supply/BAT0/capacity)
+}
+
+if [[ $1 == 'icon' ]]; then echo $(icon); fi
+if [[ $1 == 'status' ]]; then echo $(status); fi
+if [[ $1 == 'level' ]]; then echo $(level); fi

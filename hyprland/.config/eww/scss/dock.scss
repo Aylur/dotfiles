@@ -1,0 +1,27 @@
+.dock{
+
+    .dock-background{
+        @include floating_widget;
+        padding: 8px;
+        margin-bottom: $wm_gaps;
+    }
+
+    button{
+        @include button($flat: true);
+        margin: 4px;
+        padding: 8px;
+        .icon{
+            min-width:   64px;
+            min-height:  64px;
+            background-size: contain;
+        }
+        &.firefox .icon{ background-image:      url($assets+'apps/firefox.png'); }
+        &.kitty .icon{ background-image:        url($assets+'apps/kitty.png'); }
+        &.file-manager .icon{ background-image: url($assets+'apps/file-manager.png'); }
+        &.code .icon{ background-image:         url($assets+'apps/code.png'); }
+        &.spotify .icon{ background-image:      url($assets+'apps/spotify.png'); }
+        &.caprine .icon{ background-image:      url($assets+'apps/caprine.png'); }
+        &.battle .icon{ background-image:       url($assets+'apps/battle.png'); }
+        &.bottles .icon{ background-image:      url($assets+'apps/bottles.png'); }
+    }
+}

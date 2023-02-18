@@ -1,0 +1,187 @@
+(defwidget panel_launcher [] (box :class "button-bin launcher"
+    (button
+        :class "button launcher"
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher launcher"
+        (label :class "icon" :text "" :halign "center")
+    )
+))
+
+(defwidget panel_clock [] (box :class "button-bin"
+    (button
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu calendar"
+        :class "button clock"
+        (label  :text panel_clock)
+    )
+))
+
+(defwidget panel_workspaces [] (box :class "button-bin"
+    (eventbox :class "button workspaces"
+        (box
+            (for workspace in workspaces
+                (button
+                    :class "workspace-btn ${workspace.id == active_workspace ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                    :onclick "hyprctl dispatch workspace ${workspace.id}"
+                    :valign "center"
+                    (label :text {workspace.windows > 0 ? "${workspace.id == active_workspace ? "" : ""}" : ""})
+                )
+            )
+        )
+    )
+))
+
+(defwidget panel_window [] (box :class "button-bin"
+    (button :class "button window" 
+        (label
+            :visible {window != "null" ? true : false}
+            :text window)
+    )
+))
+
+(defwidget panel_media [] (box :class "button-bin" 
+    (eventbox
+        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media[0].player} play-pause"
+        :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media[0].player} {}"
+        :class "button media"
+        (label
+            :visible {arraylength(media) > 0 ? true : false}
+            :text "${media[0].artist} - ${media[0].title}")
+    )
+))
+
+    
+(defvar    panel_sliders      false)
+(defwidget panel_sliders [] (box :class "button-bin" (eventbox
+    :onhover "${EWW_CMD} update panel_sliders=true"
+    :onhoverlost "${EWW_CMD} update panel_sliders=false"
+    (box :space-evenly false
+        (revealer
+            :transition "slideright"
+            :duration "300ms"
+            :reveal panel_sliders (box 
+            :class "sliders-bin"
+            :space-evenly false
+            (eventbox 
+                :class "slider"
+                :hexpand true
+                (overlay
+                    (scale  :value screen_level
+                            :onchange "${EWW_CONFIG_DIR}/scripts/brightness set_screen {}")
+                    (label  :valign "center"
+                            :class "icon" 
+                            :halign "START"
+                            :text "󰃠")))
+            (box :class "separator" :valign "center" )
+            (eventbox 
+                :class "slider"
+                :hexpand true
+                (overlay
+                    (scale  :value volume_level
+                            :onchange "${EWW_CONFIG_DIR}/scripts/volume set {}")
+                    (label  :valign "center"
+                            :class "icon" 
+                            :halign "START"
+                            :text speaker_type_icon)))
+        ))
+        (label :class "icon" :text "" :valign "center")
+))))
+
+(defwidget panel_colorpicker [] (box :class "button-bin"
+    (button
+        :class "button colorpicker"
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher colorpicker"
+        (label :class "icon" :text "")
+    )
+))
+
+(defwidget panel_system-indicators [] (box :class "button-bin"
+    (button
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu quicksettings"
+        :class "button system-indicators"
+        (box
+            :space-evenly false
+            :spacing 6
+            (label  :class "icon bt-headphones"
+                    :text speaker_type_icon
+                    :visible {speaker_type_icon != "󰓃"})
+            (eventbox   :onscroll "${EWW_CONFIG_DIR}/scripts/volume {}"
+                (label  :class "volume icon"
+                        :tooltip "Level: ${volume_level}%"
+                        :text volume_icon))
+            (label  :class "bluetooth icon"
+                    :text bluetooth_icon
+                    :tooltip bluetooth_connected
+                    :visible {bluetooth_state == "on"})
+            (label  :class "network icon ${network_status}"
+                    :tooltip "${wifi_strength}% ${wifi_ssid}"
+                    :text network_icon)
+            (box :class "battery"
+                :tooltip "Battery: ${battery_level}%"
+                :space-evenly false
+                (label :class "icon ${battery_status == "Charging" ? "charging" : ""} ${battery_status == "Full" ? "full" : ""} ${battery_level <= 30 ? "low" : ""}"
+                       :text battery_icon)
+                (label :text "${battery_level}%"
+                       :visible {battery_status != "Full"}))
+        )
+    )
+))
+
+(defwidget panel_notifications [] (box :class "button-bin"
+    (button
+        :class "button notifications"
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher notifications"
+        (box 
+            :space-evenly false
+            (label :class "icon" :text dnd_icon)
+            (label :text notification_count )
+        )
+    )
+))
+
+(defwidget panel_powermenu [] (box :class "button-bin powermenu" (button
+    :class "button powermenu"
+    :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu powermenu"
+    (label :class "icon" :text "")
+)))
+
+(defwidget bar [] (centerbox
+    :class "panel"
+    (box
+        :class "leftBar"
+        :space-evenly false
+        (panel_launcher)
+        (panel_clock)
+        (panel_workspaces)
+        (label :visible false :text active_workspace);needs so active_workspace gets updated
+        (panel_window)
+    )
+    (box
+        :class "centerBar"
+        (panel_media)
+    )
+    (box
+        :class "righBar"
+        :space-evenly false
+        :halign "end"
+        (panel_sliders)
+        (panel_colorpicker)
+        (panel_system-indicators)
+        (panel_notifications)
+        (panel_powermenu)
+    )
+))
+
+(defwidget secondarybar [] (centerbox
+    :class "panel secondary"
+    (box :halign "start"
+        :space-evenly false
+        (panel_workspaces)
+        (panel_window)
+    )
+    (panel_clock)
+    (box 
+        :halign "end"
+        :space-evenly false 
+        (panel_sliders)
+        (panel_media)
+    )
+))

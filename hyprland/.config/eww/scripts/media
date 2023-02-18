@@ -1,0 +1,308 @@
+#!/usr/bin/gjs
+
+/* github.com/Aylur:
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
+'use strict';
+
+const { GObject, Gio, GLib } = imports.gi;
+const CACHE_PATH = GLib.get_user_config_dir() + '/eww/cache/';
+const PREFERRED_PLAYER = 'spotify'
+const TICK_INTERVAL = 2000; //in ms
+
+const PlayerIFace =
+`<node>
+    <interface name="org.mpris.MediaPlayer2.Player">
+        <property name='CanControl' type='b' access='read' />
+        <property name='CanGoNext' type='b' access='read' />
+        <property name='CanGoPrevious' type='b' access='read' />
+        <property name='CanPlay' type='b' access='read' />
+        <property name='CanPause' type='b' access='read' />
+        <property name='Metadata' type='a{sv}' access='read' />
+        <property name='PlaybackStatus' type='s' access='read' />
+        <property name='Shuffle' type='b' access='readwrite' />
+        <property name='LoopStatus' type='s' access='readwrite' />
+        <property name='Volume' type='d' access='readwrite' />
+        <property name="Position" type="x" access="read"/>
+    </interface>
+</node>`;
+
+const DBusIFace = 
+`<node>
+  <interface name="org.freedesktop.DBus">
+    <method name="ListNames">
+      <arg type="as" direction="out" name="names"/>
+    </method>
+    <signal name="NameOwnerChanged">
+      <arg type="s" direction="out" name="name"/>
+      <arg type="s" direction="out" name="oldOwner"/>
+      <arg type="s" direction="out" name="newOwner"/>
+    </signal>
+  </interface>
+</node>`
+
+const MprisPlayerProxy = Gio.DBusProxy.makeProxyWrapper(PlayerIFace);
+const DBusProxy = Gio.DBusProxy.makeProxyWrapper(DBusIFace);
+
+const MprisPlayer = GObject.registerClass({
+    Signals: { 'changed' : {}, 'closed': {}, 'ready': {} }
+},
+class MprisPlayer extends GObject.Object {
+    _init(busName) {
+        super._init();
+        
+        this._proxy = new MprisPlayerProxy(Gio.DBus.session, busName,
+            '/org/mpris/MediaPlayer2',
+            this._onPlayerProxyReady.bind(this));
+
+        this._player = busName.substring(23);
+        this._trackArtists = [];
+        this._trackTitle = '';
+        this._trackCoverUrl = '';
+        this._coverPath = '';
+        this._playBackStatus = '';
+        this._canGoNext = false;
+        this._canGoPrev = false; 
+        this._canPlay = false;
+        this._shuffle = false;
+        this._loopStatus = '';
+        this._volume = -1;
+        this._length = -1;
+        this._position = -1;
+    }
+
+    close() {
+        this._proxy.disconnect(this._playerBinding1);
+        this._proxy.disconnect(this._playerBinding2);
+        this._proxy = null;
+
+        this.emit('closed');
+    }
+
+    _onPlayerProxyReady() {
+        this._playerBinding1 = this._proxy.connect('notify::g-name-owner', () => {
+            if (!this._proxy.g_name_owner)
+                this.close();
+        })
+        this._playerBinding2 = this._proxy.connect(
+            'g-properties-changed', () => {
+                this._updateState();
+                this._cacheCoverArt();
+                this.emit('changed');
+            }
+        );
+        if (!this._proxy.g_name_owner)
+            this.close();
+
+        this._updateState();
+        this._cacheCoverArt();
+        this.emit('ready');
+    }
+
+    _updateState() {
+        let metadata = {};
+        for (let prop in this._proxy.Metadata)
+            metadata[prop] = this._proxy.Metadata[prop].deep_unpack();
+
+        this._trackArtists = metadata['xesam:artist'];
+        if (!Array.isArray(this._trackArtists) ||
+            !this._trackArtists.every(artist => typeof artist === 'string'))
+            this._trackArtists =  ["Unknown artist"];
+        
+        this._trackTitle = metadata['xesam:title'];
+        if (typeof this._trackTitle !== 'string')
+            this._trackTitle = "Unknown title";
+        
+        this._trackCoverUrl = metadata['mpris:artUrl'];
+        if (typeof this._trackCoverUrl !== 'string')
+            this._trackCoverUrl = '';
+        
+        this._length = metadata['mpris:length'];
+        if (typeof this._length !== 'number')
+            this._length = -1;
+        else
+            this._length = Number.parseInt(`${this._length}`.substring(0, 3));
+
+        this._position = this._proxy.Position;
+        if (typeof this._position !== 'number')
+            this._position = -1;
+        else
+            this._position = this._position/1000000;
+        
+        this._playBackStatus = this._proxy.PlaybackStatus;
+        this._canGoNext = this._proxy.CanGoNext;
+        this._canGoPrev = this._proxy.CanGoPrevious;
+        this._canPlay = this._proxy.CanPlay;
+
+        this._shuffle = this._proxy.Shuffle;
+        if (typeof this._shuffle !== 'boolean') {
+            this._shuffle = null;
+        }
+        this._loopStatus = this._proxy.LoopStatus;
+        if (typeof this._loopStatus !== 'string') {
+            this._loopStatus = null;
+        }
+        this._volume = this._proxy.Volume;
+        if(typeof this._volume !== 'number'){
+            this._volume = -1;
+        }
+    }
+
+    _cacheCoverArt(){
+        this._coverPath = CACHE_PATH + `${this._trackArtists.join(', ')}_${this._trackTitle}`
+            .replace(/[\*\?\"\<\>\|\#\:\?\/\']/g, '');
+
+        if(this._trackCoverUrl === '')  return;
+        if(this._coverPath === '_') return;
+        if(GLib.file_test(this._coverPath, GLib.FileTest.EXISTS)) return;
+        
+        if(!GLib.file_test(CACHE_PATH, GLib.FileTest.EXISTS))
+            Gio.File.new_for_path(CACHE_PATH).make_directory(null);
+
+        // Gio.File.new_for_uri(this._trackCoverUrl).copy_async(
+        //     Gio.File.new_for_path(this._coverPath),
+        //     Gio.FileCopyFlags.OVERWRITE,
+        //     GLib.PRIORITY_DEFAULT,
+        //     null,
+        //     null,
+        //     (source, result) => {
+        //         try { source.copy_finish(result) }
+        //         catch (e) { log(e) }
+        //     }
+        // );
+
+        Gio.File.new_for_uri(this._trackCoverUrl).copy(
+            Gio.File.new_for_path(this._coverPath),
+            Gio.FileCopyFlags.OVERWRITE,
+            null, null
+        );
+    }
+
+    get json() {
+        return {
+            player:    this._player,
+            artist:    this._trackArtists.join(', '),
+            title:     this._trackTitle,
+            cover:     this._coverPath,
+            status:    this._playBackStatus,
+            canNext:   this._canGoNext,
+            canPrev:   this._canGoPrev,
+            canPlay:   this._canPlay,
+            shuffle:   this._shuffle,
+            loop:      this._loopStatus,
+            volume:    this._volume*100,
+            length:    this._length,
+            lengthStr: `${Math.floor(this._length / 60)}:${Math.floor(this._length % 60) < 10 ? "0" : ""}${Math.floor(this._length % 60)}`,
+            position: this._position,
+        };
+    }
+});
+class Media{
+    constructor() {
+        this._players = new Map();
+        this._proxy = new DBusProxy(Gio.DBus.session,
+                                    'org.freedesktop.DBus',
+                                    '/org/freedesktop/DBus',
+                                    this._onProxyReady.bind(this));
+    }
+
+    _addPlayer(busName) {
+        let name = busName.substring(23);
+        if (this._players.get(name))
+            return;
+
+        let player = new MprisPlayer(busName);
+        player.connect('closed', () => {
+            this._players.delete(name);
+            this.print();
+        });
+        player.connect('changed', () => {
+            this.print();
+        });
+        player.connect('ready', () => {
+            this.print();
+        });
+        this._players.set(name, player);
+    }
+
+    _onProxyReady() {
+        this._proxy.ListNamesRemote(([names]) => {
+            names.forEach(name => {
+                if (name.startsWith('org.mpris.MediaPlayer2.'))
+                    this._addPlayer(name);
+            });
+        });
+        this._proxy.connectSignal('NameOwnerChanged',
+                                  this._onNameOwnerChanged.bind(this));
+    }
+
+    _onNameOwnerChanged(proxy, sender, [name, oldOwner, newOwner]) {
+        if (!name.startsWith('org.mpris.MediaPlayer2.'))
+            return;
+
+        if (newOwner && !oldOwner)
+            this._addPlayer(name);
+    }
+
+    print(){
+        let players = [];
+        if (this._players.get(PREFERRED_PLAYER))
+            players.push(this._players.get(PREFERRED_PLAYER).json);
+
+        for (const [name, player] of this._players) {
+            if(name !== PREFERRED_PLAYER)
+                players.push(player.json);
+        }
+
+        print(JSON.stringify(players));
+    }
+
+    //for some reason the Position value of an MprisPlayer instance
+    //never updates, so every tick we need a new one. 
+    loopPrint(){
+        let playersReady = 0;
+        let playersArray = [];
+        for (const [name, player] of this._players) {
+            let mprisPlayer = new MprisPlayer('org.mpris.MediaPlayer2.'+name);
+            mprisPlayer.connect('ready', () => {
+                playersArray.push(mprisPlayer.json);
+                playersReady++
+
+                if(playersReady === this._players.size)
+                    print(JSON.stringify( playersArray.sort().sort((a, b) => {
+                        if(a.player.includes(PREFERRED_PLAYER))
+                            return -1;
+                        
+                        return 1;
+                    }))
+                );
+
+                mprisPlayer.close();
+            })
+        }
+    }
+}
+
+const media = new Media();
+const mainLoop = new GLib.MainLoop(null, false);
+// GLib.timeout_add(
+//     GLib.PRIORITY_DEFAULT,
+//     TICK_INTERVAL,
+//     () => { media.loopPrint(); return true; }
+// );
+mainLoop.run();

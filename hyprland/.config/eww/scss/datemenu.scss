@@ -1,0 +1,60 @@
+.datemenu{
+    @include floating_widget;
+
+    .clock *{
+        margin-top: 20px;
+        text-shadow: $text_shadow;
+        font-size: 5em;
+    }
+
+    .uptime{
+        margin-bottom: 40px;
+        font-size: 1.1em;
+        text-shadow: $text_shadow;
+    }
+    
+    .calendar-bin{
+        @include button;
+        padding: 22px 32px;
+        calendar{
+            &.button{
+                @include button($flat: true);
+                margin: 1em;
+            }
+            &:selected{
+                @include button;
+                background-color: $accent;
+                color: $accent_fg;
+            }
+            &.header{
+                background-color: transparent;
+                border: none;
+                color: transparentize($fg_color, 0.55);
+            }
+            &.highlight{
+                background-color: transparent;
+                color: transparentize($fg_color, 0.7);
+            }
+        }
+    }
+
+    .events{
+        @include button;
+        margin-top: 16px;
+        padding: 12px;
+        .date{
+            color: transparentize($fg_color, 0.5);
+            font-family: $mono_font;
+        }
+        .title{ margin-left: 8px; }
+    }
+    
+    .wallpaper{
+        min-height: 140px;
+        margin-top: 16px;
+        background-image: url($assets+'wallpaper.png');
+        background-size: cover;
+        border-radius: $button_radius;
+        box-shadow: inset 0 0 0 $border_width $border_color;
+    }
+}

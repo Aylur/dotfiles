@@ -1,0 +1,62 @@
+(defvar dock_reveal true)
+(defwidget dock [] (eventbox
+    :class "dock"
+    :onhover "${EWW_CMD} update dock_reveal=true"
+    :onhoverlost "${EWW_CMD} update dock_reveal=false"
+    (revealer
+        :reveal dock_reveal
+        :transition "slideup"
+        :duration "300ms"
+        (box
+            :class "dock-background" 
+            (button 
+                :class "firefox"
+                :tooltip "Firefox"
+                :onclick "${EWW_CONFIG_DIR}/scripts/launcher firefox"
+                (box :class "icon")
+            )
+            (button 
+                :class "kitty"
+                :tooltip "Kitty"
+                :onclick "${EWW_CONFIG_DIR}/scripts/launcher kitty"
+                (box :class "icon")
+            )
+            (button 
+                :class "file-manager"
+                :tooltip "Nautilus"  
+                :onclick "${EWW_CONFIG_DIR}/scripts/launcher file-manager"
+                (box :class "icon")
+            )
+            (button 
+                :class "code"
+                :tooltip "Code"
+                :onclick "${EWW_CONFIG_DIR}/scripts/launcher code"
+                (box :class "icon")
+            )
+            (button 
+                :class "spotify"
+                :tooltip "Spotify"  
+                :onclick "${EWW_CONFIG_DIR}/scripts/launcher spotify"
+                (box :class "icon")
+            )
+            (button 
+                :class "caprine"
+                :tooltip "Caprine"
+                :onclick "${EWW_CONFIG_DIR}/scripts/launcher caprine"
+                (box :class "icon")
+            )
+            (button 
+                :class "battle"
+                :tooltip "Battle.net"
+                :onclick "${EWW_CONFIG_DIR}/scripts/launcher battle"
+                (box :class "icon")
+            )
+            (button 
+                :class "bottles"
+                :tooltip "Bottles"
+                :onclick "${EWW_CONFIG_DIR}/scripts/launcher bottles"
+                (box :class "icon")
+            )
+        )
+    )
+))

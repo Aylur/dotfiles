@@ -1,0 +1,26 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "exclusive": false,
+    "mode": "overlay",
+    "spacing": 0,
+    "passthrough": false,
+    "margin": "0 0 0 1700",
+
+    "modules-left": [],
+    "modules-center": [],
+    "modules-right": ["tray"],
+    "tray": {
+        "spacing": 0,
+        "icon-size": 22
+    },
+    "wlr/taskbar": {
+        "spacing": 0,
+        "format": "{icon}",
+        "icon-size": 22,
+        "icon-theme": "MoreWaita",
+        "tooltip-format": "{title}",
+        "on-click": "activate"
+    }
+}
+

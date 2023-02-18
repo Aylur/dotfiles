@@ -1,0 +1,54 @@
+$assets: '/home/demeter/.config/eww/assets/';
+$wallpaper: $assets+'wallpaper.png';
+$avatar:    $assets+'avatar.jpg';
+
+$wm_gaps: 28px;
+
+// dark
+$red: #f66151;
+$green: #57e389;
+$blue: #62a0ea;
+$yellow: #f6d32d;
+$magenta: #c061cb;
+$teal: #5bc8aF;
+$orange: #ffa348;
+$bg_color: #181818;
+$fg_color: white;
+$hover_fg: white;
+$accent_fg: black;
+
+// light
+// $red: #ed333b;
+// $green: #33d17a;
+// $blue: #3584e4;
+// $yellow: #f6d32d;
+// $magenta: #9141ac;
+// $teal: #33b2a4;
+// $orange: #ffa348;
+// $bg_color: white;
+// $fg_color: black;
+// $hover_fg: black;
+// $accent_fg: black;
+
+$hover: transparentize($fg_color, 0.84);
+$accent: $blue;
+$accent_gradient: linear-gradient(45deg, $blue, $teal);
+
+$destructive: $red;
+$succes: $green;
+$radii: 7px;
+
+$button_bg: transparentize($fg_color, 0.92);
+$button_radius: $radii;
+$popover_radius: $radii * 1.8;
+$panel_radius: $radii * 0;
+$panel_button_radius: $radii * 0.6;
+
+$border_color: rgba(255, 255, 255, 0.04);
+$border_width: 1px;
+$border: $border_width solid $border_color;
+
+$text_shadow: 2px 2px 2px rgba(0,0,0,0.5);
+
+$popover_border_color: rgba(255,255,255,0.02);
+$popover_padding: 14px;

@@ -1,0 +1,26 @@
+# Arch (distrobox)
+hyprpicker
+hyprshot
+
+# Nix
+hyprpaper
+rofi-wayland
+eww-wayland
+playerctl
+brightnessctl
+pavucontrol
+networkmanager
+wl-gammactl
+wl-clipboard
+socat
+jq
+blueberry
+jp2a
+fortune
+
+# Fedora (host)
+kitty
+polkit-gnome
+gtklock
+asusd
+rog-control-center

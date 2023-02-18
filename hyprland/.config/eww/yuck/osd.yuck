@@ -1,0 +1,22 @@
+(defvar osd_icon "󰕾")
+(defvar osd_value 50)
+(defvar osd_source "Source")
+
+(defwidget osd [] (eventbox
+    :onclick "${EWW_CONFIG_DIR}/scripts/osd close"
+    (box 
+        :space-evenly false
+        :class "osd"
+        (box 
+            :class "icon"
+            (overlay (box) 
+                (label :text osd_icon :valign "center")
+            )
+        )
+        (progress
+            :class "scale"
+            :value osd_value
+            :valign "center"
+        )
+    )
+))

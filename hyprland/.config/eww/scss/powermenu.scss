@@ -1,0 +1,54 @@
+.powermenu1,
+.powermenu0{
+    background-color: transparentize($bg_color, 0.5);
+    .content{
+        .user{
+            .image{
+                background-image: url($assets+'avatar.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                min-width: 120px;
+                min-height: 120px;
+                border-radius: 24px;
+                margin-bottom: 12px;
+            }
+            font-size: 1.2em;
+            text-shadow: $text_shadow;
+    
+        }
+        .clock{
+            text-shadow: $text_shadow;
+            margin-bottom: 2.2em;
+            .hour *{ font-size: 9em }
+            .date{ font-size: 2em }
+        }
+        .power-menu{ 
+            border-radius: $radii*3;
+            padding: 15px;
+        }
+        .button-bin{
+            margin: 15px;
+            margin-bottom: 0;
+            .button{
+                @include button;
+                border-radius: $radii*2.4;
+                font-size: 60px;
+                min-width: 130px;
+                min-height: 130px;
+                .icon{
+                    background-size: contain;
+                    margin: 24px;
+                    &.shutdown{ background-image: url($assets+'powermenu/shutdown.png'); }
+                    &.reboot{   background-image: url($assets+'powermenu/reboot.png'); }
+                    &.logout{   background-image: url($assets+'powermenu/logout.png'); }
+                    &.suspend{  background-image: url($assets+'powermenu/suspend.png'); }
+                    &.lock{     background-image: url($assets+'powermenu/lock.png'); }
+                }
+            }
+            .label{
+                font-size: 20px;
+                margin: 8px 0;
+            }
+        }
+    }
+}

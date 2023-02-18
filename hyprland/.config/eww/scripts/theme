@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+
+function state {
+    THEME=$(gsettings get org.gnome.desktop.interface color-scheme)
+    if [[ $THEME == "'prefer-dark'" ]]; then echo 'on'
+    else echo 'off'; fi
+}
+
+function toggle {
+    STATE=$(state)
+    if [[ $STATE == 'on' ]]; then
+        gsettings set org.gnome.desktop.interface color-scheme "'default'"
+    else
+        gsettings set org.gnome.desktop.interface color-scheme "'prefer-dark'"
+    fi
+
+    eww update theme_state=$(state)
+    eww update theme_icon=$(icon)
+}
+
+function icon {
+    echo '󰃛'
+}
+
+if [[ $1 == 'toggle' ]]; then toggle; fi
+if [[ $1 == 'state' ]]; then state; fi
+if [[ $1 == 'icon' ]]; then icon; fi

@@ -1,0 +1,9 @@
+.background.csd{ border-radius: 4px; }
+
+.nautilus-window .sidebar {
+  background-color: @view_bg_color;
+}
+
+.nautilus-window .sidebar:backdrop {
+  background-color: @window_bg_color;
+}

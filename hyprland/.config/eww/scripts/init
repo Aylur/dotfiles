@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+
+pkill eww
+eww daemon
+
+HDMI=$(hyprctl monitors -j | jq .[1].name)
+
+if [[ $HDMI == '"HDMI-A-1"' ]]; then
+    eww open secondarybar
+    eww open desktop0
+    eww open dock0
+    eww open dock1
+    eww open bar1
+    eww open desktop1
+    eww update main_monitor=1
+else
+    eww open dock0
+    eww open bar0
+    eww open desktop0
+    eww update main_monitor=0
+fi
+
+eww update wallpaper=$(gsettings get org.gnome.desktop.background picture-uri)

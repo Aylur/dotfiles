@@ -1,0 +1,322 @@
+#!/usr/bin/gjs
+
+const { Gio, GLib } = imports.gi;
+const SUBSTITUTES_PATH = GLib.get_home_dir()+'/.local/share/todo/substitutes.json';
+const TASKS_PATH = GLib.get_home_dir()+'/Documents/tasks.json';
+const TERMINAL_WIDTH = 50;
+
+function getSubstitutes(){
+    try {
+        let file = Gio.File.new_for_path(SUBSTITUTES_PATH);
+        let [, contents, ] = file.load_contents(null);
+        return JSON.parse(new TextDecoder().decode(contents));
+    }
+    catch{
+        return { days: [], months: [] };
+    }
+}
+
+function getTasks(){
+    try{
+        let file = Gio.File.new_for_path(TASKS_PATH);
+        let [, contents, ] = file.load_contents(null);
+        let list = JSON.parse(new TextDecoder().decode(contents));
+        let tasks = [];
+        list.forEach(t => tasks.push(new Task(t)));
+        return tasks;
+    }
+    catch{
+        return [];
+    }
+}
+
+function writeFile(tasks){
+    let file = Gio.File.new_for_path(TASKS_PATH);
+    if(!GLib.file_test(TASKS_PATH, GLib.FileTest.EXISTS))
+        file.create(Gio.FileCreateFlags.NONE, null);
+
+    file.replace_contents(
+        JSON.stringify(tasks, null, 4),
+        null, false,
+        Gio.FileCreateFlags.REPLACE_DESTINATION, null
+    );
+}
+
+class Date{
+    constructor(p){
+        this.year =    p?.year;
+        this.month =   p?.month;
+        this.day =     p?.day;
+        this.hour =    p?.hour;
+        this.minutes = p?.minutes;
+
+        if(typeof p === 'string')
+            this.fromString(p);
+    }
+
+    isEmpty(){
+        return !this.year && !this.month && !this.day && !this.hour && !this.minutes
+    }
+
+    toString(){
+        let m, d, h, min, md, hm;
+        if(this.month)
+            m = `${this.month < 10 ? `0${this.month}` : this.month }`
+            else m = '--';
+
+        if(this.day)
+            d = `${this.day < 10 ? `0${this.day}` : this.day }`;
+            else d = '--';
+
+        if(this.hour)
+            h = `${this.hour < 10 ? `0${this.hour}` : this.hour }`
+            else h = '--';
+
+        if(this.minutes)
+            min = `${this.minutes < 10 ? `0${this.minutes}` : this.minutes }`
+            else min = '00';
+
+        if(!this.month && !this.day){ m = '  '; d = '  '; }
+        if(!this.hour && !this.minutes){ h = '  '; min = '  '; }
+        md = `${this.month || this.day ? '/' : ' '}`;        
+        hm = `${this.hour || this.minutes ? ':' : ' '}`;        
+        return `${m}${md}${d} ${h}${hm}${min}`;
+    }
+
+    valid(){
+        let now = GLib.DateTime.new_now_local();
+        let year = this?.year || now.get_year();
+        let month = this?.month || now.get_month();
+        let day = this?.day || now.get_day_of_month();
+        let hour = this?.hour || now.get_hour();
+        let minutes = this?.minutes || now.get_minute();
+        return GLib.DateTime.new_local(year, month, day, hour, minutes, 0);
+    }
+
+    compare(d2){
+        if(this.isEmpty() && d2.isEmpty()) return 0;
+        if(this.isEmpty()) return 1;
+        if(d2.isEmpty())   return -1;
+
+        if (this.year > d2.year)
+            return 1;
+        else if (this.year < d2.year) 
+            return -1
+        else if (this.month > d2.month)
+            return 1;
+        else if (this.month < d2.month)
+            return -1
+        else if (this.day > d2.day)
+            return 1;
+        else if (this.day < d2.day)
+            return -1;
+        else if (this.hour > d2.hour)
+            return 1;
+        else if (this.hour < d2.hour)
+            return -1;
+        else if (this.minutes > d2.minutes)
+            return 1;
+        else if (this.minutes < d2.minutes)
+            return -1;
+    
+        return 0;
+    }
+
+    fromString(str){
+        let substitutes = getSubstitutes();
+        let days = substitutes.days;
+        let months = substitutes.months;
+
+        str.split(' ').forEach(e => {
+            if(days[e])   this.day = days[e];
+            if(months[e]) this.month = months[e];
+            let md = e.split('/');
+            if(md.length === 2){
+                this.month = Number(md[0]);
+                this.day =   Number(md[1]);
+            }
+            let hm = e.split(':')
+            if(hm.length === 2){
+                this.hour =    Number(hm[0]);
+                this.minutes = Number(hm[1]);
+            }
+            let ymd = e.split('/');
+            if(ymd.length === 3){
+                this.year =  Number(md[0]);
+                this.month = Number(md[1]);
+                this.day =   Number(md[2]);
+            }
+        })
+
+        if(this.year    == NaN) this.year    = undefined;
+        if(this.month   == NaN) this.month   = undefined;
+        if(this.day     == NaN) this.day     = undefined;
+        if(this.hour    == NaN) this.hour    = undefined;
+        if(this.minutes == NaN) this.minutes = undefined;
+    
+        if(!this.valid()){ throw new Error('Wrong date') }
+        
+        return this;
+    }
+}
+
+class Task{
+    constructor(p){
+        this.title = p?.title,
+        this.desc =  p?.desc,
+        this.date =  new Date(p?.date)
+    }
+
+    parseDate(date){ this.date.fromString(date); }
+}
+
+function add(input = {}){
+    if(!input.title) throw new Error('Needs a title');
+    let tasks = getTasks();
+    tasks.push(new Task(input));
+    tasks.sort((a, b) => a.date.compare(b.date));
+    writeFile(tasks);
+}
+
+function remove(input = {}){
+    let tasks = getTasks();
+    input.remove.split(' ').forEach(i => {
+        if(!tasks[i-1]) throw new Error('Index not found.');
+        tasks[i-1] = null
+    });
+    writeFile(tasks.filter(t => t != null));
+}
+
+function mod(input = {}){
+    let tasks = getTasks();
+
+    if(isNaN(Number(input.mod)) || !tasks[Number(input.mod)-1])
+        throw new Error('Index not found.');
+
+    let task = tasks[Number(input.mod)-1]
+    if(input.title) task.title = input.title;
+    if(input.date)  task.date = (new Date()).fromString(input.date);
+    if(input.desc)  task.desc = input.desc;
+    tasks.sort((a, b) => a.date.compare(b.date));
+    writeFile(tasks);
+}
+
+function printTasks(input = {}){
+    let width = input.terminal_width || TERMINAL_WIDTH
+    let sepLine = '', sepSpace = '';
+    for(let i=0; i<width; i++){
+        sepLine += '─';
+        sepSpace += ' ';
+    }
+    let tasks = getTasks();
+
+    print('')
+    print(`  ╭${sepLine.substring(3)}╮`)
+    print(`  │   Deadline           Task${sepSpace.substring(29)}│`);
+    print(`  ├${sepLine.substring(3)}┤`);
+    for(let i=0; i<tasks.length; ++i){
+        print(`  │ ${tasks[i].date.toString()}    ${i+1}.${i<9 ? ' ' : ''} ${tasks[i].title}${sepSpace.substring(tasks[i].title.length+23)}│`);
+    }
+    print(`  ╰${sepLine.substring(3)}╯`)
+}
+
+function eww(){
+    let tasks = [];
+    getTasks()
+        .filter(t => t.date.month || t.date.day || t.date.hour )
+        .forEach(t => tasks.push(`
+            (box
+                :space-evenly false
+                :class "event"
+                (label 
+                    :class "date"
+                    :text "${t.date.toString()}" 
+                    :halign "START")
+                (label
+                    :class "title"
+                    :text "${t.title}"
+                    :halign "START")
+            )
+            `
+        ))
+    
+    print(JSON.stringify(tasks, null, 3));
+}
+
+function getDesc(input = {}){
+    let tasks = getTasks();
+    if(!tasks[input.get_desc-1]) throw new Error('Index not found.');
+
+    let width = input.terminal_width || TERMINAL_WIDTH
+    let sepLine = '', sepSpace = '';
+    for(let i=0; i<width; i++){
+        sepLine += '─';
+        sepSpace += ' ';
+    }
+
+    let title = tasks[input.get_desc-1].title
+    let desc = tasks[input.get_desc-1].desc || "No description for this task."
+    print('')
+    print(`  ╭${sepLine.substring(3)}╮`)
+    print(`  │ ${title}${sepSpace.substring(title.length+4)}│`);
+    print(`  ├${sepLine.substring(3)}┤`);
+
+    for(let i=0; i<Math.floor(desc.length / (width-5))+1; ++i){
+        if(desc[i*(width-5)] === ' ')
+            desc = desc.substring(0, i*(width-5)-1) + desc.substring(i*(width-5))
+        let line = desc.substring(i*(width-5), (i+1)*(width-5));
+        print(`  │ ${line}${sepSpace.substring(line.length+4)}│`);
+    }
+    print(`  ╰${sepLine.substring(3)}╯`)
+}
+
+function main(){
+    if(!ARGV[0]) return printTasks();
+
+    let input = {};
+    
+    for(let i=0; i<ARGV.length; ++i){
+
+        let arg = []; let cmd = ARGV[i];
+        for(let j=i+1; j<ARGV.length && ARGV[j][0] !== '-'; ++j)
+            arg.push(ARGV[j]);
+        
+        switch (cmd) {
+            case '--eww':          input.eww = true; break;
+            case '-m':             input.mod = arg.join(' '); break;
+            case '--mod':          input.mod = arg.join(' '); break;
+            case '-t':             input.title = arg.join(' '); break;
+            case '--title':        input.title = arg.join(' '); break;
+            case '-a':             input.title = arg.join(' '); break;
+            case '--add':          input.title = arg.join(' '); break;
+            case '-D':             input.desc = arg.join(' '); break;
+            case '--description':  input.desc = arg.join(' '); break;
+            case '--desc':         input.desc = arg.join(' '); break;
+            case '-d':             input.date = arg.join(' '); break;
+            case '--date':         input.date = arg.join(' '); break;
+            case '--due':          input.date = arg.join(' '); break;
+            case '-r':             input.remove = arg.join(' '); break;
+            case '--remove':       input.remove = arg.join(' '); break;
+            case '--rem':          input.remove = arg.join(' '); break;
+            case '-w':             input.terminal_width = arg.join(' '); break;
+            case '--width':        input.terminal_width = arg.join(' '); break;
+            case '-w':             input.terminal_width = arg.join(' '); break;
+            case '--width':        input.terminal_width = arg.join(' '); break;
+            case '-g':             input.get_desc = arg.join(' '); break;
+            case '--get-desc':     input.get_desc = arg.join(' '); break;
+            default: input.title = cmd+' '+arg.join(' '); break;
+        }
+        i += arg.length;
+    }
+
+    if(input.remove)       remove(input);
+    else if(input.mod)     mod(input);
+    else if(input.eww)     eww();
+    else if(input.get_desc) getDesc(input);
+    else                   add(input);
+
+    if(!input.eww && !input.get_desc) printTasks(input);
+}
+
+try { main() }
+catch (error) { print(error) }

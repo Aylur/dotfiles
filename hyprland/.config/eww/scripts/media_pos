@@ -1,0 +1,128 @@
+#!/usr/bin/gjs
+
+/* github.com/Aylur:
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
+'use strict';
+
+//for some reason the Position value of an MprisPlayer instance
+//never updates, so every tick we need a new one.
+//
+//though it is a better idea to have a different deflisten
+//for the ticking properties so eww doesn't have to rerender
+//the widgets every tick
+
+const { GObject, Gio, GLib } = imports.gi;
+const PREFERRED_PLAYER = 'spotify'
+const TICK_INTERVAL = 1000; //ms
+
+const PlayerIFace =
+`<node>
+    <interface name="org.mpris.MediaPlayer2.Player">
+        <property name="Position" type="x" access="read"/>
+    </interface>
+</node>`;
+
+const DBusIFace = 
+`<node>
+  <interface name="org.freedesktop.DBus">
+    <method name="ListNames">
+      <arg type="as" direction="out" name="names"/>
+    </method>
+    <signal name="NameOwnerChanged">
+      <arg type="s" direction="out" name="name"/>
+      <arg type="s" direction="out" name="oldOwner"/>
+      <arg type="s" direction="out" name="newOwner"/>
+    </signal>
+  </interface>
+</node>`
+
+const MprisPlayerProxy = Gio.DBusProxy.makeProxyWrapper(PlayerIFace);
+const DBusProxy = Gio.DBusProxy.makeProxyWrapper(DBusIFace);
+
+class Media{
+    constructor() {
+        this._players = new Map();
+        this._proxy = new DBusProxy(
+            Gio.DBus.session,
+            'org.freedesktop.DBus',
+            '/org/freedesktop/DBus',
+            this._onProxyReady.bind(this)
+        );
+    }
+
+    _addPlayer(busName) {
+        let name = busName.substring(23);
+        if (this._players.get(busName))
+            return;
+
+        this._players.set(busName, name);
+    }
+
+    _onProxyReady() {
+        this._proxy.ListNamesRemote(([names]) => {
+            names.forEach(name => {
+                if (name.startsWith('org.mpris.MediaPlayer2.'))
+                    this._addPlayer(name);
+            });
+        });
+        this._proxy.connectSignal('NameOwnerChanged',
+                                  this._onNameOwnerChanged.bind(this));
+    }
+
+    _onNameOwnerChanged(proxy, sender, [name, oldOwner, newOwner]) {
+        if (!name.startsWith('org.mpris.MediaPlayer2.'))
+            return;
+
+        if (newOwner && !oldOwner)
+            this._addPlayer(name);
+    }
+
+    print(){
+        let playersReady = 0;
+        let playersArray = {};
+        for (const [busName, name] of this._players) {
+
+            this._proxy = new MprisPlayerProxy(
+                Gio.DBus.session,
+                busName,
+                '/org/mpris/MediaPlayer2',
+                () => {
+                    let pos = Math.floor(this._proxy.Position / 1000000);
+                    playersArray[name] = {
+                        position:    pos,
+                        positionStr: `${Math.floor(pos / 60)}:${Math.floor(pos % 60) < 10 ? "0" : ""}${Math.floor(pos % 60)}`
+                    };
+                    playersReady++
+    
+                    if(playersReady === this._players.size)
+                        print(JSON.stringify( playersArray ));
+                }
+            );
+        }
+    }
+}
+
+const media = new Media();
+const mainLoop = new GLib.MainLoop(null, false);
+GLib.timeout_add(
+    GLib.PRIORITY_DEFAULT,
+    TICK_INTERVAL,
+    () => { media.print(); return true; }
+);
+mainLoop.run();

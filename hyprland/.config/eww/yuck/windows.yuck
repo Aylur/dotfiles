@@ -1,0 +1,113 @@
+(defwindow secondarybar
+    :monitor 0
+    :exclusive false
+    :stacking "fg"
+    :geometry (geometry :width "100%"
+                        :height "1%"
+                        :anchor "top center")(secondarybar))
+
+(defwindow bar0
+    :monitor 0
+    :exclusive false
+    :stacking "fg"
+    :geometry (geometry :width "100%"
+                        :height "1%"
+                        :anchor "top center")(bar))
+
+(defwindow osd0
+    :monitor 0
+    :stacking "fg"
+    :geometry (geometry :y "50px"
+                        :width "1%"
+                        :height "1%"
+                        :anchor "bottom center")(osd))
+
+(defwindow powermenu0
+    :monitor 0
+    :stacking "fg"
+    :geometry (geometry :width  "100%"
+                        :height "120%"
+                        :anchor "center center")(powermenu))
+
+(defwindow calendar0
+    :monitor 0
+    :stacking "fg"
+    :geometry (geometry :width  "100%"
+                        :height "100%"
+                        :anchor "top left")(datemenu))
+
+(defwindow quicksettings0
+    :monitor 0
+    :stacking "fg"
+    :geometry (geometry :width  "100%"
+                        :height "100%"
+                        :anchor "top right")(quicksettings))
+
+(defwindow desktop0
+    :monitor 0
+    :stacking "bottom"
+    :geometry (geometry :width  "100%"
+                        :height "100%"
+                        :anchor "bottom right")(desktop))
+
+(defwindow dock0
+    :monitor 0
+    :stacking "overlay"
+    :geometry (geometry :width  "1%"
+                        :height "1%"
+                        :anchor "bottom center")(dock))
+
+;;;;;;;;;
+;;;;;;;;;
+;;;;;;;;;
+
+(defwindow bar1
+    :monitor 1
+    :exclusive false
+    :stacking "fg"
+    :geometry (geometry :width "100%"
+                        :height "1%"
+                        :anchor "top center")(bar))
+
+(defwindow osd1
+    :monitor 1
+    :stacking "fg"
+    :geometry (geometry :y "50px"
+                        :width "1%"
+                        :height "1%"
+                        :anchor "bottom center")(osd))
+
+(defwindow powermenu1
+    :monitor 1
+    :stacking "fg"
+    :geometry (geometry :width  "100%"
+                        :height "120%"
+                        :anchor "center center")(powermenu))
+
+(defwindow calendar1
+    :monitor 1
+    :stacking "fg"
+    :geometry (geometry :width  "100%"
+                        :height "100%"
+                        :anchor "top left")(datemenu))
+
+(defwindow quicksettings1
+    :monitor 1
+    :stacking "fg"
+    :geometry (geometry :width  "100%"
+                        :height "100%"
+                        :anchor "top right")(quicksettings))
+
+(defwindow desktop1
+    :monitor 1
+    :stacking "bottom"
+    :geometry (geometry :width  "100%"
+                        :height "100%"
+                        :anchor "bottom right")(desktop))
+
+(defwindow dock1
+    :monitor 1
+    :stacking "overlay"
+    :geometry (geometry :width  "1%"
+                        :height "1%"
+                        :anchor "bottom center")(dock))

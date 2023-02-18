@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="128" height="128" version="1" id="svg566" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:bx="https://boxy-svg.com">
+  <defs id="defs570">
+    <linearGradient id="linearGradient873">
+      <stop style="stop-opacity: 1; stop-color: rgb(137, 52, 6);" offset="0" id="stop869"/>
+      <stop style="stop-opacity: 1; stop-color: rgb(255, 90, 0);" offset="0.072" id="stop877"/>
+      <stop style="stop-opacity: 1; stop-color: rgb(137, 52, 6);" offset="0.147" id="stop879"/>
+      <stop style="stop-opacity: 1; stop-color: rgb(137, 52, 6);" offset="0.852" id="stop881"/>
+      <stop style="stop-opacity: 1; stop-color: rgb(255, 90, 0);" offset="0.933" id="stop883"/>
+      <stop style="stop-opacity: 1; stop-color: rgb(137, 52, 6);" offset="1" id="stop871"/>
+    </linearGradient>
+    <linearGradient id="linearGradient875" x1="9.9999964" y1="66.000001" x2="118" y2="66.000001" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1, 0, 0, 1, 0, 0)" xlink:href="#linearGradient873"/>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 9.999995, 8.000001)">
+    <g transform="matrix(1, 0, 0, 1, -9.999995, -8.000001)">
+      <path d="M 118 66 C 118 36.107 93.893 12 64 12 C 34.107 12 10 36.107 10 66 C 10 95.893 34.107 120 64 120 C 93.893 120 118 95.893 118 66 Z" id="path550-3" style="fill:url(#linearGradient875);fill-opacity:1;stroke-width:1.92857" fill="#1ed760"/>
+      <path d="M 118 62 C 118 32.107 93.893 8 64 8 C 34.107 8 10 32.107 10 62 C 10 91.893 34.107 116 64 116 C 93.893 116 118 91.893 118 62 Z" id="path550" style="stroke-width: 1.92857; fill: rgb(255, 90, 0);"/>
+    </g>
+    <g style="fill:#ffffff" transform="matrix(1.456522, 0, 0, 1.456522, 7.391302, 7.413038)" bx:origin="0 0">
+      <circle cx="20" cy="24" r="3"/>
+      <circle cx="28" cy="24" r="3"/>
+      <circle cx="36" cy="24" r="3"/>
+      <circle cx="44" cy="24" r="3"/>
+      <circle cx="12" cy="32" r="3"/>
+      <circle cx="20" cy="32" r="3"/>
+      <circle cx="28" cy="32" r="3"/>
+      <circle cx="36" cy="32" r="3"/>
+      <circle cx="44" cy="32" r="3"/>
+      <circle cx="52" cy="32" r="3"/>
+      <circle cx="12" cy="40" r="3"/>
+      <circle cx="20" cy="40" r="3"/>
+      <circle cx="44" cy="40" r="3"/>
+      <circle cx="52" cy="40" r="3"/>
+    </g>
+  </g>
+</svg>

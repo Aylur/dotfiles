@@ -1,0 +1,19 @@
+(defwidget desktop_clock [] (box
+    :class "clock"
+    :space-evenly false
+    :orientation "v"
+    :valign "center"
+    :halign "center"
+    (box
+        :space-evenly false
+        (label :class "hour" :text hour)
+        (label :class "separator" :text ":")
+        (label :class "minutes" :text minutes)
+    )
+    (label :class "date" :text date)
+))
+
+(defwidget desktop [] (box
+    :class "desktop"
+    (desktop_clock)
+))

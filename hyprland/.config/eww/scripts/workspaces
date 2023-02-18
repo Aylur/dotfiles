@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+
+function get {
+    spaces (){
+    	WORKSPACE_WINDOWS=$(hyprctl workspaces -j | jq 'map({key: .id | tostring, value: .windows}) | from_entries')
+    	seq 1 $(eww get number_of_workspaces) | jq --argjson windows "${WORKSPACE_WINDOWS}" --slurp -Mc 'map(tostring) | map({id: ., windows: ($windows[.]//0)})'
+    }
+
+    spaces
+    socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
+    	spaces
+    done
+}
+
+function active {
+    hyprctl monitors -j | jq --raw-output .[0].activeWorkspace.id
+    socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 grep '^workspace>>' | stdbuf -o0 awk -F '>>|,' '{print $2}'
+}
+
+if [[ $1 == 'get' ]]; then get; fi
+if [[ $1 == 'active' ]]; then active; fi

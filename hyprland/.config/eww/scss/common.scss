@@ -1,0 +1,81 @@
+@mixin button($flat: false, $interactive: true, $radii: $radii){
+    border-radius: $radii;
+    color: $fg_color;
+    transition: 200ms;
+    @if $flat{
+        background-color: transparent;
+        background-image: none;
+        box-shadow: none;
+    }@else{
+        background-color: $button_bg;
+        box-shadow: inset 0 0 0 $border_width $border_color;
+    }
+    @if $interactive{
+        &:hover{
+            box-shadow: inset 0 0 0 $border_width $border_color;
+            background-color: $hover;
+            color: $hover_fg;
+        }
+        &:active{
+            box-shadow: inset 0 0 0 $border_width $border_color;
+            background-color: $accent;
+            color: $accent_fg;
+        }
+    }
+}
+
+@mixin slider($width: .4em, $color: $accent, $slider: true){
+    scale > contents{
+        trough{
+            border-radius: $button_radius;
+            border: $border;
+            background-color: $button_bg;
+            highlight{
+                border-radius: $button_radius;
+                background-color: $color;
+                min-height: $width;
+                min-width:  $width;
+            }
+            slider{
+                @if $slider{
+                    background-color: $fg_color;
+                    border-radius: $button_radius;
+                    border: $border;
+                    min-height: $width;
+                    min-width:  $width;
+                }
+            }
+        }
+    }
+    &:hover{
+        scale > contents > trough{
+            background-color: $hover;
+        }
+    }
+}
+
+@mixin floating_widget($shadow: true){
+    @if $shadow {
+        box-shadow: 0 0 8px 0 rgba(0,0,0,0.8),
+                    inset 0 0 0 1px $popover_border_color;
+    } @else {
+        box-shadow: inset 0 0 0 1px $popover_border_color;
+    }
+    border-radius: $popover_radius;
+    margin: max($wm_gaps, 14px);
+    background-color: $bg_color;
+    color: $fg_color;
+    padding: $popover_padding;
+}
+
+@mixin tooltip{
+    > * > *{
+        background-color: $bg_color;
+        border-radius: $button_radius;
+        border: $border_width solid $popover_border_color;
+        color: $fg_color;
+        padding: 8px;
+        margin: 4px;
+        box-shadow: 0 0 3px 0 rgba(0,0,0,0.4);
+    }
+} 

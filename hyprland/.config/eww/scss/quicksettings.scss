@@ -1,0 +1,197 @@
+$spacing: $popover_padding*0.5;
+
+.quick-settings{
+    @include floating_widget;
+
+    .module{
+        @include button;
+        margin: $spacing;
+        padding: $spacing;
+    }
+
+    .user{
+        .profile-picture{
+            @include button;
+            min-height: 7em;
+            min-width: 7em;
+            background-size: cover;
+            .darkened{
+                background-color: transparentize($bg_color, 0.7);
+                border-radius: $button_radius;
+            }
+            label{
+                color: transparentize($fg_color, 0.3);
+                text-shadow: $text_shadow;
+                margin: $spacing;
+            }
+        }
+        .hbox{
+            padding: $spacing;
+            .user-name{
+                label:first-child{ font-size: 1.4em; }
+                label:last-child{ color: transparentize($fg_color, 0.5); }
+            }
+            .vbox{
+                button{
+                    @include button($radii: 40%);
+                    min-width: 2.4em;
+                    min-height: 2.4em;
+                    margin-left: .4em;
+                    padding: .2em;
+                    label{ font-size: 2em }
+                    &.power{ color: $red; }
+                }
+                .uptime{ color: transparentize($fg_color, 0.5); }
+            }
+        }
+    }
+
+    .sliders{
+        .slider{ @include slider($width: .8em, $slider: false); }
+        .percent{ margin: $spacing; }
+        .icon{
+            margin: $spacing;
+            &:first-child{ font-size: 1.4em; }
+        }
+        button{ @include button($flat: true) }
+    }
+
+    .system{
+        .module{
+            padding: 8px;
+            min-width:  4.4em;
+            min-height: 4.4em;
+        }
+        circular-progress{
+            background-color: $bg_color;
+            color: $accent;
+            &.battery{
+                &.low{ color: $red }
+            }
+            label{
+                margin-top: 1.1em;
+            }
+            .icon{
+                margin-bottom: 1.7em;
+                font-size: 1.5em;
+            }
+        }
+    }
+
+    $toggle_radius: 19px;
+    .toggles .toggle{
+        @include button($radii: $toggle_radius);
+        &.small{ @include button($radii: 40%); }
+        margin: $spacing;
+        .separator{
+            background-color: $fg_color;
+            min-width: 2px;
+            min-height: 1.4em;
+        }
+        &.active{
+            background-color: $accent;
+            color: $accent_fg;
+            .separator{ background-color: $accent_fg; }
+        }
+        .half{
+            min-height: 3.4em;
+            &:first-child{ border-radius: $toggle_radius 0 0 $toggle_radius }
+            &:last-child{ border-radius: 0 $toggle_radius $toggle_radius 0 }
+            &:hover{ background-color: transparentize($fg_color, 0.92) }
+        }
+        .icon{
+            font-size: 2em;
+            &.arrow{ font-size: 1.8em; }
+        }
+    }
+
+    .media{
+        min-height: 12em;
+        padding: 0;
+        text-shadow: $text_shadow;
+        .cover{
+            @include button;
+            background-size: cover;
+            background-position: center;
+            .darkened{
+                background-color: transparentize($bg_color, 0.5);
+                border-radius: $button_radius;
+            }
+            .slider{
+                @include slider($width: .4em, $slider: false, $color: transparentize($fg_color, 0.3));
+                scale > contents{
+                    trough{
+                        border-radius: 0;
+                        border: 0;
+                        highlight{
+                            border-radius: 0;
+                        }
+                    }
+                }
+            }
+            .box{ margin: $spacing; }
+            .artist{ font-size: 1.2em; }
+            .title, .position{ color: transparentize($fg_color, 0.2);}
+            .icon.player{
+                font-size: 1.4em;
+                margin-left: .6em;
+            }
+            .controls{
+                margin: $spacing;
+                button{
+                    label{ font-size: 2em; }
+                    &.loop, &.shuffle{
+                        label{ font-size: 1.2em; }
+                    }
+                    color: transparentize($fg_color, 0.3);
+                    &:hover{ color: $fg_color; }
+                    &.active{ color: $accent; }
+                    &.inactive{
+                        color: transparentize($fg_color, 0.7);
+                        text-shadow: none;
+                    }
+                    &.loop{
+                        &.Playlist{ color: transparentize($accent, 0.2); }
+                        &.Track{  color: $accent; }
+                    }
+                }
+            }
+        }
+        .sidebar{
+            .slider{ @include slider($width: .6em, $slider: false); }
+            margin: $spacing*2;
+        }
+
+        &.spotify{
+            .icon.player{ color: $green; }
+            .sidebar .slider{
+                @include slider($width: .6em, $slider: false, $color: $green);
+            }
+            .controls button{
+                &.active{ color: $green; }
+                &.loop{
+                    &.Playlist{ color: transparentize($green, 0.2); }
+                    &.Track{  color: $green; }
+                }
+            }
+        }
+
+        &.firefox\.instance2{
+            .icon.player{ color: $orange; }
+        }
+
+        &.mpv{
+            .icon.player{ color: $magenta; }
+            .sidebar .slider{
+                @include slider($width: .6em, $slider: false, $color: $magenta);
+            }
+            .controls button{
+                &.active{ color: $magenta; }
+                &.loop{
+                    &.Playlist{ color: transparentize($magenta, 0.2); }
+                    &.Track{  color: $magenta; }
+                }
+            }
+        }
+    }
+}

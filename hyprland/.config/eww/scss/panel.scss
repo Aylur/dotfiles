@@ -1,0 +1,65 @@
+.panel {
+    &.secondary{ background-color: transparent; }
+    min-height: 2.2em;
+    border-radius: $panel_radius;
+    font-weight: bold;
+    color: $fg_color;
+    text-shadow: $text_shadow;
+    
+    .button-bin{
+        margin: 3px 5px;
+        &.launcher{ margin-left: 4px }
+        &.powermenu{ margin-right: 4px }
+    }
+
+    .button{
+        .icon{ font-size: 1.2em;}
+        @include button($flat: true, $radii: $panel_button_radius);
+        > * { padding: 0 .4em }
+
+        &.powermenu{ color: $red; }
+        &.window{ @include button($flat: true, $interactive: false) }
+
+        &.workspaces{
+            .workspace-btn{
+                label{ font-size: 1.2em; }
+                margin: 2px;
+                &.empty{ color: transparentize($fg_color, 0.4); }
+                &.occupied{ color: transparentize($fg_color, 0.24); }
+                &.active{ color: $fg_color; }
+                &:hover{
+                    &.empty{ color: transparentize($fg_color, 0.18); }
+                    &.occupied{ color: $fg_color; }
+                }
+                &:active{ color: $accent; }
+            }
+        }
+
+        &.system-indicators{
+            .icon{ font-size: 1.3em; }
+            .battery{
+                .low{ color: $destructive; }
+                .charging{ color: $succes; }
+                .full{ color: $succes; }
+            }
+        }
+    }
+
+    .sliders-bin{
+        min-width: 220px;
+        margin-right: 4px;
+        .slider{ 
+            @include slider($width: 1.2em, $slider: false);
+            .icon{ 
+                margin-left: 3px; 
+                color: $accent_fg;
+            }
+        }
+        .separator{
+            min-width: 2px;
+            min-height: 1em;
+            margin: 0 4px;
+            background-color: $fg_color;
+        }
+    }
+}

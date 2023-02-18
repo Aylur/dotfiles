@@ -1,0 +1,22 @@
+.osd{
+    @include floating_widget;
+    .icon{ 
+        label { font-size: 40px }
+        color: $fg_color;
+        min-width: 40px;
+        min-height: 40px;
+        margin-right: 8px;
+    }
+    .scale{
+        trough, progress{
+            border-radius: $radii;
+            min-height: 19px;
+        }
+        trough{
+            border: $border;
+            background-color: transparentize($fg_color, 0.85);
+            margin-right: 8px;
+        }
+        progress{ background-color: $accent }
+    }
+}

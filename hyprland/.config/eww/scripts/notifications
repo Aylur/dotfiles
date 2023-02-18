@@ -1,0 +1,32 @@
+#!/bin/bash
+
+function toggle {
+    STATE=$(state)
+    if [[ $STATE == 'on' ]]; then
+        eww update dnd_icon=󰂚
+        eww update dnd_status=off
+        swaync-client --dnd-off
+    else
+        eww update dnd_icon=󰂛
+        eww update dnd_status=on
+        swaync-client --dnd-on
+    fi
+}
+
+function icon {
+    STATE=$(swaync-client --get-dnd)
+    if [[ $STATE == 'false' ]]; then echo '󰂚';
+    else echo '󰂛'; fi 
+}
+
+function state {
+    STATE=$(swaync-client --get-dnd)
+    if [[ $STATE == 'false' ]]; then echo 'off'
+    else echo 'on'; fi
+}
+
+if [[ $1 == 'toggle' ]]; then toggle; fi
+if [[ $1 == 'icon' ]]; then icon; fi
+if [[ $1 == 'state' ]]; then state; fi
+if [[ $1 == 'count' ]]; then swaync-client --count; fi
+if [[ $1 == 'open' ]]; then distrobox-enter -n Arch -- swaync-client --open-panel; fi

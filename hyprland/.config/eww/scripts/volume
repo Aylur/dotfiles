@@ -1,0 +1,72 @@
+#!/usr/bin/bash
+VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep Volume | awk '{print $5}' | tr % " ")
+
+function icon {
+    if [[   $VOLUME -ge 66 ]]; then echo '󰕾'
+    elif [[ $VOLUME -ge 33 ]]; then echo '󰖀'
+    elif [[ $VOLUME -ge 1  ]]; then echo '󰕿'
+    else echo '󰝟'
+    fi
+}
+
+function level {
+    echo $(pactl get-sink-volume @DEFAULT_SINK@ | grep Volume | awk '{print $5}' | tr % " ")
+}
+
+function set {
+    echo "volume:" $1
+    pactl set-sink-volume @DEFAULT_SINK@ $1"%"
+    eww update volume_level=$(level)
+    eww update volume_icon=$(icon)
+}
+
+function lower {
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+    update
+}
+
+function raise {
+    pactl set-sink-volume @DEFAULT_SINK@ +5%
+    update
+}
+
+function update {
+    eww update volume_level=$(level)
+    eww update volume_icon=$(icon)
+    ~/.config/eww/scripts/osd $(icon) $(level)
+}
+
+function type_icon {
+    SINK=$(pactl get-default-sink)
+    if [[ $SINK == *'bluez_output'* ]]; then echo "󰋋"
+    else echo "󰓃"
+    fi
+}
+
+function mute_state {
+    STATE=$(pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $2}')
+    if [[ $STATE == 'no' ]]; then echo 'off'
+    else echo 'on'; fi
+}
+
+function mute_icon {
+    STATE=$(mute_state)
+    if [[ $STATE == 'off' ]]; then echo '󰍬'
+    else echo '󰍭'; fi
+}
+
+function mute_toggle {
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    eww update mute_icon=$(mute_icon)
+    eww update mute_state=$(mute_state)
+}
+
+if [[ $1 == 'mute_state' ]]; then mute_state; fi
+if [[ $1 == 'mute_icon' ]]; then mute_icon; fi
+if [[ $1 == 'mute_toggle' ]]; then mute_toggle; fi
+if [[ $1 == 'down' ]]; then lower; fi
+if [[ $1 == 'up' ]]; then raise; fi
+if [[ $1 == 'icon' ]]; then icon; fi
+if [[ $1 == 'level' ]]; then level; fi
+if [[ $1 == 'set' ]]; then set $2; fi
+if [[ $1 == 'type_icon' ]]; then type_icon; fi

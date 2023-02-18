@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+STATE0=$(eww windows | grep osd0 | awk '{print substr ($0, 0, 1)}')
+STATE1=$(eww windows | grep osd1 | awk '{print substr ($0, 0, 1)}')
+
+if [[ $1 == 'close' ]]; then
+    if [[ $STATE0 == '*' ]]; then eww close osd0; fi
+    if [[ $STATE1 == '*' ]]; then eww close osd1; fi
+else
+    eww update osd_icon=$1
+    eww update osd_value=$2
+
+    if [[ $STATE0 != '*' ]]; then eww open osd0; fi
+    if [[ $STATE1 != '*' ]]; then eww open osd1; fi
+
+    sleep 4
+
+    if [[ $STATE0 == '*' ]]; then eww close osd0; fi
+    if [[ $STATE1 == '*' ]]; then eww close osd1; fi
+fi

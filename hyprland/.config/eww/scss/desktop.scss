@@ -1,0 +1,9 @@
+.desktop{
+    background-image: url($wallpaper);
+    background-size: cover;
+    .clock{
+        text-shadow: 4px 4px 4px black;
+        .hour, .minutes, .separator{ font-size: 130px; }
+        .date{ font-size: 30px; }
+    }
+}
