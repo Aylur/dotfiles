@@ -1,9 +1,10 @@
 * { all: unset; }
 
+@import "./../eww/scss/colors.scss";
 @import "./../eww/scss/variables.scss";
 @import "./../eww/scss/common.scss";
 
-.background{ background-color: rgba(0,0,0,0.4) }
+.background{ background-color: rgba(0,0,0,0.5); }
 
 #window-box{
     @include floating_widget;

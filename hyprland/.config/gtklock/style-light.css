@@ -8,8 +8,8 @@
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   border-radius: 12.6px;
   margin: 18px;
-  background-color: #181818;
-  color: white;
+  background-color: white;
+  color: #1f1f1f;
   padding: 14px;
   padding: 50px; }
   #window-box #clock-label {
@@ -17,40 +17,40 @@
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); }
   #window-box #unlock-button {
     border-radius: 7px;
-    color: white;
+    color: #1f1f1f;
     transition: 200ms;
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: rgba(31, 31, 31, 0.06);
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
     padding: 6px 12px; }
     #window-box #unlock-button:hover {
-      box-shadow: inset 0 0 0 1px #62a0ea;
-      background-color: rgba(255, 255, 255, 0.16);
-      color: white; }
+      box-shadow: inset 0 0 0 1px #3584e4;
+      background-color: rgba(31, 31, 31, 0.16);
+      color: #1f1f1f; }
     #window-box #unlock-button:active {
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
-      background-color: #62a0ea;
-      color: black; }
+      background-color: #3584e4;
+      color: #1f1f1f; }
   #window-box #input-field {
     border-radius: 7px;
-    color: white;
+    color: #1f1f1f;
     transition: 200ms;
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: rgba(31, 31, 31, 0.06);
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
     box-shadow: none;
     min-height: 32px;
     padding-left: 0.4em;
     border: 1px solid rgba(255, 255, 255, 0); }
     #window-box #input-field:hover {
-      box-shadow: inset 0 0 0 1px #62a0ea;
-      background-color: rgba(255, 255, 255, 0.16);
-      color: white; }
+      box-shadow: inset 0 0 0 1px #3584e4;
+      background-color: rgba(31, 31, 31, 0.16);
+      color: #1f1f1f; }
     #window-box #input-field:active {
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
-      background-color: #62a0ea;
-      color: black; }
+      background-color: #3584e4;
+      color: #1f1f1f; }
     #window-box #input-field:focus {
-      border-color: #62a0ea; }
+      border-color: #3584e4; }
   #window-box #warning-label {
     color: #f6d32d; }
   #window-box #error-label {
-    color: #f66151; }
+    color: #ed333b; }

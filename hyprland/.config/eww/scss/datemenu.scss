@@ -11,6 +11,7 @@
         margin-bottom: 40px;
         font-size: 1.1em;
         text-shadow: $text_shadow;
+        color: transparentize($fg_color, 0.3)
     }
     
     .calendar-bin{
@@ -35,6 +36,8 @@
                 background-color: transparent;
                 color: transparentize($fg_color, 0.7);
             }
+            font-size: 1.2em;
+            padding: .2em;
         }
     }
 
@@ -42,15 +45,21 @@
         @include button;
         margin-top: 16px;
         padding: 12px;
-        .date{
-            color: transparentize($fg_color, 0.5);
-            font-family: $mono_font;
+        > label{
+            margin-bottom: .4em;
         }
-        .title{ margin-left: 8px; }
+        .event{
+            .date{
+                color: transparentize($fg_color, 0.5);
+                font-family: $mono_font;
+            }
+            .title{ margin-left: 8px; }
+            label{ font-size: 1.2em;}
+        }
     }
     
     .wallpaper{
-        min-height: 140px;
+        min-height: 200px;
         margin-top: 16px;
         background-image: url($assets+'wallpaper.png');
         background-size: cover;

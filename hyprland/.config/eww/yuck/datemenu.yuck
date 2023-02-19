@@ -3,7 +3,7 @@
     :orientation "v"
     :space-evenly false
     :visible {arraylength(events) > 0}
-    (label :text "Events:" :halign "START")
+    (label :text "Todo" :halign "START")
     (for event in events
         (literal :content event))
 ))

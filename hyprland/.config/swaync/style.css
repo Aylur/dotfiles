@@ -4,7 +4,7 @@
 .notification {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   border-radius: 12.6px;
-  margin: 28px;
+  margin: 18px;
   background-color: #181818;
   color: white;
   padding: 14px;
@@ -22,12 +22,12 @@
 
 .close-button {
   margin-top: 20px;
-  margin-right: 32px;
+  margin-right: 22px;
   padding: 2px;
   border-radius: 0.6em;
   color: white;
   transition: 200ms;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0);
   background-color: rgba(246, 97, 81, 0.5); }
   .close-button:hover {
     background-color: rgba(246, 97, 81, 0.3);
@@ -39,7 +39,7 @@
 .control-center {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   border-radius: 12.6px;
-  margin: 28px;
+  margin: 18px;
   background-color: #181818;
   color: white;
   padding: 14px; }
@@ -50,15 +50,15 @@
       border-radius: 7px;
       color: white;
       transition: 200ms;
-      background-color: rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+      background-color: rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
       padding: 8px; }
       .control-center .widget-title button:hover {
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        box-shadow: inset 0 0 0 1px #62a0ea;
         background-color: rgba(255, 255, 255, 0.16);
         color: white; }
       .control-center .widget-title button:active {
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
         background-color: #62a0ea;
         color: black; }
   .control-center .notification-row .notification {
@@ -67,8 +67,8 @@
     border-radius: 7px;
     color: white;
     transition: 200ms;
-    background-color: rgba(255, 255, 255, 0.08);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    background-color: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
     margin: 0;
     margin-top: 14px; }
     .control-center .notification-row .notification.critical {

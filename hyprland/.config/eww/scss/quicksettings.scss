@@ -88,16 +88,18 @@ $spacing: $popover_padding*0.5;
             min-width: 2px;
             min-height: 1.4em;
         }
-        &.active{
-            background-color: $accent;
-            color: $accent_fg;
-            .separator{ background-color: $accent_fg; }
-        }
         .half{
+            @include button($flat: true);
             min-height: 3.4em;
             &:first-child{ border-radius: $toggle_radius 0 0 $toggle_radius }
             &:last-child{ border-radius: 0 $toggle_radius $toggle_radius 0 }
-            &:hover{ background-color: transparentize($fg_color, 0.92) }
+            &:hover{ background-color: $hover }
+        }
+        &.active{
+            * { color: $accent_fg; }
+            background-color: $accent;
+            .separator{ background-color: $accent_fg; }
+            &:hover *{ color: $hover_fg }
         }
         .icon{
             font-size: 2em;

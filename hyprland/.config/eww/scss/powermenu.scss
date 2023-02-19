@@ -1,7 +1,8 @@
 .powermenu1,
 .powermenu0{
-    background-color: transparentize($bg_color, 0.5);
+    background-color: rgba(0,0,0,0.5);
     .content{
+        color: white;
         .user{
             .image{
                 background-image: url($assets+'avatar.jpg');

@@ -1,10 +1,11 @@
 * {
     all: unset;
-    font-size: 13px;
+    font-size: 15px;
     font-family: 'Ubuntu Nerd Font', sans-serif;
 }
 $mono_font: 'UbuntuMono NF';
 
+@import "./scss/colors.scss";
 @import "./scss/variables.scss";
 @import "./scss/common.scss";
 @import "./scss/panel.scss";
