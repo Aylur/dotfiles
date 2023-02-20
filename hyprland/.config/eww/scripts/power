@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 function state {
     STATE=$(asusctl profile --profile-get | awk '{print $4}')

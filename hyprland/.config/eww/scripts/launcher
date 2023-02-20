@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 function toggle_menu {
     MAIN=$(eww get main_monitor)
@@ -52,7 +52,7 @@ function notifications {
 }
 
 function config {
-    flatpak run com.visualstudio.code $HOME/.config
+    flatpak run com.visualstudio.code $HOME/.config/hypr
 }
 
 if [[ $1 == 'launcher'       ]]; then rofi -show drun; fi

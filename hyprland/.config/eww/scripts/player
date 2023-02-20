@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 function loop {
     LOOPSTATUS=$(playerctl -p $1 loop)

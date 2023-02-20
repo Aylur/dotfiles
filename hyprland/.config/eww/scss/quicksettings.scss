@@ -68,13 +68,7 @@ $spacing: $popover_padding*0.5;
             &.battery{
                 &.low{ color: $red }
             }
-            label{
-                margin-top: 1.1em;
-            }
-            .icon{
-                margin-bottom: 1.7em;
-                font-size: 1.5em;
-            }
+            .icon{ font-size: 1.8em; }
         }
     }
 

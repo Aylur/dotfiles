@@ -1,4 +1,4 @@
-(defvar main_monitor 1)
+(defvar main_monitor 0)
 (defvar number_of_workspaces 6)
 (defvar real_name "Demeter")
 (defvar user_name "@Aylur")

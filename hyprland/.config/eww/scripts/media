@@ -1,23 +1,4 @@
-#!/usr/bin/gjs
-
-/* github.com/Aylur:
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * SPDX-License-Identifier: GPL-2.0-or-later
- */
-
+#!/usr/bin/env gjs
 'use strict';
 
 const { GObject, Gio, GLib } = imports.gi;
@@ -25,39 +6,37 @@ const CACHE_PATH = GLib.get_user_config_dir() + '/eww/cache/';
 const PREFERRED_PLAYER = 'spotify'
 const TICK_INTERVAL = 2000; //in ms
 
-const PlayerIFace =
-`<node>
-    <interface name="org.mpris.MediaPlayer2.Player">
-        <property name='CanControl' type='b' access='read' />
-        <property name='CanGoNext' type='b' access='read' />
-        <property name='CanGoPrevious' type='b' access='read' />
-        <property name='CanPlay' type='b' access='read' />
-        <property name='CanPause' type='b' access='read' />
-        <property name='Metadata' type='a{sv}' access='read' />
-        <property name='PlaybackStatus' type='s' access='read' />
-        <property name='Shuffle' type='b' access='readwrite' />
-        <property name='LoopStatus' type='s' access='readwrite' />
-        <property name='Volume' type='d' access='readwrite' />
-        <property name="Position" type="x" access="read"/>
-    </interface>
-</node>`;
-
-const DBusIFace = 
-`<node>
-  <interface name="org.freedesktop.DBus">
-    <method name="ListNames">
-      <arg type="as" direction="out" name="names"/>
-    </method>
-    <signal name="NameOwnerChanged">
-      <arg type="s" direction="out" name="name"/>
-      <arg type="s" direction="out" name="oldOwner"/>
-      <arg type="s" direction="out" name="newOwner"/>
-    </signal>
-  </interface>
-</node>`
-
-const MprisPlayerProxy = Gio.DBusProxy.makeProxyWrapper(PlayerIFace);
-const DBusProxy = Gio.DBusProxy.makeProxyWrapper(DBusIFace);
+const MprisPlayerProxy = Gio.DBusProxy.makeProxyWrapper(
+    `<node>
+        <interface name="org.mpris.MediaPlayer2.Player">
+            <property name='CanControl' type='b' access='read' />
+            <property name='CanGoNext' type='b' access='read' />
+            <property name='CanGoPrevious' type='b' access='read' />
+            <property name='CanPlay' type='b' access='read' />
+            <property name='CanPause' type='b' access='read' />
+            <property name='Metadata' type='a{sv}' access='read' />
+            <property name='PlaybackStatus' type='s' access='read' />
+            <property name='Shuffle' type='b' access='readwrite' />
+            <property name='LoopStatus' type='s' access='readwrite' />
+            <property name='Volume' type='d' access='readwrite' />
+            <property name="Position" type="x" access="read"/>
+        </interface>
+    </node>`
+);
+const DBusProxy = Gio.DBusProxy.makeProxyWrapper(
+    `<node>
+      <interface name="org.freedesktop.DBus">
+        <method name="ListNames">
+          <arg type="as" direction="out" name="names"/>
+        </method>
+        <signal name="NameOwnerChanged">
+          <arg type="s" direction="out" name="name"/>
+          <arg type="s" direction="out" name="oldOwner"/>
+          <arg type="s" direction="out" name="newOwner"/>
+        </signal>
+      </interface>
+    </node>`
+);
 
 const MprisPlayer = GObject.registerClass({
     Signals: { 'changed' : {}, 'closed': {}, 'ready': {} }

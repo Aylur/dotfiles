@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 function class {
     hyprctl activewindow -j | jq --raw-output .class

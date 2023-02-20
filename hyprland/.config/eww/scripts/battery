@@ -1,19 +1,68 @@
-#!/usr/bin/bash
+#!/usr/bin/env gjs
+'use strict'
 
-function icon {
-    ARRAY=( '' '' '' '' '' '' '' '' '' '' '' )
-    IND=$(( $(level) / 10))
-    echo ${ARRAY[$IND]}
-}
+const { GObject, Gio, GLib, UPowerGlib: UPower } = imports.gi;
 
-function status {
-    echo $(cat /sys/class/power_supply/BAT0/status)
-}
+const PowerManagerProxy = Gio.DBusProxy.makeProxyWrapper(
+`<node>
+  <interface name="org.freedesktop.UPower.Device">
+    <property name="State" type="u" access="read"/>
+    <property name="Percentage" type="d" access="read"/>
+    <property name="IsPresent" type="b" access="read"/>
+  </interface>
+</node>`
+);
 
-function level {
-    echo $(cat /sys/class/power_supply/BAT0/capacity)
-}
+const Battery = GObject.registerClass(
+class Battery extends GObject.Object{
+    _init(){
+        super._init();
 
-if [[ $1 == 'icon' ]]; then echo $(icon); fi
-if [[ $1 == 'status' ]]; then echo $(status); fi
-if [[ $1 == 'level' ]]; then echo $(level); fi
+        this._proxy = new PowerManagerProxy(
+            Gio.DBus.system,
+            'org.freedesktop.UPower',
+            '/org/freedesktop/UPower/devices/DisplayDevice',
+            () => {
+                this._proxy.connect(
+                    'g-properties-changed', () => this._sync() );
+                this._sync();
+            }
+        );
+    }
+
+    _sync(){
+        if(!this._proxy.IsPresent) return;
+
+        let percent = this._proxy.Percentage;
+        let charging = this._proxy.State === UPower.DeviceState.CHARGING;
+        let charged =
+            this._proxy.State === UPower.DeviceState.FULLY_CHARGED ||
+            (this._proxy.State === UPower.DeviceState.CHARGING && percent === 100);
+
+        
+        let icons =          ['', '', '', '', '', '', '', '', '', ''];
+        let charging_icons = ['󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅'];        
+        let i = Math.round(percent / 10)-1;
+
+        let icon;
+        if(charged)           icon = '󰂄';
+        else if(charging)     icon = charging_icons[i];
+        else if(percent < 10) icon = '󱃍';
+        else                  icon = icons[i];
+
+        let state = '';
+        if(charged)           state = 'charged';
+        else if(charging)     state = 'charging';
+        else if(percent < 30) state = 'low';
+
+        print(JSON.stringify({
+            icon,
+            percent,
+            state
+        }))
+    }
+});
+
+const media = new Battery();
+const mainLoop = new GLib.MainLoop(null, false);
+mainLoop.run();

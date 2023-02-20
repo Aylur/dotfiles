@@ -1,4 +1,5 @@
-#!/usr/bin/gjs
+#!/usr/bin/env gjs
+'use strict'
 
 const { Gio, GLib } = imports.gi;
 const SUBSTITUTES_PATH = GLib.get_home_dir()+'/.local/share/todo/substitutes.json';
@@ -224,21 +225,10 @@ function eww(){
     let tasks = [];
     getTasks()
         .filter(t => t.date.month || t.date.day || t.date.hour )
-        .forEach(t => tasks.push(`
-            (box
-                :space-evenly false
-                :class "event"
-                (label 
-                    :class "date"
-                    :text "${t.date.toString()}" 
-                    :halign "START")
-                (label
-                    :class "title"
-                    :text "${t.title}"
-                    :halign "START")
-            )
-            `
-        ))
+        .forEach(t => tasks.push({
+            date: t.date.toString(),
+            title: t.title
+        }))
     
     print(JSON.stringify(tasks, null, 3));
 }

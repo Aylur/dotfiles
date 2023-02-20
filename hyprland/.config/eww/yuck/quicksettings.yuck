@@ -21,7 +21,7 @@
 ))
 
 (defwidget quick_toggles [] (box
-    :class "module toggles"
+    :class "module toggles arrow"
     (arrow_toggle :state network_state
             :icon wifi_icon
             :arrow_action "${EWW_CONFIG_DIR}/scripts/launcher network"
@@ -37,23 +37,29 @@
 ))
 
 (defwidget quick_toggles_grid [] (box
-    :class "module toggles"
-    :orientation "v"
+    :class "module toggles small"
+    :orientation "h"
     (box
-        (small_toggle   :state dnd_state
-                        :icon  dnd_icon
-                        :toggle_action "${EWW_CONFIG_DIR}/scripts/notifications toggle")
-        (small_toggle   :state mute_state
-                        :icon  mute_icon
-                        :toggle_action "${EWW_CONFIG_DIR}/scripts/volume mute_toggle")
+        :orientation "v"
+        (small_toggle   
+            :state dnd_state
+            :icon  dnd_icon
+            :toggle_action "${EWW_CONFIG_DIR}/scripts/notifications toggle")
+        (small_toggle
+            :state mute_state
+            :icon  mute_icon
+            :toggle_action "${EWW_CONFIG_DIR}/scripts/volume mute_toggle")
     )
     (box
-        (small_toggle   :state theme_state
-                        :icon  theme_icon
-                        :toggle_action "${EWW_CONFIG_DIR}/scripts/theme toggle")
-        (small_toggle   :state night_light_state
-                        :icon  night_light_icon
-                        :toggle_action "${EWW_CONFIG_DIR}/scripts/night_light toggle")
+        :orientation "v"
+        (small_toggle 
+            :state theme_state
+            :icon  theme_icon
+            :toggle_action "${EWW_CONFIG_DIR}/scripts/theme toggle")
+        (small_toggle 
+            :state night_light_state
+            :icon  night_light_icon
+            :toggle_action "${EWW_CONFIG_DIR}/scripts/night_light toggle")
     )
 ))
 
@@ -91,41 +97,48 @@
 ))
 
 (defwidget sysprogress [data icon css tip] (box 
-    :class "module" (circular-progress
+    :class "module ${css}" (circular-progress
     :class css
     :value data
     :start-at 75
     :clockwise false
-    :thickness 8
+    :thickness 11
     :tooltip tip
     (overlay
         :valign "center"
         (label :class "icon" :text icon)
-        (label :text "${round(data, 0)}%"))
+        ; (label :text "${round(data, 0)}%")
+    )
 )))
 
 (defwidget syslevels [] (box
     :class "system"
     :orientation "v"
     (box :orientation "h"
-        (sysprogress    :css "cpu"
-                        :tip "CPU"
-                        :data {EWW_CPU.avg}
-                        :icon "﬙")
-        (sysprogress    :css "ram"
-                        :tip "RAM"
-                        :data {EWW_RAM.used_mem / EWW_RAM.total_mem * 100}
-                        :icon "󰍛")
+        (sysprogress
+            :css "cpu"
+            :tip "CPU"
+            :data {EWW_CPU.avg}
+            :icon "﬙")
+        (sysprogress
+            :css "ram"
+            :tip "RAM"
+            :data {EWW_RAM.used_mem / EWW_RAM.total_mem * 100}
+            :icon "󰍛")
     )
     (box :orientation "h"
-        (sysprogress    :css "temp"
-                        :tip "Temperature"
-                        :data {EWW_TEMPS["ACPITZ_TEMP1"]}
-                        :icon "󰈸")
-        (sysprogress    :css "battery ${battery_status == "Charging" ? "charging" : ""} ${battery_status == "Full" ? "full" : ""} ${battery_level <= 30 ? "low" : ""}"
-                        :tip "Battery"
-                        :data battery_level
-                        :icon battery_icon)
+        (sysprogress
+            :css "temp"
+            :tip "Temperature"
+            :data {EWW_TEMPS["ACPITZ_TEMP1"]}
+            :icon "󰈸")
+        (box :class "corner-bg"
+            (box :class "corner"
+                (sysprogress
+                    :css "battery ${battery.state}"
+                    :tip "Battery"
+                    :data {battery.percent}
+                    :icon {battery.icon})))
     )
 ))
 

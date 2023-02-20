@@ -5,9 +5,7 @@
 (deflisten  media_pos           :initial  "[]" `scripts/media_pos`)
 (deflisten  media               :initial  "[]" `scripts/media`)
 
-(defpoll    battery_status      :interval "5s" `scripts/battery status`)
-(defpoll    battery_level       :interval "5s" :initial "100" `scripts/battery level`)
-(defpoll    battery_icon        :interval "5s" `scripts/battery icon`)
+(deflisten  battery             :initial  "{}" `scripts/battery`)
 
 (defpoll    network_icon        :interval "5s" `scripts/network icon`)
 (defpoll    network_status      :interval "5s" `scripts/network status`)
@@ -51,4 +49,5 @@
 (defpoll    date                :interval "5s" `date "+%b. %d. %A"`)
 (defpoll    uptime              :interval "60s" "uptime | awk '{print $3}' | tr ',' ' '")
 
-(defpoll    events              :interval "10s" :initial "[]" `scripts/todo --eww`) ;literal
+(defpoll    events              :interval "10s" :initial "[]" `scripts/todo --eww`)
+(defpoll    weather             :interval "3m"  :initial "{}"  `scripts/weather`)

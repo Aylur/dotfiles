@@ -17,15 +17,15 @@
         @include button($flat: true, $radii: $panel_button_radius);
         > * { padding: 0 .4em }
 
-        &.powermenu{ color: $red; }
+        &.powermenu:hover{ color: $red; }
         &.window{ @include button($flat: true, $interactive: false) }
 
         &.workspaces{
             .workspace-btn{
                 label{ font-size: 1.2em; }
                 margin: 2px;
-                &.empty{ color: transparentize($fg_color, 0.4); }
-                &.occupied{ color: transparentize($fg_color, 0.24); }
+                &.empty{ color: transparentize($fg_color, 0.34); }
+                &.occupied{ color: transparentize($fg_color, 0.18); }
                 &.active{ color: $fg_color; }
                 &:hover{
                     &.empty{ color: transparentize($fg_color, 0.18); }
@@ -40,7 +40,7 @@
             .battery{
                 .low{ color: $destructive; }
                 .charging{ color: $succes; }
-                .full{ color: $succes; }
+                .charged{ color: $succes; }
             }
         }
     }

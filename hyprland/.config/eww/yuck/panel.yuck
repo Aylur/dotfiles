@@ -17,6 +17,7 @@
 (defwidget panel_workspaces [] (box :class "button-bin"
     (eventbox :class "button workspaces"
         (box
+            :space-evenly false
             (for workspace in workspaces
                 (button
                     :class "workspace-btn ${workspace.id == active_workspace ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
@@ -115,12 +116,12 @@
                     :tooltip "${wifi_strength}% ${wifi_ssid}"
                     :text network_icon)
             (box :class "battery"
-                :tooltip "Battery: ${battery_level}%"
+                :tooltip "Battery: ${battery.percent}%"
                 :space-evenly false
-                (label :class "icon ${battery_status == "Charging" ? "charging" : ""} ${battery_status == "Full" ? "full" : ""} ${battery_level <= 30 ? "low" : ""}"
-                       :text battery_icon)
-                (label :text "${battery_level}%"
-                       :visible {battery_status != "Full"}))
+                (label :class "icon ${battery.state}"
+                       :text {battery.icon})
+                (label :text "${battery.percent}%"
+                       :visible {battery.state != "charged" && battery.state != "charging"}))
         )
     )
 ))

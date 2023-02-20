@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 STATE0=$(eww windows | grep osd0 | awk '{print substr ($0, 0, 1)}')
 STATE1=$(eww windows | grep osd1 | awk '{print substr ($0, 0, 1)}')

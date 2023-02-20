@@ -1,0 +1,125 @@
+#!/usr/bin/env gjs
+'use strict';
+
+imports.gi.versions.Soup = "3.0";
+const { Soup, GLib, Gio } = imports.gi;
+
+const KEY = '6d68fce6adcb816c8cea253ccae970d0';
+const CITY = '3044774';
+const URI = `http://api.openweathermap.org/data/2.5/weather?APPID=${KEY}&id=${CITY}&units=metric`;
+const CACHE_PATH = GLib.get_user_config_dir()+'/eww/cache/weather';
+
+//make file 
+if(!GLib.file_test(CACHE_PATH, GLib.FileTest.EXISTS)){
+    Gio.File.new_for_path(CACHE_PATH).create(Gio.FileCreateFlags.NONE, null);
+};
+
+//api call
+let weather = JSON.parse(new TextDecoder().decode(
+    Soup.Session.new().send_and_read(
+        Soup.Message.new('GET', URI), null
+    ).get_data()
+));
+
+//data
+let w = {};
+if(weather){
+    w.temp = weather.main.temp;
+    w.feels = weather.main.feels_like;
+    w.main = weather.weather[0].main;
+    w.desc = weather.weather[0].description;
+    w.city = weather.name;
+    switch (weather.weather[0].icon) {
+        case '50d':
+            w.icon=" "
+            w.color="#84afdb"
+            break;
+        case '50n':
+            w.icon=" "
+            w.color="#84afdb"
+            break;
+        case '01d':
+            w.icon=" "
+            w.color="#ffd86b"
+            break;
+        case '01n':
+            w.icon=" "
+            w.color="#fcdcf6"
+            break;
+        case '02d':
+            w.icon=" "
+            w.color="#adadff"
+            break;
+        case '02n':
+            w.icon=" "
+            w.color="#adadff"
+            break;
+        case '03d':
+            w.icon=" "
+            w.color="#adadff"
+            break;
+        case '03n':
+            w.icon=" "
+            w.color="#adadff"
+            break;
+        case '04d':
+            w.icon=" "
+            w.color="#adadff"
+            break;
+        case '04n':
+            w.icon=" "
+            w.color="#adadff"
+            break;
+        case '09d':
+            w.icon=" "
+            w.color="#6b95ff"
+            break;
+        case '09n':
+            w.icon=" "
+            w.color="#6b95ff"
+            break;
+        case '10d':
+            w.icon=" "
+            w.color="#6b95ff"
+            break;
+        case '10n':
+            w.icon=" "
+            w.color="#6b95ff"
+            break;
+        case '11d':
+            w.icon=""
+            w.color="#ffeb57"
+            break;
+        case '11n':
+            w.icon=""
+            w.color="#ffeb57"
+            break;
+        case '13d':
+            w.icon=" "
+            w.color="#e3e6fc"
+            break;
+        case '13n':
+            w.icon=" "
+            w.color="#e3e6fc"
+            break;
+        case '40d':
+            w.icon=" "
+            w.color="#84afdb"
+            break;
+        case '40n':
+            w.icon=" "
+            w.color="#84afdb"
+            break;
+        default:
+            w.icon=" "
+            w.color="#adadff"
+            break;
+    }
+}else{
+    w.desc="Weather Unavailable"
+    w.temp="-"
+    w.icon=" "
+    w.color="#adadff"
+}
+
+print(JSON.stringify(w, null, 2));
