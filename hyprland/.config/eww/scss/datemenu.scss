@@ -50,17 +50,21 @@ $spacing: $popover_padding*0.5;
     .events{
         @include button;
         margin: $spacing;
-        padding: 12px;
-        > label{
-            margin-bottom: .4em;
+        .box-title{
+            padding: 12px;
+            padding-bottom: 6px;
+            border-bottom: $border_width solid transparentize($fg_color, 0.92);
         }
-        .event{
-            .date{
-                color: transparentize($fg_color, 0.5);
-                font-family: $mono_font;
+        .events-box{
+            padding: 12px;
+            .event{
+                .date{
+                    color: transparentize($fg_color, 0.5);
+                    font-family: $mono_font;
+                }
+                .title{ margin-left: 8px; }
+                label{ font-size: 1.2em;}
             }
-            .title{ margin-left: 8px; }
-            label{ font-size: 1.2em;}
         }
     }
     

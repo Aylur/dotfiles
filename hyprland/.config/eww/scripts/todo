@@ -59,6 +59,12 @@ class Date{
         return !this.year && !this.month && !this.day && !this.hour && !this.minutes
     }
 
+    isToday(){
+        let now = GLib.DateTime.new_now_local();
+        return this.month === now.get_month() &&
+            this.day === now.get_day_of_month();       
+    }
+
     toString(){
         let m, d, h, min, md, hm;
         if(this.month)
@@ -77,11 +83,14 @@ class Date{
             min = `${this.minutes < 10 ? `0${this.minutes}` : this.minutes }`
             else min = '00';
 
-        if(!this.month && !this.day){ m = '  '; d = '  '; }
-        if(!this.hour && !this.minutes){ h = '  '; min = '  '; }
-        md = `${this.month || this.day ? '/' : ' '}`;        
-        hm = `${this.hour || this.minutes ? ':' : ' '}`;        
-        return `${m}${md}${d} ${h}${hm}${min}`;
+        md = `${m}/${d}`;
+        hm = `${h}:${min}`
+        if(!this.month && !this.day) md = '     ';
+        if(!this.hour && !this.minutes) hm = '     ';
+        if(md === '     ' && (this.hour || this.minutes)) md = 'today';
+        if(this.isToday()) md = 'today';
+
+        return `${md} ${hm}`;
     }
 
     valid(){

@@ -28,21 +28,30 @@
     :orientation "v"
     :space-evenly false
     :visible {arraylength(events) > 0}
-    (label :text "Todo" :halign "START")
-    (for event in events
-        (box
-            :space-evenly false
-            :class "event"
-            (label 
-                :class "date"
-                :text {event.date} 
-                :halign "START")
-            (label
-                :class "title"
-                :text {event.title}
-                :hexpand true
-                :halign "END")
-        ))
+    (box
+        :class "box-title"
+        (label :text "Deadline" :halign "START")
+        (label :text "Todo" :halign "END")
+    )
+    (box
+        :class "events-box"
+        :orientation "v"
+        (for event in events
+            (box
+                :space-evenly false
+                :class "event"
+                (label 
+                    :class "date"
+                    :text {event.date} 
+                    :halign "START")
+                (label
+                    :class "title"
+                    :text {event.title}
+                    :hexpand true
+                    :halign "END")
+            )
+        )
+    )
 ))
 
 (defwidget datemenu [] (eventbox 
