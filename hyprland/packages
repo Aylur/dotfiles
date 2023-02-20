@@ -3,13 +3,11 @@ hyprpicker
 hyprshot
 
 # Nix
-hyprpaper
 rofi-wayland
 eww-wayland
 playerctl
 brightnessctl
 pavucontrol
-networkmanager
 wl-gammactl
 wl-clipboard
 socat
