@@ -13,8 +13,6 @@ wl-clipboard
 socat
 jq
 blueberry
-jp2a
-fortune
 
 # Fedora (host)
 kitty
