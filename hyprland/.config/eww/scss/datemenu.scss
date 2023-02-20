@@ -77,6 +77,18 @@ $spacing: $popover_padding*0.5;
             margin: $spacing;
             padding: 12px;
             font-size: 2.6em;
+            font-family: $mono_font;
+            
+            &.clear.d{ color: transparentize($yellow, 0.6); }
+            &.clear.n{ color: transparentize($blue, 0.6); }
+
+            &.clouds.d{ color: transparentize($fg_color, 0.6); }
+            &.clouds.n{ color: transparentize($blue, 0.6); }
+
+            &.rain{ color: transparentize($blue, 0.6); }
+            &.thunderstorm{ color: transparentize($yellow, 0.6); }
+            &.snow{ color: transparentize($fg_color, 0.6); }
+            &.mist{ color: transparentize($teal, 0.6); }
         }
     }
 

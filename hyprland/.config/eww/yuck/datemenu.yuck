@@ -1,4 +1,4 @@
-(defwidget datemenu_weather [] (box
+(defwidget datemenu_weather [place] (box
     :class "weather"
     :space-evenly false
     (box
@@ -7,19 +7,19 @@
         :hexpand true
         (box
             :orientation "v"
-            (label :text {weather.city} :halign "START" )
-            (label :text "feels like ${weather.feels}°" :halign "START")
+            (label :text {place.city} :halign "START" )
+            (label :text "feels like ${place.feels}°" :halign "START")
         )
         (box
             :orientation "v"
-            (label :text "${weather.temp}°" :halign "END")
-            (label :text {weather.main} :halign "END")
+            (label :text "${place.temp}°" :halign "END")
+            (label :text {place.desc} :halign "END")
         )
     )
     (label 
-        :text {weather.icon} 
-        :class "icon"
-        :style "color: ${weather.color};"
+        :text {place.icon} 
+        :class "icon ${place.class}"
+        :halign "center"
     )
 ))
 
@@ -71,7 +71,13 @@
             (calendar)
         )
         (datemenu_events)
-        (datemenu_weather)
+        (box 
+            :class "weather-box"
+            :orientation "v"
+        (for place in weather
+            (datemenu_weather :place place)
+        )
+        )
         (box :class "wallpaper")
     )
 ))

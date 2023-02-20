@@ -1,125 +1,59 @@
-#!/usr/bin/env gjs
-'use strict';
+#!/usr/bin/env bash
 
-imports.gi.versions.Soup = "3.0";
-const { Soup, GLib, Gio } = imports.gi;
+KEY=""
+SZFVAR="3044774"
+PEST="3054638"
+PAKOZD="3046769"
 
-const KEY = '6d68fce6adcb816c8cea253ccae970d0';
-const CITY = '3044774';
-const URI = `http://api.openweathermap.org/data/2.5/weather?APPID=${KEY}&id=${CITY}&units=metric`;
-const CACHE_PATH = GLib.get_user_config_dir()+'/eww/cache/weather';
+## Get data
+get_weather() {
+    weather=`curl -sf "http://api.openweathermap.org/data/2.5/weather?APPID=$KEY&id=$1&units=metric"`
+    
+    w_desc="Weather Unavailable"
+    w_temp="-"
+    w_feels="-"
+    w_city="Nowhere"
+    w_icon=""
 
-//make file 
-if(!GLib.file_test(CACHE_PATH, GLib.FileTest.EXISTS)){
-    Gio.File.new_for_path(CACHE_PATH).create(Gio.FileCreateFlags.NONE, null);
-};
+    if [ ! -z "$weather" ]; then
+        w_desc=`echo $weather | jq -r .weather[].description | head -1 | sed -e "s/\b\(.\)/\u\1/g"`
+        w_temp=`echo $weather | jq -r .main.temp | cut -d "." -f 1`
+        w_feels=`echo $weather | jq -r .main.feels_like`
+        w_city=`echo $weather | jq -r .name`
 
-//api call
-let weather = JSON.parse(new TextDecoder().decode(
-    Soup.Session.new().send_and_read(
-        Soup.Message.new('GET', URI), null
-    ).get_data()
-));
+        w_icon_code=`echo "$weather" | jq -r ".weather[].icon" | head -1`
+        if   [ "$w_icon_code" == "01d"  ]; then w_icon=" "; w_class="d clear"
+        elif [ "$w_icon_code" == "01n"  ]; then w_icon=" "; w_class="n clear"
+        elif [ "$w_icon_code" == "02d"  ]; then w_icon=" "; w_class="d clouds"
+        elif [ "$w_icon_code" == "02n"  ]; then w_icon=" "; w_class="n clouds"
+        elif [ "$w_icon_code" == "03d"  ]; then w_icon=" "; w_class="d clouds"
+        elif [ "$w_icon_code" == "03n"  ]; then w_icon=" "; w_class="n clouds"
+        elif [ "$w_icon_code" == "04d"  ]; then w_icon=" "; w_class="d clouds"
+        elif [ "$w_icon_code" == "04n"  ]; then w_icon=" "; w_class="n clouds"
+        elif [ "$w_icon_code" == "09d"  ]; then w_icon=" "; w_class="d rain"
+        elif [ "$w_icon_code" == "09n"  ]; then w_icon=" "; w_class="n rain"
+        elif [ "$w_icon_code" == "10d"  ]; then w_icon=" "; w_class="d rain"
+        elif [ "$w_icon_code" == "10n"  ]; then w_icon=" "; w_class="n rain"
+        elif [ "$w_icon_code" == "11d"  ]; then w_icon=" "; w_class="d thunderstorm"
+        elif [ "$w_icon_code" == "11n"  ]; then w_icon=" "; w_class="n thunderstorm"
+        elif [ "$w_icon_code" == "13d"  ]; then w_icon=" "; w_class="d snow"
+        elif [ "$w_icon_code" == "13n"  ]; then w_icon=" "; w_class="n snow"
+        elif [ "$w_icon_code" == "50d"  ]; then w_icon=" "; w_class="d mist"
+        elif [ "$w_icon_code" == "50n"  ]; then w_icon=" "; w_class="n mist"
+        fi
+    fi
 
-//data
-let w = {};
-if(weather){
-    w.temp = weather.main.temp;
-    w.feels = weather.main.feels_like;
-    w.main = weather.weather[0].main;
-    w.desc = weather.weather[0].description;
-    w.city = weather.name;
-    switch (weather.weather[0].icon) {
-        case '50d':
-            w.icon=" "
-            w.color="#84afdb"
-            break;
-        case '50n':
-            w.icon=" "
-            w.color="#84afdb"
-            break;
-        case '01d':
-            w.icon=" "
-            w.color="#ffd86b"
-            break;
-        case '01n':
-            w.icon=" "
-            w.color="#fcdcf6"
-            break;
-        case '02d':
-            w.icon=" "
-            w.color="#adadff"
-            break;
-        case '02n':
-            w.icon=" "
-            w.color="#adadff"
-            break;
-        case '03d':
-            w.icon=" "
-            w.color="#adadff"
-            break;
-        case '03n':
-            w.icon=" "
-            w.color="#adadff"
-            break;
-        case '04d':
-            w.icon=" "
-            w.color="#adadff"
-            break;
-        case '04n':
-            w.icon=" "
-            w.color="#adadff"
-            break;
-        case '09d':
-            w.icon=" "
-            w.color="#6b95ff"
-            break;
-        case '09n':
-            w.icon=" "
-            w.color="#6b95ff"
-            break;
-        case '10d':
-            w.icon=" "
-            w.color="#6b95ff"
-            break;
-        case '10n':
-            w.icon=" "
-            w.color="#6b95ff"
-            break;
-        case '11d':
-            w.icon=""
-            w.color="#ffeb57"
-            break;
-        case '11n':
-            w.icon=""
-            w.color="#ffeb57"
-            break;
-        case '13d':
-            w.icon=" "
-            w.color="#e3e6fc"
-            break;
-        case '13n':
-            w.icon=" "
-            w.color="#e3e6fc"
-            break;
-        case '40d':
-            w.icon=" "
-            w.color="#84afdb"
-            break;
-        case '40n':
-            w.icon=" "
-            w.color="#84afdb"
-            break;
-        default:
-            w.icon=" "
-            w.color="#adadff"
-            break;
-    }
-}else{
-    w.desc="Weather Unavailable"
-    w.temp="-"
-    w.icon=" "
-    w.color="#adadff"
+    echo "{
+        \"desc\": \"$w_desc\",
+        \"temp\": \"$w_temp\",
+        \"icon\": \"$w_icon\",
+        \"class\": \"$w_class\",
+        \"feels\": \"$w_feels\",
+        \"city\": \"$w_city\"
+    }"
 }
 
-print(JSON.stringify(w, null, 2));
+echo "[
+    $(get_weather $SZFVAR),
+    $(get_weather $PEST)   
+]"
