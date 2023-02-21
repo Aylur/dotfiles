@@ -145,7 +145,7 @@
 )))
 
 (defwidget bar [] (centerbox
-    :class "panel"
+    :class "panel ${active_ws_empty ? "floating" : ""}"
     (box
         :class "leftBar"
         :space-evenly false
@@ -172,7 +172,7 @@
 ))
 
 (defwidget secondarybar [] (centerbox
-    :class "panel secondary"
+    :class "panel secondary ${active_ws_empty ? "floating" : ""}"
     (box :halign "start"
         :space-evenly false
         (panel_workspaces)

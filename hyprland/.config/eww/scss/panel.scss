@@ -5,8 +5,12 @@
     font-weight: bold;
     color: $fg_color;
     text-shadow: $text_shadow;
-    // background-color: $bg_color;
-    // border-bottom: $border;
+
+    background-color: $bg_color;
+    border-bottom: $border;
+    &.floating{
+        background-color: transparent;
+    }
     
     .button-bin{
         margin: 3px 7px;

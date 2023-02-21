@@ -16,7 +16,7 @@ function active {
     socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 grep '^workspace>>' | stdbuf -o0 awk -F '>>|,' '{print $2}'
 }
 
-dock_should_show() {
+function active_ws_empty {
     WSPACES=$(spaces)
     ACTIVE=$(
     hyprctl monitors -j | jq --raw-output .[0].activeWorkspace.id)
@@ -29,18 +29,14 @@ dock_should_show() {
     fi
 }
 
-function monitor_dock {
-    dock_should_show
+function monitor_empty {
+    active_ws_empty
     socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
-    	dock_should_show
+    	active_ws_empty
     done
-}
-
-function update_dock {
-    eww update dock_reveal=$(dock_should_show)
 }
 
 if [[ $1 == 'get' ]]; then get; fi
 if [[ $1 == 'active' ]]; then active; fi
-if [[ $1 == 'monitor-dock' ]]; then monitor_dock; fi
-if [[ $1 == 'update-dock' ]]; then update_dock; fi
+if [[ $1 == 'monitor-empty' ]]; then monitor_empty; fi
+if [[ $1 == 'active-empty' ]]; then active_ws_empty; fi
