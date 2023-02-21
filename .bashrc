@@ -17,16 +17,21 @@ fi
 export PATH
 unset rc
 
+nx() {
+    flags="--extra-experimental-features nix-command --extra-experimental-features flakes"
+      if [[ $1 == 'search' ]]; then nix search $flags nixpkgs#$2
+    elif [[ $1 == 'run' ]]; then nix run $flags nixpkgs#$2
+    elif [[ $1 == 'list' ]]; then nix profile list $flags
+    else nix profile $1 $flags nixpkgs#$2
+    fi
+}
+
 alias db='distrobox'
 alias arch='distrobox-enter Arch'
 alias fedora='distrobox-enter Fedora'
 alias és='ls'
-#alias code='flatpak run com.visualstudio.code'
+alias code='flatpak run com.visualstudio.code'
 alias firefox='flatpak run org.mozilla.firefox'
-alias nix-install='nix profile install --extra-experimental-features nix-command --extra-experimental-features flakes'
-alias nix-remove='nix profile remove --extra-experimental-features nix-command --extra-experimental-features flakes'
-alias nix-list='nix profile list --extra-experimental-features nix-command --extra-experimental-features flakes'
-alias nix-run='nix run --extra-experimental-features nix-command --extra-experimental-features flakes'
 PS1='\n╭\u@\e[01;92mhost\e[m \w\n╰\$ '
 
 neofetch
