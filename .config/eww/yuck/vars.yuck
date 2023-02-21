@@ -49,7 +49,7 @@
 (defpoll    date                :interval "5s" `date "+%b. %d. %A"`)
 (defpoll    uptime              :interval "60s" "uptime | awk '{print $3}' | tr ',' ' '")
 
-(defpoll    events              :interval "10s" :initial "[]" `scripts/todo --eww`)
+(defpoll    events              :interval "3s" :initial "[]" `scripts/todo --eww`)
 (defpoll    weather             :interval "3m"  :initial "[]"  `scripts/weather`)
 
 (deflisten  active_ws_empty     :initial "true" `scripts/workspaces monitor-empty`)

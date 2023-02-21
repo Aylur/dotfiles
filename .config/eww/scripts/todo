@@ -222,24 +222,42 @@ function printTasks(input = {}){
 
     print('')
     print(`  ╭${sepLine.substring(3)}╮`)
-    print(`  │   Deadline           Task${sepSpace.substring(29)}│`);
+    print(`  │ Deadline           Task${sepSpace.substring(27)}│`);
     print(`  ├${sepLine.substring(3)}┤`);
     for(let i=0; i<tasks.length; ++i){
-        print(`  │ ${tasks[i].date.toString()}    ${i+1}.${i<9 ? ' ' : ''} ${tasks[i].title}${sepSpace.substring(tasks[i].title.length+23)}│`);
+        let title = tasks[i].title;
+        let date = tasks[i].date.toString();
+        let w = width-24;
+
+        print(`  │ ${date}    ${i+1}.${i<9 ? ' ' : ''} ${title.substring(0,w)}${sepSpace.substring(title.length+24)} │`);
+        
+        // line break if title exceeds width
+        title = title.substring(w)
+        for(let i=0; i<Math.floor(title.length / (w))+1; ++i){
+            if(title[i*(w)] === ' ') //dont start line with space
+                title = title.substring(0, i*(w)-1) + title.substring(i*(w))
+
+            let line = title.substring(i*(w), (i+1)*(w));
+            let spaceBefore = sepSpace.substring(0, width-w-6);
+            if(line !== '')
+                print(`  │ ${spaceBefore} ${line}${sepSpace.substring(spaceBefore.length+line.length+6)} │`);
+        }
     }
     print(`  ╰${sepLine.substring(3)}╯`)
 }
 
 function eww(){
-    let tasks = [];
-    getTasks()
-        .filter(t => t.date.month || t.date.day || t.date.hour )
-        .forEach(t => tasks.push({
+    let out = [], id = 1;
+    let tasks = getTasks();
+    tasks.forEach(t => t.id = id++);
+    tasks.filter(t => t.date.month || t.date.day || t.date.hour )
+        .forEach(t => out.push({
             date: t.date.toString(),
-            title: t.title
+            title: t.title,
+            id: t.id
         }))
     
-    print(JSON.stringify(tasks, null, 3));
+    print(JSON.stringify(out, null, 3));
 }
 
 function getDesc(input = {}){
@@ -260,10 +278,12 @@ function getDesc(input = {}){
     print(`  │ ${title}${sepSpace.substring(title.length+4)}│`);
     print(`  ├${sepLine.substring(3)}┤`);
 
-    for(let i=0; i<Math.floor(desc.length / (width-5))+1; ++i){
-        if(desc[i*(width-5)] === ' ')
-            desc = desc.substring(0, i*(width-5)-1) + desc.substring(i*(width-5))
-        let line = desc.substring(i*(width-5), (i+1)*(width-5));
+    let w = width-5;
+    for(let i=0; i<Math.floor(desc.length / (w))+1; ++i){
+        if(desc[i*(w)] === ' ') //dont start line with space
+            desc = desc.substring(0, i*(w)-1) + desc.substring(i*(w))
+
+        let line = desc.substring(i*(w), (i+1)*(w));
         print(`  │ ${line}${sepSpace.substring(line.length+4)}│`);
     }
     print(`  ╰${sepLine.substring(3)}╯`)
@@ -308,11 +328,11 @@ function main(){
         i += arg.length;
     }
 
-    if(input.remove)       remove(input);
-    else if(input.mod)     mod(input);
-    else if(input.eww)     eww();
+    if(input.remove)        remove(input);
+    else if(input.mod)      mod(input);
+    else if(input.eww)      eww();
     else if(input.get_desc) getDesc(input);
-    else                   add(input);
+    else if(input.title)    add(input);
 
     if(!input.eww && !input.get_desc) printTasks(input);
 }

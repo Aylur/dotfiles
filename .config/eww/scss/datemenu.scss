@@ -58,12 +58,22 @@ $spacing: $popover_padding*0.5;
         .events-box{
             padding: 12px;
             .event{
+                label{ font-size: 1.2em;}
                 .date{
                     color: transparentize($fg_color, 0.5);
                     font-family: $mono_font;
                 }
-                .title{ margin-left: 8px; }
-                label{ font-size: 1.2em;}
+                .title{
+                    button label{ color: transparent; }
+                    &:hover button{
+                        label{
+                            @include button();
+                            background-color: $bg_color;
+                            color: transparentize($fg_color, 0.3);
+                        }
+                        &:hover label{ color: $fg_color }
+                    } 
+                }
             }
         }
     }

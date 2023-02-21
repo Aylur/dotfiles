@@ -33,8 +33,8 @@
     :visible {arraylength(events) > 0}
     (box
         :class "box-title"
-        (label :text "Deadline" :halign "START")
-        (label :text "Todo" :halign "END")
+        (label :text "Todo" :halign "START")
+        (label :text "Deadline" :halign "END")
     )
     (box
         :class "events-box"
@@ -43,15 +43,27 @@
             (box
                 :space-evenly false
                 :class "event"
-                (label 
+                (eventbox
+                    :hexpand true
+                    :class "title"
+                    (overlay
+                        (label
+                            :halign "START"
+                            :limit-width 21 ;wrap doesn't work?
+                            :text {event.title}
+                        )
+                        (button
+                            :halign "END"
+                            :class "done"
+                            :onclick "${EWW_CONFIG_DIR}/scripts/todo -r ${event.id}"
+                            (label :text "" :class "icon")
+                        )
+                    )
+                )
+                (label
                     :class "date"
                     :text {event.date} 
-                    :halign "START")
-                (label
-                    :class "title"
-                    :text {event.title}
-                    :hexpand true
-                    :halign "END")
+                )
             )
         )
     )
