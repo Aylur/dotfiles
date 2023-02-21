@@ -1,61 +1,88 @@
-(defvar dock_reveal true)
+(defvar dock_hovered false)
+(defwidget dock_button [class tooltip onclick] (eventbox
+    :class "laucher ${class}"
+    :tooltip tooltip
+    :onclick onclick
+    :onhoverlost "${EWW_CMD} update dock_hovered=false"
+    :onhover "${EWW_CMD} update dock_hovered=true"
+    :valign "END"
+    (box
+        :orientation "v"
+        :space-evenly false
+        (box
+            :class "icon"
+            :valign "START"
+            :vexpand true
+        )
+        (box
+            :class "indicator"
+            :valign "END"
+            :halign "CENTER"
+        )
+    )
+))
+
 (defwidget dock [] (eventbox
     :class "dock"
     :onhover "${EWW_CMD} update dock_reveal=true"
-    :onhoverlost "${EWW_CMD} update dock_reveal=false"
+    :onhoverlost "${EWW_CONFIG_DIR}/scripts/workspaces update-dock"
     (revealer
         :reveal dock_reveal
         :transition "slideup"
         :duration "300ms"
-        (box
-            :class "dock-background" 
-            (button 
-                :class "firefox"
-                :tooltip "Firefox"
-                :onclick "${EWW_CONFIG_DIR}/scripts/launcher firefox"
-                (box :class "icon")
+        (overlay
+            (button
+                :class "container ${dock_hovered ? "hovered" : ""}"
             )
-            (button 
-                :class "kitty"
-                :tooltip "Kitty"
-                :onclick "${EWW_CONFIG_DIR}/scripts/launcher kitty"
-                (box :class "icon")
+            (box
+                :class "foot"
+                :valign "END"
             )
-            (button 
-                :class "file-manager"
-                :tooltip "Nautilus"  
-                :onclick "${EWW_CONFIG_DIR}/scripts/launcher file-manager"
-                (box :class "icon")
-            )
-            (button 
-                :class "code"
-                :tooltip "Code"
-                :onclick "${EWW_CONFIG_DIR}/scripts/launcher code"
-                (box :class "icon")
-            )
-            (button 
-                :class "spotify"
-                :tooltip "Spotify"  
-                :onclick "${EWW_CONFIG_DIR}/scripts/launcher spotify"
-                (box :class "icon")
-            )
-            (button 
-                :class "caprine"
-                :tooltip "Caprine"
-                :onclick "${EWW_CONFIG_DIR}/scripts/launcher caprine"
-                (box :class "icon")
-            )
-            (button 
-                :class "battle"
-                :tooltip "Battle.net"
-                :onclick "${EWW_CONFIG_DIR}/scripts/launcher battle"
-                (box :class "icon")
-            )
-            (button 
-                :class "bottles"
-                :tooltip "Bottles"
-                :onclick "${EWW_CONFIG_DIR}/scripts/launcher bottles"
-                (box :class "icon")
+            (box
+                :halign "CENTER"
+                :valign "END"
+                :spacing 20
+                :space-evenly false
+                (dock_button 
+                    :class "firefox"
+                    :tooltip "Firefox"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher firefox"
+                )
+                (dock_button 
+                    :class "kitty"
+                    :tooltip "Kitty"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher kitty"
+                )
+                (dock_button 
+                    :class "file-manager"
+                    :tooltip "Nautilus"  
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher file-manager"
+                )
+                (dock_button 
+                    :class "code"
+                    :tooltip "Code"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher code"
+                )
+                (dock_button 
+                    :class "spotify"
+                    :tooltip "Spotify"  
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher spotify"
+                )
+                (dock_button 
+                    :class "caprine"
+                    :tooltip "Caprine"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher caprine"
+                )
+                (dock_button 
+                    :class "battle"
+                    :tooltip "Battle.net"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher battle"
+                )
+                (dock_button 
+                    :class "bottles"
+                    :tooltip "Bottles"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher bottles"
+                )
             )
         )
     )

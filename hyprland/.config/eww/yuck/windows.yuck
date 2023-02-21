@@ -17,10 +17,9 @@
 (defwindow osd0
     :monitor 0
     :stacking "fg"
-    :geometry (geometry :y "50px"
-                        :width "1%"
+    :geometry (geometry :width "1%"
                         :height "1%"
-                        :anchor "bottom center")(osd))
+                        :anchor "center right")(osd))
 
 (defwindow powermenu0
     :monitor 0
@@ -72,10 +71,9 @@
 (defwindow osd1
     :monitor 1
     :stacking "fg"
-    :geometry (geometry :y "50px"
-                        :width "1%"
+    :geometry (geometry :width "1%"
                         :height "1%"
-                        :anchor "bottom center")(osd))
+                        :anchor "center right")(osd))
 
 (defwindow powermenu1
     :monitor 1

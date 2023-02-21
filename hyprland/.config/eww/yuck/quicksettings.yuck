@@ -68,7 +68,9 @@
     :orientation "v"
     (box
         :space-evenly false
-        (label  :text speaker_type_icon :class "icon")
+        (label
+            :class "icon"
+            :text speaker_type_icon)
         (eventbox
             :hexpand true
             :valign "CENTER"
@@ -76,13 +78,24 @@
             (scale
                 :value volume_level
                 :onchange "${EWW_CONFIG_DIR}/scripts/volume set {}"))
-        (label  :text "${volume_level}%" :class "percent")
-        (button :onclick "${EWW_CONFIG_DIR}/scripts/launcher pavu"
-                (label :text "" :class "icon"))
+        (box
+            :space-evenly false
+            :class "percent"
+            (label
+                :hexpand true
+                :halign "END"
+                :text "${volume_level}%")
+        )
+        (button
+            :valign "CENTER"
+            :onclick "${EWW_CONFIG_DIR}/scripts/launcher pavu"
+            (label :text "" :class "icon"))
     )
     (box
         :space-evenly false
-        (label  :text "󰃠" :class "icon")
+        (label
+            :class "icon"
+            :text "󰃠")
         (eventbox 
             :hexpand true
             :valign "CENTER"
@@ -90,9 +103,18 @@
             (scale
                 :value screen_level
                 :onchange "${EWW_CONFIG_DIR}/scripts/brightness set_screen {}"))
-        (label  :text "${screen_level}%" :class "percent")
-        (button :onclick "${EWW_CONFIG_DIR}/scripts/launcher brightness"
-                (label :text "" :class "icon"))
+        (box
+            :space-evenly false
+            :class "percent"
+            (label
+                :hexpand true
+                :halign "END"
+                :text "${screen_level}%")
+        )
+        (button
+            :valign "CENTER"
+            :onclick "${EWW_CONFIG_DIR}/scripts/launcher brightness"
+            (label :text "" :class "icon"))
     )
 ))
 

@@ -1,6 +1,7 @@
 # Arch (distrobox)
 hyprpicker
 hyprshot
+swaync
 
 # Nix
 rofi-wayland
@@ -13,6 +14,7 @@ wl-clipboard
 socat
 jq
 blueberry
+swaync
 
 # Fedora (host)
 kitty

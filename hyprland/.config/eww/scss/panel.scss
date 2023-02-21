@@ -5,9 +5,11 @@
     font-weight: bold;
     color: $fg_color;
     text-shadow: $text_shadow;
+    // background-color: $bg_color;
+    // border-bottom: $border;
     
     .button-bin{
-        margin: 3px 5px;
+        margin: 3px 7px;
         &.launcher{ margin-left: 4px }
         &.powermenu{ margin-right: 4px }
     }
@@ -15,7 +17,7 @@
     .button{
         .icon{ font-size: 1.2em;}
         @include button($flat: true, $radii: $panel_button_radius);
-        > * { padding: 0 .4em }
+        > * { padding: 0 .7em }
 
         &.powermenu:hover{ color: $red; }
         &.window{ @include button($flat: true, $interactive: false) }

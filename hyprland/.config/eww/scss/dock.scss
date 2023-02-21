@@ -1,19 +1,46 @@
-.dock{
+$dock_icon_size: 6em;
 
-    .dock-background{
-        @include floating_widget;
-        padding: 8px;
-        margin-bottom: $wm_gaps;
+.dock{
+    .container{
+        min-width: $dock_icon_size*10.4;
+        min-height: $dock_icon_size*1.3;
+        &.hovered{
+            min-width: $dock_icon_size*10.62;
+        }
     }
 
-    button{
-        @include button($flat: true);
-        margin: 4px;
-        padding: 8px;
+    .foot{
+        @include floating_widget;
+        margin: 0 1.5em;
+        padding: 0;
+        border-radius: $popover_radius $popover_radius 0 0;
+        border-bottom: none;
+        min-height: 1.5em;  //footer height
+    }
+
+    .laucher{
+        .indicator{
+            min-height: .4em;  //indicator height
+            min-width: 2em;    //indicator width
+            border-radius: $button_radius;
+        }
         .icon{
-            min-width:   64px;
-            min-height:  64px;
+            min-width:   $dock_icon_size;
+            min-height:  $dock_icon_size;
             background-size: contain;
+            background-repeat: no-repeat;
+        }
+        &:hover{
+            background-image: linear-gradient(transparent, transparentize($fg_color, 0.94));
+            .icon{
+                min-width:   $dock_icon_size*1.2;
+                min-height:  $dock_icon_size*1.2;
+            }
+        }
+        &:active{
+            .indicator{
+                background-color: $accent;
+            }
         }
         &.firefox .icon{ background-image:      url($assets+'apps/firefox.png'); }
         &.kitty .icon{ background-image:        url($assets+'apps/kitty.png'); }

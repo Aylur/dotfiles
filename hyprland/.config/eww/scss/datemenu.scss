@@ -4,13 +4,13 @@ $spacing: $popover_padding*0.5;
     @include floating_widget;
 
     .clock *{
-        margin-top: 20px;
+        margin-top: $spacing;
         text-shadow: $text_shadow;
         font-size: 7em;
     }
 
     .uptime{
-        margin-bottom: 40px;
+        margin-bottom: $spacing*2;
         font-size: 1.1em;
         text-shadow: $text_shadow;
         color: transparentize($fg_color, 0.3)
@@ -19,7 +19,7 @@ $spacing: $popover_padding*0.5;
     .calendar-bin{
         @include button;
         margin: $spacing;
-        padding: 22px 32px;
+        padding: .6em 2em 0 2em;
         calendar{
             &.button{
                 @include button($flat: true);
@@ -97,7 +97,7 @@ $spacing: $popover_padding*0.5;
     }
 
     .wallpaper{
-        min-height: 200px;
+        min-height: 13em;
         margin: $spacing;
         background-image: url($assets+'wallpaper.png');
         background-size: cover;

@@ -48,12 +48,19 @@ $spacing: $popover_padding*0.5;
 
     .sliders{
         .slider{ @include slider($width: .8em, $slider: false); }
-        .percent{ margin: $spacing; }
+        .percent{
+            margin: $spacing;
+            min-width: 2.6em;
+        }
         .icon{
             margin: $spacing;
             &:first-child{ font-size: 1.4em; }
         }
-        button{ @include button($flat: true) }
+        button{
+            @include button($flat: true);
+            margin-right: $spacing;
+            .icon{ margin: 0; }
+        }
     }
 
     .system{

@@ -51,3 +51,5 @@
 
 (defpoll    events              :interval "10s" :initial "[]" `scripts/todo --eww`)
 (defpoll    weather             :interval "3m"  :initial "[]"  `scripts/weather`)
+
+(deflisten  dock_reveal         :initial "true" `scripts/workspaces monitor-dock`)

@@ -5,6 +5,7 @@
         :class "info"
         :orientation "h"
         :hexpand true
+        :space-evenly false
         (box
             :orientation "v"
             (label :text {place.city} :halign "START" )
@@ -12,6 +13,8 @@
         )
         (box
             :orientation "v"
+            :hexpand true
+            :halign "END"
             (label :text "${place.temp}°" :halign "END")
             (label :text {place.desc} :halign "END")
         )
