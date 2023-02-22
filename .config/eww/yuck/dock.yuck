@@ -74,6 +74,11 @@
                     :onclick "${EWW_CONFIG_DIR}/scripts/launcher caprine"
                 )
                 (dock_button 
+                    :class "bitwig"
+                    :tooltip "Bitwig Studio"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher bitwig"
+                )
+                (dock_button 
                     :class "battle"
                     :tooltip "Battle.net"
                     :onclick "${EWW_CONFIG_DIR}/scripts/launcher battle"

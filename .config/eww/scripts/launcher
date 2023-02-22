@@ -78,5 +78,6 @@ if [[ $1 == 'file-manager'  ]]; then gtk-launch org.gnome.Nautilus; fi
 if [[ $1 == 'code'          ]]; then flatpak run com.visualstudio.code; fi
 if [[ $1 == 'spotify'       ]]; then flatpak run com.spotify.Client; fi
 if [[ $1 == 'caprine'       ]]; then flatpak run com.sindresorhus.Caprine; fi
+if [[ $1 == 'bitwig'        ]]; then gtk-launch bitwig; fi
 if [[ $1 == 'battle'        ]]; then gtk-launch Battle; fi
 if [[ $1 == 'bottles'       ]]; then flatpak run com.usebottles.bottles; fi

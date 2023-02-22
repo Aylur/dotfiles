@@ -2,10 +2,10 @@ $dock_icon_size: 6em;
 
 .dock{
     .container{
-        min-width: $dock_icon_size*10.4;
+        min-width: $dock_icon_size*11.5;
         min-height: $dock_icon_size*1.3;
         &.hovered{
-            min-width: $dock_icon_size*10.62;
+            min-width: $dock_icon_size*11.7;
         }
     }
 
@@ -48,6 +48,7 @@ $dock_icon_size: 6em;
         &.code .icon{ background-image:         url($assets+'apps/code.png'); }
         &.spotify .icon{ background-image:      url($assets+'apps/spotify.png'); }
         &.caprine .icon{ background-image:      url($assets+'apps/caprine.png'); }
+        &.bitwig .icon{ background-image:      url($assets+'apps/bitwig.png'); }
         &.battle .icon{ background-image:       url($assets+'apps/battle.png'); }
         &.bottles .icon{ background-image:      url($assets+'apps/bottles.png'); }
     }
