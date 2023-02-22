@@ -1,7 +1,7 @@
 (defwidget panel_launcher [] (box :class "button-bin launcher"
     (button
         :class "button launcher"
-        :onclick "${EWW_CONFIG_DIR}/scripts/launcher launcher"
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher applauncher"
         (label :class "icon" :text "" :halign "center")
     )
 ))
@@ -90,7 +90,7 @@
     (button
         :class "button colorpicker"
         :onclick "${EWW_CONFIG_DIR}/scripts/launcher colorpicker"
-        (label :class "icon" :text "")
+        (label :class "icon" :text "󰈊")
     )
 ))
 
@@ -163,7 +163,6 @@
         :class "righBar"
         :space-evenly false
         :halign "end"
-        (panel_sliders)
         (panel_colorpicker)
         (panel_system-indicators)
         (panel_notifications)

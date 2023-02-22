@@ -3,7 +3,6 @@
 KEY="YOUR KEY"
 SZFVAR="3044774"
 PEST="3054638"
-PAKOZD="3046769"
 
 ## Get data
 get_weather() {
@@ -54,6 +53,6 @@ get_weather() {
 }
 
 echo "[
-    $(get_weather $SZFVAR),
-    $(get_weather $PEST)   
+    $(get_weather $PEST),
+    $(get_weather $SZFVAR)
 ]"

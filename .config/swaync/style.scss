@@ -1,5 +1,11 @@
-* { all: unset; }
+* {
+    all: unset;
+    font-size: 14px;
+    font-family: 'Ubuntu Nerd Font';
+    transition: 200ms;
+}
 
+$mono_font: 'mononoki NF';
 @import "./../eww/scss/colors.scss";
 @import "./../eww/scss/variables.scss";
 @import "./../eww/scss/common.scss";
@@ -11,7 +17,7 @@ $spacing: $popover_padding/2;
         padding: $spacing;
         border-radius: $radius;
         &.critical{
-            box-shadow: inset 0 0 1em 0 transparentize($red, 0.5);
+            box-shadow: inset 0 0 $spacing 0 transparentize($red, 0.7);
         }  
 
         .notification-content{

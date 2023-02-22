@@ -2,9 +2,9 @@
     all: unset;
     font-size: 14px;
     font-family: 'Ubuntu Nerd Font';
-    transition: 250ms;
+    transition: 200ms;
 }
-$mono_font: 'UbuntuMono NF';
+$mono_font: 'mononoki NF';
 
 @import "./scss/colors.scss";
 @import "./scss/variables.scss";

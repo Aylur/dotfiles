@@ -2,7 +2,7 @@
 .powermenu0{
     background-color: rgba(0,0,0,0.5);
     .content{
-        color: white;
+        @include floating_widget;
         .user{
             .image{
                 background-image: url($assets+'avatar.jpg');
@@ -39,11 +39,19 @@
                 .icon{
                     background-size: contain;
                     margin: 24px;
-                    &.shutdown{ background-image: url($assets+'powermenu/shutdown.png'); }
-                    &.reboot{   background-image: url($assets+'powermenu/reboot.png'); }
-                    &.logout{   background-image: url($assets+'powermenu/logout.png'); }
-                    &.suspend{  background-image: url($assets+'powermenu/suspend.png'); }
-                    &.lock{     background-image: url($assets+'powermenu/lock.png'); }
+                    @if $theme == 'light' {
+                        &.shutdown{ background-image: url($assets+'powermenu/light-shutdown.png'); }
+                        &.reboot{   background-image: url($assets+'powermenu/light-reboot.png'); }
+                        &.logout{   background-image: url($assets+'powermenu/light-logout.png'); }
+                        &.suspend{  background-image: url($assets+'powermenu/light-suspend.png'); }
+                        &.lock{     background-image: url($assets+'powermenu/light-lock.png'); }
+                    }@else{
+                        &.shutdown{ background-image: url($assets+'powermenu/shutdown.png'); }
+                        &.reboot{   background-image: url($assets+'powermenu/reboot.png'); }
+                        &.logout{   background-image: url($assets+'powermenu/logout.png'); }
+                        &.suspend{  background-image: url($assets+'powermenu/suspend.png'); }
+                        &.lock{     background-image: url($assets+'powermenu/lock.png'); }
+                    }
                 }
             }
             .label{

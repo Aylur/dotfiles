@@ -42,7 +42,7 @@
         (for event in events
             (box
                 :space-evenly false
-                :class "event"
+                :class "event ${event.asap ? "urgent" : ""}"
                 (eventbox
                     :hexpand true
                     :class "title"

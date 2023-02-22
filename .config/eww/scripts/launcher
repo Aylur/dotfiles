@@ -22,10 +22,6 @@ function close_osd {
 }
 
 function colorpicker {
-    bash ~/.config/eww/scripts/launcher picker
-}
-
-function picker {
     COLOR=$(distrobox-enter -n Arch -- hyprpicker -n | grep "#") &&
     wl-copy --trim-newline $COLOR
     notify-send -i color-select-symbolic -a "Color Picker" $(wl-paste)
@@ -55,7 +51,13 @@ function config {
     flatpak run com.visualstudio.code $HOME/.config/hypr
 }
 
-if [[ $1 == 'launcher'       ]]; then rofi -show drun; fi
+function screenshot {
+    DIR="$HOME/Pictures/Screenshots"
+    mkdir -p $DIR
+    distrobox-enter -n Arch -- hyprshot -m region -o $DIR
+}
+
+if [[ $1 == 'applauncher'       ]]; then rofi -show drun; fi
 if [[ $1 == 'pavu'           ]]; then pavucontrol; fi
 if [[ $1 == 'network'        ]]; then network; fi
 if [[ $1 == 'rog'            ]]; then rog-control-center; fi
@@ -68,9 +70,9 @@ if [[ $1 == 'close_menu'     ]]; then close_menu $2; fi
 if [[ $1 == 'close_osd'      ]]; then close_osd; fi
 if [[ $1 == 'close_calendar' ]]; then close_calendar; fi
 if [[ $1 == 'colorpicker'    ]]; then colorpicker; fi
-if [[ $1 == 'picker'         ]]; then picker; fi
 if [[ $1 == 'screenlock'     ]]; then screenlock; fi
 if [[ $1 == 'config'         ]]; then config; fi
+if [[ $1 == 'screenshot'     ]]; then screenshot; fi
 
 if [[ $1 == 'firefox'       ]]; then flatpak run org.mozilla.firefox; fi
 if [[ $1 == 'kitty'         ]]; then gtk-launch kitty; fi

@@ -5,9 +5,9 @@
         color: white;
         text-shadow: 4px 4px 4px black;
         .hour, .minutes, .separator{
-            font-size: 130px;
+            font-size: 10em;
             font-family: $mono_font;
         }
-        .date{ font-size: 30px; }
+        .date{ font-size: 2em; }
     }
 }

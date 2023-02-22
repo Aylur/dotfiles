@@ -76,7 +76,12 @@
 
 @mixin darkened($radii: 0){
     border-radius: $radii*0.8;
-    box-shadow: inset 0 0 3em 1em transparentize($bg_color, 0.1);
+    @if $theme == 'dark' {
+        box-shadow: inset 0 0 3em 1em transparentize($bg_color, 0.1);
+    }
+    @if $theme == 'light' {
+        background-color: transparentize($bg_color, 0.5);
+    }
 }
 
 @mixin tooltip{

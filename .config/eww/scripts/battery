@@ -43,6 +43,7 @@ class Battery extends GObject.Object{
         let icons =          ['', '', '', '', '', '', '', '', '', ''];
         let charging_icons = ['󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅'];        
         let i = Math.round(percent / 10)-1;
+        if(i < 0) i = 0;
 
         let icon;
         if(charged)           icon = '󰂄';

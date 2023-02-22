@@ -77,6 +77,14 @@ $spacing: $popover_padding*0.5;
                         &:hover label{ color: $fg_color }
                     } 
                 }
+                &.urgent{
+                    .date{
+                        color: transparentize(mix($fg_color, $red, 30%), 0.5);
+                    }
+                    .title{
+                        color: mix($fg_color, $red, 30%);
+                    }
+                }
             }
         }
     }

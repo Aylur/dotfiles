@@ -1,15 +1,17 @@
 .panel {
-    &.secondary{ }
     min-height: 2.2em;
     border-radius: $panel_radius;
     font-weight: bold;
+    font-size: 1.1em;
     color: $fg_color;
     text-shadow: $text_shadow;
+    margin-bottom: 10px;
 
-    background-color: $bg_color;
-    border-bottom: $border;
-    &.floating{
-        background-color: transparent;
+    background-color: transparent;
+    @if $theme == 'dark' {
+        background-color: $bg_color;
+        border-bottom: $border_width solid $popover_border_color;
+        box-shadow: 0 0 6px 0 rgba(0,0,0,0.8);
     }
     
     .button-bin{
