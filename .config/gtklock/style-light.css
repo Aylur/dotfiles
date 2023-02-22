@@ -8,7 +8,7 @@
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   border-radius: 12.6px;
   margin: 18px;
-  background-color: white;
+  background-color: #eee;
   color: #1f1f1f;
   padding: 14px;
   padding: 50px; }
@@ -18,34 +18,32 @@
   #window-box #unlock-button {
     border-radius: 7px;
     color: #1f1f1f;
-    transition: 200ms;
-    background-color: rgba(31, 31, 31, 0.06);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
+    background-color: rgba(31, 31, 31, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.002);
     padding: 6px 12px; }
     #window-box #unlock-button:hover {
-      box-shadow: inset 0 0 0 1px #3584e4;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.002);
       background-color: rgba(31, 31, 31, 0.16);
       color: #1f1f1f; }
     #window-box #unlock-button:active {
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.002);
       background-color: #3584e4;
       color: #1f1f1f; }
   #window-box #input-field {
     border-radius: 7px;
     color: #1f1f1f;
-    transition: 200ms;
-    background-color: rgba(31, 31, 31, 0.06);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
+    background-color: rgba(31, 31, 31, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.002);
     box-shadow: none;
     min-height: 32px;
     padding-left: 0.4em;
-    border: 1px solid rgba(255, 255, 255, 0); }
+    border: 1px solid rgba(255, 255, 255, 0.002); }
     #window-box #input-field:hover {
-      box-shadow: inset 0 0 0 1px #3584e4;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.002);
       background-color: rgba(31, 31, 31, 0.16);
       color: #1f1f1f; }
     #window-box #input-field:active {
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.002);
       background-color: #3584e4;
       color: #1f1f1f; }
     #window-box #input-field:focus {

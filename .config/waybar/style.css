@@ -11,7 +11,7 @@ tooltip > * > * {
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4); }
 
 #tray {
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.002);
   border-bottom: none;
   border-right: none;
   border-top-left-radius: 7px;

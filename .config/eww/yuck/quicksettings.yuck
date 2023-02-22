@@ -139,70 +139,75 @@
     (box :orientation "h"
         (sysprogress
             :css "cpu"
-            :tip "CPU"
+            :tip "CPU ${round(EWW_CPU.avg,0)}%"
             :data {EWW_CPU.avg}
-            :icon "﬙")
+            :icon "﬙"
+        )
         (sysprogress
             :css "ram"
-            :tip "RAM"
+            :tip "RAM ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 0)}%"
             :data {EWW_RAM.used_mem / EWW_RAM.total_mem * 100}
-            :icon "󰍛")
+            :icon "󰍛"
+        )
     )
     (box :orientation "h"
         (sysprogress
             :css "temp"
-            :tip "Temperature"
+            :tip "Temperature: ${EWW_TEMPS["ACPITZ_TEMP1"]}°"
             :data {EWW_TEMPS["ACPITZ_TEMP1"]}
-            :icon "󰈸")
-        (box :class "corner-bg"
-            (box :class "corner"
-                (sysprogress
-                    :css "battery ${battery.state}"
-                    :tip "Battery"
-                    :data {battery.percent}
-                    :icon {battery.icon})))
+            :icon "󰈸"
+        )
+        (sysprogress
+            :css "battery ${battery.state}"
+            :tip "Battery ${battery.percent}%"
+            :data {battery.percent}
+            :icon {battery.icon}
+        )
     )
 ))
 
 (defwidget quick_user [] (box
-    :class "user module"
+    :class "user"
     :space-evenly false
-    (box 
-        :class "profile-picture" 
+    (box
+        :class "profile-picture module" 
         :style "background-image: url('${EWW_CONFIG_DIR}/${profile_picture}')"
-        (box    :class "darkened" )
+        (box
+            :class "darkened"
+            :orientation "v"
+            :space-evenly false
+            (label
+                :valign "START"
+                :halign "START"
+                :text real_name
+            )
+            (label
+                :vexpand true
+                :valign "END"
+                :halign "START"
+                :text user_name
+            )
+        )
     )
-    (box :class "hbox"
-        :orientation "h"
+    (box
+        :class "sysactions module"
+        :orientation "v"
         :space-evenly false
         :hexpand true
         (box
-            :class "user-name"
-            :orientation "v"
-            :space-evenly false
-            :valign "START"
-            (label  :halign "START" :text real_name)
-            (label  :halign "START" :text user_name)
+            (button :onclick "${EWW_CONFIG_DIR}/scripts/launcher config" 
+                    :class "settings" (label :text ""))
+            (button :onclick "${EWW_CONFIG_DIR}/scripts/launcher screenlock"
+                    :class "lock"     (label :text ""))
+            (button :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu powermenu"
+                    :class "power"    (label :text ""))
         )
-        (box
-            :class "vbox"
-            :orientation "v"
-            :space-evenly false
+        (label
+            :valign "END"
+            :vexpand true
+            :class "uptime"
             :halign "END"
-            :hexpand true
-            (box
-                :space-evenly false
-                :vexpand true
-                :valign "START"
-                :halign "END"
-                (button :onclick "${EWW_CONFIG_DIR}/scripts/launcher config" 
-                        :class "settings" (label :text ""))
-                (button :onclick "${EWW_CONFIG_DIR}/scripts/launcher screenlock"
-                        :class "lock"     (label :text ""))
-                (button :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu powermenu"
-                        :class "power"    (label :text ""))
-            )
-            (label :class "uptime" :halign "END" :text "uptime: ${uptime}")
+            :text "uptime: ${uptime}"
         )
     )
 ))

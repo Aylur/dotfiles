@@ -12,15 +12,15 @@ configuration {
 @theme "/dev/null"
 
 * {
-  bg: #181818;  
-  fg: #fff;
+  bg: #181818;
+  fg: #eee;
   btn-bg: rgba(255,255,255,0.1);
   btn-fg: @fg;
   selected-bg: rgba(255,255,255,0.2);
-  selected-fg: #fff;
+  selected-fg: #eee;
 
   border-width: 1px;
-  border-clr: rgba(255,255,255,0.12);
+  border-clr: rgba(255,255,255,0.002);
 
   radii: 8px;
   pad: 12px;

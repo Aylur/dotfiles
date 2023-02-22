@@ -36,7 +36,7 @@ $spacing: $popover_padding/2;
     .close-button{
         margin: $spacing;
         padding: 2px;
-        border-radius: $button_radius*0.6;
+        border-radius: $button_radius*0.9;
         color: $fg_color;        
         border: $border;
         background-color: transparentize($red, $amount: 0.5);

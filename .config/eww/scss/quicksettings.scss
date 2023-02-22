@@ -4,44 +4,44 @@ $spacing: $popover_padding*0.5;
     @include floating_widget;
 
     .module{
-        @include button;
+        @include widget;
         margin: $spacing;
         padding: $spacing;
     }
 
     .user{
         .profile-picture{
-            @include button;
-            min-height: 7em;
-            min-width: 7em;
+            padding: 0;
+            min-height: 10em;
+            min-width:  10em;
             background-size: cover;
             .darkened{
-                background-color: transparentize($bg_color, 0.7);
-                border-radius: $button_radius;
-            }
-            label{
-                color: transparentize($fg_color, 0.3);
-                text-shadow: $text_shadow;
-                margin: $spacing;
+                @include darkened($radii: $button_radius);
+                padding: .3em;
+                label{
+                    text-shadow: $text_shadow;
+                    &:first-child{
+                        color: transparentize($fg_color, 0.1);
+                        font-size: 1.3em;
+                    }
+                    &:last-child{
+                        color: transparentize($fg_color, 0.3);
+                        font-size: 1.1em;
+                    }
+                }
             }
         }
-        .hbox{
-            padding: $spacing;
-            .user-name{
-                label:first-child{ font-size: 1.4em; }
-                label:last-child{ color: transparentize($fg_color, 0.5); }
+        .sysactions{
+            button{
+                @include button($radii: 40%);
+                margin: $spacing;
+                padding: .4em;
+                label{ font-size: 2.4em }
+                &.power{ color: $red; }
             }
-            .vbox{
-                button{
-                    @include button($radii: 40%);
-                    min-width: 2.4em;
-                    min-height: 2.4em;
-                    margin-left: .4em;
-                    padding: .2em;
-                    label{ font-size: 2em }
-                    &.power{ color: $red; }
-                }
-                .uptime{ color: transparentize($fg_color, 0.5); }
+            .uptime{
+                font-size: 1.3em;
+                color: transparentize($fg_color, 0.5);
             }
         }
     }
@@ -113,12 +113,11 @@ $spacing: $popover_padding*0.5;
         padding: 0;
         text-shadow: $text_shadow;
         .cover{
-            @include button;
+            @include widget;
             background-size: cover;
             background-position: center;
             .darkened{
-                background-color: transparentize($bg_color, 0.5);
-                border-radius: $button_radius;
+                @include darkened($radii: $button_radius);
             }
             .slider{
                 @include slider($width: .4em, $slider: false, $color: transparentize($fg_color, 0.3));

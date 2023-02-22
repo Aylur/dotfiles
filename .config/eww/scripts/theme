@@ -14,16 +14,20 @@ function toggle {
         cp $HOME/.config/eww/scss/colors_light.scss $HOME/.config/eww/scss/colors.scss
         cp $HOME/.config/rofi/config_light.rasi $HOME/.config/rofi/config.rasi
         cp $HOME/.config/gtklock/style-light.css $HOME/.config/gtklock/style.css
+        cp $HOME/.config/swaync/style-light.css $HOME/.config/swaync/style.css
     else
         gsettings set org.gnome.desktop.interface color-scheme "'prefer-dark'"
         cp $HOME/.config/kitty/gnome_dark.conf $HOME/.config/kitty/gnome.conf
         cp $HOME/.config/eww/scss/colors_dark.scss $HOME/.config/eww/scss/colors.scss
         cp $HOME/.config/rofi/config_dark.rasi $HOME/.config/rofi/config.rasi
         cp $HOME/.config/gtklock/style-dark.css $HOME/.config/gtklock/style.css
+        cp $HOME/.config/swaync/style-dark.css $HOME/.config/swaync/style.css
     fi
 
+    swaync-client --reload-css
     eww update theme_state=$(state)
     eww update theme_icon=$(icon)
+    bash $HOME/.config/eww/scripts/init
 }
 
 function icon {

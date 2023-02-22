@@ -3,6 +3,12 @@ $spacing: $popover_padding*0.5;
 .datemenu{
     @include floating_widget;
 
+    .module{
+        @include widget;
+        margin: $spacing;
+        padding: 12px;
+    }
+
     .clock *{
         margin-top: $spacing;
         text-shadow: $text_shadow;
@@ -17,8 +23,6 @@ $spacing: $popover_padding*0.5;
     }
     
     .calendar-bin{
-        @include button;
-        margin: $spacing;
         padding: .6em 2em 0 2em;
         calendar{
             &.button{
@@ -48,8 +52,7 @@ $spacing: $popover_padding*0.5;
     }
 
     .events{
-        @include button;
-        margin: $spacing;
+        padding: 0;
         .box-title{
             padding: 12px;
             padding-bottom: 6px;
@@ -80,16 +83,10 @@ $spacing: $popover_padding*0.5;
     
     .weather{
         .info{
-            @include button;
-            margin: $spacing;
-            padding: 12px;
             label:first-child{ font-size: 1.2em; }
             label:last-child{ color: transparentize($fg_color, 0.3); }
         }
         .icon{
-            @include button;
-            margin: $spacing;
-            padding: 12px;
             font-size: 2.6em;
             font-family: $mono_font;
             
@@ -108,10 +105,7 @@ $spacing: $popover_padding*0.5;
 
     .wallpaper{
         min-height: 13em;
-        margin: $spacing;
         background-image: url($assets+'wallpaper.png');
         background-size: cover;
-        border-radius: $button_radius;
-        box-shadow: inset 0 0 0 $border_width $border_color;
     }
 }

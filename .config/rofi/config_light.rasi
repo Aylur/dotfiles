@@ -12,7 +12,7 @@ configuration {
 @theme "/dev/null"
 
 * {
-  bg: #fff;  
+  bg: #eee;
   fg: #1f1f1f;
   btn-bg: rgba(0,0,0,0.1);
   btn-fg: @fg;
@@ -20,7 +20,7 @@ configuration {
   selected-fg: #fff;
 
   border-width: 1px;
-  border-clr: rgba(0,0,0,0.12);
+  border-clr: rgba(0,0,0,0.002);
 
   radii: 8px;
   pad: 12px;
