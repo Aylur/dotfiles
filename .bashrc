@@ -22,6 +22,7 @@ nx() {
       if [[ $1 == 'search' ]]; then nix search $flags nixpkgs#$2
     elif [[ $1 == 'run' ]]; then nix run $flags nixpkgs#$2
     elif [[ $1 == 'list' ]]; then nix profile list $flags
+    elif [[ $1 == 'up' ]]; then nix profile $flags upgrade '.*'
     else nix profile $1 $flags nixpkgs#$2
     fi
 }
