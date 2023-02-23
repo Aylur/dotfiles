@@ -43,9 +43,13 @@
         :onclick "${EWW_CONFIG_DIR}/scripts/player ${media[0].player} play-pause"
         :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media[0].player} {}"
         :class "button media"
-        (label
+        (box
             :visible {arraylength(media) > 0 ? true : false}
-            :text "${media[0].artist} - ${media[0].title}")
+            :space-evenly false
+            (label :class "icon ${media[0].player}" :text {media[0].icon})
+            (label
+                :text "${media[0].artist} - ${media[0].title}")
+        )
     )
 ))
 

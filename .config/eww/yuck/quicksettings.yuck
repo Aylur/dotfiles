@@ -262,7 +262,7 @@
                         (label
                             :class "icon player"
                             :valign "CENTER"
-                            :text {player.player == "spotify" ? "" : "${player.player == "firefox.instance2" ? "󰈹" : "${player.player == "mpv" ? "" : ""}"}"}
+                            :text {player.icon}
                         )
                         (label
                             :class "box position"

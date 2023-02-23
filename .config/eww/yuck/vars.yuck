@@ -53,4 +53,5 @@
 (defpoll    weather             :interval "3m"  :initial "[]"  `scripts/weather`)
 
 (deflisten  active_ws_empty     :initial "true" `scripts/workspaces monitor-empty`)
-(deflisten  dock_reveal         :initial "true" `scripts/workspaces monitor-empty`)
+; (deflisten  dock_reveal         :initial "true" `scripts/workspaces monitor-empty`)
+(defvar  dock_reveal  "true" )

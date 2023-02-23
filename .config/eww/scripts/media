@@ -6,6 +6,13 @@ const CACHE_PATH = GLib.get_user_config_dir() + '/eww/cache/';
 const PREFERRED_PLAYER = 'spotify'
 const TICK_INTERVAL = 2000; //in ms
 
+const PlayerIcons = {
+    'deafult': '',
+    'spotify': '',
+    'firefox.instance2': '󰈹',
+    'mpv': ''
+}
+
 const MprisPlayerProxy = Gio.DBusProxy.makeProxyWrapper(
     `<node>
         <interface name="org.mpris.MediaPlayer2.Player">
@@ -50,6 +57,7 @@ class MprisPlayer extends GObject.Object {
             this._onPlayerProxyReady.bind(this));
 
         this._player = busName.substring(23);
+        this._playerIcon = PlayerIcons?.[this._player] || PlayerIcons.deafult || '';
         this._trackArtists = [];
         this._trackTitle = '';
         this._trackCoverUrl = '';
@@ -174,7 +182,8 @@ class MprisPlayer extends GObject.Object {
 
     get json() {
         return {
-            player:    this._player,
+            player:    this._player, //busName
+            icon:      this._playerIcon,
             artist:    this._trackArtists.join(', '),
             title:     this._trackTitle,
             cover:     this._coverPath,

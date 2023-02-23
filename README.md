@@ -1,5 +1,39 @@
 # Hyprland
-WIP
+
+<img src="https://github.com/Aylur/dotfiles/blob/main/assets/hyprland.png">
+
+- **swaync** notification daemon and notification center
+- **rofi** application launcher
+- **gtklock** screenlock
+- **hyprshot** screenshot tool
+- **hyprpicker** colorpicker tool 
+- **waybar** tray
+- **eww** wallpaper, panel, dock (only launcher), datemenu, quicksettings and everything else
+
+I am on Fedora, and I use an Arch container with [distrobox](https://github.com/89luca89/distrobox), aswell as [Nix](https://nixos.org/download.html)
+- Arch (distrobox)
+  - hyprpicker
+  - hyprshot
+  - swaync
+- Nix
+  - rofi-wayland
+  - eww-wayland
+  - playerctl
+  - brightnessctl
+  - pavucontrol
+  - wl-gammactl
+  - wl-clipboard
+  - socat
+  - jq
+  - blueberry
+  - waybar
+- Fedora (host)
+  - gjs
+  - kitty
+  - polkit-gnome
+  - gtklock
+  - asusd
+  - rog-control-center
 
 # Gnome
 
