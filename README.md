@@ -55,7 +55,7 @@ I am on Fedora, and I use an Arch container with [distrobox](https://github.com/
 
 ```
 git clone https://github.com/Aylur/dotfiles.git
-cd dotfiles/themes/
+cd dotfiles/.local/share/themes/
 cp -r Rose/ ~/.local/themes
 dconf write /org/gnome/shell/extensions/user-theme/name "'Rose'"
 ```
