@@ -7,6 +7,9 @@ alias fedora = distrobox-enter Fedora
 alias code = flatpak run com.visualstudio.code
 alias firefox = flatpak run org.mozilla.firefox
 
+# Rust utils
+alias cat = bat
+
 # Envs
 let-env EDITOR = 'nvim'
 let-env SHELL = $env.HOME + '/.nix-profile/bin/nu'
