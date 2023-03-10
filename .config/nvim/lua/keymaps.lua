@@ -1,3 +1,13 @@
+-- tabs
+vim.keymap.set('n', '<leader>tn',  vim.cmd('tab split'), { desc = '[T]ab [N]ew'})
+vim.keymap.set('n', '<leader>tc',  vim.cmd('tabclose'), { desc = '[T]ab [C]lose'})
+vim.keymap.set('n', '<leader>tsn', vim.cmd('tabnext +'), { desc = '[T]ab [S]witch to [N]ext'})
+vim.keymap.set('n', '<leader>tsp', vim.cmd('tabnext -'), { desc = '[T]ab [S]witch to [P]revious'})
+
+-- theme
+vim.keymap.set('n', '<leader>tvl', function() require('vscode').change_style('light') end, { desc = '[T]heme [V]sCode [L]ight'})
+vim.keymap.set('n', '<leader>tvd', function() require('vscode').change_style('light') end, { desc = '[T]heme [V]sCode [D]ark'})
+
 -- quick save
 vim.keymap.set('n', '<leader>s', function() vim.cmd('w') end, { desc = 'Quick Save' })
 vim.keymap.set('i', '<C-s>', function() vim.cmd('w') end, { desc = 'Quick Save' })
@@ -6,7 +16,7 @@ vim.keymap.set('i', '<C-s>', function() vim.cmd('w') end, { desc = 'Quick Save' 
 vim.keymap.set('n', '<leader>w', function() vim.cmd('set wrap!') end, { desc = 'Toggle [w]rap' })
 
 -- netrw
-vim.keymap.set('n', '<leader>ee', vim.cmd.Ex, { desc = 'netrw' })
+vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeToggle, { desc = 'netrw' })
 
 -- Telescope
 vim.keymap.set('n', 'ff', require('telescope.builtin').find_files, { desc = 'Telescope [f]ind [f]ile' })
@@ -24,3 +34,11 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- keep buffer after pasting on selected text
 vim.keymap.set("x", "<leader>p", [["_dP]])
+
+-- folke/Trouble
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", {silent = true, noremap = true} )
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", {silent = true, noremap = true} )
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", {silent = true, noremap = true} )
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", {silent = true, noremap = true} )
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", {silent = true, noremap = true} )
+vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", {silent = true, noremap = true} )
