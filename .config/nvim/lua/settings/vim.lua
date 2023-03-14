@@ -25,3 +25,10 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 vim.opt.completeopt = 'menuone,noselect'
+
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+vim.opt.swapfile = false

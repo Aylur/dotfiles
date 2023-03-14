@@ -1,8 +1,8 @@
 -- tabs
-vim.keymap.set('n', '<leader>tn',  vim.cmd('tab split'), { desc = '[T]ab [N]ew'})
-vim.keymap.set('n', '<leader>tc',  vim.cmd('tabclose'), { desc = '[T]ab [C]lose'})
-vim.keymap.set('n', '<leader>tsn', vim.cmd('tabnext +'), { desc = '[T]ab [S]witch to [N]ext'})
-vim.keymap.set('n', '<leader>tsp', vim.cmd('tabnext -'), { desc = '[T]ab [S]witch to [P]revious'})
+vim.keymap.set('n', '<leader>tn',  function() vim.cmd('tab split') end, { desc = '[T]ab [N]ew'})
+vim.keymap.set('n', '<leader>tc',  function() vim.cmd('tabclose')  end, { desc = '[T]ab [C]lose'})
+vim.keymap.set('n', '<leader>tsn', function() vim.cmd('tabn') end,  { desc = '[T]ab [S]witch to [N]ext'})
+vim.keymap.set('n', '<leader>tsp', function() vim.cmd('tabp') end, { desc = '[T]ab [S]witch to [P]revious'})
 
 -- theme
 vim.keymap.set('n', '<leader>tvl', function() require('vscode').change_style('light') end, { desc = '[T]heme [V]sCode [L]ight'})
@@ -16,7 +16,7 @@ vim.keymap.set('i', '<C-s>', function() vim.cmd('w') end, { desc = 'Quick Save' 
 vim.keymap.set('n', '<leader>w', function() vim.cmd('set wrap!') end, { desc = 'Toggle [w]rap' })
 
 -- netrw
-vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeToggle, { desc = 'netrw' })
+vim.keymap.set('n', '<leader>e', vim.cmd.Ex, { desc = 'netrw' })
 
 -- Telescope
 vim.keymap.set('n', 'ff', require('telescope.builtin').find_files, { desc = 'Telescope [f]ind [f]ile' })

@@ -12,6 +12,18 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  -- agda
+  'ashinkarov/nvim-agda',
+
+  -- sql
+  'nanotee/sqls.nvim',
+
+  -- autopairs
+  { "windwp/nvim-autopairs", opts = {} },
+
+  -- dependencies
+  'nvim-tree/nvim-web-devicons',
+
   -- auto tabwidth
   'tpope/vim-sleuth',
 
@@ -23,6 +35,9 @@ require('lazy').setup({
     version = '*',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
+  
+  -- diagnostics
+  "folke/trouble.nvim",
 
   -- multiline cursors
   'mg979/vim-visual-multi',
@@ -30,12 +45,10 @@ require('lazy').setup({
   -- colorschemes
   'Mofiqul/vscode.nvim',
   'Mofiqul/adwaita.nvim',
+  'decaycs/decay.nvim',
 
-  { -- statusline
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' }
-  },
-
+  -- statusline
+  'nvim-lualine/lualine.nvim',
 
   { -- syntax highlight
     'nvim-treesitter/nvim-treesitter',
@@ -74,5 +87,8 @@ require('lazy').setup({
       {'L3MON4D3/LuaSnip'},             -- Required
       {'rafamadriz/friendly-snippets'}, -- Optional
     }
-  }
+  },
+  
+  -- file tree
+  'nvim-tree/nvim-tree.lua',
 })
