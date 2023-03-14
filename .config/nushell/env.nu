@@ -3,6 +3,7 @@ let flags = "--extra-experimental-features nix-command --extra-experimental-feat
 def "nx run" [pkg] { nu -c $"nix ($flags) run `nixpkgs#($pkg)`" }
 def "nx search" [pkg] { nu -c $"nix ($flags) search `nixpkgs#($pkg)`" }
 def "nx install" [pkg] { nu -c $"nix profile ($flags) install `nixpkgs#($pkg)`" }
+def "nx remove" [pkg] { nu -c $"nix profile ($flags) remove `nixpkgs#($pkg)`" }
 def "nx list" [] { nu -c $"nix profile ($flags) list" }
 def "nx up" [] { nu -c $"nix profile ($flags) upgrade '.*'" }
 

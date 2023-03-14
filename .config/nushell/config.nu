@@ -1,3 +1,6 @@
+# Neovim
+alias nv = nvim
+
 # Distrobox
 alias db = distrobox
 alias arch = distrobox-enter Arch
@@ -26,6 +29,20 @@ let-env config = {
   }
 
   show_banner: false # true or false to enable or disable the banner
+  keybindings: [
+    {
+      name: completion_menu
+      modifier: none
+      keycode: tab
+      mode: [emacs vi_normal vi_insert]
+      event: {
+        until: [
+          { send: menu name: completion_menu }
+          { send: menunext }
+        ]
+      }
+    }
+  ]
 }
 
 source ~/.cache/starship/init.nu
