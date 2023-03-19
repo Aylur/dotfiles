@@ -56,7 +56,7 @@ I am on Fedora, and I use an Arch container with [distrobox](https://github.com/
 ```
 git clone https://github.com/Aylur/dotfiles.git
 cd dotfiles/.local/share/themes/
-cp -r Rose/ ~/.local/themes
+cp -r Rose/ ~/.local/share/themes
 dconf write /org/gnome/shell/extensions/user-theme/name "'Rose'"
 ```
 
@@ -75,7 +75,7 @@ if you set your bg with nautilus, it will put it there.
 ```
 Add this into:
 
-`~/.local/share./gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/stylesheet.css`
+`~/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/stylesheet.css`
 
 ## GTK
 
