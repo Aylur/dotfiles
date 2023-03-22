@@ -11,7 +11,6 @@ $notification_banner_radius: $base_border_radius*1.5;
   box-shadow: 0 2px 4px 2px $shadow_color;
   border-radius: $notification_banner_radius;
   margin: $base_margin;
-  background-color: $bg_color !important;
 
   .notification-actions {
     spacing: 0;

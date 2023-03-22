@@ -5,9 +5,6 @@
 //
 
 /* WIDGETS */
-.level-bar{
-    background-color: if($variant == 'light', mix($bg_color, $selected_bg_color, 50%), lighten($bg_color, 14%)) !important;
-}
 
 // Primary widgets
 @import 'widgets/base';
@@ -49,6 +46,5 @@
 @import 'widgets/misc';
 @import 'widgets/keyboard';
 @import 'widgets/looking-glass';
-// Lock / login screens
-@import 'widgets/login-dialog';
-@import 'widgets/screen-shield';
+// Lock / login screen
+@import 'widgets/login-lock';

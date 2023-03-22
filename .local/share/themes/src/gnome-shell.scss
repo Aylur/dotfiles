@@ -1,57 +1,14 @@
-$variant: 'light';
+$variant: 'dark';
+$gdm_bg: url('/home/demeter/.config/gdm.jpg');
+$user_bg: url('/home/demeter/.config/background');
 
-$base_border_radius: 7px;
-$border-width: if($variant == 'light', 1px, 1px);
-$border-color: if($variant == 'light', rgba(0,0,0,0.8), rgba(255,255,255,0.04));
-%border { border: $border-width solid transparent; }
-%border-colored{
-  border: $border-width solid $border-color;
-}
-
-$base_color: if($variant == 'light', #f2e9e1, #191724);
-$bg_color: if($variant == 'light', #fffaf3, #110f17);
-$fg_color: if($variant == 'light', #191724, #edecf7);
-
-$panel_bg_color: if($variant == 'light', $bg_color, #191724);
-$panel_fg_color: if($variant == 'light', transparentize($fg_color, 0.1), darken($fg_color, 5%));
-
-$selected_fg_color: #191724;
-$selected_bg_color: if($variant == 'light',#d7827e ,#c4a7e7);
-
-$warning_color: if($variant == 'light', #ea9d34, #f6c177);
-$error_color: if($variant == 'light', #b4637a, #eb6f92);
-$success_color: if($variant == 'light', #56949f, #9ccfd8);
-
+@import "gnome-shell-sass/_options";
 @import "gnome-shell-sass/_colors";
 @import "gnome-shell-sass/_drawing";
 @import "gnome-shell-sass/_common";
 @import "gnome-shell-sass/_widgets";
+@import "gnome-shell-sass/_tweaks";
 
-.quick-settings.tweaked .media,
-.quick-settings.tweaked .button,
-.quick-settings.tweaked .message,
-.quick-settings.tweaked .user-icon{ border-radius: $base_border_radius*1.6; }
-.quick-settings.tweaked .quick-toggle{ height: 48px; }
-.quick-settings.tweaked .quick-toggle .quick-toggle-arrow{ border-radius: 0 $base_border_radius*1.6 $base_border_radius*1.6 0; }
-.quick-settings.tweaked .quick-toggle StIcon{ icon-size: 24px; }
-.quick-settings.tweaked .system-actions .button StIcon{
-  icon-size: 30px;
-}
-
-.arcmenu-menu > * > * > * > * > *:first-child{
-  border-radius: $base_border_radius*1.4;
-  margin: 0;
-  padding: 40px;
-  padding-top: 60px;
-  padding-bottom: 60px;
-  background-image: url("/home/demeter/.config/background");
-  background-size: cover;
-  @extend %border-colored;
-}
-.arcmenu-menu > * > *{ padding: 0; }
-
-.workspace-thumbnail{
-  background-image: url("/home/demeter/.config/background");
-  background-size: cover;
-}
-.workspace-indicator-active{ color: #56949f; }
+@import "gnome-shell-sass/smooth/plank-dash";
+@import "gnome-shell-sass/smooth/panel";
+// @import "gnome-shell-sass/smooth/power-panel";

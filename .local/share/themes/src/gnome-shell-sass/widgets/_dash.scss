@@ -1,6 +1,6 @@
 /* Dash */
 
-$dash_background_color: if($variant == 'light', mix($bg_color, $selected_bg_color, 70%), transparentize($fg_color, .84));
+$dash_background_color: lighten($system_bg_color, 5%);
 $dash_placeholder_size: 32px;
 $dash_padding: $base_padding*2; // 12px
 $dash_border_radius: $modal_radius + $dash_padding;
@@ -35,19 +35,23 @@ $dash_border_radius: $modal_radius + $dash_padding;
   padding: $dash_padding;
   spacing: $base_padding;
   margin-bottom: $dash_padding;
-  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
-  @extend %border-colored;
+
+  @if $is_highcontrast {
+    border: 2px solid $hc_inset_color;
+    box-shadow:none;
+  }
 }
 
 // items on the dash
 .dash-item-container {
   > * {margin: 0 2px;}
-  &:ltr:first-child {margin-left: 0;}
-  &:rtl:first-child {margin-right: 0;}
+  &:ltr{&:first-child {margin-left: 0;}}
+  &:rtl{&:first-child {margin-right: 0;}}
 
   // each app item on the dash
   .app-well-app .overview-icon {
     padding: $base_padding;
+    border-radius: $base_border_radius*2;
   }
 
   // show apps button
@@ -64,14 +68,13 @@ $dash_border_radius: $modal_radius + $dash_padding;
   margin: 0 $base_margin;
   background-color: $borders_color;
   margin-bottom: $dash_padding;
+  @if $is_highcontrast {
+    width: 2px;
+  }
 }
 
 // OSD Tooltip
 .dash-label {
-  color: $osd_fg_color;
-  background-color: $osd_bg_color;
-  border-radius: 99px;
-  padding: $base_padding $base_padding * 2;
-  text-align: center;
+  @extend %tooltip;
   -y-offset: $base_margin * 2; // distance from the dash edge
 }

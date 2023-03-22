@@ -1,0 +1,283 @@
+$_gdm_bg: $system_bg_color;
+$_gdm_fg: $fg_color;
+$_gdm_dialog_width: 23em;
+
+// common style for gdm and lockscreen
+.login-dialog,
+.unlock-dialog {
+
+  .caps-lock-warning-label,
+  .login-dialog-message-warning {
+    color: $_gdm_fg;
+  }
+}
+
+/* Login Dialog */
+.login-dialog {
+  background-color: $_gdm_bg;
+}
+
+// buttons
+.login-dialog-button {
+  @extend .button;
+
+  &.cancel-button,
+  &.switch-user-button,
+  &.login-dialog-session-list-button {
+    @extend .icon-button;
+  }
+
+  &.cancel-button {
+    padding: $base_padding*1.5;
+  }
+}
+
+.login-dialog-button-box {
+  width: $_gdm_dialog_width;
+  spacing: $base_padding*2;
+}
+
+.login-dialog-logo-bin {
+  margin:3em 0;
+}
+.login-dialog-banner { color: darken($_gdm_fg,10%); }
+.login-dialog-banner-view { max-width: $_gdm_dialog_width; }
+.login-dialog-message { text-align: center; }
+.login-dialog-user-selection-box { padding: 100px 0px; }
+
+.login-dialog-not-listed-label {
+  @include fontsize($base_font_size);
+  font-weight: bold;
+  color: darken($_gdm_fg,30%);
+  padding: $base_padding*2;
+
+  .login-dialog-not-listed-button:focus &,
+  .login-dialog-not-listed-button:hover & {
+    color: $_gdm_fg;
+  }
+  .login-dialog-not-listed-button:focus & {
+    text-decoration: underline;
+  }
+}
+
+.login-dialog-auth-list-view { -st-vfade-offset: 1em; }
+.login-dialog-auth-list {
+  spacing: 6px;
+  margin-left: 2em;
+}
+.login-dialog-auth-list-title {
+  margin-left: 2em;
+}
+
+.login-dialog-auth-list-item {
+  border-radius: $base_border_radius*2;
+  padding: 4px;
+  color: darken($_gdm_fg,30%);
+
+  &:focus, &:selected {
+    background-color: $selected_bg_color;
+    color: $selected_fg_color;
+  }
+}
+
+.login-dialog-auth-list-label {
+  @include fontsize($base_font_size + 2);
+  font-weight: bold;
+  padding-left: 15px;
+
+  &:ltr { padding-left: 14px; text-align: left; }
+  &:rtl { padding-right: 14px; text-align: right; }
+}
+
+.login-dialog-user-list-view { -st-vfade-offset: 1em; }
+
+.login-dialog-user-list {
+  spacing: 12px;
+  width: $_gdm_dialog_width;
+
+  .login-dialog-user-list-item {
+    border-radius: $base_border_radius + 4px;
+    padding: $base_padding;
+    background-color: transparentize($_gdm_fg, .95);
+    color: $_gdm_fg;
+
+    @if $is_highcontrast {
+      box-shadow:inset 0 0 0 1px $hc_inset_color;;
+    }
+    .user-widget .user-icon {
+      border: 4px solid transparent;
+    }
+
+    .login-dialog-timed-login-indicator {
+      height: 2px;
+      margin-top: 6px;
+      background-color: darken($_gdm_fg, 30%);
+    }
+
+    &:focus .login-dialog-timed-login-indicator { background-color: $selected_fg_color; }
+  }
+
+  &:expanded .login-dialog-user-list-item {
+    transition-duration: 300ms;
+    transition-timing-function: ease;
+
+    &:hover {
+      background-color: transparentize($_gdm_fg, .9);
+      color: $_gdm_fg;
+    }
+
+    &:selected {
+      background-color: $selected_bg_color;
+      color: $selected_fg_color;
+      &:hover { background-color: lighten($selected_bg_color,5%); }
+    }
+
+    &:logged-in {
+      .user-widget .user-icon {
+        border-color: $selected_bg_color;
+      }
+    }
+  }
+}
+
+.login-dialog-prompt-layout {
+  spacing: $base_padding*2;
+  width: 26em;
+}
+
+.login-dialog-prompt-entry {}
+
+
+/* Screen Shield */
+// a.k.a. the lockscreen
+
+.unlock-dialog {
+  background-color: transparent;
+}
+
+.screen-shield-background { // just the shadow, really
+  background: black;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+#lockDialogGroup {
+  background-color: $_gdm_bg;
+}
+
+// Clock
+.unlock-dialog-clock {
+  color: $_gdm_fg;
+  spacing: 2em;
+
+  .unlock-dialog-clock-time {
+    @extend %numeric;
+    @include fontsize(72);
+    font-weight: 200;
+  }
+
+  .unlock-dialog-clock-date {
+    @extend %title_1;
+    font-weight: 400;
+  }
+
+  .unlock-dialog-clock-hint {
+    margin-top: 2em;
+    padding: $base_padding $base_padding*3;
+    border-radius: $base_border_radius*2;
+    font-weight: bold;
+  }
+}
+
+// Notifications
+#unlockDialogNotifications {
+  StButton#vhandle, StButton#hhandle {
+    background-color: transparentize($bg_color,0.7);
+    &:hover, &:focus { background-color: transparentize($bg_color,0.5); }
+    &:active { background-color: transparentize($selected_bg_color,0.5); }
+  }
+}
+
+.unlock-dialog-notifications-container {
+  margin: 12px;
+  spacing: 6px;
+  width: $_gdm_dialog_width;
+  background-color: transparent;
+
+  .summary-notification-stack-scrollview {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .notification,
+  .unlock-dialog-notification-source {
+    padding: 12px 16px;
+    border: none;
+    background-color: transparentize($_gdm_fg,0.9);
+    color: $_gdm_fg;
+    border-radius: $modal_radius;
+
+    &.critical { background-color: transparentize($_gdm_fg,0.8) }
+  }
+}
+
+.unlock-dialog-notification-label {
+  padding-left: 12px;
+  padding-right: 0;
+  &:rtl { padding-right: 12px; padding-left: 0; }
+}
+
+.unlock-dialog-notification-count-text {
+  font-weight: bold;
+  padding: 0 12px;
+  color: $_gdm_fg;
+  background-color: transparentize($_gdm_fg, 0.9);
+  border-radius: 99px;
+}
+
+
+// User Widget
+.user-widget {
+
+  .user-widget-label {
+    color: $_gdm_fg;
+  }
+
+  // layout of the user list
+  &.horizontal {
+    spacing: $base_padding*3;
+    .user-widget-label {
+      @extend %title_3;
+    }
+
+    .user-icon {
+      & StIcon {
+        padding: 12px;
+        icon-size: $base_icon_size*2;
+        width: $base_icon_size*3;
+        height:  $base_icon_size*3;
+        background-color: transparentize($_gdm_fg, 0.9);
+      }
+    }
+  }
+
+  // layout of the login prompt
+  &.vertical {
+    spacing: $base_padding*4;
+
+    .user-widget-label {
+      @extend %title_1;
+      text-align: center;
+      margin-bottom: .75em;
+    }
+
+    .user-icon {
+      icon-size: $base_icon_size*10;
+
+      & StIcon {
+        padding: 32px;
+        icon-size: $base_icon_size*4;
+        background-color: transparentize($_gdm_fg, 0.9);
+      }
+    }
+  }
+}

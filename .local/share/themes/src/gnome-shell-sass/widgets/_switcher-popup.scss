@@ -1,8 +1,7 @@
 /* App Switcher */
 
 // same as dash
-$switcher_padding: $base_padding + 4px; // 10px
-$switcher_border_radius: $modal_radius + 8px;
+$switcher_padding: $base_padding*2;
 
 
 // the full screen container of the switcher
@@ -15,8 +14,8 @@ $switcher_border_radius: $modal_radius + 8px;
 .switcher-list {
   @extend %osd_panel;
   padding: $switcher_padding;
-  border-radius: $switcher_border_radius;
-  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1);
+  border-radius: $modal_radius+$switcher_padding;
+  box-shadow: 0 8px 8px 0 $shadow_color;
 
   // container for items in list
   .switcher-list-item-container {
@@ -28,6 +27,9 @@ $switcher_border_radius: $modal_radius + 8px;
     @include tile_button($osd_fg_color);
     // override over style so mouse doesn't steal focus
     &:hover {background: none;}
+    @if $is_highcontrast {
+      box-shadow: inset 0 0 0 999px transparentize($hc_inset_color,0.2);
+    }
   }
 
   .separator {

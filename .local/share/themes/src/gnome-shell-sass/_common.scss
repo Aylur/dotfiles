@@ -29,8 +29,6 @@ $cakeisalie: "This stylesheet is generated, DO NOT EDIT";
 $base_padding: 6px;
 $base_margin: 4px;
 
-// radii of things that display over other things, e.g. popovers
-$modal_radius: $base_border_radius*2;
 
 // Chroma key to flag when a background-color is always occluded, not visible.
 // This allows any box-shadow behind it to be rendered more efficiently by
@@ -57,45 +55,28 @@ stage {
 // osd panels
 %osd_panel {
   color: $osd_fg_color;
-  background-color: if($variant == 'light', $osd_bg_color, darken($osd_bg_color, 2%));
+  background-color: $osd_bg_color;
+  border: $border_width solid $osd_outer_borders_color;
   border-radius: $modal_radius;
-  padding: $base_padding*2;
-
-  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1);
-  @extend %border-colored;
-}
-
-// Overview panels
-// for the dash and workspace switcher
-%overview_panel {
-  color: $osd_fg_color;
-  background-color: transparentize($osd_fg_color, 0.9);
+  padding: $base_padding;
+  box-shadow: $popover_shadow;
 }
 
 // icon tiles
 %tile {
-  border-radius: $base_border_radius * 2; // 16px
+  border-radius: $base_border_radius * 2;
   padding: $base_padding;
   spacing: $base_padding;
+  border: none;
   transition-duration: 200ms;
   text-align: center;
-
-  @extend %border;
-}
-
-// dialogs
-%bubble_panel {
-  color: $fg_color;
-  background-color: $bg_color;
-  border-radius: $modal_radius;
-
-  @extend %border-colored;
 }
 
 // normal button styling
 %button {
-  border-radius: $base_border_radius - 2px; // 6px
-  @extend %border;
+  border-radius: $button_radius;
+  border-style: solid;
+  border-width: $border_width;
   font-weight: bold;
   padding: $base_padding*.5 $base_padding*4;
 
@@ -103,6 +84,7 @@ stage {
   &:focus { @include button(focus);}
   &:hover { @include button(hover);}
   &:insensitive { @include button(insensitive);}
+  &:selected,
   &:active { @include button(active);}
   &:checked { @include button(checked);}
 
@@ -111,23 +93,36 @@ stage {
     &:focus { @include button(focus, $flat:true);}
     &:hover { @include button(hover, $flat:true);}
     &:insensitive { @include button(insensitive, $flat:true);}
+    &:selected,
     &:active { @include button(active, $flat:true);}
     &:checked { @include button(checked, $flat:true);}
   }
 }
 
+
+// normal entry style
+%entry {
+  border-radius: $base_border_radius;
+  padding: $base_padding*1.5 $base_padding*1.5;
+  color: $fg_color;
+  selection-background-color: $selected_bg_color;
+  selected-color: $selected_fg_color;
+
+  @include entry(normal);
+  &:hover { @include entry(hover);}
+  &:focus { @include entry(focus);}
+  &:insensitive { @include entry(insensitive);}
+}
+
+
 // buttons in dialogs/notifications
 // lighter in color and have a greater radius
-
-$bubble_button_radius:$base_border_radius*1.25;
-
 %bubble_button {
   padding: $base_padding * 1.4;
-  margin: $base_margin*3;
+  margin: $base_margin * 3;
+  margin-left: $base_margin*1.5;
+  margin-right: $base_margin*1.5;
   font-weight: bold !important;
-
-  &:ltr {margin-right: 1px;}
-  &:rtl {margin-left: 1px;}
 
   @include button(normal, $c:$bubble_buttons_color);
   &:insensitive { @include button(insensitive, $c:$bubble_buttons_color);}
@@ -137,30 +132,21 @@ $bubble_button_radius:$base_border_radius*1.25;
   &:checked { @include button(checked, $c:$bubble_buttons_color);}
 
   &:first-child:ltr {
-    border-radius: $bubble_button_radius;
-    margin-right: $base_margin*2 !important;
+    margin-left: $base_margin * 3 !important;
+    margin-right: $base_margin*1.5 !important;
   }
 
   &:last-child:ltr {
-    border-radius: $bubble_button_radius;
-    margin-right: $base_margin*3 !important;
-    margin-left: $base_margin*2 !important;
-  }
-
-  &:first-child:rtl {
-    border-radius: $bubble_button_radius;
-  }
-
-  &:last-child:rtl {
-    border-radius: $bubble_button_radius;
-    margin-left: $base_margin*3 !important;
+    margin-right: $base_margin * 3 !important;
+    margin-left: $base_margin*1.5 !important;
   }
 
   &:first-child:last-child {
-    border-radius: $bubble_button_radius $bubble_button_radius !important;
-    margin-left: $base_margin*3 !important;
-    margin-right: $base_margin*3 !important;
+    margin-left:  $base_margin * 3 !important;
+    margin-right: $base_margin * 3 !important;
   }
+
+  border-radius: $base_border_radius !important;
 }
 
 // buttons on OSD elements
@@ -172,6 +158,17 @@ $bubble_button_radius:$base_border_radius*1.25;
   &:hover { @include button(hover, $tc:$osd_fg_color, $c:$osd_bg_color);}
   &:active { @include button(active, $tc:$osd_fg_color, $c:$osd_bg_color);}
   &:outlined,&:checked { @include button(checked, $tc:$osd_fg_color, $c:$osd_bg_color);}
+}
+
+
+// tooltip
+%tooltip {
+  background-color: $osd_bg_color;
+  color: $osd_fg_color;
+  border: $border_width solid $osd_outer_borders_color;
+  border-radius: $base_border_radius;
+  padding: $base_padding $base_padding * 2;
+  text-align: center;
 }
 
 /* General Typography */

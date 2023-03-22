@@ -1,5 +1,11 @@
 /* Popovers/Menus */
 
+$menu_bg_color: $bg_color;
+$menuitem_bg_color: lighten($menu_bg_color, 4%);
+$menuitem_border_radius: $base_border_radius*1.5;
+
+$submenu_bg_color: lighten($menu_bg_color, 7%);
+
 // the popover itself
 .popup-menu-boxpointer {
   -arrow-rise: $base_margin+2px; // distance from the panel & screen edge
@@ -18,47 +24,27 @@
 
 // popover content
 .popup-menu-content {
-  padding: $base_padding*2;
-  border-radius: $modal_radius*1.6;
-  @extend %border-colored;
-  box-shadow: 0 2px 4px 0 $shadow_color;
+  padding: $base_padding;
   background-color: $bg_color;
+  border-radius: $modal_radius*1.25;
+  border: 1px solid $outer_borders_color;
+  box-shadow: 0 2px 4px 0 $shadow_color;
 }
 
 // menu items
 .popup-menu-item {
-  padding: $base_padding*1.5 $base_padding*2;
-  border-radius: $base_border_radius*1.5;
-  spacing: $base_padding;
-  transition-duration: 100ms;
-  background-color: transparent;
-  @extend %border;
+  @include menuitem($bg:$menu_bg_color);
 
-  &:ltr {padding-left: $base_padding;}
-  &:rtl {padding-right: $base_padding;}
-
-  &:focus, &:hover {
-    background-color: $hover_bg_color !important;
-    @extend %border-colored;
-    &:active { background-color: $active_bg_color !important;}
-  }
-
-  &:checked {background-color: $checked_bg_color !important;}
+  border-radius: $menuitem_border_radius;
 
   &:checked {
-    margin-bottom: 0;
-    box-shadow: inset 0 -1px 0 0 darken($checked_bg_color, 5%);
-    border-radius: $base_border_radius $base_border_radius 0 0;
-    &:focus,&:hover { background-color: lighten($checked_bg_color, 3%) !important;}
-    &:active { background-color: lighten($checked_bg_color, 5%) !important;}
-  }
+    border-radius: $menuitem_border_radius $menuitem_border_radius 0 0 !important;
 
-  &:active {
-    background-color: lighten($active_bg_color, 5%);
-    color: $active_fg_color;
+    @if $is_highcontrast {
+      border: 1px solid $hc_inset_color;
+      border-bottom-width:0;
+    }
   }
-
-  &:insensitive {color: transparentize($fg_color,0.5);}
 
   // add margin to switches in menu items
   .toggle-switch {
@@ -80,14 +66,14 @@
   icon-size: 16px !important; // for some reason the variable doesn't work here
 }
 
-.popup-menu-arrow {
-}
-
-
 // popover submenus
 .popup-sub-menu {
-  background-color: $checked_bg_color;
-  border-radius: 0 0 $base_border_radius $base_border_radius;
+  border-radius: 0 0 $menuitem_border_radius+1px $menuitem_border_radius+1px;
+  margin-bottom: $base_padding;
+
+  @if $is_highcontrast {
+    border: 1px solid $hc_inset_color;
+  }
 
   .popup-menu-ornament {
     min-width: $base_icon_size !important;
@@ -96,18 +82,13 @@
   // submenu specific styles
   .popup-menu-item {
     border-radius: 0;
-    margin: 0;
+    @include menuitem($bg:$submenu_bg_color, $flat:false);
+    border-top-width:0;
 
     &:last-child {
-      border-radius: 0 0 $base_border_radius $base_border_radius;
+      border-radius: 0 0 $menuitem_border_radius $menuitem_border_radius;
+      border-bottom-width:0;
     }
-
-    &:focus,&:hover { background-color: $hover_bg_color !important;}
-    &:checked {
-      background-color: $checked_bg_color !important;
-      &:focus,&:hover { background-color: lighten($checked_bg_color, 8%) !important;}
-    }
-    &:active { background-color: $active_bg_color !important;}
   }
 
   .popup-menu-section {
@@ -115,7 +96,7 @@
       &:hover,&:focus { border-radius: 0;}
     }
     &:last-child .popup-menu-item:last-child {
-      border-radius: 0 0 $base_border_radius $base_border_radius;
+      border-radius: 0 0 $menuitem_border_radius $menuitem_border_radius;
     }
   }
 }
@@ -132,10 +113,7 @@
 
 // separator
 .popup-separator-menu-item {
-  margin: 6px 0;
-  padding:0 !important;
-  &:ltr { margin-right: $base_margin;}
-  &:rtl { margin-left: $base_margin;}
+  border:none !important;
 
   .popup-separator-menu-item-separator {
     height: 1px; //not really the whole box
@@ -155,7 +133,7 @@
     &:rtl { margin-left: 2.5em;}
 
     .popup-separator-menu-item-separator {
-      background-color: lighten($borders_color, 7%);
+      background-color: $borders_color;
     }
   }
 }

@@ -7,9 +7,14 @@
   padding: $base_padding;
 
   .workspace-thumbnail {
-    @extend %overview_panel;
-    border-radius: $base_border_radius;
-    @extend %border-colored;
+    color: $osd_fg_color;
+    background-color: lighten($system_bg_color, 10%);
+    border-radius: $base_border_radius*0.5;
+    border: 1px solid transparent;
+
+    @if $is_highcontrast {
+      border-color: $hc_inset_color;
+    }
   }
 
   // drag and drop indicator
@@ -23,7 +28,5 @@
 // selected indicator
 .workspace-thumbnail-indicator {
   border: 3px solid $selected_bg_color;
-  border-radius: $base_border_radius + $border-width;
-  padding: 0px;
-  // background-color: transparentize($selected_bg_color, 0.9);
+  border-radius: $base_border_radius;
 }

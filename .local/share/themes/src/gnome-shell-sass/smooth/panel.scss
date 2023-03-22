@@ -1,0 +1,80 @@
+@mixin panel_button(){
+  -natural-hpadding: 12px;
+  -minimum-hpadding: 6px;
+  background-color: transparent;
+  border: 3px solid transparent;
+  box-shadow: inset 0 0 0 $border_width transparent;
+  border-radius: $base_border_radius + 3px;
+  color: $fg_color;
+  &:hover { @include button(hover) }
+  &:active, &:overview, &:focus, &:checked { @include button(active) }
+}
+
+@mixin panel($transparent: false){
+  @if $transparent {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    text-shadow: $text_shadow;
+    StIcon{ icon-shadow: $text_shadow }
+  }
+  @else{
+    background-color: $base_color;
+    color: $fg_color;
+  }
+
+  .panel-button{
+    @include panel_button();
+    &.clock-display{
+      background-color: transparent !important;
+      box-shadow: none !important;
+      border-color: transparent !important;
+      .clock { @include panel_button() }
+      &:active .clock { @include button(active) }
+    }
+
+    &.screen-recording-indicator {
+      background-color: transparentize($red, .2);
+      &:hover{ background-color: transparentize($red, .26) }
+      &:active{ background-color: transparentize($red, .32) }
+    }
+    
+    &.screen-sharing-indicator {
+      background-color: transparentize($orange, .2);
+      &:hover{ background-color: transparentize($orange, .26) }
+      &:active{ background-color: transparentize($orange, .32) }
+    }
+  }
+}
+
+#panel {
+  
+  @include panel($transparent: false);
+  &.unlock-screen,
+  &.login-screen,
+  &:overview{ @include panel($transparent: true); }
+
+  &.dynamic{
+    @include panel($transparent: true);
+    .panel-button, .panel-button .clock{
+      color: $floating_panel_fg_color !important;
+      &:hover{ color: $floating_panel_hover_fg_color !important; }
+      &:active{ color: $selected_fg_color !important; }
+    }
+    &:overlaps{
+      @include panel($transparent: false);
+      .panel-button, .panel-button .clock{
+        color: $fg_color !important;
+        &:hover{ color: $hover_fg !important; }
+        &:active{ color: $selected_fg_color !important; }
+      }
+    }
+    &:overview{
+      .panel-button, .panel-button .clock{
+        color: $fg_color !important;
+        &:hover{ color: $hover_fg !important; }
+        &:active{ color: $selected_fg_color !important; }
+      }
+    }
+  }
+}

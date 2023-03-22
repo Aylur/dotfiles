@@ -45,7 +45,6 @@
 
     // month label
     .calendar-month-label {
-      color: lighten($fg_color,5%);
       @extend %heading;
       padding: 8px 0;
     }
@@ -54,15 +53,11 @@
       height: 32px;
       width: 32px;
       margin: 2px;
-      border-radius: $base_border_radius*1.6;
-      @extend %border;
-      &:hover, &:focus {
-        background-color: if($variant == 'light', mix($hover_bg_color, $selected_bg_color, 50%), $hover_bg_color ) ;
-        @extend %border-colored;
-      }
-      &:active {
-        background-color: $selected_bg_color;
-        color: $backdrop_fg_color;
+      border-radius: $base_border_radius;
+      &:hover, &:focus {background-color: $hover_bg_color;}
+      &:active {background-color: $active_bg_color;}
+      @if $is_highcontrast {
+        border:1px solid $hc_inset_color;
       }
     }
   }
@@ -75,16 +70,12 @@
     padding: 0 !important;
     height: $calendar_day_size !important;
     width: $calendar_day_size !important;
-    border-radius: $base_border_radius*1.6;
+    border-radius: 99px;
     transition-duration: 100ms;
     @extend %numeric;
     @extend %smaller;
-    @extend %border;
-    
-    &:hover {
-      background-color: if($variant == 'light', mix($hover_bg_color, $selected_bg_color, 50%), $hover_bg_color ) ;
-      @extend %border-colored;
-    }
+
+    &:hover {background-color: $hover_bg_color;}
     &:focus {
       background-color: mix($bg_color, $selected_bg_color, 80%);
       color: $selected_fg_color;
@@ -94,7 +85,6 @@
     &:active,&:selected {
       color: $active_fg_color;
       background-color: $active_bg_color;
-      @extend %border-colored;
       &:focus {
         background-color: mix($active_bg_color, $selected_bg_color, 80%);
       }
@@ -105,12 +95,18 @@
       color: $insensitive_fg_color;
       padding-top: $base_padding;
       height: 16px !important; // force heading to be smaller height
-      font-weight: bold;
+      font-weight: 600;
       @extend %smaller;
     }
   }
 
-  .calendar-day {}
+  .calendar-day {
+    font-weight: 600;
+    @if $is_highcontrast {
+      border:1px solid $hc_inset_color;
+      border-radius: 9px;
+    }
+  }
   .calendar-work-day {}
   .calendar-nonwork-day {color: $insensitive_fg_color;}
   .calendar-other-month-day {
@@ -154,7 +150,7 @@
     margin: 6px;
     padding: 0 $base_padding;
     border-radius: 3px;
-    background-color: darken($bg_color, 2%);
+    background-color: transparentize($fg_color, 0.9);
     color: $insensitive_fg_color
   }
 }

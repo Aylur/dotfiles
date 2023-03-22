@@ -5,7 +5,9 @@
 }
 
 .modal-dialog {
-  @extend %bubble_panel;
+  background-color: $bg_color;
+  border-radius: $modal_radius;
+  box-shadow: inset 0 0 0 1px $outer_borders_color;
 
   .modal-dialog-content-box {
     margin: 32px 40px;

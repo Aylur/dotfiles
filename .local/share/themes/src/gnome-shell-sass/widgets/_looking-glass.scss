@@ -2,19 +2,22 @@
 
 // Dialog
 #LookingGlassDialog {
-  background-color: $osd_bg_color;
+  background-color: transparentize($bg_color,0.05);
   border-radius: 0 0 $modal_radius $modal_radius;
+  border: 1px solid $outer_borders_color;
   border-top-width: 0;
-  border: 1px solid $osd_outer_borders_color;
-  color: $osd_fg_color;
+  color: $fg_color;
   padding: $base_padding;
   spacing: $base_padding;
   box-shadow: 0 2px 4px 0 $shadow_color;
 
-  * {
-    color: $fg_color !important; //setting color doesn't work for somereason
+  @if $is_highcontrast {
+    border: 2px solid $hc_inset_color;
+    background-color: $bg_color;
+    border-top-width: 0;
+    box-shadow:none;
   }
-  
+
   & > #Toolbar {
     border: none;
     padding: $base_padding;
@@ -37,25 +40,8 @@
   .notebook-tab {
     -natural-hpadding: $base_padding*2;
     -minimum-hpadding: $base_padding*2;
-
-    font-weight: bold;
+    @extend %button;
     padding: $base_padding $base_padding*2;
-    color: darken($osd_fg_color, 15%);
-    transition-duration: 100ms;
-    box-shadow:none;
-    border:none;
-    border-radius: $base_border_radius - 2px;
-    background-color: transparent;
-
-    &:hover {
-      color: $osd_fg_color;
-      background-color: transparentize($osd_fg_color, 0.95);
-    }
-
-    &:selected {
-      color: $osd_fg_color;
-      background-color: transparentize($osd_fg_color, 0.9);
-    }
   }
 
   StBoxLayout#EvalBox { padding: 4px; spacing: $base_padding; padding: $base_padding; }
@@ -65,12 +51,8 @@
 .lg-dialog {
 
   StEntry {
-    background-color: transparentize(lighten($osd_bg_color, 5%), 0.4);
-    color: $osd_fg_color;
-    border-color: transparentize($osd_fg_color, 0.8);
     min-height: 22px;
-    selection-background-color: $selected_bg_color;
-    selected-color: $selected_fg_color;
+    @extend %entry;
   }
 
   .shell-link {
@@ -98,10 +80,10 @@
 }
 
 .lg-obj-inspector-button {
-  border: 1px solid $osd_borders_color;
+  border: 1px solid $borders_color;
   padding: 4px;
   border-radius: $base_border_radius;
-  &:hover { border: 1px solid #ffffff; }
+  &:hover { border: 1px solid $fg_color; }
 }
 
 // Extensions
@@ -127,8 +109,8 @@
 
 // Inspector
 #LookingGlassPropertyInspector {
-  background: $osd_bg_color;
-  border: 1px solid $osd_borders_color;
+  background: $bg_color;
+  border: 1px solid $borders_color;
   border-radius: $base_border_radius;
   padding: $base_padding;
 }

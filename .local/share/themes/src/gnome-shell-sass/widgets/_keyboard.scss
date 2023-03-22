@@ -51,7 +51,6 @@ $default_key_bg_color: if($variant=='light', darken($key_bg_color, 11%), darken(
   &:grayed { //FIXMEy
     background-color: darken($bg_color, 3%);
     color: $osd_fg_color;
-    border-color: $osd_borders_color;
   }
 
   // non-character keys

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-  <g transform="translate(-342.5 -521.362)">
-    <rect rx="3" y="524.362" x="345.5" height="18" width="18" style="color: rgb(0, 0, 0); display: inline; overflow: visible; visibility: visible; fill: none; fill-opacity: 1; stroke-width: 6; stroke-linecap: butt; stroke-linejoin: round; stroke-miterlimit: 4; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 0.35; marker: none; stroke: rgb(205, 134, 127);" ry="3"/>
-    <rect rx="3" y="524.362" x="345.5" height="18" width="18" style="color: rgb(0, 0, 0); display: inline; overflow: visible; visibility: visible; fill-opacity: 1; stroke-width: 2; stroke-linecap: butt; stroke-linejoin: round; stroke-miterlimit: 4; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; marker: none; fill: rgb(205, 134, 127); stroke: rgb(205, 134, 127);" ry="3"/>
-    <path style="color: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; fill: rgb(25, 23, 36);" d="M361.998 527.733a1.5 1.5 0 0 0-2.117.127l-6.928 7.824-2.928-2.882a1.5 1.5 0 0 0-2.12.015 1.5 1.5 0 0 0 .015 2.121l4.055 3.993a1.5 1.5 0 0 0 2.175-.075l7.975-9.006a1.5 1.5 0 0 0-.127-2.117z"/>
-  </g>
-</svg>

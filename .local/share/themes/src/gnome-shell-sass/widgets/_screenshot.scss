@@ -55,13 +55,13 @@ $screenshot_ui_button_red: $error_color;
 
   &:hover, &:focus {
     .screenshot-ui-capture-button-circle {
-      background-color: if($variant == 'light', mix($fg_color, $selected_bg_color, 50%), darken($osd_fg_color, 15%));
+      background-color: darken($osd_fg_color, 15%);
     }
   }
 
   &:active {
     .screenshot-ui-capture-button-circle {
-      background-color: $selected_bg_color;
+      background-color: darken($osd_fg_color, 50%);
     }
   }
 
@@ -83,8 +83,7 @@ $screenshot_ui_button_red: $error_color;
 }
 
 .screenshot-ui-shot-cast-container {
-  background-color: if($variant == 'light', mix($bg_color, $selected_bg_color, 50%), lighten($osd_bg_color,5%));
-  @extend %border-colored;
+  background-color: lighten($osd_bg_color,5%);
   border-radius: $modal_radius;
   padding: $screenshot_ui_shot_cast_spacing;
   spacing: $screenshot_ui_shot_cast_spacing;
@@ -96,17 +95,9 @@ $screenshot_ui_button_red: $error_color;
 .screenshot-ui-shot-cast-button {
   padding: $base_padding $base_padding*2;
   background-color: transparent;
-  @extend %border;
-  &:hover, &:focus {
-    background-color: if($variant == 'light', $selected_bg_color, lighten($osd_bg_color,10%));
-    @extend %border-colored;
-  }
-  &:active { background-color: if($variant == 'light', $selected_bg_color, lighten($osd_bg_color,10%));}
-  &:checked {
-    background-color: $selected_bg_color;
-    color: $selected_fg_color;
-    @extend %border-colored;
-  }
+  &:hover, &:focus { background-color: lighten($osd_bg_color, 10%);}
+  &:active { background-color: lighten($active_bg_color,5%);}
+  &:checked { background-color: white;color: black;}
   &:insensitive { color: transparentize($osd_fg_color, 0.5);}
 
   border-radius: $modal_radius - $screenshot_ui_shot_cast_spacing;
@@ -204,7 +195,6 @@ $screenshot_ui_button_red: $error_color;
 }
 
 .screenshot-ui-tooltip {
-  @extend %border-colored;
   color: $osd_fg_color;
   background-color: $osd_bg_color;
   border-radius: 99px;

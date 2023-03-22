@@ -4,7 +4,7 @@
 // main list
 .message-list {
   width: 29em;
-  border: none !important;
+  border: solid $borders_color;
 
   // padding and margins to account for scrollbar
   &:ltr {margin-left: 0; margin-right: $base_margin; padding-right: $base_padding; border-right-width: 1px; }
@@ -117,18 +117,12 @@
   // close button
   .message-close-button {
     color: $fg_color;
-    background-color: transparent;
-    border-radius: $base_border_radius * 1.4 ;
+    background-color: transparentize($fg_color, 0.9);
+    border-radius: 99px;
     padding: $base_padding - 1px;
     margin: 1px;
-    @extend %border;
-    &:hover {
-      background-color: mix($bg_color, $destructive_color, 50%);
-      @extend %border-colored;
-    }
-    &:active {
-      background-color: $destructive_color;
-    }
+    &:hover {background-color: transparentize($fg_color, 0.8);}
+    &:active {background-color: transparentize($fg_color, 0.9);}
 
     & StIcon { icon-size: $base_icon_size; }
   }
@@ -148,21 +142,29 @@
   margin: $base_padding*2 0;
   border-radius: $base_border_radius;
   color: $fg_color;
-  @extend %border;
+
+  @if $is_highcontrast {
+    border: 1px solid $hc_inset_color;
+    margin: $base_padding*2 2px;
+  }
 
   // colors are lightened since the media controls are in a card
   &:hover {
-    background-color: if($variant == 'light', mix($bg_color, $selected_bg_color, 50%), lighten($hover_bg_color, 5%)) ;
+    background-color: lighten($hover_bg_color, 5%);
     color: $fg_color;
-    @extend %border-colored;
   }
 
   &:active { 
-    background-color: $selected_bg_color;
-    color: $selected_fg_color;
+    background-color: lighten($active_bg_color, 5%);
+    color: $fg_color;
   }
 
-  &:insensitive { color: lighten($insensitive_fg_color, 5%); }
+  &:insensitive {
+    color: lighten($insensitive_fg_color, 5%);
+     @if $is_highcontrast {
+      border-color: transparent;
+    }
+  }
   
   // fix margin for last button
   &:last-child:ltr { margin-right: $base_margin*3; }

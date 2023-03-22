@@ -1,6 +1,6 @@
 /* OSD */
 
-$osd_levelbar_height: 14px;
+$osd_levelbar_height:6px;
 
 .osd-window {
   @extend %osd_panel;
@@ -26,8 +26,8 @@ $osd_levelbar_height: 14px;
     height: $osd_levelbar_height;
     min-width:$base_icon_size * 10;
     -barlevel-height: $osd_levelbar_height;
-    -barlevel-background-color: if($variant == 'light', transparentize($selected_bg_color, 0.8), transparentize($fg_color, 0.8)); //background of the trough
-    -barlevel-active-background-color: $selected_bg_color;
+    -barlevel-background-color: transparentize($osd_fg_color, if($variant=='light', 0.7, 0.9));
+    -barlevel-active-background-color: $osd_fg_color;
     -barlevel-overdrive-color: $destructive_color;
     -barlevel-overdrive-separator-width: 3px;
     &:ltr { margin-right: 6px; }
