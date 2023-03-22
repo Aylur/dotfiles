@@ -39,7 +39,7 @@
 }
 
 /* Login Lock */
-.login-dialog-button-box {
+.login-dialog-prompt-layout {
   width: $_gdm_dialog_width;
   spacing: $base_padding*2;
   background-color: $base_color;
@@ -49,6 +49,22 @@
 #lockDialogGroup{
   background-image: $gdm_bg;
   background-size: cover;
+}
+.login-dialog-user-list {
+  &:expanded .login-dialog-user-list-item {
+    &:selected {
+      background-color: $selected_bg_color;
+      > * { color: $selected_fg_color !important; }
+    }
+  }
+}
+.login-dialog-prompt-layout {
+  @extend %osd_panel;
+  width: 26em;
+  padding: 10em;
+  .login-dialog-button-box{
+    background-color: transparent !important;
+  }
 }
 
 /* Modal Dialog */
@@ -153,7 +169,7 @@
   border-radius: $button_radius;
 }
 .icon-button {
-  border-radius: $base_border_radius*3;
+  border-radius: $base_border_radius*2;
 }
 
 
