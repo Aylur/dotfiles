@@ -1,6 +1,6 @@
 # Gnome
 
-<img src="https://github.com/Aylur/dotfiles/blob/main/assets/rose.png">
+<img src="https://github.com/Aylur/dotfiles/blob/gnome43/assets/rose.png">
 
 ## Extensions
 - [ArcMenu](https://extensions.gnome.org/extension/3628/arcmenu/)
@@ -17,7 +17,7 @@
 ## Install and apply theme
 
 ```
-git clone https://github.com/Aylur/dotfiles.git
+git clone --branch gnome43 https://github.com/Aylur/dotfiles.git
 cd dotfiles/.local/share/themes/
 cp -r Rose/ ~/.local/share/themes
 dconf write /org/gnome/shell/extensions/user-theme/name "'Rose'"
@@ -46,7 +46,7 @@ Use [Gradience](https://flathub.org/apps/details/com.github.GradienceTeam.Gradie
 
 # Hyprland
 
-<img src="https://github.com/Aylur/dotfiles/blob/main/assets/hyprland.png">
+<img src="https://github.com/Aylur/dotfiles/blob/gnome43/assets/hyprland.png">
 
 - **swaync** notification daemon and notification center
 - **rofi** application launcher
