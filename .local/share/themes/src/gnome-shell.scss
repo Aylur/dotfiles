@@ -1,6 +1,6 @@
 $variant: 'dark';
 $gdm_panel_transparent: false;
-$gdm_bg: url('file:///home/demeter/.config/gdm.png');
+$gdm_bg: url('resource:///org/gnome/shell/theme/gdm.png');
 $user_bg: url('file:///home/demeter/.config/background');
 
 @import "gnome-shell-sass/_options";

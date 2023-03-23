@@ -42,11 +42,11 @@
 .login-dialog-prompt-layout {
   width: $_gdm_dialog_width;
   spacing: $base_padding*2;
-  background-color: $base_color;
+  background-color: $bg_color;
   border: $border_width solid $popover_border_color;
   padding: $base_padding*4;
 }
-#lockDialogGroup{
+.login-dialog{
   background-image: $gdm_bg;
   background-size: cover;
 }
