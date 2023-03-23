@@ -1,10 +1,12 @@
+$panel_button_padding: 3px;
+
 @mixin panel_button(){
   -natural-hpadding: 12px;
   -minimum-hpadding: 6px;
   background-color: transparent;
-  border: 3px solid transparent;
+  border: $panel_button_padding solid transparent;
   box-shadow: inset 0 0 0 $border_width transparent;
-  border-radius: $base_border_radius + 3px;
+  border-radius: $base_border_radius + min($panel_button_padding, $base_border_radius);
   color: $fg_color;
   &:hover { @include button(hover) }
   &:active, &:overview, &:focus, &:checked { @include button(active) }
@@ -48,7 +50,6 @@
 }
 
 #panel {
-  
   @include panel($transparent: false);
   &.unlock-screen,
   &:overview{ @include panel($transparent: true); }
@@ -61,26 +62,31 @@
   }
 
   &.dynamic{
-    @include panel($transparent: true);
-    .panel-button, .panel-button .clock{
-      color: $floating_panel_fg_color !important;
-      &:hover{ color: $floating_panel_hover_fg_color !important; }
-      &:active{ color: $selected_fg_color !important; }
+    @include panel($transparent: false);
+    &:floating{
+      @include panel($transparent: true);
+      .panel-button, .panel-button .clock{
+        color: $floating_panel_fg_color !important;
+        &:hover{ color: $floating_panel_hover_fg_color !important; }
+        &:active{ color: $selected_fg_color !important; }
+      }
     }
-    &:overlaps{
+  }
+
+  &.floating{
+    padding: 8px;
+    .panel-button{
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    #panelLeft{ margin-left: 8px; }
+    #panelRight{ margin-right: 8px; }
+    &:floating{
       @include panel($transparent: false);
-      .panel-button, .panel-button .clock{
-        color: $fg_color !important;
-        &:hover{ color: $hover_fg !important; }
-        &:active{ color: $selected_fg_color !important; }
-      }
-    }
-    &:overview{
-      .panel-button, .panel-button .clock{
-        color: $fg_color !important;
-        &:hover{ color: $hover_fg !important; }
-        &:active{ color: $selected_fg_color !important; }
-      }
+      border-radius: $base_border_radius + min($panel_button_padding, $base_border_radius);
+      box-shadow: inset 0 0 0 0 transparent;
+      border: 8px solid transparent;
+      padding: 0;
     }
   }
 }
