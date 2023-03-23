@@ -1,19 +1,18 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.package = pkgs.nix;
-  
+
   home = {
+
     sessionVariables = {
-      QT_XCB_GL_INTEGRATION = "none";
+      QT_XCB_GL_INTEGRATION = "none"; # kde-connect
       EDITOR = "nvim";
       VISUAL = "code";
     };
+
     packages = with pkgs; [
-      # gnome
-      gnome.gnome-tweaks
-      gnome.dconf-editor
       # wm
       awesome bspwm
       eww-wayland rofi-wayland
@@ -31,6 +30,8 @@
       helix vscode
       distrobox
       nushell
+      meson ninja sassc
+      glib
       # langs
       nodejs cargo rustc
       agda jdk
@@ -47,9 +48,48 @@
       qogir-theme #gtk
       qogir-icon-theme
       adw-gtk3
-      # gui
-      spotify transmission-gtk
+      # asusclt
+      asusctl
     ];
+
+    file = {
+      ".profile" = {
+        text = ''
+          . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+        '';
+      };
+      ".local/share/fonts" = {
+        recursive = true;
+        source = ../../.nix-profile/share/fonts;
+      };
+      ".config/gtk-3.0/gtk.css" = {
+        text = ".background.csd, headerbar{ border-radius: 0px; }";
+      };
+      ".config/gtk-4.0/gtk.css" = {
+        text = ".background.csd, headerbar{ border-radius: 0px; }";
+      };
+      ".config/gtk-3.0/bookmarks" = {
+        text = ''
+          file:///home/demeter/Documents
+          file:///home/demeter/Music
+          file:///home/demeter/Pictures
+          file:///home/demeter/Videos
+          file:///home/demeter/Downloads
+          file:///home/demeter/Projects Projects
+          file:///home/demeter/School School
+        '';
+      };
+      ".config/starship.toml" = {
+      	source = ./starship/starship.toml;
+      };
+      ".config/nushell/config.hu" = {
+        source = ./nushell/config.nu;
+      };
+      ".config/nushell/env.nu" = {
+        source = ./nushell/env.nu;
+      };
+    };
+
     username = "demeter";
     homeDirectory = "/home/demeter";
     stateVersion = "21.11";
@@ -64,6 +104,8 @@
       enableSyntaxHighlighting = true;
       initExtra = ''
         zstyle ':completion:*' menu select
+        bindkey "^[[1;5C" forward-word
+        bindkey "^[[1;5D" backward-word
         nx() {
           if [[ $1 == 'search' ]]; then nix search nixpkgs#$2
           elif [[ $1 == 'run' ]]; then nix run nixpkgs#$2
