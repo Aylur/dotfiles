@@ -7,6 +7,7 @@ cp ./pad-osd.css ./theme/pad-osd.css
 sassc ./gnome-shell.scss ./theme/gnome-shell.css
 sassc ./gnome-shell.scss ./theme/gnome-shell-high-contrast.css
 cd ./theme
+cp $HOME/.config/background ./gdm.png
 glib-compile-resources ./gnome-shell-theme.gresource.xml
 sed -i -e 's/resource:\/\/\/org\/gnome\/shell\/theme/./g' ./gnome-shell.css
 sed -i -e 's/resource:\/\/\/org\/gnome\/shell\/theme/./g' ./gnome-shell-high-contrast.css

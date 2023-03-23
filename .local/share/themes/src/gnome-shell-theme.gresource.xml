@@ -21,5 +21,6 @@
     <file>toggle-on-hc.svg</file>
     <file>toggle-on-light.svg</file>
     <file>workspace-placeholder.svg</file>
+    <file>gdm.png<file>
   </gresource>
 </gresources>

@@ -54,14 +54,14 @@
   &:expanded .login-dialog-user-list-item {
     &:selected {
       background-color: $selected_bg_color;
-      > * { color: $selected_fg_color !important; }
+      * { color: $selected_fg_color !important; }
     }
   }
 }
 .login-dialog-prompt-layout {
   @extend %osd_panel;
   width: 26em;
-  padding: 10em;
+  padding: 4em 4em 3em 4em;
   .login-dialog-button-box{
     background-color: transparent !important;
   }
