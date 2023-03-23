@@ -1,11 +1,11 @@
 #dash {
   $plank_height: 26px;
+  margin-top: 0 !important;
 
   .dash-background {
     border: $border_width solid $popover_border_color;
-    border-bottom: none !important;
+    border-bottom: none;
     margin: $plank_height*3 0 0 0;
-    padding: 0;
     padding: 0 $base_border_radius;
     height: $plank_height;
     border-radius: $base_border_radius $base_border_radius 0 0;

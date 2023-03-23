@@ -73,13 +73,22 @@
 }
 
 /* Grid */
-.app-well-app.app-folder {
-  @include overview_icon($fg_color, $flat: false, $shadow: true);
+.app-well-app {
+  @include overview_icon($osd_fg_color, $shadow: false);
   .overview-icon { margin: $base_margin; }
 }
-.app-well-app {
-  @include overview_icon($osd_fg_color, $shadow: true);
-  .overview-icon { margin: $base_margin; }
+.icon-grid, #searchResults {
+  .app-well-app {
+    @include overview_icon($osd_fg_color, $shadow: true);
+    &.app-folder {
+      @include overview_icon($fg_color, $flat: false, $shadow: true);
+    }
+  }
+}
+.app-folder-dialog {
+  .app-well-app {
+    @include overview_icon($osd_fg_color, $flat: true, $shadow: false);
+  }
 }
 .search-section-content {
   background-color: $bg_color;

@@ -6,7 +6,7 @@ $magenta: #c061cb;
 $teal: #5bc8aF;
 $orange: #ffa348;
 
-$bg_color: if($variant == 'light', #eee, #212121);
+$bg_color: if($variant == 'light', #eee, #242424);
 $fg_color: if($variant == 'light', #111, #eee);
 $widget_bg: transparentize($fg_color, 0.94);
 $hover_bg: transparentize($fg_color, 0.92);

@@ -51,19 +51,23 @@ $panel_button_padding: 3px;
 
 #panel {
   @include panel($transparent: false);
+  box-shadow: $popover_shadow;
   &.unlock-screen,
   &:overview{ @include panel($transparent: true); }
 
   @if $gdm_panel_transparent {
     &.login-screen{ @include panel($transparent: true); }
   } @else {
-    &.login-screen{ @include panel($transparent: false); }
-    box-shadow: $popover_shadow;
+    &.login-screen{
+      box-shadow: $popover_shadow;
+      @include panel($transparent: false);
+    }
   }
 
-  &.dynamic{
+  &.dynamic{ //ovarlapping
     @include panel($transparent: false);
-    &:floating{
+    box-shadow: none;
+    &:floating{ //non-overlapping
       @include panel($transparent: true);
       .panel-button, .panel-button .clock{
         color: $floating_panel_fg_color !important;
@@ -73,18 +77,19 @@ $panel_button_padding: 3px;
     }
   }
 
-  &.floating{
+  &.floating{ //overlapping
     padding: 8px;
+    box-shadow: none;
     .panel-button{
       margin-top: 8px;
       margin-bottom: 8px;
     }
     #panelLeft{ margin-left: 8px; }
     #panelRight{ margin-right: 8px; }
-    &:floating{
+    &:floating{ //non-overlapping
       @include panel($transparent: false);
       border-radius: $base_border_radius + min($panel_button_padding, $base_border_radius);
-      box-shadow: inset 0 0 0 0 transparent;
+      box-shadow: $popover_shadow;
       border: 8px solid transparent;
       padding: 0;
     }
