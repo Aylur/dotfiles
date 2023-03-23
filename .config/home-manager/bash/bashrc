@@ -32,7 +32,7 @@ alias ls='exa -l --sort type --no-permissions --no-user --no-time --header --ico
 alias és='ls'
 
 # Flatpaks
-#alias code='flatpak run com.visualstudio.code'
+alias code='flatpak run com.visualstudio.code'
 alias firefox='flatpak run org.mozilla.firefox'
 
 # PS1='\n╭\u@\e[01;92mhost\e[m \w\n╰\$ '

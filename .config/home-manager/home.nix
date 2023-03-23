@@ -128,7 +128,37 @@
         "nv" = "nvim";
       };
     };
+    bash = {
+      enable = true;
+      bashrcExtra = ''
+        nx() {
+          flags="--extra-experimental-features nix-command --extra-experimental-features flakes"
+          if [[ $1 == 'search' ]]; then nix search $flags nixpkgs#$2
+            elif [[ $1 == 'run' ]]; then nix run $flags nixpkgs#$2
+            elif [[ $1 == 'list' ]]; then nix profile list $flags
+            elif [[ $1 == 'up' ]]; then nix profile $flags upgrade '.*'
+            elif [[ $1 == 'install' ]]; then nix profile install $flags nixpkgs#$2
+          fi
+        }
+        alias db='distrobox'
+        alias arch='distrobox-enter Arch'
+        alias fedora='distrobox-enter Fedora'
+        alias cat='bat'
+        alias ls='exa -l --sort type --no-permissions --no-user --no-time --header --icons --no-filesize --group-directories-first'
+        alias ll='exa -l --sort type --header --icons --group-directories-first'
+        alias és='ls'
+        alias firefox='flatpak run org.mozilla.firefox'
+      '';
+    };
   };
+
+  # xdg.desktopEntries = {
+  #   "blueberry" = {
+  #     name = "Bluetooth";
+  #     exec = "blueberry";
+  #     noDisplay = true;
+  #   };
+  # };
 
   services = {
     kdeconnect = {
