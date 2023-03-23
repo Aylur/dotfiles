@@ -51,8 +51,13 @@
   
   @include panel($transparent: false);
   &.unlock-screen,
-  &.login-screen,
   &:overview{ @include panel($transparent: true); }
+
+  @if $gdm_panel_transparent {
+    &.login-screen{ @include panel($transparent: true); }
+  } @else {
+    &.login-screen{ @include panel($transparent: false); }
+  }
 
   &.dynamic{
     @include panel($transparent: true);
