@@ -14,3 +14,4 @@ sed -i -e 's/resource:\/\/\/org\/gnome\/shell\/theme/./g' ./gnome-shell.css
 sed -i -e 's/resource:\/\/\/org\/gnome\/shell\/theme/./g' ./gnome-shell-high-contrast.css
 mkdir -p $HOME/.local/share/themes/Smooth/gnome-shell
 cp -r ./* $HOME/.local/share/themes/Smooth/gnome-shell/
+sudo cp -r gnome-shell-theme.gresource /usr/share/gnome-shell/gnome-shell-theme.gresource

@@ -57,6 +57,7 @@
     &.login-screen{ @include panel($transparent: true); }
   } @else {
     &.login-screen{ @include panel($transparent: false); }
+    box-shadow: $popover_shadow;
   }
 
   &.dynamic{
