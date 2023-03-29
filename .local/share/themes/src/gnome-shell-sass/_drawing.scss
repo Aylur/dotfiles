@@ -195,6 +195,7 @@
     &:selected .overview-icon,
     &:focus .overview-icon { background-color: $bg_color; }
     &:hover .overview-icon { background-color: lighten($bg_color, 3%); }
+    &:active .overview-icon { @include button(active); }
 
     &:hover .overview-icon,
     &:selected .overview-icon,

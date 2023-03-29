@@ -39,37 +39,59 @@
 }
 
 /* Login Lock */
-.login-dialog-prompt-layout {
-  width: $_gdm_dialog_width;
-  spacing: $base_padding*2;
-  background-color: $bg_color;
-  border: $border_width solid $popover_border_color;
-  padding: $base_padding*4;
-}
 .login-dialog{
   background-image: $gdm_bg;
   background-size: cover;
-}
-.login-dialog-user-list {
-  &:expanded .login-dialog-user-list-item {
-    &:selected {
-      background-color: $selected_bg_color;
-      * { color: $selected_fg_color !important; }
+
+  .login-dialog-prompt-layout {
+    width: $_gdm_dialog_width;
+    spacing: $base_padding*2;
+    background-color: $bg_color;
+    border: $border_width solid $popover_border_color;
+    padding: $base_padding*4;
+  }
+
+  .login-dialog-user-list {
+    &:expanded .login-dialog-user-list-item {
+      &:selected {
+        background-color: $selected_bg_color;
+        * { color: $selected_fg_color !important; }
+      }
     }
   }
-}
-.login-dialog-prompt-layout {
-  @extend %osd_panel;
-  width: 26em;
-  padding: 4em 4em 3em 4em;
-  .login-dialog-button-box{
-    background-color: transparent !important;
+
+  .login-dialog-prompt-layout {
+    @extend %osd_panel;
+    width: 26em;
+    padding: 4em 4em 0 4em;
+    .login-dialog-button-box{
+      background-color: transparent !important;
+    }
+  }
+
+  .login-dialog-button {
+    &.login-dialog-session-list-button {
+      @extend %osd_panel;
+      &:hover{
+        @include button(hover);
+        background-color: if($variant == 'light', darken($bg_color, 4%), lighten($bg_color, 4%));
+      }
+      &:active, &:checked, &:focus, &:selected{
+        @include button(active);
+      }
+    }
+  }
+
+  .login-dialog-user-selection-box { 
+    @extend %osd_panel;
+    padding: 28px 20px 20px 28px;
   }
 }
 
 /* Modal Dialog */
-.modal-dialog {
+.modal-dialog, .switcher-list{
   @extend %osd_panel;
+  border-radius: $modal_radius !important;
 }
 
 /* Grid */
@@ -97,7 +119,7 @@
 }
 
 /* Slider */
-.slider {
+.slider, .level {
   // slider trough
   -barlevel-height: 14px;
   -barlevel-background-color: $widget_bg;
@@ -236,4 +258,12 @@
 }
 .stylish-osd{
   .level-bar{ background-color: transparent !important; }
+}
+.media-cover{
+  text-shadow: $text_shadow;
+  StIcon{ icon-shadow: $text_shadow; }
+  .no-fade{
+    border: 10px solid transparentize($bg_color, 0.3);
+    box-shadow: inset 0 0 0 300px transparentize($bg_color, 0.3);
+  }
 }

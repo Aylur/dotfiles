@@ -32,7 +32,10 @@ $panel_button_padding: 3px;
       box-shadow: none !important;
       border-color: transparent !important;
       .clock { @include panel_button() }
-      &:active .clock { @include button(active) }
+      &:hover .clock{ @include button(hover) }
+      &:active, &:overview, &:focus, &:checked{
+        .clock { @include button(active) }
+      }
     }
 
     &.screen-recording-indicator {
@@ -52,8 +55,6 @@ $panel_button_padding: 3px;
 #panel {
   @include panel($transparent: false);
   box-shadow: $popover_shadow;
-  &.unlock-screen,
-  &:overview{ @include panel($transparent: true); }
 
   @if $gdm_panel_transparent {
     &.login-screen{ @include panel($transparent: true); }
@@ -69,10 +70,13 @@ $panel_button_padding: 3px;
     box-shadow: none;
     &:floating{ //non-overlapping
       @include panel($transparent: true);
-      .panel-button, .panel-button .clock{
-        color: $floating_panel_fg_color !important;
-        &:hover{ color: $floating_panel_hover_fg_color !important; }
-        &:active{ color: $selected_fg_color !important; }
+      .panel-button, .clock-display-box{
+        StLabel, StIcon { color: $floating_panel_fg_color !important; }
+        &:hover StLabel,
+        &:hover StIcon{ color: $floating_panel_hover_fg_color !important; }
+        &:active, &:overview, &:focus, &:checked{
+          StLabel, StIcon{ color: $selected_fg_color !important; }
+        }
       }
     }
   }
@@ -92,6 +96,19 @@ $panel_button_padding: 3px;
       box-shadow: $popover_shadow;
       border: 8px solid transparent;
       padding: 0;
+    }
+  }
+
+  &.unlock-screen,
+  &:overview{
+    @include panel($transparent: true);
+    .panel-button, .clock-display-box{
+      StLabel, StIcon { color: $fg_color; }
+      &:hover StLabel, 
+      &:hover StIcon { color: $hover_fg; }
+      &:active, &:overview, &:focus, &:checked{
+        StLabel, StIcon{ color: $selected_fg_color; }
+      }
     }
   }
 }
