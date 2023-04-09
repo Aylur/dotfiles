@@ -13,12 +13,6 @@ function level {
     echo $(pactl get-sink-volume @DEFAULT_SINK@ | grep Volume | awk '{print $5}' | tr % " ")
 }
 
-function set {
-    echo "volume:" $1
-    pactl set-sink-volume @DEFAULT_SINK@ $1"%"
-    eww update volume_level=$(level)
-    eww update volume_icon=$(icon)
-}
 
 function lower {
     pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -31,8 +25,7 @@ function raise {
 }
 
 function update {
-    eww update volume_level=$(level)
-    eww update volume_icon=$(icon)
+    eww update volume="$(get)"
     ~/.config/eww/scripts/osd $(icon) $(level)
 }
 
@@ -57,16 +50,28 @@ function mute_icon {
 
 function mute_toggle {
     pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    eww update mute_icon=$(mute_icon)
-    eww update mute_state=$(mute_state)
+    eww update volume="$(get)"
 }
 
-if [[ $1 == 'mute_state' ]]; then mute_state; fi
-if [[ $1 == 'mute_icon' ]]; then mute_icon; fi
+function set {
+    pactl set-sink-volume @DEFAULT_SINK@ $1"%"
+    eww update volume="$(get)"
+}
+
+function get {
+    echo "{
+        \"level\": \"$(level)\",
+        \"icon\": \"$(icon)\",
+        \"type_icon\": \"$(type_icon)\",
+        \"mute\": {
+            \"state\": \"$(mute_state)\",
+            \"icon\": \"$(mute_icon)\"
+        }
+    }"
+}
+
 if [[ $1 == 'mute_toggle' ]]; then mute_toggle; fi
 if [[ $1 == 'down' ]]; then lower; fi
 if [[ $1 == 'up' ]]; then raise; fi
-if [[ $1 == 'icon' ]]; then icon; fi
-if [[ $1 == 'level' ]]; then level; fi
 if [[ $1 == 'set' ]]; then set $2; fi
-if [[ $1 == 'type_icon' ]]; then type_icon; fi
+if [[ $1 == 'get' ]]; then get; fi

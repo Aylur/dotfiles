@@ -13,16 +13,21 @@ function icon {
 function toggle {
     STATE=$(state)
     if [[ $STATE == 'on' ]]; then
-        eww update night_light_icon=$(icon)
-        eww update night_light_state=off
+        eww update night_light_state="{ \"state\": \"off\", \"icon\": \"$(icon)\"}"
         pkill wlsunset
     else 
-        eww update night_light_icon=$(icon)
-        eww update night_light_state=on
+        eww update night_light_state="{ \"state\": \"on\", \"icon\": \"$(icon)\"}"
         wlsunset -t 3400
     fi
+    eww update night_light="$(get)"
+}
+
+function get {
+    echo "{
+        \"state\": \"$(state)\",
+        \"icon\": \"$(icon)\"
+    }"
 }
 
 if [[ $1 == 'toggle' ]]; then toggle; fi
-if [[ $1 == 'state' ]]; then state; fi
-if [[ $1 == 'icon' ]]; then icon; fi
+if [[ $1 == 'get' ]]; then get; fi

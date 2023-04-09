@@ -1,23 +1,16 @@
-#!/usr/bin/env gjs
-'use strict'
+import { PowerManagerProxy } from './data/dbus.js'
+import GObject from 'gi://GObject?version=2.0'
+import Gio from 'gi://Gio?version=2.0'
+import UPowerGlib from 'gi://UPowerGlib?version=1.0'
 
-const { GObject, Gio, GLib, UPowerGlib: UPower } = imports.gi;
-
-const PowerManagerProxy = Gio.DBusProxy.makeProxyWrapper(
-`<node>
-  <interface name="org.freedesktop.UPower.Device">
-    <property name="State" type="u" access="read"/>
-    <property name="Percentage" type="d" access="read"/>
-    <property name="IsPresent" type="b" access="read"/>
-  </interface>
-</node>`
-);
-
-const Battery = GObject.registerClass(
+export const Battery = GObject.registerClass({
+    Signals: { 'sync': {} }
+},
 class Battery extends GObject.Object{
-    _init(){
-        super._init();
+    constructor(){
+        super();
 
+        this._json = {};
         this._proxy = new PowerManagerProxy(
             Gio.DBus.system,
             'org.freedesktop.UPower',
@@ -30,14 +23,18 @@ class Battery extends GObject.Object{
         );
     }
 
+    get json(){
+        return this._json;
+    }
+
     _sync(){
         if(!this._proxy.IsPresent) return;
 
         let percent = this._proxy.Percentage;
-        let charging = this._proxy.State === UPower.DeviceState.CHARGING;
+        let charging = this._proxy.State === UPowerGlib.DeviceState.CHARGING;
         let charged =
-            this._proxy.State === UPower.DeviceState.FULLY_CHARGED ||
-            (this._proxy.State === UPower.DeviceState.CHARGING && percent === 100);
+            this._proxy.State === UPowerGlib.DeviceState.FULLY_CHARGED ||
+            (this._proxy.State === UPowerGlib.DeviceState.CHARGING && percent === 100);
 
         
         let icons =          ['', '', '', '', '', '', '', '', '', ''];
@@ -56,14 +53,11 @@ class Battery extends GObject.Object{
         else if(charging)     state = 'charging';
         else if(percent < 30) state = 'low';
 
-        print(JSON.stringify({
+        this._json = {
             icon,
             percent,
             state
-        }))
+        };
+        this.emit('sync');
     }
 });
-
-const media = new Battery();
-const mainLoop = new GLib.MainLoop(null, false);
-mainLoop.run();

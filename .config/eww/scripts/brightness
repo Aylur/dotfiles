@@ -41,28 +41,28 @@ function lower_kbd {
 }
 
 function update_kbd {
-    eww update kbd_level=$(kbd_level)
-    eww update kbd_icon=$(kbd_icon)
+    eww update brightness="$(get)"
     ~/.config/eww/scripts/./osd $(kbd_icon) $(kbd_level)
 }
 
 function update_screen {
-    eww update screen_level=$(screen_level)
-    eww update screen_icon=$(screen_icon)
+    eww update brightness="$(get)"
     ~/.config/eww/scripts/./osd $(screen_icon) $(screen_level)
 }
 
 function set_screen {
-    echo "screen: "$1
     brightnessctl set $1"%" -q
-    eww update screen_level=$(screen_level)
-    eww update screen_icon=$(screen_icon)
+    eww update brightness="$(get)"
 }
 
-if [[ $1 == 'kbd_level' ]]; then echo $(kbd_level); fi
-if [[ $1 == 'screen_level' ]]; then echo $(screen_level); fi
-if [[ $1 == 'kbd_icon' ]]; then echo $(kbd_icon); fi
-if [[ $1 == 'screen_icon' ]]; then echo $(screen_icon); fi
+function get {
+    echo "{
+        \"kbd\": { \"level\": \"$(kbd_level)\", \"icon\": \"$(kbd_icon)\" },
+        \"screen\": { \"level\": \"$(screen_level)\", \"icon\": \"$(screen_icon)\" }
+    }"
+}
+
+if [[ $1 == 'get' ]]; then get; fi
 if [[ $1 == 'kbd' ]] && [[ $2 == 'up'   ]]; then raise_kbd; fi
 if [[ $1 == 'kbd' ]] && [[ $2 == 'down' ]]; then lower_kbd; fi
 if [[ $1 == 'screen' ]] && [[ $2 == 'up'   ]]; then raise_screen; fi

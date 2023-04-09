@@ -22,10 +22,11 @@
     )
 ))
 
+(defvar dock_reveal true)
 (defwidget dock [] (eventbox
     :class "dock"
     :onhover "${EWW_CMD} update dock_reveal=true"
-    :onhoverlost "${EWW_CMD} update dock_reveal=`${EWW_CONFIG_DIR}/scripts/workspaces active-empty`"
+    :onhoverlost "${EWW_CMD} update dock_reveal=\"${window_manager.active_empty}\""
     (revealer
         :reveal dock_reveal
         :transition "slideup"

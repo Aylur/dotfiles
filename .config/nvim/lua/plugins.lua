@@ -12,6 +12,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  -- live server
+  'manzeloth/live-server',
+
   -- agda
   'ashinkarov/nvim-agda',
 
@@ -35,7 +38,7 @@ require('lazy').setup({
     version = '*',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
-  
+
   -- diagnostics
   "folke/trouble.nvim",
 
@@ -88,7 +91,9 @@ require('lazy').setup({
       {'rafamadriz/friendly-snippets'}, -- Optional
     }
   },
-  
+
+  'elkowar/yuck.vim'
+
   -- file tree
-  'nvim-tree/nvim-tree.lua',
+  -- 'nvim-tree/nvim-tree.lua',
 })

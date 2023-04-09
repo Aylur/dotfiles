@@ -25,15 +25,17 @@ function toggle {
     fi
 
     swaync-client --reload-css
-    eww update theme_state=$(state)
-    eww update theme_icon=$(icon)
+    eww update theme=$(get)
     bash $HOME/.config/eww/scripts/init
 }
 
-function icon {
-    echo '󰃛'
+function get {
+    echo "{
+        \"state\": \"$(state)\",
+        \"icon\": \"󰃛\" 
+    }"
 }
+# 󱎖
 
 if [[ $1 == 'toggle' ]]; then toggle; fi
-if [[ $1 == 'state' ]]; then state; fi
-if [[ $1 == 'icon' ]]; then icon; fi
+if [[ $1 == 'get' ]]; then get; fi

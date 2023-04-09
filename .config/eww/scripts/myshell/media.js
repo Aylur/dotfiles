@@ -1,63 +1,37 @@
-#!/usr/bin/env gjs
-'use strict';
+import { MprisPlayerProxy, DBusProxy } from './data/dbus.js'
+import { PlayerIcons, PREFERRED_PLAYER, MEDIA_CACHE_PATH, MkDirectory } from "./main.js";
+import GObject from 'gi://GObject?version=2.0'
+import Gio from 'gi://Gio?version=2.0'
+import GLib from 'gi://GLib?version=2.0'
 
-const { GObject, Gio, GLib } = imports.gi;
-const CACHE_PATH = GLib.get_user_config_dir() + '/eww/cache/';
-const PREFERRED_PLAYER = 'spotify'
-const TICK_INTERVAL = 2000; //in ms
-
-const PlayerIcons = {
-    'deafult': '',
-    'spotify': '',
-    'firefox.instance2': '󰈹',
-    'mpv': ''
+function _lengthStr(length) {
+    let min = Math.floor(length / 60);
+    let sec0 = Math.floor(length % 60) < 10 ? "0" : "";
+    let sec = Math.floor(length % 60);
+    return `${min}:${sec0}${sec}`;
 }
 
-const MprisPlayerProxy = Gio.DBusProxy.makeProxyWrapper(
-    `<node>
-        <interface name="org.mpris.MediaPlayer2.Player">
-            <property name='CanControl' type='b' access='read' />
-            <property name='CanGoNext' type='b' access='read' />
-            <property name='CanGoPrevious' type='b' access='read' />
-            <property name='CanPlay' type='b' access='read' />
-            <property name='CanPause' type='b' access='read' />
-            <property name='Metadata' type='a{sv}' access='read' />
-            <property name='PlaybackStatus' type='s' access='read' />
-            <property name='Shuffle' type='b' access='readwrite' />
-            <property name='LoopStatus' type='s' access='readwrite' />
-            <property name='Volume' type='d' access='readwrite' />
-            <property name="Position" type="x" access="read"/>
-        </interface>
-    </node>`
-);
-const DBusProxy = Gio.DBusProxy.makeProxyWrapper(
-    `<node>
-      <interface name="org.freedesktop.DBus">
-        <method name="ListNames">
-          <arg type="as" direction="out" name="names"/>
-        </method>
-        <signal name="NameOwnerChanged">
-          <arg type="s" direction="out" name="name"/>
-          <arg type="s" direction="out" name="oldOwner"/>
-          <arg type="s" direction="out" name="newOwner"/>
-        </signal>
-      </interface>
-    </node>`
-);
+function _getName(busName) {
+    return busName
+        .substring(23)
+        .split('.')
+        [0];
+}
 
 const MprisPlayer = GObject.registerClass({
     Signals: { 'changed' : {}, 'closed': {}, 'ready': {} }
 },
 class MprisPlayer extends GObject.Object {
-    _init(busName) {
-        super._init();
+    constructor(busName) {
+        super();
         
         this._proxy = new MprisPlayerProxy(Gio.DBus.session, busName,
             '/org/mpris/MediaPlayer2',
             this._onPlayerProxyReady.bind(this));
 
-        this._player = busName.substring(23);
-        this._playerIcon = PlayerIcons?.[this._player] || PlayerIcons.deafult || '';
+        this._busName = busName;
+        this._name = _getName(busName);
+        this._playerIcon = PlayerIcons?.[this._name] || PlayerIcons.deafult || '';
         this._trackArtists = [];
         this._trackTitle = '';
         this._trackCoverUrl = '';
@@ -151,15 +125,14 @@ class MprisPlayer extends GObject.Object {
     }
 
     _cacheCoverArt(){
-        this._coverPath = CACHE_PATH + `${this._trackArtists.join(', ')}_${this._trackTitle}`
-            .replace(/[\*\?\"\<\>\|\#\:\?\/\']/g, '');
+        this._coverPath = MEDIA_CACHE_PATH + `${this._trackArtists.join(', ')}_${this._trackTitle}`
+            .replace(/[\ \,\*\?\"\<\>\|\#\:\?\/\']/g, '');
 
         if(this._trackCoverUrl === '')  return;
         if(this._coverPath === '_') return;
         if(GLib.file_test(this._coverPath, GLib.FileTest.EXISTS)) return;
         
-        if(!GLib.file_test(CACHE_PATH, GLib.FileTest.EXISTS))
-            Gio.File.new_for_path(CACHE_PATH).make_directory(null);
+        MkDirectory();
 
         // Gio.File.new_for_uri(this._trackCoverUrl).copy_async(
         //     Gio.File.new_for_path(this._coverPath),
@@ -169,20 +142,25 @@ class MprisPlayer extends GObject.Object {
         //     null,
         //     (source, result) => {
         //         try { source.copy_finish(result) }
-        //         catch (e) { log(e) }
+        //         catch (e) { log(`failed to cache ${this._coverPath}`, e) }
         //     }
         // );
 
-        Gio.File.new_for_uri(this._trackCoverUrl).copy(
-            Gio.File.new_for_path(this._coverPath),
-            Gio.FileCopyFlags.OVERWRITE,
-            null, null
-        );
+        try {
+            Gio.File.new_for_uri(this._trackCoverUrl).copy(
+                Gio.File.new_for_path(this._coverPath),
+                Gio.FileCopyFlags.OVERWRITE,
+                null, null
+            );
+        } catch(e) {
+            log(`failed to cache ${this._coverPath}`, e);
+        };
     }
 
     get json() {
         return {
-            player:    this._player, //busName
+            busName:   this._busName, //busName
+            name:      _getName(this._busName),
             icon:      this._playerIcon,
             artist:    this._trackArtists.join(', '),
             title:     this._trackTitle,
@@ -195,13 +173,21 @@ class MprisPlayer extends GObject.Object {
             loop:      this._loopStatus,
             volume:    this._volume*100,
             length:    this._length,
-            lengthStr: `${Math.floor(this._length / 60)}:${Math.floor(this._length % 60) < 10 ? "0" : ""}${Math.floor(this._length % 60)}`,
+            lengthStr: _lengthStr(this._length),
             position: this._position,
         };
     }
 });
-class Media{
-    constructor() {
+
+export const Media = GObject.registerClass({
+    Signals: { 'sync': {}, 'positions': {} }
+},
+class Media extends GObject.Object{
+    _init() {
+        super._init();
+
+        this._json = {};
+        this._positions = {};
         this._players = new Map();
         this._proxy = new DBusProxy(Gio.DBus.session,
                                     'org.freedesktop.DBus',
@@ -209,23 +195,21 @@ class Media{
                                     this._onProxyReady.bind(this));
     }
 
+    get json() { return this._json }
+    get positions() { return this._positions }
+
     _addPlayer(busName) {
-        let name = busName.substring(23);
-        if (this._players.get(name))
+        if (this._players.get(busName))
             return;
 
         let player = new MprisPlayer(busName);
         player.connect('closed', () => {
-            this._players.delete(name);
-            this.print();
+            this._players.delete(busName);
+            this._sync();
         });
-        player.connect('changed', () => {
-            this.print();
-        });
-        player.connect('ready', () => {
-            this.print();
-        });
-        this._players.set(name, player);
+        player.connect('changed', this._sync.bind(this));
+        player.connect('ready', this._sync.bind(this));
+        this._players.set(busName, player);
     }
 
     _onProxyReady() {
@@ -235,8 +219,11 @@ class Media{
                     this._addPlayer(name);
             });
         });
-        this._proxy.connectSignal('NameOwnerChanged',
-                                  this._onNameOwnerChanged.bind(this));
+        this._proxy.connectSignal(
+            'NameOwnerChanged',
+            this._onNameOwnerChanged.bind(this)
+        );
+        this._sync();
     }
 
     _onNameOwnerChanged(proxy, sender, [name, oldOwner, newOwner]) {
@@ -247,50 +234,48 @@ class Media{
             this._addPlayer(name);
     }
 
-    print(){
+    _sync(){
+        let preferred = null; 
         let players = [];
-        if (this._players.get(PREFERRED_PLAYER))
-            players.push(this._players.get(PREFERRED_PLAYER).json);
-
-        for (const [name, player] of this._players) {
-            if(name !== PREFERRED_PLAYER)
-                players.push(player.json);
+        for (const [_, player] of this._players) {
+            if(player.json.busName.includes(PREFERRED_PLAYER))
+                preferred = player.json
+            
+            players.push(player.json);
         }
 
-        print(JSON.stringify(players));
+        if(this._players.size === 1)
+            preferred = players[0];
+
+        this._json = {
+            preferred,
+            players
+        }
+        this.emit('sync');
     }
 
-    //for some reason the Position value of an MprisPlayer instance
-    //never updates, so every tick we need a new one. 
-    loopPrint(){
+    getPositions(){
+        if(this._players.size === 0) return;
         let playersReady = 0;
-        let playersArray = [];
-        for (const [name, player] of this._players) {
-            let mprisPlayer = new MprisPlayer('org.mpris.MediaPlayer2.'+name);
-            mprisPlayer.connect('ready', () => {
-                playersArray.push(mprisPlayer.json);
+        let positions = {};
+        for (const [busName, _] of this._players) {
+            new MprisPlayer(busName).connect('ready', mpris => {
+                positions[mpris.json.name] = {
+                    length: mpris.json.length,
+                    lengthStr: _lengthStr(mpris.json.length),
+                    position: mpris.json.position,
+                    positionStr: _lengthStr(mpris.json.position)
+                };
                 playersReady++
 
-                if(playersReady === this._players.size)
-                    print(JSON.stringify( playersArray.sort().sort((a, b) => {
-                        if(a.player.includes(PREFERRED_PLAYER))
-                            return -1;
-                        
-                        return 1;
-                    }))
-                );
+                if(playersReady === this._players.size) {
+                    this._positions = positions;
+                    this.emit('positions');
+                }
 
-                mprisPlayer.close();
+                mpris.close();
             })
         }
+        return true;
     }
-}
-
-const media = new Media();
-const mainLoop = new GLib.MainLoop(null, false);
-// GLib.timeout_add(
-//     GLib.PRIORITY_DEFAULT,
-//     TICK_INTERVAL,
-//     () => { media.loopPrint(); return true; }
-// );
-mainLoop.run();
+})

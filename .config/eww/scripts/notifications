@@ -1,32 +1,37 @@
 #!/usr/bin/env bash
 
 function toggle {
-    STATE=$(state)
-    if [[ $STATE == 'on' ]]; then
-        eww update dnd_icon=󰂚
-        eww update dnd_status=off
-        swaync-client --dnd-off
-    else
-        eww update dnd_icon=󰂛
-        eww update dnd_status=on
-        swaync-client --dnd-on
-    fi
+    dbus-send --session --type=method_call \
+        --dest=com.github.aylur.myshell \
+        /org/freedesktop/Notifications \
+        org.freedesktop.Notifications.ToggleDND
 }
 
-function icon {
-    STATE=$(swaync-client --get-dnd)
-    if [[ $STATE == 'false' ]]; then echo '󰂚';
-    else echo '󰂛'; fi 
+function dismiss {
+    dbus-send --session --type=method_call \
+        --dest=com.github.aylur.myshell \
+        /org/freedesktop/Notifications \
+        org.freedesktop.Notifications.DismissNotification \
+        uint32:$1
 }
 
-function state {
-    STATE=$(swaync-client --get-dnd)
-    if [[ $STATE == 'false' ]]; then echo 'off'
-    else echo 'on'; fi
+function close {
+    dbus-send --session --type=method_call \
+        --dest=com.github.aylur.myshell \
+        /org/freedesktop/Notifications \
+        org.freedesktop.Notifications.CloseNotification \
+        uint32:$1
+}
+
+function action {
+    dbus-send --session --type=method_call \
+        --dest=com.github.aylur.myshell \
+        /org/freedesktop/Notifications \
+        org.freedesktop.Notifications.InvokeAction \
+        uint32:$1 string:$2
 }
 
 if [[ $1 == 'toggle' ]]; then toggle; fi
-if [[ $1 == 'icon' ]]; then icon; fi
-if [[ $1 == 'state' ]]; then state; fi
-if [[ $1 == 'count' ]]; then swaync-client --count; fi
-if [[ $1 == 'open' ]]; then swaync-client --open-panel; fi
+if [[ $1 == 'dismiss' ]]; then dismiss $2 $3; fi
+if [[ $1 == 'close' ]]; then close $2; fi
+if [[ $1 == 'action' ]]; then action $2 $3; fi

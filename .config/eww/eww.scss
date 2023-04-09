@@ -9,11 +9,12 @@ $mono_font: 'mononoki NF';
 @import "./scss/colors.scss";
 @import "./scss/variables.scss";
 @import "./scss/common.scss";
-@import "./scss/panel.scss";
+@import "./scss/bar.scss";
 @import "./scss/datemenu.scss";
 @import "./scss/quicksettings.scss";
 @import "./scss/powermenu.scss";
 @import "./scss/desktop.scss";
 @import "./scss/osd.scss";
 @import "./scss/dock.scss";
+@import "./scss/notifications.scss";
 tooltip{ @include tooltip }

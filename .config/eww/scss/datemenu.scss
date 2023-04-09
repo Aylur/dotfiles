@@ -96,7 +96,6 @@ $spacing: $popover_padding*0.5;
         }
         .icon{
             font-size: 2.6em;
-            font-family: $mono_font;
             
             &.clear.d{ color: transparentize($yellow, 0.6); }
             &.clear.n{ color: transparentize($blue, 0.6); }

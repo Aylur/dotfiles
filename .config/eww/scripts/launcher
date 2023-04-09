@@ -17,19 +17,9 @@ function toggle_menu {
     fi
 }
 
-function close_osd {
-    notify-send asd
-}
-
-picker() {
-    COLOR=$(distrobox-enter -n Arch -- hyprpicker -n | grep "#") &&
-    wl-copy --trim-newline $COLOR
-    notify-send -i color-select-symbolic -a "Color Picker" $(wl-paste)
-    echo $COLOR
-}
-
 function colorpicker {
-    bash $HOME/.config/eww/scripts/launcher picker
+    pkill hyprpicker
+    hyprpicker -n -a
 }
 
 function network {
@@ -47,10 +37,6 @@ function screenlock {
     gtklock -s $HOME/.config/gtklock/style.css
 }
 
-function notifications {
-    distrobox-enter -n Arch -- swaync-client -t
-}
-
 function config {
     flatpak run com.visualstudio.code $HOME/.config/hypr
 }
@@ -66,17 +52,14 @@ function screenshot {
     fi
 }
 
-if [[ $1 == 'applauncher'       ]]; then rofi -show drun; fi
+if [[ $1 == 'applauncher'    ]]; then rofi -show drun; fi
 if [[ $1 == 'pavu'           ]]; then pavucontrol; fi
 if [[ $1 == 'network'        ]]; then network; fi
 if [[ $1 == 'rog'            ]]; then rog-control-center; fi
 if [[ $1 == 'brightness'     ]]; then wl-gammactl; fi
 if [[ $1 == 'bluetooth'      ]]; then blueberry; fi
 if [[ $1 == 'powermenu'      ]]; then powermenu; fi
-if [[ $1 == 'notifications'  ]]; then notifications; fi
 if [[ $1 == 'toggle_menu'    ]]; then toggle_menu $2; fi
-if [[ $1 == 'close_menu'     ]]; then close_menu $2; fi
-if [[ $1 == 'close_osd'      ]]; then close_osd; fi
 if [[ $1 == 'close_calendar' ]]; then close_calendar; fi
 if [[ $1 == 'colorpicker'    ]]; then colorpicker; fi
 if [[ $1 == 'picker'         ]]; then picker; fi

@@ -24,11 +24,8 @@ $cakeisalie: "This stylesheet is generated, DO NOT EDIT";
  */
 
 /* Global Values */
-
-// padding, margin and spacing
 $base_padding: 6px;
 $base_margin: 4px;
-
 
 // Chroma key to flag when a background-color is always occluded, not visible.
 // This allows any box-shadow behind it to be rendered more efficiently by

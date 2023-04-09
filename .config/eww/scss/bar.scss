@@ -52,13 +52,21 @@
                 .charging{ color: $succes; }
                 .charged{ color: $succes; }
             }
+            .notifications.active{
+                color: $yellow;
+            }
+            .network{
+                &.none, &.low{ color: $red; }
+                &.medium{}
+                &.high{ color: $blue; }
+            }
         }
 
         &.media{
             .icon{
                 margin-right: .2em;
                 &.spotify{ color: $green; }
-                &.firefox\.instance2{ color: $orange; }
+                &.firefox{ color: $orange; }
                 &.mpv{ color: $magenta; }
             }
         }

@@ -1,47 +1,20 @@
-(deflisten  active_workspace    :initial  "1"  `scripts/workspaces active`)
-(deflisten  workspaces          :initial  "[]" `scripts/workspaces get`)
-(deflisten  window              :initial  "-"  `scripts/window class`)
+(deflisten myshell `scripts/myshell/myshell --eww --stdout --file`); so it runs
+(deflisten hyprland `scripts/hyprland`); so it runs
 
-(deflisten  media_pos           :initial  "[]" `scripts/media_pos`)
-(deflisten  media               :initial  "[]" `scripts/media`)
+(defvar bluetooth "{}")
+(defvar network "{}")
+(defvar media "{}")
+(defvar media_positions "{}")
+(defvar battery "{}")
+(defvar notifications "{}")
 
-(deflisten  battery             :initial  "{}" `scripts/battery`)
+(defvar window_manager "{}")
 
-(defpoll    network_icon        :interval "5s" `scripts/network icon`)
-(defpoll    network_status      :interval "5s" `scripts/network status`)
-(defpoll    network_state       :interval "5s" `scripts/network state`)
-(defpoll    wifi_ssid           :interval "5s" `scripts/network ssid`)
-(defpoll    wifi_strength       :interval "5s" `scripts/network strength`)
-(defpoll    wifi_icon           :interval "5s" `scripts/network wifi_icon`)
-
-(defpoll    volume_icon         :interval "3s" `scripts/volume icon`)
-(defpoll    volume_level        :interval "3s" :initial "99" `scripts/volume level`)
-(defpoll    speaker_type_icon   :interval "3s" :initial "󰓃" `scripts/volume type_icon`)
-
-(defpoll    mute_icon           :interval "3s" `scripts/volume mute_icon`)
-(defpoll    mute_state          :interval "3s" `scripts/volume mute_state`)
-
-(defpoll    theme_state         :interval "3s" `scripts/theme state`)
-(defpoll    theme_icon          :interval "3s" `scripts/theme icon`)
-
-(defpoll    power_state         :interval "3s" `scripts/power state`)
-(defpoll    power_icon          :interval "3s" `scripts/power icon`)
-
-(defpoll    night_light_state   :interval "3s" `scripts/night_light state`)
-(defpoll    night_light_icon    :interval "3s" `scripts/night_light icon`)
-
-(defpoll    kbd_icon            :interval "3s" `scripts/brightness kbd_icon`)
-(defpoll    kbd_level           :interval "3s" :initial "100" `scripts/brightness kbd_level`)
-(defpoll    screen_icon         :interval "3s" `scripts/brightness screen_icon`)
-(defpoll    screen_level        :interval "3s" :initial "99" `scripts/brightness screen_level`)
-
-(defpoll    bluetooth_state     :interval "3s" `scripts/bluetooth state`)
-(defpoll    bluetooth_icon      :interval "3s" `scripts/bluetooth icon`)
-(defpoll    bluetooth_connected :interval "3s" `scripts/bluetooth connected`)
-
-(defpoll    notification_count  :interval "3s" `scripts/notifications count`)
-(defpoll    dnd_icon            :interval "3s" `scripts/notifications icon`)
-(defpoll    dnd_state           :interval "3s" `scripts/notifications state`)
+(defpoll    volume              :interval "3s" :initial "{}" `scripts/volume get`)
+(defpoll    theme               :interval "3s" :initial "{}" `scripts/theme get`)
+(defpoll    power               :interval "3s" :initial "{}" `scripts/power get`)
+(defpoll    night_light         :interval "3s" :initial "{}" `scripts/night_light get`)
+(defpoll    brightness          :interval "3s" :initial "{}" `scripts/brightness get`)
 
 (defpoll    panel_clock         :interval "5s" `date "+%H:%M  |  %b. %d. %A"`)
 (defpoll    hour                :interval "5s" `date "+%H"`)
@@ -50,8 +23,4 @@
 (defpoll    uptime              :interval "60s" "uptime | awk '{print $3}' | tr ',' ' '")
 
 (defpoll    events              :interval "3s" :initial "[]" `scripts/todo --eww`)
-(defpoll    weather             :interval "3m"  :initial "[]"  `scripts/weather`)
-
-(deflisten  active_ws_empty     :initial "true" `scripts/workspaces monitor-empty`)
-; (deflisten  dock_reveal         :initial "true" `scripts/workspaces monitor-empty`)
-(defvar  dock_reveal  "true" )
+(defpoll    weather             :interval "3m" :initial "[]" `scripts/weather`)

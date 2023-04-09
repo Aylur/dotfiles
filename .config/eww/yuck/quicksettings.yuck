@@ -22,16 +22,16 @@
 
 (defwidget quick_toggles [] (box
     :class "module toggles arrow"
-    (arrow_toggle :state network_state
-            :icon wifi_icon
+    (arrow_toggle :state {network.wifi.state}
+            :icon {network.wifi.icon}
             :arrow_action "${EWW_CONFIG_DIR}/scripts/launcher network"
             :toggle_action "${EWW_CONFIG_DIR}/scripts/network toggle")
-    (arrow_toggle :state bluetooth_state
-            :icon bluetooth_icon
+    (arrow_toggle :state {bluetooth.state}
+            :icon {bluetooth.icon}
             :arrow_action "${EWW_CONFIG_DIR}/scripts/launcher bluetooth"
             :toggle_action "${EWW_CONFIG_DIR}/scripts/bluetooth toggle")
-    (arrow_toggle :state power_state
-            :icon power_icon
+    (arrow_toggle :state {power.state}
+            :icon {power.icon}
             :arrow_action "${EWW_CONFIG_DIR}/scripts/launcher rog"
             :toggle_action "${EWW_CONFIG_DIR}/scripts/power toggle")
 ))
@@ -42,23 +42,23 @@
     (box
         :orientation "v"
         (small_toggle   
-            :state dnd_state
-            :icon  dnd_icon
+            :state {notifications.dnd.state}
+            :icon  {notifications.dnd.icon}
             :toggle_action "${EWW_CONFIG_DIR}/scripts/notifications toggle")
         (small_toggle
-            :state mute_state
-            :icon  mute_icon
+            :state {volume.mute.state}
+            :icon  {volume.mute.icon}
             :toggle_action "${EWW_CONFIG_DIR}/scripts/volume mute_toggle")
     )
     (box
         :orientation "v"
         (small_toggle 
-            :state theme_state
-            :icon  theme_icon
+            :state {theme.state}
+            :icon  {theme.icon}
             :toggle_action "${EWW_CONFIG_DIR}/scripts/theme toggle")
         (small_toggle 
-            :state night_light_state
-            :icon  night_light_icon
+            :state {night_light.state}
+            :icon  {night_light.icon}
             :toggle_action "${EWW_CONFIG_DIR}/scripts/night_light toggle")
     )
 ))
@@ -70,13 +70,13 @@
         :space-evenly false
         (label
             :class "icon"
-            :text speaker_type_icon)
+            :text {volume.type_icon})
         (eventbox
             :hexpand true
             :valign "CENTER"
             :class "slider"
             (scale
-                :value volume_level
+                :value {volume.level}
                 :onchange "${EWW_CONFIG_DIR}/scripts/volume set {}"))
         (box
             :space-evenly false
@@ -84,7 +84,7 @@
             (label
                 :hexpand true
                 :halign "END"
-                :text "${volume_level}%")
+                :text "${volume.level}%")
         )
         (button
             :valign "CENTER"
@@ -101,7 +101,7 @@
             :valign "CENTER"
             :class "slider"
             (scale
-                :value screen_level
+                :value {brightness.screen.level}
                 :onchange "${EWW_CONFIG_DIR}/scripts/brightness set_screen {}"))
         (box
             :space-evenly false
@@ -109,7 +109,7 @@
             (label
                 :hexpand true
                 :halign "END"
-                :text "${screen_level}%")
+                :text "${brightness.screen.level}%")
         )
         (button
             :valign "CENTER"
@@ -171,7 +171,6 @@
     :space-evenly false
     (box
         :class "profile-picture module" 
-        :style "background-image: url('${EWW_CONFIG_DIR}/${profile_picture}')"
         (box
             :class "darkened"
             :orientation "v"
@@ -213,7 +212,7 @@
 ))
 
 (defwidget media_player [player] (box
-    :class "media module ${player.player}"
+    :class "media module ${player.name}"
     :space-evenly false
     (box 
         :class "cover"
@@ -249,10 +248,10 @@
                     :class "slider"
                     :hexpand true
                     (scale
-                    :value {media_pos[player.player].position}
+                    :value {media_positions[player.name].position}
                     :min 0
                     :max {player.length}
-                    :onchange "${EWW_CONFIG_DIR}/scripts/player ${player.player} position {}"
+                    :onchange "${EWW_CONFIG_DIR}/scripts/player ${player.name} position {}"
                 ))
                 (box
                     :hexpand true
@@ -267,7 +266,7 @@
                         (label
                             :class "box position"
                             :visible {player.length > 0}
-                            :text "${media_pos[player.player].positionStr} / ${player.lengthStr}"
+                            :text "${media_positions[player.name].positionStr} / ${player.lengthStr}"
                             :halign "START")
                     )
                     (box
@@ -276,27 +275,27 @@
                         :halign "END"
                         :hexpand true
                         (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.player} shuffle"
+                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} shuffle"
                             :class "shuffle ${player.shuffle == "true" ? "active" : ""}"
                             :visible {player.shuffle != "null"}
                             (label :class "icon" :text "󰒟"))
                         (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.player} prev"
+                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} prev"
                             :class "prev ${player.canPrev ? "" : "inactive"}"
                             :active {player.canPrev}
                             (label :class "icon" :text "󰒮"))
                         (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.player} play-pause"
+                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} play-pause"
                             :class "play-pause"
                             :active {player.canPlay}
                             (label :class "icon" :text "${player.status == "Playing" ? "󰏦" : "󰐍"}" ))
                         (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.player} next"
+                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} next"
                             :class "next ${player.canNext ? "" : "inactive"}"
                             :active {player.canNext}
                             (label :class "icon" :text "󰒭"))
                         (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.player} loop"
+                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} loop"
                             :class "loop ${player.loop}"
                             :visible {player.loop != "null"}
                             (label :class "icon" :text "ﯩ"))
@@ -319,7 +318,7 @@
                 :min 0
                 :max 100
                 :value {player.volume}
-                :onchange "${EWW_CONFIG_DIR}/scripts/player ${player.player} volume {}"
+                :onchange "${EWW_CONFIG_DIR}/scripts/player ${player.name} volume {}"
             )
         )
     )
@@ -347,8 +346,8 @@
                 (quick_toggles_grid)
                 (syslevels)
             )
-            (label :text media_pos :visible false) ;so it is active
-            (for player in media
+            (label :text media_positions :visible false) ;so it is active
+            (for player in {media.players}
                 (media_player :player player ))
         )
         (eventbox

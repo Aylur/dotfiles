@@ -23,10 +23,15 @@ function toggle {
         asusctl profile --profile-set Quiet
     fi
 
-    eww update power_icon=$(icon)
-    eww update power_state=$(state)
+    eww update power="$(get)"
 }
 
-if [[ $1 == 'icon' ]]; then icon; fi
-if [[ $1 == 'state' ]]; then state; fi
+function get {
+    echo "{
+        \"state\": \"$(state)\",
+        \"icon\": \"$(icon)\"
+    }"
+}
+
+if [[ $1 == 'get' ]]; then get; fi
 if [[ $1 == 'toggle' ]]; then toggle; fi

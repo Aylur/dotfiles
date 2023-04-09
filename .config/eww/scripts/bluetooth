@@ -11,16 +11,4 @@ function toggle {
   else bluetoothctl power on; fi
 }
 
-function icon {
-  if [[ $(state) = 'on' ]]; then echo '󰂯'
-  else echo '󰂲'; fi
-}
-
-function connected {
-  echo $(bluetoothctl devices Connected | awk '{print $3}')
-}
-
-if [[ $1 == 'state' ]]; then state; fi
-if [[ $1 == 'icon' ]]; then icon; fi
 if [[ $1 == 'toggle' ]]; then toggle; fi
-if [[ $1 == 'connected' ]]; then connected; fi

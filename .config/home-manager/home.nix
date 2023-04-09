@@ -10,6 +10,14 @@
       QT_XCB_GL_INTEGRATION = "none"; # kde-connect
       EDITOR = "nvim";
       VISUAL = "code";
+      XCURSOR_THEME = "Qogir";
+    };
+
+    pointerCursor = {
+      package = pkgs.qogir-icon-theme;
+      name = "Qogir";
+      size = 24;
+      gtk.enable = true;
     };
 
     packages = with pkgs; [
@@ -18,9 +26,9 @@
       eww-wayland rofi-wayland
       # tools
       socat jq tiramisu htop
-      swaynotificationcenter wl-gammactl wlsunset wl-clipboard
-      pavucontrol blueberry
-      flameshot
+      networkmanager wl-gammactl wlsunset wl-clipboard hyprpicker
+      pavucontrol blueberry bluez brightnessctl playerctl imagemagick
+      flameshot gtklock
       # fun
       neofetch jp2a pywal
       # file manager
@@ -48,8 +56,20 @@
       qogir-theme #gtk
       qogir-icon-theme
       adw-gtk3
-      # asusclt
-      asusctl
+      # helix lsp
+      llvmPackages_9.libclang
+      nodePackages.bash-language-server
+      nodePackages.vscode-langservers-extracted
+      nodePackages.typescript
+      nodePackages.typescript-language-server
+      nodePackages.svelte-language-server
+      nodePackages.vls
+      jdt-language-server
+      lua-language-server
+      marksman
+      rnix-lsp
+      rust-analyzer
+      gopls
     ];
 
     file = {
@@ -62,22 +82,8 @@
         recursive = true;
         source = ../../.nix-profile/share/fonts;
       };
-      ".config/gtk-3.0/gtk.css" = {
-        text = ".background.csd, headerbar{ border-radius: 0px; }";
-      };
       ".config/gtk-4.0/gtk.css" = {
-        text = ".background.csd, headerbar{ border-radius: 0px; }";
-      };
-      ".config/gtk-3.0/bookmarks" = {
-        text = ''
-          file:///home/demeter/Documents
-          file:///home/demeter/Music
-          file:///home/demeter/Pictures
-          file:///home/demeter/Videos
-          file:///home/demeter/Downloads
-          file:///home/demeter/Projects Projects
-          file:///home/demeter/School School
-        '';
+        text = ".background.csd{ border-radius: 12px; }";
       };
       ".config/starship.toml" = {
       	source = ./starship/starship.toml;
@@ -88,6 +94,20 @@
       ".config/nushell/env.nu" = {
         source = ./nushell/env.nu;
       };
+      ".local/share/themes/adw-gtk3" = {
+        source = ../../.nix-profile/share/themes/adw-gtk3;
+      };
+      ".local/share/themes/adw-gtk3-dark" = {
+        source = ../../.nix-profile/share/themes/adw-gtk3-dark;
+      };
+      ".local/share/icons/Qogir-dark" = {
+        recursive = true;
+        source = ../../.nix-profile/share/icons/Qogir-dark;
+      };
+       ".local/share/icons/Qogir" = {
+        recursive = true;
+        source = ../../.nix-profile/share/icons/Qogir;
+      };
     };
 
     username = "demeter";
@@ -95,7 +115,44 @@
     stateVersion = "21.11";
   };
   
+  gtk = {
+    enable = true;
+    font.name = "Ubuntu NF";
+    cursorTheme = {
+      name = "Qogir";
+      package = pkgs.qogir-icon-theme;
+    };
+    gtk3 = {
+      bookmarks = [
+        "file:///home/demeter/Documents"
+        "file:///home/demeter/Music"
+        "file:///home/demeter/Pictures"
+        "file:///home/demeter/Videos"
+        "file:///home/demeter/Downloads"
+        "file:///home/demeter/Projects Projects"
+        "file:///home/demeter/School School"
+      ];
+      extraCss = "headerbar{ border-radius: 0; }";
+    };
+  };
+
+  # xdg.desktopEntries = {
+  #   "blueberry" = {
+  #     name = "Bluetooth";
+  #     exec = "blueberry";
+  #     noDisplay = true;
+  #   };
+  # };
+
+  services = {
+    kdeconnect = {
+      enable = true;
+      indicator = true;
+    };
+  };
+
   programs = {
+    home-manager.enable = true;
     starship.enable = true;
     zsh = {
       enable = true;
@@ -130,6 +187,18 @@
     };
     bash = {
       enable = true;
+      profileExtra = ''
+        if [ -e /home/demeter/.nix-profile/etc/profile.d/nix.sh ]; then
+          . /home/demeter/.nix-profile/etc/profile.d/nix.sh; fi
+
+        if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+          PATH="$HOME/.local/bin:$HOME/bin:$PATH"; fi
+
+        if ! [[ "$PATH" =~ "$HOME/.nix-profile/bin:" ]]; then
+          PATH="$HOME/.nix-profile/bin:$PATH"; fi
+
+        export PATH
+      '';
       bashrcExtra = ''
         nx() {
           flags="--extra-experimental-features nix-command --extra-experimental-features flakes"
@@ -150,24 +219,53 @@
         alias firefox='flatpak run org.mozilla.firefox'
       '';
     };
-  };
-
-  # xdg.desktopEntries = {
-  #   "blueberry" = {
-  #     name = "Bluetooth";
-  #     exec = "blueberry";
-  #     noDisplay = true;
-  #   };
-  # };
-
-  services = {
-    kdeconnect = {
+    helix = {
       enable = true;
-      indicator = true;
+      languages = [
+        {
+          name = "java";
+          language-server = {
+            command = "jdtls";
+            args = ["-data" "/home/my_user/.cache/jdtls/my_project"];
+          };
+        }
+      ];
+      settings = {
+        theme = "dark_plus";
+        editor = {
+          line-number = "absolute";
+          color-modes = true;
+        };
+        editor.statusline = {
+          left = ["mode" "spinner"];
+          center = [];
+          right = ["diagnostics" "spacer" "selections" "position" "spacer" "file-encoding" "file-line-ending" "file-type"];
+          separator = "│";
+          mode.normal = "NORMAL";
+          mode.insert = "INSERT";
+          mode.select = "SELECT";
+        };
+        editor.lsp = {
+          display-messages = true;
+          # display-inline-hints = true;
+        };
+        editor.cursor-shape = {
+          normal = "block";
+          insert = "bar";
+          select = "bar";
+        };
+        editor.file-picker = {
+          hidden = false;
+        };
+        editor.search = {
+          smart-case = false;
+        };
+        editor.indent-guides = {
+          render = true;
+          character = "┊";
+          skip-levels = 0;
+        };
+      };
     };
-  };
-
-  programs = {
-    home-manager.enable = true;
   };
 }

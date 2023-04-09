@@ -18,12 +18,12 @@
     (eventbox :class "button workspaces"
         (box
             :space-evenly false
-            (for workspace in workspaces
+            (for workspace in {window_manager.workspaces}
                 (button
-                    :class "workspace-btn ${workspace.id == active_workspace ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                    :class "workspace-btn ${workspace.id == window_manager.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
                     :onclick "hyprctl dispatch workspace ${workspace.id}"
                     :valign "center"
-                    (label :text {workspace.windows > 0 ? "${workspace.id == active_workspace ? "" : ""}" : ""})
+                    (label :text {workspace.windows > 0 ? "${workspace.id == window_manager.active ? "" : ""}" : ""})
                 )
             )
         )
@@ -33,27 +33,25 @@
 (defwidget panel_window [] (box :class "button-bin"
     (button :class "button window" 
         (label
-            :visible {window != "null" ? true : false}
-            :text window)
+            :visible {window_manager.window_class != "null" ? true : false}
+            :text {window_manager.window_class})
     )
 ))
 
 (defwidget panel_media [] (box :class "button-bin" 
+    :visible {media.preferred != "null"}
     (eventbox
-        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media[0].player} play-pause"
-        :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media[0].player} {}"
+        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} play-pause"
+        :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} {}"
         :class "button media"
         (box
-            :visible {arraylength(media) > 0 ? true : false}
             :space-evenly false
-            (label :class "icon ${media[0].player}" :text {media[0].icon})
-            (label
-                :text "${media[0].artist} - ${media[0].title}")
+            (label :class "icon ${media.preferred.name}" :text {media.preferred.icon})
+            (label :text "${media.preferred.artist} - ${media.preferred.title}")
         )
     )
 ))
 
-    
 (defvar    panel_sliders      false)
 (defwidget panel_sliders [] (box :class "button-bin" (eventbox
     :onhover "${EWW_CMD} update panel_sliders=true"
@@ -69,7 +67,7 @@
                 :class "slider"
                 :hexpand true
                 (overlay
-                    (scale  :value screen_level
+                    (scale  :value {brightness.screen.level}
                             :onchange "${EWW_CONFIG_DIR}/scripts/brightness set_screen {}")
                     (label  :valign "center"
                             :class "icon" 
@@ -80,12 +78,12 @@
                 :class "slider"
                 :hexpand true
                 (overlay
-                    (scale  :value volume_level
+                    (scale  :value {volume.level}
                             :onchange "${EWW_CONFIG_DIR}/scripts/volume set {}")
                     (label  :valign "center"
                             :class "icon" 
                             :halign "START"
-                            :text speaker_type_icon)))
+                            :text {volume.type_icon})))
         ))
         (label :class "icon" :text "" :valign "center")
 ))))
@@ -98,7 +96,7 @@
     )
 ))
 
-(defwidget panel_system-indicators [] (box :class "button-bin"
+(defwidget panel_system_indicators [] (box :class "button-bin"
     (button
         :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu quicksettings"
         :class "button system-indicators"
@@ -106,38 +104,29 @@
             :space-evenly false
             :spacing 6
             (label  :class "icon bt-headphones"
-                    :text speaker_type_icon
-                    :visible {speaker_type_icon != "󰓃"})
+                    :text {volume.type_icon}
+                    :visible {volume.type_icon != "󰓃"})
             (eventbox   :onscroll "${EWW_CONFIG_DIR}/scripts/volume {}"
                 (label  :class "volume icon"
-                        :tooltip "Level: ${volume_level}%"
-                        :text volume_icon))
+                        :text {volume.icon}))
             (label  :class "bluetooth icon"
-                    :text bluetooth_icon
-                    :tooltip bluetooth_connected
-                    :visible {bluetooth_state == "on"})
-            (label  :class "network icon ${network_status}"
-                    :tooltip "${wifi_strength}% ${wifi_ssid}"
-                    :text network_icon)
+                    :text {bluetooth.icon}
+                    :visible {arraylength(bluetooth.connected_devices) > 0})
+            (label  :class "network icon ${network.wifi.style}"
+                    :text {network[network.primary].icon})
             (box :class "battery"
-                :tooltip "Battery: ${battery.percent}%"
                 :space-evenly false
-                (label :class "icon ${battery.state}"
-                       :text {battery.icon})
-                (label :text "${battery.percent}%"
-                       :visible {battery.state != "charged" && battery.state != "charging"}))
-        )
-    )
-))
-
-(defwidget panel_notifications [] (box :class "button-bin"
-    (button
-        :class "button notifications"
-        :onclick "${EWW_CONFIG_DIR}/scripts/launcher notifications"
-        (box 
-            :space-evenly false
-            (label :class "icon" :text dnd_icon)
-            (label :text notification_count )
+                (label  :class "icon ${battery.state}"
+                        :text {battery.icon})
+                (label  :text "${battery.percent}%"
+                        :visible {battery.state != "charged" && battery.state != "charging"}))
+            (box :class "notifications"
+                :space-evenly false
+                (label  :class "icon notifications ${notifications.count > 0 ? "active" : ""}"
+                        :text {notifications.icon})
+                (label  :text {notifications.count}
+                    :visible {notifications.count > 0})
+            )
         )
     )
 ))
@@ -149,43 +138,28 @@
 )))
 
 (defwidget bar [] (centerbox
-    :class "panel ${active_ws_empty ? "floating" : ""}"
+    :class "panel ${window_manager.active_empty ? "floating" : ""}"
     (box
         :class "leftBar"
         :space-evenly false
         (panel_launcher)
         (panel_clock)
         (panel_workspaces)
-        (label :visible false :text active_workspace);needs so active_workspace gets updated
         (panel_window)
     )
     (box
         :class "centerBar"
         (panel_media)
+        (label :text myshell :visible false) ;so it runs the process
+        (label :text hyprland :visible false) ;so it runs the process
     )
     (box
         :class "righBar"
         :space-evenly false
         :halign "end"
-        (panel_colorpicker)
-        (panel_system-indicators)
-        (panel_notifications)
-        (panel_powermenu)
-    )
-))
-
-(defwidget secondarybar [] (centerbox
-    :class "panel secondary ${active_ws_empty ? "floating" : ""}"
-    (box :halign "start"
-        :space-evenly false
-        (panel_workspaces)
-        (panel_window)
-    )
-    (panel_clock)
-    (box 
-        :halign "end"
-        :space-evenly false 
         (panel_sliders)
-        (panel_media)
+        (panel_colorpicker)
+        (panel_system_indicators)
+        (panel_powermenu)
     )
 ))
