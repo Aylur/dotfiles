@@ -21,8 +21,9 @@ HDMI=$(hyprctl monitors -j | jq .[1].name)
 # fi
 
 eww open bar
-eww open desktop
+# eww open desktop
 # eww open dock
-eww open notifications-window
+# eww open notifications-window
+# eww inspector
 
 eww update wallpaper=$(gsettings get org.gnome.desktop.background picture-uri)

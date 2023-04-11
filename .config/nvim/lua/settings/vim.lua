@@ -1,5 +1,3 @@
-vim.cmd.colorscheme('vscode')
-
 vim.opt.nu = true -- line numbers
 vim.opt.relativenumber = false
 

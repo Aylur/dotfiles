@@ -1,0 +1,165 @@
+(defwidget panel_launcher [] (box :class "button-bin launcher"
+    (button
+        :class "button launcher"
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher applauncher"
+        (label :class "icon" :text "" :halign "center")
+    )
+))
+
+(defwidget panel_clock [] (box :class "button-bin"
+    (button
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu calendar"
+        :class "button clock"
+        (label  :text panel_clock)
+    )
+))
+
+(defwidget panel_workspaces [] (box :class "button-bin"
+    (eventbox :class "button workspaces"
+        (box
+            :space-evenly false
+            (for workspace in {window_manager.workspaces}
+                (button
+                    :class "workspace-btn ${workspace.id == window_manager.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                    :onclick "hyprctl dispatch workspace ${workspace.id}"
+                    :valign "center"
+                    (label :text {workspace.windows > 0 ? "${workspace.id == window_manager.active ? "" : ""}" : ""})
+                )
+            )
+        )
+    )
+))
+
+(defwidget panel_window [] (box :class "button-bin"
+    (button :class "button window" 
+        (label
+            :visible {window_manager.window_class != "null" ? true : false}
+            :text {window_manager.window_class})
+    )
+))
+
+(defwidget panel_media [] (box :class "button-bin" 
+    :visible {media.preferred != "null"}
+    (eventbox
+        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} play-pause"
+        :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} {}"
+        :class "button media"
+        (box
+            :space-evenly false
+            (label :class "icon ${media.preferred.name}" :text {media.preferred.icon})
+            (label :text "${media.preferred.artist} - ${media.preferred.title}")
+        )
+    )
+))
+
+(defvar    panel_sliders      false)
+(defwidget panel_sliders [] (box :class "button-bin" (eventbox
+    :onhover "${EWW_CMD} update panel_sliders=true"
+    :onhoverlost "${EWW_CMD} update panel_sliders=false"
+    (box :space-evenly false
+        (revealer
+            :transition "slideright"
+            :duration "300ms"
+            :reveal panel_sliders (box 
+            :class "sliders-bin"
+            :space-evenly false
+            (eventbox 
+                :class "slider"
+                :hexpand true
+                (overlay
+                    (scale  :value {brightness.screen.level}
+                            :onchange "${EWW_CONFIG_DIR}/scripts/brightness set_screen {}")
+                    (label  :valign "center"
+                            :class "icon" 
+                            :halign "START"
+                            :text "󰃠")))
+            (box :class "separator" :valign "center" )
+            (eventbox 
+                :class "slider"
+                :hexpand true
+                (overlay
+                    (scale  :value {volume.level}
+                            :onchange "${EWW_CONFIG_DIR}/scripts/volume set {}")
+                    (label  :valign "center"
+                            :class "icon" 
+                            :halign "START"
+                            :text {volume.type_icon})))
+        ))
+        (label :class "icon" :text "" :valign "center")
+))))
+
+(defwidget panel_colorpicker [] (box :class "button-bin"
+    (button
+        :class "button colorpicker"
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher colorpicker"
+        (label :class "icon" :text "󰈊")
+    )
+))
+
+(defwidget panel_system_indicators [] (box :class "button-bin"
+    (button
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu quicksettings"
+        :class "button system-indicators"
+        (box
+            :space-evenly false
+            :spacing 6
+            (label  :class "icon bt-headphones"
+                    :text {volume.type_icon}
+                    :visible {volume.type_icon != "󰓃"})
+            (eventbox   :onscroll "${EWW_CONFIG_DIR}/scripts/volume {}"
+                (label  :class "volume icon"
+                        :text {volume.icon}))
+            (label  :class "bluetooth icon"
+                    :text {bluetooth.icon}
+                    :visible {arraylength(bluetooth.connected_devices) > 0})
+            (label  :class "network icon ${network.wifi.style}"
+                    :text {network[network.primary].icon})
+            (box :class "battery"
+                :space-evenly false
+                (label  :class "icon ${battery.state}"
+                        :text {battery.icon})
+                (label  :text "${battery.percent}%"
+                        :visible {battery.state != "charged" && battery.state != "charging"}))
+            (box :class "notifications"
+                :space-evenly false
+                (label  :class "icon notifications ${notifications.count > 0 ? "active" : ""}"
+                        :text {notifications.icon})
+                (label  :text {notifications.count}
+                    :visible {notifications.count > 0})
+            )
+        )
+    )
+))
+
+(defwidget panel_powermenu [] (box :class "button-bin powermenu" (button
+    :class "button powermenu"
+    :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu powermenu"
+    (label :class "icon" :text "")
+)))
+
+(defwidget bar [] (centerbox
+    :class "panel ${window_manager.active_empty ? "floating" : ""}"
+    (box
+        :class "leftBar"
+        :space-evenly false
+        (panel_launcher)
+        (panel_clock)
+        (panel_workspaces)
+        (panel_window)
+    )
+    (box
+        :class "centerBar"
+        (panel_media)
+        (label :text myshell :visible false) ;so it runs the process
+        (label :text hyprland :visible false) ;so it runs the process
+    )
+    (box
+        :class "righBar"
+        :space-evenly false
+        :halign "end"
+        (panel_sliders)
+        (panel_colorpicker)
+        (panel_system_indicators)
+        (panel_powermenu)
+    )
+)

@@ -27,7 +27,20 @@ require('lazy').setup({
   -- colorschemes
   'Mofiqul/vscode.nvim',
   'Mofiqul/adwaita.nvim',
-  { 'decaycs/decay.nvim' },
+  { 'decaycs/decay.nvim', name = 'decay' },
+  'nyoom-engineering/oxocarbon.nvim',
+  { "catppuccin/nvim", name = "catppuccin", opts = {
+    flavour = 'mocha',
+    color_overrides = {
+      mocha = {
+       base = '#161616',
+       mantle = '#131313',
+       crust = '#111111',
+    } } } },
+  { 'rose-pine/neovim', name = 'rose-pine', opts = {
+    disable_italics = true,
+    dark_variant = 'moon',
+    groups = { background = '#161616' } } },
 
   'nvim-lualine/lualine.nvim', -- statusline
   {'akinsho/bufferline.nvim', version = "v3.*" }, --tabline

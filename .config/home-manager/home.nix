@@ -21,7 +21,6 @@
       VISUAL = "code";
       XCURSOR_THEME = "Qogir";
       NIXPKGS_ALLOW_UNFREE = "1";
-      SHELL = "/home/demeter/.nix-profile/bin/zsh";
     };
 
     pointerCursor = {

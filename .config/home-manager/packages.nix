@@ -2,7 +2,8 @@
 {
   home.packages = with pkgs; [
     # wm
-    awesome bspwm sxhkd
+    # awesome bspwm sxhkd
+    # eww rofi
     eww-wayland rofi-wayland
     # tools
     socat jq tiramisu htop

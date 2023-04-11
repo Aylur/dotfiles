@@ -1,0 +1,90 @@
+.panel {
+    min-width: 2.2em;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: $fg_color;
+    text-shadow: $text_shadow;
+
+    background-color: transparent;
+    @if $theme == 'dark' {
+        background-color: $bg_color;
+        border-bottom: $border_width solid $popover_border_color;
+        box-shadow: 0 0 6px 0 rgba(0,0,0,0.8);
+    }
+    
+    .button-bin{
+        margin: 3px 2px;
+        &.launcher{ margin-left: 4px }
+        &.powermenu{ margin-right: 4px }
+    }
+
+    .button{
+        .icon{ font-size: 1.2em;}
+        @include button($flat: true, $radii: $panel_button_radius);
+        > * { padding: 0 .7em }
+
+        &.launcher{ color: $blue; }
+        &.powermenu{ color: $red; }
+        &.window{ @include button($flat: true, $interactive: false) }
+
+        &.workspaces{
+            @include button($flat: false, $radii: $panel_button_radius);
+            .workspace-btn{
+                label{ font-size: 1.2em; }
+                margin: 2px;
+                &.empty{ color: transparentize($fg_color, 0.34); }
+                &.occupied{ color: transparentize($fg_color, 0.18); }
+                &.active{ color: $fg_color; }
+                &:hover{
+                    &.empty{ color: transparentize($fg_color, 0.18); }
+                    &.occupied{ color: $fg_color; }
+                }
+                &:active{ color: $accent; }
+            }
+        }
+
+        &.system-indicators{
+            .icon{ font-size: 1.3em; }
+            .battery{
+                .low{ color: $destructive; }
+                .charging{ color: $succes; }
+                .charged{ color: $succes; }
+            }
+            .notifications.active{
+                color: $yellow;
+            }
+            .network{
+                &.none, &.low{ color: $red; }
+                &.medium{}
+                &.high{ color: $blue; }
+            }
+        }
+
+        &.media{
+            .icon{
+                margin-right: .2em;
+                &.spotify{ color: $green; }
+                &.firefox{ color: $orange; }
+                &.mpv{ color: $magenta; }
+            }
+        }
+    }
+
+    .sliders-bin{
+        min-width: 220px;
+        margin-right: 4px;
+        .slider{ 
+            @include slider($width: 1.2em, $slider: false);
+            .icon{ 
+                margin-left: 3px; 
+                color: $accent_fg;
+            }
+        }
+        .separator{
+            min-width: 2px;
+            min-height: 1em;
+            margin: 0 4px;
+            background-color: $fg_color;
+        }
+    }
+}

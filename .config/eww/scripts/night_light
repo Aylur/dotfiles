@@ -19,7 +19,6 @@ function toggle {
         eww update night_light_state="{ \"state\": \"on\", \"icon\": \"$(icon)\"}"
         wlsunset -t 3400
     fi
-    eww update night_light="$(get)"
 }
 
 function get {

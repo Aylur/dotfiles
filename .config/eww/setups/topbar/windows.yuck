@@ -1,14 +1,14 @@
-(include "./yuck/bar.yuck")
-(include "./yuck/osd.yuck")
-(include "./yuck/powermenu.yuck")
-(include "./yuck/datemenu.yuck")
-(include "./yuck/desktop.yuck")
-(include "./yuck/dock.yuck")
-(include "./yuck/quicksettings.yuck")
-(include "./yuck/notifications.yuck")
+(include "./setups/topbar/yuck/bar.yuck")
+(include "./setups/topbar/yuck/osd.yuck")
+(include "./setups/topbar/yuck/powermenu.yuck")
+(include "./setups/topbar/yuck/datemenu.yuck")
+(include "./setups/topbar/yuck/desktop.yuck")
+(include "./setups/topbar/yuck/dock.yuck")
+(include "./setups/topbar/yuck/quicksettings.yuck")
+(include "./setups/topbar/yuck/notifications.yuck")
 
 (defwindow bar
-    :monitor 1
+    :monitor 0
     :exclusive true
     :stacking "fg"
     :geometry (geometry :width "100%"
@@ -16,50 +16,50 @@
                         :anchor "top center")(bar))
 
 (defwindow osd
-    :monitor 1
+    :monitor 0
     :stacking "fg"
     :geometry (geometry :width "1%"
                         :height "1%"
                         :anchor "center right")(osd))
 
 (defwindow powermenu
-    :monitor 1
+    :monitor 0
     :stacking "fg"
     :geometry (geometry :width  "100%"
                         :height "120%"
                         :anchor "center center")(powermenu))
 
 (defwindow calendar
-    :monitor 1
+    :monitor 0
     :stacking "fg"
     :geometry (geometry :width  "100%"
                         :height "100%"
                         :anchor "top left")(datemenu))
 
 (defwindow quicksettings
-    :monitor 1
+    :monitor 0
     :stacking "fg"
     :geometry (geometry :width  "100%"
                         :height "100%"
                         :anchor "top right")(quicksettings))
 
 (defwindow desktop
-    :monitor 1
+    :monitor 0
     :stacking "bottom"
     :geometry (geometry :width  "100%"
                         :height "100%"
                         :anchor "bottom right")(desktop))
 
 (defwindow dock
-    :monitor 1
+    :monitor 0
     :stacking "fg"
     :geometry (geometry :width  "1%"
                         :height "1%"
                         :anchor "bottom center")(dock))
 
 (defwindow notifications-window
-    :monitor 1
+    :monitor 0
     :stacking "overlay"
     :geometry (geometry :width  "0%"
                         :height "0%"
-                        :anchor "top right")(notifications))
+                        :anchor "top center")(notifications))

@@ -9,7 +9,6 @@ require("bufferline").setup{
       }
     },
     indicator = "underline",
-    separator_style = "slope",
     diagnostics = "nvim_lsp",
     alway_show_bufferline = false,
   }
