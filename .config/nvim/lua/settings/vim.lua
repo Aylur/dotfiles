@@ -1,7 +1,7 @@
 vim.cmd.colorscheme('vscode')
 
 vim.opt.nu = true -- line numbers
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 vim.opt.hlsearch = false -- highlight search
 vim.opt.incsearch = true -- incremental search

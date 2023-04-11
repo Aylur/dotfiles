@@ -4,5 +4,3 @@ vim.g.maplocalleader = ' '
 require('plugins')
 require('settings')
 require('keymaps')
-
--- vim.cmd(':NvimTreeOpen')

@@ -16,13 +16,17 @@ vim.keymap.set('i', '<C-s>', function() vim.cmd('w') end, { desc = 'Quick Save' 
 vim.keymap.set('n', '<leader>w', function() vim.cmd('set wrap!') end, { desc = 'Toggle [w]rap' })
 
 -- netrw
-vim.keymap.set('n', '<leader>e', vim.cmd.Ex, { desc = 'netrw' })
+-- vim.keymap.set('n', '<leader>e', vim.cmd.Ex, { desc = 'netrw' })
+
+-- nvimtree
+vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeFocus, { desc = 'Focus NvimTree' })
+vim.keymap.set('n', '<leader>c', vim.cmd.NvimTreeClose, { desc = '[C]lose NvimTree'})
 
 -- Telescope
-vim.keymap.set('n', 'ff', require('telescope.builtin').find_files, { desc = 'Telescope [f]ind [f]ile' })
-vim.keymap.set('n', 'fg', require('telescope.builtin').live_grep,  { desc = 'Telescope [f]ind live [g]rep' })
-vim.keymap.set('n', 'fb', require('telescope.builtin').buffers,    { desc = 'Telescope [f]ind [b]uffers' })
-vim.keymap.set('n', 'fh', require('telescope.builtin').help_tags,  { desc = 'Telescope [f]ind [h]elp' })
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = 'Telescope [f]ind [f]ile' })
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep,  { desc = 'Telescope [f]ind live [g]rep' })
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers,    { desc = 'Telescope [f]ind [b]uffers' })
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags,  { desc = 'Telescope [f]ind [h]elp' })
 
 -- move selected lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

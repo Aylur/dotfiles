@@ -3,7 +3,7 @@ require('lualine').setup {
     icons_enabled = true,
     theme = 'auto',
     component_separators = { left = '│', right = '│'},
-    section_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
     disabled_filetypes = {
       statusline = {},
       winbar = {},
@@ -22,7 +22,7 @@ require('lualine').setup {
     lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
+    lualine_y = {'tabs'},
     lualine_z = {'location'}
   },
   inactive_sections = {

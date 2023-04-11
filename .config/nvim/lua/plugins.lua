@@ -12,46 +12,26 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  -- live server
-  'manzeloth/live-server',
-
-  -- agda
-  'ashinkarov/nvim-agda',
-
-  -- sql
-  'nanotee/sqls.nvim',
-
-  -- autopairs
-  { "windwp/nvim-autopairs", opts = {} },
-
-  -- dependencies
-  'nvim-tree/nvim-web-devicons',
-
-  -- auto tabwidth
-  'tpope/vim-sleuth',
-
-  -- show pending keys
-  { 'folke/which-key.nvim', opts = {} },
-
-  { -- telescope
+  { "windwp/nvim-autopairs", opts = {} }, -- autopairs
+  'nvim-tree/nvim-web-devicons', -- dependencies
+  'tpope/vim-sleuth', -- auto tabwidth
+  { 'folke/which-key.nvim', opts = {} }, -- pending keys
+  {
     'nvim-telescope/telescope.nvim',
     version = '*',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
-
-  -- diagnostics
-  "folke/trouble.nvim",
-
-  -- multiline cursors
-  'mg979/vim-visual-multi',
+  { "folke/trouble.nvim", opts = {} },-- diagnostics
+  'mg979/vim-visual-multi', -- multiline cursors
 
   -- colorschemes
   'Mofiqul/vscode.nvim',
   'Mofiqul/adwaita.nvim',
-  'decaycs/decay.nvim',
+  { 'decaycs/decay.nvim' },
 
-  -- statusline
-  'nvim-lualine/lualine.nvim',
+  'nvim-lualine/lualine.nvim', -- statusline
+  {'akinsho/bufferline.nvim', version = "v3.*" }, --tabline
+  'nvim-tree/nvim-tree.lua', -- filetree
 
   { -- syntax highlight
     'nvim-treesitter/nvim-treesitter',
@@ -66,11 +46,8 @@ require('lazy').setup({
     },
   },
 
-  -- "gcc" to comment
-  { 'numToStr/Comment.nvim', opts = {} },
-
-  -- buttom right spinner
-  { 'j-hui/fidget.nvim', opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} }, -- "gcc" to comment
+  { 'j-hui/fidget.nvim', opts = {} }, -- buttom right spinner
 
   { -- LSP
     'VonHeikemen/lsp-zero.nvim',
@@ -93,7 +70,4 @@ require('lazy').setup({
   },
 
   'elkowar/yuck.vim'
-
-  -- file tree
-  -- 'nvim-tree/nvim-tree.lua',
 })
