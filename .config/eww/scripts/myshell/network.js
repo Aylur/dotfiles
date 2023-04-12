@@ -88,13 +88,13 @@ class Network extends GObject.Object{
             strength: `${this._ap?.strength}%`,
             icon: ['󰤮', '󰤯', '󰤟', '󰤢', '󰤥', '󰤨'][Math.ceil(this._ap?.strength/20)]
         };
-        if(!wifi.enabled || !internet) {
-            wifi.strength = '󰂭',
-            wifi.icon = '󰤮'
-        }
         if(!internet) {
             wifi.strength = '󰪎'
             wifi.icon = '󰪎'
+        }
+        if(!wifi.enabled) {
+            wifi.strength = '󰂭',
+            wifi.icon = '󰤮'
         }
         wifi.style = WifiStyles[wifi.icon];
         let wired  ={ 
@@ -103,7 +103,8 @@ class Network extends GObject.Object{
         }
 
         this._json = {
-            primary: { '802-11-wireless': 'wifi', '802-03-ethernet': 'wired' }[primary_type],
+            primary:  { '802-03-ethernet': 'ethernet', '802-11-wireless': 'wifi' }[primary_type] || 'none',
+            none: { icon: '󰤮' },
             wifi,
             wired,
         };

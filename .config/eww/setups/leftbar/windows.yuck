@@ -1,9 +1,0 @@
-(include "./setups/leftbar/yuck/bar.yuck")
-
-(defwindow bar
-    :monitor 0
-    :exclusive true
-    :stacking "fg"
-    :geometry (geometry :width "1%"
-                        :height "100%"
-                        :anchor "center left")(bar))

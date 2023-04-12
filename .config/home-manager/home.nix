@@ -1,12 +1,25 @@
 { config, pkgs, lib, ... }:
+let
+  flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
+
+  hyprland = (import flake-compat {
+    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
+  }).defaultNix;
+in
 {
   imports = [
+    hyprland.homeManagerModules.default
     ./starship.nix
     ./packages.nix
     ./files.nix
     ./helix.nix
     ./sh.nix
   ];
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    nvidiaPatches = true;
+  };
 
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

@@ -33,10 +33,10 @@ require('lazy').setup({
     flavour = 'mocha',
     color_overrides = {
       mocha = {
-       base = '#161616',
-       mantle = '#131313',
-       crust = '#111111',
-    } } } },
+        base = '#1C1C1C',
+        mantle = '#181818',
+        crust = '#131313'
+      } } } },
   { 'rose-pine/neovim', name = 'rose-pine', opts = {
     disable_italics = true,
     dark_variant = 'moon',

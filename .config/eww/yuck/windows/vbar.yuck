@@ -10,7 +10,13 @@
     (button
         :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu calendar"
         :class "button clock"
-        (label  :text panel_clock)
+        (box
+            :space-evenly false
+            :orientation "v"
+            (label :text hour :class "clock")
+            (label :class "separator" :halign "center")
+            (label :text minutes :class "minutes")
+        )
     )
 ))
 
@@ -18,23 +24,16 @@
     (eventbox :class "button workspaces"
         (box
             :space-evenly false
-            (for workspace in {window_manager.workspaces}
+            :orientation "v"
+            (for workspace in {workspaces.workspaces}
                 (button
-                    :class "workspace-btn ${workspace.id == window_manager.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                    :class "workspace-btn ${workspace.id == workspaces.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
                     :onclick "hyprctl dispatch workspace ${workspace.id}"
                     :valign "center"
-                    (label :text {workspace.windows > 0 ? "${workspace.id == window_manager.active ? "" : ""}" : ""})
+                    (label :class "icon" :text {workspace.windows > 0 ? "${workspace.id == workspaces.active ? "" : ""}" : ""})
                 )
             )
         )
-    )
-))
-
-(defwidget panel_window [] (box :class "button-bin"
-    (button :class "button window" 
-        (label
-            :visible {window_manager.window_class != "null" ? true : false}
-            :text {window_manager.window_class})
     )
 ))
 
@@ -46,53 +45,24 @@
         :class "button media"
         (box
             :space-evenly false
+            :orientation "v"
             (label :class "icon ${media.preferred.name}" :text {media.preferred.icon})
-            (label :text "${media.preferred.artist} - ${media.preferred.title}")
+            (button
+                :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} prev"
+                :class "icon prev ${media.preferred.canPrev ? "" : "inactive"}"
+                :active {media.preferred.canPrev}
+                (label :class "icon" :text "󰒮"))
+            (button
+                :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} play-pause"
+                :class "icon play-pause"
+                :active {media.preferred.canPlay}
+                (label :class "icon" :text "${media.preferred.name == "Playing" ? "󰏦" : "󰐍"}" ))
+            (button
+                :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} next"
+                :class "icon next ${media.preferred.canNext ? "" : "inactive"}"
+                :active {media.preferred.canNext}
+                (label :class "icon" :text "󰒭"))
         )
-    )
-))
-
-(defvar    panel_sliders      false)
-(defwidget panel_sliders [] (box :class "button-bin" (eventbox
-    :onhover "${EWW_CMD} update panel_sliders=true"
-    :onhoverlost "${EWW_CMD} update panel_sliders=false"
-    (box :space-evenly false
-        (revealer
-            :transition "slideright"
-            :duration "300ms"
-            :reveal panel_sliders (box 
-            :class "sliders-bin"
-            :space-evenly false
-            (eventbox 
-                :class "slider"
-                :hexpand true
-                (overlay
-                    (scale  :value {brightness.screen.level}
-                            :onchange "${EWW_CONFIG_DIR}/scripts/brightness set_screen {}")
-                    (label  :valign "center"
-                            :class "icon" 
-                            :halign "START"
-                            :text "󰃠")))
-            (box :class "separator" :valign "center" )
-            (eventbox 
-                :class "slider"
-                :hexpand true
-                (overlay
-                    (scale  :value {volume.level}
-                            :onchange "${EWW_CONFIG_DIR}/scripts/volume set {}")
-                    (label  :valign "center"
-                            :class "icon" 
-                            :halign "START"
-                            :text {volume.type_icon})))
-        ))
-        (label :class "icon" :text "" :valign "center")
-))))
-
-(defwidget panel_colorpicker [] (box :class "button-bin"
-    (button
-        :class "button colorpicker"
-        :onclick "${EWW_CONFIG_DIR}/scripts/launcher colorpicker"
-        (label :class "icon" :text "󰈊")
     )
 ))
 
@@ -103,6 +73,7 @@
         (box
             :space-evenly false
             :spacing 6
+            :orientation "v"
             (label  :class "icon bt-headphones"
                     :text {volume.type_icon}
                     :visible {volume.type_icon != "󰓃"})
@@ -113,15 +84,18 @@
                     :text {bluetooth.icon}
                     :visible {arraylength(bluetooth.connected_devices) > 0})
             (label  :class "network icon ${network.wifi.style}"
+                    :visible {network.primary != 'none'}
                     :text {network[network.primary].icon})
             (box :class "battery"
                 :space-evenly false
+                :orientation "v"
                 (label  :class "icon ${battery.state}"
                         :text {battery.icon})
-                (label  :text "${battery.percent}%"
-                        :visible {battery.state != "charged" && battery.state != "charging"}))
+                (label  :text "${battery.percent}"
+                        :visible {battery.state != "charged" && battery.state != "charging" && battery.percent < 100}))
             (box :class "notifications"
                 :space-evenly false
+                :orientation "v"
                 (label  :class "icon notifications ${notifications.count > 0 ? "active" : ""}"
                         :text {notifications.icon})
                 (label  :text {notifications.count}
@@ -138,27 +112,27 @@
 )))
 
 (defwidget bar [] (centerbox
-    :class "panel ${window_manager.active_empty ? "floating" : ""}"
+    :orientation "v"
+    :class "vpanel ${workspaces.active_empty ? "floating" : ""}"
     (box
         :class "leftBar"
         :space-evenly false
+        :valign "start"
+        :orientation "v"
         (panel_launcher)
         (panel_clock)
-        (panel_workspaces)
-        (panel_window)
+        (panel_media)
     )
     (box
         :class "centerBar"
-        (panel_media)
-        (label :text myshell :visible false) ;so it runs the process
-        (label :text hyprland :visible false) ;so it runs the process
+        :orientation "v"
+        (panel_workspaces)
     )
     (box
         :class "righBar"
         :space-evenly false
-        :halign "end"
-        (panel_sliders)
-        (panel_colorpicker)
+        :valign "end"
+        :orientation "v"
         (panel_system_indicators)
         (panel_powermenu)
     )

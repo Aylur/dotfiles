@@ -1,29 +1,19 @@
 #!/usr/bin/env bash
 
 pkill eww
+pkill myshell
 eww daemon
-
-HDMI=$(hyprctl monitors -j | jq .[1].name)
-
+ 
+# HDMI=$(hyprctl monitors -j | jq .[1].name)
 # if [[ $HDMI == '"HDMI-A-1"' ]]; then
-#     eww open secondarybar
-#     eww open desktop0
-#     eww open dock0
-#     eww open dock1
-#     eww open bar1
-#     eww open desktop1
-#     eww update main_monitor=1
+#     # open both monitor stuff
 # else
-#     eww open dock0
-#     eww open bar0
-#     eww open desktop0
-#     eww update main_monitor=0
+#     # open main monitror stuff
 # fi
 
 eww open bar
-# eww open desktop
-# eww open dock
-# eww open notifications-window
+eww open desktop
+eww open notifications-window
 # eww inspector
 
-eww update wallpaper=$(gsettings get org.gnome.desktop.background picture-uri)
+$HOME/.config/eww/scripts/myshell/./myshell --eww --file

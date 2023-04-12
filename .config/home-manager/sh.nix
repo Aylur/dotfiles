@@ -13,8 +13,12 @@
           if   [[ $1 == 'search' ]]; then nix search nixpkgs#$2
           elif [[ $1 == 'run' ]]; then nix run nixpkgs#$2
           elif [[ $1 == 'list' ]]; then nix profile list
-          elif [[ $1 == 'up' ]]; then nix profile upgrade '.*'
           elif [[ $1 == 'install' ]]; then nix profile install nixpkgs#$2
+          elif [[ $1 == 'up' ]]; then
+            nix-channel --update
+            nix-env --upgrade
+            nix profile upgrade '.*'
+            home-manager switch
           fi
         }
       '';
@@ -28,6 +32,7 @@
         "ll" = "exa -l --sort type --header --icons --group-directories-first";
         "firefox" = "flatpak run org.mozilla.firefox";
         "nv" = "nvim";
+        ":q" = "exit";
       };
     };
     bash = {
@@ -51,6 +56,7 @@
         alias és='ls'
         alias firefox='flatpak run org.mozilla.firefox'
         alias nv='nvim'
+        alias :q='exit'
       '';
     };
   };

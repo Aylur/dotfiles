@@ -18,12 +18,12 @@
     (eventbox :class "button workspaces"
         (box
             :space-evenly false
-            (for workspace in {window_manager.workspaces}
+            (for workspace in {workspaces.workspaces}
                 (button
-                    :class "workspace-btn ${workspace.id == window_manager.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                    :class "workspace-btn ${workspace.id == workspaces.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
                     :onclick "hyprctl dispatch workspace ${workspace.id}"
                     :valign "center"
-                    (label :text {workspace.windows > 0 ? "${workspace.id == window_manager.active ? "" : ""}" : ""})
+                    (label :text {workspace.windows > 0 ? "${workspace.id == workspaces.active ? "" : ""}" : ""})
                 )
             )
         )
@@ -33,8 +33,8 @@
 (defwidget panel_window [] (box :class "button-bin"
     (button :class "button window" 
         (label
-            :visible {window_manager.window_class != "null" ? true : false}
-            :text {window_manager.window_class})
+            :visible {window != "null" ? true : false}
+            :text {window})
     )
 ))
 
@@ -137,8 +137,8 @@
     (label :class "icon" :text "")
 )))
 
-(defwidget bar [] (centerbox
-    :class "panel ${window_manager.active_empty ? "floating" : ""}"
+(defwidget hbar [] (centerbox
+    :class "hpanel ${workspaces.active_empty ? "floating" : ""}"
     (box
         :class "leftBar"
         :space-evenly false
@@ -150,8 +150,6 @@
     (box
         :class "centerBar"
         (panel_media)
-        (label :text myshell :visible false) ;so it runs the process
-        (label :text hyprland :visible false) ;so it runs the process
     )
     (box
         :class "righBar"
@@ -162,4 +160,4 @@
         (panel_system_indicators)
         (panel_powermenu)
     )
-)
+))

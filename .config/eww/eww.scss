@@ -1,1 +1,14 @@
-@import './setups/topbar/eww.scss';
+@import "./scss/colors.scss";
+@import "./scss/variables.scss";
+@import "./scss/common.scss";
+
+@import "./scss/windows/hbar.scss";
+@import "./scss/windows/vbar.scss";
+@import "./scss/windows/datemenu.scss";
+@import "./scss/windows/quicksettings.scss";
+@import "./scss/windows/powermenu.scss";
+@import "./scss/windows/desktop.scss";
+@import "./scss/windows/osd.scss";
+@import "./scss/windows/dock.scss";
+@import "./scss/windows/notifications.scss";
+tooltip{ @include tooltip }

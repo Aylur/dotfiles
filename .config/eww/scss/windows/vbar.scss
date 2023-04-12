@@ -1,38 +1,38 @@
-.panel {
-    min-height: 2.2em;
-    border-radius: $panel_radius;
+.vpanel {
+    min-width: 2.2em;
     font-weight: bold;
-    font-size: 1.1em;
     color: $fg_color;
-    text-shadow: $text_shadow;
-    margin-bottom: 10px;
-
-    background-color: transparent;
-    @if $theme == 'dark' {
-        background-color: $bg_color;
-        border-bottom: $border_width solid $popover_border_color;
-        box-shadow: 0 0 6px 0 rgba(0,0,0,0.8);
-    }
+    background-color: $bg_color;
+    margin: $wm_gaps;
+    box-shadow: 0 0 8px rgba(0,0,0,0.8);
+    border: $border_width solid $popover_border_color;
+    border-radius: $panel_radius;
     
     .button-bin{
-        margin: 3px 2px;
-        &.launcher{ margin-left: 4px }
-        &.powermenu{ margin-right: 4px }
+        margin: .4em;
     }
 
+    .icon{ font-size: 1.3em;}
     .button{
-        .icon{ font-size: 1.2em;}
         @include button($flat: true, $radii: $panel_button_radius);
-        > * { padding: 0 .7em }
+        > * { padding: .4em }
 
         &.launcher{ color: $blue; }
         &.powermenu{ color: $red; }
         &.window{ @include button($flat: true, $interactive: false) }
 
+        &.clock{
+            label{ font-size: 1.4em;}
+            .separator{
+                border: 1px dotted $fg_color;
+                font-size: 0;
+                min-width: 18px;
+            }
+        }
+
         &.workspaces{
             @include button($flat: false, $radii: $panel_button_radius);
             .workspace-btn{
-                label{ font-size: 1.2em; }
                 margin: 2px;
                 &.empty{ color: transparentize($fg_color, 0.34); }
                 &.occupied{ color: transparentize($fg_color, 0.18); }
@@ -46,7 +46,6 @@
         }
 
         &.system-indicators{
-            .icon{ font-size: 1.3em; }
             .battery{
                 .low{ color: $destructive; }
                 .charging{ color: $succes; }
@@ -64,7 +63,6 @@
 
         &.media{
             .icon{
-                margin-right: .2em;
                 &.spotify{ color: $green; }
                 &.firefox{ color: $orange; }
                 &.mpv{ color: $magenta; }

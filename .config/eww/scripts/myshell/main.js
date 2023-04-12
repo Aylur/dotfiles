@@ -63,8 +63,7 @@ class App extends Gtk.Application{
         this.hold();
 
         this._notifications.connect('sync', o => this._output(o.json, 'notifications'));
-        this._notifications.emit('sync');
-
+        this._output(this._notifications.json, 'notifications');
         this._battery.connect('sync', o => this._output(o.json, 'battery'));
         this._network.connect('sync', o => this._output(o.json, 'network'));
         this._bluetooth.connect('sync', o => this._output(o.json, 'bluetooth'));
@@ -72,6 +71,9 @@ class App extends Gtk.Application{
         this._media.connect('sync', o => this._output(o.json, 'media'));
         this._media.connect('positions', o => this._output(o.positions, 'media_positions'));
         GLib.timeout_add(GLib.PRIORITY_DEFAULT, TICK_INTERVAL, () => this._media.getPositions() );
+
+        [ 'notifications', 'battery', 'network', 'bluetooth', 'media'
+        ].forEach(m => this[`_${m}`].json, m);
     }
 
     _output(json, name){

@@ -6,15 +6,17 @@
     # eww rofi
     eww-wayland rofi-wayland
     # tools
-    socat jq tiramisu htop
+    socat jq htop
     networkmanager wl-gammactl wlsunset wl-clipboard hyprpicker
     pavucontrol blueberry bluez brightnessctl playerctl imagemagick
+    gjs gnome.gnome-bluetooth
     # fun
     neofetch jp2a pywal
     yabridge yabridgectl wine-staging
     # file manager
     ranger cinnamon.nemo
     # cli
+    wezterm
     bat exa fzf ripgrep     
     helix vscode
     distrobox
