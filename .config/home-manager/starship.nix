@@ -5,6 +5,7 @@
     settings = {
       format = lib.strings.concatStrings [
         "$nix_shell"
+        "$os"
         "$directory"
         "$status"
         "$character"
@@ -27,7 +28,8 @@
         sigint_symbol = "󰂭 ";
         signal_symbol = "󱑽 ";
         success_symbol = "";
-        format = "[ $symbol ](fg:red)";        map_symbol = true;
+        format = "[ $symbol ](fg:red)";
+        map_symbol = true;
         disabled = false;
       };
       cmd_duration = {
@@ -40,12 +42,13 @@
       };
       nix_shell = {
         disabled = false;
-        format = " [](fg:blue)[ ](bg:blue fg:black)[](fg:blue)";
+        format = " [](fg:white)[ ](bg:white fg:black)[](fg:white)";
       };
       directory = {
         format = " [](fg:black)[$path](bg:black fg:#f1f1f1)[](fg:black)";
-        truncation_length = 2;
-        truncation_symbol = "…/";
+        # format = "[$path](bg:black fg:#f1f1f1)[](fg:black)";
+        truncation_length = 4;
+        truncation_symbol = "~/…/";
       };
       directory.substitutions = {
         "Documents" = " ";
@@ -61,7 +64,20 @@
       git_branch = {
         symbol = "";
         style = "";
-        format = "[ $symbol](black) $branch(:$remote_branch)";
+        format = "[ $symbol](bright-black) $branch(:$remote_branch)";
+      };
+      os = {
+        disabled = false;
+        format = " [](fg:blue)[$symbol](bg:blue fg:black)[](fg:blue)";
+      };
+      os.symbols = {
+        Arch = " ";
+        Debian = " ";
+        EndeavourOS = " ";
+        Fedora = " ";
+        NixOS = " ";
+        openSUSE = " ";
+        SUSE = " ";
       };
       python = {
         symbol = "";
