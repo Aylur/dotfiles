@@ -12,6 +12,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  'f-person/git-blame.nvim', -- git blame
+  'tpope/vim-fugitive', -- git
+  'airblade/vim-gitgutter', -- git gutter
+
   { "windwp/nvim-autopairs", opts = {} }, -- autopairs
   'nvim-tree/nvim-web-devicons', -- dependencies
   'tpope/vim-sleuth', -- auto tabwidth
@@ -32,11 +36,10 @@ require('lazy').setup({
   { "catppuccin/nvim", name = "catppuccin", opts = {
     flavour = 'mocha',
     color_overrides = {
-      mocha = {
-        base = '#1C1C1C',
-        mantle = '#181818',
-        crust = '#131313'
-      } } } },
+      mocha = { base = '#1A1A1A', mantle = '#181818', crust = '#131313' },
+      macchiato = { base = '#1A1A1A', mantle = '#181818', crust = '#131313' },
+      frappe = { base = '#1A1A1A', mantle = '#181818', crust = '#131313' },
+   } } },
   { 'rose-pine/neovim', name = 'rose-pine', opts = {
     disable_italics = true,
     dark_variant = 'moon',

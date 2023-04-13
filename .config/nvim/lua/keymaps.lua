@@ -46,3 +46,7 @@ vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
 vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", {silent = true, noremap = true} )
 vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", {silent = true, noremap = true} )
 vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", {silent = true, noremap = true} )
+
+-- buffers
+vim.keymap.set({'n', 'i', 'v'}, '<A-l>', vim.cmd.bnext, { desc = 'Switch to next Buffer' })
+vim.keymap.set({'n', 'i', 'v'}, '<A-h>', vim.cmd.bprev, { desc = 'Switch to prev Buffer' })
