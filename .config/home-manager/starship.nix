@@ -5,23 +5,20 @@
     settings = {
       format = lib.strings.concatStrings [
         "$nix_shell"
-        "$os"
         "$directory"
-        "$git_branch"
-        "$git_status"
-        "[](fg:bright-cyan bg:cyan)"
+        "$status"
+        "$character"
+      ];
+      right_format = lib.strings.concatStrings [
+        "$cmd_duration"
+        "$git_branch $git_status"
         "$python"
         "$nodejs"
         "$lua"
         "$rust"
         "$java"
         "$c"
-        "[](fg:cyan bg:green)"
-        "$time"
-        "[](fg:green bg:none)"
-        "$status"
-        "$cmd_duration\n"
-        "$character"
+        "$golang"
       ];
       status = {
         symbol = "✗";
@@ -30,39 +27,24 @@
         sigint_symbol = "󰂭 ";
         signal_symbol = "󱑽 ";
         success_symbol = "";
-        format = "[ $symbol](fg:red)";
-        map_symbol = true;
+        format = "[ $symbol ](fg:red)";        map_symbol = true;
         disabled = false;
       };
       cmd_duration = {
-        min_time = 0;
-        format = "[ $duration](bold yellow)";
+        min_time = 1000;
+        format = "[ $duration](fg:yellow)";
       };
       character = {
-        success_symbol = "[╰](bold green)";
-        error_symbol = "[╰](bold red)";
+        success_symbol = "[❯](bold green)";
+        error_symbol = "[](bold red)";
       };
       nix_shell = {
         disabled = false;
-        format = "[  ](fg:bright-blue bg:bright-white)[](fg:bright-white bg:blue)";
-      };
-      os = {
-        style = "fg:bright-white bg:blue";
-        disabled = false;
-        format = "[ $symbol]($style)[](fg:blue bg:bright-blue)";
-      };
-      os.symbols = {
-        Arch = " ";
-        Debian = " ";
-        EndeavourOS = " ";
-        Fedora = " ";
-        NixOS = " ";
-        openSUSE = " ";
-        SUSE = " ";
+        format = " [](fg:blue)[ ](bg:blue fg:black)[](fg:blue)";
       };
       directory = {
-        format = "[ $path](bg:bright-blue fg:black)[](bg:bright-cyan fg:bright-blue)";
-        truncation_length = 3;
+        format = " [](fg:black)[$path](bg:black fg:#f1f1f1)[](fg:black)";
+        truncation_length = 2;
         truncation_symbol = "…/";
       };
       directory.substitutions = {
@@ -70,42 +52,44 @@
         "Downloads" = " ";
         "Music" = " ";
         "Pictures" = " ";
+        "Videos" = " ";
+        "Projects" = "󱌢 ";
+        "School" = "󰑴 ";
+        "GitHub" = "";
+        ".config" = " ";
       };
       git_branch = {
-        symbol = "";
-        format = "[ $symbol $branch ](fg:black bg:bright-cyan)";
-      };
-      git_status = {
-        format = "[($all_status$ahead_behind )](fg:black bg:bright-cyan)";
+        symbol = "";
+        style = "";
+        format = "[ $symbol](black) $branch(:$remote_branch)";
       };
       python = {
         symbol = "";
-        format = "[ $symbol ($version) ](fg:black bg:cyan)";
+        format = "[$symbol](yellow)";
       };
       nodejs = {
         symbol = " ";
-        format = "[ $symbol ($version) ](fg:black bg:cyan)";
+        format = "[$symbol](yellow)";
       };
       lua = {
         symbol = "󰢱";
-        format = "[ $symbol ($version) ](fg:black bg:cyan)";
+        format = "[$symbol](blue)";
       };
       rust = {
         symbol = "";
-        format = "[ $symbol ($version) ](fg:black bg:cyan)";
+        format = "[$symbol](red)";
       };
       java = {
         symbol = "";
-        format = "[ $symbol ($version) ](fg:black bg:cyan)";
+        format = "[$symbol](white)";
       };
       c = {
         symbol = "";
-        format = "[ $symbol ($version) ](fg:black bg:cyan)";
+        format = "[$symbol](blue)";
       };
-      time = {
-        disabled = false;
-        time_format = "%R";
-        format = "[  $time ](fg:black bg:green)";
+      golang = {
+        symbol = "";
+        format = "[$symbol](bright-blue)";
       };
     };
   };
