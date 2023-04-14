@@ -1,11 +1,9 @@
+{ pkgs, ... }:
 {
   home.file = {
     ".local/share/fonts" = {
       recursive = true;
       source = /home/demeter/.nix-profile/share/fonts;
-    };
-    ".config/gtk-4.0/gtk.css" = {
-      text = ".background.csd{ border-radius: 12px; }";
     };
     ".local/share/themes/adw-gtk3" = {
       source = /home/demeter/.nix-profile/share/themes/adw-gtk3;

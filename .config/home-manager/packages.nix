@@ -5,53 +5,28 @@
     # awesome bspwm sxhkd
     # eww rofi
     eww-wayland rofi-wayland
+
     # tools
     socat jq htop
-    networkmanager wl-gammactl wlsunset wl-clipboard hyprpicker
+    wl-gammactl wlsunset wl-clipboard hyprpicker
     pavucontrol blueberry bluez brightnessctl playerctl imagemagick
-    gjs gnome.gnome-bluetooth
+    # gjs gnome.gnome-bluetooth upower networkmanager gtk3 pango cairo harfbuzz gdk-pixbuf
+
     # fun
     neofetch jp2a pywal
     yabridge yabridgectl wine-staging
+
     # file manager
     ranger cinnamon.nemo
+
     # cli
-    wezterm
+    wezterm vscode
     bat exa fzf ripgrep     
-    helix vscode
     distrobox
-    nushell
-    meson ninja sassc
-    glib
+    sassc
+
     # langs
     nodejs cargo rustc
     agda jdk
-    # fonts
-    (nerdfonts.override { fonts = [
-      "Ubuntu"
-      "UbuntuMono"
-      "CascadiaCode"
-      "Mononoki"
-      "Hack"
-    ]; })
-    rubik
-    # themes
-    qogir-theme #gtk
-    qogir-icon-theme
-    adw-gtk3
-    # helix lsp
-    llvmPackages_9.libclang
-    nodePackages.bash-language-server
-    nodePackages.vscode-langservers-extracted
-    nodePackages.typescript
-    nodePackages.typescript-language-server
-    nodePackages.svelte-language-server
-    nodePackages.vls
-    jdt-language-server
-    lua-language-server
-    marksman
-    rnix-lsp
-    rust-analyzer
-    gopls
   ];
 }
