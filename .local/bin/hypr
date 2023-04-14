@@ -18,4 +18,4 @@ if ! [[ "$PATH" =~ "$HOME/.nix-profile/bin:" ]]; then
   PATH="$HOME/.nix-profile/bin:$PATH"; fi
 
 export PATH
-exec Hyprland
+exec nixGL Hyprland
