@@ -1,6 +1,4 @@
-import Gio from 'gi://Gio?version=2.0'
-import GObject from 'gi://GObject?version=2.0'
-import NM from 'gi://NM?version=1.0'
+import { NM, Gio, GObject } from './lib.js'
 
 Gio._promisify(NM.Client, 'new_async');
 Gio._promisify(NM.DeviceWifi.prototype, 'request_scan_async');

@@ -1,10 +1,6 @@
-import { NotificationIFace } from "./data/dbus.js"
+import { NotificationIFace } from "./dbus.js"
 import { NOTIFICATIONS_CACHE_PATH, NOTIFICATIONS_BANNER_TIME_OUT, MkDirectory } from './main.js'
-import GObject from 'gi://GObject?version=2.0'
-import Gio from 'gi://Gio?version=2.0'
-import Gtk from 'gi://Gtk?version=3.0'
-import GdkPixbuf from 'gi://GdkPixbuf?version=2.0'
-import GLib from 'gi://GLib?version=2.0'
+import { GObject, Gio, Gtk, GdkPixbuf, GLib } from './lib.js'
 
 export const Notifications = GObject.registerClass({
     Signals: { 'sync': {} }

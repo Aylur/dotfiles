@@ -1,5 +1,4 @@
-import GObject from 'gi://GObject?version=2.0'
-import GnomeBluetooth from 'gi://GnomeBluetooth?version=3.0'
+import { GObject, GnomeBluetooth } from './lib.js'
 
 const STATES = {
     [GnomeBluetooth.AdapterState.ABSENT]: 'absent',

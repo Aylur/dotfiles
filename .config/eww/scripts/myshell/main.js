@@ -3,10 +3,7 @@ import { Media } from './media.js'
 import { Battery } from './battery.js'
 import { Bluetooth } from './bluetooth.js'
 import { Notifications } from './notifications.js'
-import GObject from 'gi://GObject?version=2.0'
-import Gio from 'gi://Gio?version=2.0'
-import GLib from 'gi://GLib?version=2.0'
-import Gtk from 'gi://Gtk?version=3.0'
+import { GObject, Gio, GLib, Gtk } from './lib.js'
 
 const TICK_INTERVAL = 1000 //ms
 export const NOTIFICATIONS_BANNER_TIME_OUT = 5000
@@ -73,7 +70,7 @@ class App extends Gtk.Application{
         GLib.timeout_add(GLib.PRIORITY_DEFAULT, TICK_INTERVAL, () => this._media.getPositions() );
 
         [ 'notifications', 'battery', 'network', 'bluetooth', 'media'
-        ].forEach(m => this[`_${m}`].json, m);
+        ].forEach(m => { if(m) this[`_${m}`].json, m });
     }
 
     _output(json, name){

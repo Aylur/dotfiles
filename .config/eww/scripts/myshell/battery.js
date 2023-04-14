@@ -1,7 +1,5 @@
-import { PowerManagerProxy } from './data/dbus.js'
-import GObject from 'gi://GObject?version=2.0'
-import Gio from 'gi://Gio?version=2.0'
-import UPowerGlib from 'gi://UPowerGlib?version=1.0'
+import { GObject, Gio, UPowerGlib } from './lib.js'
+import { PowerManagerProxy } from './dbus.js'
 
 export const Battery = GObject.registerClass({
     Signals: { 'sync': {} }

@@ -1,8 +1,6 @@
-import { MprisPlayerProxy, DBusProxy } from './data/dbus.js'
+import { MprisPlayerProxy, DBusProxy } from './dbus.js'
 import { PlayerIcons, PREFERRED_PLAYER, MEDIA_CACHE_PATH, MkDirectory } from "./main.js";
-import GObject from 'gi://GObject?version=2.0'
-import Gio from 'gi://Gio?version=2.0'
-import GLib from 'gi://GLib?version=2.0'
+import { GObject, Gio, GLib } from './lib.js'
 
 function _lengthStr(length) {
     let min = Math.floor(length / 60);
