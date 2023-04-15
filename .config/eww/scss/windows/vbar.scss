@@ -4,12 +4,19 @@
     color: $fg_color;
     background-color: $bg_color;
     margin: $wm_gaps;
-    box-shadow: 0 0 8px rgba(0,0,0,0.8);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
     border: $border_width solid $popover_border_color;
     border-radius: $panel_radius;
     
-    .button-bin{
-        margin: .4em;
+
+    .leftBar .button-bin {
+        margin: .4em .4em 0 .4em;
+    }
+    .centerBar .button-bin {
+        margin: .2em .4em;
+    }
+    .rightBar .button-bin {
+        margin: 0 .4em .4em .4em;
     }
 
     .icon{ font-size: 1.3em;}
@@ -62,6 +69,17 @@
         }
 
         &.media{
+            button {
+                &.prev, &.next, &.play-pause{
+                    color: transparentize($fg_color, 0.4);
+                    &:hover{ color: transparentize($fg_color, 0.2) }
+                    &:active{ color: $fg_color }
+                }
+                &.play-pause{
+                    &.Playing{ color: $accent }
+                    &.Paused{ color: $yellow }
+                }
+            }
             .icon{
                 &.spotify{ color: $green; }
                 &.firefox{ color: $orange; }

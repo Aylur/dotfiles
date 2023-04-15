@@ -324,34 +324,20 @@
     )
 ))
 
-(defwidget quicksettings [] (box
+(defwidget quicksettings [valign halign] (box
+    :valign valign
+    :halign halign
+    :class "quick-settings"
+    :orientation "v"
     :space-evenly false
-    (eventbox
-        :hexpand true
-        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu quicksettings"
+    (quick_user)
+    (quick_sliders)
+    (quick_toggles)
+    (box
+        (quick_toggles_grid)
+        (syslevels)
     )
-    (box 
-        :space-evenly false
-        :orientation "v"
-        (box
-            :valign "START"
-            :halign "END"
-            :class "quick-settings"
-            :orientation "v"
-            :space-evenly false
-            (quick_user)
-            (quick_sliders)
-            (quick_toggles)
-            (box
-                (quick_toggles_grid)
-                (syslevels)
-            )
-            (label :text media_positions :visible false) ;so it is active
-            (for player in {media.players}
-                (media_player :player player ))
-        )
-        (eventbox
-            :vexpand true
-            :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu quicksettings")
-    )
+    (label :text media_positions :visible false) ;so it is active
+    (for player in {media.players}
+        (media_player :player player ))
 ))

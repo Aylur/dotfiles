@@ -21,7 +21,7 @@ in
       monitor=HDMI-A-1,2560x1440,1920x0,1
       workspace=eDP-1,1
       workspace=HDMI-A-1,3
-      monitor=eDP-1,addreserved,-10,0,0,0
+      monitor=eDP-1,addreserved,0,0,-10,0
 
     # Startup
       exec-once = /usr/libexec/polkit-gnome-authentication-agent-1
@@ -29,6 +29,7 @@ in
       exec-once = bash ~/.profile
       exec-once = flatpak run com.transmissionbt.Transmission
       exec-once = hyprctl setcursor Qogir 24
+      blurls "eww_powermenu"
 
     # Settings
       general {

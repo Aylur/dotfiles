@@ -24,7 +24,7 @@ $widget_radius: $radii;
 $button_bg: transparentize($fg_color, 0.92);
 $button_radius: $radii;
 
-$panel_radius: $radii * 0;
+$panel_radius: $radii * 1.1;
 $panel_button_radius: $radii * 0.9;
 
 $border_color: rgba(255, 255, 255, 0.002);

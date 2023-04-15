@@ -50,11 +50,7 @@
         alias db='distrobox'
         alias arch='distrobox-enter Arch'
         alias fedora='distrobox-enter Fedora'
-        alias cat='bat'
-        alias ls='exa -l --sort type --no-permissions --no-user --no-time --header --icons --no-filesize --group-directories-first'
-        alias ll='exa -l --sort type --header --icons --group-directories-first'
         alias és='ls'
-        alias firefox='flatpak run org.mozilla.firefox'
         alias nv='nvim'
         alias :q='exit'
       '';

@@ -8,6 +8,7 @@
     ./hyprland.nix
     ./neofetch.nix
     ./desktopEntries.nix
+    ./theming.nix
     # ./files.nix
   ];
 

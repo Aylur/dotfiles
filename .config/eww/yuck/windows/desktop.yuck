@@ -15,5 +15,5 @@
 
 (defwidget desktop [] (box
     :class "desktop"
-    (desktop_clock)
+    ;; (desktop_clock)
 ))

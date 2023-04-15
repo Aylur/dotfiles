@@ -38,7 +38,7 @@ function screenlock {
 }
 
 function config {
-    flatpak run com.visualstudio.code $HOME/.config/hypr
+    $VISUAL $HOME/.config/hypr
 }
 
 function screenshot {

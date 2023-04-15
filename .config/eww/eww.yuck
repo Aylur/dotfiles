@@ -26,4 +26,4 @@
 (defvar real_name "Demeter")
 (defvar user_name "@Aylur")
 
-(include "./setups/topbar.yuck")
+(include "./setups/leftbar.yuck")

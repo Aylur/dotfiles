@@ -7,7 +7,7 @@
         :orientation "v"
         (box
             :space-evenly false
-            :width 350
+            :width 450
             (box
                 :visible {image != "null"}
                 :class "image"

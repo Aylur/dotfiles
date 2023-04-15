@@ -7,11 +7,6 @@
         "$nix_shell"
         "$os"
         "$directory"
-        "$status"
-        "$character"
-      ];
-      right_format = lib.strings.concatStrings [
-        "$cmd_duration"
         "$git_branch $git_status"
         "$python"
         "$nodejs"
@@ -20,6 +15,9 @@
         "$java"
         "$c"
         "$golang"
+        "$cmd_duration"
+        "$status"
+        "\n$character"
       ];
       status = {
         symbol = "✗";
@@ -28,21 +26,21 @@
         sigint_symbol = "󰂭 ";
         signal_symbol = "󱑽 ";
         success_symbol = "";
-        format = "[ $symbol ](fg:red)";
+        format = "[$symbol](fg:red)";
         map_symbol = true;
         disabled = false;
       };
       cmd_duration = {
         min_time = 1000;
-        format = "[ $duration](fg:yellow)";
+        format = "[$duration ](fg:yellow)";
       };
       character = {
         success_symbol = "[❯](bold green)";
-        error_symbol = "[](bold red)";
+        error_symbol = "[❯](bold red)";
       };
       nix_shell = {
         disabled = false;
-        format = " [](fg:white)[ ](bg:white fg:black)[](fg:white)";
+        format = "[](fg:white)[ ](bg:white fg:black)[](fg:white) ";
       };
       directory = {
         format = " [](fg:black)[$path](bg:black fg:#f1f1f1)[](fg:black)";
@@ -68,7 +66,7 @@
       };
       os = {
         disabled = false;
-        format = " [](fg:blue)[$symbol](bg:blue fg:black)[](fg:blue)";
+        format = "[](fg:blue)[$symbol](bg:blue fg:black)[](fg:blue)";
       };
       os.symbols = {
         Arch = " ";

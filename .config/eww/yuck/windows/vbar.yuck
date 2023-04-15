@@ -40,7 +40,7 @@
 (defwidget panel_media [] (box :class "button-bin" 
     :visible {media.preferred != "null"}
     (eventbox
-        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} play-pause"
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu media"
         :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} {}"
         :class "button media"
         (box
@@ -54,9 +54,9 @@
                 (label :class "icon" :text "󰒮"))
             (button
                 :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} play-pause"
-                :class "icon play-pause"
+                :class "icon play-pause ${media.preferred.status}"
                 :active {media.preferred.canPlay}
-                (label :class "icon" :text "${media.preferred.name == "Playing" ? "󰏦" : "󰐍"}" ))
+                (label :class "icon" :text "${media.preferred.status == "Playing" ? "󰏦" : "󰐍"}" ))
             (button
                 :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} next"
                 :class "icon next ${media.preferred.canNext ? "" : "inactive"}"
@@ -120,16 +120,17 @@
         :valign "start"
         :orientation "v"
         (panel_launcher)
-        (panel_clock)
-        (panel_media)
+        (panel_workspaces)
     )
     (box
         :class "centerBar"
         :orientation "v"
-        (panel_workspaces)
-    )
+        :space-evenly false
+        (panel_clock)
+        (panel_media)
+   )
     (box
-        :class "righBar"
+        :class "rightBar"
         :space-evenly false
         :valign "end"
         :orientation "v"

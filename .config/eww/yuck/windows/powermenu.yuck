@@ -33,15 +33,13 @@
     :class "button-bin" 
     (button
         :class "button"
-        :onclick action
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu powermenu && ${action}"
         (box :class "icon ${icon}" )
     )
     (label :class "label" :text label)
 ))
 
-(defwidget powermenu [] (eventbox
-    :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu powermenu" 
-    (box
+(defwidget powermenu [] (box
     :class "content"
     :halign "center"
     :valign "center"
@@ -61,4 +59,4 @@
         (powerbutton :action "loginctl kill-user $(whoami)"                  :icon "logout" :label "Log Out")
         (powerbutton :action "shutdown now"                                  :icon "shutdown" :label "Shutdown")
     )
-)))
+))
