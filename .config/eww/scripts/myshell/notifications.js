@@ -153,8 +153,8 @@ class Notifications extends GObject.Object{
 
     _parseIcon(icon_name, name) {
         let fileName = this._parseAppIcon(icon_name, name)
-        GLib.spawn_command_line_sync(`convert ${fileName} -alpha on
-            -fill ${this._fgColor} -colorize 100% -bordercolor transparent -border 16 ${fileName}`);
+        // GLib.spawn_command_line_sync(`convert ${fileName} -alpha on
+        //     -fill ${this._fgColor} -colorize 100% -bordercolor transparent -border 16 ${fileName}`);
 
         return fileName;
     }

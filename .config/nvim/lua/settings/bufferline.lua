@@ -8,8 +8,11 @@ require("bufferline").setup{
         separator = true
       }
     },
-    indicator = "underline",
+    indicator = {
+      icon = '▎',
+      style = 'icon',
+    },
     diagnostics = "nvim_lsp",
     alway_show_bufferline = false,
-  }
+  },
 }

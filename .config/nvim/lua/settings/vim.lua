@@ -4,8 +4,6 @@ vim.opt.relativenumber = false
 vim.opt.hlsearch = false -- highlight search
 vim.opt.incsearch = true -- incremental search
 
-vim.opt.termguicolors = true
-
 vim.opt.mouse = 'a' -- mouse mode all
 
 vim.opt.scrolloff = 8 -- scroll offset

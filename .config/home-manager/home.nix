@@ -9,7 +9,7 @@
     ./neofetch.nix
     ./desktopEntries.nix
     ./theming.nix
-    # ./files.nix
+    ./files.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -26,6 +26,10 @@
       XCURSOR_THEME = "Qogir";
       NIXPKGS_ALLOW_UNFREE = "1";
     };
+
+    sessionPath = [
+      "$HOME/.local/bin"
+    ];
 
     username = "demeter";
     homeDirectory = "/home/demeter";

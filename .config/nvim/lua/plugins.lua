@@ -28,22 +28,16 @@ require('lazy').setup({
   { "folke/trouble.nvim", opts = {} },-- diagnostics
   'mg979/vim-visual-multi', -- multiline cursors
 
+  { 'norcalli/nvim-colorizer.lua', opts = {} },
+  { 'ziontee113/color-picker.nvim', opts = {} },
+
   -- colorschemes
   'Mofiqul/vscode.nvim',
   'Mofiqul/adwaita.nvim',
   { 'decaycs/decay.nvim', name = 'decay' },
   'nyoom-engineering/oxocarbon.nvim',
-  { "catppuccin/nvim", name = "catppuccin", opts = {
-    flavour = 'mocha',
-    color_overrides = {
-      mocha = { base = '#1A1A1A', mantle = '#181818', crust = '#131313' },
-      macchiato = { base = '#1A1A1A', mantle = '#181818', crust = '#131313' },
-      frappe = { base = '#1A1A1A', mantle = '#181818', crust = '#131313' },
-   } } },
-  { 'rose-pine/neovim', name = 'rose-pine', opts = {
-    disable_italics = true,
-    dark_variant = 'moon',
-    groups = { background = '#161616' } } },
+  { "catppuccin/nvim", name = "catppuccin" },
+  { 'rose-pine/neovim', name = 'rose-pine' },
 
   'nvim-lualine/lualine.nvim', -- statusline
   {'akinsho/bufferline.nvim', version = "v3.*" }, --tabline

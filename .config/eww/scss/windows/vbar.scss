@@ -13,7 +13,7 @@
         margin: .4em .4em 0 .4em;
     }
     .centerBar .button-bin {
-        margin: .2em .4em;
+        margin: .6em .4em;
     }
     .rightBar .button-bin {
         margin: 0 .4em .4em .4em;
@@ -29,6 +29,7 @@
         &.window{ @include button($flat: true, $interactive: false) }
 
         &.clock{
+            @include button($flat: false, $interactive: true);
             label{ font-size: 1.4em;}
             .separator{
                 border: 1px dotted $fg_color;
@@ -68,6 +69,22 @@
             }
         }
 
+        &.controls{
+            .battery{
+                &.low{ color: $destructive; }
+                &.charging{ color: $succes; }
+                &.charged{ color: $succes; }
+            }
+            .notifications.active{
+                color: $yellow;
+            }
+            .network{
+                &.none, &.low{ color: $red; }
+                &.medium{}
+                &.high{ color: $blue; }
+            }
+        }
+
         &.media{
             button {
                 &.prev, &.next, &.play-pause{
@@ -87,22 +104,25 @@
             }
         }
     }
-
-    .sliders-bin{
-        min-width: 220px;
-        margin-right: 4px;
-        .slider{ 
-            @include slider($width: 1.2em, $slider: false);
-            .icon{ 
-                margin-left: 3px; 
-                color: $accent_fg;
-            }
+    .controls{
+        .slider{
+            @include slider;
         }
-        .separator{
-            min-width: 2px;
-            min-height: 1em;
-            margin: 0 4px;
-            background-color: $fg_color;
+        .icon{
+            margin: .1em 0;
+            &.battery{
+                &.low{ color: $destructive; }
+                &.charging{ color: $succes; }
+                &.charged{ color: $succes; }
+            }
+            &.notifications.active{
+                color: $yellow;
+            }
+            &.network{
+                &.none, &.low{ color: $red; }
+                &.medium{}
+                &.high{ color: $blue; }
+            }
         }
     }
 }

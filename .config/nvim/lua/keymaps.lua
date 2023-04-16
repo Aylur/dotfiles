@@ -20,7 +20,6 @@ vim.keymap.set('n', '<leader>w', function() vim.cmd('set wrap!') end, { desc = '
 
 -- nvimtree
 vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeFocus, { desc = 'Focus NvimTree' })
-vim.keymap.set('n', '<leader>c', vim.cmd.NvimTreeClose, { desc = '[C]lose NvimTree'})
 
 -- Telescope
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = 'Telescope [f]ind [f]ile' })
@@ -50,3 +49,9 @@ vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", {silent = tru
 -- buffers
 vim.keymap.set({'n', 'i', 'v'}, '<A-l>', vim.cmd.bnext, { desc = 'Switch to next Buffer' })
 vim.keymap.set({'n', 'i', 'v'}, '<A-h>', vim.cmd.bprev, { desc = 'Switch to prev Buffer' })
+
+-- select all
+vim.keymap.set('n', '<C-a>', "gg0vG$")
+
+-- colorizer
+vim.keymap.set('n', '<leader>c', vim.cmd.ColorizerToggle, { desc = '[C]olorizer'})

@@ -27,9 +27,12 @@
         mode.insert = "INSERT";
         mode.select = "SELECT";
       };
+      key.normal = {
+        esc = [ "collapse_selection" "keep_primary_selection" ];
+      };
       editor.lsp = {
         display-messages = true;
-        # display-inline-hints = true;
+        display-inline-hints = true;
       };
       editor.cursor-shape = {
         normal = "block";

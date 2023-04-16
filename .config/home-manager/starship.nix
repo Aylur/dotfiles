@@ -3,6 +3,7 @@
   programs.starship = {
     enable = true;
     settings = {
+      add_newline = false;
       format = lib.strings.concatStrings [
         "$nix_shell"
         "$os"
@@ -43,7 +44,7 @@
         format = "[](fg:white)[ ](bg:white fg:black)[](fg:white) ";
       };
       directory = {
-        format = " [](fg:black)[$path](bg:black fg:#f1f1f1)[](fg:black)";
+        format = " [](fg:bright-black)[$path](bg:bright-black fg:#f1f1f1)[](fg:bright-black)";
         # format = "[$path](bg:black fg:#f1f1f1)[](fg:black)";
         truncation_length = 4;
         truncation_symbol = "~/…/";
@@ -62,7 +63,7 @@
       git_branch = {
         symbol = "";
         style = "";
-        format = "[ $symbol](bright-black) $branch(:$remote_branch)";
+        format = "[ $symbol](bright-white) $branch(:$remote_branch)";
       };
       os = {
         disabled = false;
@@ -79,31 +80,31 @@
       };
       python = {
         symbol = "";
-        format = "[$symbol](yellow)";
+        format = "[$symbol ](yellow)";
       };
       nodejs = {
         symbol = " ";
-        format = "[$symbol](yellow)";
+        format = "[$symbol ](yellow)";
       };
       lua = {
         symbol = "󰢱";
-        format = "[$symbol](blue)";
+        format = "[$symbol ](blue)";
       };
       rust = {
         symbol = "";
-        format = "[$symbol](red)";
+        format = "[$symbol ](red)";
       };
       java = {
         symbol = "";
-        format = "[$symbol](white)";
+        format = "[$symbol ](white)";
       };
       c = {
         symbol = "";
-        format = "[$symbol](blue)";
+        format = "[$symbol ](blue)";
       };
       golang = {
         symbol = "";
-        format = "[$symbol](bright-blue)";
+        format = "[$symbol ](bright-blue)";
       };
     };
   };

@@ -66,42 +66,99 @@
     )
 ))
 
+(defwidget controls_slider [control reveal value onchange icon] (eventbox
+    :onscroll "${EWW_CONFIG_DIR}/scripts/${control} {}"
+    :onhover "${EWW_CMD} update ${control}_reveal=true"
+    :onhoverlost "${EWW_CMD} update ${control}_reveal=false"
+    (box
+        :space-evenly false
+        :orientation "v"
+        (revealer
+            :transition "slideup"
+            :duration "300ms"
+            :reveal reveal
+            (eventbox :class "slider" (scale
+                :height 80
+                :orientation "v"
+                :flipped true
+                :value value
+                :onchange onchange)))
+        (label
+            :class "${control} icon"
+            :text icon)
+    )
+))
+
+(defwidget controls_icon [control reveal value icon style angle] (eventbox
+    :onhover "${EWW_CMD} update ${control}_reveal=true"
+    :onhoverlost "${EWW_CMD} update ${control}_reveal=false"
+    (box
+        :space-evenly false
+        :orientation "v"
+        (revealer
+            :transition "slideup"
+            :duration "300ms"
+            :reveal reveal
+            (label
+                :class "${style} ${control}"
+                :angle angle
+                :text value)
+        )
+        (label
+            :class "${style} ${control} icon"
+            :text icon)
+    )
+))
+
+(defvar notifications_reveal false)
+(defvar battery_reveal false)
+(defvar network_reveal false)
+(defvar volume_reveal false)
+(defvar screen_reveal false)
+(defwidget panel_controls [] (box
+    :class "controls"
+    :orientation "v"
+    :space-evenly false
+    (controls_slider
+        :control "volume"
+        :reveal volume_reveal
+        :value {volume.level}
+        :onchange "${EWW_CONFIG_DIR}/scripts/volume set {}"
+        :icon {volume.icon})
+    (controls_slider
+        :control "screen"
+        :reveal screen_reveal
+        :value {brightness.screen.level}
+        :onchange "${EWW_CONFIG_DIR}/scripts/brightness set_screen {}"
+        :icon {brightness.screen.icon})
+    (controls_icon
+        :control "network"
+        :reveal network_reveal
+        :value {network.wifi.ssid}
+        :icon {network[network.primary].icon}
+        :style {network[network.primary].style}
+        :angle 90)
+    (controls_icon
+        :control "battery"
+        :reveal {battery.level < 100}
+        :value {battery.percent}
+        :icon {battery.icon}
+        :style {battery.state}
+        :angle 0)
+    (controls_icon
+        :control "notifications"
+        :reveal notifications_reveal
+        :value {notifications.count}
+        :icon {notifications.icon}
+        :style {notifications.count > 0 ? "active" : ""}
+        :angle 0)
+))
+
 (defwidget panel_system_indicators [] (box :class "button-bin"
-    (button
+    (eventbox
         :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu quicksettings"
         :class "button system-indicators"
-        (box
-            :space-evenly false
-            :spacing 6
-            :orientation "v"
-            (label  :class "icon bt-headphones"
-                    :text {volume.type_icon}
-                    :visible {volume.type_icon != "󰓃"})
-            (eventbox   :onscroll "${EWW_CONFIG_DIR}/scripts/volume {}"
-                (label  :class "volume icon"
-                        :text {volume.icon}))
-            (label  :class "bluetooth icon"
-                    :text {bluetooth.icon}
-                    :visible {arraylength(bluetooth.connected_devices) > 0})
-            (label  :class "network icon ${network.wifi.style}"
-                    :visible {network.primary != 'none'}
-                    :text {network[network.primary].icon})
-            (box :class "battery"
-                :space-evenly false
-                :orientation "v"
-                (label  :class "icon ${battery.state}"
-                        :text {battery.icon})
-                (label  :text "${battery.percent}"
-                        :visible {battery.state != "charged" && battery.state != "charging" && battery.percent < 100}))
-            (box :class "notifications"
-                :space-evenly false
-                :orientation "v"
-                (label  :class "icon notifications ${notifications.count > 0 ? "active" : ""}"
-                        :text {notifications.icon})
-                (label  :text {notifications.count}
-                    :visible {notifications.count > 0})
-            )
-        )
+        (panel_controls)
     )
 ))
 

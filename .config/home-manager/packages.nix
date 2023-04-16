@@ -13,7 +13,7 @@
     # gjs gnome.gnome-bluetooth upower networkmanager gtk3 pango cairo harfbuzz gdk-pixbuf
 
     # fun
-    neofetch jp2a pywal
+    neofetch jp2a pywal glow vhs
     yabridge yabridgectl wine-staging
 
     # file manager
