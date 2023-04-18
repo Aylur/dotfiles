@@ -3,7 +3,7 @@ $spacing: $popover_padding*0.5;
 .datemenu{
     @include floating_widget;
 
-    .module{
+    .widget{
         @include widget;
         margin: $spacing;
         padding: 12px;

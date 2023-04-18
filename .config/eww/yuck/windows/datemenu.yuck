@@ -16,7 +16,7 @@
         :text "uptime: ${uptime}"
         :valign "start")
     (box
-        :class "calendar-bin module"
+        :class "calendar-bin widget"
         (calendar))
     (events)
     (box 

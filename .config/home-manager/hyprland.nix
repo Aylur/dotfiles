@@ -21,7 +21,7 @@ in
       monitor=HDMI-A-1,2560x1440,1920x0,1
       workspace=eDP-1,1
       workspace=HDMI-A-1,3
-      monitor=eDP-1,addreserved,0,0,-10,0
+      monitor=eDP-1,addreserved,0,0,-16,0
 
     # Startup
       exec-once = /usr/libexec/polkit-gnome-authentication-agent-1

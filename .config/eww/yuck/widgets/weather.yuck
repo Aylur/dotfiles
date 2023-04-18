@@ -2,7 +2,7 @@
     :class "weather"
     :space-evenly false
     (box
-        :class "info module"
+        :class "info widget"
         :orientation "h"
         :hexpand true
         :space-evenly false
@@ -20,7 +20,7 @@
         )
     )
     (label 
-        :class "icon module ${place.class}"
+        :class "icon widget ${place.class}"
         :text {place.icon} 
         :halign "center"
     )

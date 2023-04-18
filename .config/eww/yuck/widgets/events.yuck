@@ -1,5 +1,5 @@
 (defwidget events [] (box
-    :class "events module"
+    :class "events widget"
     :orientation "v"
     :space-evenly false
     :visible {arraylength(events) > 0}
