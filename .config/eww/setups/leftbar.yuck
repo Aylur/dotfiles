@@ -1,11 +1,4 @@
 (include "./yuck/windows/vbar.yuck")
-(include "./yuck/windows/desktop.yuck")
-(include "./yuck/windows/osd.yuck")
-(include "./yuck/windows/powermenu.yuck")
-(include "./yuck/windows/datemenu.yuck")
-(include "./yuck/windows/dock.yuck")
-(include "./yuck/windows/quicksettings.yuck")
-(include "./yuck/windows/notifications.yuck")
 
 (defwindow bar
     :monitor 0
@@ -80,10 +73,10 @@
                         :height "1%"
                         :anchor "bottom center")(dock))
 
-(defwindow notifications-window
+(defwindow notifications_popup
     :monitor 0
     :stacking "overlay"
     :namespace "eww_notifications"
     :geometry (geometry :width  "0%"
                         :height "0%"
-                        :anchor "top center")(notifications))
+                        :anchor "top center")(notifications_popup))

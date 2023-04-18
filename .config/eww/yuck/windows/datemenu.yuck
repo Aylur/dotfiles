@@ -1,74 +1,3 @@
-(defwidget datemenu_weather [place] (box
-    :class "weather"
-    :space-evenly false
-    (box
-        :class "info module"
-        :orientation "h"
-        :hexpand true
-        :space-evenly false
-        (box
-            :orientation "v"
-            (label :text {place.city} :halign "START" )
-            (label :text "feels like ${place.feels}°" :halign "START")
-        )
-        (box
-            :orientation "v"
-            :hexpand true
-            :halign "END"
-            (label :text "${place.temp}°" :halign "END")
-            (label :text {place.desc} :halign "END")
-        )
-    )
-    (label 
-        :class "icon module ${place.class}"
-        :text {place.icon} 
-        :halign "center"
-    )
-))
-
-(defwidget datemenu_events [] (box
-    :class "events module"
-    :orientation "v"
-    :space-evenly false
-    :visible {arraylength(events) > 0}
-    (box
-        :class "box-title"
-        (label :text "Todo" :halign "START")
-        (label :text "Deadline" :halign "END")
-    )
-    (box
-        :class "events-box"
-        :orientation "v"
-        (for event in events
-            (box
-                :space-evenly false
-                :class "event ${event.asap ? "urgent" : ""}"
-                (eventbox
-                    :hexpand true
-                    :class "title"
-                    (overlay
-                        (label
-                            :halign "START"
-                            :limit-width 21 ;wrap doesn't work?
-                            :text {event.title}
-                        )
-                        (button
-                            :halign "END"
-                            :class "done"
-                            :onclick "${EWW_CONFIG_DIR}/scripts/todo -r ${event.id}"
-                            (label :text "" :class "icon")
-                        )
-                    )
-                )
-                (label
-                    :class "date"
-                    :text {event.date} 
-                )
-            )
-        )
-    )
-))
-
 (defwidget datemenu [valign halign] (box
     :valign valign
     :halign halign
@@ -81,24 +10,19 @@
         :class "clock"
         (label :text hour)
         (label :text ":")
-        (label :text minutes)
-        )
+        (label :text minutes))
     (label  
         :class "uptime" 
         :text "uptime: ${uptime}"
-        :valign "start"
-        )
+        :valign "start")
     (box
         :class "calendar-bin module"
-        (calendar)
-        )
-    (datemenu_events)
+        (calendar))
+    (events)
     (box 
         :class "weather-box"
         :orientation "v"
         (for place in weather
-             (datemenu_weather :place place)
-             )
-        )
+             (weather :place place)))
     ;; (box :class "wallpaper module")
 ))

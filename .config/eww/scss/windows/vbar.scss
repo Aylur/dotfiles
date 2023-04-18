@@ -53,38 +53,6 @@
             }
         }
 
-        &.system-indicators{
-            .battery{
-                .low{ color: $destructive; }
-                .charging{ color: $succes; }
-                .charged{ color: $succes; }
-            }
-            .notifications.active{
-                color: $yellow;
-            }
-            .network{
-                &.none, &.low{ color: $red; }
-                &.medium{}
-                &.high{ color: $blue; }
-            }
-        }
-
-        &.controls{
-            .battery{
-                &.low{ color: $destructive; }
-                &.charging{ color: $succes; }
-                &.charged{ color: $succes; }
-            }
-            .notifications.active{
-                color: $yellow;
-            }
-            .network{
-                &.none, &.low{ color: $red; }
-                &.medium{}
-                &.high{ color: $blue; }
-            }
-        }
-
         &.media{
             button {
                 &.prev, &.next, &.play-pause{
@@ -106,7 +74,7 @@
     }
     .controls{
         .slider{
-            @include slider;
+            @include slider($width: 1em, $slider: false);
         }
         .icon{
             margin: .1em 0;

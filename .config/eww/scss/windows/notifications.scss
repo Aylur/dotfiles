@@ -2,7 +2,17 @@
     .notification{
         @include notification;
         .notification-content{
+            min-width: 450px;
             @include floating_widget;
+        }
+    }
+}
+
+.notifications-list{
+    .notification{
+        @include notification;
+        .notification-content{
+            @include widget;
         }
     }
 }

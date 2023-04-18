@@ -1,195 +1,44 @@
-(defwidget small_toggle [state icon toggle_action] (button
-    :class "toggle small ${state == "on" ? "active" : ""}"
-    :onclick toggle_action
-    (overlay (box) (label  :class "icon" :valign "center" :text icon))
-))
-
-(defwidget arrow_toggle [state icon toggle_action arrow_action] (box
-    :class "toggle arrow ${state == "on" ? "active" : ""}"
-    :orientation "h"
-    :valign "center"
-    :space-evenly false
-    (button :class "half"
-        :onclick toggle_action
-        :hexpand true
-        (overlay (box)(label :class "icon indicator" :valign "center" :text icon)))
-    (box :class "separator" :valign "center")
-    (button :class "half"
-        :onclick arrow_action
-        :hexpand true
-        (overlay (box) (label :class "icon arrow" :valign "center" :text "")))
-))
-
 (defwidget quick_toggles [] (box
-    :class "module toggles arrow"
-    (arrow_toggle :state {network.wifi.state}
-            :icon {network.wifi.icon}
-            :arrow_action "${EWW_CONFIG_DIR}/scripts/launcher network"
-            :toggle_action "${EWW_CONFIG_DIR}/scripts/network toggle")
-    (arrow_toggle :state {bluetooth.state}
-            :icon {bluetooth.icon}
-            :arrow_action "${EWW_CONFIG_DIR}/scripts/launcher bluetooth"
-            :toggle_action "${EWW_CONFIG_DIR}/scripts/bluetooth toggle")
-    (arrow_toggle :state {power.state}
-            :icon {power.icon}
-            :arrow_action "${EWW_CONFIG_DIR}/scripts/launcher rog"
-            :toggle_action "${EWW_CONFIG_DIR}/scripts/power toggle")
+    :class "widget toggles"
+    (arrow_toggle_wifi)
+    (arrow_toggle_bt)
+    (arrow_toggle_pow)
 ))
 
 (defwidget quick_toggles_grid [] (box
-    :class "module toggles small"
+    :class "widget toggles"
     :orientation "h"
     (box
         :orientation "v"
-        (small_toggle   
-            :state {notifications.dnd.state}
-            :icon  {notifications.dnd.icon}
-            :toggle_action "${EWW_CONFIG_DIR}/scripts/notifications toggle")
-        (small_toggle
-            :state {volume.mute.state}
-            :icon  {volume.mute.icon}
-            :toggle_action "${EWW_CONFIG_DIR}/scripts/volume mute_toggle")
-    )
+        (small_toggle_dnd)
+        (small_toggle_mute))
     (box
         :orientation "v"
-        (small_toggle 
-            :state {theme.state}
-            :icon  {theme.icon}
-            :toggle_action "${EWW_CONFIG_DIR}/scripts/theme toggle")
-        (small_toggle 
-            :state {night_light.state}
-            :icon  {night_light.icon}
-            :toggle_action "${EWW_CONFIG_DIR}/scripts/night_light toggle")
-    )
+        (small_toggle_dark_mode)
+        (small_toggle_night_light))
 ))
-
-(defwidget quick_sliders [] (box
-    :class "module sliders"
-    :orientation "v"
-    (box
-        :space-evenly false
-        (label
-            :class "icon"
-            :text {volume.type_icon})
-        (eventbox
-            :hexpand true
-            :valign "CENTER"
-            :class "slider"
-            (scale
-                :value {volume.level}
-                :onchange "${EWW_CONFIG_DIR}/scripts/volume set {}"))
-        (box
-            :space-evenly false
-            :class "percent"
-            (label
-                :hexpand true
-                :halign "END"
-                :text "${volume.level}%")
-        )
-        (button
-            :valign "CENTER"
-            :onclick "${EWW_CONFIG_DIR}/scripts/launcher pavu"
-            (label :text "" :class "icon"))
-    )
-    (box
-        :space-evenly false
-        (label
-            :class "icon"
-            :text "󰃠")
-        (eventbox 
-            :hexpand true
-            :valign "CENTER"
-            :class "slider"
-            (scale
-                :value {brightness.screen.level}
-                :onchange "${EWW_CONFIG_DIR}/scripts/brightness set_screen {}"))
-        (box
-            :space-evenly false
-            :class "percent"
-            (label
-                :hexpand true
-                :halign "END"
-                :text "${brightness.screen.level}%")
-        )
-        (button
-            :valign "CENTER"
-            :onclick "${EWW_CONFIG_DIR}/scripts/launcher brightness"
-            (label :text "" :class "icon"))
-    )
-))
-
-(defwidget sysprogress [data icon css tip] (box 
-    :class "module ${css}" (circular-progress
-    :class css
-    :value data
-    :start-at 75
-    :clockwise false
-    :thickness 11
-    :tooltip tip
-    (overlay
-        :valign "center"
-        (label :class "icon" :text icon)
-        ; (label :text "${round(data, 0)}%")
-    )
-)))
 
 (defwidget syslevels [] (box
     :class "system"
     :orientation "v"
     (box :orientation "h"
-        (sysprogress
-            :css "cpu"
-            :tip "CPU ${round(EWW_CPU.avg,0)}%"
-            :data {EWW_CPU.avg}
-            :icon "﬙"
-        )
-        (sysprogress
-            :css "ram"
-            :tip "RAM ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 0)}%"
-            :data {EWW_RAM.used_mem / EWW_RAM.total_mem * 100}
-            :icon "󰍛"
-        )
+        (sysprogress_cpu)
+        (sysprogress_ram)
     )
     (box :orientation "h"
-        (sysprogress
-            :css "temp"
-            :tip "Temperature: ${EWW_TEMPS["ACPITZ_TEMP1"]}°"
-            :data {EWW_TEMPS["ACPITZ_TEMP1"]}
-            :icon "󰈸"
-        )
-        (sysprogress
-            :css "battery ${battery.state}"
-            :tip "Battery ${battery.percent}%"
-            :data {battery.percent}
-            :icon {battery.icon}
-        )
+        (sysprogress_temp)
+        (sysprogress_bat)
     )
 ))
 
-(defwidget quick_user [] (box
-    :class "user"
+(defwidget quick_sys_actions [] (box
+    :class "sys-actions"
     :space-evenly false
+    (user
+        :show_name true
+        :class "widget")
     (box
-        :class "profile-picture module" 
-        (box
-            :class "darkened"
-            :orientation "v"
-            :space-evenly false
-            (label
-                :valign "START"
-                :halign "START"
-                :text real_name
-            )
-            (label
-                :vexpand true
-                :valign "END"
-                :halign "START"
-                :text user_name
-            )
-        )
-    )
-    (box
-        :class "sysactions module"
+        :class "sysactions widget"
         :orientation "v"
         :space-evenly false
         :hexpand true
@@ -211,127 +60,14 @@
     )
 ))
 
-(defwidget media_player [player] (box
-    :class "media module ${player.name}"
-    :space-evenly false
-    (box 
-        :class "cover"
-        :style "background-image: url('${player.cover}');"
-        :space-evenly false
-        :hexpand true
-        (box
-            :class "darkened"
-            :orientation "v"
-            :hexpand true
-            (box
-                :orientation "v"
-                :valign "START"
-                :class "box"
-                :space-evenly false
-                (label 
-                    :class "artist" 
-                    :text {player.artist}
-                    :halign "START"
-                    :limit-width 42)
-                (label
-                    :class "title" 
-                    :text {player.title}
-                    :halign "START"
-                    :limit-width 42)
-            )
-            (box
-                :space-evenly false
-                :orientation "v"
-                :valign "END"
-                (eventbox
-                    :visible {player.length > 0}
-                    :class "slider"
-                    :hexpand true
-                    (scale
-                    :value {media_positions[player.name].position}
-                    :min 0
-                    :max {player.length}
-                    :onchange "${EWW_CONFIG_DIR}/scripts/player ${player.name} position {}"
-                ))
-                (box
-                    :hexpand true
-                    :space-evenly false
-                    (box
-                        :space-evenly false
-                        (label
-                            :class "icon player"
-                            :valign "CENTER"
-                            :text {player.icon}
-                        )
-                        (label
-                            :class "box position"
-                            :visible {player.length > 0}
-                            :text "${media_positions[player.name].positionStr} / ${player.lengthStr}"
-                            :halign "START")
-                    )
-                    (box
-                        :class "controls"
-                        :space-evenly false
-                        :halign "END"
-                        :hexpand true
-                        (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} shuffle"
-                            :class "shuffle ${player.shuffle == "true" ? "active" : ""}"
-                            :visible {player.shuffle != "null"}
-                            (label :class "icon" :text "󰒟"))
-                        (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} prev"
-                            :class "prev ${player.canPrev ? "" : "inactive"}"
-                            :active {player.canPrev}
-                            (label :class "icon" :text "󰒮"))
-                        (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} play-pause"
-                            :class "play-pause"
-                            :active {player.canPlay}
-                            (label :class "icon" :text "${player.status == "Playing" ? "󰏦" : "󰐍"}" ))
-                        (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} next"
-                            :class "next ${player.canNext ? "" : "inactive"}"
-                            :active {player.canNext}
-                            (label :class "icon" :text "󰒭"))
-                        (button
-                            :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} loop"
-                            :class "loop ${player.loop}"
-                            :visible {player.loop != "null"}
-                            (label :class "icon" :text "ﯩ"))
-                    )
-                )
-            )
-        )
-    )
-    (box 
-        :class "sidebar" 
-        :visible {player.volume < 0 ? false : true}
-        :orientation "v"
-        :space-evenly false
-        (eventbox 
-            :class "slider"
-            :vexpand true
-            (scale
-                :flipped true
-                :orientation "v"
-                :min 0
-                :max 100
-                :value {player.volume}
-                :onchange "${EWW_CONFIG_DIR}/scripts/player ${player.name} volume {}"
-            )
-        )
-    )
-))
-
 (defwidget quicksettings [valign halign] (box
     :valign valign
     :halign halign
     :class "quick-settings"
     :orientation "v"
     :space-evenly false
-    (quick_user)
-    (quick_sliders)
+    (quick_sys_actions)
+    (sys_sliders :class "widget")
     (quick_toggles)
     (box
         (quick_toggles_grid)

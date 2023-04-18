@@ -1,5 +1,5 @@
 import { NotificationIFace } from "./dbus.js"
-import { NOTIFICATIONS_CACHE_PATH, NOTIFICATIONS_BANNER_TIME_OUT, MkDirectory } from './main.js'
+import { NOTIFICATIONS_CACHE_PATH, NOTIFICATIONS_BANNER_TIME_OUT, MkDirectory, CACHE_PATH } from './main.js'
 import { GObject, Gio, Gtk, GdkPixbuf, GLib } from './lib.js'
 
 export const Notifications = GObject.registerClass({
@@ -15,6 +15,7 @@ class Notifications extends GObject.Object{
         this._idCound = 1;
         this._notifications = new Map();
         this._popups = new Map();
+        this._readFromFile();
         this._register();
         this._sync();
     }
@@ -34,10 +35,11 @@ class Notifications extends GObject.Object{
     Notify(app_name, replaces_id, app_icon, summary, body, actions, hints, time_out) {
         let acts = [];
         for(let i=0; i<actions.length; i+=2) {
-            acts.push({
-                label: actions[i+1],
-                id: actions[i]
-            })
+            if(actions[i+1] !== '')
+                acts.push({
+                    label: actions[i+1],
+                    id: actions[i]
+                })
         }
         let id = replaces_id || this._idCound++;
         let notification = {
@@ -149,6 +151,16 @@ class Notifications extends GObject.Object{
         output_stream.close(null);
         
         return fileName;
+    }
+
+    _readFromFile() {
+        const file = Gio.File.new_for_path(CACHE_PATH+'notifications.json');
+        const [, contents, etag] = file.load_contents(null);
+        const json = JSON.parse(new TextDecoder('utf-8').decode(contents))
+        json.notifications.forEach(n => {
+            if(n.id > this._idCound) this._idCound = n.id+1;
+            this._notifications.set(n.id, n);
+        })
     }
 
     _parseIcon(icon_name, name) {

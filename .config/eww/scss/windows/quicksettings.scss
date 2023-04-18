@@ -3,14 +3,14 @@ $spacing: $popover_padding*0.5;
 .quick-settings{
     @include floating_widget;
 
-    .module{
+    .widget{
         @include widget;
         margin: $spacing;
         padding: $spacing;
     }
 
-    .user{
-        .profile-picture{
+    .sys-actions{
+        .user{
             padding: 0;
             min-height: 10em;
             min-width:  10em;
@@ -65,7 +65,9 @@ $spacing: $popover_padding*0.5;
     }
 
     .system{
-        .module{
+        > * > *{
+            @include widget;
+            margin: $spacing;
             padding: 8px;
             min-width:  4.4em;
             min-height: 4.4em;
@@ -80,10 +82,10 @@ $spacing: $popover_padding*0.5;
         }
     }
 
-    $toggle_radius: 19px;
+    $toggle_radius: $radii*2.4;
     .toggles .toggle{
         @include button($radii: $toggle_radius);
-        &.small{ @include button($radii: 40%); }
+        &.small{ @include button($radii: $radii*3.4); }
         margin: $spacing;
         .separator{
             background-color: $fg_color;
@@ -110,6 +112,8 @@ $spacing: $popover_padding*0.5;
     }
 
     .media{
+        @include widget;
+        margin: $spacing;
         min-height: 12em;
         padding: 0;
         text-shadow: $text_shadow;

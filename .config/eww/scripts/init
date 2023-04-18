@@ -13,7 +13,7 @@ eww daemon
 
 eww open bar
 eww open desktop
-eww open notifications-window
+eww open notifications_popup
 # eww inspector
 
 $HOME/.config/eww/scripts/myshell/./myshell --eww --file

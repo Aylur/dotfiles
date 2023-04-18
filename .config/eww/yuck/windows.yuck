@@ -1,0 +1,8 @@
+(include "./yuck/windows/desktop.yuck")
+(include "./yuck/windows/notifications.yuck")
+(include "./yuck/windows/osd.yuck")
+(include "./yuck/windows/powermenu.yuck")
+(include "./yuck/windows/datemenu.yuck")
+(include "./yuck/windows/dock.yuck")
+(include "./yuck/windows/quicksettings.yuck")
+(include "./yuck/windows/notifications_popup.yuck")

@@ -1,0 +1,27 @@
+(defwidget weather [place] (box
+    :class "weather"
+    :space-evenly false
+    (box
+        :class "info module"
+        :orientation "h"
+        :hexpand true
+        :space-evenly false
+        (box
+            :orientation "v"
+            (label :text {place.city} :halign "START" )
+            (label :text "feels like ${place.feels}°" :halign "START")
+        )
+        (box
+            :orientation "v"
+            :hexpand true
+            :halign "END"
+            (label :text "${place.temp}°" :halign "END")
+            (label :text {place.desc} :halign "END")
+        )
+    )
+    (label 
+        :class "icon module ${place.class}"
+        :text {place.icon} 
+        :halign "center"
+    )
+))

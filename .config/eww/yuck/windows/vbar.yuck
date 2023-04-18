@@ -140,7 +140,7 @@
         :angle 90)
     (controls_icon
         :control "battery"
-        :reveal {battery.level < 100}
+        :reveal battery_reveal
         :value {battery.percent}
         :icon {battery.icon}
         :style {battery.state}
@@ -168,6 +168,14 @@
     (label :class "icon" :text "")
 )))
 
+(defwidget panel_colorpicker [] (box :class "button-bin"
+    (button
+        :class "button colorpicker"
+        :onclick "${EWW_CONFIG_DIR}/scripts/launcher colorpicker"
+        (label :class "icon" :text "󰈊")
+    )
+))
+
 (defwidget bar [] (centerbox
     :orientation "v"
     :class "vpanel ${workspaces.active_empty ? "floating" : ""}"
@@ -191,6 +199,7 @@
         :space-evenly false
         :valign "end"
         :orientation "v"
+        (panel_colorpicker)
         (panel_system_indicators)
         (panel_powermenu)
     )
