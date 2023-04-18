@@ -7,7 +7,7 @@
     eww-wayland rofi-wayland
 
     # tools
-    socat jq htop
+    socat jq htop acpi
     wl-gammactl wlsunset wl-clipboard hyprpicker
     pavucontrol blueberry bluez brightnessctl playerctl imagemagick
     # gjs gnome.gnome-bluetooth upower networkmanager gtk3 pango cairo harfbuzz gdk-pixbuf

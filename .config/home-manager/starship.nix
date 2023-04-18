@@ -3,11 +3,12 @@
   programs.starship = {
     enable = true;
     settings = {
-      add_newline = false;
+      add_newline = true;
       format = lib.strings.concatStrings [
         "$nix_shell"
         "$os"
         "$directory"
+        "$container"
         "$git_branch $git_status"
         "$python"
         "$nodejs"
@@ -36,12 +37,16 @@
         format = "[$duration ](fg:yellow)";
       };
       character = {
-        success_symbol = "[❯](bold green)";
+        success_symbol = "[❯](bold purple)";
         error_symbol = "[❯](bold red)";
       };
       nix_shell = {
         disabled = false;
         format = "[](fg:white)[ ](bg:white fg:black)[](fg:white) ";
+      };
+      container = {
+        symbol = " 󰏖";
+        format = "[$symbol ](yellow dimmed)";
       };
       directory = {
         format = " [](fg:bright-black)[$path](bg:bright-black fg:#f1f1f1)[](fg:bright-black)";
@@ -67,16 +72,17 @@
       };
       os = {
         disabled = false;
-        format = "[](fg:blue)[$symbol](bg:blue fg:black)[](fg:blue)";
+        # format = "[](fg:blue)[$symbol](bg:blue fg:black)[](fg:blue)";
+        format = "$symbol";
       };
       os.symbols = {
-        Arch = " ";
-        Debian = " ";
-        EndeavourOS = " ";
-        Fedora = " ";
-        NixOS = " ";
-        openSUSE = " ";
-        SUSE = " ";
+        Arch = "[ ](fg:bright-blue)";
+        Debian = "[ ](fg:red)";
+        EndeavourOS = "[ ](fg:purple)";
+        Fedora = "[ ](fg:blue)";
+        NixOS = "[ ](fg:bright-white)";
+        openSUSE = "[ ](fg:green)";
+        SUSE = "[ ](fg:green)";
       };
       python = {
         symbol = "";

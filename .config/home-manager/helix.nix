@@ -12,7 +12,7 @@
       }
     ];
     settings = {
-      theme = "dark_plus";
+      theme = "base16_transparent";
       editor = {
         line-number = "absolute";
         color-modes = true;
@@ -27,12 +27,11 @@
         mode.insert = "INSERT";
         mode.select = "SELECT";
       };
-      key.normal = {
+      keys.normal = {
         esc = [ "collapse_selection" "keep_primary_selection" ];
       };
       editor.lsp = {
         display-messages = true;
-        display-inline-hints = true;
       };
       editor.cursor-shape = {
         normal = "block";

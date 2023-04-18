@@ -112,7 +112,7 @@ in
       windowrule = float, ^(transmission-gtk)$
 
     # EWW
-      bind = CTRL, R, exec, bash ~/.config/eww/scripts/init
+      bind = CTRL SHIFT, R, exec, bash ~/.config/eww/scripts/init
 
     # Print
       bind = , Print,exec, distrobox-enter -n Arch -- hyprshot -m region

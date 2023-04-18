@@ -26,6 +26,8 @@
         "db" = "distrobox";
         "arch" = "distrobox-enter Arch";
         "fedora" = "distrobox-enter Fedora";
+        "a" = "arch -- zsh";
+        "f" = "fedora -- zsh";
         "cat" = "bat";
         "ls" = "exa -l --sort type --no-permissions --no-user --no-time --header --icons --no-filesize --group-directories-first";
         "és" = "ls";
