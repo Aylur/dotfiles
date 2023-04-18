@@ -18,13 +18,10 @@ require('lazy').setup({
 
   { "windwp/nvim-autopairs", opts = {} }, -- autopairs
   'nvim-tree/nvim-web-devicons', -- dependencies
+  'nvim-lua/plenary.nvim', -- dependencies
   'tpope/vim-sleuth', -- auto tabwidth
   { 'folke/which-key.nvim', opts = {} }, -- pending keys
-  {
-    'nvim-telescope/telescope.nvim',
-    version = '*',
-    dependencies = { 'nvim-lua/plenary.nvim' }
-  },
+  { 'nvim-telescope/telescope.nvim', version = '*' }, -- telescope
   { "folke/trouble.nvim", opts = {} },-- diagnostics
   'mg979/vim-visual-multi', -- multiline cursors
 

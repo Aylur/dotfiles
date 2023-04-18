@@ -1,7 +1,5 @@
 require('rose-pine').setup({
   disable_italics = true,
-  dark_variant = 'moon',
-  groups = { background = '#161616' }
 })
 
 require('catppuccin').setup({

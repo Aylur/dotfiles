@@ -49,6 +49,7 @@ vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", {silent = tru
 -- buffers
 vim.keymap.set({'n', 'i', 'v'}, '<A-l>', vim.cmd.bnext, { desc = 'Switch to next Buffer' })
 vim.keymap.set({'n', 'i', 'v'}, '<A-h>', vim.cmd.bprev, { desc = 'Switch to prev Buffer' })
+vim.keymap.set('n', 'q', function () vim.cmd('w'); vim.cmd('bw'); vim.cmd('bprev') end, { desc = 'Close Buffer' })
 
 -- select all
 vim.keymap.set('n', '<C-a>', "gg0vG$")

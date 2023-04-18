@@ -6,4 +6,4 @@ require('plugins')
 require('settings')
 require('keymaps')
 
-vim.cmd.colorscheme('catppuccin-mocha')
+vim.cmd.colorscheme('catppuccin-mocha') -- charm
