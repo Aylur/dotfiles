@@ -1,8 +1,9 @@
 local bg = '#171717'
 local fg = '#b2b5b3'
-local bright_black = '#373839'
+local bright_bg = '#373839'
 local bright_fg = '#e7e7e7'
 local black = '#313234'
+local white = '#f3f3f3'
 
 return {
   tab_bar = {
@@ -38,13 +39,13 @@ return {
   foreground = fg,
   cursor_bg = fg,
   cursor_fg = black,
-  cursor_border = bright_fg,
+  cursor_border = fg,
   selection_fg = black,
   selection_bg = fg,
   scrollbar_thumb = fg,
   split = black,
   ansi = {
-    black,
+    bright_bg,
     '#e67089',
     '#42c383',
     '#d7e77b',
@@ -54,7 +55,7 @@ return {
     bright_fg,
   },
   brights = {
-    bright_black,
+    black,
     '#c35d72',
     '#46a96f',
     '#c1cf6c',

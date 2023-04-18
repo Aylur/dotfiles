@@ -15,6 +15,7 @@ return {
   },
   use_fancy_tab_bar = true,
   font = wezterm.font 'CaskaydiaCove NF',
+  default_cursor_style = 'BlinkingBar',
 
   default_prog = { 'zsh' },
   window_close_confirmation = 'NeverPrompt',
@@ -22,9 +23,9 @@ return {
 
   enable_scroll_bar = false;
   window_padding = {
-    top    = '1cell',
+    top    = '0.5cell',
     right  = '1cell',
-    bottom = '1cell',
+    bottom = '0.5cell',
     left   = '1cell',
   },
 
