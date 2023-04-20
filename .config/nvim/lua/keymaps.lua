@@ -51,8 +51,10 @@ vim.keymap.set({'n', 'i', 'v'}, '<A-l>', vim.cmd.bnext, { desc = 'Switch to next
 vim.keymap.set({'n', 'i', 'v'}, '<A-h>', vim.cmd.bprev, { desc = 'Switch to prev Buffer' })
 vim.keymap.set('n', 'q', function () vim.cmd('w'); vim.cmd('bw'); vim.cmd('bprev') end, { desc = 'Close Buffer' })
 
--- select all
+-- selection
 vim.keymap.set('n', '<C-a>', "gg0vG$")
+vim.keymap.set('n', '<C-l>', "V")
+vim.keymap.set('v', '<C-l>', "j")
 
 -- colorizer
 vim.keymap.set('n', '<leader>c', vim.cmd.ColorizerToggle, { desc = '[C]olorizer'})

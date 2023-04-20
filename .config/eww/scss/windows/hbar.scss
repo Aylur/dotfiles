@@ -7,7 +7,7 @@
     background-color: $bg_color;
     border-bottom: $border_width solid $popover_border_color;
     box-shadow: 0 0 6px 0 rgba(0,0,0,0.8);
-    margin-bottom: 10px;
+    margin-bottom: $wm_gaps;
 
     @if $theme == 'dark' {
         text-shadow: $text_shadow;
@@ -45,20 +45,7 @@
         }
 
         &.system-indicators{
-            .icon{ font-size: 1.3em; }
-            .battery{
-                .low{ color: $destructive; }
-                .charging{ color: $succes; }
-                .charged{ color: $succes; }
-            }
-            .notifications.active{
-                color: $yellow;
-            }
-            .network{
-                &.none, &.low{ color: $red; }
-                &.medium{}
-                &.high{ color: $blue; }
-            }
+            @include system-indicators($orientation: 'h');
         }
 
         &.media{
@@ -68,24 +55,6 @@
                 &.firefox{ color: $orange; }
                 &.mpv{ color: $magenta; }
             }
-        }
-    }
-
-    .sliders-bin{
-        min-width: 220px;
-        margin-right: 4px;
-        .slider{ 
-            @include slider($width: 1.2em, $slider: false);
-            .icon{ 
-                margin-left: 3px; 
-                color: $accent_fg;
-            }
-        }
-        .separator{
-            min-width: 2px;
-            min-height: 1em;
-            margin: 0 4px;
-            background-color: $fg_color;
         }
     }
 }

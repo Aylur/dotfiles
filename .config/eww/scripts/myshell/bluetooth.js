@@ -11,7 +11,8 @@ const STATES = {
 const ICONS = {
     absent: '󰂲',
     off: '󰂲',
-    on: '󰂯'
+    on: '󰂯',
+    'audio-headset': '󰋋',
 }
 
 export const Bluetooth = GObject.registerClass({
@@ -93,7 +94,7 @@ class Bluetooth extends GObject.Object{
                 battery_level: device.battery_level,
                 battery_percentage: device.battery_percentage,
                 connected: device.connected,
-                icon: device.icon,
+                icon: ICONS[device.icon],
                 name: device.name,
                 paired: device.paired,
                 trusted: device.trusted

@@ -7,12 +7,3 @@
         }
     }
 }
-
-.notifications-list{
-    .notification{
-        @include notification;
-        .notification-content{
-            @include widget;
-        }
-    }
-}

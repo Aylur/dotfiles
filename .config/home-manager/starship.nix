@@ -49,8 +49,7 @@
         format = "[$symbol ](yellow dimmed)";
       };
       directory = {
-        format = " [](fg:bright-black)[$path](bg:bright-black fg:#f1f1f1)[](fg:bright-black)";
-        # format = "[$path](bg:black fg:#f1f1f1)[](fg:black)";
+        format = " [](fg:bright-black)[$path](bg:bright-black fg:white)[](fg:bright-black)";
         truncation_length = 4;
         truncation_symbol = "~/…/";
       };

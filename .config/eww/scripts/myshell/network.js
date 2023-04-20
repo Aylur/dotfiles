@@ -94,6 +94,10 @@ class Network extends GObject.Object{
             wifi.strength = '󰂭',
             wifi.icon = '󰤮'
         }
+        if(!mainConnection) {
+            wifi.strength = '󰂭'
+            wifi.icon = '󰤮'
+        }
         wifi.style = WifiStyles[wifi.icon];
         let wired  ={ 
             primary: primary_type === '802-3-ethernet',

@@ -2,6 +2,13 @@
 @import "./scss/variables.scss";
 @import "./scss/common.scss";
 
+@import "./scss/widgets/sys_sliders.scss";
+@import "./scss/widgets/notification.scss";
+@import "./scss/widgets/toggle_button.scss";
+@import "./scss/widgets/media.scss";
+@import "./scss/widgets/calendar.scss";
+@import "./scss/widgets/bar_widget.scss";
+
 @import "./scss/windows/hbar.scss";
 @import "./scss/windows/vbar.scss";
 @import "./scss/windows/datemenu.scss";
@@ -11,4 +18,5 @@
 @import "./scss/windows/osd.scss";
 @import "./scss/windows/dock.scss";
 @import "./scss/windows/notifications.scss";
+@import "./scss/windows/noti_center.scss";
 tooltip{ @include tooltip }

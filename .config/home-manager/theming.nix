@@ -26,7 +26,7 @@
     };
     file = {
       ".config/gtk-4.0/gtk.css" = {
-        text = ".background.csd{ border-radius: 12px; }";
+        text = ".background.csd{ border-radius: 0; }";
       };
     };
  };

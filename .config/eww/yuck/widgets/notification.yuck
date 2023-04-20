@@ -1,6 +1,6 @@
-(defwidget notification [id title body actions image] (eventbox
+(defwidget notification [id title body actions image onclick] (eventbox
     :class "notification"
-    :onclick "${EWW_CONFIG_DIR}/scripts/notifications dismiss ${id}"
+    :onclick "${EWW_CONFIG_DIR}/scripts/notifications ${onclick} ${id}"
     (box
         :class "notification-content"
         :space-evenly false

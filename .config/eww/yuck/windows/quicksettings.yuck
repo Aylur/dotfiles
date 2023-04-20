@@ -2,7 +2,7 @@
     :class "widget toggles"
     (arrow_toggle_wifi)
     (arrow_toggle_bt)
-    (arrow_toggle_pow)
+    (arrow_toggle_power)
 ))
 
 (defwidget quick_toggles_grid [] (box

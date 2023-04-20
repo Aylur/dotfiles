@@ -1,11 +1,3 @@
-(defwidget panel_launcher [] (box :class "button-bin launcher"
-    (button
-        :class "button launcher"
-        :onclick "${EWW_CONFIG_DIR}/scripts/launcher applauncher"
-        (label :class "icon" :text "" :halign "center")
-    )
-))
-
 (defwidget panel_clock [] (box :class "button-bin"
     (button
         :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu calendar"
@@ -20,160 +12,33 @@
     )
 ))
 
-(defwidget panel_workspaces [] (box :class "button-bin"
-    (eventbox :class "button workspaces"
-        (box
-            :space-evenly false
-            :orientation "v"
-            (for workspace in {workspaces.workspaces}
-                (button
-                    :class "workspace-btn ${workspace.id == workspaces.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
-                    :onclick "hyprctl dispatch workspace ${workspace.id}"
-                    :valign "center"
-                    (label :class "icon" :text {workspace.windows > 0 ? "${workspace.id == workspaces.active ? "" : ""}" : ""})
-                )
-            )
-        )
-    )
-))
-
-(defwidget panel_media [] (box :class "button-bin" 
-    :visible {media.preferred != "null"}
-    (eventbox
-        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu media"
-        :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} {}"
-        :class "button media"
-        (box
-            :space-evenly false
-            :orientation "v"
-            (label :class "icon ${media.preferred.name}" :text {media.preferred.icon})
-            (button
-                :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} prev"
-                :class "icon prev ${media.preferred.canPrev ? "" : "inactive"}"
-                :active {media.preferred.canPrev}
-                (label :class "icon" :text "󰒮"))
-            (button
-                :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} play-pause"
-                :class "icon play-pause ${media.preferred.status}"
-                :active {media.preferred.canPlay}
-                (label :class "icon" :text "${media.preferred.status == "Playing" ? "󰏦" : "󰐍"}" ))
-            (button
-                :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} next"
-                :class "icon next ${media.preferred.canNext ? "" : "inactive"}"
-                :active {media.preferred.canNext}
-                (label :class "icon" :text "󰒭"))
-        )
-    )
-))
-
-(defwidget controls_slider [control reveal value onchange icon] (eventbox
-    :onscroll "${EWW_CONFIG_DIR}/scripts/${control} {}"
-    :onhover "${EWW_CMD} update ${control}_reveal=true"
-    :onhoverlost "${EWW_CMD} update ${control}_reveal=false"
-    (box
-        :space-evenly false
-        :orientation "v"
-        (revealer
-            :transition "slideup"
-            :duration "300ms"
-            :reveal reveal
-            (eventbox :class "slider" (scale
-                :height 80
-                :orientation "v"
-                :flipped true
-                :value value
-                :onchange onchange)))
-        (label
-            :class "${control} icon"
-            :text icon)
-    )
-))
-
-(defwidget controls_icon [control reveal value icon style angle] (eventbox
-    :onhover "${EWW_CMD} update ${control}_reveal=true"
-    :onhoverlost "${EWW_CMD} update ${control}_reveal=false"
-    (box
-        :space-evenly false
-        :orientation "v"
-        (revealer
-            :transition "slideup"
-            :duration "300ms"
-            :reveal reveal
-            (label
-                :class "${style} ${control}"
-                :angle angle
-                :text value)
-        )
-        (label
-            :class "${style} ${control} icon"
-            :text icon)
-    )
-))
-
-(defvar notifications_reveal false)
-(defvar battery_reveal false)
-(defvar network_reveal false)
-(defvar volume_reveal false)
-(defvar screen_reveal false)
-(defwidget panel_controls [] (box
-    :class "controls"
+(defwidget panel_media [] (box
     :orientation "v"
-    :space-evenly false
-    (controls_slider
-        :control "volume"
-        :reveal volume_reveal
-        :value {volume.level}
-        :onchange "${EWW_CONFIG_DIR}/scripts/volume set {}"
-        :icon {volume.icon})
-    (controls_slider
-        :control "screen"
-        :reveal screen_reveal
-        :value {brightness.screen.level}
-        :onchange "${EWW_CONFIG_DIR}/scripts/brightness set_screen {}"
-        :icon {brightness.screen.icon})
-    (controls_icon
-        :control "network"
-        :reveal network_reveal
-        :value {network.wifi.ssid}
-        :icon {network[network.primary].icon}
-        :style {network[network.primary].style}
-        :angle 90)
-    (controls_icon
-        :control "battery"
-        :reveal battery_reveal
-        :value {battery.percent}
-        :icon {battery.icon}
-        :style {battery.state}
-        :angle 0)
-    (controls_icon
-        :control "notifications"
-        :reveal notifications_reveal
-        :value {notifications.count}
-        :icon {notifications.icon}
-        :style {notifications.count > 0 ? "active" : ""}
-        :angle 0)
-))
-
-(defwidget panel_system_indicators [] (box :class "button-bin"
-    (eventbox
-        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu quicksettings"
-        :class "button system-indicators"
-        (panel_controls)
+    :class "media"
+    :visible {media.preferred != "null"}
+    (box :class "button-bin"
+        (button
+            :class "player"
+            :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu media"
+            :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} {}"
+            (label :class "icon ${media.preferred.name}"
+                   :text {media.preferred.icon}))
     )
-))
-
-(defwidget panel_powermenu [] (box :class "button-bin powermenu" (button
-    :class "button powermenu"
-    :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu powermenu"
-    (label :class "icon" :text "")
-)))
-
-(defwidget panel_colorpicker [] (box :class "button-bin"
     (button
-        :class "button colorpicker"
-        :onclick "${EWW_CONFIG_DIR}/scripts/launcher colorpicker"
-        (label :class "icon" :text "󰈊")
-    )
+        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} prev"
+        :class "icon prev ${media.preferred.canPrev ? "" : "inactive"}"
+        :active {media.preferred.canPrev}
+        (label :class "icon" :text "󰒮"))
+    (button
+        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} play-pause"
+        :class "icon play-pause ${media.preferred.status}"
+        :active {media.preferred.canPlay}
+        (label :class "icon" :text "${media.preferred.status == "Playing" ? "󰏦" : "󰐍"}" ))
+    (button
+        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} next"
+        :class "icon next ${media.preferred.canNext ? "" : "inactive"}"
+        :active {media.preferred.canNext}
+        (label :class "icon" :text "󰒭"))
 ))
 
 (defwidget bar [] (centerbox
@@ -185,7 +50,7 @@
         :valign "start"
         :orientation "v"
         (panel_launcher)
-        (panel_workspaces)
+        (panel_workspaces :orientation "v")
     )
     (box
         :class "centerBar"
@@ -200,7 +65,7 @@
         :valign "end"
         :orientation "v"
         (panel_colorpicker)
-        (panel_system_indicators)
+        (panel_system_indicators :orientation "v")
         (panel_powermenu)
     )
 ))

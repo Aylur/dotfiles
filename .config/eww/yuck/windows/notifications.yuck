@@ -1,21 +1,17 @@
-(defwidget notifications [valign halign] (box
-    :halign halign
-    :valign valign
-    :class "notifications-list"
-    (scroll
-        :hscroll false :vscroll true
-        (box
-            :orientation "v"
-            :space-evenly false
-            (label :text {notifications} :visible false)
-            (for n in {notifications.notifications}
-                 (notification
-                     :id {n.id}
-                     :title {n.summary}
-                     :body {n.body}
-                     :actions {n.actions}
-                     :image {n.image})
-            )
+(defwidget notifications_popup [] (box
+    :class "notifications-window-box"
+    :orientation "v"
+    :space-evenly false
+    :vexpand true
+    (label :text {notifications} :visible false)
+    (for n in {notifications.popups}
+        (notification
+            :onclick "dismiss"
+            :id {n.id}
+            :title {n.summary}
+            :body {n.body}
+            :actions {n.actions}
+            :image {n.image})
         )
     )
-))
+)

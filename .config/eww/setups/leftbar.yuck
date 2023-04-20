@@ -52,14 +52,7 @@
                         :anchor "center left")
     (box
         :space-evenly false
-        (box 
-            :space-evenly false
-            :orientation "v"
-            (eventbox
-                :vexpand true
-                :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu quicksettings")
-            (quicksettings :valign "end" :halign "start")
-        )
+        (notifications_center :valign "fill" :halign "start")
         (eventbox
                 :hexpand true
                 :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu quicksettings")

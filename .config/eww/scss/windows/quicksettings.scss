@@ -1,5 +1,3 @@
-$spacing: $popover_padding*0.5;
-
 .quick-settings{
     @include floating_widget;
 
@@ -8,6 +6,8 @@ $spacing: $popover_padding*0.5;
         margin: $spacing;
         padding: $spacing;
     }
+
+    .sys-sliders{ @include sys-sliders; }
 
     .sys-actions{
         .user{
@@ -47,23 +47,6 @@ $spacing: $popover_padding*0.5;
         }
     }
 
-    .sliders{
-        .slider{ @include slider($width: .8em, $slider: false); }
-        .percent{
-            margin: $spacing;
-            min-width: 2.6em;
-        }
-        .icon{
-            margin: $spacing;
-            &:first-child{ font-size: 1.4em; }
-        }
-        button{
-            @include button($flat: true);
-            margin-right: $spacing;
-            .icon{ margin: 0; }
-        }
-    }
-
     .system{
         > * > *{
             @include widget;
@@ -82,123 +65,11 @@ $spacing: $popover_padding*0.5;
         }
     }
 
-    $toggle_radius: $radii*2.4;
     .toggles .toggle{
-        @include button($radii: $toggle_radius);
-        &.small{ @include button($radii: $radii*3.4); }
-        margin: $spacing;
-        .separator{
-            background-color: $fg_color;
-            min-width: 2px;
-            min-height: 1.4em;
-        }
-        .half{
-            @include button($flat: true);
-            min-height: 3.4em;
-            &:first-child{ border-radius: $toggle_radius 0 0 $toggle_radius }
-            &:last-child{ border-radius: 0 $toggle_radius $toggle_radius 0 }
-            &:hover{ background-color: $hover }
-        }
-        &.active{
-            * { color: $accent_fg; }
-            background-color: $accent;
-            .separator{ background-color: $accent_fg; }
-            &:hover *{ color: $hover_fg }
-        }
-        .icon{
-            font-size: 2em;
-            &.arrow{ font-size: 1.8em; }
-        }
+        @include toggle_button($toggle_radius: $radii*2.4);
     }
 
     .media{
-        @include widget;
-        margin: $spacing;
-        min-height: 12em;
-        padding: 0;
-        text-shadow: $text_shadow;
-        .cover{
-            @include widget;
-            background-size: cover;
-            background-position: center;
-            .darkened{
-                @include darkened($radii: $button_radius);
-            }
-            .slider{
-                @include slider($width: .4em, $slider: false, $color: transparentize($fg_color, 0.3));
-                scale > contents{
-                    trough{
-                        border-radius: 0;
-                        border: 0;
-                        highlight{
-                            border-radius: 0;
-                        }
-                    }
-                }
-            }
-            .box{ margin: $spacing; }
-            .artist{ font-size: 1.2em; }
-            .title, .position{ color: transparentize($fg_color, 0.2);}
-            .icon.player{
-                font-size: 1.4em;
-                margin-left: .6em;
-            }
-            .controls{
-                margin: $spacing;
-                button{
-                    label{ font-size: 2em; }
-                    &.loop, &.shuffle{
-                        label{ font-size: 1.2em; }
-                    }
-                    color: transparentize($fg_color, 0.3);
-                    &:hover{ color: $fg_color; }
-                    &.active{ color: $accent; }
-                    &.inactive{
-                        color: transparentize($fg_color, 0.7);
-                        text-shadow: none;
-                    }
-                    &.loop{
-                        &.Playlist{ color: transparentize($accent, 0.2); }
-                        &.Track{  color: $accent; }
-                    }
-                }
-            }
-        }
-        .sidebar{
-            .slider{ @include slider($width: .6em, $slider: false); }
-            margin: $spacing*2;
-        }
-
-        &.spotify{
-            .icon.player{ color: $green; }
-            .sidebar .slider{
-                @include slider($width: .6em, $slider: false, $color: $green);
-            }
-            .controls button{
-                &.active{ color: $green; }
-                &.loop{
-                    &.Playlist{ color: transparentize($green, 0.2); }
-                    &.Track{  color: $green; }
-                }
-            }
-        }
-
-        &.firefox{
-            .icon.player{ color: $orange; }
-        }
-
-        &.mpv{
-            .icon.player{ color: $magenta; }
-            .sidebar .slider{
-                @include slider($width: .6em, $slider: false, $color: $magenta);
-            }
-            .controls button{
-                &.active{ color: $magenta; }
-                &.loop{
-                    &.Playlist{ color: transparentize($magenta, 0.2); }
-                    &.Track{  color: $magenta; }
-                }
-            }
-        }
+        @include media($height: 12em);
     }
 }

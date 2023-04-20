@@ -24,7 +24,7 @@
 ))
 
 (defwidget sys_sliders [class] (box
-    :class "sliders ${class}"
+    :class "sys-sliders ${class}"
     :orientation "v"
     (sys_slider
         :icon {volume.type_icon}

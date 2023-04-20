@@ -1,0 +1,16 @@
+@mixin sys-sliders () {
+    .slider{ @include slider($width: .8em, $slider: false); }
+    .percent{
+        margin: $spacing;
+        min-width: 2.6em;
+    }
+    .icon{
+        margin: $spacing;
+        &:first-child{ font-size: 1.4em; }
+    }
+    button{
+        @include button($flat: true);
+        margin-right: $spacing;
+        .icon{ margin: 0; }
+    }
+}

@@ -12,10 +12,15 @@
         margin: .4em .4em 0 .4em;
     }
     .centerBar .button-bin {
-        margin: .6em .4em;
+        margin: .2em .4em;
     }
     .rightBar .button-bin {
         margin: 0 .4em .4em .4em;
+    }
+
+    .media{
+        @include panel_media();
+        .player{ min-height: 2em; }
     }
 
     .icon{ font-size: 1.3em;}
@@ -38,58 +43,11 @@
         }
 
         &.workspaces{
-            @include button($flat: false, $radii: $panel_button_radius);
-            .workspace-btn{
-                margin: 2px;
-                &.empty{ color: transparentize($fg_color, 0.34); }
-                &.occupied{ color: transparentize($fg_color, 0.18); }
-                &.active{ color: $fg_color; }
-                &:hover{
-                    &.empty{ color: transparentize($fg_color, 0.18); }
-                    &.occupied{ color: $fg_color; }
-                }
-                &:active{ color: $accent; }
-            }
+            @include workspaces;
         }
 
-        &.media{
-            button {
-                &.prev, &.next, &.play-pause{
-                    color: transparentize($fg_color, 0.4);
-                    &:hover{ color: transparentize($fg_color, 0.2) }
-                    &:active{ color: $fg_color }
-                }
-                &.play-pause{
-                    &.Playing{ color: $accent }
-                    &.Paused{ color: $yellow }
-                }
-            }
-            .icon{
-                &.spotify{ color: $green; }
-                &.firefox{ color: $orange; }
-                &.mpv{ color: $magenta; }
-            }
-        }
-    }
-    .controls{
-        .slider{
-            @include slider($width: 1em, $slider: false);
-        }
-        .icon{
-            margin: .1em 0;
-            &.battery{
-                &.low{ color: $destructive; }
-                &.charging{ color: $succes; }
-                &.charged{ color: $succes; }
-            }
-            &.notifications.active{
-                color: $yellow;
-            }
-            &.network{
-                &.none, &.low{ color: $red; }
-                &.medium{}
-                &.high{ color: $blue; }
-            }
+        &.system-indicators{
+            @include system-indicators($orientation: 'v');
         }
     }
 }
