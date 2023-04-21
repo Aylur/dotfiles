@@ -10,4 +10,17 @@
         }
         .date{ font-size: 2em; }
     }
+    .system{
+        > * {
+            padding: 8px;
+        }
+        circular-progress{
+            background-color: transparentize($bg_color, 0.5);
+            color: $fg_color;
+            &.battery{
+                &.low{ color: $red }
+            }
+            .icon{ font-size: 3em; }
+        }
+    }
 }

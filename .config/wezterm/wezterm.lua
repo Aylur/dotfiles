@@ -2,13 +2,7 @@ local wezterm = require 'wezterm'
 require('events')
 
 return {
-  -- color_schemes = {
-  --   ["Myppuccin"] = require('myppuccin'),
-  --   ["Charm"] = require('charm'),
-  --   ["Decay"] = require('decay'),
-  -- },
-
-  colors = require('charm'),
+  colors = require('theme'),
   window_frame = {
     active_titlebar_bg = '#333333',
     inactive_titlebar_bg = '#333333',

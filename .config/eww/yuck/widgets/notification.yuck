@@ -45,8 +45,10 @@
             )
         )
         (box
+            :space-evenly false
             (for action in actions
                 (button
+                    :hexpand true
                     :class "action-button"
                     :onclick "${EWW_CONFIG_DIR}/scripts/notifications action ${id} ${action.id}"
                     (label :text {action.label})

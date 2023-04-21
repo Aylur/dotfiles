@@ -13,16 +13,16 @@ function toggle {
         cp $HOME/.config/eww/scss/colors_light.scss $HOME/.config/eww/scss/colors.scss
         cp $HOME/.config/rofi/config_light.rasi $HOME/.config/rofi/config.rasi
         cp $HOME/.config/gtklock/style-light.css $HOME/.config/gtklock/style.css
-        cp $HOME/.config/wezterm/charm-light.lua $HOME/.config/wezterm/charm.lua
+        cp $HOME/.config/wezterm/rose-pine.lua $HOME/.config/wezterm/theme.lua
     else
         gsettings set org.gnome.desktop.interface color-scheme "'prefer-dark'"
         cp $HOME/.config/eww/scss/colors_dark.scss $HOME/.config/eww/scss/colors.scss
         cp $HOME/.config/rofi/config_dark.rasi $HOME/.config/rofi/config.rasi
         cp $HOME/.config/gtklock/style-dark.css $HOME/.config/gtklock/style.css
-        cp $HOME/.config/wezterm/charm-dark.lua $HOME/.config/wezterm/charm.lua
+        cp $HOME/.config/wezterm/charm.lua $HOME/.config/wezterm/theme.lua
     fi
 
-    eww update theme=$(get)
+    eww update theme="$(get)"
     $HOME/.config/eww/scripts/./init
 }
 

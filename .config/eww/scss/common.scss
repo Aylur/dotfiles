@@ -57,7 +57,7 @@
         min-height: $width;
         min-width:  $width;
         highlight, progress{
-            border-radius: $button_radius;
+            border-radius: $popover_radius*0.8;
             background-color: $color;
             min-height: $width;
             min-width:  $width;

@@ -7,7 +7,7 @@
     background-color: $bg_color;
     border-bottom: $border_width solid $popover_border_color;
     box-shadow: 0 0 6px 0 rgba(0,0,0,0.8);
-    margin-bottom: $wm_gaps;
+    margin: $wm_gaps;
 
     @if $theme == 'dark' {
         text-shadow: $text_shadow;

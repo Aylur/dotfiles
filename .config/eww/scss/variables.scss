@@ -13,10 +13,10 @@ $avatar:    $assets+'avatar.jpg';
 $hover: transparentize($fg_color, 0.84);
 $accent: $blue;
 
-$wm_gaps: 0px;
+$wm_gaps: 16px;
 $destructive: $red;
 $succes: $green;
-$radii: 0px;
+$radii: 13px;
 $spacing: 8px;
 
 $widget_bg: transparentize($fg_color, 0.94);
@@ -25,8 +25,8 @@ $widget_radius: $radii;
 $button_bg: transparentize($fg_color, 0.92);
 $button_radius: $radii;
 
-$panel_radius: $radii * 1.1;
-$panel_button_radius: $radii * 0.9;
+$panel_radius: $radii * 1;
+$panel_button_radius: $radii * 0.8;
 
 $border_color: rgba(255, 255, 255, 0.002);
 $border_width: 1px;

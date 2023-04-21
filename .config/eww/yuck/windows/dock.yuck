@@ -50,9 +50,9 @@
                     :onclick "${EWW_CONFIG_DIR}/scripts/launcher firefox"
                 )
                 (dock_button 
-                    :class "kitty"
-                    :tooltip "Kitty"
-                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher kitty"
+                    :class "terminal"
+                    :tooltip "Terminal"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher terminal"
                 )
                 (dock_button 
                     :class "file-manager"
@@ -60,9 +60,9 @@
                     :onclick "${EWW_CONFIG_DIR}/scripts/launcher file-manager"
                 )
                 (dock_button 
-                    :class "code"
-                    :tooltip "Code"
-                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher code"
+                    :class "editor"
+                    :tooltip "Editor"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/launcher editor"
                 )
                 (dock_button 
                     :class "spotify"

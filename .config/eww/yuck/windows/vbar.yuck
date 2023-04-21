@@ -6,7 +6,7 @@
             :space-evenly false
             :orientation "v"
             (label :text hour :class "clock")
-            (label :class "separator" :halign "center")
+            (panel_separator :orientation "h" :dots "[1, 2]" :visible true)
             (label :text minutes :class "minutes")
         )
     )
@@ -14,24 +14,26 @@
 
 (defwidget panel_media [] (box
     :orientation "v"
-    :class "media"
-    :visible {media.preferred != "null"}
-    :space-evenly false
-    (button
-        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} prev"
-        :class "icon prev ${media.preferred.canPrev ? "" : "inactive"}"
-        :active {media.preferred.canPrev}
-        (label :class "icon" :text "󰒮"))
-    (button
-        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} play-pause"
-        :class "icon play-pause ${media.preferred.status}"
-        :active {media.preferred.canPlay}
-        (label :class "icon" :text "${media.preferred.status == "Playing" ? "󰏦" : "󰐍"}" ))
-    (button
-        :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} next"
-        :class "icon next ${media.preferred.canNext ? "" : "inactive"}"
-        :active {media.preferred.canNext}
-        (label :class "icon" :text "󰒭"))
+    :class "media"    :space-evenly false
+    (box
+        :space-evenly false
+        :orientation "v"
+        :visible {media.preferred != "null"}
+        (button
+            :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} prev"
+            :class "icon prev ${media.preferred.canPrev ? "" : "inactive"}"
+            :active {media.preferred.canPrev}
+            (label :class "icon" :text "󰒮"))
+        (button
+            :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} play-pause"
+            :class "icon play-pause ${media.preferred.status}"
+            :active {media.preferred.canPlay}
+            (label :class "icon" :text "${media.preferred.status == "Playing" ? "󰏦" : "󰐍"}" ))
+        (button
+            :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} next"
+            :class "icon next ${media.preferred.canNext ? "" : "inactive"}"
+            :active {media.preferred.canNext}
+            (label :class "icon" :text "󰒭")))
     (box :class "button-bin"
         (button
             :class "player"
@@ -58,6 +60,7 @@
         :orientation "v"
         :space-evenly false
         (panel_clock)
+        (panel_separator :orientation "h" :dots "[1, 2, 3]" :visible {arraylength(media.players) > 0})
         (panel_media)
    )
     (box

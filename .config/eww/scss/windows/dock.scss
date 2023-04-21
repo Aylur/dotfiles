@@ -43,12 +43,12 @@ $dock_icon_size: 6em;
             }
         }
         &.firefox .icon{ background-image:      url($assets+'apps/firefox.png'); }
-        &.kitty .icon{ background-image:        url($assets+'apps/kitty.png'); }
+        &.terminal .icon{ background-image:     url($assets+'apps/terminal.png'); }
         &.file-manager .icon{ background-image: url($assets+'apps/file-manager.png'); }
-        &.code .icon{ background-image:         url($assets+'apps/code.png'); }
+        &.editor .icon{ background-image:       url($assets+'apps/editor.png'); }
         &.spotify .icon{ background-image:      url($assets+'apps/spotify.png'); }
         &.caprine .icon{ background-image:      url($assets+'apps/caprine.png'); }
-        &.bitwig .icon{ background-image:      url($assets+'apps/bitwig.png'); }
+        &.bitwig .icon{ background-image:       url($assets+'apps/bitwig.png'); }
         &.battle .icon{ background-image:       url($assets+'apps/battle.png'); }
         &.bottles .icon{ background-image:      url($assets+'apps/bottles.png'); }
     }

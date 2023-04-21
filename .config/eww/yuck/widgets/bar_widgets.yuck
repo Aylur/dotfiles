@@ -32,6 +32,14 @@
     )
 ))
 
+(defwidget panel_separator [orientation dots visible] (box
+    :orientation orientation
+    :class "separator"
+    :space-evenly false
+    :visible visible
+    (for dot in dots
+        (box :class "dot" :halign "center" :hexpand true :valign "center"))))
+
 (defwidget controls_slider [control reveal value onchange icon orientation transition] (eventbox
     :onscroll "${EWW_CONFIG_DIR}/scripts/${control} {}"
     :onhover "${EWW_CMD} update ${control}_reveal=true"

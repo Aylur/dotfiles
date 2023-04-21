@@ -37,10 +37,6 @@
             &:hover{ color: transparentize($fg_color, 0.2) }
             &:active{ color: $fg_color }
         }
-        &.play-pause{
-            &.Playing{ color: $accent }
-            &.Paused{ color: $yellow }
-        }
     }
     .icon{
         &.spotify{ color: $green; }

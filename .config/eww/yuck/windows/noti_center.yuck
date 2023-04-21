@@ -10,7 +10,7 @@
         (box :hexpand true)
         (button
             :onclick "${EWW_CONFIG_DIR}/scripts/notifications clear"
-            (label :text "Clear")))
+            (label :text "Clear ")))
     (scroll
         :class "notifications-list"
         :hscroll false :vscroll true
@@ -19,6 +19,19 @@
             :orientation "v"
             :space-evenly false
             (label :text {notifications} :visible false)
+            (box
+                :visible {arraylength(notifications.notifications) == 0}
+                :space-evenly false
+                :orientation "v"
+                :valign "center"
+                :halign "center"
+                :vexpand true
+                :class "placeholder"
+                (label
+                    :class "icon"
+                    :text "󰂚")
+                (label
+                    :text "Nothing here"))
             (for n in {notifications.notifications}
                  (notification
                      :onclick "close"

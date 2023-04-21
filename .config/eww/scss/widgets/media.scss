@@ -1,15 +1,18 @@
-@mixin media($widget: true, $height: 12em) {
-    @if $widget { @include widget; }
+@mixin media($style: 'widget', $height: 12em) {
+    @if $style == 'widget' { @include widget; }
+    @if $style == 'popover' { @include floating_widget; }
     margin: $spacing;
     min-height: $height;
     padding: 0;
     text-shadow: $text_shadow;
     .cover{
-        @if $widget { @include widget; }
+        @if $style == 'widget' { @include widget; }
+        @if $style == 'popover' { border-radius: $popover_radius; }
         background-size: cover;
         background-position: center;
         .darkened{
-            @include darkened($radii: $button_radius);
+            @if $style == 'widget' { @include darkened($radii: $button_radius); }
+            @if $style == 'popover' { @include darkened($radii: $popover_radius); }
         }
         .slider{
             @include slider($width: .4em, $slider: false, $color: transparentize($fg_color, 0.3));

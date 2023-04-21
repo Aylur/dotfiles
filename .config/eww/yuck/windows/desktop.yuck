@@ -13,8 +13,31 @@
     (label :class "date" :text date)
 ))
 
+(defvar desktop_reveal true)
 (defwidget desktop [] (box
     :class "desktop"
     :style "background-image: url('${EWW_CONFIG_DIR}/assets/wallpapers/${workspaces.active}.jpeg')"
+    ;; (eventbox
+    ;;     ;; :onhoverlost "${EWW_CMD} update desktop_reveal=false"
+    ;;     ;; :onhover "${EWW_CMD} update desktop_reveal=true"
+    ;;     :halign "center"
+    ;;     :valign "center"
+    ;;     (box
+    ;;         :orientation "v"
+    ;;         (desktop_clock)
+    ;;         (revealer
+    ;;             :reveal desktop_reveal
+    ;;             :transition "slidedown"
+    ;;             :duration 300
+    ;;             (box
+    ;;                 :class "system"
+    ;;                 (sysprogress_cpu)
+    ;;                 (sysprogress_ram)
+    ;;                 (sysprogress_temp)
+    ;;                 (sysprogress_bat)
+    ;;             )
+    ;;         )
+    ;;     )
+    ;; )
     (desktop_clock)
 ))
