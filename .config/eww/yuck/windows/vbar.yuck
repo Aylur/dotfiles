@@ -16,14 +16,7 @@
     :orientation "v"
     :class "media"
     :visible {media.preferred != "null"}
-    (box :class "button-bin"
-        (button
-            :class "player"
-            :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu media"
-            :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} {}"
-            (label :class "icon ${media.preferred.name}"
-                   :text {media.preferred.icon}))
-    )
+    :space-evenly false
     (button
         :onclick "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} prev"
         :class "icon prev ${media.preferred.canPrev ? "" : "inactive"}"
@@ -39,6 +32,14 @@
         :class "icon next ${media.preferred.canNext ? "" : "inactive"}"
         :active {media.preferred.canNext}
         (label :class "icon" :text "󰒭"))
+    (box :class "button-bin"
+        (button
+            :class "player"
+            :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu media"
+            :onscroll "${EWW_CONFIG_DIR}/scripts/player ${media.preferred.name} {}"
+            (label :class "icon ${media.preferred.name}"
+                   :text {media.preferred.icon}))
+    )
 ))
 
 (defwidget bar [] (centerbox

@@ -20,7 +20,7 @@
 
     .media{
         @include panel_media();
-        .player{ min-height: 2em; }
+        .player{ min-height: 2.6em; }
     }
 
     .icon{ font-size: 1.3em;}

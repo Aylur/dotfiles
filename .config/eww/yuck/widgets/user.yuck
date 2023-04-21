@@ -1,4 +1,4 @@
-(defwidget user [show_name class] (box
+(defwidget user [show_name ?class] (box
     :class "user ${class}" 
     (box
         :class "darkened"

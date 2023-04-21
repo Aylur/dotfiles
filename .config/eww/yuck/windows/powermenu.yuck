@@ -14,18 +14,6 @@
     (label  :class "uptime" :text "uptime: ${uptime}")
 ))
 
-(defwidget powermenu_user [] (box
-    :orientation "v"
-    :class "user"
-    :space-evenly false
-    :halign "center"
-    :valign "center"
-    :hexpand true
-    (box    :class "image")
-    (label  :text "Demeter")
-    (label  :text "GoodBye!")
-))
-
 (defwidget powerbutton [action icon label] (box
     :orientation "v"
     :space-evenly false
@@ -45,10 +33,9 @@
     :valign "center"
     :orientation "v"
     :space-evenly false
-    (box :orientation "h"
-        :space-evenly false
-        (powermenu_user)
-        (powermenu_clock))
+    ;; (box :orientation "h"
+    ;;     :space-evenly false
+    ;;     (powermenu_clock))
     (box
         :class "power-menu"
         :space-evenly false

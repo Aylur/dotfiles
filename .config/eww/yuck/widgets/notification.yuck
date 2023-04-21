@@ -19,11 +19,16 @@
                 :orientation "v"
                 :hexpand true
                 (box
+                    :space-evenly false
                     (label 
                         :xalign 0
                         :class "title"
+                        :wrap true
                         :text title)
-                    (overlay (box) (button
+                    (overlay 
+                        :hexpand true
+                        :width 30
+                        (box) (button
                         :class "close-button"
                         :halign "end"
                         :valign "start"

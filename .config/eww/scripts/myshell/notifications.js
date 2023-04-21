@@ -33,6 +33,7 @@ class Notifications extends GObject.Object{
     }
 
     Notify(app_name, replaces_id, app_icon, summary, body, actions, hints, time_out) {
+        print(app_name, app_icon, JSON.stringify(hints));
         let acts = [];
         for(let i=0; i<actions.length; i+=2) {
             if(actions[i+1] !== '')
@@ -52,7 +53,7 @@ class Notifications extends GObject.Object{
             image:  
                 this._parseImage(hints['image-data'], `${summary}${id}`) || 
                 this._parseIcon(app_icon, `${summary}${id}`) || 
-                this._parseAppIcon(app_name, `${summary}${id}`)
+                this._parseIcon(app_name, `${summary}${id}`)
         }
         this._notifications.set(notification.id, notification);
         if(!this._dnd) {
@@ -129,7 +130,7 @@ class Notifications extends GObject.Object{
         return NOTIFICATIONS_CACHE_PATH+name.replace(/[\ \,\*\?\"\<\>\|\#\:\?\/\!\']/g, '')+'.png';
     }
 
-    _parseAppIcon(icon_name, name) {
+    _parseIcon(icon_name, name) {
         if(!icon_name) return;
 
         MkDirectory();
@@ -149,6 +150,10 @@ class Notifications extends GObject.Object{
             .save_to_streamv(output_stream, 'png', null, null, null);
 
         output_stream.close(null);
+
+        if(icon_name.includes('-symbolic'))
+            GLib.spawn_command_line_sync(`convert ${fileName} -alpha on
+                -fill ${this._fgColor} -colorize 100% -bordercolor transparent -border 16 ${fileName}`);
         
         return fileName;
     }
@@ -163,17 +168,10 @@ class Notifications extends GObject.Object{
         })
     }
 
-    _parseIcon(icon_name, name) {
-        let fileName = this._parseAppIcon(icon_name, name)
-        // GLib.spawn_command_line_sync(`convert ${fileName} -alpha on
-        //     -fill ${this._fgColor} -colorize 100% -bordercolor transparent -border 16 ${fileName}`);
-
-        return fileName;
-    }
-
     _parseImage(image_data, name) {
         if(!image_data) return;
         MkDirectory();
+        let fileName = this._filterName(name);
         let image = image_data.recursiveUnpack();
         let pixbuf = GdkPixbuf.Pixbuf.new_from_bytes(
             image[6],
@@ -186,7 +184,7 @@ class Notifications extends GObject.Object{
         ); 
 
         let output_stream = 
-            Gio.File.new_for_path(this._filterName(name))
+            Gio.File.new_for_path(fileName)
             .replace(null, false, Gio.FileCreateFlags.NONE, null);
 
         pixbuf.save_to_streamv(output_stream, "png", null, null, null);

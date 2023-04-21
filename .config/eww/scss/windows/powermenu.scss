@@ -2,20 +2,7 @@
     background-color: rgba(0,0,0,0.5);
     .content{
         @include floating_widget;
-        .user{
-            .image{
-                background-image: url($assets+'avatar.jpg');
-                background-size: cover;
-                background-repeat: no-repeat;
-                min-width: 120px;
-                min-height: 120px;
-                border-radius: 24px;
-                margin-bottom: 12px;
-            }
-            font-size: 1.2em;
-            text-shadow: $text_shadow;
-    
-        }
+        .user{ @include user; }
         .clock{
             text-shadow: $text_shadow;
             margin-bottom: 2.2em;

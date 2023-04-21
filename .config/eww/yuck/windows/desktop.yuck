@@ -15,5 +15,6 @@
 
 (defwidget desktop [] (box
     :class "desktop"
-    ;; (desktop_clock)
+    :style "background-image: url('${EWW_CONFIG_DIR}/assets/wallpapers/${workspaces.active}.jpeg')"
+    (desktop_clock)
 ))
