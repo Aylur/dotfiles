@@ -5,14 +5,11 @@ function toggle_menu {
     hyprctl keyword blurls "remove,gtk-layer-shell"
     STATE=$(eww windows | grep $1$MAIN | awk '{print substr ($0, 0, 1)}')
     if [[ $STATE == '*' ]]; then 
-        if [[ $1 == 'powermenu' ]]; then
-            hyprctl keyword blurls "remove,gtk-layer-shell"
-        fi
+        if [[ $1 == 'powermenu' ]]; then hyprctl keyword blurls "remove,gtk-layer-shell"; fi
         eww close $1$MAIN;
     else
-        if [[ $1 == 'powermenu' ]]; then
-            hyprctl keyword blurls "gtk-layer-shell"
-        fi
+        if [[ $1 == 'powermenu' ]]; then hyprctl keyword blurls "gtk-layer-shell"; fi
+        if [[ $1 == 'app_launcher' ]]; then $HOME/.config/eww/scripts/apps query ""; fi
         eww open $1$MAIN;
     fi
 }

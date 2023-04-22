@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+function query {
+    dbus-send --session --type=method_call \
+        --dest=com.github.aylur.myshell \
+        /com/github/aylur/applications \
+        com.github.aylur.applications.Query \
+        string:$1
+}
+
+if [[ $1 == 'query' ]]; then query $2; fi

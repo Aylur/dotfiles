@@ -4,6 +4,7 @@
 (defvar     media_positions "{}")
 (defvar     battery         "{}")
 (defvar     notifications   "{}")
+(defvar     apps            "{}")
 
 (deflisten  window      `scripts/hyprland window`)
 (deflisten  workspaces  `scripts/hyprland workspaces`)

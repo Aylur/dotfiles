@@ -5,7 +5,7 @@
     ./packages.nix
     ./helix.nix
     ./sh.nix
-    ./hyprland.nix
+    # ./hyprland.nix
     ./neofetch.nix
     ./desktopEntries.nix
     ./theming.nix

@@ -3,6 +3,7 @@ import { Media } from './media.js'
 import { Battery } from './battery.js'
 import { Bluetooth } from './bluetooth.js'
 import { Notifications } from './notifications.js'
+import { Apps } from './apps.js'
 import { GObject, Gio, GLib, Gtk } from './lib.js'
 
 const TICK_INTERVAL = 1000 //ms
@@ -11,6 +12,7 @@ export const PREFERRED_PLAYER = 'spotify'
 export const CACHE_PATH = GLib.get_user_cache_dir()+'/aylur/'
 export const MEDIA_CACHE_PATH = CACHE_PATH+'media/'
 export const NOTIFICATIONS_CACHE_PATH = CACHE_PATH+'notifications/'
+export const APPICON_CACHE_PATH = CACHE_PATH+'apps/'
 
 export const PlayerIcons = {
     'deafult': '',
@@ -23,7 +25,8 @@ export function MkDirectory() {
     [ 
         CACHE_PATH,
         MEDIA_CACHE_PATH,
-        NOTIFICATIONS_CACHE_PATH
+        NOTIFICATIONS_CACHE_PATH,
+        APPICON_CACHE_PATH,
     ]
     .forEach(path => {
         if(!GLib.file_test(path, GLib.FileTest.EXISTS))
@@ -52,6 +55,7 @@ class App extends Gtk.Application{
         this._network = new Network();
         this._bluetooth = new Bluetooth();
         this._media = new Media();
+        this._apps = new Apps();
 
         this.run(null);
     }
@@ -64,13 +68,12 @@ class App extends Gtk.Application{
         this._battery.connect('sync', o => this._output(o.json, 'battery'));
         this._network.connect('sync', o => this._output(o.json, 'network'));
         this._bluetooth.connect('sync', o => this._output(o.json, 'bluetooth'));
+        this._apps.connect('sync', o => this._output(o.json, 'apps'));
+        this._apps.init();
 
         this._media.connect('sync', o => this._output(o.json, 'media'));
         this._media.connect('positions', o => this._output(o.positions, 'media_positions'));
         GLib.timeout_add(GLib.PRIORITY_DEFAULT, TICK_INTERVAL, () => this._media.getPositions() );
-
-        [ 'notifications', 'battery', 'network', 'bluetooth', 'media'
-        ].forEach(m => { if(m) this[`_${m}`].json, m });
     }
 
     _output(json, name){

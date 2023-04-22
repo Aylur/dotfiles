@@ -7,13 +7,12 @@ let
   }).defaultNix;
 in
 {
- 
   imports = [
     hyprland.homeManagerModules.default
   ];
 
   wayland.windowManager.hyprland = {
-    enable = true;
+    enable = false;
     nvidiaPatches = true;
     extraConfig = ''
     # Monitors
@@ -124,7 +123,7 @@ in
       bind = SUPER, Return, exec, nixGL wezterm
       bind = SUPER, W, exec, flatpak run org.mozilla.firefox
       bind = SUPER, E, exec, nautilus
-      bind = SUPER, R, exec, rofi -show drun
+      bind = SUPER, R, exec, bash ~/.config/eww/scripts/launcher toggle_menu app_launcher
 
     # Bindings
       bind = CTRL ALT, Delete, exit

@@ -4,6 +4,7 @@
     # wm
     # awesome bspwm sxhkd
     # eww rofi
+    hyprland
     eww-wayland rofi-wayland
 
     # tools

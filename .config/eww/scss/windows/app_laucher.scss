@@ -1,0 +1,29 @@
+.app-launcher{
+    @include floating_widget;
+    min-height: 500px;
+    min-width: 500px;
+
+    .input{
+        @include button;
+        min-height: 2em;
+        padding: 1em;
+        margin-bottom: $spacing;
+    }
+
+    .app{
+        .app-eventbox{ @include button }
+        @include button;
+        .app-content{
+            .name{ font-size: 1.4em }
+            .description{ color: transparentize($fg_color, 0.3) }
+            .appicon{
+                background-size: cover;
+                min-width: 4em;
+                min-height: 4em;
+                margin-right: 1em;
+            }
+            padding: 1em;
+        }
+        margin-bottom: $spacing;
+    }
+}

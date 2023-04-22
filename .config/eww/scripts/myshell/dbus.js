@@ -96,3 +96,12 @@ export const BluetoothIFace =
         <method name="Toggle" />
     </interface>
 </node>`
+
+export const ApplicationsIFace = 
+`<node>
+    <interface name="com.github.aylur.applications">
+        <method name="Query">
+            <arg type="s" direction="in" />
+        </method>
+    </interface>
+</node>`

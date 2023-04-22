@@ -1,0 +1,48 @@
+(defwidget application [app] (button
+    :class "app"
+    :onclick "gtk-launch ${app.desktop}"
+    :valign "start"
+    (box
+        :space-evenly false
+        :class "app-content"
+        (box
+            :class "appicon"
+            :style "background-image: url('${app.icon}')")
+        (box
+            :orientation "v"
+            :space-evenly false
+            (label
+                :xalign 0
+                :valign "center"
+                :class "name"
+                :text {app.name})
+            (label
+                :xalign 0
+                :class "description"
+                :wrap true
+                :limit-width 110
+                :visible {app.description != 'null'}
+                :text {app.description})
+        )
+    )
+))
+
+(defwidget app_launcher [halign valign] (box
+    :halign halign
+    :valign valign
+    :orientation "v"
+    :class "app-launcher"
+    :space-evenly false
+    (input
+        :class "input"
+        :onchange "${EWW_CONFIG_DIR}/scripts/apps query {}"
+        :onaccept "gtk-launch ${apps[0].desktop} && ${EWW_CONFIG_DIR}/scripts/launcher toggle_menu app_launcher")
+    (scroll
+        :vscroll true
+        :vexpand true
+        :class "scroll"
+        (box
+            :orientation "v"
+            (for app in apps
+                 (application :app app))))
+))

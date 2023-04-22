@@ -51,7 +51,7 @@ class Notifications extends GObject.Object{
             summary,
             body,
             actions: acts,
-            time: { hour: date.getHours(), minute: date.getMinutes() },
+            time: { hour: date.getHours(), minute: date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}` },
             image:  
                 this._parseImage(hints['image-data'], `${summary}${id}`) || 
                 this._parseIcon(app_icon, `${summary}${id}`) || 
