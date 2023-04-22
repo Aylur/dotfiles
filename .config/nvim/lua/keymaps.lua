@@ -55,6 +55,7 @@ vim.keymap.set('n', 'q', function () vim.cmd('w'); vim.cmd('bw'); vim.cmd('bprev
 vim.keymap.set('n', '<C-a>', "gg0vG$")
 vim.keymap.set('n', '<C-l>', "V")
 vim.keymap.set('v', '<C-l>', "j")
+vim.keymap.set('v', 'V', "j")
 
 -- colorizer
 vim.keymap.set('n', '<leader>c', vim.cmd.ColorizerToggle, { desc = '[C]olorizer'})

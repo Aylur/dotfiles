@@ -9,7 +9,7 @@ require('keymaps')
 local dark_mode = table.concat(vim.fn.systemlist(
     "gsettings get org.gnome.desktop.interface color-scheme"), '')
 
-if dark_mode == 'prefer-dark' then
+if dark_mode == "'prefer-dark'" then
     vim.cmd.colorscheme('catppuccin-mocha')
 else
     vim.cmd.colorscheme('rose-pine-dawn')
