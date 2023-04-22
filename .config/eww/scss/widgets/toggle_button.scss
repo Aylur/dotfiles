@@ -19,8 +19,12 @@
         background-color: $accent;
         .separator{ background-color: $accent_fg; }
         &:hover{
-            background-color: transparentize($accent, 0.3);
+            background-color: transparentize($accent, 0.15);
             *{ color: $accent_fg}
+        }
+        &:focus{
+            background-color: transparentize($accent, 0.4);
+            box-shadow: inset 0 0 0 $border_width*2 $accent;
         }
     }
     .icon{

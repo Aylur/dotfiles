@@ -3,10 +3,13 @@
     font-weight: bold;
     color: $fg_color;
     background-color: $bg_color;
-    margin: $wm_gaps;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    border: $border_width solid $popover_border_color;
-    border-radius: $panel_radius;
+
+    &.floating {
+        margin: $wm_gaps;
+        border-radius: $panel_radius;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        border: $border_width solid $popover_border_color;
+    }
 
     .leftBar .button-bin {
         margin: .4em .4em 0 .4em;

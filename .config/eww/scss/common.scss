@@ -72,9 +72,14 @@
             }
         }
     }
-    &:hover{
-        trough{
-            background-color: $hover;
+    &:hover trough{
+        background-color: $hover;
+    }
+    trough:focus{
+        background-color: $hover;
+        box-shadow: inset 0 0 0 $border_width $accent;
+        highlight, progress{
+            background-color: transparentize($color, 0.3);
         }
     }
 }
