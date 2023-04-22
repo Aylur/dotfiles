@@ -18,7 +18,10 @@
         * { color: $accent_fg; }
         background-color: $accent;
         .separator{ background-color: $accent_fg; }
-        &:hover *{ color: $hover_fg }
+        &:hover{
+            background-color: transparentize($accent, 0.3);
+            *{ color: $accent_fg}
+        }
     }
     .icon{
         font-size: 2em;

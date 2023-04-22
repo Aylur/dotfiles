@@ -1,6 +1,6 @@
-(defwidget notification [id title body actions image onclick] (eventbox
+(defwidget notification [onclick notification] (eventbox
     :class "notification"
-    :onclick "${EWW_CONFIG_DIR}/scripts/notifications ${onclick} ${id}"
+    :onclick "${EWW_CONFIG_DIR}/scripts/notifications ${onclick} ${notification.id}"
     (box
         :class "notification-content"
         :space-evenly false
@@ -8,9 +8,9 @@
         (box
             :space-evenly false
             (box
-                :visible {image != "null"}
+                :visible {notification.image != "null"}
                 :class "image"
-                :style "background-image: url('${image}')"
+                :style "background-image: url('${notification.image}')"
                 :valign "start"
             )
             (box
@@ -24,33 +24,35 @@
                         :xalign 0
                         :class "title"
                         :wrap true
-                        :text title)
-                    (overlay 
-                        :hexpand true
-                        :width 30
-                        (box) (button
-                        :class "close-button"
-                        :halign "end"
+                        :text {notification.summary})
+                    (box :hexpand true)
+                    (label
+                        :xalign 1
                         :valign "start"
-                        :onclick "${EWW_CONFIG_DIR}/scripts/notifications close ${id}"
+                        :class "time"
+                        :text "${notification.time.hour}:${notification.time.minute}")
+                    (button
+                        :class "close-button"
+                        :valign "start"
+                        :onclick "${EWW_CONFIG_DIR}/scripts/notifications close ${notification.id}"
                         (label :text "")
-                    ))
+                    )
                 )
                 (label
                     :wrap true
                     :justify "left"
                     :xalign 0
                     :class "body"
-                    :text body)
+                    :text {notification.body})
             )
         )
         (box
             :space-evenly false
-            (for action in actions
+            (for action in {notification.actions}
                 (button
                     :hexpand true
                     :class "action-button"
-                    :onclick "${EWW_CONFIG_DIR}/scripts/notifications action ${id} ${action.id}"
+                    :onclick "${EWW_CONFIG_DIR}/scripts/notifications action ${notification.id} ${action.id}"
                     (label :text {action.label})
                 )
             )

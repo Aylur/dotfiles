@@ -7,11 +7,7 @@
     (for n in {notifications.popups}
         (notification
             :onclick "dismiss"
-            :id {n.id}
-            :title {n.summary}
-            :body {n.body}
-            :actions {n.actions}
-            :image {n.image})
+            :notification n)
         )
     )
 )

@@ -33,13 +33,9 @@
                 (label
                     :text "Nothing here"))
             (for n in {notifications.notifications}
-                 (notification
-                     :onclick "close"
-                     :id {n.id}
-                     :title {n.summary}
-                     :body {n.body}
-                     :actions {n.actions}
-                     :image {n.image})
+                (notification 
+                    :onclick "close"
+                    :notification n)
             )
         )
     )

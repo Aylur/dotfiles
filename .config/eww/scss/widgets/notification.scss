@@ -34,6 +34,10 @@
             min-width: 1.4em;
             min-height: 1.4em;
         }
+        .time{
+            color: transparentize($fg_color, 0.4);
+            margin-right: .4em;
+        }
     }
     &:hover{
         .notification-content{

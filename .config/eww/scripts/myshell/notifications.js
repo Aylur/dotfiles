@@ -43,6 +43,7 @@ class Notifications extends GObject.Object{
                 })
         }
         let id = replaces_id || this._idCound++;
+        let date = new Date();
         let notification = {
             id,
             app_name,
@@ -50,6 +51,7 @@ class Notifications extends GObject.Object{
             summary,
             body,
             actions: acts,
+            time: { hour: date.getHours(), minute: date.getMinutes() },
             image:  
                 this._parseImage(hints['image-data'], `${summary}${id}`) || 
                 this._parseIcon(app_icon, `${summary}${id}`) || 
