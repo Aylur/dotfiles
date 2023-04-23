@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-KEY="YOUR KEY"
+KEY=`cat $HOME/.config/eww/scripts/weather_key`
 SZFVAR="3044774"
 PEST="3054638"
 
