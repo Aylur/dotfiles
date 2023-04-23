@@ -25,6 +25,24 @@
         @include calendar;
     }
 
+    .system{
+        > * {
+            @include widget;
+            margin: $spacing;
+            padding: 5px;
+            min-width:  3.4em;
+            min-height: 3.4em;
+        }
+        circular-progress{
+            background-color: $bg_color;
+            color: $accent;
+            &.battery{
+                &.low{ color: $red }
+            }
+            .icon{ font-size: 1.3em; }
+        }
+    }
+
     .events{
         padding: 0;
         .box-title{

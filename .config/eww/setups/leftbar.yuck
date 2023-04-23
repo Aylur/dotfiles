@@ -4,12 +4,14 @@
     :monitor 0
     :exclusive true
     :stacking "fg"
+    :focusable false
     :geometry (geometry :width "1%"
                         :height "100%"
                         :anchor "center left")(bar))
 (defwindow desktop
     :monitor 0
     :stacking "bottom"
+    :focusable false
     :geometry (geometry :width  "100%"
                         :height "100%"
                         :anchor "bottom right")(desktop))
@@ -18,6 +20,7 @@
     :monitor 0
     :stacking "fg"
     :namespace "eww_osd"
+    :focusable false
     :geometry (geometry :width "1%"
                         :height "1%"
                         :anchor "center right")(osd))
@@ -37,6 +40,7 @@
 (defwindow calendar
     :monitor 0
     :stacking "fg"
+    :focusable false
     :geometry (geometry :width  "100%"
                         :height "100%"
                         :anchor "center left")
@@ -47,6 +51,7 @@
 (defwindow media
     :monitor 0
     :stacking "fg"
+    :focusable false
     :geometry (geometry :width  "100%"
                         :height "100%"
                         :anchor "center left")
@@ -61,6 +66,7 @@
 (defwindow quicksettings
     :monitor 0
     :stacking "fg"
+    :focusable false
     :geometry (geometry :width  "100%"
                         :height "100%"
                         :anchor "center left")
@@ -76,6 +82,7 @@
     :monitor 0
     :stacking "fg"
     :namespace "eww_dock"
+    :focusable false
     :geometry (geometry :width  "1%"
                         :height "1%"
                         :anchor "bottom center")(dock))
@@ -84,6 +91,7 @@
     :monitor 0
     :stacking "overlay"
     :namespace "eww_notifications"
+    :focusable false
     :geometry (geometry :width  "0%"
                         :height "0%"
                         :anchor "top center")(notifications_popup))

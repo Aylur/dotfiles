@@ -16,7 +16,9 @@
 (defvar desktop_reveal true)
 (defwidget desktop [] (box
     :class "desktop"
-    :style "background-image: url('${EWW_CONFIG_DIR}/assets/wallpapers/${workspaces.active}.jpeg')"
+    ;; :style "background-image: url('${EWW_CONFIG_DIR}/assets/wallpapers/${workspaces.active}.jpeg')"
+    :style "background-image: url('${EWW_CONFIG_DIR}/assets/wallpapers/7.jpeg')"
+    (desktop_clock)
     ;; (eventbox
     ;;     ;; :onhoverlost "${EWW_CMD} update desktop_reveal=false"
     ;;     ;; :onhover "${EWW_CMD} update desktop_reveal=true"
@@ -39,5 +41,4 @@
     ;;         )
     ;;     )
     ;; )
-    (desktop_clock)
 ))

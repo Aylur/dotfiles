@@ -59,12 +59,11 @@
     }
 
     > * > .separator{
-        margin: .4em 0;
-        min-height: 1.2em;
-        padding: 0 .6em;
+        margin: .3em 0;
+        padding: 0 .8em;
         .dot{
-            min-height: .35em;
-            min-width: .35em;
+            min-height: .3em;
+            min-width: .3em;
             border-radius: $radii;
             background-color: $fg_color;
         }

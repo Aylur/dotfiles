@@ -5,7 +5,7 @@
     :value data
     :start-at 75
     :clockwise false
-    :thickness 11
+    :thickness 7
     :tooltip tip
     (overlay
         :valign "center"

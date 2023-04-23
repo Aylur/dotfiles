@@ -28,7 +28,7 @@
     :onhover "${EWW_CMD} update dock_reveal=true"
     :onhoverlost "${EWW_CMD} update dock_reveal=false"
     (revealer
-        :reveal dock_reveal
+        :reveal {dock_reveal || workspaces.active_empty}
         :transition "slideup"
         :duration "300ms"
         (overlay

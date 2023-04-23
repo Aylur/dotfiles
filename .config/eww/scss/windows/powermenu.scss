@@ -17,7 +17,7 @@
             margin: 15px;
             margin-bottom: 0;
             .button{
-                @include button;
+                @include button($focusable: true);
                 border-radius: $radii*2.4;
                 font-size: 60px;
                 min-width: 130px;

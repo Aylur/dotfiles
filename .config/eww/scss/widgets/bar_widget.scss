@@ -31,11 +31,14 @@
     .player{
         @include button($flat: true, $radii: $panel_button_radius);
     }
-    button {
-        &.prev, &.next, &.play-pause{
-            color: transparentize($fg_color, 0.4);
-            &:hover{ color: transparentize($fg_color, 0.2) }
-            &:active{ color: $fg_color }
+    .controls{
+        @include button($radii: $panel_button_radius);
+        button {
+            &.prev, &.next, &.play-pause{
+                color: transparentize($fg_color, 0.3);
+                &:hover{ color: transparentize($fg_color, 0.15) }
+                &:active{ color: $fg_color }
+            }
         }
     }
     .icon{

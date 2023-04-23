@@ -83,3 +83,17 @@
     :geometry (geometry :width  "0%"
                         :height "0%"
                         :anchor "top center")(notifications_popup))
+
+(defwindow app_launcher
+    :monitor 0
+    :stacking "overlay"
+    :namespace "eww_applauncher"
+    :focusable true
+    :geometry (geometry :width  "100%"
+                        :height "100%"
+                        :anchor "center center")
+    (box
+        (eventbox
+            :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu app_launcher"
+            (app_launcher :valign "center" :halign "center"))
+    ))

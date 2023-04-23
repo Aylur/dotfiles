@@ -1,17 +1,11 @@
 .hpanel {
     min-height: 2.2em;
-    border-radius: $panel_radius;
     font-weight: bold;
     font-size: 1.1em;
     color: $fg_color;
     background-color: $bg_color;
     border-bottom: $border_width solid $popover_border_color;
     box-shadow: 0 0 6px 0 rgba(0,0,0,0.8);
-    margin: $wm_gaps;
-
-    @if $theme == 'dark' {
-        text-shadow: $text_shadow;
-    }
     
     .button-bin{
         margin: 3px 2px;
@@ -46,6 +40,7 @@
 
         &.system-indicators{
             @include system-indicators($orientation: 'h');
+            > * > * > * { padding: 0 .3em; }
         }
 
         &.media{

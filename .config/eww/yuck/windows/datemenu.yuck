@@ -18,6 +18,12 @@
     (box
         :class "calendar-bin widget"
         (calendar))
+    (box
+        :class "system"
+        (sysprogress_cpu)
+        (sysprogress_ram)
+        (sysprogress_temp)
+        (sysprogress_bat))
     (events)
     (box 
         :class "weather-box"

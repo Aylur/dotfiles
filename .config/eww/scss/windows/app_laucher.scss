@@ -3,11 +3,18 @@
     min-height: 500px;
     min-width: 500px;
 
-    .input{
-        @include button;
-        min-height: 2em;
-        padding: 1em;
+    .search{
+        min-height: 1.4em;
         margin-bottom: $spacing;
+        .icon{
+            @include button;
+            min-width: 2em;
+            margin-right: $spacing
+        }
+        .input{
+            @include button;
+            padding: .6em .8em;
+        }
     }
 
     .app{
@@ -22,7 +29,7 @@
                 min-height: 4em;
                 margin-right: 1em;
             }
-            padding: 1em;
+            padding: .8em;
         }
         margin-bottom: $spacing;
     }

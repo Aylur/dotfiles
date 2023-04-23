@@ -11,6 +11,7 @@
         (box
             :orientation "v"
             :space-evenly false
+            :valign "center"
             (label
                 :xalign 0
                 :valign "center"
@@ -33,16 +34,23 @@
     :orientation "v"
     :class "app-launcher"
     :space-evenly false
-    (input
-        :class "input"
-        :onchange "${EWW_CONFIG_DIR}/scripts/apps query {}"
-        :onaccept "gtk-launch ${apps[0].desktop} && ${EWW_CONFIG_DIR}/scripts/launcher toggle_menu app_launcher")
+    (box
+        :class "search"
+        :space-evenly false
+        :hexpand true
+        (label :text "" :class "icon")
+        (input
+            :class "input"
+            :hexpand true
+            :onchange "${EWW_CONFIG_DIR}/scripts/apps query {}"
+            :onaccept "gtk-launch ${apps[0].desktop} && ${EWW_CONFIG_DIR}/scripts/launcher toggle_menu app_launcher"))
     (scroll
         :vscroll true
         :vexpand true
         :class "scroll"
         (box
             :orientation "v"
+            :space-evenly false
             (for app in apps
                  (application :app app))))
 ))

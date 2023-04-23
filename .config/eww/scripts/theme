@@ -12,7 +12,7 @@ function toggle {
         gsettings set org.gnome.desktop.interface color-scheme "'default'"
         cp $HOME/.config/eww/scss/colors_light.scss $HOME/.config/eww/scss/colors.scss
         cp $HOME/.config/gtklock/style-light.css $HOME/.config/gtklock/style.css
-        cp $HOME/.config/wezterm/rose-pine.lua $HOME/.config/wezterm/theme.lua
+        cp $HOME/.config/wezterm/charm-light.lua $HOME/.config/wezterm/theme.lua
     else
         gsettings set org.gnome.desktop.interface color-scheme "'prefer-dark'"
         cp $HOME/.config/eww/scss/colors_dark.scss $HOME/.config/eww/scss/colors.scss

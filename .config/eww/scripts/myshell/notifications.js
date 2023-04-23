@@ -33,7 +33,6 @@ class Notifications extends GObject.Object{
     }
 
     Notify(app_name, replaces_id, app_icon, summary, body, actions, hints, time_out) {
-        print(app_name, app_icon, JSON.stringify(hints));
         let acts = [];
         for(let i=0; i<actions.length; i+=2) {
             if(actions[i+1] !== '')

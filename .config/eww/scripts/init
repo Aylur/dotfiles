@@ -12,6 +12,7 @@ eww daemon
 # fi
 
 eww open bar
+# eww open dock
 eww open desktop
 eww open notifications_popup
 # eww inspector

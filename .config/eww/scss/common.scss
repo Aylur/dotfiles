@@ -5,7 +5,7 @@
     box-shadow: inset 0 0 0 $border_width $border_color;
 }
 
-@mixin button($flat: false, $interactive: true, $radii: $radii){
+@mixin button($flat: false, $interactive: true, $radii: $radii, $focusable: false){
     border-radius: $radii;
     color: $fg_color;
     @if $flat{
@@ -17,10 +17,12 @@
         box-shadow: inset 0 0 0 $border_width $border_color;
     }
     @if $interactive{
-        &:focus{
-            box-shadow: inset 0 0 0 $border_width $accent;
-            background-color: $hover;
-            color: $hover_fg;
+        @if $focusable {
+            &:focus{
+                box-shadow: inset 0 0 0 $border_width $accent;
+                background-color: $hover;
+                color: $hover_fg;
+            }
         }
         &:hover{
             box-shadow: inset 0 0 0 $border_width $border_color;
@@ -49,7 +51,7 @@
     padding: $padding;
 }
 
-@mixin slider($width: .4em, $color: $accent, $slider: true){
+@mixin slider($width: .4em, $color: $accent, $slider: true, $focusable: false){
     trough{
         border-radius: $button_radius;
         border: $border;
@@ -75,17 +77,19 @@
     &:hover trough{
         background-color: $hover;
     }
-    trough:focus{
-        background-color: $hover;
-        box-shadow: inset 0 0 0 $border_width $accent;
-        highlight, progress{
-            background-color: transparentize($color, 0.3);
+    @if $focusable {
+        trough:focus{
+            background-color: $hover;
+            box-shadow: inset 0 0 0 $border_width $accent;
+            highlight, progress{
+                background-color: transparentize($color, 0.3);
+            }
         }
     }
 }
 
 @mixin darkened($radii: 0){
-    border-radius: $radii*0.8;
+    border-radius: $radii*0.99;
     @if $theme == 'dark' {
         box-shadow: inset 0 0 3em 1em transparentize($bg_color, 0.1);
     }
