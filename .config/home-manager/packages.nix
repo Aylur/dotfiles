@@ -4,8 +4,8 @@
     # wm
     # awesome bspwm sxhkd
     # eww rofi
-    hyprland
-    eww-wayland rofi-wayland
+    # hyprland xdg-desktop-portal-hyprland
+    eww-wayland
 
     # tools
     socat jq htop acpi
