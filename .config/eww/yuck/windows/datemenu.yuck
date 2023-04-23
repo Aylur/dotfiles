@@ -25,6 +25,8 @@
         (sysprogress_temp)
         (sysprogress_bat))
     (events)
+    ;; (for player in {media.players}
+    ;;     (media_player :player player ))
     (box 
         :class "weather-box"
         :orientation "v"

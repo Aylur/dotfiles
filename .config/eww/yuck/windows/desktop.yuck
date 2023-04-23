@@ -6,6 +6,7 @@
     :halign "center"
     (box
         :space-evenly false
+        :class "time"
         (label :class "hour" :text hour)
         (label :class "separator" :text ":")
         (label :class "minutes" :text minutes)

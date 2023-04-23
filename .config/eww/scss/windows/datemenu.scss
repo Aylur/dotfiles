@@ -43,6 +43,10 @@
         }
     }
 
+    .media{
+        @include media($style: 'widget')
+    }
+
     .events{
         padding: 0;
         .box-title{

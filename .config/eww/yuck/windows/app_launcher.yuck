@@ -21,7 +21,7 @@
                 :xalign 0
                 :class "description"
                 :wrap true
-                :limit-width 110
+                :limit-width 60
                 :visible {app.description != 'null'}
                 :text {app.description})
         )

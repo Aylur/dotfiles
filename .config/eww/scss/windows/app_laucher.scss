@@ -5,14 +5,21 @@
 
     .search{
         min-height: 1.4em;
+        padding: 5em;
+        border-radius: $radii;
+        background-image: url($wallpaper);
+        background-size: cover;
+        background-position: right bottom;
         margin-bottom: $spacing;
         .icon{
             @include button;
+            background-color: transparentize($bg_color, 0.5);
             min-width: 2em;
             margin-right: $spacing
         }
         .input{
             @include button;
+            background-color: transparentize($bg_color, 0.5);
             padding: .6em .8em;
         }
     }
@@ -25,8 +32,8 @@
             .description{ color: transparentize($fg_color, 0.3) }
             .appicon{
                 background-size: cover;
-                min-width: 4em;
-                min-height: 4em;
+                min-width: 3em;
+                min-height: 3em;
                 margin-right: 1em;
             }
             padding: .8em;

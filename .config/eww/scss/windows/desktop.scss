@@ -4,9 +4,15 @@
     .clock{
         color: white;
         text-shadow: 4px 4px 4px black;
-        .hour, .minutes, .separator{
-            font-size: 10em;
-            font-family: $mono_font;
+        .time{
+            border: 3px solid $fg_color;
+            box-shadow: inset 0 0 0 3px $bg_color;
+            border-radius: $popover_radius;
+            padding: .5em 1.3em;
+            .hour, .minutes, .separator{
+                font-size: 10em;
+                font-family: $mono_font;
+            }
         }
         .date{ font-size: 2em; }
     }
