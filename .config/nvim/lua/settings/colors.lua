@@ -5,7 +5,6 @@ require('rose-pine').setup({
 require('catppuccin').setup({
   flavour = 'mocha',
   color_overrides = {
-    frappe = { base = '#1A1A1A', mantle = '#181818', crust = '#131313' },
     mocha = {
       red = '#e67089',
       green = '#42c383',

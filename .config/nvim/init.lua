@@ -12,5 +12,6 @@ local dark_mode = table.concat(vim.fn.systemlist(
 if dark_mode == "'prefer-dark'" then
     vim.cmd.colorscheme('catppuccin-mocha')
 else
-    vim.cmd.colorscheme('rose-pine-dawn')
+    require('vscode').load('light')
+    vim.cmd.colorscheme('vscode')
 end
