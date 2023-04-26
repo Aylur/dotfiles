@@ -26,7 +26,11 @@
     };
     file = {
       ".config/gtk-4.0/gtk.css" = {
-        text = ".background.csd{ border-radius: 0; }";
+        text = ''
+        window.messagedialog .response-area > button,
+        window.dialog.message .dialog-action-area > button,
+          .background.csd{ border-radius: 0; }
+        '';
       };
     };
  };
@@ -48,7 +52,10 @@
         "file:///home/demeter/Projects Projects"
         "file:///home/demeter/School School"
       ];
-      extraCss = "headerbar{ border-radius: 0; }";
+      extraCss = ''
+        headerbar,
+        .csd:not(.popup):not(tooltip):not(messagedialog) decoration{ border-radius: 0; }
+      '';
     };
   };
 
