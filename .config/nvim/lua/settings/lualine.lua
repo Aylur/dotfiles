@@ -12,6 +12,12 @@ local battery = {
     local icons = { '', '', '', '', '', '', '', '', '', '' }
     return icons[math.ceil(percentage/10)] .. powered .. ' ' .. tostring(percentage) .. '󱉸'
   end,
+  cond = function ()
+    local state = table.concat(vim.fn.systemlist("acpi -b | awk '{print $3}' | cut -d',' -f1"), '')
+    return state ~= 'Full'
+  end,
+  draw_empty = false,
+  padding = { left = 0, right = 1 },
   color = function ()
     local percentage = tonumber(vim.fn.system("acpi -b | awk '{print $4}' | cut -d'%' -f1"))
     local state = table.concat(vim.fn.systemlist("acpi -b | awk '{print $3}' | cut -d',' -f1"), '')
@@ -26,12 +32,21 @@ local battery = {
   end
 }
 
+local clock = {
+  function ()
+    return os.date("%H:%M  ")
+  end,
+  padding = 0,
+
+}
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
     component_separators = { left = '│', right = '│'},
     section_separators = { left = '', right = ''},
+    globalstatus = true,
     refresh = { statusline = 1000 }
   },
   sections = {
@@ -40,7 +55,7 @@ require('lualine').setup {
     lualine_c = {'diagnostics'},
     lualine_x = {'location'},
     lualine_y = { battery },
-    lualine_z = {'os.date("%H:%M ")'},
+    lualine_z = { clock },
   },
   extensions = { 'nvim-tree' }
 }

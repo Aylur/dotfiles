@@ -13,6 +13,6 @@ require("bufferline").setup{
       style = 'icon',
     },
     diagnostics = "nvim_lsp",
-    alway_show_bufferline = false,
+    always_show_bufferline = false,
   },
 }

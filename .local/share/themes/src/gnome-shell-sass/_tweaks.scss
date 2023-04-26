@@ -120,9 +120,10 @@
 .slider,
 .level {
   // slider trough
+  height: 14px;
   -barlevel-height: 14px;
   -barlevel-background-color: $widget_bg;
-  -barlevel-border-width: 2px;
+  -barlevel-border-width: 0px;
   -barlevel-border-color: transparent;
   // fill style
   -barlevel-active-background-color: $selected_bg_color;
@@ -141,14 +142,14 @@
 .workspace-thumbnails {
   .workspace-thumbnail {
     border-radius: $base_border_radius - min(1px, $base_border_radius);
-    border: 1px solid $base_color;
+    border: 1px solid transparent;
     background-image: $user_bg;
     background-size: cover;
   }
 }
 .workspace-thumbnail-indicator {
-  border: $border_width*2 solid $selected_bg_color;
-  border-radius: $base_border_radius;
+  border: 3px solid $selected_bg_color;
+  border-radius: $base_border_radius + min(1px, $base_border_radius);
 }
 
 /* Workspace Switcher */

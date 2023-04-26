@@ -20,8 +20,8 @@ $hover_fg: if($variant =='light', #000, #fff);
 $base_color: darken($bg_color, 3%);
 
 
-$border_width: 0px;
-$selected_border_width: 2px;
+$border_width: 1px;
+$selected_border_width: 1px;
 $popover_border_color: transparentize($fg_color, 0.99);
 $border_color: transparentize($fg_color, 0.98);
 $border: inset 0 0 0 $border_width $border_color;
