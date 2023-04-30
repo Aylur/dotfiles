@@ -268,9 +268,3 @@
     box-shadow: inset 0 0 0 300px transparentize($bg_color, 0.4);
   }
 }
-
-.background-clock {
-  StLabel:first-child {
-    border: 3px solid $fg_color;
-  }
-}
