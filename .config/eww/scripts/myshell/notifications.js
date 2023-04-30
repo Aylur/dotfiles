@@ -160,13 +160,18 @@ class Notifications extends GObject.Object{
     }
 
     _readFromFile() {
-        const file = Gio.File.new_for_path(CACHE_PATH+'notifications.json');
-        const [, contents, etag] = file.load_contents(null);
-        const json = JSON.parse(new TextDecoder('utf-8').decode(contents))
-        json.notifications.forEach(n => {
-            if(n.id > this._idCound) this._idCound = n.id+1;
-            this._notifications.set(n.id, n);
-        })
+        try {
+            const file = Gio.File.new_for_path(CACHE_PATH+'notifications.json');
+            const [, contents, etag] = file.load_contents(null);
+            const json = JSON.parse(new TextDecoder('utf-8').decode(contents))
+            json.notifications.forEach(n => {
+                if(n.id > this._idCound) this._idCound = n.id+1;
+                this._notifications.set(n.id, n);
+            })
+        } catch (error) {
+            print('There were no cached notifications found!')
+            print('If you want your notifications to be cached run with --file flag');
+        }
     }
 
     _parseImage(image_data, name) {
