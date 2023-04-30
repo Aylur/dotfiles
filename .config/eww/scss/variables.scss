@@ -2,14 +2,6 @@ $assets: '/home/demeter/.config/eww/assets/';
 $wallpaper: $assets+'wallpaper.png';
 $avatar:    $assets+'avatar.jpg';
 
-//red      //swaync, powermenu
-//green    //panel .charging
-//blue     //datemenu .night
-//yellow   //datemenu .clear
-//magenta  //quicksettings .mpv
-//teal     //datemenu .mist
-//orange   //quicksettings.firefox
-
 $hover: transparentize($fg_color, 0.84);
 $accent: $blue;
 
