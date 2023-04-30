@@ -1,1 +1,4 @@
 .config/eww/scripts/weather_key
+.config/hypr/hyprland.conf.backup
+.config/hypr/hyprland.conf
+.config/nvim/lazy-lock.json
