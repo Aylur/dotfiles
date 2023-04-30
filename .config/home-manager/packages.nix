@@ -1,12 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    # wm
-    # awesome bspwm sxhkd
-    # eww rofi
-    # hyprland xdg-desktop-portal-hyprland
-    eww-wayland
-
     # tools
     socat jq htop acpi
     wl-gammactl wlsunset wl-clipboard hyprpicker
@@ -14,7 +8,7 @@
     # gjs gnome.gnome-bluetooth upower networkmanager gtk3 pango cairo harfbuzz gdk-pixbuf
 
     # fun
-    neofetch jp2a pywal glow vhs gum slides
+    jp2a pywal glow vhs gum slides
     yabridge yabridgectl wine-staging
 
     # file manager
@@ -24,7 +18,7 @@
     wezterm vscode
     bat exa fzf ripgrep     
     distrobox
-    sassc
+    sassc glib
 
     # langs
     nodejs cargo rustc

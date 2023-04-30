@@ -35,6 +35,11 @@
         "firefox" = "flatpak run org.mozilla.firefox";
         "nv" = "nvim";
         ":q" = "exit";
+        "gs" = "git status";
+        "gb" = "git branch";
+        "gch" = "git checkout";
+        "gc" = "git commit";
+        "ga" = "git add";
       };
     };
     bash = {

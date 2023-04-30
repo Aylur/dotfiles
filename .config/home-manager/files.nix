@@ -15,7 +15,7 @@
       recursive = true;
       source = /home/demeter/.nix-profile/share/icons/Qogir-dark;
     };
-     ".local/share/icons/Qogir" = {
+    ".local/share/icons/Qogir" = {
       recursive = true;
       source = /home/demeter/.nix-profile/share/icons/Qogir;
     };

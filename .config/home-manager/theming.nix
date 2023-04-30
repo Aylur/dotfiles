@@ -53,7 +53,7 @@
         "file:///home/demeter/School School"
       ];
       extraCss = ''
-        headerbar,
+        headerbar, .titlebar,
         .csd:not(.popup):not(tooltip):not(messagedialog) decoration{ border-radius: 0; }
       '';
     };
