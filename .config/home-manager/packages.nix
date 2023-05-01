@@ -16,7 +16,7 @@
 
     # cli
     wezterm vscode
-    bat exa fzf ripgrep     
+    bat exa fzf ripgrep fd
     distrobox
     sassc glib
 
