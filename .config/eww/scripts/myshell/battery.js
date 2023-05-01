@@ -26,7 +26,7 @@ class Battery extends GObject.Object{
     }
 
     _sync(){
-        if(!this._proxy.IsPresent) return;
+        if(!this._proxy.IsPresent) return { available: false };
 
         let percent = this._proxy.Percentage;
         let charging = this._proxy.State === UPowerGlib.DeviceState.CHARGING;
@@ -52,6 +52,7 @@ class Battery extends GObject.Object{
         else if(percent < 30) state = 'low';
 
         this._json = {
+            available: true,
             icon,
             percent,
             state

@@ -1,7 +1,7 @@
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { 
     'java', 'agda',
-    'javascript',
+    'javascript', 'nix',
     'c', 'cpp', 'rust',
     'lua', 'vim', 'help', 'query',
     'yuck', 'scss', 'css', 'html'

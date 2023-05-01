@@ -63,8 +63,13 @@ class App extends Gtk.Application{
     vfunc_activate() {
         this.hold();
 
+        [ 
+            'notifications', 'battery', 'network',
+            'bluetooth', 'apps', 'media'
+        ]
+        .forEach(m => this._output(this[`_${m}`].json, m));
+
         this._notifications.connect('sync', o => this._output(o.json, 'notifications'));
-        this._output(this._notifications.json, 'notifications');
         this._battery.connect('sync', o => this._output(o.json, 'battery'));
         this._network.connect('sync', o => this._output(o.json, 'network'));
         this._bluetooth.connect('sync', o => this._output(o.json, 'bluetooth'));
@@ -77,6 +82,7 @@ class App extends Gtk.Application{
     }
 
     _output(json, name){
+        if(!json) return;
         if(this._file) {
             const file = Gio.File.new_for_path(CACHE_PATH+name+'.json');
     

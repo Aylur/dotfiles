@@ -10,8 +10,9 @@ lsp.ensure_installed({
   'jdtls', -- java
   'tsserver', -- typescript
   'marksman', -- markdown
-  -- 'rnix', -- nix
-  'rust_analyzer' -- rust
+  'nil_ls', -- nix
+  'rust_analyzer', -- rust
+  'lua_ls',
 })
 
 local cmp = require('cmp')

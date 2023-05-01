@@ -8,7 +8,7 @@
     # gjs gnome.gnome-bluetooth upower networkmanager gtk3 pango cairo harfbuzz gdk-pixbuf
 
     # fun
-    jp2a pywal glow vhs gum slides
+    fortune jp2a pywal glow vhs gum slides
     yabridge yabridgectl wine-staging
 
     # file manager
