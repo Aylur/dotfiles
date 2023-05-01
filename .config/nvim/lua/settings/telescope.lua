@@ -1,3 +1,4 @@
+require('telescope').load_extension('media_files')
 require('telescope').setup {
   defaults = {
     prompt_prefix = ' ',
@@ -9,5 +10,11 @@ require('telescope').setup {
     find_files = {
       hidden = true
     },
+  },
+  extensions = {
+    media_files = {
+      filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'mp4', 'webm', 'pdf' },
+      find_cmd = 'rg',
+    }
   },
 }

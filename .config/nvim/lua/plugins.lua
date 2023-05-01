@@ -12,16 +12,28 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  -- git
   'f-person/git-blame.nvim', -- git blame
   'tpope/vim-fugitive', -- git
   'airblade/vim-gitgutter', -- git gutter
 
+  -- dependencies
+  'nvim-tree/nvim-web-devicons',
+  'nvim-lua/plenary.nvim',
+  'nvim-lua/popup.nvim',
+
   { "windwp/nvim-autopairs", opts = {} }, -- autopairs
-  'nvim-tree/nvim-web-devicons', -- dependencies
-  'nvim-lua/plenary.nvim', -- dependencies
   'tpope/vim-sleuth', -- auto tabwidth
   { 'folke/which-key.nvim', opts = {} }, -- pending keys
-  { 'nvim-telescope/telescope.nvim', version = '*' }, -- telescope
+
+  -- telescope
+  { 'nvim-telescope/telescope.nvim',
+    version = '*',
+    dependencies = {
+      'nvim-telescope/telescope-media-files.nvim',
+    },
+  },
+
   { "folke/trouble.nvim", opts = {} },-- diagnostics
   'mg979/vim-visual-multi', -- multiline cursors
 

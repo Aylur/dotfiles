@@ -10,18 +10,22 @@
     # fun
     fortune jp2a pywal glow vhs gum slides
     yabridge yabridgectl wine-staging
+    wezterm 
+    vscode
+    distrobox
+    sassc glib
 
     # file manager
     ranger cinnamon.nemo
 
-    # cli
-    wezterm vscode
-    bat exa fzf ripgrep fd
-    distrobox
-    sassc glib
-
     # langs
     nodejs cargo rustc
     agda jdk
+
+    # neovim
+    neovim
+    fzf ripgrep fd
+    chafa ffmpegthumbnailer poppler_utils
+    fontpreview
   ];
 }
