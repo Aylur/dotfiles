@@ -1,12 +1,12 @@
 vim.opt.nu = true -- line numbers
-vim.opt.relativenumber = false
+vim.opt.rnu = true -- relative
 
 vim.opt.hlsearch = false -- highlight search
 vim.opt.incsearch = true -- incremental search
 
 vim.opt.mouse = 'a' -- mouse mode all
 
-vim.opt.scrolloff = 8 -- scroll offset
+vim.opt.scrolloff = 4 -- scroll offset
 
 vim.opt.clipboard = 'unnamedplus' -- sync clipboard with os
 

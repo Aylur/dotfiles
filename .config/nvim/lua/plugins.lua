@@ -88,5 +88,5 @@ require('lazy').setup({
     }
   },
 
-  'elkowar/yuck.vim'
+  { 'elkowar/yuck.vim', ft = "yuck" }
 })

@@ -13,6 +13,7 @@ lsp.ensure_installed({
   'nil_ls', -- nix
   'rust_analyzer', -- rust
   'lua_ls',
+  'gopls', -- go
 })
 
 local cmp = require('cmp')

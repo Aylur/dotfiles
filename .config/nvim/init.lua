@@ -17,5 +17,5 @@ else
     vim.cmd.colorscheme('vscode')
 end
 
-vim.cmd(':redraw!')
-print(table.concat(vim.fn.systemlist("fortune"), ' '))
+-- vim.cmd(':redraw!')
+-- print('\n');

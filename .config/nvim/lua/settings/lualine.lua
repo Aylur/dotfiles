@@ -44,7 +44,7 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    component_separators = { left = '│', right = '│'},
+    component_separators = { left = '╲', right = '│'},
     section_separators = { left = '', right = ''},
     globalstatus = true,
     refresh = { statusline = 1000 }
@@ -52,12 +52,10 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff'},
-    lualine_c = {'diagnostics'},
+    lualine_c = {'diagnostics', 'filename'},
     lualine_x = {'location'},
     lualine_y = { battery },
     lualine_z = { clock },
   },
   extensions = { 'nvim-tree' }
 }
-
--- upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | awk '{print $2}'
