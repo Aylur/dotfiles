@@ -8,8 +8,10 @@
     # gjs gnome.gnome-bluetooth upower networkmanager gtk3 pango cairo harfbuzz gdk-pixbuf
 
     # fun
-    fortune jp2a pywal glow vhs gum slides
+    fortune jp2a pywal
+    glow vhs gum slides charm skate
     yabridge yabridgectl wine-staging
+
     wezterm 
     vscode
     distrobox
@@ -19,12 +21,12 @@
     ranger cinnamon.nemo
 
     # langs
-    nodejs cargo rustc
+    nodePackages_latest.typescript
+    nodejs cargo rustc go
     agda jdk
 
     # neovim
-    neovim
-    fzf ripgrep fd
+    bat exa fzf ripgrep fd
     chafa ffmpegthumbnailer poppler_utils
     fontpreview
   ];

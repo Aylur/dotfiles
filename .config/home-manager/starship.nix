@@ -108,8 +108,8 @@
         format = "[$symbol ](blue)";
       };
       golang = {
-        symbol = "";
-        format = "[$symbol ](bright-blue)";
+        symbol = "";
+        format = "[$symbol ](blue)";
       };
     };
   };

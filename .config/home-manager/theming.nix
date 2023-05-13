@@ -6,10 +6,11 @@
       "Ubuntu"
       "UbuntuMono"
       "CascadiaCode"
+      "FantasqueSansMono"
+      "FiraCode"
+      "VictorMono"
       "Mononoki"
-      "Hack"
     ]; })
-    rubik
 
     # themes
     qogir-theme #gtk

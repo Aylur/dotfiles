@@ -35,6 +35,7 @@
         "firefox" = "flatpak run org.mozilla.firefox";
         "nv" = "nvim";
         ":q" = "exit";
+        "c" = "clear";
         "gs" = "git status";
         "gb" = "git branch";
         "gch" = "git checkout";
@@ -58,6 +59,7 @@
         alias arch='distrobox-enter Arch'
         alias fedora='distrobox-enter Fedora'
         alias és='ls'
+        alias c='clear'
         alias nv='nvim'
         alias :q='exit'
       '';
