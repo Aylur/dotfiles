@@ -68,7 +68,7 @@
 (defwidget small_toggle_network [] (small_toggle
     :state {network.wifi.state}
     :icon {network.wifi.icon}
-    :toggle_action "${EWW_CONFIG_DIR}/scripts/launcher bluetooth"))
+    :toggle_action "${EWW_CONFIG_DIR}/scripts/launcher network"))
 
 (defwidget small_toggle_power [] (small_toggle
     :state {power.state}

@@ -65,7 +65,7 @@
             min-height: .3em;
             min-width: .3em;
             border-radius: $radii;
-            background-color: $fg_color;
+            background-color: transparentize($fg_color, 0.6);
         }
     }
 }

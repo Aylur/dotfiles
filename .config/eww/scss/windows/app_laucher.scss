@@ -40,4 +40,26 @@
         }
         margin-bottom: $spacing;
     }
+
+    .scroll{
+        scrollbar.vertical{
+            slider{
+                background: $fg_color;
+                border-radius: $radii;
+                min-width: .6em;
+                min-height: 2em;
+            }
+        }
+        undershoot, overshoot{
+            &.top{
+                background: linear-gradient(transparentize($bg_color, 0.6), transparent);
+            }
+            &.bottom{
+                background: linear-gradient(transparent,transparentize($bg_color, 0.6));
+            }
+            &.overshoot{
+                border-radius: $radii;
+            }
+        }
+    }
 }

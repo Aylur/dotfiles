@@ -20,8 +20,7 @@ function colorpicker {
 }
 
 function network {
-    kitty   --class Network --title Network --hold \
-            command nmcli d wifi list
+    nm-connection-editor
 }
 
 function screenlock {
