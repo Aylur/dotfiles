@@ -28,9 +28,6 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
--- keep buffer after pasting on selected text
-vim.keymap.set('x', 'p', [['_dP]])
-
 -- folke/Trouble
 vim.keymap.set('n', '<leader>xx', vim.cmd.TroubleToggle, { desc = 'TroubleToggle' })
 vim.keymap.set('n', '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>', { desc = 'TroubleToggle [W]orkspace'})
