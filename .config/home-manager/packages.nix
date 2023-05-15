@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     # tools
+    bat exa 
     socat jq htop acpi
     wl-gammactl wlsunset wl-clipboard hyprpicker
     pavucontrol blueberry bluez brightnessctl playerctl imagemagick networkmanager
@@ -24,10 +25,5 @@
     nodePackages_latest.typescript
     nodejs cargo rustc go
     agda jdk
-
-    # neovim
-    bat exa fzf ripgrep fd
-    chafa ffmpegthumbnailer poppler_utils
-    fontpreview
   ];
 }

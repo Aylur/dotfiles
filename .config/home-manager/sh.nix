@@ -41,6 +41,7 @@
         "gch" = "git checkout";
         "gc" = "git commit";
         "ga" = "git add";
+        "gr" = "git reset --soft HEAD~1";
       };
     };
     bash = {

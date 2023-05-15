@@ -56,8 +56,6 @@
     llvmPackages_9.libclang
     nodePackages.bash-language-server
     nodePackages.vscode-langservers-extracted
-    nodePackages.typescript
-    nodePackages.typescript-language-server
     nodePackages.svelte-language-server
     nodePackages.vls
     jdt-language-server

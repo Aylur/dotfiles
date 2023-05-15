@@ -67,7 +67,7 @@
       git_branch = {
         symbol = "";
         style = "";
-        format = "[ $symbol](bright-white) $branch(:$remote_branch)";
+        format = "[ $symbol $branch](fg:purple)(:$remote_branch)";
       };
       os = {
         disabled = false;
@@ -82,6 +82,7 @@
         NixOS = "[ ](fg:bright-white)";
         openSUSE = "[ ](fg:green)";
         SUSE = "[ ](fg:green)";
+        Ubuntu = "[ ](fg:bright-purple)";
       };
       python = {
         symbol = "";
