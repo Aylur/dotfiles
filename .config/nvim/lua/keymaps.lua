@@ -46,3 +46,6 @@ vim.keymap.set('v', 'V', 'j')
 -- colors
 vim.keymap.set('n', '<leader>c', vim.cmd.ColorizerToggle, { desc = '[C]olorizer'})
 vim.keymap.set('n', '<leader>p', vim.cmd.PickColor, { desc = '[P]ick Color'})
+
+-- generate docs
+vim.keymap.set('n', '<leader>dg', vim.cmd.DogeGenerate, { desc = 'Generate Docs'})

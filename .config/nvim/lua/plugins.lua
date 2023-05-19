@@ -88,5 +88,9 @@ require('lazy').setup({
     }
   },
 
-  { 'elkowar/yuck.vim', ft = "yuck" }
+  { 'elkowar/yuck.vim', ft = 'yuck' },
+  { -- document generator
+    'kkoomen/vim-doge',
+    build = ':call doge#install()'
+  },
 })
