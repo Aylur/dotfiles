@@ -1,10 +1,27 @@
+(defwidget event [event] (box
+    :class "event ${event.done ? "done" : ""} ${event.upcoming ? "upcoming" : ""}"
+    :space-evenly "false"
+    :visible {event.deadline != ""}
+    (label
+        :class "title"
+        :text {event.title}
+        :xalign 0
+        :hexpand true)
+    (label
+        :class "deadline"
+        :text {event.deadline}
+        :xalign 1
+        :halign "end")
+
+))
+
 (defwidget events [] (box
-    :class "events widget"
+    :class "events"
     :orientation "v"
     :space-evenly false
     :visible {arraylength(events) > 0}
     (box
-        :class "box-title"
+        :class "title-box"
         (label :text "Todo" :halign "START")
         (label :text "Deadline" :halign "END")
     )
@@ -12,31 +29,6 @@
         :class "events-box"
         :orientation "v"
         (for event in events
-            (box
-                :space-evenly false
-                :class "event ${event.asap ? "urgent" : ""}"
-                (eventbox
-                    :hexpand true
-                    :class "title"
-                    (overlay
-                        (label
-                            :halign "START"
-                            :limit-width 21 ;wrap doesn't work?
-                            :text {event.title}
-                        )
-                        (button
-                            :halign "END"
-                            :class "done"
-                            :onclick "${EWW_CONFIG_DIR}/scripts/todo -r ${event.id}"
-                            (label :text "" :class "icon")
-                        )
-                    )
-                )
-                (label
-                    :class "date"
-                    :text {event.date} 
-                )
-            )
-        )
+            (event :event event))
     )
 ))

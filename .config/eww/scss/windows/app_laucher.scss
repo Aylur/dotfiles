@@ -1,65 +1,53 @@
 .app-launcher{
     @include floating_widget;
-    min-height: 500px;
-    min-width: 500px;
+    min-height: 530px;
+    min-width: 520px;
+    padding: 3em;
 
     .search{
         min-height: 1.4em;
-        padding: 5em;
+        padding: 2em;
         border-radius: $radii;
         background-image: url($wallpaper);
         background-size: cover;
         background-position: right bottom;
-        margin-bottom: $spacing;
-        .icon{
+        margin-bottom: 3em;
+        .icon, .input{
             @include button;
-            background-color: transparentize($bg_color, 0.5);
-            min-width: 2em;
+            background-color: transparentize($bg_color, 0.1);
+            box-shadow: 0 0 5px 0 rgba(0,0,0,0.4);
+        }
+        .icon{
+            min-width: 2.4em;
             margin-right: $spacing
         }
         .input{
-            @include button;
-            background-color: transparentize($bg_color, 0.5);
             padding: .6em .8em;
         }
     }
 
+    .separator{
+        min-height: 1px;
+        background-color: transparentize($fg_color, 0.94);
+        margin: .2em;
+    }
+
     .app{
-        .app-eventbox{ @include button }
-        @include button;
+        @include button($flat: true, $focusable: true);
         .app-content{
-            .name{ font-size: 1.4em }
+            .name{ font-size: 1.1em }
             .description{ color: transparentize($fg_color, 0.3) }
             .appicon{
                 background-size: cover;
-                min-width: 3em;
-                min-height: 3em;
+                min-width: 2.4em;
+                min-height: 2.4em;
                 margin-right: 1em;
             }
-            padding: .8em;
+            padding: .6em;
         }
-        margin-bottom: $spacing;
     }
 
     .scroll{
-        scrollbar.vertical{
-            slider{
-                background: $fg_color;
-                border-radius: $radii;
-                min-width: .6em;
-                min-height: 2em;
-            }
-        }
-        undershoot, overshoot{
-            &.top{
-                background: linear-gradient(transparentize($bg_color, 0.6), transparent);
-            }
-            &.bottom{
-                background: linear-gradient(transparent,transparentize($bg_color, 0.6));
-            }
-            &.overshoot{
-                border-radius: $radii;
-            }
-        }
+        @include scrollbar;
     }
 }

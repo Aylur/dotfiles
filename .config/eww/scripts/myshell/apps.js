@@ -55,6 +55,12 @@ class Apps extends GObject.Object{
         })
     }
 
+    _appIconName(app) {
+        if(typeof app.get_icon().get_names !== 'function') return '';
+        let name = app.get_icon()?.get_names()[0];
+        return name ? this._iconPath(name) : '';
+    }
+
     Query(search) {
         let apps = Gio.AppInfo.get_all();
         let list = [];
@@ -72,9 +78,7 @@ class Apps extends GObject.Object{
                 name: app.get_name(),
                 desktop: app.get_id(),
                 description: app.get_description(),
-                icon: typeof app.get_icon().get_names === 'function'
-                    ? this._iconPath(app?.get_icon()?.get_names()[0] || '')
-                    : ''
+                icon: this._appIconName(app),
             })
         })
         this._list = outList;

@@ -28,6 +28,11 @@
     )
 ))
 
+(defwidget app_separator [] (box
+    :class "separator"
+    :hexpand true
+))
+
 (defwidget app_launcher [halign valign] (box
     :halign halign
     :valign valign
@@ -52,5 +57,9 @@
             :orientation "v"
             :space-evenly false
             (for app in apps
-                 (application :app app))))
+                 (box
+                     :space-evenly false
+                     :orientation "v"
+                     (app_separator)
+                     (application :app app)))))
 ))

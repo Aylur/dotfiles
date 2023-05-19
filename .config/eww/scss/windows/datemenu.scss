@@ -4,7 +4,7 @@
     .widget{
         @include widget;
         margin: $spacing;
-        padding: 12px;
+        padding: $spacing;
     }
 
     .clock *{
@@ -47,41 +47,10 @@
         @include media($style: 'widget')
     }
 
-    .events{
+    .events.widget{
         padding: 0;
-        .box-title{
-            padding: 12px;
-            padding-bottom: 6px;
-            border-bottom: $border_width solid transparentize($fg_color, 0.92);
-        }
-        .events-box{
-            padding: 12px;
-            .event{
-                label{ font-size: 1.2em;}
-                .date{
-                    color: transparentize($fg_color, 0.5);
-                    font-family: $mono_font;
-                }
-                .title{
-                    button label{ color: transparent; }
-                    &:hover button{
-                        label{
-                            @include button();
-                            background-color: $bg_color;
-                            color: transparentize($fg_color, 0.3);
-                        }
-                        &:hover label{ color: $fg_color }
-                    } 
-                }
-                &.urgent{
-                    .date{
-                        color: transparentize(mix($fg_color, $red, 30%), 0.5);
-                    }
-                    .title{
-                        color: mix($fg_color, $red, 30%);
-                    }
-                }
-            }
+        .events{
+            @include events;
         }
     }
     

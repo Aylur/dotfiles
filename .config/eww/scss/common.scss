@@ -108,4 +108,24 @@
         margin: 4px;
         box-shadow: 0 0 3px 0 rgba(0,0,0,0.4);
     }
-} 
+}
+
+@mixin scrollbar{
+    scrollbar.vertical{
+        slider{
+            background: $widget_bg;
+            border-radius: $radii;
+            min-width: .6em;
+            min-height: 2em;
+        }
+    }
+    overshoot{
+        border-radius: $radii;
+        &.top{
+            background: linear-gradient(transparentize($bg_color, 0.6), transparent);
+        }
+        &.bottom{
+            background: linear-gradient(transparent,transparentize($bg_color, 0.6));
+        }
+    }
+}

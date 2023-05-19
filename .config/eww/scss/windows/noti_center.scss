@@ -11,6 +11,7 @@
         margin-bottom: $spacing;
     }
     .notifications-list{
+        @include scrollbar;
         .placeholder{
             .icon{ font-size: 8em; }
             label{ font-size: 2em; }

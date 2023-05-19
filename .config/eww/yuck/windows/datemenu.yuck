@@ -24,7 +24,7 @@
         (sysprogress_ram)
         (sysprogress_temp)
         (sysprogress_bat))
-    (events)
+    (box :class "events widget" (events))
     ;; (for player in {media.players}
     ;;     (media_player :player player ))
     (box 
