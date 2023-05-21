@@ -8,14 +8,21 @@
         :space-evenly false
         (box
             :orientation "v"
-            (label :text {place.city} :halign "START" )
-            (label :text "feels like ${place.feels}°" :halign "START")
+            (box
+                :space-evenly false
+                :class "place"
+                (label :text "" :class "icon")
+                (label :text {place.city} :halign "START" ))
+            (label 
+                :class "feels"
+                :text "feels like ${place.feels}°"
+                :halign "START")
         )
         (box
             :orientation "v"
             :hexpand true
             :halign "END"
-            (label :text "${place.temp}°" :halign "END")
+            (label :class "temp" :text "${place.temp}°" :halign "END")
             (label :text {place.desc} :halign "END")
         )
     )
