@@ -94,10 +94,9 @@ class App extends Gtk.Application{
         }
     
         if(this._eww) {
-            let [success, out, err, wait] = GLib.spawn_command_line_sync(
+            GLib.spawn_command_line_async(
                 `eww update ${name}=${JSON.stringify(JSON.stringify(json))}`
             );
-            if(!success) log(err);
         }
 
         if(this._stdout) {
