@@ -1,7 +1,3 @@
-require('rose-pine').setup({
-  disable_italics = true,
-})
-
 require('catppuccin').setup({
   flavour = 'mocha',
   color_overrides = {
@@ -11,7 +7,7 @@ require('catppuccin').setup({
       peach = '#d7e77b',
       blue = '#50a4e7',
       mauve = '#9076e7',
-      pink = '#e781d6';
+      pink = '#e781d6',
       sky = '#50e6e6',
 
       maroon = '#c35d72',
@@ -19,7 +15,7 @@ require('catppuccin').setup({
       yellow = '#c1cf6c',
       lavender = '#448fc6',
       flamingo = '#8860dd',
-      rosewater = '#d76dc5';
+      rosewater = '#d76dc5',
       sapphire = '#42c3c3',
 
       text = '#e7e7e7',
@@ -39,21 +35,21 @@ require('catppuccin').setup({
       crust = '#0a0a0a',
     },
     frappe = {
-      red = "#FE5F86";
-      green = "#00D787";
-      peach = "#EBFF71";
-      blue = "#00AAFF";
-      mauve = "#8F69FF";
-      pink = "#FF7AEA";
-      sky = "#00FEFE";
+      red = '#FE5F86',
+      green = '#00D787',
+      peach = '#EBFF71',
+      blue = '#00AAFF',
+      mauve = '#8F69FF',
+      pink = '#FF7AEA',
+      sky = '#00FEFE',
 
-      maroon = "#D74E6F";
-      teal = "#31BB71";
-      yellow = "#D3E561";
-      lavender = "#0083D8";
-      flamingo = "#8056FF";
-      rosewate = "#ED61D7";
-      sapphire = "#04D7D7";
+      maroon = '#D74E6F',
+      teal = '#31BB71',
+      yellow = '#D3E561',
+      lavender = '#0083D8',
+      flamingo = '#8056FF',
+      rosewate = '#ED61D7',
+      sapphire = '#04D7D7',
 
       text = '#e7e7e7',
       subtext1 = '#dbdbdb',
@@ -71,12 +67,5 @@ require('catppuccin').setup({
       mantle = '#111111',
       crust = '#0a0a0a',
     },
-  }
-})
-
-require('decay').setup({
-  style = 'default',
-  palette_overrides = {
-    background = "#161616",
   }
 })

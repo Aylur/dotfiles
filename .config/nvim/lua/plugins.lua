@@ -26,11 +26,12 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- auto tabwidth
   { 'folke/which-key.nvim', opts = {} }, -- pending keys
 
-  -- telescope
-  { 'nvim-telescope/telescope.nvim',
+  { -- telescope
+    'nvim-telescope/telescope.nvim',
     version = '*',
     dependencies = {
       'nvim-telescope/telescope-media-files.nvim',
+      "nvim-telescope/telescope-file-browser.nvim",
     },
   },
 
@@ -43,10 +44,7 @@ require('lazy').setup({
   -- colorschemes
   'Mofiqul/vscode.nvim',
   'Mofiqul/adwaita.nvim',
-  { 'decaycs/decay.nvim', name = 'decay' },
-  'nyoom-engineering/oxocarbon.nvim',
   { "catppuccin/nvim", name = "catppuccin" },
-  { 'rose-pine/neovim', name = 'rose-pine' },
 
   'nvim-lualine/lualine.nvim', -- statusline
   {'akinsho/bufferline.nvim', version = "v3.*" }, --tabline
@@ -59,10 +57,7 @@ require('lazy').setup({
 
   { -- indentation guides
     'lukas-reineke/indent-blankline.nvim',
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    opts = { char = '┊' },
   },
 
   { 'numToStr/Comment.nvim', opts = {} }, -- "gcc" to comment
@@ -87,6 +82,9 @@ require('lazy').setup({
       {'rafamadriz/friendly-snippets'}, -- Optional
     }
   },
+  { 'ray-x/lsp_signature.nvim', opts = { hint_prefix = '' } }, -- fn parameter help window
+  'jose-elias-alvarez/null-ls.nvim',
+  'MunifTanjim/eslint.nvim',
 
   { 'elkowar/yuck.vim', ft = 'yuck' },
   { -- document generator

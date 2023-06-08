@@ -28,3 +28,13 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.swapfile = false
+
+vim.opt.cinoptions:append(':0')
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = vim.api.nvim_create_augroup('YankHighlight', { clear = true }),
+  pattern = '*',
+})
