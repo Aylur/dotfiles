@@ -3,7 +3,7 @@
   imports = [
     ./starship.nix
     ./packages.nix
-    ./helix.nix
+    # ./helix.nix
     ./neovim.nix
     ./sh.nix
     ./neofetch.nix

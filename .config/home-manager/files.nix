@@ -1,9 +1,12 @@
-{ pkgs, ... }:
 {
   home.file = {
     ".local/share/fonts" = {
       recursive = true;
-      source = /home/demeter/.nix-profile/share/fonts;
+      source = /home/demeter/.nix-profile/share/fonts/truetype/NerdFonts;
+    };
+    ".fonts" = {
+      recursive = true;
+      source = /home/demeter/.nix-profile/share/fonts/truetype/NerdFonts;
     };
     ".local/share/themes/adw-gtk3" = {
       source = /home/demeter/.nix-profile/share/themes/adw-gtk3;

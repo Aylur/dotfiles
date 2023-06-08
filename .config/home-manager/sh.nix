@@ -31,10 +31,12 @@
         "cat" = "bat";
         "ls" = "exa -l --sort type --no-permissions --no-user --no-time --header --icons --no-filesize --group-directories-first";
         "és" = "ls";
+        "l" = "ls";
         "ll" = "exa -l --sort type --header --icons --group-directories-first";
         "firefox" = "flatpak run org.mozilla.firefox";
         "nv" = "nvim";
         ":q" = "exit";
+        "q" = "exit";
         "c" = "clear";
         "gs" = "git status";
         "gb" = "git branch";
@@ -60,9 +62,11 @@
         alias arch='distrobox-enter Arch'
         alias fedora='distrobox-enter Fedora'
         alias és='ls'
+        alias l='ls'
         alias c='clear'
         alias nv='nvim'
         alias :q='exit'
+        alias q='exit'
       '';
     };
   };

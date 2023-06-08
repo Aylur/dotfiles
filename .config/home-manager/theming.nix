@@ -11,6 +11,7 @@
       "VictorMono"
       "Mononoki"
     ]; })
+    font-awesome
 
     # themes
     qogir-theme #gtk
@@ -34,11 +35,11 @@
         '';
       };
     };
- };
+  };
 
   gtk = {
     enable = true;
-    font.name = "Ubuntu NF";
+    font.name = "Ubuntu Nerd Font";
     cursorTheme = {
       name = "Qogir";
       package = pkgs.qogir-icon-theme;

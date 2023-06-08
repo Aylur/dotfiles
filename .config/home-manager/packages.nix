@@ -19,11 +19,30 @@
     sassc glib
 
     # file manager
-    ranger cinnamon.nemo
+    ranger
 
     # langs
-    nodePackages_latest.typescript
+    meson ninja
     nodejs cargo rustc go
-    agda jdk
+    jdk
+
+    # nodePackages_latest.typescript
+    # nodePackages_latest.prettier
+    # nodePackages_latest.eslint
+    # postman
+    # sqlitebrowser
+
+    # ls
+    llvmPackages_9.libclang
+    nodePackages.bash-language-server
+    nodePackages.vscode-langservers-extracted
+    nodePackages.svelte-language-server
+    nodePackages.vls
+    jdt-language-server
+    lua-language-server
+    marksman
+    rnix-lsp
+    rust-analyzer
+    gopls
   ];
 }

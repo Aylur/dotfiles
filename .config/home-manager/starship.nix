@@ -102,7 +102,7 @@
       };
       java = {
         symbol = "";
-        format = "[$symbol ](white)";
+        format = "[$symbol ](red)";
       };
       c = {
         symbol = "";
