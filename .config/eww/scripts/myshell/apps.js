@@ -56,8 +56,13 @@ class Apps extends GObject.Object{
     }
 
     _appIconName(app) {
-        if(typeof app.get_icon().get_names !== 'function') return '';
-        let name = app.get_icon()?.get_names()[0];
+        if (!app.get_icon())
+            return '';
+
+        if (typeof app.get_icon().get_names !== 'function')
+            return '';
+        
+        let name = app.get_icon().get_names()[0];
         return name ? this._iconPath(name) : '';
     }
 
