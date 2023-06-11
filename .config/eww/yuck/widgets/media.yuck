@@ -85,7 +85,7 @@
                             :onclick "${EWW_CONFIG_DIR}/scripts/player ${player.name} loop"
                             :class "loop ${player.loop}"
                             :visible {player.loop != "null"}
-                            (label :class "icon" :text "ﯩ"))
+                            (label :class "icon" :text "󰑓"))
                     )
                 )
             )

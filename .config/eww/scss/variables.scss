@@ -1,11 +1,11 @@
-$assets: '/home/demeter/.config/eww/assets/';
+$assets: './assets/';
 $wallpaper: $assets+'wallpaper.png';
 $avatar:    $assets+'avatar.jpg';
 
 $hover: transparentize($fg_color, 0.84);
 $accent: $blue;
 
-$wm_gaps: 16px;
+$wm_gaps: 12px;
 $destructive: $red;
 $succes: $green;
 $radii: 13px;
@@ -36,4 +36,4 @@ $popover_padding: 14px;
     font-family: 'Ubuntu Nerd Font';
     transition: 200ms;
 }
-$mono_font: 'mononoki NF';
+$mono_font: 'Mononoki Nerd Font';

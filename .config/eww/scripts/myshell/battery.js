@@ -35,7 +35,7 @@ class Battery extends GObject.Object{
             (this._proxy.State === UPowerGlib.DeviceState.CHARGING && percent === 100);
 
         
-        let icons =          ['', '', '', '', '', '', '', '', '', ''];
+        let icons =          ['󰁺', '󰁻', '󰁼', '󰁽', '󰁾', '󰁿', '󰂀', '󰂁', '󰂂', '󰁹'];
         let charging_icons = ['󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅'];        
         let i = Math.round(percent / 10)-1;
         if(i < 0) i = 0;

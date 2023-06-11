@@ -22,5 +22,5 @@ mv ~/.config/hypr/_hyprland.conf ~/.config/hypr/hyprland.conf
 Edit the hyprland config to your taste.
 e.g edit the Print bind to not use Distrobox.
 
-# Gnome
-WIP
+Also edit these
+`.config/eww/assets/wallpaper.png` and `.config/eww/assets/avatar.jpg` as these are just symlinks
