@@ -1,5 +1,5 @@
 # Hyprland
-<img src="https://github.com/Aylur/dotfiles/blob/main/assets/hyprland.png">
+<img src="https://github.com/Aylur/dotfiles/blob/eww/assets/hyprland.png">
 
 ## How to install
 install dependencies, e.g on Arch
