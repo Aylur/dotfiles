@@ -1,0 +1,1071 @@
+* {
+  all: unset;
+  font-size: 16px;
+  font-family: 'Ubuntu Nerd Font';
+  padding: 0;
+  margin: 0; }
+
+.panel {
+  background-color: #131313;
+  color: #eee; }
+  .panel .launcher,
+  .panel .workspaces,
+  .panel .colorpicker,
+  .panel .quicksettings,
+  .panel .powermenu,
+  .panel .datemenu {
+    transition: 250ms;
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    padding: 7px 11px;
+    font-weight: bold; }
+    .panel .launcher:focus,
+    .panel .workspaces:focus,
+    .panel .colorpicker:focus,
+    .panel .quicksettings:focus,
+    .panel .powermenu:focus,
+    .panel .datemenu:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .panel .launcher:hover,
+    .panel .workspaces:hover,
+    .panel .colorpicker:hover,
+    .panel .quicksettings:hover,
+    .panel .powermenu:hover,
+    .panel .datemenu:hover {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .panel .launcher:active,
+    .panel .workspaces:active,
+    .panel .colorpicker:active,
+    .panel .quicksettings:active,
+    .panel .powermenu:active,
+    .panel .datemenu:active {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: #51a4e7;
+      color: #171717; }
+    .panel .launcher, .panel .launcher:hover, .panel .launcher:active, .panel .launcher:focus,
+    .panel .workspaces,
+    .panel .workspaces:hover,
+    .panel .workspaces:active,
+    .panel .workspaces:focus,
+    .panel .colorpicker,
+    .panel .colorpicker:hover,
+    .panel .colorpicker:active,
+    .panel .colorpicker:focus,
+    .panel .quicksettings,
+    .panel .quicksettings:hover,
+    .panel .quicksettings:active,
+    .panel .quicksettings:focus,
+    .panel .powermenu,
+    .panel .powermenu:hover,
+    .panel .powermenu:active,
+    .panel .powermenu:focus,
+    .panel .datemenu,
+    .panel .datemenu:hover,
+    .panel .datemenu:active,
+    .panel .datemenu:focus {
+      box-shadow: inset 0 0 0 3px #131313; }
+  .panel .mpris button {
+    transition: 250ms;
+    border-radius: 12px;
+    color: #eee;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    padding: 7px 11px;
+    font-weight: bold; }
+    .panel .mpris button:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .panel .mpris button:hover {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .panel .mpris button:active {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: #51a4e7;
+      color: #171717; }
+    .panel .mpris button, .panel .mpris button:hover, .panel .mpris button:active, .panel .mpris button:focus {
+      box-shadow: inset 0 0 0 3px #131313; }
+  .panel .quicksettings > box {
+    padding: 0 11px; }
+  .panel .separator {
+    min-height: .4em;
+    min-width: .4em;
+    margin: 0 .2em;
+    border-radius: 12px;
+    background-color: rgba(238, 238, 238, 0.16); }
+  .panel .workspaces button {
+    transition: 250ms;
+    border-radius: 12px;
+    color: #eee;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    transition: 250ms; }
+    .panel .workspaces button label {
+      font-size: 1.1em;
+      margin: 0 2px; }
+    .panel .workspaces button:last-child label {
+      margin-right: 12.8px; }
+    .panel .workspaces button:first-child label {
+      margin-left: 12.8px; }
+    .panel .workspaces button.empty {
+      color: rgba(238, 238, 238, 0.6); }
+    .panel .workspaces button.occupied {
+      color: rgba(238, 238, 238, 0.8); }
+    .panel .workspaces button:hover {
+      color: rgba(81, 164, 231, 0.8); }
+    .panel .workspaces button:active {
+      color: #51a4e7; }
+  .panel .client {
+    transition: 250ms;
+    border-radius: 12px;
+    color: #eee;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    padding: 7px 11px;
+    padding: 0 4px;
+    font-weight: bold; }
+    .panel .client, .panel .client:hover, .panel .client:active, .panel .client:focus {
+      box-shadow: inset 0 0 0 3px #131313; }
+    .panel .client image {
+      margin-right: 4px; }
+  .panel .quicksettings .indicator {
+    margin-right: 8px; }
+    .panel .quicksettings .indicator:last-child {
+      margin-right: 0; }
+  .panel .quicksettings .notifications.notified {
+    color: #d8e77b; }
+  .panel .quicksettings .battery .charged, .panel .quicksettings .battery .charging {
+    color: #43c383; }
+  .panel .quicksettings .battery .low {
+    color: #e67090; }
+  .panel .quicksettings .bluetooth .device {
+    margin-right: 4px; }
+  .panel .launcher {
+    color: rgba(81, 164, 231, 0.8); }
+    .panel .launcher:hover {
+      color: rgba(81, 164, 231, 0.9); }
+    .panel .launcher:hover {
+      color: #51a4e7; }
+  .panel .powermenu {
+    color: rgba(230, 112, 144, 0.8); }
+    .panel .powermenu:hover {
+      color: rgba(230, 112, 144, 0.9); }
+    .panel .powermenu:hover {
+      color: #e67090; }
+
+window#applauncher .applauncher {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border-radius: 21.6px;
+  margin: 14px;
+  background-color: #131313;
+  color: #eee;
+  padding: 14px; }
+  window#applauncher .applauncher .search {
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    background-size: cover; }
+    window#applauncher .applauncher .search .icon {
+      transition: 250ms;
+      border-radius: 12px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      border-radius: 6px;
+      background-color: rgba(19, 19, 19, 0.6);
+      padding: 4px;
+      margin-right: 8px; }
+      window#applauncher .applauncher .search .icon:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.16);
+        color: #eee; }
+      window#applauncher .applauncher .search .icon:hover {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        background-color: rgba(238, 238, 238, 0.16);
+        color: #eee; }
+      window#applauncher .applauncher .search .icon:active {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        background-color: #51a4e7;
+        color: #171717; }
+    window#applauncher .applauncher .search entry {
+      border-radius: 12px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      border-radius: 6px;
+      background-color: rgba(19, 19, 19, 0.6);
+      transition: 250ms;
+      padding: 4px; }
+  window#applauncher .applauncher scrolledwindow {
+    padding: 14px;
+    min-width: 500px;
+    min-height: 350px; }
+    window#applauncher .applauncher scrolledwindow scrollbar.vertical slider {
+      background: rgba(238, 238, 238, 0.06);
+      border-radius: 12px;
+      min-width: .6em;
+      min-height: 2em;
+      transition: 250ms; }
+      window#applauncher .applauncher scrolledwindow scrollbar.vertical slider:hover {
+        background-color: #eee; }
+    window#applauncher .applauncher scrolledwindow overshoot {
+      border-radius: 12px; }
+      window#applauncher .applauncher scrolledwindow overshoot.top {
+        background: linear-gradient(rgba(19, 19, 19, 0.4), transparent); }
+      window#applauncher .applauncher scrolledwindow overshoot.bottom {
+        background: linear-gradient(transparent, rgba(19, 19, 19, 0.4)); }
+  window#applauncher .applauncher .app {
+    border-top: 1px solid rgba(238, 238, 238, 0.16);
+    padding: 8px 0; }
+    window#applauncher .applauncher .app:last-child {
+      border-bottom: 1px solid rgba(238, 238, 238, 0.16); }
+    window#applauncher .applauncher .app label {
+      min-width: 450px; }
+      window#applauncher .applauncher .app label.title {
+        color: #eee; }
+      window#applauncher .applauncher .app label.description {
+        color: rgba(238, 238, 238, 0.7); }
+    window#applauncher .applauncher .app image {
+      margin-right: 8px; }
+    window#applauncher .applauncher .app:hover .title, window#applauncher .applauncher .app:focus .title {
+      color: #51a4e7; }
+    window#applauncher .applauncher .app:hover image, window#applauncher .applauncher .app:focus image {
+      -gtk-icon-shadow: 2px 2px #51a4e7; }
+    window#applauncher .applauncher .app:active {
+      background-color: rgba(81, 164, 231, 0.5);
+      border-radius: 12px; }
+      window#applauncher .applauncher .app:active .title {
+        color: #eee; }
+
+window#media .media {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border-radius: 21.6px;
+  margin: 14px;
+  background-color: #131313;
+  color: #eee;
+  padding: 14px;
+  border-radius: 12px;
+  padding: 0; }
+  window#media .media label {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7); }
+  window#media .media image {
+    -gtk-icon-shadow: 2px 2px rgba(0, 0, 0, 0.6); }
+  window#media .media .cover-art {
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    min-width: 300px;
+    min-height: 250px; }
+    window#media .media .cover-art .shader {
+      border-radius: 11.28px;
+      box-shadow: inset 0 0 3em 1em rgba(19, 19, 19, 0.9); }
+    window#media .media .cover-art .label-box {
+      padding: 8px; }
+      window#media .media .cover-art .label-box label.title {
+        font-size: 1.1em; }
+      window#media .media .cover-art .label-box label.artist {
+        color: rgba(238, 238, 238, 0.8); }
+    window#media .media .cover-art .position-slider trough {
+      transition: 250ms;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.08);
+      min-height: 0.3em;
+      min-width: 0.3em; }
+      window#media .media .cover-art .position-slider trough highlight, window#media .media .cover-art .position-slider trough progress {
+        border-radius: 17.28px;
+        background-color: rgba(238, 238, 238, 0.7);
+        min-height: 0.3em;
+        min-width: 0.3em; }
+    window#media .media .cover-art .position-slider:hover trough {
+      background-color: rgba(238, 238, 238, 0.16); }
+    window#media .media .cover-art .position-slider trough:focus {
+      background-color: rgba(238, 238, 238, 0.16);
+      box-shadow: inset 0 0 0 1px #51a4e7; }
+      window#media .media .cover-art .position-slider trough:focus highlight, window#media .media .cover-art .position-slider trough:focus progress {
+        background-color: rgba(238, 238, 238, 0.4); }
+    window#media .media .cover-art .position-slider contents trough {
+      border-radius: 0;
+      border: 0; }
+      window#media .media .cover-art .position-slider contents trough highlight {
+        border-radius: 0; }
+    window#media .media .cover-art .centerbox {
+      padding: 8px; }
+      window#media .media .cover-art .centerbox .player image {
+        margin-right: 4px; }
+      window#media .media .cover-art .centerbox button, window#media .media .cover-art .centerbox image {
+        transition: 250ms; }
+      window#media .media .cover-art .centerbox .controls button {
+        margin: 0 2px; }
+        window#media .media .cover-art .centerbox .controls button image {
+          color: rgba(238, 238, 238, 0.9); }
+        window#media .media .cover-art .centerbox .controls button image.shuffle {
+          color: rgba(238, 238, 238, 0.7); }
+        window#media .media .cover-art .centerbox .controls button image.loop {
+          color: rgba(238, 238, 238, 0.7); }
+          window#media .media .cover-art .centerbox .controls button image.loop.track {
+            color: #eee; }
+        window#media .media .cover-art .centerbox .controls button:hover image, window#media .media .cover-art .centerbox .controls button:focus image {
+          color: #eee; }
+  window#media .media .volume-box .slider {
+    margin: 8px; }
+    window#media .media .volume-box .slider trough {
+      transition: 250ms;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.08);
+      min-height: 0.6em;
+      min-width: 0.6em; }
+      window#media .media .volume-box .slider trough highlight, window#media .media .volume-box .slider trough progress {
+        border-radius: 17.28px;
+        background-color: #51a4e7;
+        min-height: 0.6em;
+        min-width: 0.6em; }
+    window#media .media .volume-box .slider:hover trough {
+      background-color: rgba(238, 238, 238, 0.16); }
+    window#media .media .volume-box .slider trough:focus {
+      background-color: rgba(238, 238, 238, 0.16);
+      box-shadow: inset 0 0 0 1px #51a4e7; }
+      window#media .media .volume-box .slider trough:focus highlight, window#media .media .volume-box .slider trough:focus progress {
+        background-color: rgba(81, 164, 231, 0.7); }
+  window#media .media .volume-box .icon {
+    margin: 8px;
+    margin-top: 0; }
+  window#media .media.spotify .volume-box .slider trough {
+    transition: 250ms;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    background-color: rgba(238, 238, 238, 0.08);
+    min-height: 0.6em;
+    min-width: 0.6em; }
+    window#media .media.spotify .volume-box .slider trough highlight, window#media .media.spotify .volume-box .slider trough progress {
+      border-radius: 17.28px;
+      background-color: #43c383;
+      min-height: 0.6em;
+      min-width: 0.6em; }
+  window#media .media.spotify .volume-box .slider:hover trough {
+    background-color: rgba(238, 238, 238, 0.16); }
+  window#media .media.spotify .volume-box .slider trough:focus {
+    background-color: rgba(238, 238, 238, 0.16);
+    box-shadow: inset 0 0 0 1px #51a4e7; }
+    window#media .media.spotify .volume-box .slider trough:focus highlight, window#media .media.spotify .volume-box .slider trough:focus progress {
+      background-color: rgba(67, 195, 131, 0.7); }
+  window#media .media.spotify .player .icon {
+    color: #43c383; }
+  window#media .media.spotify .controls button image.shuffle.enabled {
+    color: #43c383; }
+  window#media .media.spotify .controls button image.loop.playlist {
+    color: #43c383; }
+  window#media .media.spotify .controls button:active image {
+    color: #43c383; }
+  window#media .media.firefox .volume-box .slider trough {
+    transition: 250ms;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    background-color: rgba(238, 238, 238, 0.08);
+    min-height: 0.6em;
+    min-width: 0.6em; }
+    window#media .media.firefox .volume-box .slider trough highlight, window#media .media.firefox .volume-box .slider trough progress {
+      border-radius: 17.28px;
+      background-color: #E79E64;
+      min-height: 0.6em;
+      min-width: 0.6em; }
+  window#media .media.firefox .volume-box .slider:hover trough {
+    background-color: rgba(238, 238, 238, 0.16); }
+  window#media .media.firefox .volume-box .slider trough:focus {
+    background-color: rgba(238, 238, 238, 0.16);
+    box-shadow: inset 0 0 0 1px #51a4e7; }
+    window#media .media.firefox .volume-box .slider trough:focus highlight, window#media .media.firefox .volume-box .slider trough:focus progress {
+      background-color: rgba(231, 158, 100, 0.7); }
+  window#media .media.firefox .player .icon {
+    color: #E79E64; }
+  window#media .media.firefox .controls button image.shuffle.enabled {
+    color: #E79E64; }
+  window#media .media.firefox .controls button image.loop.playlist {
+    color: #E79E64; }
+  window#media .media.firefox .controls button:active image {
+    color: #E79E64; }
+  window#media .media.mpv .volume-box .slider trough {
+    transition: 250ms;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    background-color: rgba(238, 238, 238, 0.08);
+    min-height: 0.6em;
+    min-width: 0.6em; }
+    window#media .media.mpv .volume-box .slider trough highlight, window#media .media.mpv .volume-box .slider trough progress {
+      border-radius: 17.28px;
+      background-color: #9077e7;
+      min-height: 0.6em;
+      min-width: 0.6em; }
+  window#media .media.mpv .volume-box .slider:hover trough {
+    background-color: rgba(238, 238, 238, 0.16); }
+  window#media .media.mpv .volume-box .slider trough:focus {
+    background-color: rgba(238, 238, 238, 0.16);
+    box-shadow: inset 0 0 0 1px #51a4e7; }
+    window#media .media.mpv .volume-box .slider trough:focus highlight, window#media .media.mpv .volume-box .slider trough:focus progress {
+      background-color: rgba(144, 119, 231, 0.7); }
+  window#media .media.mpv .player .icon {
+    color: #9077e7; }
+  window#media .media.mpv .controls button image.shuffle.enabled {
+    color: #9077e7; }
+  window#media .media.mpv .controls button image.loop.playlist {
+    color: #9077e7; }
+  window#media .media.mpv .controls button:active image {
+    color: #9077e7; }
+
+window#datemenu .datemenu {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border-radius: 21.6px;
+  margin: 14px;
+  background-color: #131313;
+  color: #eee;
+  padding: 14px; }
+  window#datemenu .datemenu .clock {
+    font-size: 5em; }
+  window#datemenu .datemenu .uptime {
+    font-size: 2em;
+    color: rgba(238, 238, 238, 0.7); }
+  window#datemenu .datemenu .calendar {
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    padding: 16px 16px 0;
+    margin-top: 14px; }
+    window#datemenu .datemenu .calendar calendar {
+      font-size: 1.1em;
+      padding: .2em; }
+      window#datemenu .datemenu .calendar calendar.button {
+        transition: 250ms;
+        border-radius: 12px;
+        color: #eee;
+        background-color: transparent;
+        background-image: none;
+        box-shadow: none;
+        margin: 1em; }
+        window#datemenu .datemenu .calendar calendar.button:focus {
+          box-shadow: inset 0 0 0 1px #51a4e7;
+          background-color: rgba(238, 238, 238, 0.16);
+          color: #eee; }
+        window#datemenu .datemenu .calendar calendar.button:hover {
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+          background-color: rgba(238, 238, 238, 0.16);
+          color: #eee; }
+        window#datemenu .datemenu .calendar calendar.button:active {
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+          background-color: #51a4e7;
+          color: #171717; }
+      window#datemenu .datemenu .calendar calendar:selected {
+        box-shadow: inset 0 -8px 0 0 rgba(81, 164, 231, 0.5), inset 0 0 0 1px #51a4e7;
+        border-radius: 7.2px; }
+      window#datemenu .datemenu .calendar calendar.header {
+        background-color: transparent;
+        border: none;
+        color: rgba(238, 238, 238, 0.5); }
+      window#datemenu .datemenu .calendar calendar.highlight {
+        background-color: transparent;
+        color: rgba(81, 164, 231, 0.5); }
+      window#datemenu .datemenu .calendar calendar:indeterminate {
+        color: rgba(238, 238, 238, 0.1); }
+
+window#quicksettings .quicksettings {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border-radius: 21.6px;
+  margin: 14px;
+  background-color: #131313;
+  color: #eee;
+  padding: 14px;
+  color: #eee; }
+  window#quicksettings .quicksettings .header label {
+    font-size: 1.2em; }
+  window#quicksettings .quicksettings .header button {
+    transition: 250ms;
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    padding: 4px 8px; }
+    window#quicksettings .quicksettings .header button:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    window#quicksettings .quicksettings .header button:hover {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    window#quicksettings .quicksettings .header button:active {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: #51a4e7;
+      color: #171717; }
+    window#quicksettings .quicksettings .header button label {
+      font-size: 1.2em; }
+  window#quicksettings .quicksettings .notification-list {
+    min-width: 400px;
+    padding-top: 14px; }
+    window#quicksettings .quicksettings .notification-list scrollbar.vertical slider {
+      background: rgba(238, 238, 238, 0.06);
+      border-radius: 12px;
+      min-width: .6em;
+      min-height: 2em;
+      transition: 250ms; }
+      window#quicksettings .quicksettings .notification-list scrollbar.vertical slider:hover {
+        background-color: #eee; }
+    window#quicksettings .quicksettings .notification-list overshoot {
+      border-radius: 12px; }
+      window#quicksettings .quicksettings .notification-list overshoot.top {
+        background: linear-gradient(rgba(19, 19, 19, 0.4), transparent); }
+      window#quicksettings .quicksettings .notification-list overshoot.bottom {
+        background: linear-gradient(transparent, rgba(19, 19, 19, 0.4)); }
+    window#quicksettings .quicksettings .notification-list .notification.critical > box {
+      box-shadow: inset 0 0 0.5em 0 #e67090; }
+    window#quicksettings .quicksettings .notification-list .notification > box {
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 8px; }
+    window#quicksettings .quicksettings .notification-list .notification:hover .close-button {
+      background-color: rgba(230, 112, 144, 0.5); }
+    window#quicksettings .quicksettings .notification-list .notification .close-button {
+      margin-left: 8px; }
+    window#quicksettings .quicksettings .notification-list .notification .close-button {
+      transition: 250ms;
+      border-radius: 12px;
+      color: #eee;
+      background-color: transparent;
+      background-image: none;
+      box-shadow: none;
+      border-radius: 9.6px;
+      min-width: 1.2em;
+      min-height: 1.2em; }
+      window#quicksettings .quicksettings .notification-list .notification .close-button:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.16);
+        color: #eee; }
+      window#quicksettings .quicksettings .notification-list .notification .close-button:hover {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        background-color: rgba(238, 238, 238, 0.16);
+        color: #eee; }
+      window#quicksettings .quicksettings .notification-list .notification .close-button:active {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        background-color: #51a4e7;
+        color: #171717; }
+      window#quicksettings .quicksettings .notification-list .notification .close-button:hover {
+        background-color: rgba(230, 112, 144, 0.7); }
+      window#quicksettings .quicksettings .notification-list .notification .close-button:active {
+        background-color: #e67090; }
+    window#quicksettings .quicksettings .notification-list .notification .title {
+      margin-right: 8px;
+      color: #eee;
+      font-size: 1.1em; }
+    window#quicksettings .quicksettings .notification-list .notification .time {
+      color: rgba(238, 238, 238, 0.8); }
+    window#quicksettings .quicksettings .notification-list .notification .description {
+      font-size: .9em;
+      color: rgba(238, 238, 238, 0.8); }
+    window#quicksettings .quicksettings .notification-list .notification .icon {
+      border-radius: 12px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      border-radius: 9.6px;
+      margin-right: 8px; }
+    window#quicksettings .quicksettings .notification-list .notification .actions button {
+      transition: 250ms;
+      border-radius: 12px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      border-radius: 9.6px;
+      font-size: 1.2em;
+      padding: 4px 8px;
+      margin: 8px 4px 0; }
+      window#quicksettings .quicksettings .notification-list .notification .actions button:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.16);
+        color: #eee; }
+      window#quicksettings .quicksettings .notification-list .notification .actions button:hover {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        background-color: rgba(238, 238, 238, 0.16);
+        color: #eee; }
+      window#quicksettings .quicksettings .notification-list .notification .actions button:active {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        background-color: #51a4e7;
+        color: #171717; }
+      window#quicksettings .quicksettings .notification-list .notification .actions button:first-child {
+        margin-left: 0; }
+      window#quicksettings .quicksettings .notification-list .notification .actions button:last-child {
+        margin-right: 0; }
+    window#quicksettings .quicksettings .notification-list .notification > box {
+      border-radius: 12px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      border-radius: 6px; }
+    window#quicksettings .quicksettings .notification-list .notification:first-child > box {
+      border-radius: 12px 12px 6px 6px; }
+      window#quicksettings .quicksettings .notification-list .notification:first-child > box .icon {
+        border-radius: 9.6px 9.6px 9.6px 4.8px; }
+    window#quicksettings .quicksettings .notification-list .notification:last-child > box {
+      border-radius: 6px 6px 12px 12px; }
+      window#quicksettings .quicksettings .notification-list .notification:last-child > box .icon {
+        border-radius: 4.8px 9.6px 9.6px 9.6px; }
+    window#quicksettings .quicksettings .notification-list .notification:last-child:first-child > box {
+      border-radius: 12px; }
+      window#quicksettings .quicksettings .notification-list .notification:last-child:first-child > box .icon {
+        border-radius: 9.6px; }
+  window#quicksettings .quicksettings .settings {
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    padding: 14px; }
+    window#quicksettings .quicksettings .settings .slider-box {
+      margin-bottom: 8px; }
+      window#quicksettings .quicksettings .settings .slider-box .slider {
+        margin: 0 8px; }
+        window#quicksettings .quicksettings .settings .slider-box .slider trough {
+          transition: 250ms;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.02);
+          background-color: rgba(238, 238, 238, 0.08);
+          min-height: 0.8em;
+          min-width: 0.8em; }
+          window#quicksettings .quicksettings .settings .slider-box .slider trough highlight, window#quicksettings .quicksettings .settings .slider-box .slider trough progress {
+            border-radius: 17.28px;
+            background-color: #51a4e7;
+            min-height: 0.8em;
+            min-width: 0.8em; }
+          window#quicksettings .quicksettings .settings .slider-box .slider trough slider {
+            background-color: #eee;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            min-height: 0.8em;
+            min-width: 0.8em; }
+        window#quicksettings .quicksettings .settings .slider-box .slider:hover trough {
+          background-color: rgba(238, 238, 238, 0.16); }
+        window#quicksettings .quicksettings .settings .slider-box .slider trough:focus {
+          background-color: rgba(238, 238, 238, 0.16);
+          box-shadow: inset 0 0 0 1px #51a4e7; }
+          window#quicksettings .quicksettings .settings .slider-box .slider trough:focus highlight, window#quicksettings .quicksettings .settings .slider-box .slider trough:focus progress {
+            background-color: rgba(81, 164, 231, 0.7); }
+      window#quicksettings .quicksettings .settings .slider-box .percent {
+        min-width: 2.8em; }
+      window#quicksettings .quicksettings .settings .slider-box button {
+        transition: 250ms;
+        border-radius: 12px;
+        color: #eee;
+        background-color: transparent;
+        background-image: none;
+        box-shadow: none;
+        border-radius: 9.6px;
+        margin-left: 4px; }
+        window#quicksettings .quicksettings .settings .slider-box button:focus {
+          box-shadow: inset 0 0 0 1px #51a4e7;
+          background-color: rgba(238, 238, 238, 0.16);
+          color: #eee; }
+        window#quicksettings .quicksettings .settings .slider-box button:hover {
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+          background-color: rgba(238, 238, 238, 0.16);
+          color: #eee; }
+        window#quicksettings .quicksettings .settings .slider-box button:active {
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+          background-color: #51a4e7;
+          color: #171717; }
+    window#quicksettings .quicksettings .settings .toggles {
+      margin-top: 8px; }
+      window#quicksettings .quicksettings .settings .toggles button {
+        transition: 250ms;
+        border-radius: 12px;
+        color: #eee;
+        background-color: rgba(238, 238, 238, 0.08);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        border-radius: 12px;
+        padding: 8px;
+        margin: 0 8px; }
+        window#quicksettings .quicksettings .settings .toggles button:focus {
+          box-shadow: inset 0 0 0 1px #51a4e7;
+          background-color: rgba(238, 238, 238, 0.16);
+          color: #eee; }
+        window#quicksettings .quicksettings .settings .toggles button:hover {
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+          background-color: rgba(238, 238, 238, 0.16);
+          color: #eee; }
+        window#quicksettings .quicksettings .settings .toggles button:active {
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+          background-color: #51a4e7;
+          color: #171717; }
+        window#quicksettings .quicksettings .settings .toggles button.on {
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+          background-color: #51a4e7;
+          color: #171717; }
+        window#quicksettings .quicksettings .settings .toggles button:first-child {
+          margin-left: 0; }
+        window#quicksettings .quicksettings .settings .toggles button:last-child {
+          margin-right: 0; }
+  window#quicksettings .quicksettings .mixer {
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    padding: 14px;
+    margin-bottom: 8px; }
+    window#quicksettings .quicksettings .mixer > box {
+      margin-bottom: 8px; }
+      window#quicksettings .quicksettings .mixer > box trough {
+        transition: 250ms;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        background-color: rgba(238, 238, 238, 0.08);
+        min-height: 0.5em;
+        min-width: 0.5em; }
+        window#quicksettings .quicksettings .mixer > box trough highlight, window#quicksettings .quicksettings .mixer > box trough progress {
+          border-radius: 17.28px;
+          background-color: #51a4e7;
+          min-height: 0.5em;
+          min-width: 0.5em; }
+        window#quicksettings .quicksettings .mixer > box trough slider {
+          background-color: #eee;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.02);
+          min-height: 0.5em;
+          min-width: 0.5em; }
+      window#quicksettings .quicksettings .mixer > box:hover trough {
+        background-color: rgba(238, 238, 238, 0.16); }
+      window#quicksettings .quicksettings .mixer > box trough:focus {
+        background-color: rgba(238, 238, 238, 0.16);
+        box-shadow: inset 0 0 0 1px #51a4e7; }
+        window#quicksettings .quicksettings .mixer > box trough:focus highlight, window#quicksettings .quicksettings .mixer > box trough:focus progress {
+          background-color: rgba(81, 164, 231, 0.7); }
+      window#quicksettings .quicksettings .mixer > box:last-child {
+        margin-bottom: 0; }
+      window#quicksettings .quicksettings .mixer > box image {
+        margin-right: 8px; }
+      window#quicksettings .quicksettings .mixer > box label {
+        margin-left: .1em; }
+      window#quicksettings .quicksettings .mixer > box label:last-child {
+        min-width: 3em; }
+
+window#powermenu .shader, window#verification .shader {
+  min-height: 1500px;
+  min-width: 2600px;
+  background: rgba(19, 19, 19, 0.5); }
+
+window#verification .verification {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border-radius: 21.6px;
+  margin: 14px;
+  background-color: #131313;
+  color: #eee;
+  padding: 14px;
+  padding: 16.8px;
+  min-width: 300px;
+  min-height: 100px; }
+  window#verification .verification .title {
+    font-size: 1.7em;
+    margin: 8px; }
+  window#verification .verification .desc {
+    color: rgba(238, 238, 238, 0.9);
+    margin: 8px;
+    font-size: 1.2em; }
+  window#verification .verification .buttons {
+    margin-top: 16px; }
+    window#verification .verification .buttons button {
+      transition: 250ms;
+      border-radius: 12px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      font-size: 1.6em;
+      padding: 8px;
+      margin: 0 8.4px; }
+      window#verification .verification .buttons button:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.16);
+        color: #eee; }
+      window#verification .verification .buttons button:hover {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        background-color: rgba(238, 238, 238, 0.16);
+        color: #eee; }
+      window#verification .verification .buttons button:active {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        background-color: #51a4e7;
+        color: #171717; }
+      window#verification .verification .buttons button:first-child {
+        margin-left: 0; }
+      window#verification .verification .buttons button:last-child {
+        margin-right: 0; }
+
+window#powermenu .powermenu {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border-radius: 21.6px;
+  margin: 14px;
+  background-color: #131313;
+  color: #eee;
+  padding: 14px;
+  padding: 14px;
+  border-radius: 48px; }
+  window#powermenu .powermenu button .icon {
+    transition: 250ms;
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    margin: 14px;
+    margin-bottom: 7px;
+    border-radius: 36px;
+    min-width: 120px;
+    min-height: 120px; }
+    window#powermenu .powermenu button .icon:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    window#powermenu .powermenu button .icon:hover {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    window#powermenu .powermenu button .icon:active {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: #51a4e7;
+      color: #171717; }
+  window#powermenu .powermenu button label, window#powermenu .powermenu button .icon {
+    color: rgba(238, 238, 238, 0.9); }
+  window#powermenu .powermenu button:hover .icon {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    background-color: rgba(238, 238, 238, 0.16);
+    color: #eee; }
+  window#powermenu .powermenu button:hover label {
+    color: #eee; }
+  window#powermenu .powermenu button:focus .icon {
+    box-shadow: inset 0 0 0 1px #51a4e7;
+    background-color: rgba(238, 238, 238, 0.16);
+    color: #eee; }
+  window#powermenu .powermenu button:active .icon {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    background-color: #51a4e7;
+    color: #171717; }
+  window#powermenu .powermenu button:focus label, window#powermenu .powermenu button:active label {
+    color: #51a4e7; }
+
+.dock {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border-radius: 21.6px;
+  margin: 14px;
+  background-color: #131313;
+  color: #eee;
+  padding: 14px; }
+  .dock .separator {
+    min-width: 2px;
+    min-height: 2em;
+    border-radius: 12px;
+    background-color: rgba(238, 238, 238, 0.2);
+    margin: 0 8px; }
+  .dock button {
+    transition: 250ms;
+    border-radius: 12px;
+    color: #eee;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    margin: 0 .2em; }
+    .dock button:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .dock button:hover {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .dock button:active {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: #51a4e7;
+      color: #171717; }
+    .dock button:last-child {
+      margin-right: 0; }
+    .dock button:first-child {
+      margin-left: 0; }
+    .dock button image {
+      padding: .5em; }
+    .dock button .indicator {
+      min-width: 6px;
+      min-height: 6px;
+      background-color: #eee;
+      border-radius: 12px;
+      margin-bottom: 2px; }
+    .dock button.focused {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+      .dock button.focused .indicator {
+        min-width: 18px;
+        background-color: #51a4e7; }
+
+.notification-popup {
+  padding: 1px; }
+  .notification-popup .notification.critical > box {
+    box-shadow: inset 0 0 0.5em 0 #e67090; }
+  .notification-popup .notification > box {
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 8px; }
+  .notification-popup .notification:hover .close-button {
+    background-color: rgba(230, 112, 144, 0.5); }
+  .notification-popup .notification .close-button {
+    margin-left: 8px; }
+  .notification-popup .notification .close-button {
+    transition: 250ms;
+    border-radius: 12px;
+    color: #eee;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    border-radius: 9.6px;
+    min-width: 1.2em;
+    min-height: 1.2em; }
+    .notification-popup .notification .close-button:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .notification-popup .notification .close-button:hover {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .notification-popup .notification .close-button:active {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: #51a4e7;
+      color: #171717; }
+    .notification-popup .notification .close-button:hover {
+      background-color: rgba(230, 112, 144, 0.7); }
+    .notification-popup .notification .close-button:active {
+      background-color: #e67090; }
+  .notification-popup .notification .title {
+    margin-right: 8px;
+    color: #eee;
+    font-size: 1.1em; }
+  .notification-popup .notification .time {
+    color: rgba(238, 238, 238, 0.8); }
+  .notification-popup .notification .description {
+    font-size: .9em;
+    color: rgba(238, 238, 238, 0.8); }
+  .notification-popup .notification .icon {
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    border-radius: 9.6px;
+    margin-right: 8px; }
+  .notification-popup .notification .actions button {
+    transition: 250ms;
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    border-radius: 9.6px;
+    font-size: 1.2em;
+    padding: 4px 8px;
+    margin: 8px 4px 0; }
+    .notification-popup .notification .actions button:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .notification-popup .notification .actions button:hover {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: rgba(238, 238, 238, 0.16);
+      color: #eee; }
+    .notification-popup .notification .actions button:active {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      background-color: #51a4e7;
+      color: #171717; }
+    .notification-popup .notification .actions button:first-child {
+      margin-left: 0; }
+    .notification-popup .notification .actions button:last-child {
+      margin-right: 0; }
+  .notification-popup .notification > box {
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    border-radius: 21.6px;
+    margin: 14px;
+    background-color: #131313;
+    color: #eee;
+    padding: 14px;
+    border-radius: 12px; }
+  .notification-popup .notification .description {
+    min-width: 350px; }
+
+window#overview .overview {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border-radius: 21.6px;
+  margin: 14px;
+  background-color: #131313;
+  color: #eee;
+  padding: 14px; }
+  window#overview .overview .workspace {
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    padding: 8px;
+    margin: 0 8px; }
+    window#overview .overview .workspace:last-child {
+      margin-right: 0; }
+    window#overview .overview .workspace:first-child {
+      margin-left: 0; }
+    window#overview .overview .workspace.active {
+      box-shadow: inset 0 0 0 1px #51a4e7; }
+  window#overview .overview .icon {
+    border-radius: 12px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    border-radius: 6px; }
+
+.desktop .corner {
+  background-color: #131313; }
+  .desktop .corner:last-child {
+    background-color: black; }
+
+.desktop .clock {
+  color: #131313;
+  font-size: 140px;
+  border: 5px solid #131313;
+  border-radius: 12px;
+  font-family: "Mononoki Nerd Font";
+  padding: 0 14px; }
+
+.desktop .date {
+  color: #131313;
+  font-size: 48px; }
+
+window.indicator .indicator {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border-radius: 21.6px;
+  margin: 14px;
+  background-color: #131313;
+  color: #eee;
+  padding: 14px;
+  padding: 4px; }
+  window.indicator .indicator .fill {
+    border-radius: 17.6px;
+    background-color: #51a4e7;
+    color: #131313; }
+    window.indicator .indicator .fill image {
+      -gtk-icon-transform: scale(0.7); }
+    window.indicator .indicator .fill label {
+      margin: 3px;
+      font-size: 34px; }
+
+tooltip > * > * {
+  background-color: #131313;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  color: #eee;
+  padding: 8px;
+  margin: 4px;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4); }

@@ -1,0 +1,19 @@
+window#overview .overview {
+    @include floating_widget;
+
+    .workspace {
+        @include widget;
+        padding: $spacing;
+        margin: 0 $spacing;
+        &:last-child { margin-right: 0; }
+        &:first-child { margin-left: 0; }
+        &.active {
+            box-shadow: inset 0 0 0 $border_width $accent;
+        }
+    }
+
+    .icon {
+        @include widget;
+        border-radius: $radii*0.5;
+    }
+}

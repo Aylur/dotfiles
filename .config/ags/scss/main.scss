@@ -1,0 +1,17 @@
+@import './variables.scss';
+@import './common.scss';
+
+@import './widgets/bar.scss';
+@import './widgets/applauncher.scss';
+@import './widgets/media.scss';
+@import './widgets/datemenu.scss';
+@import './widgets/quicksettings.scss';
+@import './widgets/powermenu.scss';
+@import './widgets/dock.scss';
+@import './widgets/notifications.scss';
+@import './widgets/overview.scss';
+@import './widgets/desktop.scss';
+
+tooltip {
+    @include tooltip;
+}

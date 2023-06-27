@@ -28,7 +28,7 @@
       #!/bin/sh
         export WLR_NO_HARDWARE_CURSORS=1
         export _JAVA_AWT_WM_NONREPARENTING=1
-        . "/home/demeter/.nix-profile/etc/profile.d/hm-session-vars.sh"
+        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
         if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
           PATH="$HOME/.local/bin:$HOME/bin:$PATH"; fi

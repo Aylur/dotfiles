@@ -1,0 +1,106 @@
+@mixin panel-button($flat: false, $reactive: true) {
+    @include button($flat: $flat, $reactive: $reactive);
+    padding: $spacing/2+3px $spacing+3px;
+    @if not $reactive {
+        padding: 0 $spacing/2;
+    }
+    font-weight: bold;
+    &, &:hover, &:active, &:focus {
+        box-shadow: inset 0 0 0 3px $bg_color;
+    }
+}
+
+.panel {
+    background-color: $bg_color;
+    color: $fg_color;
+
+    .launcher,
+    .workspaces,
+    .colorpicker,
+    .quicksettings,
+    .powermenu,
+    .datemenu {
+        @include panel-button;
+    }
+    .mpris button{
+        @include panel-button($flat: true);
+    }
+    .quicksettings > box {
+        padding: 0 $spacing+3px;
+    }
+
+    .separator {
+        min-height: .4em;
+        min-width: .4em;
+        margin: 0 .2em;
+        border-radius: $radii;
+        background-color: $hover;
+    }
+
+    .workspaces button {
+        @include button($flat: true, $reactive: false);
+        transition: $transition;
+        label {
+            font-size: 1.1em;
+            margin: 0 $spacing/4;
+        }
+        &:last-child label { margin-right: $spacing*1.6 }
+        &:first-child label { margin-left: $spacing*1.6 }
+        &.empty { color: transparentize($fg_color, 0.4) }
+        &.occupied { color: transparentize($fg_color, 0.2) }
+        &:hover { color: transparentize($accent, 0.2) }
+        &:active { color: $accent }
+    }
+
+    .client {
+        @include panel-button($flat: true, $reactive: false);
+        image {
+            margin-right: $spacing/2;
+        }
+    }
+
+    .quicksettings {
+        .indicator {
+            margin-right: $spacing;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        .notifications.notified {
+            color: $yellow;
+        }
+        .battery {
+            .charged, .charging {
+                color: $green;
+            }
+            .low {
+                color: $red;
+            }
+        }
+        .bluetooth {
+            .device {
+                margin-right: $spacing/2;
+            }
+        }
+    }
+
+    .launcher {
+        color: transparentize($accent, 0.2);
+        &:hover {
+            color: transparentize($accent, 0.1);
+        }
+        &:hover {
+            color: $accent;
+        }
+    }
+
+    .powermenu {
+        color: transparentize($red, 0.2);
+        &:hover {
+            color: transparentize($red, 0.1);
+        }
+        &:hover {
+            color: $red;
+        }
+    }
+}

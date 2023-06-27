@@ -1,0 +1,39 @@
+.dock {
+    @include floating_widget;
+
+    .separator {
+        min-width: 2px;
+        min-height: 2em;
+        border-radius: $radii;
+        background-color: transparentize($fg_color, 0.8);
+        margin: 0 $spacing;
+    }
+
+    button {
+        @include button($flat: true);
+        margin: 0 .2em;
+        &:last-child {
+            margin-right: 0;
+        }
+        &:first-child {
+            margin-left: 0;
+        }
+        image {
+            padding: .5em;
+        }
+        .indicator {
+            min-width: 6px;
+            min-height: 6px;
+            background-color: $fg_color;
+            border-radius: $radii;
+            margin-bottom: 2px;
+        }
+        &.focused {
+            @include button_hover;
+            .indicator {
+                min-width: 18px;
+                background-color: $accent;
+            }
+        }
+    }
+}

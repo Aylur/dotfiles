@@ -1,0 +1,99 @@
+window#quicksettings .quicksettings {
+    @include floating_widget;
+    color: $fg_color;
+
+    .header {
+        label {
+            font-size: 1.2em;
+        }
+        button {
+            @include button;
+            padding: $spacing/2 $spacing;
+            label {
+                font-size: 1.2em;
+            }
+        }
+    }
+
+    .notification-list {
+        min-width: 400px;
+        @include scrollbar;
+        padding-top: $popover_padding;
+        .notification {
+            @include notification;
+            > box {
+                @include widget;
+                border-radius: $radii/2;
+            }
+            &:first-child > box {
+                border-radius: $radii $radii $radii/2 $radii/2;
+                .icon { border-radius: $radii*0.8 $radii*0.8 $radii*0.8 $radii*0.4; }
+            }
+            &:last-child > box {
+                border-radius: $radii/2 $radii/2 $radii $radii;
+                .icon { border-radius: $radii*0.4 $radii*0.8 $radii*0.8 $radii*0.8; }
+            }
+            &:last-child:first-child > box {
+                border-radius: $radii;
+                .icon { border-radius: $radii*0.8; }
+            }
+        }
+    }
+
+    .settings {
+        @include widget;
+        padding: $popover_padding;
+        .slider-box {
+            .slider {
+                margin: 0 $spacing;
+                @include slider($width: .8em);
+            }
+            .percent {
+                min-width: 2.8em;
+            }
+            button {
+                @include button($flat: true);
+                border-radius: $radii*0.8;
+                margin-left: $spacing/2;
+            }
+            margin-bottom: $spacing;
+        }
+        .toggles {
+            margin-top: $spacing;
+            button {
+                @include button;
+                border-radius: $radii;
+                padding: $spacing;
+                margin: 0 $spacing;
+                &.on {
+                    @include button_active;
+                }
+                &:first-child {
+                    margin-left: 0;
+                }
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+    .mixer {
+        @include widget;
+        padding: $popover_padding;
+        margin-bottom: $spacing;
+        > box {
+            @include slider($width: .5em);
+            margin-bottom: $spacing;
+            &:last-child { margin-bottom: 0; }
+            image {
+                margin-right: $spacing;
+            }
+            label {
+                margin-left: .1em;
+            }
+            label:last-child {
+                min-width: 3em;
+            }
+        }
+    }
+}

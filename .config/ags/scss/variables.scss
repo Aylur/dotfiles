@@ -1,0 +1,36 @@
+$wm_gaps: 14px;
+$destructive: $red;
+$succes: $green;
+$radii: 12px;
+$spacing: 8px;
+
+$widget_bg: transparentize($fg_color, 0.94);
+$widget_radius: $radii;
+
+$button_bg: transparentize($fg_color, 0.92);
+$button_radius: $radii;
+
+$panel_radius: $radii * 1;
+$panel_button_radius: $radii * 0.8;
+
+$border_color: rgba(255, 255, 255, 0.02);
+$border_width: 1px;
+$border: $border_width solid $border_color;
+
+$text_shadow: 2px 2px 2px rgba(0,0,0,0.7);
+$icon_shadow: 2px 2px rgba(0,0,0,0.6);
+
+$popover_radius: $radii * 1.8;
+$popover_border_color: rgba(255,255,255,0.02);
+$popover_padding: 14px;
+
+$transition: 250ms;
+
+* {
+    all: unset;
+    font-size: 16px;
+    font-family: 'Ubuntu Nerd Font';
+    padding: 0;
+    margin: 0;
+}
+$mono_font: 'Mononoki Nerd Font';

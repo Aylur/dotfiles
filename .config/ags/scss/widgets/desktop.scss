@@ -1,0 +1,39 @@
+.desktop {
+    .corner {
+        background-color: $bg_color;
+        &:last-child {
+            background-color: black;
+        }
+    }
+
+    .clock {
+        color: $bg_color;
+        font-size: 140px;
+        border: 5px solid $bg_color;
+        border-radius: $radii;
+        font-family: $mono_font;
+        padding: 0 14px;
+    }
+
+    .date {
+        color: $bg_color;
+        font-size: 48px;
+    }
+}
+
+window.indicator .indicator {
+    @include floating_widget;
+    padding: $spacing/2;
+    .fill {
+        border-radius: max($popover_radius - $spacing/2, 0);
+        background-color: $accent;
+        color: $bg_color;
+        image {
+            -gtk-icon-transform: scale(0.7);
+        }
+        label {
+            margin: 3px;
+            font-size: 34px;
+        }
+    }
+}

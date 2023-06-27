@@ -1,0 +1,13 @@
+.notification-popup{
+    padding: 1px;
+    .notification {
+        @include notification;
+        > box {
+            @include floating_widget;
+            border-radius: $radii;
+        }
+        .description {
+            min-width: 350px;
+        }
+    }
+}

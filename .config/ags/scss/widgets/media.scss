@@ -1,0 +1,105 @@
+@mixin player-color($color) {
+    .volume-box .slider {
+        @include slider($width: .6em, $slider: false, $color: $color);
+    }
+    .player .icon {
+        color: $color;
+    }
+    .controls button {
+        image.shuffle.enabled {
+            color: $color;
+        }
+        image.loop.playlist {
+            color: $color;
+        }
+        &:active image {
+            color: $color;
+        }
+    }
+}
+
+window#media .media {
+    @include floating_widget;
+    border-radius: $radii;
+    padding: 0;
+    label {
+        text-shadow: $text_shadow;
+    }
+    image {
+        -gtk-icon-shadow: $icon_shadow;
+    }
+    .cover-art{
+        background-size: cover;
+        background-position: center;
+        border-radius: $radii;
+        min-width: 300px;
+        min-height: 250px;
+        .shader{
+            @include shader($radii: $radii);
+        }
+        .label-box {
+            padding: $spacing;
+            label {
+                &.title {
+                    font-size: 1.1em;
+                }
+                &.artist {
+                    color: transparentize($fg_color, 0.2);
+                }
+            }
+        }
+        .position-slider{
+            @include slider($width: .3em, $slider: false, $color: transparentize($fg_color, 0.3));
+            contents{
+                trough{
+                    border-radius: 0;
+                    border: 0;
+                    highlight{
+                        border-radius: 0;
+                    }
+                }
+            }
+        }
+        .centerbox {
+            padding: $spacing;
+            .player image {
+                margin-right: $spacing/2;
+            }
+            button, image {
+                transition: $transition;
+            }
+            .controls button {
+                margin: 0 $spacing/4;
+                image{ color: transparentize($fg_color, 0.1); }
+                image.shuffle {
+                    color: transparentize($fg_color, 0.3);
+                    // &.enabled{ color: $accent; }
+                }
+                image.loop {
+                    color: transparentize($fg_color, 0.3);
+                    &.track { color: $fg_color; }
+                    // &.playlist { color: $accent; }
+                }
+                &:hover image, &:focus image {
+                    color: $fg_color;
+                }
+                &:active image {
+                    // color: $accent;
+                }
+            }
+        }
+    }
+    .volume-box {
+        .slider {
+            @include slider($width: .6em, $slider: false, $color: $accent);
+            margin: $spacing;
+        }
+        .icon {
+            margin: $spacing;
+            margin-top: 0;
+        }
+    }
+    &.spotify { @include player-color($green); }
+    &.firefox { @include player-color($orange); }
+    &.mpv { @include player-color($magenta); }
+}
