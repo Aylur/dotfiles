@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    eww-wayland polkit_gnome
+    polkit_gnome
     xdg-desktop-portal-hyprland
     (hyprland.override {
       enableXWayland = true;

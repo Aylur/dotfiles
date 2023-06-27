@@ -15,6 +15,7 @@
 
     # themes
     qogir-theme #gtk
+    papirus-icon-theme
     qogir-icon-theme
     adw-gtk3
   ];
