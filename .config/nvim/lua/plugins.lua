@@ -83,8 +83,8 @@ require('lazy').setup({
     }
   },
   { 'ray-x/lsp_signature.nvim', opts = { hint_prefix = '' } }, -- fn parameter help window
-  'jose-elias-alvarez/null-ls.nvim',
-  'MunifTanjim/eslint.nvim',
+  -- 'jose-elias-alvarez/null-ls.nvim',
+  -- 'MunifTanjim/eslint.nvim',
 
   { 'elkowar/yuck.vim', ft = 'yuck' },
   { -- document generator
