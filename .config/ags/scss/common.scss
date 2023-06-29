@@ -50,9 +50,9 @@
     }
 }
 
-@mixin floating_widget($shadow: true, $padding: $popover_padding){
+@mixin floating_widget($shadow: true, $shadow_width: $wm_gaps/2, $padding: $popover_padding){
     @if $shadow {
-        box-shadow: 0 0 5px 0 rgba(0,0,0,0.6),
+        box-shadow: 0 0 $shadow_width 0 rgba(0,0,0,0.6),
                     inset 0 0 0 $border_width $popover_border_color;
     } @else {
         box-shadow: inset 0 0 0 $border_width $popover_border_color;
@@ -73,10 +73,13 @@
         min-height: $width;
         min-width:  $width;
         highlight, progress{
-            border-radius: $popover_radius*0.8;
+            border-radius: $button_radius;
             background-color: $color;
             min-height: $width;
             min-width:  $width;
+            @if $slider {
+                border-radius: $button_radius 0 0 $button_radius;
+            }
         }
         slider{
             @if $slider{
@@ -102,10 +105,10 @@
     }
 }
 
-@mixin shader($radii: 0){
-    border-radius: $radii*0.94;
+@mixin shader($radius: $radii, $width: 3em){
+    border-radius: $radius*0.92;
     @if $theme == 'dark' {
-        box-shadow: inset 0 0 3em 1em transparentize($bg_color, 0.1);
+        box-shadow: inset 0 0 $width $width/3 transparentize($bg_color, 0.1);
     }
     @if $theme == 'light' {
         background-color: transparentize($bg_color, 0.5);
@@ -144,67 +147,6 @@
         }
         &.bottom{
             background: linear-gradient(transparent,transparentize($bg_color, 0.6));
-        }
-    }
-}
-
-@mixin notification() {
-    &.critical > box {
-        box-shadow: inset 0 0 .5em 0 $red;
-    }
-    > box {
-        border-radius: $radii/2;
-        padding: $spacing;
-        margin-bottom: $spacing;
-    }
-    &:hover {
-        .close-button{
-            background-color: transparentize($red, .5);
-        }
-    }
-    .close-button {
-        margin-left: $spacing;
-    }
-    .close-button {
-        @include button($flat: true);
-        border-radius: $radii*0.8;
-        min-width: 1.2em;
-        min-height: 1.2em;
-        &:hover {
-            background-color: transparentize($red, .3);
-        }
-        &:active {
-            background-color: $red;
-        }
-    }
-    .title {
-        margin-right: $spacing;
-        color: $fg_color;
-        font-size: 1.1em;
-    }
-    .time {
-        color: transparentize($fg_color, .2);
-    }
-    .description {
-        font-size: .9em;
-        color: transparentize($fg_color, .2);
-    }
-    .icon {
-        @include widget;
-        border-radius: $radii*0.8;
-        margin-right: $spacing;
-    }
-    .actions button {
-        @include button;
-        border-radius: $radii*0.8;
-        font-size: 1.2em;
-        padding: $spacing/2 $spacing;
-        margin: $spacing $spacing/2 0;
-        &:first-child {
-            margin-left: 0;
-        }
-        &:last-child {
-            margin-right: 0;
         }
     }
 }

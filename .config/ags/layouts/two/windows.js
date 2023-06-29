@@ -9,8 +9,8 @@ var dock = monitor => ({
 var notifications = monitor => ({
     monitor,
     name: `notifications${monitor}`,
-    anchor: ['top','right'],
-    child: { type: 'notifications/popups', transition: 'slide_left' },
+    anchor: ['top'],
+    child: { type: 'notifications/popups' },
 });
 
 var desktop = monitor => ({
@@ -45,16 +45,14 @@ const launcher = {
 
 const left = {
     type: 'box',
-    halign: 'start',
     className: 'left',
     children: [
         launcher,
         separator,
-        { type: 'datemenu/panel-button' },
-        separator,
         { type: 'workspaces' },
         separator,
         { type: 'client' },
+        { type: 'dashboard/media-indicator', hexpand: true, halign: 'end' },
     ],
 };
 
@@ -62,19 +60,18 @@ const center = {
     type: 'box',
     className: 'center',
     children: [
-        { type: 'media/panel-button' },
+        { type: 'dashboard/panel-button' },
     ],
 };
 
 const right = {
     type: 'box',
     className: 'right',
-    hexpand: true,
-    halign: 'end',
     children: [
+        { type: 'dashboard/notifications-indicator', hexpand: true, halign: 'start' },
         { type: 'colorpicker' },
         separator,
-        { type: 'notification-center/panel-button' },
+        { type: 'quicksettings/panel-button' },
         separator,
         { type: 'powermenu/panel-button' },
     ],

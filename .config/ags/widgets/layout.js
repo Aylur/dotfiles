@@ -80,6 +80,20 @@ const layouts = {
             padding(windowName),
         ],
     }),
+    'topright': (windowName, child) => ({
+        type: 'box',
+        children: [
+            padding(windowName),
+            {
+                type: 'box',
+                orientation: 'vertical',
+                children: [
+                    revealer(windowName, 'slide_down', child),
+                    padding(windowName),
+                ],
+            },
+        ],
+    }),
 };
 
 Widget.widgets['layout'] = ({ layout, window, child }) => Widget(layouts[layout](window, child));

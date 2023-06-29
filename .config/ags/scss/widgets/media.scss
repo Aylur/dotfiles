@@ -2,7 +2,7 @@
     .volume-box .slider {
         @include slider($width: .6em, $slider: false, $color: $color);
     }
-    .player .icon {
+    .player {
         color: $color;
     }
     .controls button {
@@ -18,8 +18,7 @@
     }
 }
 
-window#media .media {
-    @include floating_widget;
+@mixin media() {
     border-radius: $radii;
     padding: 0;
     label {
@@ -32,12 +31,10 @@ window#media .media {
         background-size: cover;
         background-position: center;
         border-radius: $radii;
-        min-width: 300px;
-        min-height: 250px;
         .shader{
-            @include shader($radii: $radii);
+            @include shader;
         }
-        .label-box {
+        .header-box {
             padding: $spacing;
             label {
                 &.title {
@@ -60,10 +57,10 @@ window#media .media {
                 }
             }
         }
-        .centerbox {
+        .footerbox {
             padding: $spacing;
-            .player image {
-                margin-right: $spacing/2;
+            .player {
+                margin-right: $spacing;
             }
             button, image {
                 transition: $transition;
@@ -102,4 +99,12 @@ window#media .media {
     &.spotify { @include player-color($green); }
     &.firefox { @include player-color($orange); }
     &.mpv { @include player-color($magenta); }
+}
+
+
+window#media .mediabox {
+    @include floating_widget;
+    @include media();
+    min-height: 250px;
+    min-width: 300px;
 }

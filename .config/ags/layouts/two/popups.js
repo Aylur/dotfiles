@@ -14,27 +14,15 @@ var applauncher = {
     },
 };
 
-var datemenu = {
-    name: 'datemenu',
+var dashboard = {
+    name: 'dashboard',
     popup: true,
     anchor: ['top', 'right', 'bottom', 'left'],
     child: {
         type: 'layout',
-        layout: 'topleft',
-        window: 'datemenu',
-        child: { type: 'datemenu/popup-content' },
-    },
-};
-
-var media = {
-    name: 'media',
-    popup: true,
-    anchor: ['top', 'bottom', 'left', 'right'],
-    child: {
-        type: 'layout',
         layout: 'top',
-        window: 'media',
-        child: { type: 'media/popup-content' },
+        window: 'dashboard',
+        child: { type: 'dashboard/popup-content' },
     },
 };
 
@@ -78,8 +66,8 @@ var quicksettings = {
     anchor: ['top', 'right', 'bottom', 'left'],
     child: {
         type: 'layout',
-        layout: 'right',
+        layout: 'topright',
         window: 'quicksettings',
-        child: { type: 'quicksettings/notification-center' },
+        child: { type: 'quicksettings/popup-content' },
     },
 };

@@ -1,6 +1,7 @@
 .desktop {
+    background-color: $bg_color;
+
     .corner {
-        background-color: $bg_color;
         &:last-child {
             background-color: black;
         }
@@ -18,6 +19,12 @@
     .date {
         color: $bg_color;
         font-size: 48px;
+    }
+
+    .wallpaper {
+        border-radius: $popover_radius;
+        box-shadow: inset 0 0 $spacing 0 rgba(0,0,0,0.8);
+        margin: 0 2px 2px 2px;
     }
 }
 

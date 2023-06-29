@@ -1,12 +1,14 @@
+$float: 5px;
+
 @mixin panel-button($flat: false, $reactive: true) {
     @include button($flat: $flat, $reactive: $reactive);
-    padding: $spacing/2+3px $spacing+3px;
+    padding: $spacing/2+$float $spacing+$float;
     @if not $reactive {
         padding: 0 $spacing/2;
     }
     font-weight: bold;
     &, &:hover, &:active, &:focus {
-        box-shadow: inset 0 0 0 3px $bg_color;
+        box-shadow: inset 0 0 0 $float $bg_color;
     }
 }
 
@@ -19,14 +21,22 @@
     .colorpicker,
     .quicksettings,
     .powermenu,
+    .dashboard,
+    .mpris button,
     .datemenu {
-        @include panel-button;
-    }
-    .mpris button{
         @include panel-button($flat: true);
     }
     .quicksettings > box {
-        padding: 0 $spacing+3px;
+        padding: 0 $spacing+$float;
+    } 
+
+    .media-indicator, .notifications-indicator {
+        .indicator {
+            @include panel-button($flat: true, $reactive: false);
+        }
+    }
+    .workspaces {
+        @include panel-button;
     }
 
     .separator {

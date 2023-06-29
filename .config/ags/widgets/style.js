@@ -14,7 +14,7 @@ class StyleService extends Service {
     light() {
         set('prefer-light');
         applyCss(CONFIG_DIR+'/light.css');
-        execAsync(['bash', '-c', `cp ${_wezterm}/charm-light.lua ${_wezterm}/theme.lua`], log, log);
+        execAsync(['bash', '-c', `cp ${_wezterm}/charm-light.lua ${_wezterm}/theme.lua`]);
     }
 
     dark() {

@@ -1,23 +1,29 @@
 window#applauncher .applauncher{
     @include floating_widget;
     .search {
-        padding: 30px;
-        border-radius: $radii;
-        margin-bottom: $popover_padding;
-        background-size: cover;
-        .icon {
-            @include button;
-            border-radius: $radii/2;
-            background-color: transparentize($bg_color, 0.4);
-            padding: $spacing/2;
-            margin-right: $spacing;
+        padding: $popover_padding;
+        min-height: 100px;
+        .wallpaper {
+            box-shadow: inset 0 0 $spacing 0 rgba(0,0,0,0.5);
+            background-position: bottom;
+            border-radius: $radii;
         }
-        entry {
-            @include widget;
-            border-radius: $radii/2;
-            background-color: transparentize($bg_color, 0.4);
-            transition: $transition;
-            padding: $spacing/2;
+        .entry {
+            padding: 30px;
+            image {
+                @include widget;
+                border-radius: $radii/2;
+                background-color: transparentize($bg_color, 0.4);
+                padding: $spacing/2;
+                margin-right: $spacing;
+            }
+            entry {
+                @include widget;
+                border-radius: $radii/2;
+                background-color: transparentize($bg_color, 0.4);
+                transition: $transition;
+                padding: $spacing/2;
+            }
         }
     }
     scrolledwindow {

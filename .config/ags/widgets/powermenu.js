@@ -15,7 +15,7 @@ const verificationDesc = Widget({
 
 let cmd;
 
-function sysAction(action) {
+var sysAction = function sysAction(action) {
     const title = action;
     const desc = 'Are you sure?';
     switch (action) {
@@ -28,7 +28,7 @@ function sysAction(action) {
     }
     verificationTitle.label = title;
     verificationDesc.label = desc;
-    App.toggleWindow('powermenu');
+    App.getWindow('powermenu').hide();
     App.toggleWindow('verification');
 }
 

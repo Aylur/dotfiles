@@ -1,7 +1,8 @@
 const { execAsync } = ags.Utils;
 const { Widget } = ags;
 
-Widget.widgets['colorpicker'] = () => Widget({
+Widget.widgets['colorpicker'] = props => Widget({
+    ...props,
     type: 'button',
     className: 'colorpicker',
     onClick: () => execAsync('hyprpicker -a'),

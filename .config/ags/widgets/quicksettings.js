@@ -7,7 +7,7 @@ const slider = ({ icon, slider, percent, arrowCmd }) => ({
     className: 'slider-box',
     children: [
         { type: icon, className: 'icon' },
-        { type: slider, className: 'slider', hexpand: true },
+        { type: slider, hexpand: true },
         {
             type: 'box',
             className: 'percent',
@@ -27,7 +27,7 @@ const slider = ({ icon, slider, percent, arrowCmd }) => ({
     ],
 });
 
-const toggle = (toggle, indicator) => ({
+const smalltoggle = (toggle, indicator) => ({
     type: toggle,
     hexpand: true,
     child: {
@@ -36,47 +36,119 @@ const toggle = (toggle, indicator) => ({
     },
 });
 
-const quicksettings = {
+const { sysAction } = imports.widgets.powermenu;
+const sysBtn = (icon, action, className = '') => ({
+    type: 'button',
+    className,
+    onClick: () => sysAction(action),
+    tooltip: action,
+    child: {
+        type: 'icon',
+        icon,
+    }
+});
+
+Widget.widgets['quicksettings/popup-content'] = () => Widget({
     type: 'box',
+    className: 'quicksettings',
     orientation: 'vertical',
-    className: 'settings',
-    valign: 'end',
     children: [
-        slider({
-            icon: 'audio/speaker-indicator',
-            slider: 'audio/speaker-slider',
-            percent: 'audio/speaker-label',
-            arrowCmd: 'pavucontrol',
-        }),
-        slider({
-            icon: 'brightness/icon',
-            slider: 'brightness/slider',
-            percent: 'brightness/percent',
-            arrowCmd: 'wl-gammactl',
-        }),
+        {
+            type: 'box',
+            className: 'header',
+            children: [
+                {
+                    type: 'box',
+                    className: 'avatar',
+                    style: `
+                        background-image: url('${imports.settings.avatar}');
+                        background-size: cover;
+                    `,
+                    children: [{
+                        type: 'box',
+                        hexpand: true,
+                        vexpand: true,
+                        className: 'shader',
+                    }],
+                },
+                {
+                    type: 'label',
+                    className: 'user',
+                    label: '@Aylur',
+                    halign: 'start',
+                    valign: 'center',
+                    hexpand: true,
+                },
+                {
+                    type: 'box',
+                    valign: 'center',
+                    className: 'system',
+                    children: [
+                        {
+                            type: 'button',
+                            className: 'settings',
+                            onClick: () => execAsync(imports.settings.openSettings),
+                            tooltip: 'Settings',
+                            child: {
+                                type: 'icon',
+                                icon: 'org.gnome.Settings-symbolic',
+                            }
+                        },
+                        sysBtn('system-log-out-symbolic', 'Log Out'),
+                        sysBtn('system-shutdown-symbolic', 'Shutdown', 'shutdown'),
+                    ],
+                },
+            ],
+        },
+        {
+            type: 'audio/app-mixer',
+            className: 'mixer',
+            connections: [[Audio, mixer => {
+                mixer.visible = Audio.apps.size > 0;
+            }]],
+        },
+        {
+            type: 'box',
+            orientation: 'vertical',
+            className: 'sliders',
+            children: [
+                slider({
+                    icon: 'audio/speaker-indicator',
+                    slider: 'audio/speaker-slider',
+                    percent: 'audio/speaker-label',
+                    arrowCmd: 'pavucontrol',
+                }),
+                slider({
+                    icon: 'brightness/icon',
+                    slider: 'brightness/slider',
+                    percent: 'brightness/percent',
+                    arrowCmd: 'wl-gammactl',
+                }),
+            ],
+        },
         {
             type: 'box',
             className: 'toggles',
             children: [
-                toggle('notifications/dnd-toggle', 'notifications/dnd-indicator'),
-                toggle('audio/microphone-mute-toggle', 'audio/microphone-mute-indicator'),
-                toggle('bluetooth/toggle', 'bluetooth/indicator'),
-                toggle('network/wifi-toggle', 'network/wifi-indicator'),
-                toggle('style/toggle', 'style/indicator'),
+                smalltoggle('notifications/dnd-toggle', 'notifications/dnd-indicator'),
+                smalltoggle('audio/microphone-mute-toggle', 'audio/microphone-mute-indicator'),
+                smalltoggle('bluetooth/toggle', 'bluetooth/indicator'),
+                smalltoggle('network/wifi-toggle', 'network/wifi-indicator'),
+                smalltoggle('style/toggle', 'style/indicator'),
             ],
         },
     ],
-};
+});
 
-Widget.widgets['quicksettings/popup-content'] = () => Widget({
+Widget.widgets['quicksettings/notification-center'] = () => Widget({
     type: 'box',
     orientation: 'vertical',
-    className: 'quicksettings',
+    className: 'notification-center',
     children: [
         {
             type: 'box',
             vexpand: true,
-            children: [{ type: 'notifications/quicksettings' }],
+            children: [{ type: 'notifications/popup-content' }],
         },
         {
             type: 'audio/app-mixer',
@@ -85,8 +157,38 @@ Widget.widgets['quicksettings/popup-content'] = () => Widget({
                 mixer.visible = Audio.apps.size > 0;
             }]]
         },
-        quicksettings,
-    ]
+        {
+            type: 'box',
+            orientation: 'vertical',
+            className: 'settings',
+            valign: 'end',
+            children: [
+                slider({
+                    icon: 'audio/speaker-indicator',
+                    slider: 'audio/speaker-slider',
+                    percent: 'audio/speaker-label',
+                    arrowCmd: 'pavucontrol',
+                }),
+                slider({
+                    icon: 'brightness/icon',
+                    slider: 'brightness/slider',
+                    percent: 'brightness/percent',
+                    arrowCmd: 'wl-gammactl',
+                }),
+                {
+                    type: 'box',
+                    className: 'toggles',
+                    children: [
+                        smalltoggle('notifications/dnd-toggle', 'notifications/dnd-indicator'),
+                        smalltoggle('audio/microphone-mute-toggle', 'audio/microphone-mute-indicator'),
+                        smalltoggle('bluetooth/toggle', 'bluetooth/indicator'),
+                        smalltoggle('network/wifi-toggle', 'network/wifi-indicator'),
+                        smalltoggle('style/toggle', 'style/indicator'),
+                    ],
+                },
+            ],
+        },
+    ],
 });
 
 const battery = {
@@ -97,10 +199,10 @@ const battery = {
         { type: 'battery/indicator' },
     ],
     connections: [[Battery, box => {
-        box.toggleClassName(Battery.state.charging, 'charging');
-        box.toggleClassName(Battery.state.charged, 'charged');
-        box.toggleClassName(Battery.state.percent < 30, 'low');
-        box.get_children()[0].visible = Battery.state.percent < 100;
+        box.toggleClassName(Battery.charging, 'charging');
+        box.toggleClassName(Battery.charged, 'charged');
+        box.toggleClassName(Battery.percent < 30, 'low');
+        box.get_children()[0].visible = Battery.percent < 100;
     }]]
 };
 
@@ -141,7 +243,7 @@ const bluetooth = {
                     child: {
                         type: 'label',
                         connections: [[Bluetooth, label => {
-                            label.label = Bluetooth.state.connectedDevices[0]?.alias || 'Nothing Connected';
+                            label.label = Bluetooth.connectedDevices[0]?.alias || 'Not Connected';
                         }]]
                     },
                 },
@@ -149,19 +251,19 @@ const bluetooth = {
                     type: 'icon',
                     className: 'device',
                     connections: [[Bluetooth, icon => {
-                        icon.icon_name = Bluetooth.state.connectedDevices[0]?.iconName+'-symbolic';
-                        icon.visible = Bluetooth.state.connectedDevices.length > 0;
+                        icon.icon_name = Bluetooth.connectedDevices[0]?.iconName+'-symbolic';
+                        icon.visible = Bluetooth.connectedDevices.length > 0;
                     }]]
                 },
                 { type: 'bluetooth/indicator' },
             ],
         },
     }],
-    connections: [[Bluetooth, box => box.visible = Bluetooth.state.state === 'enabled']],
+    connections: [[Bluetooth, box => box.visible = Bluetooth.enabled]],
 }
 
 const { Indicator } = imports.widgets.popupindicator;
-Widget.widgets['quicksettings/panel-button'] = () => Widget({
+const panelButton = dnd => Widget({
     type: 'eventbox',
     className: 'quicksettings',
     onClick: () => ags.App.toggleWindow('quicksettings'),
@@ -176,12 +278,15 @@ Widget.widgets['quicksettings/panel-button'] = () => Widget({
     child: {
         type: 'box',
         children: [
-            { className: 'indicator notifications', type: 'notifications/indicator' },
+            dnd ? { className: 'indicator notifications', type: 'notifications/indicator' } : null, 
             { className: 'indicator', type: 'audio/microphone-mute-indicator', unmuted: null },
             bluetooth,
             network,
             { className: 'indicator', type: 'audio/speaker-indicator' },
             battery,
-        ],
+        ].filter(i => i),
     },
 });
+
+Widget.widgets['quicksettings/panel-button'] = () => panelButton(false);
+Widget.widgets['notification-center/panel-button'] = () => panelButton(true);

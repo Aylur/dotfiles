@@ -84,7 +84,7 @@ Widget.widgets['overview'] = () => {
 
         box.get_children().forEach(ch => ch.destroy());
 
-        const active = Hyprland.state.active.workspace.id;
+        const active = Hyprland.active.workspace.id;
         for (let i=1; i<8; ++i)
             box.add(workspace(i, active === i));
 

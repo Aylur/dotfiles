@@ -11,7 +11,8 @@ const uptimeLabel = () => {
     return label;
 };
 
-Widget.widgets['datemenu/popup-content'] = () => Widget({
+Widget.widgets['datemenu/popup-content'] = props => Widget({
+    ...props,
     type: 'box',
     orientation: 'vertical',
     className: 'datemenu',
@@ -35,8 +36,10 @@ Widget.widgets['datemenu/popup-content'] = () => Widget({
             className: 'calendar',
             children: [
                 {
-                    type: imports.gi.Gtk.Calendar.new,
+                    type: 'box',
                     halign: 'center',
+                    hexpand: true,
+                    children: [{ type: imports.gi.Gtk.Calendar.new }],
                 },
             ]
         }

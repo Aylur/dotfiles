@@ -40,13 +40,13 @@ window#verification .verification {
 window#powermenu .powermenu {
     @include floating_widget;
     padding: $popover_padding;
-    border-radius: $radii*4;
+    border-radius: $radii*3;
     button {
         .icon {
             @include button;
             margin: $popover_padding;
             margin-bottom: $popover_padding/2;
-            border-radius: $radii*3;
+            border-radius: $radii*2;
             min-width: 120px;
             min-height: 120px;
         }

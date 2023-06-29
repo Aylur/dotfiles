@@ -1,5 +1,5 @@
-const static = imports.layouts.one.windows;
-const popups = imports.layouts.one.popups;
+const static = imports.layouts.two.windows;
+const popups = imports.layouts.two.popups;
 
 var windows = [
     ...ags.Service.Hyprland.HyprctlGet('monitors').map(({ id }) => ([
@@ -10,8 +10,7 @@ var windows = [
         static.bar(id),
     ])).flat(),
     popups.applauncher,
-    popups.datemenu,
-    popups.media,
+    popups.dashboard,
     popups.overview,
     popups.powermenu,
     popups.verification,

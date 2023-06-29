@@ -97,6 +97,7 @@ Widget.widgets['dock'] = () => Widget({
                     children: [
                         {
                             type: 'button',
+                            tooltip: 'Applications',
                             onClick: () => ags.App.toggleWindow('applauncher'),
                             child: {
                                 type: 'icon',
@@ -105,7 +106,14 @@ Widget.widgets['dock'] = () => Widget({
                             }
                         },
                         pins(['firefox', 'wezterm', 'nautilus', 'spotify']),
-                        { type: 'box', valign: 'center', className: 'separator' },
+                        {
+                            type: 'box',
+                            valign: 'center',
+                            className: 'separator',
+                            connections: [[Hyprland, box => {
+                                box.visible = Hyprland.clients.size > 0;
+                            }]]
+                        },
                         {
                             type: 'hyprland/taskbar',
                             item: ({ iconName }, { address, title }) => ({
@@ -127,7 +135,7 @@ Widget.widgets['dock'] = () => Widget({
                                     ]
                                 },
                                 tooltip: title,
-                                className: Hyprland.state.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
+                                className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
                                 onClick: () => Hyprland.Hyprctl(`dispatch focuswindow address:${address}`),
                             }),
                         },
