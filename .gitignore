@@ -1,4 +1,5 @@
-.config/eww/scripts/weather_key
+.config/ags/weather_key
+.config/ags/*.css
 .config/hypr/hyprland.conf.backup
 .config/hypr/hyprland.conf
 .config/nvim/lazy-lock.json

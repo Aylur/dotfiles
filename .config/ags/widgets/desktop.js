@@ -71,9 +71,9 @@ const corner = (place, radius) => {
     return widget;
 };
 
-Widget.widgets['desktop'] = ({ radius = 18 }) => Widget({
+Widget.widgets['desktop'] = ({ radius = 18, className }) => Widget({
     type: 'box',
-    className: 'desktop',
+    className: `desktop ${className}`,
     children: [{
         type: 'overlay',
         hexpand: true,

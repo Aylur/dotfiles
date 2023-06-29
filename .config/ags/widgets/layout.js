@@ -94,6 +94,34 @@ const layouts = {
             },
         ],
     }),
+    'bottomleft': (windowName, child) => ({
+        type: 'box',
+        children: [
+            {
+                type: 'box',
+                orientation: 'vertical',
+                children: [
+                    padding(windowName),
+                    revealer(windowName, 'slide_up', child),
+                ],
+            },
+            padding(windowName),
+        ],
+    }),
+    'bottomright': (windowName, child) => ({
+        type: 'box',
+        children: [
+            padding(windowName),
+            {
+                type: 'box',
+                orientation: 'vertical',
+                children: [
+                    padding(windowName),
+                    revealer(windowName, 'slide_left', child),
+                ],
+            },
+        ],
+    }),
 };
 
 Widget.widgets['layout'] = ({ layout, window, child }) => Widget(layouts[layout](window, child));

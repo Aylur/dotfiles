@@ -70,7 +70,59 @@ const pins = list => ({
 });
 
 Widget.widgets['dock'] = () => Widget({
+    type: 'box',
+    className: 'dock',
+    children: [
+        {
+            type: 'button',
+            tooltip: 'Applications',
+            onClick: () => ags.App.toggleWindow('applauncher'),
+            child: {
+                type: 'icon',
+                icon: 'view-app-grid-symbolic',
+                size: ICON_SIZE,
+            }
+        },
+        pins(['firefox', 'wezterm', 'nautilus', 'spotify']),
+        {
+            type: 'box',
+            valign: 'center',
+            className: 'separator',
+            connections: [[Hyprland, box => {
+                box.visible = Hyprland.clients.size > 0;
+            }]]
+        },
+        {
+            type: 'hyprland/taskbar',
+            item: ({ iconName }, { address, title }) => ({
+                type: 'button',
+                child: {
+                    type: 'overlay',
+                    children: [
+                        {
+                            type: 'icon',
+                            size: ICON_SIZE,
+                            icon: iconName
+                        },
+                        {
+                            type: 'box',
+                            className: 'indicator',
+                            valign: 'end',
+                            halign: 'center',
+                        }
+                    ]
+                },
+                tooltip: title,
+                className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
+                onClick: () => Hyprland.Hyprctl(`dispatch focuswindow address:${address}`),
+            }),
+        },
+    ],
+});
+
+Widget.widgets['floating-dock'] = () => Widget({
     type: 'eventbox',
+    className: 'floating-dock',
     valign: 'start',
     onHover: box => {
         timeout(300, () => box._revealed = true);
@@ -91,56 +143,7 @@ Widget.widgets['dock'] = () => Widget({
             {
                 transition: 'slide_up',
                 type: 'revealer',
-                child: {
-                    type: 'box',
-                    className: 'dock',
-                    children: [
-                        {
-                            type: 'button',
-                            tooltip: 'Applications',
-                            onClick: () => ags.App.toggleWindow('applauncher'),
-                            child: {
-                                type: 'icon',
-                                icon: 'view-app-grid-symbolic',
-                                size: ICON_SIZE,
-                            }
-                        },
-                        pins(['firefox', 'wezterm', 'nautilus', 'spotify']),
-                        {
-                            type: 'box',
-                            valign: 'center',
-                            className: 'separator',
-                            connections: [[Hyprland, box => {
-                                box.visible = Hyprland.clients.size > 0;
-                            }]]
-                        },
-                        {
-                            type: 'hyprland/taskbar',
-                            item: ({ iconName }, { address, title }) => ({
-                                type: 'button',
-                                child: {
-                                    type: 'overlay',
-                                    children: [
-                                        {
-                                            type: 'icon',
-                                            size: ICON_SIZE,
-                                            icon: iconName
-                                        },
-                                        {
-                                            type: 'box',
-                                            className: 'indicator',
-                                            valign: 'end',
-                                            halign: 'center',
-                                        }
-                                    ]
-                                },
-                                tooltip: title,
-                                className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
-                                onClick: () => Hyprland.Hyprctl(`dispatch focuswindow address:${address}`),
-                            }),
-                        },
-                    ],
-                },
+                child: { type: 'dock' },
             },
             {
                 type: 'box',

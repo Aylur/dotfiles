@@ -1,4 +1,4 @@
-.dock {
+.floating-dock .dock {
     @include floating_widget;
 
     .separator {

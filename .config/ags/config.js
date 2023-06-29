@@ -13,5 +13,16 @@ var config = {
         'quicksettings': 500,
         'media': 500,
     },
-    windows: imports.layouts.two.two.windows,
+    windows: [
+        ...ags.Service.Hyprland.HyprctlGet('monitors').map(({ id }) => ([
+            imports.layouts.shared.indicator(id),
+        ])).flat(),
+        imports.layouts.shared.powermenu,
+        imports.layouts.shared.verification,
+        imports.layouts.shared.overview,
+        imports.layouts.shared.applauncher,
+
+        // layout
+        ...imports.layouts.three.windows,
+    ],
 };

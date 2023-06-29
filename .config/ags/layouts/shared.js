@@ -1,3 +1,49 @@
+//static
+var notifications = (monitor, transition, anchor) => ({
+    monitor,
+    name: `notifications${monitor}`,
+    anchor,
+    child: { type: 'notifications/popups', transition },
+});
+
+var desktop = (monitor, className) => ({
+    monitor,
+    name: `desktop${monitor}`,
+    anchor: ['top', 'bottom', 'left', 'right'],
+    child: { type: 'desktop', className },
+    layer: 'background',
+});
+
+var indicator = monitor => ({
+    monitor,
+    name: `indicator${monitor}`,
+    className: 'indicator',
+    anchor: ['right'],
+    child: { type: 'on-screen-indicator/vertical' },
+});
+
+var dock = monitor => ({
+    monitor,
+    name: `dock${monitor}`,
+    anchor: ['bottom'],
+    child: { type: 'floating-dock' },
+});
+
+// bar
+var separator = {
+    type: 'box',
+    className: 'separator',
+    valign: 'center',
+}
+
+var launcher = {
+    type: 'button',
+    className: 'launcher',
+    onClick: () => ags.App.toggleWindow('overview'),
+    child: '',
+}
+
+//popup
 var applauncher = {
     name: 'applauncher',
     popup: true,
@@ -11,18 +57,6 @@ var applauncher = {
             type: 'apps/popup-content',
             window: 'applauncher',
         },
-    },
-};
-
-var dashboard = {
-    name: 'dashboard',
-    popup: true,
-    anchor: ['top', 'right', 'bottom', 'left'],
-    child: {
-        type: 'layout',
-        layout: 'top',
-        window: 'dashboard',
-        child: { type: 'dashboard/popup-content' },
     },
 };
 
@@ -57,17 +91,5 @@ var verification = {
         layout: 'center',
         window: 'verification',
         child: { type: 'powermenu/verification' },
-    },
-};
-
-var quicksettings = {
-    name: 'quicksettings',
-    popup: true,
-    anchor: ['top', 'right', 'bottom', 'left'],
-    child: {
-        type: 'layout',
-        layout: 'topright',
-        window: 'quicksettings',
-        child: { type: 'quicksettings/popup-content' },
     },
 };
