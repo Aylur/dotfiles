@@ -4,14 +4,14 @@
 @import './widgets/notifications.scss';
 @import './widgets/media.scss';
 @import './widgets/datemenu.scss';
-@import './widgets/bar.scss';
+@import './widgets/dock.scss';
 @import './widgets/applauncher.scss';
 @import './widgets/quicksettings.scss';
 @import './widgets/powermenu.scss';
-@import './widgets/dock.scss';
 @import './widgets/overview.scss';
 @import './widgets/desktop.scss';
 @import './widgets/dashboard.scss';
+@import './widgets/bar.scss';
 
 tooltip {
     @include tooltip;

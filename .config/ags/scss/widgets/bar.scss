@@ -113,4 +113,15 @@ $float: 5px;
             color: $red;
         }
     }
+
+    // layout three
+    .dock {
+        @include dock;
+    }
+    .media > * {
+        @include panel-button($flat: true);
+        > * {
+            padding: 0 $spacing+$float;
+        }
+    }
 }

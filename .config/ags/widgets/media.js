@@ -190,7 +190,13 @@ const icon = player => ({ type: 'mpris/player-icon', player });
 
 const dirChild = (direction) => direction === 'left' ? 0 : 1;
 
-Widget.widgets['media/indicator'] = ({ player = prefer('spotify'), direction = 'left', ...props }) => Widget({
+Widget.widgets['media/indicator'] = ({
+    player = prefer('spotify'),
+    direction = 'left',
+    onClick = () => Mpris.getPlayer(player)?.playPause(),
+    onSecondaryClick = () => {},
+    ...props
+}) => Widget({
     ...props,
     type: 'mpris/box',
     player,
@@ -207,7 +213,8 @@ Widget.widgets['media/indicator'] = ({ player = prefer('spotify'), direction = '
             timeout(200, () => box._revealed = false);
             box.get_child().get_children()[direction === 'left' ? 0 : 1].reveal_child = false;
         },
-        onClick: () => Mpris.getPlayer(player)?.playPause(),
+        onClick,
+        onSecondaryClick,
         onScrollUp: () => Mpris.getPlayer(player)?.next(),
         onScrollDown: () => Mpris.getPlayer(player)?.previous(),
         connections: [[Mpris, box => {

@@ -50,8 +50,7 @@ Widget.widgets['client'] = () => Widget({
     ],
 });
 
-const ICON_SIZE = 42;
-const pins = list => ({
+const pins = (list, iconSize) => ({
     type: 'box',
     homogeneous: true,
     children: list
@@ -64,12 +63,12 @@ const pins = list => ({
                 child: {
                     type: 'icon',
                     icon: app.iconName,
-                    size: ICON_SIZE,
+                    size: iconSize,
                 },
             })),
 });
 
-Widget.widgets['dock'] = () => Widget({
+Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
     type: 'box',
     className: 'dock',
     children: [
@@ -80,10 +79,10 @@ Widget.widgets['dock'] = () => Widget({
             child: {
                 type: 'icon',
                 icon: 'view-app-grid-symbolic',
-                size: ICON_SIZE,
+                size: iconSize,
             }
         },
-        pins(['firefox', 'wezterm', 'nautilus', 'spotify']),
+        pins(['firefox', 'wezterm', 'nautilus', 'spotify'], iconSize),
         {
             type: 'box',
             valign: 'center',
@@ -101,7 +100,7 @@ Widget.widgets['dock'] = () => Widget({
                     children: [
                         {
                             type: 'icon',
-                            size: ICON_SIZE,
+                            size: iconSize,
                             icon: iconName
                         },
                         {

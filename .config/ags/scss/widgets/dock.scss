@@ -1,6 +1,6 @@
-.floating-dock .dock {
-    @include floating_widget;
+$float: 5px;
 
+@mixin dock {
     .separator {
         min-width: 2px;
         min-height: 2em;
@@ -11,7 +11,7 @@
 
     button {
         @include button($flat: true);
-        margin: 0 .2em;
+        border: $float solid $bg_color;
         &:last-child {
             margin-right: 0;
         }
@@ -19,7 +19,7 @@
             margin-left: 0;
         }
         image {
-            padding: .5em;
+            padding: .4em;
         }
         .indicator {
             min-width: 6px;
@@ -36,4 +36,9 @@
             }
         }
     }
+}
+
+.floating-dock .dock {
+    @include floating_widget;
+    @include dock;
 }

@@ -60,7 +60,7 @@ const center = {
     type: 'box',
     className: 'center',
     children: [
-        { type: 'dock' },
+        { type: 'dock', iconSize: 32 },
     ],
 };
 
@@ -70,7 +70,11 @@ const right = {
     hexpand: true,
     halign: 'end',
     children: [
-        { type: 'media/panel-button' },
+        {
+            type: 'media/indicator',
+            className: 'media',
+            onClick: () => ags.App.toggleWindow('media'),
+        },
         {
             type: 'mpris/box',
             player: imports.widgets.media.prefer('spotify'),
