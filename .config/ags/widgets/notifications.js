@@ -120,7 +120,7 @@ Widget.widgets['notifications/popup-label'] = ({ transition = 'slide_left', ...p
             type: 'label',
             connections: [[Notifications, label => {
                 const lbl = Array.from(Notifications.notifications.values()).pop()?.summary;
-                label.label = lbl ? lbl : label.label;
+                label.label = lbl || '';
             }]],
         },
     }],

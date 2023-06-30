@@ -194,7 +194,6 @@ Widget.widgets['media/indicator'] = ({
     player = prefer('spotify'),
     direction = 'left',
     onClick = () => Mpris.getPlayer(player)?.playPause(),
-    onSecondaryClick = () => {},
     ...props
 }) => Widget({
     ...props,
@@ -214,7 +213,7 @@ Widget.widgets['media/indicator'] = ({
             box.get_child().get_children()[direction === 'left' ? 0 : 1].reveal_child = false;
         },
         onClick,
-        onSecondaryClick,
+        onSecondaryClick: () => Mpris.getPlayer(player)?.playPause(),
         onScrollUp: () => Mpris.getPlayer(player)?.next(),
         onScrollDown: () => Mpris.getPlayer(player)?.previous(),
         connections: [[Mpris, box => {

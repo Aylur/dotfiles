@@ -23,6 +23,6 @@ var config = {
         imports.layouts.shared.applauncher,
 
         // layout
-        ...imports.layouts.three.windows,
+        ...imports.layouts.two.windows,
     ],
 };
