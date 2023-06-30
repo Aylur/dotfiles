@@ -15,6 +15,7 @@ window#dashboard .dashboard {
         }
         .notification-list {
             viewport > box {
+                @include widget;
                 padding: $spacing/2;
             }
             .notification > box {

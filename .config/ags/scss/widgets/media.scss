@@ -31,6 +31,7 @@
         background-size: cover;
         background-position: center;
         border-radius: $radii;
+        margin: $border_width;
         .shader{
             @include shader;
         }

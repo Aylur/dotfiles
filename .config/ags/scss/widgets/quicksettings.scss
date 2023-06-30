@@ -59,6 +59,7 @@ window#quicksettings .quicksettings {
             min-width: 50px;
             min-height: 50px;
             .shader {
+                @include widget;
                 @include shader($width: 18px);
             }
         }

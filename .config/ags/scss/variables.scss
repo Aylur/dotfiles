@@ -10,10 +10,7 @@ $widget_radius: $radii;
 $button_bg: transparentize($fg_color, 0.92);
 $button_radius: $radii;
 
-$panel_radius: $radii * 1;
-$panel_button_radius: $radii * 0.8;
-
-$border_color: rgba(255, 255, 255, 0.02);
+$border_color: rgba(255, 255, 255, 0.03);
 $border_width: 1px;
 $border: $border_width solid $border_color;
 
