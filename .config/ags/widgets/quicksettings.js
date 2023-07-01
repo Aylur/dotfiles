@@ -1,6 +1,6 @@
 const { Widget } = ags;
 const { Network, Bluetooth, Battery, Audio } = ags.Service;
-const { runCmd, execAsync, exec, applyCss, CONFIG_DIR } = ags.Utils;
+const { runCmd, execAsync, exec, CONFIG_DIR } = ags.Utils;
 
 const slider = ({ icon, slider, percent, arrowCmd }) => ({
     type: 'box',
@@ -74,7 +74,7 @@ Widget.widgets['quicksettings/popup-content'] = () => Widget({
                 {
                     type: 'label',
                     className: 'user',
-                    label: '@Aylur',
+                    label: imports.settings.atUser,
                     halign: 'start',
                     valign: 'center',
                     hexpand: true,
@@ -268,11 +268,11 @@ const panelButton = dnd => Widget({
     className: 'quicksettings',
     onClick: () => ags.App.toggleWindow('quicksettings'),
     onScrollUp: () => {
-        Audio.speaker.volume += 2;
+        Audio.speaker.volume += 0.02;
         Indicator.speaker();
     },
     onScrollDown: () => {
-        Audio.speaker.volume -= 2;
+        Audio.speaker.volume -= 0.02;
         Indicator.speaker();
     },
     child: {

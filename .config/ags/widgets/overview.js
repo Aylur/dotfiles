@@ -1,7 +1,7 @@
 const { Gdk, Gtk } = imports.gi;
 const { App, Widget } = ags;
 const { Hyprland } = ags.Service;
-const { HyprctlGet, Hyprctl } = Hyprland;
+const { execAsync } = ags.Utils;
 
 const SCALE = 0.08;
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
@@ -38,7 +38,7 @@ const client = ({ address, size: [w, h], class: c }) => {
 };
 
 const workspace = (ws, isActive) => {
-    let clients = HyprctlGet('clients').filter(({ workspace: { id } }) => id === ws)
+    let clients = Hyprland.HyprctlGet('clients').filter(({ workspace: { id } }) => id === ws)
 
     // this is for my monitor layout
     // shifts clients back by 1920px if necessary
@@ -57,11 +57,11 @@ const workspace = (ws, isActive) => {
         type: 'eventbox',
         hexpand: true,
         vexpand: true,
-        onClick: () => Hyprctl(`dispatch workspace ${ws}`),
+        onClick: () => execAsync(`hyprctl dispatch workspace ${ws}`),
     });
     eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
     eventbox.connect('drag-data-received', (_w, _c, _x, _y, data, _i, _t) => {
-        Hyprctl(`dispatch movetoworkspacesilent ${ws},address:${data.get_text()}`)
+        execAsync(`hyprctl dispatch movetoworkspacesilent ${ws},address:${data.get_text()}`)
     });
     eventbox.add(fixed);
 

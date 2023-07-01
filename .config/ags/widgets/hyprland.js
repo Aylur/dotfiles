@@ -1,6 +1,6 @@
 const { Widget } = ags;
 const { Hyprland, Applications } = ags.Service;
-const { timeout } = ags.Utils;
+const { timeout, execAsync } = ags.Utils;
 
 Widget.widgets['workspaces'] = () => Widget({
     type: 'eventbox',
@@ -113,7 +113,7 @@ Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
                 },
                 tooltip: title,
                 className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
-                onClick: () => Hyprland.Hyprctl(`dispatch focuswindow address:${address}`),
+                onClick: () => execAsync(`hyprctl dispatch focuswindow address:${address}`),
             }),
         },
     ],

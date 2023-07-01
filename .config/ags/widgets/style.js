@@ -1,5 +1,5 @@
-const { Service, Widget } = ags;
-const { exec, applyCss, CONFIG_DIR, timeout, execAsync } = ags.Utils;
+const { Service, Widget, App } = ags;
+const { exec, CONFIG_DIR, timeout, execAsync } = ags.Utils;
 
 const _setting = d => `gsettings ${d} org.gnome.desktop.interface color-scheme`;
 const set = style => exec(`${_setting('set')} "${style}"`);
@@ -13,13 +13,13 @@ class StyleService extends Service {
 
     light() {
         set('prefer-light');
-        applyCss(CONFIG_DIR+'/light.css');
+        App.applyCss(CONFIG_DIR+'/light.css');
         execAsync(['bash', '-c', `cp ${_wezterm}/charm-light.lua ${_wezterm}/theme.lua`]);
     }
 
     dark() {
         set('prefer-dark');
-        applyCss(CONFIG_DIR+'/dark.css');
+        App.applyCss(CONFIG_DIR+'/dark.css');
         execAsync(['bash', '-c', `cp ${_wezterm}/charm.lua ${_wezterm}/theme.lua`]);
     }
 

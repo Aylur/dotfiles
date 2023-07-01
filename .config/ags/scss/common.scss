@@ -91,8 +91,16 @@
             }
         }
     }
-    &:hover trough{
+    &:hover trough {
         background-color: $hover;
+    }
+    &:disabled {
+        highlight, progress{
+            background: transparentize($color, 0.5);
+        }
+        slider {
+            background-color: transparentize($fg_color, 0.5);
+        }
     }
     @if $focusable {
         trough:focus{

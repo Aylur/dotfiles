@@ -24,10 +24,10 @@ class BrightnessService extends Service {
         if (percent < 0)
             percent = 0;
 
-        if (percent > 100)
-            percent = 100;
+        if (percent > 1)
+            percent = 1;
 
-        execAsync(`brightnessctl s ${percent}% -q`, () => {
+        execAsync(`brightnessctl s ${percent*100}% -q`, () => {
             this._screen = percent;
             this.emit('changed');
         }, console.log);
@@ -37,7 +37,7 @@ class BrightnessService extends Service {
         super();
         this._kbd = Number(exec('brightnessctl -d asus::kbd_backlight g'));
         this._kbdMax = Number(exec('brightnessctl -d asus::kbd_backlight m'))
-        this._screen = Number(exec('brightnessctl g')) / Number(exec('brightnessctl m')) * 100;
+        this._screen = Number(exec('brightnessctl g')) / Number(exec('brightnessctl m'));
     }
 }
 
@@ -89,8 +89,7 @@ Widget.widgets['brightness/icon'] = props => Widget({
 Widget.widgets['brightness/percent'] = props => Widget({
     ...props,
     type: 'label',
-    label: '0',
     connections: [
-        [Brightness, label => label.label = `${Math.floor(Brightness.screen)}`],
+        [Brightness, label => label.label = `${Math.floor(Brightness.screen*100)}`],
     ]
 })

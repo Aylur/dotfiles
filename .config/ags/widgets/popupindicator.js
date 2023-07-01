@@ -1,11 +1,11 @@
 const { GObject } = imports.gi;
 const { Service, Widget } = ags;
-const { exec, applyCss, CONFIG_DIR, timeout, lookUpIcon } = ags.Utils;
+const { exec, CONFIG_DIR, timeout, lookUpIcon } = ags.Utils;
 
 class IndicatorService extends Service {
     static {
         Service.register(this, {
-            'popup': [GObject.TYPE_INT, GObject.TYPE_STRING],
+            'popup': [GObject.TYPE_DOUBLE, GObject.TYPE_STRING],
         });
     }
 
@@ -41,7 +41,6 @@ var Indicator = class Indicator {
 
     static speaker() {
         const value = ags.Service.Audio.speaker.volume;
-        print(value);
         const icon = value => {
             const icons = [];
             icons[0] = 'audio-volume-muted-symbolic';
@@ -50,7 +49,7 @@ var Indicator = class Indicator {
             icons[67] = 'audio-volume-high-symbolic';
             icons[101] = 'audio-volume-overamplified-symbolic';
             for (const i of [101, 67, 34, 1, 0]) {
-                if (i <= value)
+                if (i <= value*100)
                     return icons[i];
             }
         }
@@ -63,7 +62,7 @@ var Indicator = class Indicator {
             const value = imports.widgets.brightness.Brightness.screen;
             const icon = value => {
                 const icons = ['󰛩', '󱩎', '󱩏', '󱩐', '󱩑', '󱩒', '󱩓', '󱩔', '󱩕', '󱩖', '󰛨'];
-                return icons[Math.ceil(value/10)];
+                return icons[Math.ceil(value*10)];
             }
             Indicator.popup(value, icon(value));
         });
@@ -73,7 +72,7 @@ var Indicator = class Indicator {
         // brightness is async, so lets wait a bit
         timeout(10, () => {
             const value = imports.widgets.brightness.Brightness.kbd;
-            Indicator.popup(value*33+1, 'keyboard-brightness-symbolic');
+            Indicator.popup((value*33+1)/100, 'keyboard-brightness-symbolic');
         });
     }
 }
@@ -103,11 +102,10 @@ Widget.widgets['on-screen-indicator/vertical'] = ({ iconSize = 48, height = 300,
                 valign: 'end',
                 hexpand: true,
                 connections: [[Indicator, (box, value) => {
-                    print(value);
                     if (value < 0)
                         return;
 
-                    const preferred = (height-iconSize) * (value/100) + iconSize;
+                    const preferred = (height-iconSize) * (value) + iconSize;
                     if (!box._height) {
                         box._height = preferred;
                         box.setStyle(`min-height: ${box._height}px;`);

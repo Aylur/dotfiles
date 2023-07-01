@@ -19,7 +19,7 @@ const slash = player => ({
     connections: [
         [Mpris, label => {
             const mpris = Mpris.getPlayer(player);
-            label.visible = mpris && mpris.state.length > 0
+            label.visible = mpris && mpris.length > 0
         }],
     ],
 });
@@ -221,10 +221,10 @@ Widget.widgets['media/indicator'] = ({
             if (!mpris)
                 return;
 
-            if (box._current === mpris.state.trackTitle)
+            if (box._current === mpris.trackTitle)
                 return;
 
-            box._current = mpris.state.trackTitle;
+            box._current = mpris.trackTitle;
             box.get_child().get_children()[direction === 'left' ? 0 : 1].reveal_child = true;
             timeout(5000, () => {
                 box.get_child().get_children()[direction === 'left' ? 0 : 1].reveal_child = false;

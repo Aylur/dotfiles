@@ -64,6 +64,7 @@ var overview = {
     name: 'overview',
     anchor: ['top', 'bottom', 'left', 'right'],
     popup: true,
+    focusable: true,
     child: {
         type: 'layout',
         layout: 'center',
@@ -75,6 +76,7 @@ var overview = {
 var powermenu = {
     name: 'powermenu',
     popup: true,
+    focusable: true,
     child: {
         type: 'layout',
         layout: 'center',

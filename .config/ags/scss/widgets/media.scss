@@ -21,17 +21,20 @@
 @mixin media() {
     border-radius: $radii;
     padding: 0;
-    label {
-        text-shadow: $text_shadow;
-    }
-    image {
-        -gtk-icon-shadow: $icon_shadow;
-    }
     .cover-art{
+        $fg_color: white;
         background-size: cover;
         background-position: center;
         border-radius: $radii;
         margin: $border_width;
+        label {
+            text-shadow: $text_shadow;
+            color: $fg_color;
+        }
+        image {
+            -gtk-icon-shadow: $icon_shadow;
+            color: $fg_color;
+        }
         .shader{
             @include shader;
         }
