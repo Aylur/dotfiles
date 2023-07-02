@@ -3,12 +3,15 @@
     border-radius: $radii;
     padding: $spacing;
     margin: 0 $spacing/2;
+
     &.on {
         @include button_active;
     }
+
     &:first-child {
         margin-left: 0;
     }
+
     &:last-child {
         margin-right: 0;
     }
@@ -17,11 +20,14 @@
 @mixin sliders() {
     scale {
         margin: 0 $spacing;
+
         @include slider($width: .8em);
     }
+
     .percent {
         min-width: 2.8em;
     }
+
     button {
         @include button($flat: true);
         border-radius: $radii*0.8;
@@ -33,15 +39,19 @@
     scale {
         @include slider($width: .5em);
     }
+
     > box {
         margin-bottom: $spacing;
         &:last-child { margin-bottom: 0; }
+
         image {
             margin-right: $spacing;
         }
+
         label {
             margin-left: .1em;
         }
+
         label:last-child {
             min-width: 3em;
         }
@@ -51,44 +61,53 @@
 window#quicksettings .quicksettings {
     @include floating_widget;
     min-width: 350px;
+
     .header {
         margin-bottom: $spacing;
+
         .avatar {
             @include widget;
             border: none;
             min-width: 50px;
             min-height: 50px;
+
             .shader {
                 @include widget;
                 @include shader($width: 18px);
             }
         }
+
         .user {
             color: transparentize($fg_color, 0.2);
             margin-left: $spacing/2;
         }
+
         button {
             @include button;
             padding: $spacing;
             margin-left: $spacing;
         }
     }
+
     .sliders {
         @include widget;
         @include sliders;
         padding: $popover_padding;
         margin-bottom: $spacing;
+
         > box {
             margin-bottom: $spacing;
             &:last-child { margin-bottom: 0 }
         }
     }
+
     .mixer {
         @include mixer;
         @include widget;
         padding: $popover_padding;
         margin-bottom: $spacing;
     }
+
     .toggles {
         button {
             @include smalltoggle;
@@ -101,9 +120,11 @@ window#quicksettings .notification-center {
 
     .notifications {
         @include notifications;
+
         .notification-list {
             min-width: 400px;
             padding-top: $popover_padding;
+
             .notification > box {
                 @include widget;
                 margin-bottom: $spacing;
@@ -114,12 +135,15 @@ window#quicksettings .notification-center {
     .settings {
         @include widget;
         padding: $popover_padding;
+
         .slider-box {
             @include sliders;
             margin-bottom: $spacing;
         }
+
         .toggles {
             margin-top: $spacing;
+
             button {
                 @include smalltoggle;
             }

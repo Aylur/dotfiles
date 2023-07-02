@@ -19,7 +19,7 @@ const slash = player => ({
     connections: [
         [Mpris, label => {
             const mpris = Mpris.getPlayer(player);
-            label.visible = mpris && mpris.length > 0
+            label.visible = mpris && mpris.length > 0;
         }],
     ],
 });
@@ -33,13 +33,13 @@ const mediabox = (player, className) => ({
             className: 'cover-art',
             hexpand: true,
             vexpand: true,
-            children : [{
+            children: [{
                 type: 'box',
                 className: 'shader',
                 orientation: 'vertical',
                 hexpand: true,
                 children: [
-                    { 
+                    {
                         className: 'header-box',
                         type: 'box',
                         orientation: 'vertical',
@@ -54,7 +54,7 @@ const mediabox = (player, className) => ({
                                         xalign: 0, justify: 'left', wrap: true,
                                         hexpand: true,
                                     },
-                                    { 
+                                    {
                                         type: 'mpris/player-icon', player,
                                         className: 'player',
                                         halign: 'end',
@@ -71,37 +71,22 @@ const mediabox = (player, className) => ({
                         ],
                     },
                     { type: 'mpris/position-slider', className: 'position-slider', player },
-                    { 
+                    {
                         className: 'footerbox',
                         type: 'box',
                         children: [
-                            { 
+                            {
                                 className: 'controls',
                                 type: 'box',
                                 children: [
-                                    { type: 'mpris/shuffle-button', player,
-                                        enabled: { type: 'icon', className: 'shuffle enabled', icon: 'media-playlist-shuffle-symbolic' },
-                                        disabled: { type: 'icon', className: 'shuffle disabled', icon: 'media-playlist-shuffle-symbolic' },
-                                    },
-                                    { type: 'mpris/previous-button', player,
-                                        child: { type: 'icon', className: 'previous', icon: 'media-skip-backward-symbolic' }
-                                    },
-                                    { type: 'mpris/play-pause-button', player,
-                                        playing: { type: 'icon', className: 'playing', icon: 'media-playback-pause-symbolic' },
-                                        paused: { type: 'icon', className: 'paused', icon: 'media-playback-start-symbolic' },
-                                        stopped: { type: 'icon', className: 'stopped', icon: 'media-playback-start-symbolic' },
-                                    },
-                                    { type: 'mpris/next-button', player,
-                                        child: { type: 'icon', className: 'previous', icon: 'media-skip-forward-symbolic' }
-                                    },
-                                    { type: 'mpris/loop-button', player,
-                                        none: { type: 'icon', className: 'loop none', icon: 'media-playlist-repeat-symbolic' },
-                                        track: { type: 'icon', className: 'loop track', icon: 'media-playlist-repeat-song-symbolic' },
-                                        playlist: { type: 'icon', className: 'loop playlist', icon: 'media-playlist-repeat-symbolic' },
-                                    }
+                                    { type: 'mpris/shuffle-button', player },
+                                    { type: 'mpris/previous-button', player },
+                                    { type: 'mpris/play-pause-button', player },
+                                    { type: 'mpris/next-button', player },
+                                    { type: 'mpris/loop-button', player },
                                 ],
                             },
-                            { 
+                            {
                                 type: 'box',
                                 className: 'length',
                                 hexpand: true,
@@ -110,12 +95,12 @@ const mediabox = (player, className) => ({
                                     { type: 'mpris/position-label', player },
                                     slash(player),
                                     { type: 'mpris/length-label', player },
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }]
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            }],
         },
         { className: 'volume-box',
             type: 'box',
@@ -126,18 +111,19 @@ const mediabox = (player, className) => ({
                     type: 'mpris/volume-slider', player,
                     orientation: 'vertical',
                     inverted: true,
-                    vexpand: true
+                    vexpand: true,
                 },
                 { className: 'icon',
                     type: 'mpris/volume-icon', player, halign: 'center', items: [
-                    { value: 67, widget: { type: 'icon', icon: 'audio-volume-high-symbolic', size: 18 } },
-                    { value: 34, widget: { type: 'icon', icon: 'audio-volume-medium-symbolic', size: 18 } },
-                    { value: 1, widget: { type: 'icon', icon: 'audio-volume-low-symbolic', size: 18 } },
-                    { value: 0, widget: { type: 'icon', icon: 'audio-volume-muted-symbolic', size: 18 } },
-                ]},
-            ]
-        }
-    ]
+                        { value: 67, widget: { type: 'icon', icon: 'audio-volume-high-symbolic', size: 18 } },
+                        { value: 34, widget: { type: 'icon', icon: 'audio-volume-medium-symbolic', size: 18 } },
+                        { value: 1, widget: { type: 'icon', icon: 'audio-volume-low-symbolic', size: 18 } },
+                        { value: 0, widget: { type: 'icon', icon: 'audio-volume-muted-symbolic', size: 18 } },
+                    ],
+                },
+            ],
+        },
+    ],
 });
 
 Widget.widgets['media/panel-button'] = ({ player = prefer('spotify') }) => Widget({
@@ -173,6 +159,7 @@ Widget.widgets['media/popup-content'] = props => Widget({
     ],
 });
 
+const icon = player => ({ type: 'mpris/player-icon', player });
 const reaveler = player => ({
     type: 'revealer',
     transition: 'slide_left',
@@ -186,9 +173,6 @@ const reaveler = player => ({
     },
 });
 
-const icon = player => ({ type: 'mpris/player-icon', player });
-
-const dirChild = (direction) => direction === 'left' ? 0 : 1;
 
 Widget.widgets['media/indicator'] = ({
     player = prefer('spotify'),
@@ -234,7 +218,7 @@ Widget.widgets['media/indicator'] = ({
             type: 'box',
             children: direction === 'left'
                 ? [reaveler(player), icon(player)]
-                : [icon(player), reaveler(player)]
+                : [icon(player), reaveler(player)],
         },
     }],
 });

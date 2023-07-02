@@ -1,10 +1,9 @@
-const { App, Widget } = ags;
-const { Hyprland } = ags.Service;
+const { Widget } = ags;
 
-Widget.widgets['apps/popup-content'] = ({ window = [] }) => Widget({
-    type: 'app-launcher',
+Widget.widgets['applauncher/popup-content'] = ({ windowName = 'applauncher' }) => Widget({
+    type: 'applauncher',
     className: 'applauncher',
-    window,
+    windowName,
     layout: ({ entry, listbox }) => ({
         type: 'box',
         orientation: 'vertical',

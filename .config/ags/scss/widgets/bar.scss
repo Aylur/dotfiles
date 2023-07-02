@@ -1,10 +1,12 @@
-@mixin panel-button($flat: false, $reactive: true) {
+@mixin panel_button($flat: false, $reactive: true) {
     @include button($flat: $flat, $reactive: $reactive);
     padding: $spacing/2 $spacing;
+
     @if not $reactive {
         padding: 0 $spacing/2;
     }
     font-weight: bold;
+
     &, &:hover, &:active, &:focus {
         border: 5px solid $bg_color;
     }
@@ -22,19 +24,21 @@
     .dashboard,
     .mpris button,
     .datemenu {
-        @include panel-button($flat: true);
+        @include panel_button($flat: true);
     }
+
     .quicksettings > box {
         padding: 0 $spacing*1.4;
     } 
 
     .media-indicator, .notifications-indicator {
         .indicator {
-            @include panel-button($flat: true, $reactive: false);
+            @include panel_button($flat: true, $reactive: false);
         }
     }
+
     .workspaces {
-        @include panel-button;
+        @include panel_button;
     }
 
     .separator {
@@ -48,6 +52,7 @@
     .workspaces button {
         @include button($flat: true, $reactive: false);
         transition: $transition;
+
         label {
             font-size: 1.1em;
             margin: 0 $spacing/4;
@@ -61,7 +66,8 @@
     }
 
     .client {
-        @include panel-button($flat: true, $reactive: false);
+        @include panel_button($flat: true, $reactive: false);
+
         image {
             margin-right: $spacing/2;
         }
@@ -70,21 +76,26 @@
     .quicksettings {
         .indicator {
             margin-right: $spacing;
+
             &:last-child {
                 margin-right: 0;
             }
         }
+
         .notifications.notified {
             color: $yellow;
         }
+
         .battery {
             .charged, .charging {
                 color: $green;
             }
+
             .low {
                 color: $red;
             }
         }
+
         .bluetooth {
             .device {
                 margin-right: $spacing/2;
@@ -94,20 +105,18 @@
 
     .launcher {
         color: transparentize($accent, 0.2);
+
         &:hover {
             color: transparentize($accent, 0.1);
-        }
-        &:hover {
             color: $accent;
         }
     }
 
     .powermenu {
         color: transparentize($red, 0.2);
+
         &:hover {
             color: transparentize($red, 0.1);
-        }
-        &:hover {
             color: $red;
         }
     }
@@ -116,8 +125,10 @@
     .dock {
         @include dock;
     }
+
     .media > * {
-        @include panel-button($flat: true);
+        @include panel_button($flat: true);
+
         > * {
             padding: 0 $spacing;
         }

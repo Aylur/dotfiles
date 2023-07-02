@@ -1,6 +1,6 @@
 const { GObject } = imports.gi;
 const { Service, Widget } = ags;
-const { exec, CONFIG_DIR, timeout, lookUpIcon } = ags.Utils;
+const { timeout, lookUpIcon } = ags.Utils;
 
 class IndicatorService extends Service {
     static {
@@ -52,7 +52,7 @@ var Indicator = class Indicator {
                 if (i <= value*100)
                     return icons[i];
             }
-        }
+        };
         Indicator.popup(value, icon(value));
     }
 
@@ -63,7 +63,7 @@ var Indicator = class Indicator {
             const icon = value => {
                 const icons = ['󰛩', '󱩎', '󱩏', '󱩐', '󱩑', '󱩒', '󱩓', '󱩔', '󱩕', '󱩖', '󰛨'];
                 return icons[Math.ceil(value*10)];
-            }
+            };
             Indicator.popup(value, icon(value));
         });
     }
@@ -75,7 +75,7 @@ var Indicator = class Indicator {
             Indicator.popup((value*33+1)/100, 'keyboard-brightness-symbolic');
         });
     }
-}
+};
 
 Widget.widgets['on-screen-indicator/vertical'] = ({ iconSize = 48, height = 300, ...props }) => Widget({
     ...props,
@@ -149,7 +149,7 @@ Widget.widgets['on-screen-indicator/vertical'] = ({ iconSize = 48, height = 300,
                     connections: [[Indicator, (dynamic, _v, name) => {
                         dynamic.update(value => value === !!lookUpIcon(name));
                     }]],
-                }]
+                }],
             }],
         },
     }],

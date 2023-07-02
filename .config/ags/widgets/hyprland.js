@@ -10,7 +10,7 @@ Widget.widgets['workspaces'] = () => Widget({
         fixed: 7,
         active: { type: 'label', label: '' },
         occupied: { type: 'label', label: '' },
-        empty: { type: 'label', label: '', },
+        empty: { type: 'label', label: '' },
     },
 });
 
@@ -19,7 +19,7 @@ Widget.widgets['client'] = () => Widget({
     className: 'client',
     children: [
         {
-            type: 'hyprland/window-icon',
+            type: 'hyprland/client-icon',
             size: 18,
             symbolic: true,
             substitutes: [
@@ -31,7 +31,7 @@ Widget.widgets['client'] = () => Widget({
             ],
         },
         {
-            type: 'hyprland/window-label',
+            type: 'hyprland/client-label',
             show: 'class',
             substitutes: [
                 { from: 'com.transmissionbt.Transmission._40_219944', to: 'Transmission' },
@@ -57,15 +57,15 @@ const pins = (list, iconSize) => ({
         .map(term => Applications.query(term)?.[0])
         .filter(app => app !== undefined)
         .map(app => ({
-                type: 'button',
-                tooltip: app.name,
-                onClick: app.launch,
-                child: {
-                    type: 'icon',
-                    icon: app.iconName,
-                    size: iconSize,
-                },
-            })),
+            type: 'button',
+            tooltip: app.name,
+            onClick: app.launch,
+            child: {
+                type: 'icon',
+                icon: app.iconName,
+                size: iconSize,
+            },
+        })),
 });
 
 Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
@@ -80,7 +80,7 @@ Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
                 type: 'icon',
                 icon: 'view-app-grid-symbolic',
                 size: iconSize,
-            }
+            },
         },
         pins(['firefox', 'wezterm', 'nautilus', 'spotify'], iconSize),
         {
@@ -89,7 +89,7 @@ Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
             className: 'separator',
             connections: [[Hyprland, box => {
                 box.visible = Hyprland.clients.size > 0;
-            }]]
+            }]],
         },
         {
             type: 'hyprland/taskbar',
@@ -101,15 +101,15 @@ Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
                         {
                             type: 'icon',
                             size: iconSize,
-                            icon: iconName
+                            icon: iconName,
                         },
                         {
                             type: 'box',
                             className: 'indicator',
                             valign: 'end',
                             halign: 'center',
-                        }
-                    ]
+                        },
+                    ],
                 },
                 tooltip: title,
                 className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',

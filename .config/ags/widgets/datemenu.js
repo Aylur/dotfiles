@@ -4,7 +4,7 @@ const { Widget, App } = ags;
 const uptimeLabel = () => {
     const label = Widget({ type: 'label' });
     interval(label, 1000, () => {
-        execAsync(['bash', '-c', `uptime | awk '{print $3}' | tr ',' ' '`], time => {
+        execAsync(['bash', '-c', "uptime | awk '{print $3}' | tr ',' ' '"], time => {
             label.label = time.trim();
         });
     });
@@ -41,8 +41,8 @@ Widget.widgets['datemenu/popup-content'] = props => Widget({
                     hexpand: true,
                     children: [{ type: imports.gi.Gtk.Calendar.new }],
                 },
-            ]
-        }
+            ],
+        },
     ],
 });
 

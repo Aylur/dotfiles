@@ -1,3 +1,6 @@
+/* exported notifications, desktop, indicator, dock, separator, launcher
+            applauncher, overview, powermenu, verification*/
+
 //static
 var notifications = (monitor, transition, anchor) => ({
     monitor,
@@ -34,14 +37,14 @@ var separator = {
     type: 'box',
     className: 'separator',
     valign: 'center',
-}
+};
 
 var launcher = {
     type: 'button',
     className: 'launcher',
     onClick: () => ags.App.toggleWindow('overview'),
     child: '',
-}
+};
 
 //popup
 var applauncher = {
@@ -54,8 +57,8 @@ var applauncher = {
         layout: 'center',
         window: 'applauncher',
         child: {
-            type: 'apps/popup-content',
-            window: 'applauncher',
+            type: 'applauncher/popup-content',
+            windowName: 'applauncher',
         },
     },
 };
@@ -83,7 +86,7 @@ var powermenu = {
         window: 'powermenu',
         child: { type: 'powermenu/popup-content' },
     },
-}
+};
 
 var verification = {
     name: 'verification',

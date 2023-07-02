@@ -1,4 +1,4 @@
-const { App, Window, Widget } = ags;
+const { App, Widget } = ags;
 const { exec } = ags.Utils;
 
 const USER = imports.gi.GLib.get_user_name();
@@ -30,7 +30,7 @@ var sysAction = function sysAction(action) {
     verificationDesc.label = desc;
     App.getWindow('powermenu').hide();
     App.toggleWindow('verification');
-}
+};
 
 const button = (icon, action) => ({
     type: 'button',

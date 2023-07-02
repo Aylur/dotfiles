@@ -12,15 +12,19 @@ $float: 5px;
     button {
         @include button($flat: true);
         border: $float solid $bg_color;
+
         &:last-child {
             margin-right: 0;
         }
+
         &:first-child {
             margin-left: 0;
         }
+
         image {
             padding: .4em;
         }
+
         .indicator {
             min-width: 6px;
             min-height: 6px;
@@ -28,8 +32,10 @@ $float: 5px;
             border-radius: $radii;
             margin-bottom: 2px;
         }
+
         &.focused {
             @include button_hover;
+
             .indicator {
                 min-width: 18px;
                 background-color: $accent;

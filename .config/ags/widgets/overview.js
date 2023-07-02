@@ -9,14 +9,15 @@ const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 const substitute = str => {
     const subs = [
         { from: 'com.transmissionbt.Transmission._40_219944', to: 'com.transmissionbt.Transmission' },
-        { from: 'Caprine', to: 'facebook-messenger' }
+        { from: 'Caprine', to: 'facebook-messenger' },
     ];
-    for (const { from, to } of subs)
+    for (const { from, to } of subs) {
         if (from === str)
             return to;
+    }
 
     return str;
-} 
+};
 
 const client = ({ address, size: [w, h], class: c }) => {
     const icon = substitute(c);
@@ -33,12 +34,12 @@ const client = ({ address, size: [w, h], class: c }) => {
 
     box.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
     box.drag_source_set_icon_name(icon);
-    box.connect('drag-data-get', (_w, _c, data, _i, _t) => data.set_text(address, address.length));
+    box.connect('drag-data-get', (_w, _c, data) => data.set_text(address, address.length));
     return box;
 };
 
 const workspace = (ws, isActive) => {
-    let clients = Hyprland.HyprctlGet('clients').filter(({ workspace: { id } }) => id === ws)
+    let clients = Hyprland.HyprctlGet('clients').filter(({ workspace: { id } }) => id === ws);
 
     // this is for my monitor layout
     // shifts clients back by 1920px if necessary
@@ -60,8 +61,8 @@ const workspace = (ws, isActive) => {
         onClick: () => execAsync(`hyprctl dispatch workspace ${ws}`),
     });
     eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
-    eventbox.connect('drag-data-received', (_w, _c, _x, _y, data, _i, _t) => {
-        execAsync(`hyprctl dispatch movetoworkspacesilent ${ws},address:${data.get_text()}`)
+    eventbox.connect('drag-data-received', (_w, _c, _x, _y, data) => {
+        execAsync(`hyprctl dispatch movetoworkspacesilent ${ws},address:${data.get_text()}`);
     });
     eventbox.add(fixed);
 
@@ -75,7 +76,7 @@ const workspace = (ws, isActive) => {
         `,
         children: [eventbox],
     });
-}
+};
 
 Widget.widgets['overview'] = () => {
     const update = () => {
@@ -104,4 +105,4 @@ Widget.widgets['overview'] = () => {
         update();
     });
     return box;
-}
+};

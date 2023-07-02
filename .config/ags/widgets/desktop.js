@@ -15,7 +15,7 @@ Widget.widgets['wallpaper'] = () => Widget({
                 background-image: url("${w}");
                 background-size: cover;
             `,
-        }
+        },
     })),
     connections: [[Hyprland, d => {
         const ws = Hyprland.active.workspace.id;
@@ -65,7 +65,7 @@ const corner = (place, radius) => {
             cr.closePath();
             cr.setSourceRGBA(c.red, c.green, c.blue, c.alpha);
             cr.fill();
-        }]]
+        }]],
     });
     widget.set_size_request(radius, radius);
     return widget;
@@ -88,7 +88,7 @@ Widget.widgets['desktop'] = ({ radius = 18, className }) => Widget({
                 children: [
                     { type: 'clock', className: 'clock', format: '%H:%M' },
                     { type: 'clock', className: 'date', format: '%B %e. %A' },
-                ]
+                ],
             },
             {
                 type: 'box',
@@ -100,7 +100,7 @@ Widget.widgets['desktop'] = ({ radius = 18, className }) => Widget({
                         children: [
                             corner('topleft', radius),
                             corner('bottomleft', radius),
-                        ]
+                        ],
                     },
                     {
                         type: 'box',
@@ -109,10 +109,10 @@ Widget.widgets['desktop'] = ({ radius = 18, className }) => Widget({
                         children: [
                             corner('topright', radius),
                             corner('bottomright', radius),
-                        ]
-                    }
+                        ],
+                    },
                 ],
-            }
+            },
         ],
     }],
 });

@@ -1,6 +1,6 @@
 const { Widget } = ags;
-const { Network, Bluetooth, Battery, Audio } = ags.Service;
-const { runCmd, execAsync, exec, CONFIG_DIR } = ags.Utils;
+const { Bluetooth, Battery, Audio } = ags.Service;
+const { runCmd, execAsync } = ags.Utils;
 
 const slider = ({ icon, slider, percent, arrowCmd }) => ({
     type: 'box',
@@ -45,7 +45,7 @@ const sysBtn = (icon, action, className = '') => ({
     child: {
         type: 'icon',
         icon,
-    }
+    },
 });
 
 Widget.widgets['quicksettings/popup-content'] = () => Widget({
@@ -92,7 +92,7 @@ Widget.widgets['quicksettings/popup-content'] = () => Widget({
                             child: {
                                 type: 'icon',
                                 icon: 'org.gnome.Settings-symbolic',
-                            }
+                            },
                         },
                         sysBtn('system-log-out-symbolic', 'Log Out'),
                         sysBtn('system-shutdown-symbolic', 'Shutdown', 'shutdown'),
@@ -155,7 +155,7 @@ Widget.widgets['quicksettings/notification-center'] = () => Widget({
             className: 'mixer',
             connections: [[Audio, mixer => {
                 mixer.visible = Audio.apps.size > 0;
-            }]]
+            }]],
         },
         {
             type: 'box',
@@ -203,7 +203,7 @@ const battery = {
         box.toggleClassName(Battery.charged, 'charged');
         box.toggleClassName(Battery.percent < 30, 'low');
         box.get_children()[0].visible = Battery.percent < 100;
-    }]]
+    }]],
 };
 
 const network = {
@@ -244,7 +244,7 @@ const bluetooth = {
                         type: 'label',
                         connections: [[Bluetooth, label => {
                             label.label = Bluetooth.connectedDevices[0]?.alias || 'Not Connected';
-                        }]]
+                        }]],
                     },
                 },
                 {
@@ -253,14 +253,14 @@ const bluetooth = {
                     connections: [[Bluetooth, icon => {
                         icon.icon_name = Bluetooth.connectedDevices[0]?.iconName+'-symbolic';
                         icon.visible = Bluetooth.connectedDevices.length > 0;
-                    }]]
+                    }]],
                 },
                 { type: 'bluetooth/indicator' },
             ],
         },
     }],
     connections: [[Bluetooth, box => box.visible = Bluetooth.enabled]],
-}
+};
 
 const { Indicator } = imports.widgets.popupindicator;
 const panelButton = dnd => Widget({
@@ -278,7 +278,7 @@ const panelButton = dnd => Widget({
     child: {
         type: 'box',
         children: [
-            dnd ? { className: 'indicator notifications', type: 'notifications/indicator' } : null, 
+            dnd ? { className: 'indicator notifications', type: 'notifications/indicator' } : null,
             { className: 'indicator', type: 'audio/microphone-mute-indicator', unmuted: null },
             bluetooth,
             network,

@@ -1,3 +1,5 @@
+/* exported avatar, wallpapers, openSettings, atUser */
+
 const USER = imports.gi.GLib.get_user_name();
 const HOME = '/home/'+USER;
 

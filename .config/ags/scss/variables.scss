@@ -1,8 +1,9 @@
 $wm_gaps: 14px;
-$destructive: $red;
-$succes: $green;
 $radii: 12px;
 $spacing: 8px;
+
+$destructive: $red;
+$succes: $green;
 
 $widget_bg: transparentize($fg_color, 0.94);
 $widget_radius: $radii;
@@ -10,15 +11,16 @@ $widget_radius: $radii;
 $button_bg: transparentize($fg_color, 0.92);
 $button_radius: $radii;
 
-$border_color: rgba(255, 255, 255, 0.03);
+$border_color: rgba(255,255,255,.03);
 $border_width: 1px;
 $border: $border_width solid $border_color;
 
-$text_shadow: 2px 2px 2px rgba(0,0,0,0.7);
-$icon_shadow: 2px 2px rgba(0,0,0,0.6);
+$box_shadow: rgba(0,0,0,.5);
+$text_shadow: 2px 2px 2px rgba(0,0,0,.7);
+$icon_shadow: 2px 2px rgba(0,0,0,.6);
 
 $popover_radius: $radii * 1.7;
-$popover_border_color: rgba(255,255,255,0.02);
+$popover_border_color: rgba(255,255,255,.02);
 $popover_padding: 14px;
 
 $transition: 250ms;
@@ -26,8 +28,9 @@ $transition: 250ms;
 * {
     all: unset;
     font-size: 16px;
-    font-family: 'Ubuntu Nerd Font';
+    font-family: 'Ubuntu Nerd Font', sans-serif;
     padding: 0;
     margin: 0;
 }
-$mono_font: 'Mononoki Nerd Font';
+
+$mono_font: 'Mononoki Nerd Font', monospace;

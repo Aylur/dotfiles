@@ -1,12 +1,16 @@
+/* exported config */
+
 const { CONFIG_DIR, exec } = ags.Utils;
 
 exec(`sassc ${CONFIG_DIR}/scss/dark.scss ${CONFIG_DIR}/dark.css`);
 exec(`sassc ${CONFIG_DIR}/scss/light.scss ${CONFIG_DIR}/light.css`);
 
+Object.keys(imports.modules).forEach(m => imports.modules[m]);
 Object.keys(imports.widgets).forEach(m => imports.widgets[m]);
 
 var config = {
     baseIconSize: 18,
+    stackTraceOnError: true,
     closeWindowDelay: {
         'datemenu': 500,
         'dashboard': 500,

@@ -1,17 +1,21 @@
-@mixin player-color($color) {
+@mixin player_color($color) {
     .volume-box .slider {
         @include slider($width: .6em, $slider: false, $color: $color);
     }
+
     .player {
         color: $color;
     }
+
     .controls button {
         image.shuffle.enabled {
             color: $color;
         }
+
         image.loop.playlist {
             color: $color;
         }
+
         &:active image {
             color: $color;
         }
@@ -21,94 +25,116 @@
 @mixin media() {
     border-radius: $radii;
     padding: 0;
+
     .cover-art{
         $fg_color: white;
         background-size: cover;
         background-position: center;
         border-radius: $radii;
         margin: $border_width;
+
         label {
             text-shadow: $text_shadow;
             color: $fg_color;
         }
+
         image {
             -gtk-icon-shadow: $icon_shadow;
             color: $fg_color;
         }
+
         .shader{
             @include shader;
         }
+
         .header-box {
             padding: $spacing;
+
             label {
                 &.title {
                     font-size: 1.1em;
                 }
+
                 &.artist {
                     color: transparentize($fg_color, 0.2);
                 }
             }
         }
+
         .position-slider{
             @include slider($width: .3em, $slider: false, $color: transparentize($fg_color, 0.3));
+
             contents{
                 trough{
                     border-radius: 0;
                     border: 0;
+
                     highlight{
                         border-radius: 0;
                     }
                 }
             }
         }
+
         .footerbox {
             padding: $spacing;
+
             .player {
                 margin-right: $spacing;
             }
+
             button, image {
                 transition: $transition;
             }
+
             .controls button {
                 margin: 0 $spacing/4;
                 image{ color: transparentize($fg_color, 0.1); }
+
                 image.shuffle {
                     color: transparentize($fg_color, 0.3);
+
                     // &.enabled{ color: $accent; }
                 }
+
                 image.loop {
                     color: transparentize($fg_color, 0.3);
                     &.track { color: $fg_color; }
+
                     // &.playlist { color: $accent; }
                 }
+
                 &:hover image, &:focus image {
                     color: $fg_color;
                 }
+
                 &:active image {
                     // color: $accent;
                 }
             }
         }
     }
+
     .volume-box {
         .slider {
             @include slider($width: .6em, $slider: false, $color: $accent);
             margin: $spacing;
         }
+
         .icon {
             margin: $spacing;
             margin-top: 0;
         }
     }
-    &.spotify { @include player-color($green); }
-    &.firefox { @include player-color($orange); }
-    &.mpv { @include player-color($magenta); }
+    &.spotify { @include player_color($green); }
+    &.firefox { @include player_color($orange); }
+    &.mpv { @include player_color($magenta); }
 }
 
 
 window#media .mediabox {
     @include floating_widget;
-    @include media();
+    @include media;
     min-height: 250px;
     min-width: 300px;
 }

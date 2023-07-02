@@ -11,25 +11,31 @@ window#verification .verification {
     padding: $popover_padding*1.2;
     min-width: 300px;
     min-height: 100px;
+
     .title {
         font-size: 1.7em;
         margin: $spacing;
     }
+
     .desc {
         color: transparentize($fg_color, 0.1);
         margin: $spacing;
         font-size: 1.2em;
     }
+
     .buttons {
         margin-top: $spacing*2;
+
         button {
             @include button;
             font-size: 1.6em;
             padding: $spacing;
             margin: 0 $popover_padding*1.2/2;
+
             &:first-child {
                 margin-left: 0;
             }
+
             &:last-child {
                 margin-right: 0;
             }
@@ -41,6 +47,7 @@ window#powermenu .powermenu {
     @include floating_widget;
     padding: $popover_padding;
     border-radius: $radii*3;
+
     button {
         .icon {
             @include button;
@@ -50,15 +57,18 @@ window#powermenu .powermenu {
             min-width: 120px;
             min-height: 120px;
         }
+
         label, .icon {
             color: transparentize($fg_color, 0.1);
         }
+
         &:hover {
             .icon { @include button_hover; }
             label{ color: $fg_color; }
         }
         &:focus .icon { @include button_focus; }
         &:active .icon { @include button_active; }
+
         &:focus, &:active {
             label{ color: $accent; }
         }

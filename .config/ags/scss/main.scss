@@ -1,17 +1,16 @@
-@import './variables.scss';
-@import './common.scss';
-
-@import './widgets/notifications.scss';
-@import './widgets/media.scss';
-@import './widgets/datemenu.scss';
-@import './widgets/dock.scss';
-@import './widgets/applauncher.scss';
-@import './widgets/quicksettings.scss';
-@import './widgets/powermenu.scss';
-@import './widgets/overview.scss';
-@import './widgets/desktop.scss';
-@import './widgets/dashboard.scss';
-@import './widgets/bar.scss';
+@import './variables';
+@import './common';
+@import './widgets/notifications';
+@import './widgets/media';
+@import './widgets/datemenu';
+@import './widgets/dock';
+@import './widgets/applauncher';
+@import './widgets/quicksettings';
+@import './widgets/powermenu';
+@import './widgets/overview';
+@import './widgets/desktop';
+@import './widgets/dashboard';
+@import './widgets/bar';
 
 tooltip {
     @include tooltip;

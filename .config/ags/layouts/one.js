@@ -1,7 +1,7 @@
 const Shared = imports.layouts.shared;
 
 // static
-const dock = Shared.dock
+const dock = Shared.dock;
 const notifications = monitor => Shared.notifications(monitor, 'slide_left', ['top', 'right']);
 const desktop = monitor => Shared.desktop(monitor, 'topbar');
 
@@ -81,7 +81,7 @@ const right = {
     ],
 };
 
-const bar = (monitor) => ({
+const bar = monitor => ({
     name: `bar${monitor}`,
     monitor,
     anchor: ['top', 'left', 'right'],
@@ -97,7 +97,7 @@ const bar = (monitor) => ({
     },
 });
 
-// export
+/* exported windows */
 var windows = [
     ...ags.Service.Hyprland.HyprctlGet('monitors').map(({ id }) => ([
         dock(id),

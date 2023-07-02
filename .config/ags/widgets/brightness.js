@@ -36,7 +36,7 @@ class BrightnessService extends Service {
     constructor() {
         super();
         this._kbd = Number(exec('brightnessctl -d asus::kbd_backlight g'));
-        this._kbdMax = Number(exec('brightnessctl -d asus::kbd_backlight m'))
+        this._kbdMax = Number(exec('brightnessctl -d asus::kbd_backlight m'));
         this._screen = Number(exec('brightnessctl g')) / Number(exec('brightnessctl m'));
     }
 }
@@ -52,6 +52,7 @@ var Brightness = class Brightness {
     static get kbd() {
         return Brightness._instance.kbd;
     }
+
     static get screen() {
         return Brightness._instance.screen;
     }
@@ -63,7 +64,7 @@ var Brightness = class Brightness {
     static set screen(value) {
         Brightness._instance.screen = value;
     }
-}
+};
 
 Widget.widgets['brightness/slider'] = props => Widget({
     ...props,
@@ -91,5 +92,5 @@ Widget.widgets['brightness/percent'] = props => Widget({
     type: 'label',
     connections: [
         [Brightness, label => label.label = `${Math.floor(Brightness.screen*100)}`],
-    ]
-})
+    ],
+});

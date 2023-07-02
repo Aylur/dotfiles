@@ -24,7 +24,7 @@ Widget.widgets['notifications/header'] = props => Widget({
                             [Notifications, dynamic => dynamic.update(value => {
                                 return value === Notifications.notifications.size > 0;
                             })],
-                        ]
+                        ],
                     },
                 ],
             },
@@ -69,7 +69,7 @@ Widget.widgets['notifications/popup-content'] = () => Widget({
             className: 'header',
         },
         {
-            type:'box',
+            type: 'box',
             vexpand: true,
             children: [{
                 type: 'notifications/list',
@@ -92,8 +92,8 @@ Widget.widgets['notifications/popups'] = ({ transition }) => Widget({
         child: {
             type: 'notifications/popup-list',
             className: 'notification-popup',
-        }
-    }]
+        },
+    }],
 });
 
 Widget.widgets['notifications/indicator'] = props => Widget({
@@ -104,7 +104,7 @@ Widget.widgets['notifications/indicator'] = props => Widget({
         indicator.toggleClassName(notified, 'notified');
         indicator.visible = notified || Notifications.dnd;
     }]],
-})
+});
 
 Widget.widgets['notifications/popup-label'] = ({ transition = 'slide_left', ...props }) => Widget({
     ...props,
@@ -145,14 +145,14 @@ Widget.widgets['notifications/popup-indicator'] = ({ direction = 'left', ...prop
         child: {
             type: 'box',
             children: direction === 'left'
-            ? [
-                { type: 'notifications/popup-label', transition: 'slide_left' },
-                { type: 'notifications/indicator' },
-            ]
-            : [
-                { type: 'notifications/indicator' },
-                { type: 'notifications/popup-label', transition: 'slide_right' },
-            ]
+                ? [
+                    { type: 'notifications/popup-label', transition: 'slide_left' },
+                    { type: 'notifications/indicator' },
+                ]
+                : [
+                    { type: 'notifications/indicator' },
+                    { type: 'notifications/popup-label', transition: 'slide_right' },
+                ],
         },
     }],
 });

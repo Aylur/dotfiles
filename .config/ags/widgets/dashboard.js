@@ -1,8 +1,8 @@
 const { App, Widget } = ags;
 const { Notifications } = ags.Service;
-const { prefer } = imports.widgets.media;
 
 Widget.widgets['dashboard/panel-button'] = props => Widget({
+    ...props,
     type: 'button',
     className: 'dashboard',
     onClick: () => App.toggleWindow('dashboard'),
@@ -26,7 +26,7 @@ Widget.widgets['dashboard/media-indicator'] = props => Widget({
             type: 'mpris/box',
             className: 'separator',
             valign: 'center',
-            player: imports.widgets.media.prefer('spotify')
+            player: imports.widgets.media.prefer('spotify'),
         },
     ],
 });
@@ -86,14 +86,14 @@ Widget.widgets['dashboard/popup-content'] = () => Widget({
                     className: 'header',
                 },
                 {
-                    type:'overlay',
+                    type: 'overlay',
                     vexpand: true,
                     children: [
-                        { type: 'wallpaper', },
+                        { type: 'wallpaper' },
                         {
                             type: 'notifications/list',
                             className: 'notification-list',
-                        }
+                        },
                     ],
                 },
             ],

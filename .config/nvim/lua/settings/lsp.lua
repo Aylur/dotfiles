@@ -6,6 +6,7 @@ lsp.ensure_installed({
   'clangd', -- c, c++
   'cssls', -- css
   'eslint', -- js
+  'stylelint_lsp', -- scss
   'html', -- html
   'jdtls', -- java
   'tsserver', -- typescript

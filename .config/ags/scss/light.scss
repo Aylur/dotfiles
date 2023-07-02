@@ -1,6 +1,6 @@
 $theme: 'light';
 
-//gnome
+// gnome
 $red: #f66151;
 $green: #57e389;
 $blue: #62a0ea;
@@ -9,7 +9,7 @@ $magenta: #c061cb;
 $teal: #5bc8aF;
 $orange: #ffa348;
 
-//charm
+// charm
 // $red: #e67090;
 // $green: #43c383;
 // $yellow: #d8e77b;
@@ -22,8 +22,7 @@ $fg_color: #171717;
 $bg_color: #fff;
 $hover_fg: #131313;
 $accent_fg: #171717;
-
 $hover: transparentize($fg_color, 0.84);
 $accent: $blue;
 
-@import './main.scss';
+@import './main';

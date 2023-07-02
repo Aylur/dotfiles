@@ -89,7 +89,7 @@ const right = {
     ],
 };
 
-const bar = (monitor) => ({
+const bar = monitor => ({
     name: `bar${monitor}`,
     monitor,
     anchor: ['bottom', 'left', 'right'],
@@ -105,7 +105,7 @@ const bar = (monitor) => ({
     },
 });
 
-// export
+/* exported windows */
 var windows = [
     ...ags.Service.Hyprland.HyprctlGet('monitors').map(({ id }) => ([
         notifications(id),
