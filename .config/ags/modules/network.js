@@ -103,6 +103,6 @@ Widget.widgets['network/wifi-toggle'] = props => Widget({
     type: 'button',
     onClick: Network.toggleWifi,
     connections: [[Network, button => {
-        button.toggleClassName(Network.wifi.enabled, 'on');
+        button.toggleClassName('on', Network.wifi.enabled);
     }]],
 });

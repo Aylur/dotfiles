@@ -101,7 +101,7 @@ Widget.widgets['notifications/indicator'] = props => Widget({
     type: 'notifications/dnd-indicator',
     connections: [[Notifications, indicator => {
         const notified = Notifications.notifications.size > 0;
-        indicator.toggleClassName(notified, 'notified');
+        indicator.toggleClassName('notified', notified);
         indicator.visible = notified || Notifications.dnd;
     }]],
 });

@@ -24,8 +24,6 @@ const _icon = ({ appEntry, appIcon, image }) => {
         icon = appEntry;
 
     return {
-        className: 'icon',
-        valign: 'start',
         type: 'box',
         style: `
             min-width: 78px;
@@ -50,7 +48,11 @@ const _notification = ({ id, summary, body, actions, urgency, time, ...icon }) =
             {
                 type: 'box',
                 children: [
-                    _icon(icon),
+                    {
+                        className: 'icon',
+                        valign: 'start',
+                        ..._icon(icon),
+                    },
                     {
                         type: 'box',
                         hexpand: true,
@@ -134,8 +136,7 @@ Widget.widgets['notifications/placeholder'] = props => Widget({
     ...props,
     type: 'box',
     connections: [
-        [Notifications, box => box.visible = Notifications.notifications.size > 0],
-        ['draw', box => box.visible = Notifications.notifications.size > 0],
+        [Notifications, box => box.visible = Notifications.notifications.size === 0],
     ],
 });
 
@@ -166,6 +167,6 @@ Widget.widgets['notifications/dnd-toggle'] = props => Widget({
     type: 'button',
     onClick: () => { Notifications.dnd = !Notifications.dnd; },
     connections: [[Notifications, button => {
-        button.toggleClassName(Notifications.dnd, 'on');
+        button.toggleClassName('on', Notifications.dnd);
     }]],
 });

@@ -19,5 +19,5 @@ Widget.widgets['bluetooth/toggle'] = props => Widget({
     ...props,
     type: 'button',
     onClick: () => Bluetooth.enabled = !Bluetooth.enabled,
-    connections: [[Bluetooth, button => button.toggleClassName(Bluetooth.enabled, 'on')]],
+    connections: [[Bluetooth, button => button.toggleClassName('on', Bluetooth.enabled)]],
 });

@@ -1,15 +1,14 @@
 const { execAsync, interval } = ags.Utils;
 const { Widget, App } = ags;
 
-const uptimeLabel = () => {
-    const label = Widget({ type: 'label' });
-    interval(label, 1000, () => {
+const uptimeLabel = () => interval(
+    Widget({ type: 'label' }),
+    1000, label => {
         execAsync(['bash', '-c', "uptime | awk '{print $3}' | tr ',' ' '"], time => {
             label.label = time.trim();
         });
-    });
-    return label;
-};
+    },
+);
 
 Widget.widgets['datemenu/popup-content'] = props => Widget({
     ...props,

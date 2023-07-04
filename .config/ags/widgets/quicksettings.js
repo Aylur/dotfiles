@@ -199,9 +199,9 @@ const battery = {
         { type: 'battery/indicator' },
     ],
     connections: [[Battery, box => {
-        box.toggleClassName(Battery.charging, 'charging');
-        box.toggleClassName(Battery.charged, 'charged');
-        box.toggleClassName(Battery.percent < 30, 'low');
+        box.toggleClassName('charging', Battery.charging);
+        box.toggleClassName('charged', Battery.charged);
+        box.toggleClassName('low', Battery.percent < 30);
         box.get_children()[0].visible = Battery.percent < 100;
     }]],
 };

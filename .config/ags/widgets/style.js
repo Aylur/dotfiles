@@ -10,7 +10,6 @@ const _wezterm = imports.gi.GLib.get_user_config_dir()+'/wezterm';
 class StyleService extends Service {
     static { Service.register(this); }
 
-
     light() {
         set('prefer-light');
         App.applyCss(CONFIG_DIR+'/light.css');
@@ -59,7 +58,7 @@ Widget.widgets['style/toggle'] = props => Widget({
     hexpand: true,
     onClick: Style.toggle,
     connections: [[Style, button => {
-        button.toggleClassName(isDark(), 'on');
+        button.toggleClassName('on', isDark());
     }]],
 });
 

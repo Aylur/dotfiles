@@ -93,7 +93,7 @@ Widget.widgets['audio/microphone-mute-toggle'] = props => _connectStream({
         if (!Audio.microphone)
             return;
 
-        button.toggleClassName(Audio.microphone.isMuted, 'on');
+        button.toggleClassName('on', Audio.microphone.isMuted);
     },
 });
 
