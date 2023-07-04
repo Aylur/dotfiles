@@ -48,13 +48,9 @@ Widget.widgets['hyprland/workspaces'] = ({
 
     const forMonitors = box => {
         box.get_children().forEach(ch => ch.destroy());
-        const { workspaces, monitors } = Hyprland;
-        workspaces.forEach(({ id, windows, monitor }) => {
-            if (!monitors.includes(monitors.get(monitor).name)
-                && !monitors.includes(monitors.get(monitor).id))
-                return;
-
-            box.add(button(windows, id));
+        Hyprland.workspaces.forEach(({ id, windows, monitor }) => {
+            if (monitors.includes(Hyprland.monitors.get(monitor).id))
+                box.add(button(windows, id));
         });
     };
 
