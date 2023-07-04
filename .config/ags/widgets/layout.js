@@ -8,23 +8,19 @@ const padding = windowName => ({
     onClick: () => App.toggleWindow(windowName),
 });
 
-const revealer = (windowName, transition, child) => {
-    const reveal = Widget({
+const revealer = (windowName, transition, child) => Widget({
+    type: 'box',
+    style: 'padding: 1px;',
+    children: [{
         type: 'revealer',
         transition, child,
         duration: 500,
-        connections: [[App, App.connect('window-toggled', (_app, name, visible) => {
+        connections: [[App, (revealer, name, visible) => {
             if (name === windowName)
-                reveal.reveal_child = visible;
-        })]],
-    });
-
-    return Widget({
-        type: 'box',
-        style: 'padding: 1px;',
-        children: [reveal],
-    });
-};
+                revealer.reveal_child = visible;
+        }]],
+    }],
+});
 
 const layouts = {
     'center': (windowName, child) => ({

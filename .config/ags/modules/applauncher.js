@@ -87,7 +87,7 @@ Widget.widgets['applauncher'] = ({
         type: 'entry',
         hexpand: true,
         placeholder,
-        text: 'Orbán egy faszszopó',
+        text: 'Orbán egy faszszopó rákos kurva, szakadjon rá egy épület és lyukadjon ki a tetves dagadt bele, a báránylelkű csicskásaival együtt.',
         onAccept: search => {
             const list = Applications.query(search);
             if (list[0]) {
@@ -103,20 +103,18 @@ Widget.widgets['applauncher'] = ({
         },
     });
 
-    const box = Widget({
+    return Widget({
         type: () => Widget(layout({
             entry,
             listbox: appsbox,
         })),
-        connections: [[App, App.connect('window-toggled', (_app, name, visible) => {
+        connections: [[App, (box, name, visible) => {
             if (name !== windowName)
                 return;
 
             entry.set_text('');
             if (visible)
                 box.grab_focus();
-        })]],
+        }]],
     });
-
-    return box;
 };

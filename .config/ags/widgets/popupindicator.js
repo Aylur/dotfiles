@@ -1,6 +1,6 @@
 const { GObject } = imports.gi;
 const { Service, Widget } = ags;
-const { timeout, lookUpIcon } = ags.Utils;
+const { timeout, lookUpIcon, connect } = ags.Utils;
 
 class IndicatorService extends Service {
     static {
@@ -19,24 +19,21 @@ class IndicatorService extends Service {
             this._count--;
 
             if (this._count === 0)
-                this.emit('popup', -1, '');
+                this.emit('popup', -1, icon);
         });
+    }
+
+    connectWidget(widget, callback) {
+        connect(this, widget, callback, 'popup');
     }
 }
 
 var Indicator = class Indicator {
     static { Service.export(this, 'Indicator'); }
-    static _instance = new IndicatorService();
-
-    static connect(widget, callback) {
-        const id = Indicator._instance.connect('popup', (_s, iconName, value) => {
-            callback(widget, iconName, value);
-        });
-        widget.connect('destroy', () => Indicator._instance.disconnect(id));
-    }
+    static instance = new IndicatorService();
 
     static popup(value, icon) {
-        Indicator._instance.popup(value, icon);
+        Indicator.instance.popup(value, icon);
     }
 
     static speaker() {
@@ -135,14 +132,14 @@ Widget.widgets['on-screen-indicator/vertical'] = ({ iconSize = 48, height = 300,
                                 type: 'icon',
                                 halign: 'center',
                                 size: iconSize,
-                                connections: [[Indicator, (icon, _v, name) => icon.icon_name = name]],
+                                connections: [[Indicator, (icon, _v, name) => icon.icon_name = name || '']],
                             },
                         },
                         {
                             value: false, widget: {
                                 type: 'label',
                                 halign: 'center',
-                                connections: [[Indicator, (lbl, _v, name) => lbl.label = name]],
+                                connections: [[Indicator, (lbl, _v, name) => lbl.label = name || '']],
                             },
                         },
                     ],

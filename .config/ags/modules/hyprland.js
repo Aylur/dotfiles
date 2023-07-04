@@ -16,8 +16,6 @@ Widget.widgets['hyprland/workspaces'] = ({
         return Widget(err);
     }
 
-    const box = Widget({ ...props, type: 'box' });
-
     const button = (windows, i) => {
         const { active: { workspace }, workspaces } = Hyprland;
 
@@ -35,7 +33,7 @@ Widget.widgets['hyprland/workspaces'] = ({
         });
     };
 
-    const forFixed = () => {
+    const forFixed = box => {
         box.get_children().forEach(ch => ch.destroy());
         const { workspaces } = Hyprland;
         for (let i=1; i<fixed+1; ++i) {
@@ -48,7 +46,7 @@ Widget.widgets['hyprland/workspaces'] = ({
         }
     };
 
-    const forMonitors = () => {
+    const forMonitors = box => {
         box.get_children().forEach(ch => ch.destroy());
         const { workspaces, monitors } = Hyprland;
         workspaces.forEach(({ id, windows, monitor }) => {
@@ -60,12 +58,14 @@ Widget.widgets['hyprland/workspaces'] = ({
         });
     };
 
-    Hyprland.connect(box, () => {
-        fixed ? forFixed() : forMonitors();
-        box.show_all();
+    return Widget({
+        ...props,
+        type: 'box',
+        connections: [[Hyprland, box => {
+            fixed ? forFixed(box) : forMonitors(box);
+            box.show_all();
+        }]],
     });
-
-    return box;
 };
 
 Widget.widgets['hyprland/client-label'] = ({

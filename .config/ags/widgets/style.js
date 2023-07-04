@@ -38,14 +38,14 @@ class StyleService extends Service {
 
 class Style {
     static { Service.export(this, 'Style'); }
-    static _instance = new StyleService();
+    static instance = new StyleService();
 
     static toggle() {
-        Style._instance.toggle();
+        Style.instance.toggle();
     }
 
     static connect(widget, callback) {
-        Style._instance.listen(widget, callback);
+        Style.instance.listen(widget, callback);
     }
 
     static isDark() {

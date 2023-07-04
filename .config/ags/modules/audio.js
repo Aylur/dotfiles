@@ -1,9 +1,9 @@
 const { Widget } = ags;
 const { Audio } = ags.Service;
 
-function _connectStream({ stream, widget, callback }) {
-    widget = Widget(widget);
-    Audio.connect(widget, () => {
+const _connectStream = ({ stream, widget, callback }) => Widget({
+    ...widget,
+    connections: [[Audio, widget => {
         if (widget[stream] === Audio[stream])
             return;
 
@@ -19,9 +19,8 @@ function _connectStream({ stream, widget, callback }) {
         widget[stream] = Audio[stream];
         widget._id = widget[stream].connect('changed', () => callback(widget));
         callback(widget);
-    });
-    return widget;
-}
+    }]],
+});
 
 Widget.widgets['audio/speaker-indicator'] = ({ items, ...props }) => {
     items ||= [
@@ -51,14 +50,13 @@ Widget.widgets['audio/speaker-label'] = props => _connectStream({
 
 Widget.widgets['audio/speaker-slider'] = props => _connectStream({
     stream: 'speaker',
-    widget: Widget({
+    widget: {
         ...props,
         type: 'slider',
         onChange: value => Audio.speaker.volume = value,
-    }),
+    },
     callback: slider => {
         slider.adjustment.value = Audio.speaker.volume;
-        slider.sensitive = !Audio.speaker.isMuted;
     },
 });
 
@@ -68,20 +66,20 @@ Widget.widgets['audio/microphone-mute-indicator'] = ({
     ...props
 }) => _connectStream({
     stream: 'microphone',
-    widget: Widget({
+    widget: {
         ...props,
         type: 'dynamic',
         items: [
             { value: true, widget: muted },
             { value: false, widget: unmuted },
         ],
-    }),
+    },
     callback: dynamic => dynamic.update(value => value === Audio.microphone?.isMuted),
 });
 
 Widget.widgets['audio/microphone-mute-toggle'] = props => _connectStream({
     stream: 'microphone',
-    widget: Widget({
+    widget: {
         ...props,
         type: 'button',
         onClick: () => {
@@ -90,7 +88,7 @@ Widget.widgets['audio/microphone-mute-toggle'] = props => _connectStream({
 
             Audio.microphone.isMuted = !Audio.microphone.isMuted;
         },
-    }),
+    },
     callback: button => {
         if (!Audio.microphone)
             return;

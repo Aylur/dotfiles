@@ -27,6 +27,6 @@ var config = {
         imports.layouts.shared.applauncher,
 
         // layout
-        ...imports.layouts.two.windows,
+        ...imports.layouts[ARGV[0] || 'two'].windows,
     ],
 };

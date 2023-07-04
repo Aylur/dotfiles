@@ -27,10 +27,13 @@ const client = ({ address, size: [w, h], class: c }) => {
         child: {
             type: 'icon',
             className: 'icon',
+            style: `
+            min-width: ${w*SCALE}px;
+            min-height: ${h*SCALE}px;
+            `,
             icon,
         },
     });
-    box.set_size_request(w*SCALE, h*SCALE);
 
     box.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
     box.drag_source_set_icon_name(icon);
@@ -78,31 +81,30 @@ const workspace = (ws, isActive) => {
     });
 };
 
-Widget.widgets['overview'] = () => {
-    const update = () => {
-        if (!App.getWindow('overview')?.visible)
-            return;
+Widget.widgets['overview'] = () => Widget({
+    type: 'box',
+    className: 'overview',
+    properties: [
+        ['update', box => {
+            if (!App.getWindow('overview')?.visible)
+                return;
 
-        box.get_children().forEach(ch => ch.destroy());
+            box.get_children().forEach(ch => ch.destroy());
 
-        const active = Hyprland.active.workspace.id;
-        for (let i=1; i<8; ++i)
-            box.add(workspace(i, active === i));
+            const active = Hyprland.active.workspace.id;
+            for (let i=1; i<8; ++i)
+                box.add(workspace(i, active === i));
 
-        box.show_all();
-    };
+            box.show_all();
+        }],
+    ],
+    connections: [
+        [Hyprland, box => box._update(box)],
+        [App, (box, windowName) => {
+            if (windowName !== 'overview')
+                return false;
 
-    const box = Widget({
-        type: 'box',
-        className: 'overview',
-    });
-
-    Hyprland.connect(box, update);
-    App.connect('window-toggled', (_app, window) => {
-        if (window !== 'overview')
-            return false;
-
-        update();
-    });
-    return box;
-};
+            box._update(box);
+        }],
+    ],
+});

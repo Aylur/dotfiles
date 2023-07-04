@@ -24,6 +24,8 @@ const _icon = ({ appEntry, appIcon, image }) => {
         icon = appEntry;
 
     return {
+        className: 'icon',
+        valign: 'start',
         type: 'box',
         style: `
             min-width: 78px;
@@ -41,47 +43,48 @@ const _notification = ({ id, summary, body, actions, urgency, time, ...icon }) =
     type: 'eventbox',
     className: `notification ${urgency}`,
     onClick: () => Notifications.dismiss(id),
-    child: Widget({
+    child: {
         type: 'box',
         orientation: 'vertical',
         children: [
-            Widget({
+            {
                 type: 'box',
                 children: [
-                    Widget({
-                        className: 'icon',
-                        valign: 'start',
-                        ..._icon(icon),
-                    }),
-                    Widget({
+                    _icon(icon),
+                    {
                         type: 'box',
                         hexpand: true,
                         orientation: 'vertical',
                         children: [
-                            Widget({
+                            {
                                 type: 'box',
                                 children: [
-                                    Widget({
+                                    {
                                         className: 'title',
                                         xalign: 0,
+                                        justify: 'left',
                                         hexpand: true,
                                         type: 'label',
-                                        label: summary.length > 24 ? summary.substring(0, 24)+'..' : summary,
-                                    }),
-                                    Widget({
+                                        maxWidth: 24,
+                                        wrap: true,
+                                        label: summary,
+                                    },
+                                    {
                                         className: 'time',
                                         type: 'label',
+                                        valign: 'start',
                                         label: GLib.DateTime.new_from_unix_local(time).format('%H:%M'),
-                                    }),
-                                    Widget({
+                                    },
+                                    {
                                         className: 'close-button',
                                         type: 'button',
+                                        valign: 'start',
                                         child: Widget({ type: 'icon', icon: 'window-close-symbolic' }),
                                         onClick: () => Notifications.close(id),
-                                    }),
+                                    },
                                 ],
-                            }),
-                            Widget({
+                            },
+                            {
                                 className: 'description',
                                 hexpand: true,
                                 markup: true,
@@ -90,12 +93,12 @@ const _notification = ({ id, summary, body, actions, urgency, time, ...icon }) =
                                 type: 'label',
                                 label: body,
                                 wrap: true,
-                            }),
+                            },
                         ],
-                    }),
+                    },
                 ],
-            }),
-            Widget({
+            },
+            {
                 type: 'box',
                 className: 'actions',
                 connections: [['draw', widget => { widget.visible = actions.length > 0; }]],
@@ -106,9 +109,9 @@ const _notification = ({ id, summary, body, actions, urgency, time, ...icon }) =
                     hexpand: true,
                     child: label,
                 })),
-            }),
+            },
         ],
-    }),
+    },
 });
 
 const _list = (map, { notification = _notification, ...rest }) => Widget({

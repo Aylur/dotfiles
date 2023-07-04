@@ -54,9 +54,9 @@ const pins = (list, iconSize) => ({
     type: 'box',
     homogeneous: true,
     children: list
-        .map(term => Applications.query(term)?.[0])
-        .filter(app => app !== undefined)
-        .map(app => ({
+        .map(term => { return { app: Applications.query(term)?.[0], term }; })
+        .filter(({ app }) => app !== undefined)
+        .map(({ app }) => ({
             type: 'button',
             tooltip: app.name,
             onClick: app.launch,
@@ -65,6 +65,12 @@ const pins = (list, iconSize) => ({
                 icon: app.iconName,
                 size: iconSize,
             },
+            // connections: [[Hyprland, button => {
+            //     for (const [address, client] of Hyprland.clients) {
+            //         button.toggleClassName(client.class.includes(term), 'on');
+            //         button.toggleClassName(Hyprland.active.client.address === address.substring(2), 'focused');
+            //     }
+            // }]],
         })),
 });
 

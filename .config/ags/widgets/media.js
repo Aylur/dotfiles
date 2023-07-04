@@ -51,12 +51,15 @@ const mediabox = (player, className) => ({
                                     {
                                         type: 'mpris/title-label', player,
                                         className: 'title',
-                                        xalign: 0, justify: 'left', wrap: true,
-                                        hexpand: true,
+                                        xalign: 0,
+                                        justify: 'left',
+                                        wrap: true,
+                                        maxWidth: 24,
                                     },
                                     {
                                         type: 'mpris/player-icon', player,
                                         className: 'player',
+                                        hexpand: true,
                                         halign: 'end',
                                         valign: 'start',
                                         symbolic: true,

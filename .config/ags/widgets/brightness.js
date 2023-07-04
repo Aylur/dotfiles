@@ -43,26 +43,26 @@ class BrightnessService extends Service {
 
 var Brightness = class Brightness {
     static { Service.export(this, 'Brightness'); }
-    static _instance = new BrightnessService();
+    static instance = new BrightnessService();
 
     static connect(widget, callback) {
-        Brightness._instance.listen(widget, callback);
+        Brightness.instance.listen(widget, callback);
     }
 
     static get kbd() {
-        return Brightness._instance.kbd;
+        return Brightness.instance.kbd;
     }
 
     static get screen() {
-        return Brightness._instance.screen;
+        return Brightness.instance.screen;
     }
 
     static set kbd(value) {
-        Brightness._instance.kbd = value;
+        Brightness.instance.kbd = value;
     }
 
     static set screen(value) {
-        Brightness._instance.screen = value;
+        Brightness.instance.screen = value;
     }
 };
 
