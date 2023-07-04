@@ -73,6 +73,7 @@ const right = {
     hexpand: true,
     halign: 'end',
     children: [
+        { type: 'recorder/indicator-button' },
         { type: 'colorpicker' },
         separator,
         { type: 'notification-center/panel-button' },

@@ -3,8 +3,8 @@
   home.packages = with pkgs; [
     # tools
     bat exa 
-    socat jq htop acpi inotify-tools
-    wl-gammactl wlsunset wl-clipboard hyprpicker
+    socat jq htop acpi inotify-tools ffmpeg
+    wl-gammactl wlsunset wl-clipboard wf-recorder hyprpicker
     pavucontrol blueberry bluez brightnessctl playerctl imagemagick networkmanager
     # gjs gnome.gnome-bluetooth upower networkmanager gtk3 pango cairo harfbuzz gdk-pixbuf
 

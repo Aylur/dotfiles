@@ -59,6 +59,7 @@ const right = {
     className: 'right',
     children: [
         { type: 'dashboard/notifications-indicator', hexpand: true, halign: 'start' },
+        { type: 'recorder/indicator-button' },
         { type: 'colorpicker' },
         separator,
         { type: 'quicksettings/panel-button' },

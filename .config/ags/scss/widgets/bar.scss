@@ -112,7 +112,11 @@
         }
     }
 
-    .powermenu {
+    .recorder {
+        @include panel_button($flat: false);
+    }
+
+    .powermenu, .recorder {
         color: transparentize($red, 0.2);
 
         &:hover {

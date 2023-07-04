@@ -81,6 +81,7 @@ const right = {
             valign: 'center',
             className: 'separator',
         },
+        { type: 'recorder/indicator-button' },
         { type: 'colorpicker' },
         separator,
         { type: 'notification-center/panel-button' },
