@@ -35,11 +35,11 @@ Widget.widgets['applauncher/popup-content'] = ({ windowName = 'applauncher' }) =
                     ],
                 }],
             },
-            Widget({
+            {
                 type: 'scrollable',
                 hscroll: 'never',
                 child: listbox,
-            }),
+            },
         ],
     }),
 });

@@ -33,6 +33,10 @@ $float: 5px;
             margin-bottom: 2px;
         }
 
+        &.nonrunning .indicator {
+            background-color: transparent;
+        }
+
         &.focused {
             @include button_hover;
 

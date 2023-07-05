@@ -1,5 +1,5 @@
 const { Widget } = ags;
-const { Bluetooth, Battery, Audio } = ags.Service;
+const { Bluetooth, Battery, Audio, System } = ags.Service;
 const { runCmd, execAsync } = ags.Utils;
 
 const slider = ({ icon, slider, percent, arrowCmd }) => ({
@@ -36,11 +36,10 @@ const smalltoggle = (toggle, indicator) => ({
     },
 });
 
-const { sysAction } = imports.widgets.powermenu;
 const sysBtn = (icon, action, className = '') => ({
     type: 'button',
     className,
-    onClick: () => sysAction(action),
+    onClick: () => System.action(action),
     tooltip: action,
     child: {
         type: 'icon',
@@ -262,18 +261,17 @@ const bluetooth = {
     connections: [[Bluetooth, box => box.visible = Bluetooth.enabled]],
 };
 
-const { Indicator } = imports.widgets.popupindicator;
 const panelButton = dnd => Widget({
     type: 'eventbox',
     className: 'quicksettings',
     onClick: () => ags.App.toggleWindow('quicksettings'),
     onScrollUp: () => {
         Audio.speaker.volume += 0.02;
-        Indicator.speaker();
+        ags.Service.Indicator.speaker();
     },
     onScrollDown: () => {
         Audio.speaker.volume -= 0.02;
-        Indicator.speaker();
+        ags.Service.Indicator.speaker();
     },
     child: {
         type: 'box',

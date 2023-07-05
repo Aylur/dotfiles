@@ -26,15 +26,16 @@ Widget.widgets['wallpaper'] = () => Widget({
     }]],
 });
 
-const corner = (place, radius) => ags.Widget({
+Widget.widgets['corner'] = ({ place, radius = 20 }) => Widget({
     type: Gtk.DrawingArea.new,
     className: 'corner',
-    width: radius,
-    height: radius,
     hexpand: true,
     vexpand: true,
     halign: place.includes('left') ? 'start' : 'end',
     valign: place.includes('top') ? 'start' : 'end',
+    setup: widget => {
+        widget.set_size_request(radius, radius);
+    },
     connections: [['draw', (widget, cr) => {
         const c = widget.get_style_context().get_property('background-color', Gtk.StateFlags.NORMAL);
         switch (place) {
@@ -69,9 +70,10 @@ const corner = (place, radius) => ags.Widget({
     }]],
 });
 
-Widget.widgets['desktop'] = ({ radius = 18, className }) => Widget({
+Widget.widgets['desktop'] = props => Widget({
+    ...props,
     type: 'box',
-    className: `desktop ${className}`,
+    className: 'desktop',
     children: [{
         type: 'overlay',
         hexpand: true,
@@ -86,29 +88,6 @@ Widget.widgets['desktop'] = ({ radius = 18, className }) => Widget({
                 children: [
                     { type: 'clock', className: 'clock', format: '%H:%M' },
                     { type: 'clock', className: 'date', format: '%B %e. %A' },
-                ],
-            },
-            {
-                type: 'box',
-                children: [
-                    {
-                        type: 'box',
-                        hexpand: true,
-                        orientation: 'vertical',
-                        children: [
-                            corner('topleft', radius),
-                            corner('bottomleft', radius),
-                        ],
-                    },
-                    {
-                        type: 'box',
-                        hexpand: true,
-                        orientation: 'vertical',
-                        children: [
-                            corner('topright', radius),
-                            corner('bottomright', radius),
-                        ],
-                    },
                 ],
             },
         ],

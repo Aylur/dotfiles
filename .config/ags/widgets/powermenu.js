@@ -1,40 +1,37 @@
-const { App, Widget } = ags;
-const { exec } = ags.Utils;
+const { App, Widget, Service } = ags;
+const { exec, error } = ags.Utils;
 
 const USER = imports.gi.GLib.get_user_name();
 
-const verificationTitle = Widget({
-    type: 'label',
-    className: 'title',
-});
-
-const verificationDesc = Widget({
-    type: 'label',
-    className: 'description',
-});
-
-let cmd;
-
-var sysAction = function sysAction(action) {
-    const title = action;
-    const desc = 'Are you sure?';
-    switch (action) {
-    case 'Sleep': cmd = 'systemctl suspend'; break;
-    case 'Reboot': cmd = 'systemctl reboot'; break;
-    case 'Log Out': cmd = `loginctl kill-user ${USER}`; break;
-    case 'Shutdown': cmd = 'shutdown now'; break;
-    default:
-        break;
+class System extends Service {
+    static {
+        Service.register(this);
+        Service.export(this, 'System');
     }
-    verificationTitle.label = title;
-    verificationDesc.label = desc;
-    App.getWindow('powermenu').hide();
-    App.toggleWindow('verification');
-};
+
+    static instance = new System();
+
+    static action(action) {
+        const cmd = {
+            'Sleep': 'systemctl suspend',
+            'Reboot': 'systemctl reboot',
+            'Log Out': `loginctl kill-user ${USER}`,
+            'Shutdown': 'shutdown now',
+        }[action];
+
+        if (!cmd)
+            error(`There is no ${action} system action`);
+
+        App.getWindow('powermenu').hide();
+        App.getWindow('verification').show();
+        System.instance._action = { cmd, action };
+        System.instance.emit('changed')
+    }
+}
 
 const button = (icon, action) => ({
     type: 'button',
-    onClick: () => sysAction(action),
+    onClick: () => System.action(action),
     child: {
         type: 'box',
         orientation: 'vertical',
@@ -62,8 +59,16 @@ Widget.widgets['powermenu/verification'] = () => Widget({
     className: 'verification',
     orientation: 'vertical',
     children: [
-        verificationTitle,
-        verificationDesc,
+        {
+            type: 'label',
+            connections: [[System, label => {
+                label.label = System.instance._action?.action || '';
+            }]]
+        },
+        {
+            type: 'label',
+            label: 'Are you sure?',
+        },
         {
             type: 'box',
             className: 'buttons',
@@ -74,7 +79,7 @@ Widget.widgets['powermenu/verification'] = () => Widget({
                 {
                     type: 'button',
                     child: 'Yes',
-                    onClick: () => exec(cmd),
+                    onClick: () => exec(System.instance._action.cmd),
                 },
                 {
                     type: 'button',

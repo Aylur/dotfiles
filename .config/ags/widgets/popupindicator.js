@@ -28,7 +28,7 @@ class IndicatorService extends Service {
     }
 }
 
-var Indicator = class Indicator {
+class Indicator {
     static { Service.export(this, 'Indicator'); }
     static instance = new IndicatorService();
 
@@ -56,7 +56,7 @@ var Indicator = class Indicator {
     static display() {
         // brightness is async, so lets wait a bit
         timeout(10, () => {
-            const value = imports.widgets.brightness.Brightness.screen;
+            const value = ags.Service.Brightness.screen;
             const icon = value => {
                 const icons = ['󰛩', '󱩎', '󱩏', '󱩐', '󱩑', '󱩒', '󱩓', '󱩔', '󱩕', '󱩖', '󰛨'];
                 return icons[Math.ceil(value*10)];
@@ -68,7 +68,7 @@ var Indicator = class Indicator {
     static kbd() {
         // brightness is async, so lets wait a bit
         timeout(10, () => {
-            const value = imports.widgets.brightness.Brightness.kbd;
+            const value = ags.Service.Brightness.kbd;
             Indicator.popup((value*33+1)/100, 'keyboard-brightness-symbolic');
         });
     }

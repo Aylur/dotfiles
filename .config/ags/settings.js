@@ -10,10 +10,10 @@ var wallpapers = [
     `${HOME}/Pictures/Wallpapers/kitty/kittyr2.jpeg`,
     `${HOME}/Pictures/Wallpapers/kitty/kittyy2.jpeg`,
     `${HOME}/Pictures/Wallpapers/kitty/kittyc2.jpeg`,
-    `${HOME}/Pictures/Wallpapers/kitty/kittybl.jpeg`,
+    `${HOME}/Pictures/Wallpapers/kitty/kittyg2.jpeg`,
     `${HOME}/Pictures/Wallpapers/kitty/kittyb2.jpeg`,
-    `${HOME}/Pictures/Wallpapers/kitty/kittyw.jpeg`,
     `${HOME}/Pictures/Wallpapers/kitty/kittym2.jpeg`,
+    `${HOME}/Pictures/Wallpapers/kitty/kittyw.jpeg`,
 ];
 
 var openSettings = `wezterm start nvim ${HOME}/.config/ags`;

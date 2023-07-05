@@ -6,7 +6,7 @@ const { execAsync } = ags.Utils;
 const SCALE = 0.08;
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 
-const substitute = str => {
+function substitute(str) {
     const subs = [
         { from: 'com.transmissionbt.Transmission._40_219944', to: 'com.transmissionbt.Transmission' },
         { from: 'Caprine', to: 'facebook-messenger' },
@@ -19,67 +19,65 @@ const substitute = str => {
     return str;
 };
 
-const client = ({ address, size: [w, h], class: c }) => {
-    const icon = substitute(c);
-    const box = Widget({
-        type: 'button',
-        className: c,
-        child: {
-            type: 'icon',
-            className: 'icon',
-            style: `
+const client = ({ address, size: [w, h], class: c }) => Widget({
+    type: 'button',
+    className: c,
+    child: {
+        type: 'icon',
+        className: 'icon',
+        style: `
             min-width: ${w*SCALE}px;
             min-height: ${h*SCALE}px;
-            `,
-            icon,
-        },
-    });
+        `,
+        icon: substitute(c),
+    },
+    setup: button => {
+        button.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
+        button.drag_source_set_icon_name(substitute(c));
+        button.connect('drag-data-get', (_w, _c, data) => data.set_text(address, address.length));
+    },
+});
 
-    box.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
-    box.drag_source_set_icon_name(icon);
-    box.connect('drag-data-get', (_w, _c, data) => data.set_text(address, address.length));
-    return box;
-};
-
-const workspace = (ws, isActive) => {
-    let clients = Hyprland.HyprctlGet('clients').filter(({ workspace: { id } }) => id === ws);
-
-    // this is for my monitor layout
-    // shifts clients back by 1920px if necessary
-    // this is because hyprland counts offset by multimonitor setups
-    clients = clients.map(client => {
-        const [x, y] = client.at;
-        if (x > 1920)
-            client.at = [x-1920, y];
-        return client;
-    });
-
-    const fixed = Gtk.Fixed.new();
-    clients.forEach(c => fixed.put(client(c), c.at[0]*SCALE, c.at[1]*SCALE));
-
-    const eventbox = Widget({
+const workspace = (ws, isActive) => Widget({
+    type: 'box',
+    className: `workspace ${isActive ? 'active' : ''}`,
+    valign: 'center',
+    style: `
+        min-width: ${1920*SCALE}px;
+        min-height: ${1080*SCALE}px;
+    `,
+    children: [{
         type: 'eventbox',
         hexpand: true,
         vexpand: true,
         onClick: () => execAsync(`hyprctl dispatch workspace ${ws}`),
-    });
-    eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
-    eventbox.connect('drag-data-received', (_w, _c, _x, _y, data) => {
-        execAsync(`hyprctl dispatch movetoworkspacesilent ${ws},address:${data.get_text()}`);
-    });
-    eventbox.add(fixed);
+        setup: eventbox => {
+            eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
+            eventbox.connect('drag-data-received', (_w, _c, _x, _y, data) => {
+                execAsync(`hyprctl dispatch movetoworkspacesilent ${ws},address:${data.get_text()}`);
+            });
+        },
+        child: {
+            type: Gtk.Fixed.new,
+            setup: fixed => {
+                let clients = Hyprland.HyprctlGet('clients')
+                    .filter(({ workspace: { id } }) => id === ws);
 
-    return Widget({
-        type: 'box',
-        className: `workspace ${isActive ? 'active' : ''}`,
-        valign: 'center',
-        style: `
-            min-width: ${1920*SCALE}px;
-            min-height: ${1080*SCALE}px;
-        `,
-        children: [eventbox],
-    });
-};
+                // this is for my monitor layout
+                // shifts clients back by 1920px if necessary
+                // this is because hyprland counts offset by multimonitor setups
+                clients = clients.map(client => {
+                    const [x, y] = client.at;
+                    if (x > 1920)
+                        client.at = [x-1920, y];
+                    return client;
+                });
+
+                clients.forEach(c => fixed.put(client(c), c.at[0]*SCALE, c.at[1]*SCALE));
+            },
+        }
+    }],
+});
 
 Widget.widgets['overview'] = () => Widget({
     type: 'box',

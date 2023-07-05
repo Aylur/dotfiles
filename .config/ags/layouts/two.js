@@ -3,7 +3,8 @@ const Shared = imports.layouts.shared;
 // static windows
 const dock = Shared.dock;
 const notifications = monitor => Shared.notifications(monitor, 'slide_down', ['top']);
-const desktop = monitor => Shared.desktop(monitor, 'topbar');
+const desktop = Shared.desktop;
+const corners = Shared.corners;
 
 // popups
 const dashboard = {
@@ -91,6 +92,7 @@ var windows = [
         notifications(id),
         desktop(id),
         bar(id),
+        ...corners(id),
     ])).flat(),
     dashboard,
     quicksettings,

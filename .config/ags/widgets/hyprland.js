@@ -1,6 +1,4 @@
 const { Widget } = ags;
-const { Hyprland, Applications } = ags.Service;
-const { timeout, execAsync } = ags.Utils;
 
 Widget.widgets['workspaces'] = () => Widget({
     type: 'eventbox',
@@ -23,6 +21,7 @@ Widget.widgets['client'] = () => Widget({
             size: 18,
             symbolic: true,
             substitutes: [
+                { from: 'com.transmissionbt.Transmission._43_219944-symbolic', to: 'com.transmissionbt.Transmission-symbolic' },
                 { from: 'com.transmissionbt.Transmission._40_219944-symbolic', to: 'com.transmissionbt.Transmission-symbolic' },
                 { from: 'blueberry.py-symbolic', to: 'bluetooth-symbolic' },
                 { from: 'org.wezfurlong.wezterm-symbolic', to: 'folder-code-symbolic' },
@@ -34,6 +33,7 @@ Widget.widgets['client'] = () => Widget({
             type: 'hyprland/client-label',
             show: 'class',
             substitutes: [
+                { from: 'com.transmissionbt.Transmission._43_219944', to: 'Transmission' },
                 { from: 'com.transmissionbt.Transmission._40_219944', to: 'Transmission' },
                 { from: 'com.obsproject.Studio', to: 'OBS' },
                 { from: 'com.github.wwmm.easyeffects', to: 'Easy Effects' },
@@ -48,113 +48,4 @@ Widget.widgets['client'] = () => Widget({
             ],
         },
     ],
-});
-
-const pins = (list, iconSize) => ({
-    type: 'box',
-    homogeneous: true,
-    children: list
-        .map(term => { return { app: Applications.query(term)?.[0], term }; })
-        .filter(({ app }) => app !== undefined)
-        .map(({ app }) => ({
-            type: 'button',
-            tooltip: app.name,
-            onClick: app.launch,
-            child: {
-                type: 'icon',
-                icon: app.iconName,
-                size: iconSize,
-            },
-            // connections: [[Hyprland, button => {
-            //     for (const [address, client] of Hyprland.clients) {
-            //         button.toggleClassName(client.class.includes(term), 'on');
-            //         button.toggleClassName(Hyprland.active.client.address === address.substring(2), 'focused');
-            //     }
-            // }]],
-        })),
-});
-
-Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
-    type: 'box',
-    className: 'dock',
-    children: [
-        {
-            type: 'button',
-            tooltip: 'Applications',
-            onClick: () => ags.App.toggleWindow('applauncher'),
-            child: {
-                type: 'icon',
-                icon: 'view-app-grid-symbolic',
-                size: iconSize,
-            },
-        },
-        pins(['firefox', 'wezterm', 'nautilus', 'spotify'], iconSize),
-        {
-            type: 'box',
-            valign: 'center',
-            className: 'separator',
-            connections: [[Hyprland, box => {
-                box.visible = Hyprland.clients.size > 0;
-            }]],
-        },
-        {
-            type: 'hyprland/taskbar',
-            item: ({ iconName }, { address, title }) => ({
-                type: 'button',
-                child: {
-                    type: 'overlay',
-                    children: [
-                        {
-                            type: 'icon',
-                            size: iconSize,
-                            icon: iconName,
-                        },
-                        {
-                            type: 'box',
-                            className: 'indicator',
-                            valign: 'end',
-                            halign: 'center',
-                        },
-                    ],
-                },
-                tooltip: title,
-                className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
-                onClick: () => execAsync(`hyprctl dispatch focuswindow address:${address}`),
-            }),
-        },
-    ],
-});
-
-Widget.widgets['floating-dock'] = () => Widget({
-    type: 'eventbox',
-    className: 'floating-dock',
-    valign: 'start',
-    onHover: box => {
-        timeout(300, () => box._revealed = true);
-        box.get_child().get_children()[0].reveal_child = true;
-    },
-    onHoverLost: box => {
-        if (!box._revealed)
-            return;
-
-        timeout(300, () => box._revealed = false);
-        box.get_child().get_children()[0].reveal_child = false;
-    },
-    child: {
-        type: 'box',
-        orientation: 'vertical',
-        style: 'padding: 1px;',
-        children: [
-            {
-                transition: 'slide_up',
-                type: 'revealer',
-                child: { type: 'dock' },
-            },
-            {
-                type: 'box',
-                className: 'padding',
-                style: 'padding: 2px;',
-            },
-        ],
-    },
 });

@@ -1,3 +1,5 @@
+// dependency: hyprpicker
+
 const { execAsync } = ags.Utils;
 const { Widget } = ags;
 

@@ -10,6 +10,8 @@ const _icon = ({ appEntry, appIcon, image }) => {
             style: `
                 background-image: url("${image}");
                 background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
                 min-width: 78px;
                 min-height: 78px;
             `,
@@ -93,7 +95,9 @@ const _notification = ({ id, summary, body, actions, urgency, time, ...icon }) =
                                 xalign: 0,
                                 justify: 'left',
                                 type: 'label',
-                                label: body,
+                                label: body.split(' ').map(word =>
+                                    word.split('').map((ch, i) => (i+1) % 24 === 0 ? ch+' ' : ch).join('')
+                                ).join(' '),
                                 wrap: true,
                             },
                         ],

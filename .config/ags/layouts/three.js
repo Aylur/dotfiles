@@ -2,7 +2,8 @@ const Shared = imports.layouts.shared;
 
 // static windows
 const notifications = monitor => Shared.notifications(monitor, 'slide_left', ['bottom', 'right']);
-const desktop = monitor => Shared.desktop(monitor, 'bottombar');
+const desktop = Shared.desktop;
+const corners = Shared.corners;
 
 // popups
 const datemenu = {
@@ -112,6 +113,7 @@ var windows = [
         notifications(id),
         desktop(id),
         bar(id),
+        ...corners(id),
     ])).flat(),
     datemenu,
     media,

@@ -71,3 +71,5 @@ globals:
   imports: readonly
   print: readonly
   console: readonly
+  logError: readonly
+  ARGV: readonly

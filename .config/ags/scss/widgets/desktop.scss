@@ -1,11 +1,9 @@
+.corners .corner {
+    background-color: $bg_color;
+}
+
 .desktop {
     background-color: $bg_color;
-
-
-    &.bottombar .corner:first-child,
-    &.topbar .corner:last-child {
-        background-color: black;
-    }
 
     .clock {
         color: $bg_color;
@@ -24,15 +22,6 @@
     .wallpaper {
         border-radius: $popover_radius;
         box-shadow: inset 0 0 $spacing 0 $box_shadow;
-        margin: 2px;
-    }
-
-    &.bottombar .wallpaper {
-        margin-bottom: 0;
-    }
-
-    &.topbar .wallpaper {
-        margin-top: 0;
     }
 }
 

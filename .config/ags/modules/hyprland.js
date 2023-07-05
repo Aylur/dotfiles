@@ -136,6 +136,7 @@ const _item = ({ iconName }, { address, title }) => ({
 Widget.widgets['hyprland/taskbar'] = ({
     item = _item,
     windowName,
+    skip = [], // string[]
     ...props
 }) => Widget({
     ...props,
@@ -148,6 +149,10 @@ Widget.widgets['hyprland/taskbar'] = ({
 
             box.get_children().forEach(ch => ch.destroy());
             Hyprland.clients.forEach(client => {
+                for (const appName of skip) {
+                    if (client.class.toLowerCase().includes(appName.toLowerCase()))
+                        return;
+                }
                 for (const app of box._apps) {
                     if (client.title && app.match(client.title) || client.class && app.match(client.class)) {
                         box.add(Widget(item(app, client)));

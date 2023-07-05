@@ -1,7 +1,7 @@
-/* exported notifications, desktop, indicator, dock, separator, launcher
-            applauncher, overview, powermenu, verification*/
+/* exported notifications, desktop, corners, indicator, dock, separator,
+            launcher applauncher, overview, powermenu, verification*/
 
-//static
+// static
 var notifications = (monitor, transition, anchor) => ({
     monitor,
     name: `notifications${monitor}`,
@@ -9,18 +9,27 @@ var notifications = (monitor, transition, anchor) => ({
     child: { type: 'notifications/popups', transition },
 });
 
-var desktop = (monitor, className) => ({
+var desktop = monitor => ({
     monitor,
     name: `desktop${monitor}`,
     anchor: ['top', 'bottom', 'left', 'right'],
-    child: { type: 'desktop', className },
+    child: { type: 'desktop' },
     layer: 'background',
 });
+
+var corners = monitor => ['topleft', 'topright', 'bottomleft', 'bottomright'].map(place => ({
+    monitor,
+    name: `corner${monitor}${place}`,
+    className: 'corners',
+    anchor: [place.includes('top') ? 'top' : 'bottom', place.includes('right') ? 'right' : 'left'],
+    child: { type: 'corner', place },
+}));
 
 var indicator = monitor => ({
     monitor,
     name: `indicator${monitor}`,
     className: 'indicator',
+    layer: 'overlay',
     anchor: ['right'],
     child: { type: 'on-screen-indicator/vertical' },
 });
