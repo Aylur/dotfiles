@@ -3,14 +3,12 @@
   imports = [
     ./starship.nix
     ./packages.nix
-    # ./helix.nix
     ./neovim.nix
     ./sh.nix
     ./neofetch.nix
     ./desktopEntries.nix
     ./theming.nix
     ./files.nix
-    # ./bspwm.nix
     ./hyprland.nix
   ];
 

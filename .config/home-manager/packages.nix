@@ -2,35 +2,28 @@
 {
   home.packages = with pkgs; [
     # tools
-    bat exa 
+    bat exa ranger
     socat jq htop acpi inotify-tools ffmpeg
-    wl-gammactl wlsunset wl-clipboard wf-recorder hyprpicker
-    pavucontrol blueberry bluez brightnessctl playerctl imagemagick networkmanager
-    # gjs gnome.gnome-bluetooth upower networkmanager gtk3 pango cairo harfbuzz gdk-pixbuf
+
+    # wayland
+    wl-gammactl wlsunset wl-clipboard wf-recorder hyprpicker watershot
+    pavucontrol blueberry brightnessctl
 
     # fun
     fortune jp2a pywal
     glow vhs gum slides charm skate
     yabridge yabridgectl wine-staging
 
+    distrobox
     wezterm 
     vscode
-    distrobox
-    sassc glib
-
-    # file manager
-    ranger
 
     # langs
     meson ninja
-    nodejs cargo rustc go
-    jdk
-
+    nodejs cargo go
     nodePackages_latest.typescript
     nodePackages_latest.eslint
-    # nodePackages_latest.prettier
-    # postman
-    # sqlitebrowser
+    sassc
 
     # ls
     llvmPackages_9.libclang
@@ -39,7 +32,6 @@
     nodePackages.vls
     lua-language-server
     marksman
-    rnix-lsp
     gopls
   ];
 }
