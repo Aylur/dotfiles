@@ -21,7 +21,7 @@
     scale {
         margin: 0 $spacing;
 
-        @include slider($width: .8em);
+        @include slider($width: .3em, $slider_width: .5em);
     }
 
     .percent {
@@ -37,7 +37,7 @@
 
 @mixin mixer() {
     scale {
-        @include slider($width: .5em);
+        @include slider($width: .3em, $slider_width: .5em);
     }
 
     > box {
@@ -129,6 +129,10 @@ window#quicksettings .notification-center {
                 @include widget;
                 margin-bottom: $spacing;
             }
+        }
+
+        .placeholder .icon {
+            font-size: 7em;
         }
     }
 

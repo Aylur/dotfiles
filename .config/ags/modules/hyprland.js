@@ -19,16 +19,16 @@ Widget.widgets['hyprland/workspaces'] = ({
     const button = (windows, i) => {
         const { active: { workspace }, workspaces } = Hyprland;
 
-        const [child, className] = workspace.id === i
-            ? [active, 'active']
+        const child = workspace.id === i
+            ? active
             : windows > 0
-                ? [occupied, 'occupied']
-                : [empty, 'empty'];
+                ? occupied
+                : empty;
 
         return Widget({
             type: 'button',
             onClick: () => execAsync(`hyprctl dispatch workspace ${i}`),
-            className,
+            className: `${workspace.id === i ? 'active' : ''} ${windows > 0 ? 'occupied' : 'empty'}`,
             child: child ? Widget(child) : `${workspaces.get(i)?.name || i}`,
         });
     };

@@ -107,7 +107,10 @@ const _notification = ({ id, summary, body, actions, urgency, time, ...icon }) =
             {
                 type: 'box',
                 className: 'actions',
-                connections: [['draw', widget => { widget.visible = actions.length > 0; }]],
+                setup: box => {
+                    print(actions.length);
+                },
+                // connections: [['draw', widget => { widget.visible = actions.length > 0; }]],
                 children: actions.map(({ action, label }) => ({
                     className: 'action-button',
                     type: 'button',

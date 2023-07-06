@@ -1,5 +1,8 @@
+$float: 5px;
+
 @mixin panel_button($flat: false, $reactive: true) {
     @include button($flat: $flat, $reactive: $reactive);
+    border-radius: $radii + $float;
     padding: $spacing/2 $spacing;
 
     @if not $reactive {
@@ -8,7 +11,7 @@
     font-weight: bold;
 
     &, &:hover, &:active, &:focus {
-        border: 5px solid $bg_color;
+        border: $float solid $bg_color;
     }
 }
 
@@ -50,19 +53,46 @@
     }
 
     .workspaces button {
-        @include button($flat: true, $reactive: false);
-        transition: $transition;
+        .indicator {
+            min-width: .6em;
+            min-height: .6em;
+            border-radius: $radii/2;
+            border: 2px solid red;
+            transition: border $transition;
+            margin: 0 $spacing/2;
 
-        label {
-            font-size: 1.1em;
-            margin: 0 $spacing/4;
+            .fill {
+                transition: background-color $transition;
+                margin: 2px;
+                border-radius: max($radii*0.7 - 4px, 0);
+            }
         }
-        &:last-child label { margin-right: $spacing*1.6 }
-        &:first-child label { margin-left: $spacing*1.6 }
-        &.empty { color: transparentize($fg_color, 0.4) }
-        &.occupied { color: transparentize($fg_color, 0.2) }
-        &:hover { color: transparentize($accent, 0.2) }
-        &:active { color: $accent }
+
+        &:last-child .indicator { margin-right: $spacing*1.6 }
+        &:first-child .indicator { margin-left: $spacing*1.6 }
+
+        &.empty .indicator {
+            border-color: transparentize($fg_color, 0.4);
+        }
+
+        &.occupied .indicator {
+            border-color: transparentize($fg_color, 0.2);
+            .fill { background-color: transparentize($fg_color, 0.2) }
+        }
+
+        &:hover .indicator {
+            border-color: transparentize($accent, 0.2);
+            .fill { background-color: transparentize($accent, 0.2) }
+        }
+
+        &.active .indicator, &:active .indicator {
+            border-color: $accent;
+            .fill { background-color: $accent }
+        }
+
+        &.empty .indicator .fill {
+            background-color: transparent;
+        }
     }
 
     .client {

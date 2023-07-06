@@ -1,5 +1,5 @@
 $wm_gaps: 14px;
-$radii: 12px;
+$radii: 9px;
 $spacing: 8px;
 
 $destructive: $red;
@@ -12,6 +12,7 @@ $button_bg: transparentize($fg_color, 0.92);
 $button_radius: $radii;
 
 $border_color: rgba(255,255,255,.03);
+// $border_color: $fg_color;
 $border_width: 1px;
 $border: $border_width solid $border_color;
 
@@ -21,6 +22,7 @@ $icon_shadow: 2px 2px rgba(0,0,0,.6);
 
 $popover_radius: $radii * 1.7;
 $popover_border_color: rgba(255,255,255,.02);
+// $popover_border_color: $fg_color;
 $popover_padding: 14px;
 
 $transition: 250ms;

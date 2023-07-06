@@ -50,7 +50,7 @@ Widget.widgets['notifications/list'] = props => Widget({
                 valign: 'center',
                 vexpand: true,
                 children: [
-                    { type: 'icon', icon: 'notifications-disabled-symbolic', size: 78 },
+                    { type: 'label', label: '󰂛', className: 'icon' },
                     'Your inbox is empty',
                 ],
             },

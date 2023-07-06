@@ -1,5 +1,6 @@
 .corners .corner {
     background-color: $bg_color;
+    border-radius: $radii*2;
 }
 
 .desktop {
@@ -22,6 +23,11 @@
     .wallpaper {
         border-radius: $popover_radius;
         box-shadow: inset 0 0 $spacing 0 $box_shadow;
+    }
+
+    &.7 .clock, &.7 .date {
+        color:  transparent;
+        border-color: transparent;
     }
 }
 

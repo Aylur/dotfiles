@@ -39,7 +39,7 @@ const smalltoggle = (toggle, indicator) => ({
 const sysBtn = (icon, action, className = '') => ({
     type: 'button',
     className,
-    onClick: () => System.action(action),
+    onClick: () => ags.Service.System.action(action),
     tooltip: action,
     child: {
         type: 'icon',

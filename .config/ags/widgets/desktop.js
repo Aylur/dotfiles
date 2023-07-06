@@ -10,10 +10,11 @@ Widget.widgets['wallpaper'] = () => Widget({
             type: 'box',
             hexpand: true,
             vexpand: true,
-            className: 'wallpaper',
+            className: `wallpaper ${i}`,
             style: `
                 background-image: url("${w}");
                 background-size: cover;
+                background-position: bottom right;
             `,
         },
     })),
@@ -26,7 +27,7 @@ Widget.widgets['wallpaper'] = () => Widget({
     }]],
 });
 
-Widget.widgets['corner'] = ({ place, radius = 20 }) => Widget({
+Widget.widgets['corner'] = ({ place }) => Widget({
     type: Gtk.DrawingArea.new,
     className: 'corner',
     hexpand: true,
@@ -34,33 +35,37 @@ Widget.widgets['corner'] = ({ place, radius = 20 }) => Widget({
     halign: place.includes('left') ? 'start' : 'end',
     valign: place.includes('top') ? 'start' : 'end',
     setup: widget => {
-        widget.set_size_request(radius, radius);
+        widget.set_size_request(0, 0);
     },
     connections: [['draw', (widget, cr) => {
         const c = widget.get_style_context().get_property('background-color', Gtk.StateFlags.NORMAL);
+        const r = widget.get_style_context().get_property('border-radius', Gtk.StateFlags.NORMAL);
+
+        widget.set_size_request(r, r);
+
         switch (place) {
         case 'topleft':
-            cr.arc(radius, radius,
-                radius, Math.PI, 3 * Math.PI / 2);
+            cr.arc(r, r,
+                r, Math.PI, 3 * Math.PI / 2);
             cr.lineTo(0, 0);
             break;
 
         case 'topright':
-            cr.arc(0, radius,
-                radius, 3 * Math.PI / 2, 2 * Math.PI);
-            cr.lineTo(radius, 0);
+            cr.arc(0, r,
+                r, 3 * Math.PI / 2, 2 * Math.PI);
+            cr.lineTo(r, 0);
             break;
 
         case 'bottomleft':
-            cr.arc(radius, 0,
-                radius, Math.PI / 2, Math.PI);
-            cr.lineTo(0, radius);
+            cr.arc(r, 0,
+                r, Math.PI / 2, Math.PI);
+            cr.lineTo(0, r);
             break;
 
         case 'bottomright':
             cr.arc(0, 0,
-                radius, 0, Math.PI / 2);
-            cr.lineTo(radius, radius);
+                r, 0, Math.PI / 2);
+            cr.lineTo(r, r);
             break;
         }
 
@@ -92,4 +97,8 @@ Widget.widgets['desktop'] = props => Widget({
             },
         ],
     }],
+    connections: [[Hyprland, box => {
+        for (let i=0; i<9; ++i)
+            box.toggleClassName(`${i}`, i === Hyprland.active.workspace.id);
+    }]],
 });

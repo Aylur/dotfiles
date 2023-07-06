@@ -12,6 +12,7 @@ $float: 5px;
     button {
         @include button($flat: true);
         border: $float solid $bg_color;
+        border-radius: $radii + $float;
 
         &:last-child {
             margin-right: 0;
@@ -33,7 +34,7 @@ $float: 5px;
             margin-bottom: 2px;
         }
 
-        &.nonrunning .indicator {
+        &.single .indicator, &.nonrunning .indicator {
             background-color: transparent;
         }
 

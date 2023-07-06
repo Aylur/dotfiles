@@ -1,14 +1,26 @@
 const { Widget } = ags;
 
+const indicator = {
+    type: 'box',
+    className: 'indicator',
+    valign: 'center',
+    children: [{
+        type: 'box',
+        className: 'fill',
+        hexpand: true,
+        vexpand: true,
+    }],
+};
+
 Widget.widgets['workspaces'] = () => Widget({
     type: 'eventbox',
     className: 'workspaces',
     child: {
         type: 'hyprland/workspaces',
         fixed: 7,
-        active: { type: 'label', label: '' },
-        occupied: { type: 'label', label: '' },
-        empty: { type: 'label', label: '' },
+        active: indicator,
+        occupied: indicator,
+        empty: indicator,
     },
 });
 

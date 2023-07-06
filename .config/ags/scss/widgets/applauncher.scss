@@ -20,6 +20,7 @@ window#applauncher .applauncher{
                 background-color: transparentize($bg_color, 0.4);
                 padding: $spacing/2;
                 margin-right: $spacing;
+                -gtk-icon-transform: scale(0.8);
             }
 
             entry {

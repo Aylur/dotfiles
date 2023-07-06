@@ -68,7 +68,7 @@
     padding: $padding;
 }
 
-@mixin slider($width: .4em, $color: $accent, $slider: true, $focusable: true){
+@mixin slider($width: .4em, $slider_width: 0, $color: $accent, $slider: true, $focusable: true){
     trough{
         transition: $transition;
         border-radius: $button_radius;
@@ -90,17 +90,26 @@
 
         slider{
             @if $slider{
-                background-color: $fg_color;
+                background-color: mix($fg_color, $bg_color, 90%);
                 border-radius: $button_radius;
                 border: $border;
                 min-height: $width;
                 min-width:  $width;
+                margin: -$slider_width;
             }
         }
     }
 
-    &:hover trough {
-        background-color: $hover;
+    &:hover {
+        trough {
+            background-color: $hover;
+        }
+
+        slider {
+            @if $slider{
+                background-color: $fg_color;
+            }
+        }
     }
 
     &:disabled {
@@ -133,7 +142,7 @@
     }
 
     @if $theme == 'light' {
-        background-color: transparentize($bg_color, 0.9);
+        background-color: transparentize($fg_color, 0.9);
     }
 }
 

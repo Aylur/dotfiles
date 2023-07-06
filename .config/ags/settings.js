@@ -14,6 +14,7 @@ var wallpapers = [
     `${HOME}/Pictures/Wallpapers/kitty/kittyb2.jpeg`,
     `${HOME}/Pictures/Wallpapers/kitty/kittym2.jpeg`,
     `${HOME}/Pictures/Wallpapers/kitty/kittyw.jpeg`,
+    // `${HOME}/Pictures/Wallpapers/etc/art.png`,
 ];
 
 var openSettings = `wezterm start nvim ${HOME}/.config/ags`;

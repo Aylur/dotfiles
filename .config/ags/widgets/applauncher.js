@@ -26,7 +26,7 @@ Widget.widgets['applauncher/popup-content'] = ({ windowName = 'applauncher' }) =
                             children: [
                                 {
                                     type: 'icon',
-                                    icon: 'view-grid-symbolic',
+                                    icon: 'folder-saved-search-symbolic',
                                     size: 20,
                                 },
                                 entry,

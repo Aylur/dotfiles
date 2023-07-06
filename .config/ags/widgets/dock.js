@@ -42,6 +42,7 @@ const _pins = (iconSize, list) => ({
                 app.launch();
             },
             tooltip: app.name,
+            className: !single ? 'single' : '',
             connections: [[Hyprland, button => {
                 if (!single)
                     return;
@@ -87,7 +88,7 @@ Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
             valign: 'center',
             className: 'separator',
             connections: [[Hyprland, box => {
-                box.visible = Hyprland.clients.size > 0;
+                box.visible = box.get_parent().get_children()[3].get_children().length > 0;
             }]],
         },
         {
