@@ -10,10 +10,11 @@ var defaults = {
     userName: USER,
     style: {
         wm_gaps: 16,
-        spacing: 8,
+        spacing: 9,
         radii: 7,
         border_width: 1,
         border_opacity: 97,
+        screen_corners: false,
         accent: '$blue',
         accent_fg: '#141414',
         bg: '$fg_color',

@@ -36,6 +36,10 @@ window#settings {
             }
         }
 
+        switch {
+            @include switch;
+        }
+
         .wallpaper {
             min-height: 90px;
             background-size: cover;

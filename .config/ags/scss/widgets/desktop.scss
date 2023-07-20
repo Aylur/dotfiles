@@ -1,10 +1,10 @@
 .corners .corner {
-    background-color: $bg_color;
+    background-color: if($screen_corners, $bg_color, transparent);
     border-radius: $radii*2;
 }
 
 .desktop {
-    border-radius: $popover_radius;
+    border-radius: if($screen_corners, $popover_radius, 0);
     box-shadow: inset 0 0 $spacing 0 $shadow;
 
     .clock-box {

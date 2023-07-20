@@ -16,20 +16,28 @@ const img = (title, setting) => row(title, {
     connections: [['selection-changed', w => Settings[setting] = w.get_uri().replace('file://', '')]],
 });
 
-const spinbutton = (title, styleprop, max, min = 0) => row(title, {
+const spinbutton = (title, prop, max, min = 0) => row(title, {
     type: () => Gtk.SpinButton.new_with_range(min, max, 1),
-    setup: w => w.value = Settings.getStyle(styleprop) || defaults.style[styleprop],
+    setup: w => w.value = Settings.getStyle(prop) || defaults.style[prop],
     hexpand: true,
     halign: 'end',
     connections: [['value-changed', w => {
         if (!w._first)
             return w._first = true;
 
-        Settings.setStyle(styleprop, w.value);
+        Settings.setStyle(prop, w.value);
     }]],
 });
 
-const color = (title, styleprop) => row(title, {
+const switchbtn = (title, prop) => row(title, {
+    type: 'switch',
+    active: Settings.getStyle(prop) || defaults.style[prop],
+    onActivate: bool => Settings.setStyle(prop, bool),
+    halign: 'end',
+    hexpand: true,
+});
+
+const color = (title, prop) => row(title, {
     type: 'box',
     hexpand: true,
     halign: 'end',
@@ -37,17 +45,17 @@ const color = (title, styleprop) => row(title, {
     children: [
         {
             type: 'entry',
-            onAccept: value => Settings.setStyle(styleprop, value),
-            text: Settings.getStyle(styleprop) || defaults.style[styleprop],
+            onAccept: value => Settings.setStyle(prop, value),
+            text: Settings.getStyle(prop) || defaults.style[prop],
             valign: 'center',
         },
         {
             type: () => new Gtk.ColorButton({ alpha: true }),
-            setup: w => w.rgba.parse(Settings.getStyle(styleprop) || defaults.style[styleprop]),
+            setup: w => w.rgba.parse(Settings.getStyle(prop) || defaults.style[prop]),
             valign: 'center',
             connections: [['color-set', w => {
                 w.get_parent().get_children()[0].set_text(w.rgba.to_string());
-                Settings.setStyle(styleprop, w.rgba.to_string());
+                Settings.setStyle(prop, w.rgba.to_string());
             }]],
         },
     ],
@@ -134,6 +142,7 @@ var dialog = () => {
                 img('Avatar', 'avatar'),
                 spinbutton('Useless Gaps', 'wm_gaps', 128),
                 spinbutton('Spacing', 'spacing', 18),
+                switchbtn('Screen Corners', 'screen_corners'),
             ],
         },
         borders: {

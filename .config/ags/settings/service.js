@@ -69,7 +69,7 @@ class SettingsService extends Service {
         ['wm_gaps', 'spacing', 'radii', 'border_width']
             .forEach(v => sed(v, 'variables', `${style[v] || defs[v]}px`));
 
-        ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity']
+        ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners']
             .forEach(v => sed(v, 'variables', style[v] || defs[v]));
 
         ['dark_bg_color', 'dark_fg_color', 'dark_hover_fg']
