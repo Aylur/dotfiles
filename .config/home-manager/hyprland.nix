@@ -1,15 +1,15 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    polkit_gnome
-    xdg-desktop-portal-hyprland
-    (hyprland.override {
-      enableXWayland = true;
-      hidpiXWayland = true;
-      nvidiaPatches = true;
-    })
-  ];
-
+  # home.packages = with pkgs; [
+  #   polkit_gnome
+  #   xdg-desktop-portal-hyprland
+  #   (hyprland.override {
+  #     enableXWayland = true;
+  #     hidpiXWayland = true;
+  #     nvidiaPatches = true;
+  #   })
+  # ];
+  #
   home.file = {
     ".config/hypr/hyprland.conf" = {
       text = ''
@@ -19,7 +19,6 @@
         source=~/.config/hypr/binds.conf
         source=~/.config/hypr/theme.conf
         source=~/.config/hypr/startup.conf
-        ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
         '';
     };
     ".local/bin/hypr" = {
@@ -37,7 +36,8 @@
           PATH="$HOME/.nix-profile/bin:$PATH"; fi
 
         export PATH
-        exec nixGL ${pkgs.hyprland}/bin/Hyprland
+        # exec nixGL ${pkgs.hyprland}/bin/Hyprland
+        exec Hyprland
       '';
     };
   };

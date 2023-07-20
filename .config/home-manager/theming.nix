@@ -17,6 +17,8 @@
     qogir-theme #gtk
     papirus-icon-theme
     qogir-icon-theme
+    whitesur-icon-theme
+    colloid-icon-theme
     adw-gtk3
   ];
 

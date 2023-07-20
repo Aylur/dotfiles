@@ -6,8 +6,8 @@
     socat jq htop acpi inotify-tools ffmpeg
 
     # wayland
-    wl-gammactl wlsunset wl-clipboard wf-recorder hyprpicker watershot
-    pavucontrol blueberry brightnessctl
+    wl-gammactl wlsunset wl-clipboard wl-screenrec hyprpicker watershot imagemagick
+    pavucontrol blueberry brightnessctl swww
 
     # fun
     fortune jp2a pywal
