@@ -72,6 +72,8 @@ class SettingsService extends Service {
         ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners']
             .forEach(v => sed(v, 'variables', style[v] || defs[v]));
 
+        sed('active_gradient', 'variables', `linear-gradient(${style.active_gradient || defs.active_gradient})`);
+
         ['dark_bg_color', 'dark_fg_color', 'dark_hover_fg']
             .forEach(v => sed(v.substring(5), 'dark', style[v] || defs[v]));
 

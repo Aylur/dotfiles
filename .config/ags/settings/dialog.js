@@ -61,6 +61,15 @@ const color = (title, prop) => row(title, {
     ],
 });
 
+const text = (title, prop) => row(title, {
+    type: 'entry',
+    text: Settings.getStyle(prop) || defaults.style[prop],
+    hexpand: true,
+    halign: 'end',
+    onAccept: value => Settings.setStyle(prop, value),
+    style: 'min-width: 12em',
+})
+
 class Pages extends ags.Service {
     static { ags.Service.register(this); }
     static instance = new Pages();
@@ -160,6 +169,7 @@ var dialog = () => {
             children: [
                 color('Accent Color', 'accent'),
                 color('Accent Foreground', 'accent_fg'),
+                text('Active Gradient', 'active_gradient'),
                 color('Widget Background', 'bg'),
                 spinbutton('Widget Opacity', 'widget_opacity', 100, 4),
             ],

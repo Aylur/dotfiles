@@ -19,6 +19,7 @@
 
 @mixin button_active() {
     box-shadow: inset 0 0 0 $border_width $border_color;
+    background-image: $active_gradient;
     background-color: $accent;
     color: $accent_fg;
 }
@@ -118,7 +119,7 @@
     padding: $padding;
 }
 
-@mixin slider($width: .4em, $slider_width: .5em, $color: $accent, $slider: true, $focusable: true, $radii: $radii){
+@mixin slider($width: .7em, $slider_width: .5em, $gradient: $active_gradient, $slider: true, $focusable: true, $radii: $radii){
     trough{
         transition: $transition;
         border-radius: $radii;
@@ -129,10 +130,20 @@
 
         highlight, progress{
             border-radius: max($radii - $border_width, 0);
-            background-color: $color;
+            background-image: $gradient;
             min-height: $width;
             min-width:  $width;
         }
+    }
+
+    slider {
+        background-color: transparent;
+        border: $border_width solid transparent;
+        transition: $transition;
+        border-radius: $radii;
+        min-height: $width;
+        min-width:  $width;
+        margin: -$slider_width;
     }
 
     &:hover {
@@ -143,19 +154,15 @@
         slider {
             @if $slider{
                 background-color: $fg_color;
-                transition: $transition;
-                border-radius: $radii;
-                border: $border;
-                min-height: $width;
-                min-width:  $width;
-                margin: -$slider_width;
+                border-color: $border-color;
             }
         }
     }
 
     &:disabled {
         highlight, progress{
-            background: transparentize($color, 0.5);
+            background-color: transparentize($fg_color, 0.4);
+            background-image: none;
         }
 
         slider {
@@ -169,10 +176,6 @@
         trough:focus{
             background-color: $hover;
             box-shadow: inset 0 0 0 $border_width $accent;
-
-            highlight, progress{
-                background-color: transparentize($color, 0.3);
-            }
 
             slider {
                 @if $slider {

@@ -17,6 +17,7 @@ var defaults = {
         screen_corners: false,
         accent: '$blue',
         accent_fg: '#141414',
+        active_gradient: 'to right, $blue, lighten($blue, 4%)',
         bg: '$fg_color',
         widget_opacity: 94,
         dark_bg_color: '#171717',

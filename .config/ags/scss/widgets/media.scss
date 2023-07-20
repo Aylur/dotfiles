@@ -58,7 +58,7 @@
     }
 
     .position-slider {
-        @include slider($slider: false, $color: $shader_fg, $radii: 0);
+        @include slider($width: .4em, $slider: false, $gradient: linear-gradient($shader_fg, $shader_fg), $radii: 0);
         margin: $spacing 0;
 
         trough {
