@@ -67,8 +67,8 @@ const text = (title, prop) => row(title, {
     hexpand: true,
     halign: 'end',
     onAccept: value => Settings.setStyle(prop, value),
-    style: 'min-width: 12em',
-})
+    style: 'min-width: 20em',
+});
 
 class Pages extends ags.Service {
     static { ags.Service.register(this); }

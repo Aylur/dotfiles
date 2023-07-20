@@ -14,7 +14,7 @@ var defaults = {
         radii: 7,
         border_width: 1,
         border_opacity: 97,
-        screen_corners: false,
+        screen_corners: true,
         accent: '$blue',
         accent_fg: '#141414',
         active_gradient: 'to right, $blue, lighten($blue, 4%)',

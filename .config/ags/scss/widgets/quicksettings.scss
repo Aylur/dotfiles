@@ -10,6 +10,7 @@ window#quicksettings .quicksettings {
         .avatar {
             @include widget;
             margin-right: $spacing;
+            min-width: $spacing*7 + 32px;
 
             .image {
                 border-radius: max($radii - $border_width, 0);
