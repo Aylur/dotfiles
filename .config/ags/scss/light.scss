@@ -3,26 +3,14 @@ $theme: 'light';
 // gnome
 $red: #f66151;
 $green: #57e389;
-$blue: #62a0ea;
 $yellow: #f6d32d;
+$blue: #62a0ea;
 $magenta: #c061cb;
 $teal: #5bc8aF;
 $orange: #ffa348;
 
-// charm
-// $red: #e67090;
-// $green: #43c383;
-// $yellow: #d8e77b;
-// $blue: #51a4e7;
-// $magenta: #9077e7;
-// $teal: #51e6e6;
-// $orange: #E79E64;
-
-$fg_color: #171717;
 $bg_color: #fff;
+$fg_color: #171717;
 $hover_fg: #131313;
-$accent_fg: #171717;
-$hover: transparentize($fg_color, 0.84);
-$accent: $blue;
 
 @import './main';

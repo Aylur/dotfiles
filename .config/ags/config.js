@@ -1,21 +1,16 @@
 /* exported config */
+const { exec } = ags.Utils;
 
-const { CONFIG_DIR, exec } = ags.Utils;
-
-exec(`sassc ${CONFIG_DIR}/scss/dark.scss ${CONFIG_DIR}/dark.css`);
-exec(`sassc ${CONFIG_DIR}/scss/light.scss ${CONFIG_DIR}/light.css`);
-
+const layout = imports.settings.service.Settings.layout;
 Object.keys(imports.modules).forEach(m => imports.modules[m]);
-Object.keys(imports.widgets).forEach(m => imports.widgets[m]);
+Object.keys(imports.layouts.widgets).forEach(m => imports.layouts.widgets[m]);
 
 var config = {
-    baseIconSize: 18,
+    baseIconSize: 20,
     stackTraceOnError: true,
     closeWindowDelay: {
-        'datemenu': 500,
-        'dashboard': 500,
-        'quicksettings': 500,
-        'media': 500,
+        'dashboard': 350,
+        'quicksettings': 350,
     },
     windows: [
         ...ags.Service.Hyprland.HyprctlGet('monitors').map(({ id }) => ([
@@ -26,7 +21,16 @@ var config = {
         imports.layouts.shared.overview,
         imports.layouts.shared.applauncher,
 
-        // layout
-        ...imports.layouts[ARGV[0] || 'two'].windows,
+        ...imports.layouts[layout].windows,
     ],
 };
+
+ags.App.instance.connect('config-parsed', () => {
+    for (const [name] of ags.App.windows) {
+        if (!name.includes('desktop')) {
+            exec(`hyprctl keyword layerrule "unset, ${name}"`);
+            exec(`hyprctl keyword layerrule "blur, ${name}"`);
+            exec(`hyprctl keyword layerrule "ignorealpha 0.6, ${name}"`);
+        }
+    }
+});

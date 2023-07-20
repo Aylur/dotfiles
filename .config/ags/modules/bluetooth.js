@@ -21,3 +21,52 @@ Widget.widgets['bluetooth/toggle'] = props => Widget({
     onClick: () => Bluetooth.enabled = !Bluetooth.enabled,
     connections: [[Bluetooth, button => button.toggleClassName('on', Bluetooth.enabled)]],
 });
+
+Widget.widgets['bluetooth/label'] = props => Widget({
+    ...props,
+    type: 'label',
+    connections: [[Bluetooth, label => {
+        if (!Bluetooth.enabled)
+            return label.label = 'Disabled';
+
+        if (Bluetooth.connectedDevices.size === 0)
+            return label.label = 'Not Connected';
+
+        if (Bluetooth.connectedDevices.size === 1)
+            return label.label = Bluetooth.connectedDevices.entries().next().value[1].alias;
+
+        label.label = `${Bluetooth.connectedDevices.size} Connected`;
+    }]],
+});
+
+Widget.widgets['bluetooth/devices'] = props => Widget({
+    ...props,
+    type: 'box',
+    orientation: 'vertical',
+    connections: [[Bluetooth, box => {
+        box.get_children().forEach(ch => ch.destroy());
+        for (const [, device] of Bluetooth.devices) {
+            box.add(Widget({
+                type: 'box',
+                hexpand: false,
+                children: [
+                    {
+                        type: 'icon',
+                        icon: device.iconName+'-symbolic',
+                    },
+                    {
+                        type: 'label',
+                        label: device.name,
+                    },
+                    { type: 'box', hexpand: true },
+                    device._connecting ? { type: 'spinner' } : {
+                        type: 'switch',
+                        active: device.connected,
+                        onActivate: c => device.setConnection(c),
+                    },
+                ],
+            }));
+        }
+        box.show_all();
+    }]],
+});

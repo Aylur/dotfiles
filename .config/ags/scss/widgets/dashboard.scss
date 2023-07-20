@@ -3,22 +3,25 @@ window#dashboard .dashboard {
 
     .notifications {
         @include notifications;
-
-        .wallpaper {
-            border-radius: $radii;
-            min-width: 450px;
-            background-position: bottom right;
-            box-shadow: inset 0 0 $spacing 0 $box_shadow;
-        }
+        min-width: 450px;
 
         .header {
             padding-left: .3em;
             margin-bottom: $spacing;
         }
 
+        .notification-list-box {
+            @include widget;
+
+            .wallpaper {
+                border-radius: max($radii - $border_width,0 );
+                background-position: bottom right;
+                box-shadow: inset 0 0 $spacing 0 $shadow;
+            }
+        }
+
         .notification-list {
             viewport > box {
-                @include widget;
                 padding: $spacing/2;
             }
 
@@ -31,7 +34,7 @@ window#dashboard .dashboard {
         }
 
         .placeholder {
-            color: $bg_color;
+            color: $fg_color;
             text-shadow: $text_shadow;
             .icon { font-size: 7em }
         }

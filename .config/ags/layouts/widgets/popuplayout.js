@@ -8,13 +8,14 @@ const padding = windowName => ({
     onClick: () => App.toggleWindow(windowName),
 });
 
-const revealer = (windowName, transition, child) => Widget({
+const revealer = (windowName, transition, child) => ({
     type: 'box',
     style: 'padding: 1px;',
     children: [{
         type: 'revealer',
-        transition, child,
-        duration: 500,
+        transition,
+        child,
+        duration: 350,
         connections: [[App, (revealer, name, visible) => {
             if (name === windowName)
                 revealer.reveal_child = visible;
@@ -55,65 +56,17 @@ const layouts = {
             padding(windowName),
         ],
     }),
-    'right': (windowName, child) => ({
-        type: 'box',
-        children: [
-            padding(windowName),
-            revealer(windowName, 'slide_left', child),
-        ],
-    }),
-    'topleft': (windowName, child) => ({
-        type: 'box',
-        children: [
-            {
-                type: 'box',
-                orientation: 'vertical',
-                children: [
-                    revealer(windowName, 'slide_down', child),
-                    padding(windowName),
-                ],
-            },
-            padding(windowName),
-        ],
-    }),
     'topright': (windowName, child) => ({
         type: 'box',
         children: [
             padding(windowName),
             {
                 type: 'box',
+                hexpand: false,
                 orientation: 'vertical',
                 children: [
                     revealer(windowName, 'slide_down', child),
                     padding(windowName),
-                ],
-            },
-        ],
-    }),
-    'bottomleft': (windowName, child) => ({
-        type: 'box',
-        children: [
-            {
-                type: 'box',
-                orientation: 'vertical',
-                children: [
-                    padding(windowName),
-                    revealer(windowName, 'slide_up', child),
-                ],
-            },
-            padding(windowName),
-        ],
-    }),
-    'bottomright': (windowName, child) => ({
-        type: 'box',
-        children: [
-            padding(windowName),
-            {
-                type: 'box',
-                orientation: 'vertical',
-                children: [
-                    padding(windowName),
-                    revealer(windowName, 'slide_left', child),
                 ],
             },
         ],

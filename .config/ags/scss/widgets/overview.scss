@@ -13,8 +13,8 @@ window#overview .overview {
         }
     }
 
-    .icon {
-        @include widget;
-        border-radius: $radii*0.5;
+    .client {
+        @include button;
+        border-radius: $radii*0.8;
     }
 }

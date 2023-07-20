@@ -72,4 +72,3 @@ globals:
   print: readonly
   console: readonly
   logError: readonly
-  ARGV: readonly

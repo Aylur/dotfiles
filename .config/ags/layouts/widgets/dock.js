@@ -5,20 +5,23 @@ const { timeout, execAsync } = ags.Utils;
 const _appButton = (iconSize, iconName) => ({
     type: 'button',
     child: {
-        type: 'overlay',
-        children: [
-            {
-                type: 'icon',
-                size: iconSize,
-                icon: iconName,
-            },
-            {
-                type: 'box',
-                className: 'indicator',
-                valign: 'end',
-                halign: 'center',
-            },
-        ],
+        type: 'box',
+        children: [{
+            type: 'overlay',
+            children: [
+                {
+                    type: 'icon',
+                    size: iconSize,
+                    icon: iconName,
+                },
+                {
+                    type: 'box',
+                    className: 'indicator',
+                    valign: 'end',
+                    halign: 'center',
+                },
+            ],
+        }],
     },
 });
 
@@ -50,12 +53,12 @@ const _pins = (iconSize, list) => ({
                 let running = false;
                 for (const [, client] of Hyprland.clients) {
                     if (client.class.toLowerCase().includes(term))
-                    running = client;
+                        running = client;
                 }
 
                 button.toggleClassName('nonrunning', !running);
                 button.toggleClassName('focused', Hyprland.active.client.address === running.address?.substring(2));
-                button.set_tooltip_text(running ? running.title : app.name)
+                button.set_tooltip_text(running ? running.title : app.name);
             }]],
         })),
 });
@@ -65,14 +68,10 @@ Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
     className: 'dock',
     children: [
         {
-            type: 'button',
             tooltip: 'Applications',
             onClick: () => ags.App.toggleWindow('applauncher'),
-            child: {
-                type: 'icon',
-                icon: 'view-app-grid-symbolic',
-                size: iconSize,
-            },
+            ..._appButton(iconSize, 'view-app-grid-symbolic'),
+            className: 'nonrunning',
         },
         _pins(iconSize, [
             ['firefox', false],

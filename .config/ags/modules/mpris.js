@@ -1,7 +1,22 @@
-const { Widget, Utils } = ags;
-const { Mpris } = ags.Service;
+const { Widget } = ags;
+const { Mpris, Settings } = ags.Service;
+const { GLib } = imports.gi;
+const { MEDIA_CACHE_PATH, execAsync, ensureDirectory, lookUpIcon } = ags.Utils;
 
-Widget.widgets['mpris/box'] = ({ player, ...props }) => {
+var prefer = players => {
+    const preferred = Settings.preferredMpris;
+    let last;
+    for (const [name, mpris] of players) {
+        if (name.includes(preferred))
+            return mpris;
+
+        last = mpris;
+    }
+
+    return last;
+};
+
+Widget.widgets['mpris/box'] = ({ player = prefer, ...props }) => {
     const box = Widget({
         ...props,
         type: 'box',
@@ -14,7 +29,7 @@ Widget.widgets['mpris/box'] = ({ player, ...props }) => {
     return box;
 };
 
-Widget.widgets['mpris/cover-art'] = ({ player, ...props }) => Widget({
+Widget.widgets['mpris/cover-art'] = ({ player = prefer, ...props }) => Widget({
     ...props,
     type: 'box',
     connections: [[Mpris, box => {
@@ -26,7 +41,31 @@ Widget.widgets['mpris/cover-art'] = ({ player, ...props }) => Widget({
     }]],
 });
 
-Widget.widgets['mpris/title-label'] = ({ player, ...props }) => Widget({
+Widget.widgets['mpris/blurred-cover-art'] = ({ player = prefer, ...props }) => Widget({
+    ...props,
+    type: 'box',
+    connections: [[Mpris, box => {
+        const url = Mpris.getPlayer(player)?.coverPath;
+        if (!url)
+            return;
+
+        const blurredPath = MEDIA_CACHE_PATH + '/blurred';
+        const blurred = blurredPath +
+            url.substring(MEDIA_CACHE_PATH.length);
+
+        if (GLib.file_test(blurred, GLib.FileTest.EXISTS)){
+            box.setStyle(`background-image: url("${blurred}")`);
+            return;
+        }
+
+        ensureDirectory(blurredPath);
+        execAsync(['convert', url, '-blur', '0x22', blurred], () => {
+            box.setStyle(`background-image: url("${blurred}")`);
+        });
+    }]],
+});
+
+Widget.widgets['mpris/title-label'] = ({ player = prefer, ...props }) => Widget({
     ...props,
     type: 'label',
     connections: [[Mpris, label => {
@@ -34,8 +73,7 @@ Widget.widgets['mpris/title-label'] = ({ player, ...props }) => Widget({
     }]],
 });
 
-
-Widget.widgets['mpris/artist-label'] = ({ player, ...props }) => Widget({
+Widget.widgets['mpris/artist-label'] = ({ player = prefer, ...props }) => Widget({
     ...props,
     type: 'label',
     connections: [[Mpris, label => {
@@ -43,7 +81,7 @@ Widget.widgets['mpris/artist-label'] = ({ player, ...props }) => Widget({
     }]],
 });
 
-Widget.widgets['mpris/player-label'] = ({ player, ...props }) => Widget({
+Widget.widgets['mpris/player-label'] = ({ player = prefer, ...props }) => Widget({
     ...props,
     type: 'label',
     connections: [[Mpris, label => {
@@ -51,18 +89,18 @@ Widget.widgets['mpris/player-label'] = ({ player, ...props }) => Widget({
     }]],
 });
 
-Widget.widgets['mpris/player-icon'] = ({ symbolic = false, player, ...props }) => Widget({
+Widget.widgets['mpris/player-icon'] = ({ symbolic = false, player = prefer, ...props }) => Widget({
     ...props,
     type: 'icon',
     connections: [[Mpris, icon => {
         const name = `${Mpris.getPlayer(player)?.entry}${symbolic ? '-symbolic' : ''}`;
-        Utils.lookUpIcon(name)
+        lookUpIcon(name)
             ? icon.icon_name = name
             : icon.icon_name = 'audio-x-generic-symbolic';
     }]],
 });
 
-Widget.widgets['mpris/volume-slider'] = ({ player, ...props }) => Widget({
+Widget.widgets['mpris/volume-slider'] = ({ player = prefer, ...props }) => Widget({
     ...props,
     type: 'slider',
     onChange: value => {
@@ -83,14 +121,13 @@ Widget.widgets['mpris/volume-slider'] = ({ player, ...props }) => Widget({
     }]],
 });
 
-Widget.widgets['mpris/volume-icon'] = ({ player, items, ...props }) => Widget({
-    ...props,
+Widget.widgets['mpris/volume-icon'] = ({ player = prefer, items }) => Widget({
     type: 'dynamic',
     items: items || [
-        { value: 67, widget: { type: 'icon', icon: 'audio-volume-high-symbolic' } },
-        { value: 34, widget: { type: 'icon', icon: 'audio-volume-medium-symbolic' } },
-        { value: 1, widget: { type: 'icon', icon: 'audio-volume-low-symbolic' } },
-        { value: 0, widget: { type: 'icon', icon: 'audio-volume-muted-symbolic' } },
+        { value: 67, widget: { type: 'icon', label: 'audio-volume-high-symbolic' } },
+        { value: 34, widget: { type: 'icon', label: 'audio-volume-medium-symbolic' } },
+        { value: 1, widget: { type: 'icon', label: 'audio-volume-low-symbolic' } },
+        { value: 0, widget: { type: 'icon', label: 'audio-volume-muted-symbolic' } },
     ],
     connections: [[Mpris, dynamic => {
         const mpris = Mpris.getPlayer(player);
@@ -100,7 +137,7 @@ Widget.widgets['mpris/volume-icon'] = ({ player, items, ...props }) => Widget({
     }]],
 });
 
-Widget.widgets['mpris/position-slider'] = ({ player, ...props }) => {
+Widget.widgets['mpris/position-slider'] = ({ player = prefer, ...props }) => {
     const update = slider => {
         if (slider._dragging)
             return;
@@ -110,19 +147,19 @@ Widget.widgets['mpris/position-slider'] = ({ player, ...props }) => {
         if (mpris && mpris.length > 0)
             slider.adjustment.value = mpris.position/mpris.length;
     };
-    return Utils.interval(
-        Widget({
-            ...props,
-            type: 'slider',
-            onChange: value => {
-                const mpris = Mpris.getPlayer(player);
-                if (mpris && mpris.length >= 0)
-                    Mpris.getPlayer(player).position = mpris.length*value;
-            },
-            connections: [[Mpris, update]],
-        }),
-        1000, update,
-    );
+    return Widget({
+        ...props,
+        type: 'slider',
+        onChange: value => {
+            const mpris = Mpris.getPlayer(player);
+            if (mpris && mpris.length >= 0)
+                Mpris.getPlayer(player).position = mpris.length*value;
+        },
+        connections: [
+            [Mpris, update],
+            [1000, update],
+        ],
+    });
 };
 
 function _lengthStr(length) {
@@ -132,7 +169,7 @@ function _lengthStr(length) {
     return `${min}:${sec0}${sec}`;
 }
 
-Widget.widgets['mpris/position-label'] = ({ player, ...props }) => {
+Widget.widgets['mpris/position-label'] = ({ player = prefer, ...props }) => {
     const update = label => {
         const mpris = Mpris.getPlayer(player);
 
@@ -155,17 +192,17 @@ Widget.widgets['mpris/position-label'] = ({ player, ...props }) => {
         return true;
     };
 
-    return Utils.interval(
-        Widget({
-            ...props,
-            type: 'label',
-            connections: [[Mpris, update]],
-        }),
-        1000, update,
-    );
+    return Widget({
+        ...props,
+        type: 'label',
+        connections: [
+            [Mpris, update],
+            [1000, update],
+        ],
+    });
 };
 
-Widget.widgets['mpris/length-label'] = ({ player, ...props }) => Widget({
+Widget.widgets['mpris/length-label'] = ({ player = prefer, ...props }) => Widget({
     ...props,
     type: 'label',
     connections: [[Mpris, label => {
@@ -176,7 +213,20 @@ Widget.widgets['mpris/length-label'] = ({ player, ...props }) => Widget({
     }]],
 });
 
-const _playerButton = ({ player, items, onClick, prop, canProp, cantValue, ...rest }) => Widget({
+Widget.widgets['mpris/slash'] = ({ player = prefer, ...props }) => Widget({
+    ...props,
+    type: 'label',
+    label: '/',
+    className: 'slash',
+    connections: [
+        [Mpris, label => {
+            const mpris = Mpris.getPlayer(player);
+            label.visible = mpris && mpris.length > 0;
+        }],
+    ],
+});
+
+const _playerButton = ({ player = prefer, items, onClick, prop, canProp, cantValue, ...rest }) => Widget({
     ...rest,
     type: 'button',
     child: { type: 'dynamic', items },
@@ -193,8 +243,8 @@ const _playerButton = ({ player, items, onClick, prop, canProp, cantValue, ...re
 
 Widget.widgets['mpris/shuffle-button'] = ({
     player,
-    enabled = { type: 'icon', className: 'shuffle enabled', icon: 'media-playlist-shuffle-symbolic' },
-    disabled = { type: 'icon', className: 'shuffle disabled', icon: 'media-playlist-shuffle-symbolic' },
+    enabled = { type: 'label', className: 'shuffle enabled', label: '󰒟' },
+    disabled = { type: 'label', className: 'shuffle disabled', label: '󰒟' },
     ...props
 }) => _playerButton({
     ...props,
@@ -211,9 +261,9 @@ Widget.widgets['mpris/shuffle-button'] = ({
 
 Widget.widgets['mpris/loop-button'] = ({
     player,
-    none = { type: 'icon', className: 'loop none', icon: 'media-playlist-repeat-symbolic' },
-    track = { type: 'icon', className: 'loop track', icon: 'media-playlist-repeat-song-symbolic' },
-    playlist = { type: 'icon', className: 'loop playlist', icon: 'media-playlist-repeat-symbolic' },
+    none = { type: 'label', className: 'loop none', label: '󰓦' },
+    track = { type: 'label', className: 'loop track', label: '󰓦' },
+    playlist = { type: 'label', className: 'loop playlist', label: '󰑐' },
     ...props
 }) => _playerButton({
     ...props,
@@ -231,9 +281,9 @@ Widget.widgets['mpris/loop-button'] = ({
 
 Widget.widgets['mpris/play-pause-button'] = ({
     player,
-    playing = { type: 'icon', className: 'playing', icon: 'media-playback-pause-symbolic' },
-    paused = { type: 'icon', className: 'paused', icon: 'media-playback-start-symbolic' },
-    stopped = { type: 'icon', className: 'stopped', icon: 'media-playback-start-symbolic' },
+    playing = { type: 'label', className: 'playing', label: '󰏦' },
+    paused = { type: 'label', className: 'paused', label: '󰐍' },
+    stopped = { type: 'label', className: 'stopped', label: '󰐍' },
     ...props
 }) => _playerButton({
     ...props,
@@ -251,7 +301,7 @@ Widget.widgets['mpris/play-pause-button'] = ({
 
 Widget.widgets['mpris/previous-button'] = ({
     player,
-    child = { type: 'icon', className: 'previous', icon: 'media-skip-backward-symbolic' },
+    child = { type: 'label', className: 'previous', label: '󰒮' },
     ...props
 }) => _playerButton({
     ...props,
@@ -267,7 +317,7 @@ Widget.widgets['mpris/previous-button'] = ({
 
 Widget.widgets['mpris/next-button'] = ({
     player,
-    child = { type: 'icon', className: 'next', icon: 'media-skip-forward-symbolic' },
+    child = { type: 'label', className: 'next', label: '󰒭' },
     ...props
 }) => _playerButton({
     ...props,

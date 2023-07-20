@@ -1,163 +1,239 @@
-@mixin smalltoggle() {
-    @include button;
-    border-radius: $radii;
-    padding: $spacing;
-    margin: 0 $spacing/2;
-
-    &.on {
-        @include button_active;
-    }
-
-    &:first-child {
-        margin-left: 0;
-    }
-
-    &:last-child {
-        margin-right: 0;
-    }
-}
-
-@mixin sliders() {
-    scale {
-        margin: 0 $spacing;
-
-        @include slider($width: .3em, $slider_width: .5em);
-    }
-
-    .percent {
-        min-width: 2.8em;
-    }
-
-    button {
-        @include button($flat: true);
-        border-radius: $radii*0.8;
-        margin-left: $spacing/2;
-    }
-}
-
-@mixin mixer() {
-    scale {
-        @include slider($width: .3em, $slider_width: .5em);
-    }
-
-    > box {
-        margin-bottom: $spacing;
-        &:last-child { margin-bottom: 0; }
-
-        image {
-            margin-right: $spacing;
-        }
-
-        label {
-            margin-left: .1em;
-        }
-
-        label:last-child {
-            min-width: 3em;
-        }
-    }
-}
-
 window#quicksettings .quicksettings {
     @include floating_widget;
-    min-width: 350px;
 
     .header {
-        margin-bottom: $spacing;
+        > box:last-child {
+            @include widget;
+            padding: $spacing;
+        }
 
         .avatar {
             @include widget;
-            border: none;
-            min-width: 50px;
-            min-height: 50px;
+            margin-right: $spacing;
+
+            .image {
+                border-radius: max($radii - $border_width, 0);
+            }
 
             .shader {
-                @include widget;
-                @include shader($width: 18px);
+                @include shader;
+                border-radius: max($radii - $border_width, 0);
             }
         }
 
         .user {
+            font-size: 1.2em;
             color: transparentize($fg_color, 0.2);
-            margin-left: $spacing/2;
+            margin: $spacing/2;
         }
 
-        button {
+        .battery {
+            progressbar {
+                @include slider($width: $spacing*3.4);
+                margin-top: $spacing;
+            }
+
+            label {
+                margin-top: $spacing;
+                font-size: 1.4em;
+                color: $accent_fg;
+                &.half { color: $fg_color; }
+            }
+        }
+
+        button, .uptime {
             @include button;
             padding: $spacing;
             margin-left: $spacing;
+            font-weight: bold;
+            &:first-child { margin-left: 0; }
         }
     }
 
-    .sliders {
+    .volume-box {
         @include widget;
-        @include sliders;
-        padding: $popover_padding;
-        margin-bottom: $spacing;
+        margin-top: $spacing;
 
-        > box {
-            margin-bottom: $spacing;
-            &:last-child { margin-bottom: 0 }
-        }
-    }
-
-    .mixer {
-        @include mixer;
-        @include widget;
-        padding: $popover_padding;
-        margin-bottom: $spacing;
-    }
-
-    .toggles {
-        button {
-            @include smalltoggle;
-        }
-    }
-}
-
-window#quicksettings .notification-center {
-    @include floating_widget;
-
-    .notifications {
-        @include notifications;
-
-        .notification-list {
-            min-width: 400px;
-            padding-top: $popover_padding;
-
-            .notification > box {
-                @include widget;
-                margin-bottom: $spacing;
+        .volume {
+            .slider {
+                @include slider;
+                margin-right: $spacing;
             }
-        }
-
-        .placeholder .icon {
-            font-size: 7em;
-        }
-    }
-
-    .settings {
-        @include widget;
-        padding: $popover_padding;
-
-        .slider-box {
-            @include sliders;
-            margin-bottom: $spacing;
-        }
-
-        .toggles {
-            margin-top: $spacing;
 
             button {
-                @include smalltoggle;
+                @include button($flat: true);
+                padding: $spacing/2;
+                margin: $spacing/2;
+            }
+        }
+
+        .menu {
+            border-top: 1px solid $widget_bg;
+            padding: $spacing;
+
+            .separator {
+                min-height: 1px;
+                margin: $spacing/2 0;
+                background-color: $widget_bg;
+            }
+
+            button {
+                @include button($flat: true);
+                border-radius: $radii*.7;
+                padding: $spacing/2;
+
+                image {
+                    margin-right: $spacing/2;
+                }
             }
         }
     }
 
-    .mixer {
+    .brightness {
         @include widget;
-        @include mixer;
-        padding: $popover_padding;
-        margin-bottom: $spacing;
+        margin-top: $spacing;
+        padding-right: $spacing;
+
+        .slider {
+            @include slider;
+            margin: 0 $spacing;
+            margin-left: 0;
+        }
+
+        button {
+            @include button($flat: true);
+            padding: $spacing/2;
+            margin: $spacing/2;
+        }
+    }
+
+    .toggles-box {
+        margin-top: $spacing;
+
+        .small-toggles {
+            @include widget;
+            padding: $spacing/2;
+
+            .toggle {
+                @include button;
+                margin: $spacing/2;
+                padding: $spacing;
+            }
+        }
+
+        .arrow-toggles {
+            @include widget;
+            padding: $spacing/2;
+            margin-right: $spacing;
+
+            .toggle.arrow {
+                @include button;
+                margin: $spacing/2;
+
+                label {
+                    margin-left: $spacing/2;
+                    font-weight: bold;
+                }
+
+                button {
+                    @include button($flat: true);
+                    padding: $spacing;
+
+                    &:first-child {
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+
+                    &:last-child {
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                    }
+                }
+
+                &.active {
+                    background-color: $accent;
+
+                    label, image {
+                        color: $accent_fg;
+                    }
+                }
+            }
+        }
+    }
+
+    .submenu {
+        @include widget;
+        margin-top: $spacing;
+
+        .title {
+            padding: $spacing/2;
+
+            label {
+                margin-left: $spacing/2;
+                font-weight: bold;
+                font-size: 1.2em;
+            }
+        }
+
+        .content {
+            border-top: 1px solid $widget_bg;
+            padding: $spacing/2;
+        }
+
+        &.app-mixer .content {
+            scale {
+                @include slider;
+            }
+
+            > box {
+                padding: $spacing;
+            }
+
+            label:last-child {
+                min-width: 3em;
+            }
+
+            image {
+                margin-right: $spacing;
+            }
+        }
+
+        &.network .content {
+            button {
+                @include button($flat: true);
+                border-radius: $radii*0.8;
+                padding: $spacing/2;
+            }
+
+            image {
+                margin-right: $spacing/2;
+            }
+        }
+
+        &.bluetooth .content {
+            > box {
+                padding: $spacing/2;
+            }
+
+            switch {
+                @include switch;
+            }
+        }
+    }
+
+    .media {
+        .mediabox{
+            @include widget;
+            @include media;
+            margin-top: $spacing;
+
+            .cover-art-bg {
+                border-radius: max($radii - $border_width, 0);
+            }
+
+            .shader {
+                border-radius: max($radii - $border_width, 0);
+            }
+        }
     }
 }

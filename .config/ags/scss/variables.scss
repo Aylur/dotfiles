@@ -1,38 +1,37 @@
-$wm_gaps: 14px;
+$wm_gaps: 16px;
 $radii: 9px;
-$spacing: 8px;
+$spacing: 6px;
 
-$destructive: $red;
-$succes: $green;
+$accent: $blue;
+$accent_fg: #141414;
+$bg: $fg_color;
 
-$widget_bg: transparentize($fg_color, 0.94);
-$widget_radius: $radii;
+$widget_opacity: 94;
+$hover: transparentize($bg, max($widget_opacity - 4, 0)/100);
+$widget_bg: transparentize($bg, $widget_opacity/100);
 
-$button_bg: transparentize($fg_color, 0.92);
-$button_radius: $radii;
-
-$border_color: rgba(255,255,255,.03);
-// $border_color: $fg_color;
+$border_opacity: 97;
+$border_color: transparentize($fg_color, $border_opacity/100);
 $border_width: 1px;
 $border: $border_width solid $border_color;
 
-$box_shadow: rgba(0,0,0,.5);
-$text_shadow: 2px 2px 2px rgba(0,0,0,.7);
-$icon_shadow: 2px 2px rgba(0,0,0,.6);
+$shadow: rgba(0,0,0,.6);
+$text_shadow: 2px 2px 2px $shadow;
+$icon_shadow: 2px 2px $shadow;
 
 $popover_radius: $radii * 1.7;
-$popover_border_color: rgba(255,255,255,.02);
-// $popover_border_color: $fg_color;
-$popover_padding: 14px;
+$popover_border_color: transparentize($fg_color, max($border_opacity - 1, 0)/100);
+$popover_padding: $spacing*1.8;
 
-$transition: 250ms;
+$transition: 200ms;
 
-* {
-    all: unset;
-    font-size: 16px;
-    font-family: 'Ubuntu Nerd Font', sans-serif;
-    padding: 0;
-    margin: 0;
-}
-
+$font_size: 15px;
+$font: 'Ubuntu Nerd Font';
 $mono_font: 'Mononoki Nerd Font', monospace;
+$shader_fg: if($theme == 'light', $bg_color, $fg_color);
+
+window:not(#settings), window * {
+   all: unset;
+   font-size: $font_size;
+   font-family: $font, sans-serif;
+}

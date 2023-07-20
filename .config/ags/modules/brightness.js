@@ -1,5 +1,3 @@
-// dependency: brightnessctl
-
 const { Service, Widget } = ags;
 const { exec, execAsync } = ags.Utils;
 

@@ -1,8 +1,8 @@
-@mixin widget($radii: $widget_radius){
+@mixin widget{
     border-radius: $radii;
     color: $fg_color;
     background-color: $widget_bg;
-    box-shadow: inset 0 0 0 $border_width $border_color;
+    border: $border;
 }
 
 @mixin button_focus() {
@@ -23,6 +23,12 @@
     color: $accent_fg;
 }
 
+@mixin button_disabled() {
+    box-shadow: none;
+    background-color: transparent;
+    color: transparentize($fg_color, 0.7);
+}
+
 @mixin button($flat: false, $reactive: true, $radii: $radii, $focusable: true){
     transition: $transition;
     border-radius: $radii;
@@ -32,8 +38,9 @@
         background-color: transparent;
         background-image: none;
         box-shadow: none;
+        border-color: transparent;
     } @else{
-        background-color: $button_bg;
+        background-color: $widget_bg;
         box-shadow: inset 0 0 0 $border_width $border_color;
     }
 
@@ -48,19 +55,62 @@
             @include button_hover;
         }
 
-        &:active{
+        &:active, &.on, &.active, &:checked{
             @include button_active;
+
+            &:hover {
+                background-color: transparentize($accent, .24);
+            }
+        }
+    }
+
+    &:disabled {
+        @include button_disabled;
+    }
+}
+
+@mixin accs_button($flat: false, $reactive: true){
+    @include button($flat: true, $reactive: false, $focusable: false);
+    color: $fg_color;
+
+    > * {
+        border-radius: $radii;
+        transition: $transition;
+
+        @if $flat{
+            background-color: transparent;
+            box-shadow: none;
+        } @else{
+            background-color: $widget_bg;
+            box-shadow: inset 0 0 0 $border_width $border_color;
+        }
+    }
+
+
+    @if $reactive{
+        &:focus > * {
+            @include button_focus;
+        }
+
+        &:hover > * {
+            @include button_hover;
+        }
+
+        &:active, &.active {
+            > * {
+                @include button_active;
+            }
+
+            &:hover > * {
+                background-color: transparentize($accent, .24);
+            }
         }
     }
 }
 
-@mixin floating_widget($shadow: true, $shadow_width: $wm_gaps/2, $padding: $popover_padding){
-    @if $shadow {
-        box-shadow: 0 0 $shadow_width 0 rgba(0,0,0,0.6),
-                    inset 0 0 0 $border_width $popover_border_color;
-    } @else {
-        box-shadow: inset 0 0 0 $border_width $popover_border_color;
-    }
+@mixin floating_widget($shadow_width: $wm_gaps/2, $padding: $popover_padding){
+    box-shadow: 0 0 $shadow_width 0 $shadow,
+                inset 0 0 0 $border_width $popover_border_color;
     border-radius: $popover_radius;
     margin: $wm_gaps;
     background-color: $bg_color;
@@ -68,35 +118,20 @@
     padding: $padding;
 }
 
-@mixin slider($width: .4em, $slider_width: 0, $color: $accent, $slider: true, $focusable: true){
+@mixin slider($width: .4em, $slider_width: .5em, $color: $accent, $slider: true, $focusable: true, $radii: $radii){
     trough{
         transition: $transition;
-        border-radius: $button_radius;
+        border-radius: $radii;
         border: $border;
-        background-color: $button_bg;
+        background-color: $widget_bg;
         min-height: $width;
         min-width:  $width;
 
         highlight, progress{
-            border-radius: $button_radius;
+            border-radius: max($radii - $border_width, 0);
             background-color: $color;
             min-height: $width;
             min-width:  $width;
-
-            @if $slider {
-                border-radius: $button_radius 0 0 $button_radius;
-            }
-        }
-
-        slider{
-            @if $slider{
-                background-color: mix($fg_color, $bg_color, 90%);
-                border-radius: $button_radius;
-                border: $border;
-                min-height: $width;
-                min-width:  $width;
-                margin: -$slider_width;
-            }
         }
     }
 
@@ -108,6 +143,12 @@
         slider {
             @if $slider{
                 background-color: $fg_color;
+                transition: $transition;
+                border-radius: $radii;
+                border: $border;
+                min-height: $width;
+                min-width:  $width;
+                margin: -$slider_width;
             }
         }
     }
@@ -118,7 +159,9 @@
         }
 
         slider {
-            background-color: transparentize($fg_color, 0.5);
+            @if $slider {
+                background-color: transparentize($fg_color, 0.5);
+            }
         }
     }
 
@@ -130,31 +173,47 @@
             highlight, progress{
                 background-color: transparentize($color, 0.3);
             }
+
+            slider {
+                @if $slider {
+                    background-color: $fg_color;
+                    box-shadow: inset 0 0 0 $border_width $accent;
+                }
+            }
         }
+
     }
 }
 
 @mixin shader($radius: $radii, $width: 3em){
-    border-radius: $radius*0.92;
+    border-radius: max($radius - $border_width, 0);
+
+    label {
+        color: $shader_fg;
+        text-shadow: $text_shadow;
+    }
 
     @if $theme == 'dark' {
-        box-shadow: inset 0 0 $width $width/3 transparentize($bg_color, 0.1);
+        box-shadow: inset 0 0 $width $width/3 transparentize($bg_color, 0.3);
     }
 
     @if $theme == 'light' {
-        background-color: transparentize($fg_color, 0.9);
+        background-color: transparentize($bg_color, 0.7);
     }
 }
 
 @mixin tooltip{
+    background-color: transparent;
+    border: none;
+
     > * > *{
         background-color: $bg_color;
-        border-radius: $button_radius;
+        border-radius: $radii;
         border: $border_width solid $popover_border_color;
         color: $fg_color;
         padding: 8px;
         margin: 4px;
-        box-shadow: 0 0 3px 0 rgba(0,0,0,0.4);
+        box-shadow: 0 0 3px 0 $shadow;
     }
 }
 
@@ -184,4 +243,18 @@
             background: linear-gradient(transparent,transparentize($bg_color, 0.6));
         }
     }
+}
+
+@mixin switch{
+    @include button;
+    outline-offset: -4px;
+
+    slider {
+        background-color: $fg_color;
+        border-radius: $radii;
+        min-width: 24px;
+        min-height: 24px;
+    }
+
+    image { color: transparent; }
 }

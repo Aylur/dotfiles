@@ -1,16 +1,24 @@
 const { Widget } = ags;
 const { Network } = ags.Service;
 
+const icons = [
+    { value: 80, widget: { type: 'icon', icon: 'network-wireless-signal-excellent-symbolic' } },
+    { value: 60, widget: { type: 'icon', icon: 'network-wireless-signal-good-symbolic' } },
+    { value: 40, widget: { type: 'icon', icon: 'network-wireless-signal-ok-symbolic' } },
+    { value: 20, widget: { type: 'icon', icon: 'network-wireless-signal-weak-symbolic' } },
+    { value: 0,  widget: { type: 'icon', icon: 'network-wireless-signal-none-symbolic' } },
+];
+
 Widget.widgets['network/ssid-label'] = props => Widget({
     ...props,
     type: 'label',
-    connections: [[Network, label => label.label = Network.wifi.ssid]],
+    connections: [[Network, label => label.label = Network.wifi?.ssid || 'Not Connected']],
 });
 
 Widget.widgets['network/wifi-strength-label'] = props => Widget({
     ...props,
     type: 'label',
-    connections: [[Network, label => label.label = `${Network.wifi.strength}`]],
+    connections: [[Network, label => label.label = `${Network.wifi?.strength || -1}`]],
 });
 
 Widget.widgets['network/wired-indicator'] = ({
@@ -19,9 +27,7 @@ Widget.widgets['network/wired-indicator'] = ({
     disabled = { type: 'icon', icon: 'network-wired-disconnected-symbolic' },
     connected = { type: 'icon', icon: 'network-wired-symbolic' },
     unknown = { type: 'icon', icon: 'content-loading-symbolic' },
-    ...rest
 }) => Widget({
-    ...rest,
     type: 'dynamic',
     items: [
         { value: 'unknown', widget: unknown },
@@ -31,6 +37,9 @@ Widget.widgets['network/wired-indicator'] = ({
         { value: 'connecting', widget: connecting },
     ],
     connections: [[Network, dynamic => dynamic.update(value => {
+        if (!Network.wired)
+            return;
+
         const { internet, state } = Network.wired;
         if (internet === 'connected' || internet === 'connecting')
             return value === internet;
@@ -49,16 +58,8 @@ Widget.widgets['network/wifi-indicator'] = ({
     disabled = { type: 'icon', icon: 'network-wireless-disabled-symbolic' },
     disconnected = { type: 'icon', icon: 'network-wireless-offline-symbolic' },
     connecting = { type: 'icon', icon: 'network-wireless-acquiring-symbolic' },
-    connected = [
-        { value: 80, widget: { type: 'icon', icon: 'network-wireless-signal-excellent-symbolic' } },
-        { value: 60, widget: { type: 'icon', icon: 'network-wireless-signal-good-symbolic' } },
-        { value: 40, widget: { type: 'icon', icon: 'network-wireless-signal-ok-symbolic' } },
-        { value: 20, widget: { type: 'icon', icon: 'network-wireless-signal-weak-symbolic' } },
-        { value: 0,  widget: { type: 'icon', icon: 'network-wireless-signal-none-symbolic' } },
-    ],
-    ...rest
+    connected = icons,
 }) => Widget({
-    ...rest,
     type: 'dynamic',
     items: [
         { value: 'disabled', widget: disabled },
@@ -67,6 +68,9 @@ Widget.widgets['network/wifi-indicator'] = ({
         ...connected,
     ],
     connections: [[Network, dynamic => dynamic.update(value => {
+        if (!Network.wifi)
+            return;
+
         const { internet, enabled, strength } = Network.wifi;
         if (internet === 'connected')
             return value <= strength;
@@ -84,9 +88,7 @@ Widget.widgets['network/wifi-indicator'] = ({
 Widget.widgets['network/indicator'] = ({
     wifi = { type: 'network/wifi-indicator' },
     wired = { type: 'network/wired-indicator' },
-    ...rest
 }) => Widget({
-    ...rest,
     type: 'dynamic',
     items: [
         { value: 'wired', widget: wired },
@@ -103,6 +105,38 @@ Widget.widgets['network/wifi-toggle'] = props => Widget({
     type: 'button',
     onClick: Network.toggleWifi,
     connections: [[Network, button => {
-        button.toggleClassName('on', Network.wifi.enabled);
+        button.toggleClassName('on', Network.wifi?.enabled);
+    }]],
+});
+
+Widget.widgets['network/wifi-selection'] = props => Widget({
+    ...props,
+    type: 'box',
+    orientation: 'vertical',
+    connections: [[Network, box => {
+        box.get_children().forEach(ch => ch.destroy());
+        Network.wifi?.accessPoints.forEach(ap => {
+            box.add(Widget({
+                type: 'button',
+                child: {
+                    type: 'box',
+                    children: [
+                        icons.find(({ value }) => value <= ap.strength).widget,
+                        {
+                            type: 'label',
+                            label: ap.ssid,
+                        },
+                        ap.active ? {
+                            type: 'icon',
+                            icon: 'object-select-symbolic',
+                            hexpand: true,
+                            halign: 'end',
+                        } : null,
+                    ].filter(i => i),
+                },
+                onClick: `nmcli device wifi connect ${ap.bssid}`,
+            }));
+        });
+        box.show_all();
     }]],
 });

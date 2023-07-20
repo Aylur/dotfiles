@@ -92,9 +92,7 @@
     }
 }
 
-.notification-popup{
-    padding: 1px;
-
+.notifications-popup-list{
     .notification {
         @include notification;
 

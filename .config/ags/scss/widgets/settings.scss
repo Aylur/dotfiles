@@ -1,0 +1,57 @@
+window#settings {
+    background-color: $bg_color;
+
+    .settings {
+        .headerbar {
+            background-color: $widget_bg;
+            padding: $spacing/2;
+            border-bottom: $border;
+        }
+
+        .tab {
+            @include button($flat: true);
+            margin: $spacing/3;
+        }
+
+        .content {
+            padding: $popover_padding;
+        }
+
+        button, entry {
+            @include button;
+            padding: $spacing*0.7;
+        }
+
+        spinbutton, spinbutton:focus {
+            @include button;
+
+            button, entry {
+                all: unset;
+                padding: $spacing*0.7;
+
+                &:last-child {
+                    border-radius: 0 $radii $radii 0;
+                }
+            }
+        }
+
+        .wallpaper {
+            min-height: 90px;
+            background-size: cover;
+            border-radius: $radii;
+        }
+
+        .row {
+            margin-bottom: $spacing;
+            &:last-child{ margin-bottom: 0; }
+
+            label:first-child {
+                margin-right: $spacing*5;
+            }
+
+            .color entry {
+                margin-right: $spacing;
+            }
+        }
+    }
+}

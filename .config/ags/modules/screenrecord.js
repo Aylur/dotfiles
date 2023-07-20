@@ -8,7 +8,7 @@ const now = () => GLib.DateTime.new_now_local().format('%Y-%m-%d_%H-%M-%S');
 class RecorderService extends Service {
     static {
         Service.register(this, {
-            'timer': [imports.gi.GObject.TYPE_INT],
+            'timer': ['int'],
         });
     }
 
@@ -18,12 +18,13 @@ class RecorderService extends Service {
         execAsync('slurp', out => {
             ensureDirectory(this._path);
             this._file = `${this._path}/${now()}.mp4`;
-            execAsync(['wf-recorder', '-g', out.trim(), '-f', this._file]);
+            execAsync(['wl-screenrec', '-g', out.trim(), '-f', this._file]);
+            print('wl-screenrec', '-g', out.trim(), '-f', this._file);
             this._recording = true;
             this.emit('changed');
 
             this._timer = 0;
-            this._interval = interval(null, 1000, () => {
+            this._interval = interval(1000, () => {
                 this.emit('timer', this._timer);
                 this._timer++;
             });
@@ -31,7 +32,7 @@ class RecorderService extends Service {
     }
 
     stop() {
-        execAsync('killall -INT wf-recorder');
+        execAsync('killall -INT wl-screenrec');
         this._recording = false;
         this.emit('changed');
         GLib.source_remove(this._interval);
@@ -51,35 +52,12 @@ class RecorderService extends Service {
         });
     }
 
-    constructor() {
-        super();
-
-        this._timer = 0;
-        this._recording = false;
-    }
-}
-
-class Recorder {
-    static { Service.export(this, 'Recorder'); }
-    static instance = new RecorderService();
-    static start() { Recorder.instance.start() }
-    static stop() { Recorder.instance.stop() }
-}
-
-class Screenshot extends Service {
-    static {
-        Service.register(this);
-        Service.export(this, 'Screenshot');
-    }
-
-    static PATH = GLib.get_home_dir()+'/Pictures/Screenshots';
-    static instance = new Screenshot();
-
-    static shot() {
-        ensureDirectory(Screenshot.PATH);
-        const file = `${Screenshot.PATH}/${now()}.png`;
+    screenshot() {
+        const path = GLib.get_home_dir()+'/Pictures/Screenshots';
+        ensureDirectory(path);
+        const file = `${path}/${now()}.png`;
         execAsync(`watershot -c -s path ${file}`);
-        const id = interval(null, 100, () => {
+        const id = interval(100, () => {
             if (!GLib.file_test(file, GLib.FileTest.EXISTS))
                 return;
 
@@ -92,7 +70,7 @@ class Screenshot extends Service {
                 file,
             ], res => {
                 if (res.trim() === 'files')
-                    execAsync('xdg-open '+Screenshot.PATH);
+                    execAsync('xdg-open '+path);
 
                 if (res.trim() === 'view')
                     execAsync('xdg-open '+file);
@@ -101,13 +79,27 @@ class Screenshot extends Service {
             GLib.source_remove(id);
         });
     }
+
+    constructor() {
+        super();
+
+        this._timer = 0;
+        this._recording = false;
+    }
+}
+
+class Recorder {
+    static { Service.export(this, 'Recorder'); }
+    static instance = new RecorderService();
+    static start() { Recorder.instance.start(); }
+    static stop() { Recorder.instance.stop(); }
+    static screenshot() { Recorder.instance.screenshot(); }
 }
 
 Widget.widgets['recorder/indicator-button'] = props => Widget({
     ...props,
-    type: 'button',
     className: 'recorder',
-    hexpand: true,
+    type: 'button',
     onClick: Recorder.stop,
     child: {
         type: 'box',
@@ -134,5 +126,5 @@ Widget.widgets['recorder/indicator-button'] = props => Widget({
 Widget.widgets['screenshot/button'] = props => Widget({
     ...props,
     type: 'button',
-    onClick: Screenshot.shot,
+    onClick: Recorder.screenshot,
 });

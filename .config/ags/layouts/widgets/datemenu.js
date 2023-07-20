@@ -1,14 +1,4 @@
-const { execAsync, interval } = ags.Utils;
-const { Widget, App } = ags;
-
-const uptimeLabel = () => interval(
-    Widget({ type: 'label' }),
-    1000, label => {
-        execAsync(['bash', '-c', "uptime | awk '{print $3}' | tr ',' ' '"], time => {
-            label.label = time.trim();
-        });
-    },
-);
+const { Widget } = ags;
 
 Widget.widgets['datemenu/popup-content'] = props => Widget({
     ...props,
@@ -27,7 +17,7 @@ Widget.widgets['datemenu/popup-content'] = props => Widget({
             halign: 'center',
             children: [
                 'uptime: ',
-                uptimeLabel,
+                { type: 'uptime' },
             ],
         },
         {
@@ -43,14 +33,4 @@ Widget.widgets['datemenu/popup-content'] = props => Widget({
             ],
         },
     ],
-});
-
-Widget.widgets['datemenu/panel-button'] = () => Widget({
-    type: 'button',
-    className: 'datemenu',
-    onClick: () => App.toggleWindow('datemenu'),
-    child: {
-        type: 'clock',
-        format: '%H:%M:%S  %A %d.',
-    },
 });

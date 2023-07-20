@@ -1,170 +1,121 @@
 $float: 5px;
 
-@mixin panel_button($flat: false, $reactive: true) {
-    @include button($flat: $flat, $reactive: $reactive);
-    border-radius: $radii + $float;
-    padding: $spacing/2 $spacing;
+@mixin panel_button($flat: false, $reactive: true){
+    @include accs_button($flat, $reactive);
 
-    @if not $reactive {
-        padding: 0 $spacing/2;
+    label {
+        font-weight: bold;
     }
-    font-weight: bold;
 
-    &, &:hover, &:active, &:focus {
-        border: $float solid $bg_color;
+    > * {
+        margin: $float;
+        padding: .3em .5em;
     }
 }
 
 .panel {
     background-color: $bg_color;
-    color: $fg_color;
 
-    .launcher,
-    .workspaces,
-    .colorpicker,
-    .quicksettings,
-    .powermenu,
-    .dashboard,
-    .mpris button,
-    .datemenu {
+    .panel-button {
         @include panel_button($flat: true);
-    }
 
-    .quicksettings > box {
-        padding: 0 $spacing*1.4;
-    } 
-
-    .media-indicator, .notifications-indicator {
-        .indicator {
+        &.client, &.media, &.notifications {
             @include panel_button($flat: true, $reactive: false);
         }
     }
 
-    .workspaces {
-        @include panel_button;
+    .quicksettings > box > * {
+        margin: 0 $spacing/2;
+        &:last-child { margin-right: 0; }
+        &:first-child { margin-left: 0; }
     }
 
     .separator {
-        min-height: .4em;
-        min-width: .4em;
-        margin: 0 .2em;
+        background-color: transparentize($fg_color, 0.7);
         border-radius: $radii;
-        background-color: $hover;
-    }
-
-    .workspaces button {
-        .indicator {
-            min-width: .6em;
-            min-height: .6em;
-            border-radius: $radii/2;
-            border: 2px solid red;
-            transition: border $transition;
-            margin: 0 $spacing/2;
-
-            .fill {
-                transition: background-color $transition;
-                margin: 2px;
-                border-radius: max($radii*0.7 - 4px, 0);
-            }
-        }
-
-        &:last-child .indicator { margin-right: $spacing*1.6 }
-        &:first-child .indicator { margin-left: $spacing*1.6 }
-
-        &.empty .indicator {
-            border-color: transparentize($fg_color, 0.4);
-        }
-
-        &.occupied .indicator {
-            border-color: transparentize($fg_color, 0.2);
-            .fill { background-color: transparentize($fg_color, 0.2) }
-        }
-
-        &:hover .indicator {
-            border-color: transparentize($accent, 0.2);
-            .fill { background-color: transparentize($accent, 0.2) }
-        }
-
-        &.active .indicator, &:active .indicator {
-            border-color: $accent;
-            .fill { background-color: $accent }
-        }
-
-        &.empty .indicator .fill {
-            background-color: transparent;
-        }
-    }
-
-    .client {
-        @include panel_button($flat: true, $reactive: false);
-
-        image {
-            margin-right: $spacing/2;
-        }
-    }
-
-    .quicksettings {
-        .indicator {
-            margin-right: $spacing;
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-
-        .notifications.notified {
-            color: $yellow;
-        }
-
-        .battery {
-            .charged, .charging {
-                color: $green;
-            }
-
-            .low {
-                color: $red;
-            }
-        }
-
-        .bluetooth {
-            .device {
-                margin-right: $spacing/2;
-            }
-        }
+        min-height: 5px;
+        min-width: 5px;
     }
 
     .launcher {
         color: transparentize($accent, 0.2);
 
-        &:hover {
-            color: transparentize($accent, 0.1);
+        &:hover label {
             color: $accent;
+        }
+
+        &:active label {
+            color: $accent_fg;
         }
     }
 
-    .recorder {
-        @include panel_button($flat: false);
-    }
-
     .powermenu, .recorder {
-        color: transparentize($red, 0.2);
+        color: transparentize($red, 0.3);
 
-        &:hover {
-            color: transparentize($red, 0.1);
+        &:hover image {
+            color: transparentize($red, 0.15);
+        }
+
+        &:active image {
             color: $red;
         }
     }
 
-    // layout three
-    .dock {
-        @include dock;
+    .quicksettings:not(.active) .battery {
+        &.low { color: $red; }
+        &.charged, &.charging { color: $green; }
     }
 
-    .media > * {
-        @include panel_button($flat: true);
+    .workspaces {
+        border: $float solid transparent;
 
-        > * {
-            padding: 0 $spacing;
+        .eventbox {
+            @include button;
+        }
+
+        button {
+            .indicator {
+                min-width: 10px;
+                min-height: 10px;
+                border-radius: $radii*0.6;
+                border: 2px solid transparent;
+                transition: border $transition;
+                margin: 0 $spacing/2;
+
+                .fill {
+                    transition: background-color $transition;
+                    margin: 2px;
+                    min-width: 6px;
+                    min-height: 6px;
+                    border-radius: max($radii*0.7 - 4px, 0);
+                }
+            }
+
+            &:last-child .indicator { margin-right: $spacing; }
+            &:first-child .indicator { margin-left: $spacing; }
+
+            &.empty .indicator {
+                border-color: transparentize($fg_color, 0.3);
+            }
+
+            &.occupied .indicator {
+                border-color: transparentize($fg_color, 0.1);
+                .fill { background-color: transparentize($fg_color, 0.1) }
+            }
+
+            &:hover .indicator {
+                border-color: transparentize($accent, 0.2);
+                .fill { background-color: transparentize($accent, 0.2) }
+            }
+
+            &.active .indicator, &:active .indicator {
+                border-color: $accent;
+                .fill { background-color: $accent }
+            }
+
+            &.empty .indicator .fill {
+                background-color: transparent;
+            }
         }
     }
 }

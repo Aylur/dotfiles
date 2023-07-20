@@ -4,34 +4,33 @@
 }
 
 .desktop {
-    background-color: $bg_color;
+    border-radius: $popover_radius;
+    box-shadow: inset 0 0 $spacing 0 $shadow;
 
-    .clock {
-        color: $bg_color;
-        font-size: 140px;
-        border: 5px solid $bg_color;
+    .clock-box {
+        border: 5px solid $fg_color;
+        box-shadow: 2px 2px 2px 0 $shadow;
         border-radius: $radii;
-        font-family: $mono_font;
-        padding: 0 14px;
+
+        .clock {
+            color: $fg_color;
+            font-size: 140px;
+            border-radius: max($radii - 5px, 0);
+            font-family: $mono_font;
+            padding: 0 14px;
+            text-shadow: $text_shadow;
+            box-shadow: inset 2px 2px 2px 0 $shadow;
+        }
     }
 
     .date {
-        color: $bg_color;
+        color: $fg_color;
         font-size: 48px;
-    }
-
-    .wallpaper {
-        border-radius: $popover_radius;
-        box-shadow: inset 0 0 $spacing 0 $box_shadow;
-    }
-
-    &.7 .clock, &.7 .date {
-        color:  transparent;
-        border-color: transparent;
+        text-shadow: $text_shadow;
     }
 }
 
-window.indicator .indicator {
+window.indicator .progress {
     @include floating_widget;
     padding: $spacing/2;
 

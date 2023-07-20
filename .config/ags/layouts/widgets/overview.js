@@ -8,7 +8,9 @@ const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 
 function substitute(str) {
     const subs = [
+        { from: 'com.transmissionbt.Transmission._43_219944', to: 'com.transmissionbt.Transmission' },
         { from: 'com.transmissionbt.Transmission._40_219944', to: 'com.transmissionbt.Transmission' },
+        { from: 'com.transmissionbt.Transmission._37_219944', to: 'com.transmissionbt.Transmission' },
         { from: 'Caprine', to: 'facebook-messenger' },
     ];
     for (const { from, to } of subs) {
@@ -17,20 +19,20 @@ function substitute(str) {
     }
 
     return str;
-};
+}
 
-const client = ({ address, size: [w, h], class: c }) => Widget({
+const client = ({ address, size: [w, h], class: c, title }) => Widget({
     type: 'button',
-    className: c,
+    className: 'client',
     child: {
         type: 'icon',
-        className: 'icon',
         style: `
             min-width: ${w*SCALE}px;
             min-height: ${h*SCALE}px;
         `,
         icon: substitute(c),
     },
+    tooltip: title,
     setup: button => {
         button.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
         button.drag_source_set_icon_name(substitute(c));
@@ -75,7 +77,7 @@ const workspace = (ws, isActive) => Widget({
 
                 clients.forEach(c => fixed.put(client(c), c.at[0]*SCALE, c.at[1]*SCALE));
             },
-        }
+        },
     }],
 });
 

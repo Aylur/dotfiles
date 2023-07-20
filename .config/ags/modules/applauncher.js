@@ -12,7 +12,7 @@ const _item = ({ name, description, iconName, launch }, window) => {
     const desc = Widget({
         className: 'description',
         type: 'label',
-        label: description,
+        label: description || '',
         wrap: true,
         xalign: 0,
         justify: 'left',
@@ -51,11 +51,13 @@ const _listbox = () => {
         orientation: 'vertical',
     });
     box.push = item => {
-        box.add(item);
+        box.add(Widget(item));
+        box.add(Widget({ type: 'separator', hexpand: true }));
         box.show_all();
     };
     box.clear = () => {
         box.get_children().forEach(ch => ch.destroy());
+        box.add(Widget({ type: 'separator', hexpand: true }));
         box.show_all();
     };
     return box;
@@ -65,12 +67,38 @@ const _layout = ({ entry, listbox }) => ({
     type: 'box',
     orientation: 'vertical',
     children: [
-        entry,
-        Widget({
+        {
+            type: 'box',
+            className: 'search',
+            children: [{
+                type: 'overlay',
+                hexpand: true,
+                vexpand: true,
+                children: [
+                    {
+                        type: 'wallpaper',
+                    },
+                    {
+                        type: 'box',
+                        valign: 'center',
+                        className: 'entry',
+                        children: [
+                            {
+                                type: 'icon',
+                                icon: 'folder-saved-search-symbolic',
+                                size: 20,
+                            },
+                            entry,
+                        ],
+                    },
+                ],
+            }],
+        },
+        {
             type: 'scrollable',
             hscroll: 'never',
             child: listbox,
-        }),
+        },
     ],
 });
 
@@ -87,7 +115,7 @@ Widget.widgets['applauncher'] = ({
         type: 'entry',
         hexpand: true,
         placeholder,
-        text: 'Orbán egy faszszopó rákos kurva, szakadjon rá egy épület és lyukadjon ki a tetves dagadt bele, a báránylelkű csicskásaival együtt.',
+        text: '-',
         onAccept: search => {
             const list = Applications.query(search);
             if (list[0]) {
@@ -108,13 +136,13 @@ Widget.widgets['applauncher'] = ({
             entry,
             listbox: appsbox,
         })),
-        connections: [[App, (box, name, visible) => {
+        connections: [[App, (_b, name, visible) => {
             if (name !== windowName)
                 return;
 
             entry.set_text('');
             if (visible)
-                box.grab_focus();
+                entry.grab_focus();
         }]],
     });
 };

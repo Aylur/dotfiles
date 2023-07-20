@@ -46,6 +46,9 @@ Widget.widgets['battery/indicator'] = ({
     connections: [[Battery, dynamic => {
         const { charging, charged } = Battery;
         dynamic.update(value => value === charging || value === charged);
+        dynamic.toggleClassName('charging', Battery.charging);
+        dynamic.toggleClassName('charged', Battery.charged);
+        dynamic.toggleClassName('low', Battery.percent < 30);
     }]],
 });
 
@@ -53,4 +56,15 @@ Widget.widgets['battery/level-label'] = props => Widget({
     ...props,
     type: 'label',
     connections: [[Battery, label => label.label = `${Battery.percent}`]],
+});
+
+Widget.widgets['battery/progress'] = props => Widget({
+    ...props,
+    type: 'progressbar',
+    connections: [[Battery, progress => {
+        progress.setValue(Battery.percent/100);
+        progress.toggleClassName('charging', Battery.charging);
+        progress.toggleClassName('charged', Battery.charged);
+        progress.toggleClassName('low', Battery.percent < 30);
+    }]],
 });

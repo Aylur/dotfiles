@@ -6,7 +6,7 @@ window#applauncher .applauncher{
         min-height: 100px;
 
         .wallpaper {
-            box-shadow: inset 0 0 $spacing 0 $box_shadow;
+            box-shadow: inset 0 0 $spacing 0 $shadow;
             background-position: bottom;
             border-radius: $radii;
         }
@@ -33,6 +33,12 @@ window#applauncher .applauncher{
         }
     }
 
+    .separator {
+        min-height: 1px;
+        background-color: $hover;
+        margin: $spacing/2;
+    }
+
     scrolledwindow {
         @include scrollbar;
         padding: $popover_padding;
@@ -41,12 +47,7 @@ window#applauncher .applauncher{
     }
 
     .app {
-        border-top: 1px solid $hover;
         padding: $spacing 0;
-
-        &:last-child {
-            border-bottom: 1px solid $hover;
-        }
 
         label {
             min-width: 450px;
@@ -75,11 +76,12 @@ window#applauncher .applauncher{
         }
 
         &:active {
+            background-color: transparentize($accent, 0.5);
+            border-radius: $radii;
+
             .title {
                 color: $fg_color;
             }
-            background-color: transparentize($accent, 0.5);
-            border-radius: $radii;
         }
     }
 }

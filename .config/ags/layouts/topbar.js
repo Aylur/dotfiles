@@ -1,50 +1,41 @@
 const Shared = imports.layouts.shared;
 
-// static
+// static windows
 const dock = Shared.dock;
-const notifications = monitor => Shared.notifications(monitor, 'slide_left', ['top', 'right']);
+const notifications = monitor => Shared.notifications(monitor, 'slide_down', ['top']);
 const desktop = Shared.desktop;
 const corners = Shared.corners;
 
 // popups
-const datemenu = {
-    name: 'datemenu',
+const dashboard = {
+    name: 'dashboard',
     popup: true,
-    anchor: ['top', 'right', 'bottom', 'left'],
-    child: {
-        type: 'layout',
-        layout: 'topleft',
-        window: 'datemenu',
-        child: { type: 'datemenu/popup-content' },
-    },
-};
-
-const media = {
-    name: 'media',
-    popup: true,
-    anchor: ['top', 'bottom', 'left', 'right'],
+    focusable: true,
+    anchor: ['top'],
     child: {
         type: 'layout',
         layout: 'top',
-        window: 'media',
-        child: { type: 'media/popup-content' },
+        window: 'dashboard',
+        child: { type: 'dashboard/popup-content' },
     },
 };
 
 const quicksettings = {
     name: 'quicksettings',
     popup: true,
-    anchor: ['top', 'right', 'bottom', 'left'],
+    focusable: true,
+    anchor: ['top', 'right'],
     child: {
         type: 'layout',
-        layout: 'right',
+        layout: 'topright',
         window: 'quicksettings',
-        child: { type: 'quicksettings/notification-center' },
+        child: { type: 'quicksettings/popup-content' },
     },
 };
 
 // bar
-const { separator, launcher } = imports.layouts.shared;
+const { launcher } = imports.layouts.shared;
+const separator = { type: 'separator', valign: 'center' };
 
 const left = {
     type: 'box',
@@ -52,11 +43,10 @@ const left = {
     children: [
         launcher,
         separator,
-        { type: 'datemenu/panel-button' },
+        { type: 'workspaces', className: 'workspaces' },
         separator,
-        { type: 'workspaces' },
-        separator,
-        { type: 'client' },
+        { type: 'client', className: 'client panel-button' },
+        { type: 'media/panel-indicator', className: 'media panel-button', hexpand: true, halign: 'end' },
     ],
 };
 
@@ -64,20 +54,20 @@ const center = {
     type: 'box',
     className: 'center',
     children: [
-        { type: 'media/panel-button' },
+        { type: 'dashboard/panel-button' },
     ],
 };
 
 const right = {
     type: 'box',
     className: 'right',
-    hexpand: true,
-    halign: 'end',
     children: [
-        { type: 'recorder/indicator-button' },
-        { type: 'colorpicker' },
+        { type: 'notifications/panel-indicator', direction: 'right', className: 'notifications panel-button' },
+        { type: 'box', hexpand: true },
+        { type: 'recorder/indicator-button', className: 'recorder panel-button' },
+        { type: 'colorpicker', className: 'colorpicker panel-button' },
         separator,
-        { type: 'notification-center/panel-button' },
+        { type: 'quicksettings/panel-button' },
         separator,
         { type: 'powermenu/panel-button' },
     ],
@@ -108,7 +98,6 @@ var windows = [
         bar(id),
         ...corners(id),
     ])).flat(),
-    datemenu,
-    media,
+    dashboard,
     quicksettings,
 ];

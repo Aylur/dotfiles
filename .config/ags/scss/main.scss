@@ -11,6 +11,7 @@
 @import './widgets/desktop';
 @import './widgets/dashboard';
 @import './widgets/bar';
+@import './widgets/settings';
 
 tooltip {
     @include tooltip;

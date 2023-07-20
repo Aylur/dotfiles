@@ -1,7 +1,7 @@
 window#powermenu, window#verification {
     .shader {
-        min-height: 1500px;
-        min-width: 2600px;
+        min-width: 4000px;
+        min-height: 4000px;
         background: transparentize($bg_color, 0.5);
     }
 }
@@ -14,12 +14,10 @@ window#verification .verification {
 
     .title {
         font-size: 1.7em;
-        margin: $spacing;
     }
 
     .desc {
         color: transparentize($fg_color, 0.1);
-        margin: $spacing;
         font-size: 1.2em;
     }
 

@@ -1,7 +1,5 @@
 const { App, Widget, Service } = ags;
-const { exec, error } = ags.Utils;
-
-const USER = imports.gi.GLib.get_user_name();
+const { exec, error, USER } = ags.Utils;
 
 class System extends Service {
     static {
@@ -25,7 +23,7 @@ class System extends Service {
         App.getWindow('powermenu').hide();
         App.getWindow('verification').show();
         System.instance._action = { cmd, action };
-        System.instance.emit('changed')
+        System.instance.emit('changed');
     }
 }
 
@@ -61,12 +59,14 @@ Widget.widgets['powermenu/verification'] = () => Widget({
     children: [
         {
             type: 'label',
+            className: 'title',
             connections: [[System, label => {
                 label.label = System.instance._action?.action || '';
-            }]]
+            }]],
         },
         {
             type: 'label',
+            className: 'desc',
             label: 'Are you sure?',
         },
         {
@@ -78,13 +78,13 @@ Widget.widgets['powermenu/verification'] = () => Widget({
             children: [
                 {
                     type: 'button',
-                    child: 'Yes',
-                    onClick: () => exec(System.instance._action.cmd),
+                    child: 'No',
+                    onClick: () => App.toggleWindow('verification'),
                 },
                 {
                     type: 'button',
-                    child: 'No',
-                    onClick: () => App.toggleWindow('verification'),
+                    child: 'Yes',
+                    onClick: () => exec(System.instance._action.cmd),
                 },
             ],
         },
@@ -93,8 +93,12 @@ Widget.widgets['powermenu/verification'] = () => Widget({
 
 Widget.widgets['powermenu/panel-button'] = () => Widget({
     type: 'button',
-    className: 'powermenu',
+    className: 'powermenu panel-button',
     onClick: () => App.toggleWindow('powermenu'),
+    connections: [[ags.App, (btn, win, visible) => {
+        if (win === 'powermenu' || win === 'verification')
+            btn.toggleClassName('active', visible);
+    }]],
     child: {
         type: 'icon',
         icon: 'system-shutdown-symbolic',

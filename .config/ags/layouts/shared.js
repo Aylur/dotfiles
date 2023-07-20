@@ -6,7 +6,7 @@ var notifications = (monitor, transition, anchor) => ({
     monitor,
     name: `notifications${monitor}`,
     anchor,
-    child: { type: 'notifications/popups', transition },
+    child: { type: 'notifications/popup-list', transition },
 });
 
 var desktop = monitor => ({
@@ -31,7 +31,7 @@ var indicator = monitor => ({
     className: 'indicator',
     layer: 'overlay',
     anchor: ['right'],
-    child: { type: 'on-screen-indicator/vertical' },
+    child: { type: 'on-screen-indicator' },
 });
 
 var dock = monitor => ({
@@ -42,68 +42,42 @@ var dock = monitor => ({
 });
 
 // bar
-var separator = {
-    type: 'box',
-    className: 'separator',
-    valign: 'center',
-};
-
 var launcher = {
     type: 'button',
-    className: 'launcher',
+    className: 'launcher panel-button',
+    connections: [[ags.App, (btn, win, visible) => {
+        btn.toggleClassName('active', win === 'overview' && visible);
+    }]],
     onClick: () => ags.App.toggleWindow('overview'),
     child: '',
 };
 
-//popup
-var applauncher = {
-    name: 'applauncher',
-    popup: true,
-    focusable: true,
-    anchor: ['top', 'bottom', 'left', 'right'],
-    child: {
-        type: 'layout',
-        layout: 'center',
-        window: 'applauncher',
-        child: {
-            type: 'applauncher/popup-content',
-            windowName: 'applauncher',
-        },
-    },
-};
-
-var overview = {
-    name: 'overview',
-    anchor: ['top', 'bottom', 'left', 'right'],
+//popups
+const popup = (name, child) => ({
+    name,
     popup: true,
     focusable: true,
     child: {
         type: 'layout',
         layout: 'center',
-        window: 'overview',
-        child: { type: 'overview' },
+        window: name,
+        child,
     },
-};
+});
 
-var powermenu = {
-    name: 'powermenu',
-    popup: true,
-    focusable: true,
-    child: {
-        type: 'layout',
-        layout: 'center',
-        window: 'powermenu',
-        child: { type: 'powermenu/popup-content' },
-    },
-};
+var applauncher = popup('applauncher', {
+    type: 'applauncher',
+    className: 'applauncher',
+});
 
-var verification = {
-    name: 'verification',
-    popup: true,
-    child: {
-        type: 'layout',
-        layout: 'center',
-        window: 'verification',
-        child: { type: 'powermenu/verification' },
-    },
-};
+var overview = popup('overview', {
+    type: 'overview',
+});
+
+var powermenu = popup('powermenu', {
+    type: 'powermenu/popup-content',
+});
+
+var verification = popup('verification', {
+    type: 'powermenu/verification',
+});

@@ -1,140 +1,101 @@
 @mixin player_color($color) {
-    .volume-box .slider {
-        @include slider($width: .6em, $slider: false, $color: $color);
-    }
-
-    .player {
-        color: $color;
-    }
-
-    .controls button {
-        image.shuffle.enabled {
+    button {
+        .shuffle.enabled {
             color: $color;
         }
 
-        image.loop.playlist {
-            color: $color;
+        .loop {
+            &.playlist, &.track {
+                color: $color;
+            }
         }
 
-        &:active image {
+        &:active label {
             color: $color;
         }
     }
 }
 
 @mixin media() {
-    border-radius: $radii;
-    padding: 0;
+    label {
+        color: $shader_fg;
+        text-shadow: $text_shadow;
+    }
 
-    .cover-art{
-        $fg_color: white;
-        background-size: cover;
-        background-position: center;
-        border-radius: $radii;
-        margin: $border_width;
+    .shader {
+        @include shader;
+    }
 
-        label {
-            text-shadow: $text_shadow;
-            color: $fg_color;
-        }
+    .cover-art {
+        border-radius: $radii*0.8;
+        min-height: 100px;
+        min-width: 100px;
+        box-shadow: 2px 2px 2px 0 $shadow;
+        margin: $spacing;
+        margin-bottom: 0;
 
-        image {
-            -gtk-icon-shadow: $icon_shadow;
-            color: $fg_color;
-        }
-
-        .shader{
+        .shader {
             @include shader;
         }
+    }
 
-        .header-box {
-            padding: $spacing;
+    .cover-art-bg, .cover-art {
+        background-size: cover;
+        background-position: center;
+    }
 
-            label {
-                &.title {
-                    font-size: 1.1em;
-                }
+    .labels {
+        margin-top: $spacing;
 
-                &.artist {
-                    color: transparentize($fg_color, 0.2);
-                }
-            }
-        }
+        label {
+            font-size: 1.1em;
+            text-shadow: $text_shadow;
 
-        .position-slider{
-            @include slider($width: .3em, $slider: false, $color: transparentize($fg_color, 0.3));
-
-            contents{
-                trough{
-                    border-radius: 0;
-                    border: 0;
-
-                    highlight{
-                        border-radius: 0;
-                    }
-                }
-            }
-        }
-
-        .footerbox {
-            padding: $spacing;
-
-            .player {
-                margin-right: $spacing;
-            }
-
-            button, image {
-                transition: $transition;
-            }
-
-            .controls button {
-                margin: 0 $spacing/4;
-                image{ color: transparentize($fg_color, 0.1); }
-
-                image.shuffle {
-                    color: transparentize($fg_color, 0.3);
-
-                    // &.enabled{ color: $accent; }
-                }
-
-                image.loop {
-                    color: transparentize($fg_color, 0.3);
-                    &.track { color: $fg_color; }
-
-                    // &.playlist { color: $accent; }
-                }
-
-                &:hover image, &:focus image {
-                    color: $fg_color;
-                }
-
-                &:active image {
-                    // color: $accent;
-                }
+            &.title {
+                font-weight: bold;
             }
         }
     }
 
-    .volume-box {
-        .slider {
-            @include slider($width: .6em, $slider: false, $color: $accent);
-            margin: $spacing;
-        }
+    .position-slider {
+        @include slider($slider: false, $color: $shader_fg, $radii: 0);
+        margin: $spacing 0;
 
-        .icon {
-            margin: $spacing;
-            margin-top: 0;
+        trough {
+            border: none;
         }
     }
+
+    .footer-box {
+        margin: -$spacing/2 $spacing $spacing/2;
+    }
+
+    button {
+        label {
+            font-size: 2em;
+            color: transparentize($shader_fg, 0.2);
+            transition: $transition;
+
+            &.shuffle, &.loop {
+                font-size: 1.4em;
+
+            }
+        }
+
+        &:hover label {
+            color: transparentize($shader_fg, 0.1);
+        }
+
+        &:active label {
+            color: $shader_fg;
+        }
+    }
+
     &.spotify { @include player_color($green); }
     &.firefox { @include player_color($orange); }
     &.mpv { @include player_color($magenta); }
-}
 
-
-window#media .mediabox {
-    @include floating_widget;
-    @include media;
-    min-height: 250px;
-    min-width: 300px;
+    &.firefox .footer-box {
+        margin-top: -$spacing*2;
+    }
 }
