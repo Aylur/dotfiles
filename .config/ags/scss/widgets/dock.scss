@@ -1,4 +1,4 @@
-@mixin dock {
+@mixin dock($spacing: $spacing) {
     .separator {
         min-width: 2px;
         min-height: 2em;

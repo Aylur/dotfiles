@@ -1,8 +1,4 @@
 @mixin notification() {
-    label {
-        text-shadow: $text_shadow;
-    }
-
     &.critical > box {
         box-shadow: inset 0 0 .5em 0 $red;
     }

@@ -19,7 +19,11 @@ Widget.widgets['workspaces'] = props => Widget({
         child: {
             type: 'hyprland/workspaces',
             fixed: 7,
-            active: indicator,
+            active: {
+                type: 'eventbox',
+                child: indicator,
+                onClick: () => print('hello'),
+            },
             occupied: indicator,
             empty: indicator,
         },

@@ -127,11 +127,29 @@ const systemBox = {
             children: [
                 { type: 'battery/progress' },
                 {
-                    type: 'label',
-                    label: '󱐋',
-                    connections: [[Battery, l => {
-                        l.visible = Battery.charging || Battery.charged;
-                        l.toggleClassName('half', Battery.percent < 46);
+                    type: 'dynamic',
+                    halign: 'center',
+                    items: [
+                        {
+                            value: true, widget: {
+                                type: 'font-icon',
+                                className: 'icon',
+                                icon: '󱐋',
+                            },
+                        },
+                        {
+                            value: false, widget: {
+                                type: 'label',
+                                className: 'percent',
+                                connections: [[Battery, l => {
+                                    l.label = `${Battery.percent}%`;
+                                }]],
+                            },
+                        },
+                    ],
+                    connections: [[Battery, d => {
+                        d.toggleClassName('half', Battery.percent < 46);
+                        d.update(v => v === (Battery.charging || Battery.charged));
                     }]],
                 },
             ],

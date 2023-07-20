@@ -63,16 +63,16 @@ const _pins = (iconSize, list) => ({
         })),
 });
 
-Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
+Widget.widgets['dock'] = ({ iconSize = 48, launcher = true }) => Widget({
     type: 'box',
     className: 'dock',
     children: [
-        {
+        ...(launcher ? [{
             tooltip: 'Applications',
             onClick: () => ags.App.toggleWindow('applauncher'),
             ..._appButton(iconSize, 'view-app-grid-symbolic'),
             className: 'nonrunning',
-        },
+        }] : []),
         _pins(iconSize, [
             ['firefox', false],
             ['wezterm', false],
@@ -87,7 +87,7 @@ Widget.widgets['dock'] = ({ iconSize = 48 }) => Widget({
             valign: 'center',
             className: 'separator',
             connections: [[Hyprland, box => {
-                box.visible = box.get_parent().get_children()[3].get_children().length > 0;
+                box.visible = box.get_parent().get_children()[launcher ? 3 : 2].get_children().length > 0;
             }]],
         },
         {

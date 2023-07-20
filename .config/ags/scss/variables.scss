@@ -9,7 +9,7 @@ $bg: $fg_color;
 $widget_opacity: 94;
 $hover: transparentize($bg, max($widget_opacity - 4, 0)/100);
 $widget_bg: transparentize($bg, $widget_opacity/100);
-$active_gradient: linear-gradient(to right, $blue, lighten($blue, 4%));
+$active_gradient: linear-gradient(to right, $accent, lighten($accent, 4%));
 
 $border_opacity: 97;
 $border_color: transparentize($fg_color, $border_opacity/100);
@@ -31,7 +31,7 @@ $font: 'Ubuntu Nerd Font';
 $mono_font: 'Mononoki Nerd Font', monospace;
 $shader_fg: if($theme == 'light', $bg_color, $fg_color);
 
-$screen_corners: true;
+$screen_corners: false;
 
 window:not(#settings), window * {
    all: unset;

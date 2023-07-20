@@ -1,6 +1,6 @@
 const { App, Widget } = ags;
 
-Widget.widgets['dashboard/panel-button'] = props => Widget({
+Widget.widgets['dashboard/panel-button'] = ({ format = '%H:%M:%S  %A %d.', ...props }) => Widget({
     ...props,
     type: 'button',
     className: 'dashboard panel-button',
@@ -9,7 +9,7 @@ Widget.widgets['dashboard/panel-button'] = props => Widget({
         btn.toggleClassName('active', win === 'dashboard' && visible);
     }]],
     child: {
-        format: '%H:%M:%S  %A %d.',
+        format,
         type: 'clock',
     },
 });

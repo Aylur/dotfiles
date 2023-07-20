@@ -63,11 +63,11 @@ const color = (title, prop) => row(title, {
 
 const text = (title, prop) => row(title, {
     type: 'entry',
+    className: 'text',
     text: Settings.getStyle(prop) || defaults.style[prop],
     hexpand: true,
     halign: 'end',
     onAccept: value => Settings.setStyle(prop, value),
-    style: 'min-width: 20em',
 });
 
 class Pages extends ags.Service {
@@ -120,6 +120,7 @@ const layout = pages => ({
                 ],
             }],
         },
+        { type: 'wallpaper', className: 'row', hexpand: true, vexpand: true },
         {
             type: 'box',
             className: 'content',
@@ -138,6 +139,14 @@ const layout = pages => ({
     ],
 });
 
+const layoutText = row('Layout', {
+    type: 'entry',
+    text: Settings.layout || defaults.layout,
+    hexpand: true,
+    halign: 'end',
+    onAccept: value => Settings.layout = value,
+});
+
 var dialog = () => {
     const win = new Gtk.Window({ name: 'settings' });
     win.set_default_size(240, 500);
@@ -146,12 +155,17 @@ var dialog = () => {
             type: 'box',
             orientation: 'vertical',
             children: [
-                { type: 'wallpaper', className: 'row', hexpand: true, vexpand: true },
                 img('Wallpaper', 'wallpaper'),
                 img('Avatar', 'avatar'),
                 spinbutton('Useless Gaps', 'wm_gaps', 128),
                 spinbutton('Spacing', 'spacing', 18),
+                layoutText,
                 switchbtn('Screen Corners', 'screen_corners'),
+                {
+                    type: 'label',
+                    label: 'Layout needs a reload to take effect',
+                    valign: 'end',
+                },
             ],
         },
         borders: {

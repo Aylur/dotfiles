@@ -2,6 +2,7 @@ window#settings {
     background-color: $bg_color;
     color: $fg_color;
 
+
     .settings {
         .headerbar {
             background-color: $widget_bg;
@@ -12,6 +13,11 @@ window#settings {
         .tab {
             @include button($flat: true);
             margin: $spacing/3;
+        }
+
+        .wallpaper {
+            border-radius: $radii;
+            margin: $popover_padding;
         }
 
         .content {
@@ -40,12 +46,6 @@ window#settings {
             @include switch;
         }
 
-        .wallpaper {
-            min-height: 90px;
-            background-size: cover;
-            border-radius: $radii;
-        }
-
         .row {
             margin-bottom: $spacing;
             &:last-child{ margin-bottom: 0; }
@@ -57,6 +57,10 @@ window#settings {
             .color entry {
                 margin-right: $spacing;
                 min-width: 20em;
+            }
+
+            entry.text {
+                min-width: 22em;
             }
         }
     }

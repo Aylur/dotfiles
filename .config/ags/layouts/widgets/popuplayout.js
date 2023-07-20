@@ -71,6 +71,21 @@ const layouts = {
             },
         ],
     }),
+    'bottomright': (windowName, child) => ({
+        type: 'box',
+        children: [
+            padding(windowName),
+            {
+                type: 'box',
+                hexpand: false,
+                orientation: 'vertical',
+                children: [
+                    padding(windowName),
+                    revealer(windowName, 'slide_up', child),
+                ],
+            },
+        ],
+    }),
 };
 
 Widget.widgets['layout'] = ({ layout, window, child }) => Widget(layouts[layout](window, child));

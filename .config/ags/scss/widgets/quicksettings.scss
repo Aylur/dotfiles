@@ -34,11 +34,16 @@ window#quicksettings .quicksettings {
                 margin-top: $spacing;
             }
 
-            label {
+            &.half label { color: $fg_color; }
+
+            .icon, .percent {
                 margin-top: $spacing;
-                font-size: 1.4em;
                 color: $accent_fg;
-                &.half { color: $fg_color; }
+            }
+
+            .percent {
+                font-size: 1.2em;
+                font-weight: bold;
             }
         }
 

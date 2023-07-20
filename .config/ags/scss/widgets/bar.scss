@@ -118,4 +118,8 @@ $float: 5px;
             }
         }
     }
+
+    .dock {
+        @include dock($spacing: $float);
+    }
 }

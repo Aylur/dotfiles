@@ -7,9 +7,7 @@ const now = () => GLib.DateTime.new_now_local().format('%Y-%m-%d_%H-%M-%S');
 
 class RecorderService extends Service {
     static {
-        Service.register(this, {
-            'timer': ['int'],
-        });
+        Service.register(this, { 'timer': ['int'] });
     }
 
     _path = GLib.get_home_dir()+'/Videos/Screencasting';
@@ -18,8 +16,8 @@ class RecorderService extends Service {
         execAsync('slurp', out => {
             ensureDirectory(this._path);
             this._file = `${this._path}/${now()}.mp4`;
-            execAsync(['wl-screenrec', '-g', out.trim(), '-f', this._file]);
-            print('wl-screenrec', '-g', out.trim(), '-f', this._file);
+            execAsync(['wf-recorder', '-g', out.trim(), '-f', this._file]);
+            print('wf-recorder', '-g', out.trim(), '-f', this._file);
             this._recording = true;
             this.emit('changed');
 
@@ -32,7 +30,7 @@ class RecorderService extends Service {
     }
 
     stop() {
-        execAsync('killall -INT wl-screenrec');
+        execAsync('killall -INT wf-recorder');
         this._recording = false;
         this.emit('changed');
         GLib.source_remove(this._interval);

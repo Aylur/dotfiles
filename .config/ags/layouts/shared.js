@@ -42,15 +42,19 @@ var dock = monitor => ({
 });
 
 // bar
-var launcher = {
+var launcher = (size = ags.Utils.getConfig()?.baseIconSize || 16) => ({
     type: 'button',
     className: 'launcher panel-button',
     connections: [[ags.App, (btn, win, visible) => {
         btn.toggleClassName('active', win === 'overview' && visible);
     }]],
     onClick: () => ags.App.toggleWindow('overview'),
-    child: '',
-};
+    child: {
+        type: 'font-icon',
+        icon: '',
+        size,
+    },
+});
 
 //popups
 const popup = (name, child) => ({

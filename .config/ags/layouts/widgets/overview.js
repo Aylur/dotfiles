@@ -8,9 +8,6 @@ const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 
 function substitute(str) {
     const subs = [
-        { from: 'com.transmissionbt.Transmission._43_219944', to: 'com.transmissionbt.Transmission' },
-        { from: 'com.transmissionbt.Transmission._40_219944', to: 'com.transmissionbt.Transmission' },
-        { from: 'com.transmissionbt.Transmission._37_219944', to: 'com.transmissionbt.Transmission' },
         { from: 'Caprine', to: 'facebook-messenger' },
     ];
     for (const { from, to } of subs) {
@@ -33,6 +30,7 @@ const client = ({ address, size: [w, h], class: c, title }) => Widget({
         icon: substitute(c),
     },
     tooltip: title,
+    onSecondaryClick: () => execAsync('hyprctl dispatch closewindow address:'+address),
     setup: button => {
         button.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
         button.drag_source_set_icon_name(substitute(c));
@@ -67,7 +65,6 @@ const workspace = (ws, isActive) => Widget({
 
                 // this is for my monitor layout
                 // shifts clients back by 1920px if necessary
-                // this is because hyprland counts offset by multimonitor setups
                 clients = clients.map(client => {
                     const [x, y] = client.at;
                     if (x > 1920)
@@ -99,7 +96,9 @@ Widget.widgets['overview'] = () => Widget({
         }],
     ],
     connections: [
-        [Hyprland, box => box._update(box)],
+        [Hyprland, box => {
+            box._update(box);
+        }],
         [App, (box, windowName) => {
             if (windowName !== 'overview')
                 return false;

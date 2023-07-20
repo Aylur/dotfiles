@@ -62,6 +62,7 @@ class SettingsService extends Service {
     setupStyle() {
         const style = this.settings.style || {};
         const defs = defaults.style;
+        const check = (a, b) => a !== undefined ? a : b;
         const sed = (variable, file, value) => exec(
             `sed -i "/\$${variable}: /c\\\$${variable}: ${value};" ${CONFIG_DIR}/scss/${file}.scss`,
         );
@@ -70,7 +71,7 @@ class SettingsService extends Service {
             .forEach(v => sed(v, 'variables', `${style[v] || defs[v]}px`));
 
         ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners']
-            .forEach(v => sed(v, 'variables', style[v] || defs[v]));
+            .forEach(v => sed(v, 'variables', check(style[v], defs[v])));
 
         sed('active_gradient', 'variables', `linear-gradient(${style.active_gradient || defs.active_gradient})`);
 
@@ -120,10 +121,7 @@ class SettingsService extends Service {
     }
 
     get darkmode() {
-        if (this.settings.darkmode === false)
-            return false;
-
-        return defaults.darkmode;
+        return this.settings.darkmode === false ? false : defaults.darkmode;
     }
 }
 
