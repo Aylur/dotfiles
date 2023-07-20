@@ -5,9 +5,10 @@
     bat exa ranger
     socat jq htop acpi inotify-tools ffmpeg
 
-    # wayland
-    wl-gammactl wlsunset wl-clipboard wf-recorder hyprpicker watershot imagemagick
-    pavucontrol blueberry brightnessctl swww
+    # hyprland
+    wl-gammactl wl-clipboard wf-recorder
+    hyprpicker watershot imagemagick
+    pavucontrol brightnessctl swww
 
     # fun
     fortune jp2a pywal
@@ -20,7 +21,7 @@
 
     # langs
     meson ninja
-    nodejs cargo go
+    nodejs go
     nodePackages_latest.typescript
     nodePackages_latest.eslint
     sassc
