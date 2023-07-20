@@ -1,6 +1,7 @@
 /* exported dialog */
 const { Gtk } = imports.gi;
 const { Settings } = ags.Service;
+const { defaults } = imports.settings.defaults;
 
 const row = (title, child) => ({
     type: 'box',
@@ -15,9 +16,9 @@ const img = (title, setting) => row(title, {
     connections: [['selection-changed', w => Settings[setting] = w.get_uri().replace('file://', '')]],
 });
 
-const spinbutton = (title, styleprop, max, fallback, min = 0) => row(title, {
+const spinbutton = (title, styleprop, max, min = 0) => row(title, {
     type: () => Gtk.SpinButton.new_with_range(min, max, 1),
-    setup: w => w.value = Settings.getStyle(styleprop) || fallback,
+    setup: w => w.value = Settings.getStyle(styleprop) || defaults.style[styleprop],
     hexpand: true,
     halign: 'end',
     connections: [['value-changed', w => {
@@ -28,7 +29,7 @@ const spinbutton = (title, styleprop, max, fallback, min = 0) => row(title, {
     }]],
 });
 
-const color = (title, styleprop, fallback) => row(title, {
+const color = (title, styleprop) => row(title, {
     type: 'box',
     hexpand: true,
     halign: 'end',
@@ -37,12 +38,12 @@ const color = (title, styleprop, fallback) => row(title, {
         {
             type: 'entry',
             onAccept: value => Settings.setStyle(styleprop, value),
-            text: Settings.getStyle(styleprop) || fallback,
+            text: Settings.getStyle(styleprop) || defaults.style[styleprop],
             valign: 'center',
         },
         {
             type: () => new Gtk.ColorButton({ alpha: true }),
-            setup: w => w.rgba.parse(Settings.getStyle(styleprop) || fallback),
+            setup: w => w.rgba.parse(Settings.getStyle(styleprop) || defaults.style[styleprop]),
             valign: 'center',
             connections: [['color-set', w => {
                 w.get_parent().get_children()[0].set_text(w.rgba.to_string());
@@ -90,6 +91,15 @@ const layout = pages => ({
                     tab('Colors'),
                     tab('Dark'),
                     tab('Light'),
+                    {
+                        type: 'button',
+                        className: 'tab',
+                        onClick: Settings.reset,
+                        child: {
+                            type: 'font-icon',
+                            icon: '󰦛',
+                        },
+                    },
                 ],
             }],
         },
@@ -122,45 +132,45 @@ var dialog = () => {
                 { type: 'wallpaper', className: 'row', hexpand: true, vexpand: true },
                 img('Wallpaper', 'wallpaper'),
                 img('Avatar', 'avatar'),
-                spinbutton('Useless Gaps', 'gaps', 128, 16),
-                spinbutton('Spacing', 'spacing', 18, 8),
+                spinbutton('Useless Gaps', 'wm_gaps', 128),
+                spinbutton('Spacing', 'spacing', 18),
             ],
         },
         borders: {
             type: 'box',
             orientation: 'vertical',
             children: [
-                spinbutton('Border Radius', 'radius', 32, 7),
-                spinbutton('Border Width', 'borderWidth', 4, 1),
-                spinbutton('Border Opacity', 'borderOpacity', 100, 97),
+                spinbutton('Border Radius', 'radii', 32),
+                spinbutton('Border Width', 'border_width', 5),
+                spinbutton('Border Opacity', 'border_opacity', 100),
             ],
         },
         colors: {
             type: 'box',
             orientation: 'vertical',
             children: [
-                color('Accent Color', 'accent', '$blue'),
-                color('Accent Foreground', 'accentFg', '#141414'),
-                color('Widget Background', 'widgetBg', '$fg_color'),
-                spinbutton('Widget Opacity', 'widgetOpacity', 100, 94, 4),
+                color('Accent Color', 'accent'),
+                color('Accent Foreground', 'accent_fg'),
+                color('Widget Background', 'bg'),
+                spinbutton('Widget Opacity', 'widget_opacity', 100, 4),
             ],
         },
         dark: {
             type: 'box',
             orientation: 'vertical',
             children: [
-                color('Background Color', 'darkBg', '#171717'),
-                color('Foreground Color', 'darkFg', '#eee'),
-                color('Hover Foreground', 'darkHoverFg', '#f1f1f1'),
+                color('Background Color', 'dark_bg_color'),
+                color('Foreground Color', 'dark_fg_color'),
+                color('Hover Foreground', 'dark_hover_fg'),
             ],
         },
         light: {
             type: 'box',
             orientation: 'vertical',
             children: [
-                color('Background Color', 'lightBg', '#fff'),
-                color('Foreground Color', 'lightFg', '#171717'),
-                color('Hover Foreground', 'lightHoverFg', '#131313'),
+                color('Background Color', 'light_bg_color'),
+                color('Foreground Color', 'light_fg_color'),
+                color('Hover Foreground', 'light_hover_fg'),
             ],
         },
     })));

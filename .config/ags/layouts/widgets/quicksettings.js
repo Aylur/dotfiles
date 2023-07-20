@@ -131,7 +131,7 @@ const systemBox = {
                     label: '󱐋',
                     connections: [[Battery, l => {
                         l.visible = Battery.charging || Battery.charged;
-                        l.toggleClassName('half', Battery.percent < 50);
+                        l.toggleClassName('half', Battery.percent < 46);
                     }]],
                 },
             ],

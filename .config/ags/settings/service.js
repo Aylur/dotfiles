@@ -2,6 +2,7 @@
 
 const { Service, App } = ags;
 const { CONFIG_DIR, USER, readFile, writeFile, execAsync, exec } = ags.Utils;
+const { defaults } = imports.settings.defaults;
 
 class SettingsService extends Service {
     static { Service.register(this); }
@@ -16,6 +17,15 @@ class SettingsService extends Service {
         this.setupStyle();
         this.setupWallpaper();
         this.setupDarkmode();
+    }
+
+    reset() {
+        exec(`rm ${CONFIG_DIR}/settings.json`);
+        this._settings = null;
+        this.setupStyle();
+        this.setupWallpaper();
+        this.setupDarkmode();
+        this.emit('changed');
     }
 
     openSettings() {
@@ -50,59 +60,44 @@ class SettingsService extends Service {
     }
 
     setupStyle() {
-        const s = this.settings.style || {};
-        const check = (v, fallback) => v !== undefined ? v : fallback;
+        const style = this.settings.style || {};
+        const defs = defaults.style;
+        const sed = (variable, file, value) => exec(
+            `sed -i "/\$${variable}: /c\\\$${variable}: ${value};" ${CONFIG_DIR}/scss/${file}.scss`,
+        );
 
-        [// scss
-            ['wm_gaps', 'gaps', 16, true],
-            ['spacing', 'spacing', 6, true],
-            ['radii', 'radius', 9, true],
-            ['border_width', 'borderWidth', 1, true],
-            ['border_opacity', 'borderOpacity', 97],
-            ['accent', 'accent', '$blue'],
-            ['accent_fg', 'accentFg', '#141414'],
-            ['bg', 'widgetBg', '$fg_color'],
-            ['widget_opacity', 'widgetOpacity', 94],
-        ].forEach(([scss, style, fallback, px]) => {
-            exec(`sed -i "/\$${scss}: /c\\\$${scss}: ${check(s[style], fallback)}${px ? 'px' : ''};" ${CONFIG_DIR+'/scss/variables.scss'}`);
-        });
+        ['wm_gaps', 'spacing', 'radii', 'border_width']
+            .forEach(v => sed(v, 'variables', `${style[v] || defs[v]}px`));
 
-        [// dark scss
-            ['bg_color', 'darkBg', '#171717'],
-            ['fg_color', 'darkFg', '#eee'],
-            ['hover_fg', 'darkHoverFg', '#f1f1f1'],
-        ].forEach(([scss, style, fallback]) => {
-            exec(`sed -i "/\$${scss}: /c\\\$${scss}: ${check(s[style], fallback)};" ${CONFIG_DIR+'/scss/dark.scss'}`);
-        });
+        ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity']
+            .forEach(v => sed(v, 'variables', style[v] || defs[v]));
 
-        [// light scss
-            ['bg_color', 'lightBg', '#fff'],
-            ['fg_color', 'lightFg', '#171717'],
-            ['hover_fg', 'lightHoverFg', '#131313'],
-        ].forEach(([scss, style, fallback]) => {
-            exec(`sed -i "/\$${scss}: /c\\\$${scss}: ${check(s[style], fallback)};" ${CONFIG_DIR+'/scss/light.scss'}`);
-        });
+        ['dark_bg_color', 'dark_fg_color', 'dark_hover_fg']
+            .forEach(v => sed(v.substring(5), 'dark', style[v] || defs[v]));
 
-        execAsync(`hyprctl keyword decoration:rounding ${check(s.radius, 9)}`);
-        execAsync(`hyprctl keyword general:border_size ${check(s.borderWidth, 1)}`);
-        execAsync(`hyprctl keyword general:gaps_out ${check(s.gaps, 16)}`);
-        execAsync(`hyprctl keyword general:gaps_in ${check(s.gaps/2, 8)}`);
+        ['light_bg_color', 'light_fg_color', 'light_hover_fg']
+            .forEach(v => sed(v.substring(6), 'light', style[v] || defs[v]));
+
+        const getValue = variable => style[variable] || defs[variable];
+        execAsync(`hyprctl keyword decoration:rounding ${getValue('radii')}`);
+        execAsync(`hyprctl keyword general:border_size ${getValue('border_width')}`);
+        execAsync(`hyprctl keyword general:gaps_out ${getValue('wm_gaps')}`);
+        execAsync(`hyprctl keyword general:gaps_in ${getValue('wm_gaps')/2}`);
 
         exec(`sassc ${CONFIG_DIR}/scss/dark.scss ${CONFIG_DIR}/dark.css`);
         exec(`sassc ${CONFIG_DIR}/scss/light.scss ${CONFIG_DIR}/light.css`);
-        App.applyCss(`${CONFIG_DIR}/${this.settings.darkmode ? 'dark' : 'light'}.css`);
+
+        App.applyCss(`${CONFIG_DIR}/${this.darkmode ? 'dark' : 'light'}.css`);
     }
 
     setupDarkmode() {
-        const dark = !!this.settings.darkmode;
-
         const gsettings = 'gsettings set org.gnome.desktop.interface color-scheme';
-        execAsync(`${gsettings}, "prefer-${dark ? 'dark' : 'light'}"`);
+        execAsync(`${gsettings}, "prefer-${this.darkmode ? 'dark' : 'light'}"`);
 
         const wezterm = `/home/${USER}/.config/wezterm`;
-        execAsync(`cp ${wezterm}/charm${dark ? '' : '-light'}.lua ${wezterm}/theme.lua`);
+        execAsync(`cp ${wezterm}/charm${this.darkmode ? '' : '-light'}.lua ${wezterm}/theme.lua`);
 
-        App.applyCss(`${CONFIG_DIR}/${dark ? 'dark' : 'light'}.css`);
+        App.applyCss(`${CONFIG_DIR}/${this.darkmode ? 'dark' : 'light'}.css`);
     }
 
     setupWallpaper() {
@@ -110,7 +105,7 @@ class SettingsService extends Service {
             'swww', 'img',
             '--transition-type', 'grow',
             '--transition-pos', exec('hyprctl cursorpos').replace(' ', ''),
-            this.settings.wallpaper,
+            this.settings.wallpaper || defaults.wallpaper,
         ]);
     }
 
@@ -121,6 +116,13 @@ class SettingsService extends Service {
         this._settings = JSON.parse(readFile(this._path)) || {};
         return this._settings;
     }
+
+    get darkmode() {
+        if (this.settings.darkmode === false)
+            return false;
+
+        return defaults.darkmode;
+    }
 }
 
 var Settings = class Settings {
@@ -129,24 +131,26 @@ var Settings = class Settings {
 
     static openSettings() { Settings.instance.openSettings(); }
 
+    static reset() { Settings.instance.reset(); }
+
     static setStyle(prop, value) { Settings.instance.setStyle(prop, value); }
     static getStyle(prop) { return Settings.instance.settings.style?.[prop]; }
 
-    static get darkmode() { return Settings.instance.settings.darkmode || false; }
+    static get darkmode() { return Settings.instance.darkmode; }
     static set darkmode(v) { Settings.instance.setSetting('darkmode', v); }
 
-    static get wallpaper() { return Settings.instance.settings.wallpaper; }
+    static get wallpaper() { return Settings.instance.settings.wallpaper || defaults.wallpaper; }
     static set wallpaper(v) { Settings.instance.setSetting('wallpaper', v); }
 
-    static get layout() { return Settings.instance.settings.layout || 'topbar'; }
+    static get layout() { return Settings.instance.settings.layout || defaults.layout; }
     static set layout(v) { Settings.instance.setSetting('layout', v); }
 
-    static get preferredMpris() { return Settings.instance.settings.preferredMpris || 'spotify'; }
+    static get preferredMpris() { return Settings.instance.settings.preferredMpris || defaults.preferredMpris; }
     static set preferredMpris(v) { Settings.instance.setSetting('preferredMpris', v); }
 
-    static get avatar() { return Settings.instance.settings.avatar; }
+    static get avatar() { return Settings.instance.settings.avatar || defaults.avatar; }
     static set avatar(v) { Settings.instance.setSetting('avatar', v); }
 
-    static get userName() { return Settings.instance.settings.userName || USER; }
+    static get userName() { return Settings.instance.settings.userName || defaults.userName; }
     static set userName(v) { Settings.instance.setSetting('userName', v); }
 };
