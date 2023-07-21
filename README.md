@@ -10,6 +10,8 @@
 - [ags](https://github.com/Aylur/ags/wiki/installation)
 - sassc
 - swww
+- nerdfonts
+## optional
 - asusctl
 - supergfxctl
 - brightnessctl
@@ -20,7 +22,6 @@
 - imagemagick
 - wl-gammactl
 - pavucontrol
-- nerdfonts
 
 ```bash
 git clone https://github.com/Aylur/dotfiles.git
@@ -32,4 +33,4 @@ cp -r .config/hypr $HOME/.config/hypr
 ags
 ```
 
-I don't guarantee that it works on your setup. I will write some guide sometime in the future.
+You might want to remove stuff that you don't need, especially asusctl widgets
