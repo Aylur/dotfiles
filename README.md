@@ -14,6 +14,7 @@
 - imagemagick
 - wl-gammactl
 - pavucontrol
+- nerdfonts
 
 ```bash
 git clone https://github.com/Aylur/dotfiles.git

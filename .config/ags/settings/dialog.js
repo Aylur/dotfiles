@@ -31,7 +31,7 @@ const spinbutton = (title, prop, max, min = 0) => row(title, {
 
 const switchbtn = (title, prop) => row(title, {
     type: 'switch',
-    active: Settings.getStyle(prop) || defaults.style[prop],
+    active: typeof Settings.getStyle(prop) === 'boolean' ? Settings.getStyle(prop) : defaults.style[prop],
     onActivate: bool => Settings.setStyle(prop, bool),
     halign: 'end',
     hexpand: true,
@@ -120,7 +120,7 @@ const layout = pages => ({
                 ],
             }],
         },
-        { type: 'wallpaper', className: 'row', hexpand: true, vexpand: true },
+        { type: 'wallpaper', className: 'row', vexpand: true },
         {
             type: 'box',
             className: 'content',

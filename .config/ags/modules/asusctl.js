@@ -44,6 +44,7 @@ Widget.widgets['asusctl/profile-indicator'] = ({
     performance = { type: 'icon', icon: 'power-profile-performance-symbolic' },
 }) => Widget({
     type: 'dynamic',
+    tooltip: 'Power Profile',
     items: [
         { value: 'Balanced', widget: balanced },
         { value: 'Quiet', widget: quiet },
@@ -62,8 +63,8 @@ Widget.widgets['asusctl/profile-toggle'] = props => Widget({
 });
 
 Widget.widgets['asusctl/mode-indicator'] = ({
-    integrated = { type: 'font-icon', icon: '', fontSize: 24 },
-    hybrid = { type: 'font-icon', icon: '󰢮', fontSize: 24 },
+    integrated = { type: 'font-icon', icon: '', fontSize: 24, tooltip: 'Integrated Mode' },
+    hybrid = { type: 'font-icon', icon: '󰢮', fontSize: 24, tooltip: 'Hybrid Mode' },
 }) => Widget({
     type: 'dynamic',
     items: [

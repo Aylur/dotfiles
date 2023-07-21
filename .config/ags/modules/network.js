@@ -40,17 +40,14 @@ Widget.widgets['network/wired-indicator'] = ({
         if (!Network.wired)
             return;
 
-        const { internet, state } = Network.wired;
+        const { internet } = Network.wired;
         if (internet === 'connected' || internet === 'connecting')
             return value === internet;
 
-        if (state === 'unknown' || state === 'enabled')
+        if (Network.connectivity !== 'full')
             return value === 'disconnected';
 
-        if (state === 'disabled')
-            return value === 'disabled';
-
-        return value === 'unknown';
+        return value === 'disabled';
     })]],
 });
 
