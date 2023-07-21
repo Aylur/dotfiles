@@ -27,7 +27,6 @@ Widget.widgets['mediabox'] = ({ player = prefer, ...props }) => Widget({
                                 className: 'cover-art',
                                 halign: 'end',
                                 hexpand: false,
-                                children: [{ type: 'box', className: 'shader', hexpand: true }],
                             },
                             {
                                 type: 'box',

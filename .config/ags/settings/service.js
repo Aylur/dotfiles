@@ -22,20 +22,18 @@ class SettingsService extends Service {
     reset() {
         exec(`rm ${CONFIG_DIR}/settings.json`);
         this._settings = null;
+        this.emit('changed');
         this.setupStyle();
         this.setupWallpaper();
         this.setupDarkmode();
-        this.emit('changed');
     }
 
     openSettings() {
-        const dialog = imports.settings.dialog.dialog();
-        App.windows.set('settings', dialog);
-        dialog.connect('hide', () => {
-            dialog.destroy();
-            App.windows.delete('settings');
-        });
-        dialog.show_all();
+        if (this._dialog)
+            this._dialog.destroy();
+
+        this._dialog = imports.settings.dialog.dialog();
+        this._dialog.show_all();
     }
 
     setSetting(name, value) {

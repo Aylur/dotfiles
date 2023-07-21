@@ -21,20 +21,27 @@ const spinbutton = (title, prop, max, min = 0) => row(title, {
     setup: w => w.value = Settings.getStyle(prop) || defaults.style[prop],
     hexpand: true,
     halign: 'end',
-    connections: [['value-changed', w => {
-        if (!w._first)
-            return w._first = true;
+    connections: [
+        ['value-changed', w => {
+            if (!w._first)
+                return w._first = true;
 
-        Settings.setStyle(prop, w.value);
-    }]],
+            Settings.setStyle(prop, w.value);
+        }],
+        [Settings, w => w.value = Settings.getStyle(prop) || defaults.style[prop]],
+    ],
 });
 
 const switchbtn = (title, prop) => row(title, {
     type: 'switch',
-    active: typeof Settings.getStyle(prop) === 'boolean' ? Settings.getStyle(prop) : defaults.style[prop],
     onActivate: bool => Settings.setStyle(prop, bool),
     halign: 'end',
     hexpand: true,
+    connections: [[Settings, s => {
+        s.active = typeof Settings.getStyle(prop) === 'boolean'
+            ? Settings.getStyle(prop)
+            : defaults.style[prop];
+    }]],
 });
 
 const color = (title, prop) => row(title, {
@@ -46,17 +53,19 @@ const color = (title, prop) => row(title, {
         {
             type: 'entry',
             onAccept: value => Settings.setStyle(prop, value),
-            text: Settings.getStyle(prop) || defaults.style[prop],
             valign: 'center',
+            connections: [[Settings, w => w.text = Settings.getStyle(prop) || defaults.style[prop]]],
         },
         {
             type: () => new Gtk.ColorButton({ alpha: true }),
-            setup: w => w.rgba.parse(Settings.getStyle(prop) || defaults.style[prop]),
             valign: 'center',
-            connections: [['color-set', w => {
-                w.get_parent().get_children()[0].set_text(w.rgba.to_string());
-                Settings.setStyle(prop, w.rgba.to_string());
-            }]],
+            connections: [
+                ['color-set', w => {
+                    w.get_parent().get_children()[0].set_text(w.rgba.to_string());
+                    Settings.setStyle(prop, w.rgba.to_string());
+                }],
+                [Settings, w => w.rgba.parse(Settings.getStyle(prop) || defaults.style[prop])],
+            ],
         },
     ],
 });
@@ -64,7 +73,7 @@ const color = (title, prop) => row(title, {
 const text = (title, prop) => row(title, {
     type: 'entry',
     className: 'text',
-    text: Settings.getStyle(prop) || defaults.style[prop],
+    connections: [[Settings, w => w.text = Settings.getStyle(prop) || defaults.style[prop]]],
     hexpand: true,
     halign: 'end',
     onAccept: value => Settings.setStyle(prop, value),

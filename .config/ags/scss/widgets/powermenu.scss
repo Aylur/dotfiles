@@ -8,6 +8,7 @@ window#powermenu, window#verification {
 
 window#verification .verification {
     @include floating_widget;
+    box-shadow: none;
     padding: $popover_padding*1.2;
     min-width: 300px;
     min-height: 100px;
@@ -43,6 +44,7 @@ window#verification .verification {
 
 window#powermenu .powermenu {
     @include floating_widget;
+    box-shadow: none;
     padding: $popover_padding;
     border-radius: $radii*3;
 

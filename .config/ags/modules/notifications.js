@@ -165,6 +165,11 @@ Widget.widgets['notifications/popup-list'] = ({ transition = 'slide_down' }) => 
                         if (!id)
                             return;
 
+                        if (box._map.has(id)) {
+                            box._map.get(id).destroy();
+                            box._map.delete(id);
+                        }
+
                         const widget = notification(Notifications.notifications.get(id));
                         box._map.set(id, widget);
                         box.add(widget);
