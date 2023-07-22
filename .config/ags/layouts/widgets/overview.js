@@ -10,6 +10,7 @@ function substitute(str) {
     const subs = [
         { from: 'Caprine', to: 'facebook-messenger' },
     ];
+
     for (const { from, to } of subs) {
         if (from === str)
             return to;
@@ -38,72 +39,73 @@ const client = ({ address, size: [w, h], class: c, title }) => Widget({
     },
 });
 
-const workspace = (ws, isActive) => Widget({
-    type: 'box',
-    className: `workspace ${isActive ? 'active' : ''}`,
-    valign: 'center',
-    style: `
+const workspace = index => {
+    const fixed = Gtk.Fixed.new();
+    const widget = Widget({
+        type: 'wallpaper',
+        // className: `workspace ${isActive ? 'active' : ''}`,
+        className: 'workspace',
+        valign: 'center',
+        style: `
         min-width: ${1920*SCALE}px;
         min-height: ${1080*SCALE}px;
-    `,
-    children: [{
-        type: 'eventbox',
-        hexpand: true,
-        vexpand: true,
-        onClick: () => execAsync(`hyprctl dispatch workspace ${ws}`),
-        setup: eventbox => {
-            eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
-            eventbox.connect('drag-data-received', (_w, _c, _x, _y, data) => {
-                execAsync(`hyprctl dispatch movetoworkspacesilent ${ws},address:${data.get_text()}`);
-            });
-        },
-        child: {
-            type: Gtk.Fixed.new,
-            setup: fixed => {
-                let clients = Hyprland.HyprctlGet('clients')
-                    .filter(({ workspace: { id } }) => id === ws);
-
-                // this is for my monitor layout
-                // shifts clients back by 1920px if necessary
-                clients = clients.map(client => {
-                    const [x, y] = client.at;
-                    if (x > 1920)
-                        client.at = [x-1920, y];
-                    return client;
+        `,
+        children: [{
+            type: 'eventbox',
+            hexpand: true,
+            vexpand: true,
+            onClick: () => execAsync(`hyprctl dispatch workspace ${index}`),
+            setup: eventbox => {
+                eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
+                eventbox.connect('drag-data-received', (_w, _c, _x, _y, data) => {
+                    execAsync(`hyprctl dispatch movetoworkspacesilent ${index},address:${data.get_text()}`);
                 });
-
-                clients.forEach(c => c.mapped && fixed.put(client(c), c.at[0]*SCALE, c.at[1]*SCALE));
             },
-        },
-    }],
-});
+            child: fixed,
+        }],
+    });
+    widget.update = clients => {
+        clients = clients.filter(({ workspace: { id } }) => id === index);
 
-Widget.widgets['overview'] = () => Widget({
+        // this is for my monitor layout
+        // shifts clients back by 1920px if necessary
+        clients = clients.map(client => {
+            const [x, y] = client.at;
+            if (x > 1920)
+                client.at = [x-1920, y];
+            return client;
+        });
+
+        fixed.get_children().forEach(ch => ch.destroy());
+        clients.forEach(c => c.mapped && fixed.put(client(c), c.at[0]*SCALE, c.at[1]*SCALE));
+        fixed.show_all();
+    };
+    return widget;
+};
+
+const arr = n => {
+    const array = [];
+    for (let i=1; i<=n; ++i)
+        array.push(i);
+
+    return array;
+};
+
+Widget.widgets['overview'] = ({ workspaces = 7, windowName = 'overview' }) => Widget({
     type: 'box',
     className: 'overview',
-    properties: [
-        ['update', box => {
-            if (!App.getWindow('overview')?.visible)
-                return;
+    children: arr(workspaces).map(workspace),
+    properties: [['update', box => {
+        execAsync('hyprctl -j clients', clients => {
+            const json = JSON.parse(clients);
+            box.get_children().forEach(ch => ch.update(json));
+        });
+    }]],
+    setup: box => box._update(box),
+    connections: [[Hyprland, box => {
+        if (!App.getWindow(windowName).visible)
+            return;
 
-            box.get_children().forEach(ch => ch.destroy());
-
-            const active = Hyprland.active.workspace.id;
-            for (let i=1; i<8; ++i)
-                box.add(workspace(i, active === i));
-
-            box.show_all();
-        }],
-    ],
-    connections: [
-        [Hyprland, box => {
-            box._update(box);
-        }],
-        [App, (box, windowName) => {
-            if (windowName !== 'overview')
-                return false;
-
-            box._update(box);
-        }],
-    ],
+        box._update(box);
+    }]],
 });
