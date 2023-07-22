@@ -72,7 +72,7 @@ const workspace = (ws, isActive) => Widget({
                     return client;
                 });
 
-                clients.forEach(c => fixed.put(client(c), c.at[0]*SCALE, c.at[1]*SCALE));
+                clients.forEach(c => c.mapped && fixed.put(client(c), c.at[0]*SCALE, c.at[1]*SCALE));
             },
         },
     }],
