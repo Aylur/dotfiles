@@ -18,7 +18,6 @@ const img = (title, setting) => row(title, {
 
 const spinbutton = (title, prop, max, min = 0) => row(title, {
     type: () => Gtk.SpinButton.new_with_range(min, max, 1),
-    setup: w => w.value = Settings.getStyle(prop) || defaults.style[prop],
     hexpand: true,
     halign: 'end',
     connections: [
@@ -28,7 +27,8 @@ const spinbutton = (title, prop, max, min = 0) => row(title, {
 
             Settings.setStyle(prop, w.value);
         }],
-        [Settings, w => w.value = Settings.getStyle(prop) || defaults.style[prop]],
+        [Settings, w => w.value = typeof Settings.getStyle(prop) === 'number'
+            ? Settings.getStyle(prop) : defaults.style[prop]],
     ],
 });
 

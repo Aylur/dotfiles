@@ -66,7 +66,7 @@ class SettingsService extends Service {
         );
 
         ['wm_gaps', 'spacing', 'radii', 'border_width']
-            .forEach(v => sed(v, 'variables', `${style[v] || defs[v]}px`));
+            .forEach(v => sed(v, 'variables', `${check(style[v], defs[v])}px`));
 
         ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners']
             .forEach(v => sed(v, 'variables', check(style[v], defs[v])));
@@ -79,7 +79,7 @@ class SettingsService extends Service {
         ['light_bg_color', 'light_fg_color', 'light_hover_fg']
             .forEach(v => sed(v.substring(6), 'light', style[v] || defs[v]));
 
-        const getValue = variable => style[variable] || defs[variable];
+        const getValue = variable => check(style[variable], defs[variable]);
         execAsync(`hyprctl keyword decoration:rounding ${getValue('radii')}`);
         execAsync(`hyprctl keyword general:border_size ${getValue('border_width')}`);
         execAsync(`hyprctl keyword general:gaps_out ${getValue('wm_gaps')}`);

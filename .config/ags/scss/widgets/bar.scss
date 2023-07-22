@@ -16,6 +16,10 @@ $float: 5px;
 .panel {
     background-color: $bg_color;
 
+    @if not $screen_corners {
+        border-bottom: $border;
+    }
+
     .panel-button {
         @include panel_button($flat: true);
 
