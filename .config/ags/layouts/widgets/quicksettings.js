@@ -124,6 +124,9 @@ const systemBox = {
         {
             type: 'overlay',
             className: 'battery',
+            connections: [[Battery, d => {
+                d.toggleClassName('half', Battery.percent < 46);
+            }]],
             children: [
                 { type: 'battery/progress' },
                 {
@@ -148,7 +151,6 @@ const systemBox = {
                         },
                     ],
                     connections: [[Battery, d => {
-                        d.toggleClassName('half', Battery.percent < 46);
                         d.update(v => v === (Battery.charging || Battery.charged));
                     }]],
                 },

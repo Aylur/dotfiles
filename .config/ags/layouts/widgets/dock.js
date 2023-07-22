@@ -1,33 +1,35 @@
 const { Widget } = ags;
-const { Hyprland, Applications } = ags.Service;
+const { Hyprland, Applications, Settings } = ags.Service;
 const { timeout, execAsync } = ags.Utils;
 
-const _appButton = (iconSize, iconName) => ({
+const _appButton = (iconSize, icon) => ({
     type: 'button',
     child: {
         type: 'box',
         children: [{
             type: 'overlay',
             children: [
-                {
-                    type: 'icon',
-                    size: iconSize,
-                    icon: iconName,
-                },
+                typeof icon === 'string'
+                    ? {
+                        type: 'icon',
+                        size: iconSize,
+                        icon,
+                    } : icon,
                 {
                     type: 'box',
                     className: 'indicator',
-                    valign: 'end',
-                    halign: 'center',
+                    valign: Settings.layout === 'unity' ? 'center' : 'end',
+                    halign: Settings.layout === 'unity' ? 'start' : 'center',
                 },
             ],
         }],
     },
 });
 
-const _pins = (iconSize, list) => ({
+const _pins = ({ iconSize, list, orientation }) => ({
     type: 'box',
     homogeneous: true,
+    orientation,
     children: list
         .map(([term, single]) => ({ app: Applications.query(term)?.[0], term, single }))
         .filter(({ app }) => app !== undefined)
@@ -63,25 +65,35 @@ const _pins = (iconSize, list) => ({
         })),
 });
 
-Widget.widgets['dock'] = ({ iconSize = 48, launcher = true }) => Widget({
+Widget.widgets['dock'] = ({
+    iconSize = 48,
+    launcher = 'view-app-grid-symbolic',
+    orientation,
+    ...props
+}) => Widget({
+    ...props,
     type: 'box',
-    className: 'dock',
+    orientation,
     children: [
         ...(launcher ? [{
             tooltip: 'Applications',
             onClick: () => ags.App.toggleWindow('applauncher'),
-            ..._appButton(iconSize, 'view-app-grid-symbolic'),
-            className: 'nonrunning',
+            ..._appButton(iconSize, launcher),
+            className: 'launcher nonrunning',
         }] : []),
-        _pins(iconSize, [
-            ['firefox', false],
-            ['wezterm', false],
-            ['nautilus'],
-            ['spotify'],
-            ['caprine'],
-            ['discord'],
-            ['transmission'],
-        ]),
+        _pins({
+            iconSize,
+            orientation,
+            list: [
+                ['firefox', false],
+                ['wezterm', false],
+                ['nautilus'],
+                ['spotify'],
+                ['caprine'],
+                ['discord'],
+                ['transmission'],
+            ],
+        }),
         {
             type: 'box',
             valign: 'center',
@@ -92,6 +104,7 @@ Widget.widgets['dock'] = ({ iconSize = 48, launcher = true }) => Widget({
         },
         {
             type: 'hyprland/taskbar',
+            orientation,
             skip: ['discord', 'caprine', 'nautilus', 'spotify', 'transmission'],
             item: ({ iconName }, { address, title }) => ({
                 ..._appButton(iconSize, iconName),
@@ -126,7 +139,7 @@ Widget.widgets['floating-dock'] = () => Widget({
             {
                 transition: 'slide_up',
                 type: 'revealer',
-                child: { type: 'dock' },
+                child: { type: 'dock', className: 'dock' },
             },
             {
                 type: 'box',

@@ -11,7 +11,7 @@ Widget.widgets['separator'] = props => Widget({
 Widget.widgets['font-icon'] = ({
     icon,
     size = getConfig().baseIconSize || 16,
-    fontSize = size,
+    scale = 1,
     angle,
 }) => Widget({
     type: 'box',
@@ -29,11 +29,18 @@ Widget.widgets['font-icon'] = ({
                 type: 'label',
                 label: icon,
                 angle,
-                style: `font-size: ${fontSize}px`,
+                style: `font-size: ${size * scale}px`,
                 halign: 'center', valign: 'center',
             },
         ],
     }],
+});
+
+Widget.widgets['distro-icon'] = props => Widget({
+    ...props,
+    type: 'font-icon',
+    className: 'distro-icon',
+    icon: '',
 });
 
 Widget.widgets['avatar'] = ({ child, ...props }) => Widget({

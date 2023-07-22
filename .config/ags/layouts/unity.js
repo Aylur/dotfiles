@@ -1,7 +1,7 @@
 const Shared = imports.layouts.shared;
 
 // static windows
-const notifications = monitor => Shared.notifications(monitor, 'slide_left', ['bottom', 'right']);
+const notifications = monitor => Shared.notifications(monitor, 'slide_down', ['top']);
 const desktop = Shared.desktop;
 const corners = Shared.corners;
 
@@ -10,10 +10,10 @@ const dashboard = {
     name: 'dashboard',
     popup: true,
     focusable: true,
-    anchor: ['right', 'bottom'],
+    anchor: ['top', 'right'],
     child: {
         type: 'layout',
-        layout: 'bottomright',
+        layout: 'topright',
         window: 'dashboard',
         child: { type: 'dashboard/popup-content' },
     },
@@ -23,34 +23,26 @@ const quicksettings = {
     name: 'quicksettings',
     popup: true,
     focusable: true,
-    anchor: ['right', 'bottom'],
+    anchor: ['top', 'right'],
     child: {
         type: 'layout',
-        layout: 'bottomright',
+        layout: 'topright',
         window: 'quicksettings',
         child: { type: 'quicksettings/popup-content' },
     },
 };
 
 // bar
-const { launcher } = imports.layouts.shared;
 const separator = { type: 'separator', valign: 'center' };
 
 const left = {
     type: 'box',
     className: 'left',
     children: [
-        launcher(24),
-        separator,
         { type: 'workspaces', className: 'workspaces' },
-    ],
-};
-
-const center = {
-    type: 'box',
-    className: 'left',
-    children: [
-        { className: 'dock', type: 'dock', iconSize: 38 },
+        separator,
+        { type: 'client', className: 'client panel-button' },
+        { type: 'media/panel-indicator', className: 'media panel-button', direction: 'right' },
     ],
 };
 
@@ -60,12 +52,13 @@ const right = {
     hexpand: true,
     halign: 'end',
     children: [
+        { type: 'notifications/panel-indicator', className: 'notifications panel-button' },
         { type: 'recorder/indicator-button', className: 'recorder panel-button' },
         { type: 'colorpicker', className: 'colorpicker panel-button' },
         separator,
-        { type: 'dashboard/panel-button', format: '%H:%M:%S%n%A %d.' },
-        separator,
         { type: 'quicksettings/panel-button' },
+        separator,
+        { type: 'dashboard/panel-button' },
         separator,
         { type: 'powermenu/panel-button' },
     ],
@@ -74,15 +67,38 @@ const right = {
 const bar = monitor => ({
     name: `bar${monitor}`,
     monitor,
-    anchor: ['bottom', 'left', 'right'],
+    anchor: ['top', 'left', 'right'],
     exclusive: true,
     child: {
-        type: 'centerbox',
+        type: 'box',
         className: 'panel',
         children: [
             left,
-            center,
             right,
+        ],
+    },
+});
+
+const dock = monitor => ({
+    name: `dock${monitor}`,
+    monitor,
+    anchor: ['top', 'left', 'bottom'],
+    exclusive: true,
+    child: {
+        type: 'box',
+        orientation: 'vertical',
+        className: 'dock',
+        children: [
+            {
+                type: 'dock',
+                iconSize: 38,
+                orientation: 'vertical',
+                launcher: {
+                    type: 'distro-icon',
+                    size: 38,
+                    scale: 0.8,
+                },
+            },
         ],
     },
 });
@@ -90,9 +106,10 @@ const bar = monitor => ({
 /* exported windows */
 var windows = [
     ...ags.Service.Hyprland.HyprctlGet('monitors').map(({ id }) => ([
+        bar(id),
+        dock(id),
         notifications(id),
         desktop(id),
-        bar(id),
         ...corners(id),
     ])).flat(),
     dashboard,

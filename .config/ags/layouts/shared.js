@@ -49,11 +49,7 @@ var launcher = (size = ags.Utils.getConfig()?.baseIconSize || 16) => ({
         btn.toggleClassName('active', win === 'overview' && visible);
     }]],
     onClick: () => ags.App.toggleWindow('overview'),
-    child: {
-        type: 'font-icon',
-        icon: '',
-        size,
-    },
+    child: { type: 'distro-icon', size },
 });
 
 //popups
