@@ -6,8 +6,10 @@
     }
 
     &.horizontal {
-        min-width: 2px;
-        min-height: 2em;
+        .separator {
+            min-width: 2px;
+            min-height: 2em;
+        }
 
         button.focused .indicator {
             min-width: 18px;
@@ -15,8 +17,10 @@
     }
 
     &.vertical {
-        min-width: 2em;
-        min-height: 2px;
+        .separator {
+            min-width: 2em;
+            min-height: 2px;
+        }
 
         button.focused .indicator {
             min-height: 18px;
