@@ -42,14 +42,16 @@ const client = ({ address, size: [w, h], class: c, title }) => Widget({
 const workspace = index => {
     const fixed = Gtk.Fixed.new();
     const widget = Widget({
-        type: 'wallpaper',
-        // className: `workspace ${isActive ? 'active' : ''}`,
+        type: 'box',
         className: 'workspace',
         valign: 'center',
         style: `
         min-width: ${1920*SCALE}px;
         min-height: ${1080*SCALE}px;
         `,
+        connections: [[Hyprland, box => {
+            box.toggleClassName('active', Hyprland.active.workspace.id === index);
+        }]],
         children: [{
             type: 'eventbox',
             hexpand: true,

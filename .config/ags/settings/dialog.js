@@ -3,6 +3,13 @@ const { Gtk } = imports.gi;
 const { Settings } = ags.Service;
 const { defaults } = imports.settings.defaults;
 
+const once = (widget, callback) => {
+    if (!widget._first)
+        return widget._first = true;
+
+    callback(widget);
+};
+
 const row = (title, child) => ({
     type: 'box',
     className: 'row',
@@ -21,12 +28,7 @@ const spinbutton = (title, prop, max, min = 0) => row(title, {
     hexpand: true,
     halign: 'end',
     connections: [
-        ['value-changed', w => {
-            if (!w._first)
-                return w._first = true;
-
-            Settings.setStyle(prop, w.value);
-        }],
+        ['value-changed', w => once(w, w => Settings.setStyle(prop, w.value))],
         [Settings, w => w.value = typeof Settings.getStyle(prop) === 'number'
             ? Settings.getStyle(prop) : defaults.style[prop]],
     ],
@@ -54,7 +56,9 @@ const color = (title, prop) => row(title, {
             type: 'entry',
             onAccept: value => Settings.setStyle(prop, value),
             valign: 'center',
-            connections: [[Settings, w => w.text = Settings.getStyle(prop) || defaults.style[prop]]],
+            connections: [[Settings, w => {
+                w.text = Settings.getStyle(prop) || defaults.style[prop];
+            }]],
         },
         {
             type: () => new Gtk.ColorButton({ alpha: true }),
@@ -64,7 +68,6 @@ const color = (title, prop) => row(title, {
                     w.get_parent().get_children()[0].set_text(w.rgba.to_string());
                     Settings.setStyle(prop, w.rgba.to_string());
                 }],
-                [Settings, w => w.rgba.parse(Settings.getStyle(prop) || defaults.style[prop])],
             ],
         },
     ],
@@ -129,21 +132,33 @@ const layout = pages => ({
                 ],
             }],
         },
-        { type: 'wallpaper', className: 'row', vexpand: true },
+        {
+            type: 'box',
+            className: 'wallpaper-box row',
+            children: [{
+                type: 'wallpaper',
+                hexpand: true,
+                vexpand: true,
+            }],
+        },
         {
             type: 'box',
             className: 'content',
-            children: [{
-                type: 'dynamic',
-                items: [
-                    { value: 'General', widget: pages.general },
-                    { value: 'Borders', widget: pages.borders },
-                    { value: 'Colors', widget: pages.colors },
-                    { value: 'Dark', widget: pages.dark },
-                    { value: 'Light', widget: pages.light },
-                ],
-                connections: [[Pages, d => d.update(v => v === Pages.page)]],
-            }],
+            properties: [['pages', {
+                'General': pages.general,
+                'Borders': pages.borders,
+                'Colors': pages.colors,
+                'Dark': pages.dark,
+                'Light': pages.light,
+            }]],
+            connections: [[Pages, box => {
+                if (box._child)
+                    box._child.destroy();
+
+                box._child = ags.Widget(box._pages[Pages.page]);
+                box.add(box._child);
+                box.show_all();
+            }]],
         },
     ],
 });
@@ -158,7 +173,6 @@ const layoutText = row('Layout', {
 
 var dialog = () => {
     const win = new Gtk.Window({ name: 'settings' });
-    win.set_default_size(240, 500);
     win.add(ags.Widget(layout({
         general: {
             type: 'box',
@@ -216,5 +230,6 @@ var dialog = () => {
             ],
         },
     })));
+    win.set_default_size(600, 500);
     return win;
 };

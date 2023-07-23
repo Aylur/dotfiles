@@ -11,10 +11,10 @@
 - sassc
 - swww
 - nerdfonts
+- brightnessctl
 ## optional
 - asusctl
 - supergfxctl
-- brightnessctl
 - hyprpicker
 - slurp
 - wf-recorder
@@ -29,8 +29,10 @@ cd dotfiles
 cp -r .config/ags $HOME/.config/ags
 cp -r .config/hypr $HOME/.config/hypr
 
+# you might want to remove asusctl toggle if you are not on an asus laptop
+# around line 370
+$EDITOR $HOME/.config/ags/layouts/widgets/quicksettings.js
+
 # then run
 ags
 ```
-
-You might want to remove stuff that you don't need, especially asusctl widgets

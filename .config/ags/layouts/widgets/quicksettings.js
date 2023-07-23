@@ -371,6 +371,7 @@ Widget.widgets['quicksettings/popup-content'] = () => Widget({
                     vexpand: true,
                     hexpand: false,
                     children: [
+                        // remove asus toggles if you are not on an asus laptop
                         { type: 'box', children: [asusmodeToggle, asusctlToggle, darkmodeToggle] },
                         { type: 'box', children: [appmixerToggle, dndToggle, muteToggle] },
                     ],

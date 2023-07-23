@@ -30,9 +30,10 @@ class SettingsService extends Service {
 
     openSettings() {
         if (this._dialog)
-            this._dialog.destroy();
+            this._dialog.hide();
 
         this._dialog = imports.settings.dialog.dialog();
+        this._dialog.connect('destroy', () => this._dialog = null);
         this._dialog.show_all();
     }
 

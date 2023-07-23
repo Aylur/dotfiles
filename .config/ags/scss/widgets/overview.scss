@@ -9,7 +9,7 @@ window#overview .overview {
         &:first-child { margin-left: 0; }
 
         &.active {
-            box-shadow: inset 0 0 0 $border_width $accent;
+            border-color: $accent
         }
     }
 

@@ -1,10 +1,26 @@
 @mixin dock($spacing: $spacing) {
     .separator {
-        min-width: 2px;
-        min-height: 2em;
         border-radius: $radii;
         background-color: transparentize($fg_color, 0.8);
         margin: 0 $spacing;
+    }
+
+    &.horizontal {
+        min-width: 2px;
+        min-height: 2em;
+
+        button.focused .indicator {
+            min-width: 18px;
+        }
+    }
+
+    &.vertical {
+        min-width: 2em;
+        min-height: 2px;
+
+        button.focused .indicator {
+            min-height: 18px;
+        }
     }
 
     button {
@@ -30,7 +46,6 @@
             @include button_hover;
 
             .indicator {
-                min-width: 18px;
                 background-image: $active_gradient;
             }
         }
@@ -41,4 +56,14 @@
     @include dock;
     @include floating_widget;
     padding: $spacing;
+}
+
+.dock.vertical {
+    @include dock($spacing: $spacing/2);
+    background-color: $bg_color;
+
+    .launcher .distro-icon {
+        margin: $spacing/2;
+        color: $accent;
+    }
 }

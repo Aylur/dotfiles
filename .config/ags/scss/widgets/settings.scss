@@ -2,7 +2,6 @@ window#settings {
     background-color: $bg_color;
     color: $fg_color;
 
-
     .settings {
         .headerbar {
             background-color: $widget_bg;
@@ -15,10 +14,15 @@ window#settings {
             margin: $spacing/3;
         }
 
-        .wallpaper {
+        .wallpaper-box {
             border-radius: $radii;
-            margin: $popover_padding;
             border: $border;
+            margin: $popover_padding;
+
+            .wallpaper {
+                border-radius: max($radii - 1px, 0);
+                background-position: center;
+            }
         }
 
         .content {
