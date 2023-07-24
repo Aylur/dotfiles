@@ -34,5 +34,10 @@
     lua-language-server
     marksman
     gopls
+
+    # neovim
+    fzf ripgrep fd stylua cargo
+    chafa ffmpegthumbnailer poppler_utils
+    fontpreview xclip
   ];
 }
