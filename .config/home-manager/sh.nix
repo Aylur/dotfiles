@@ -28,7 +28,6 @@
         "f" = "distrobox-enter Fedora";
         "arch" = "a -- zsh";
         "fedora" = "f -- zsh";
-        "cat" = "bat";
         "ls" = "exa -l --sort type --no-permissions --no-user --no-time --header --icons --no-filesize --group-directories-first";
         "és" = "ls";
         "l" = "ls";

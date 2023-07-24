@@ -1,5 +1,5 @@
 const { Widget } = ags;
-const { timeout, getConfig } = ags.Utils;
+const { timeout, getConfig, exec } = ags.Utils;
 const { Settings } = ags.Service;
 
 Widget.widgets['separator'] = props => Widget({
@@ -40,7 +40,21 @@ Widget.widgets['distro-icon'] = props => Widget({
     ...props,
     type: 'font-icon',
     className: 'distro-icon',
-    icon: '',
+    icon: (() => {
+        // eslint-disable-next-line quotes
+        const distro = exec(`bash -c "cat /etc/os-release | grep '^ID' | head -n 1 | cut -d '=' -f2"`)
+            .trim().toLowerCase();
+        switch (distro) {
+        case 'fedora': return '';
+        case 'arch': return '';
+        case 'nixos': return '';
+        case 'debian': return '';
+        case 'opensuse-tumbleweed': return '';
+        case 'ubuntu': return '';
+        case 'endeavouros': return '';
+        default: return '';
+        }
+    })(),
 });
 
 Widget.widgets['avatar'] = ({ child, ...props }) => Widget({

@@ -1,26 +1,18 @@
 { pkgs, ... }:
 {
-  # home.packages = with pkgs; [
-  #   polkit_gnome
-  #   xdg-desktop-portal-hyprland
-  #   (hyprland.override {
-  #     enableXWayland = true;
-  #     hidpiXWayland = true;
-  #     nvidiaPatches = true;
-  #   })
-  # ];
-  #
+  wayland.windowManager.hyprland = {
+    enable = true;
+    enableNvidiaPatches = true;
+    extraConfig = ''
+      source=~/.config/hypr/monitors.conf
+      source=~/.config/hypr/settings.conf
+      source=~/.config/hypr/rules.conf
+      source=~/.config/hypr/binds.conf
+      source=~/.config/hypr/theme.conf
+      source=~/.config/hypr/startup.conf
+    '';
+  };
   home.file = {
-    ".config/hypr/hyprland.conf" = {
-      text = ''
-        source=~/.config/hypr/monitors.conf
-        source=~/.config/hypr/settings.conf
-        source=~/.config/hypr/rules.conf
-        source=~/.config/hypr/binds.conf
-        source=~/.config/hypr/theme.conf
-        source=~/.config/hypr/startup.conf
-        '';
-    };
     ".local/bin/hypr" = {
       executable = true;
       text = ''

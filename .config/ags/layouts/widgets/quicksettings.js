@@ -1,6 +1,6 @@
 const { Widget, Service, App } = ags;
 const { Bluetooth, Battery, Audio, Settings, Network } = ags.Service;
-const { execAsync, timeout } = ags.Utils;
+const { execAsync, exec, timeout } = ags.Utils;
 
 class QSMenu extends Service {
     static { Service.register(this); }
@@ -370,11 +370,14 @@ Widget.widgets['quicksettings/popup-content'] = () => Widget({
                     className: 'small-toggles',
                     vexpand: true,
                     hexpand: false,
-                    children: [
-                        // remove asus toggles if you are not on an asus laptop
-                        { type: 'box', children: [asusmodeToggle, asusctlToggle, darkmodeToggle] },
-                        { type: 'box', children: [appmixerToggle, dndToggle, muteToggle] },
-                    ],
+                    children: exec('which asusctl').includes('not found')
+                        ? [
+                            { type: 'box', children: [dndToggle, darkmodeToggle] },
+                            { type: 'box', children: [appmixerToggle, muteToggle] },
+                        ] : [
+                            { type: 'box', children: [asusmodeToggle, asusctlToggle, darkmodeToggle] },
+                            { type: 'box', children: [appmixerToggle, dndToggle, muteToggle] },
+                        ],
                 },
             ],
         },
@@ -407,8 +410,10 @@ Widget.widgets['quicksettings/panel-button'] = () => Widget({
     child: {
         type: 'box',
         children: [
-            { type: 'asusctl/profile-indicator', balanced: null },
-            { type: 'asusctl/mode-indicator', hybrid: null },
+            ...(exec('which asusctl').includes('not found') ? [
+                { type: 'asusctl/profile-indicator', balanced: null },
+                { type: 'asusctl/mode-indicator', hybrid: null },
+            ] : []),
             { type: 'audio/microphone-mute-indicator', unmuted: null },
             { type: 'notifications/dnd-indicator', noisy: null },
             {

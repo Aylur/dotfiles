@@ -163,12 +163,53 @@ const layout = pages => ({
     ],
 });
 
-const layoutText = row('Layout', {
-    type: 'entry',
-    text: Settings.layout || defaults.layout,
+const layoutRow = row('Layout', {
+    type: 'box',
+    className: 'layout',
     hexpand: true,
     halign: 'end',
-    onAccept: value => Settings.layout = value,
+    properties: [
+        ['layouts', [
+            'topbar', 'bottombar', 'unity',
+        ]],
+        ['step', (box, step) => {
+            const label = box.get_children()[0];
+            const max = box._layouts.length - 1;
+            let index = box._layouts.indexOf(label.label) + step;
+
+            if (index > max)
+                index = 0;
+
+            if (index < 0)
+                index = max;
+
+            const layout = box._layouts[index];
+            label.label = layout;
+            Settings.layout = layout;
+        }],
+    ],
+    children: [
+        {
+            type: 'label',
+            label: Settings.layout,
+        },
+        {
+            type: 'button',
+            child: { type: 'icon', icon: 'pan-start-symbolic' },
+            onClick: btn => {
+                const box = btn.get_parent();
+                box._step(box, -1);
+            },
+        },
+        {
+            type: 'button',
+            child: { type: 'icon', icon: 'pan-end-symbolic' },
+            onClick: btn => {
+                const box = btn.get_parent();
+                box._step(box, +1);
+            },
+        },
+    ],
 });
 
 var dialog = () => {
@@ -182,7 +223,7 @@ var dialog = () => {
                 img('Avatar', 'avatar'),
                 spinbutton('Useless Gaps', 'wm_gaps', 128),
                 spinbutton('Spacing', 'spacing', 18),
-                layoutText,
+                layoutRow,
                 switchbtn('Screen Corners', 'screen_corners'),
                 {
                     type: 'label',

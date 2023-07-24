@@ -92,6 +92,7 @@ Widget.widgets['dock'] = ({
                 ['caprine'],
                 ['discord'],
                 ['transmission'],
+                ['bottles'],
             ],
         }),
         {

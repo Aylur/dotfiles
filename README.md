@@ -29,10 +29,8 @@ cd dotfiles
 cp -r .config/ags $HOME/.config/ags
 cp -r .config/hypr $HOME/.config/hypr
 
-# you might want to remove asusctl toggle if you are not on an asus laptop
-# around line 370
-$EDITOR $HOME/.config/ags/layouts/widgets/quicksettings.js
-
 # then run
 ags
 ```
+
+Please understand that this is my personal configuration for my setup. If something doesn't work, feel free to open up an issue or message me, and I will try to help. However, before doing that, make sure you read the error output, use some common sense, and try to solve the problem yourself if it is something simple.

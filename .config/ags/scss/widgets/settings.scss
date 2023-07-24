@@ -67,6 +67,23 @@ window#settings {
             entry.text {
                 min-width: 22em;
             }
+
+            .layout {
+                @include widget;
+
+                button {
+                    @include button($flat: true);
+                    border: none;
+                    border-radius: 0;
+                    padding: $spacing/2;
+                    margin: -$border_width;
+
+                    &:last-child {
+                        border-radius: 0 $radii $radii 0;
+                    }
+                }
+                label { margin: 0 $spacing/2; }
+            }
         }
     }
 }
