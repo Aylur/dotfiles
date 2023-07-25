@@ -116,16 +116,16 @@ Widget.widgets['applauncher'] = ({
         hexpand: true,
         placeholder,
         text: '-',
-        onAccept: search => {
-            const list = Applications.query(search);
+        onAccept: ({ text }) => {
+            const list = Applications.query(text);
             if (list[0]) {
                 App.toggleWindow(windowName);
                 list[0].launch();
             }
         },
-        onChange: search => {
+        onChange: ({ text }) => {
             appsbox.clear();
-            Applications.query(search).forEach(app => {
+            Applications.query(text).forEach(app => {
                 appsbox.push(Widget(item(app, windowName)));
             });
         },

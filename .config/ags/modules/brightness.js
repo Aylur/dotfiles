@@ -31,7 +31,7 @@ class BrightnessService extends Service {
         if (percent > 1)
             percent = 1;
 
-        execAsync(`brightnessctl s ${percent*100}% -q`, () => {
+        execAsync(`brightnessctl s ${percent * 100}% -q`, () => {
             this._screen = percent;
             this.emit('changed');
         }, console.log);
@@ -66,7 +66,7 @@ Widget.widgets['brightness/slider'] = props => Widget({
             slider.adjustment.value = Brightness.screen;
         }],
     ],
-    onChange: value => Brightness.screen = value,
+    onChange: (_w, value) => Brightness.screen = value,
 });
 
 Widget.widgets['brightness/icon'] = props => Widget({
@@ -79,6 +79,6 @@ Widget.widgets['brightness/percent'] = props => Widget({
     ...props,
     type: 'label',
     connections: [
-        [Brightness, label => label.label = `${Math.floor(Brightness.screen*100)}`],
+        [Brightness, label => label.label = `${Math.floor(Brightness.screen * 100)}`],
     ],
 });

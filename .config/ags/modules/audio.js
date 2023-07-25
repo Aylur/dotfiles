@@ -35,7 +35,7 @@ Widget.widgets['audio/speaker-indicator'] = ({
         if (Audio.speaker.isMuted)
             return value === 0;
 
-        return value <= (Audio.speaker.volume*100);
+        return value <= (Audio.speaker.volume * 100);
     }), 'speaker-changed']],
 });
 
@@ -55,14 +55,14 @@ Widget.widgets['audio/speaker-percent-label'] = props => Widget({
         if (!Audio.speaker)
             return;
 
-        label.label = `${Math.floor(Audio.speaker.volume*100)}`;
+        label.label = `${Math.floor(Audio.speaker.volume * 100)}`;
     }, 'speaker-changed']],
 });
 
 Widget.widgets['audio/speaker-slider'] = props => Widget({
     ...props,
     type: 'slider',
-    onChange: value => Audio.speaker.volume = value,
+    onChange: (_w, value) => Audio.speaker.volume = value,
     connections: [[Audio, slider => {
         if (!Audio.speaker)
             return;
@@ -108,7 +108,7 @@ Widget.widgets['audio/app-mixer'] = ({ item, ...props }) => {
         const slider = Widget({
             type: 'slider',
             hexpand: true,
-            onChange: value => stream.volume = value,
+            onChange: (_w, value) => stream.volume = value,
         });
         const box = Widget({
             type: 'box',
@@ -135,9 +135,9 @@ Widget.widgets['audio/app-mixer'] = ({ item, ...props }) => {
             icon.icon_name = stream.iconName;
             icon.set_tooltip_text(stream.name);
             slider.set_value(stream.volume);
-            percent.label = `${Math.floor(stream.volume*100)}%`;
+            percent.label = `${Math.floor(stream.volume * 100)}%`;
             stream.description?.length > 40
-                ? label.label = stream.description.substring(0, 40)+'..'
+                ? label.label = stream.description.substring(0, 40) + '..'
                 : label.label = stream.description || '';
         };
         return box;
@@ -162,7 +162,7 @@ Widget.widgets['audio/app-mixer'] = ({ item, ...props }) => {
     });
 };
 
-Widget.widgets['audio/stream-selector'] = ({ streams = 'speakers', ...props }) =>  Widget({
+Widget.widgets['audio/stream-selector'] = ({ streams = 'speakers', ...props }) => Widget({
     ...props,
     type: 'box',
     orientation: 'vertical',

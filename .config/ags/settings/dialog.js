@@ -36,7 +36,7 @@ const spinbutton = (title, prop, max, min = 0) => row(title, {
 
 const switchbtn = (title, prop) => row(title, {
     type: 'switch',
-    onActivate: bool => Settings.setStyle(prop, bool),
+    onActivate: ({ active }) => Settings.setStyle(prop, active),
     halign: 'end',
     hexpand: true,
     connections: [[Settings, s => {

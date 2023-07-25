@@ -33,12 +33,15 @@ const quicksettings = {
 };
 
 // bar
+const { launcher } = imports.layouts.shared;
 const separator = { type: 'separator', valign: 'center' };
 
 const left = {
     type: 'box',
     className: 'left',
     children: [
+        launcher(),
+        separator,
         { type: 'workspaces', className: 'workspaces' },
         separator,
         { type: 'client', className: 'client panel-button' },
@@ -90,13 +93,24 @@ const dock = monitor => ({
         className: 'dock',
         children: [
             {
+                vexpand: true,
                 type: 'dock',
                 iconSize: 38,
                 orientation: 'vertical',
-                launcher: {
-                    type: 'distro-icon',
-                    size: 38,
-                    scale: 0.8,
+                launcher: null,
+            },
+            {
+                type: 'button',
+                tooltip: 'Applications',
+                onClick: () => ags.App.toggleWindow('applauncher'),
+                className: 'launcher',
+                child: {
+                    type: 'box',
+                    children: [{
+                        type: 'icon',
+                        icon: 'view-app-grid-symbolic',
+                        size: 38,
+                    }],
                 },
             },
         ],

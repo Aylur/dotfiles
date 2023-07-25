@@ -52,7 +52,7 @@ Widget.widgets['bluetooth/devices'] = props => Widget({
                 children: [
                     {
                         type: 'icon',
-                        icon: device.iconName+'-symbolic',
+                        icon: device.iconName + '-symbolic',
                     },
                     {
                         type: 'label',
@@ -62,7 +62,7 @@ Widget.widgets['bluetooth/devices'] = props => Widget({
                     device._connecting ? { type: 'spinner' } : {
                         type: 'switch',
                         active: device.connected,
-                        onActivate: c => device.setConnection(c),
+                        onActivate: ({ active }) => device.setConnection(active),
                     },
                 ],
             }));
