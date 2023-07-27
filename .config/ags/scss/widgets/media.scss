@@ -70,6 +70,10 @@
 
     .footer-box {
         margin: -$spacing/2 $spacing $spacing/2;
+
+        image {
+            -gtk-icon-shadow: $text_shadow;
+        }
     }
 
     button {

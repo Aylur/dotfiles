@@ -32,6 +32,10 @@
 
         image, > * {
             margin: $spacing;
+
+            @if $theme = 'light' {
+                -gtk-icon-shadow: $text_shadow;
+            }
         }
 
         .indicator {
