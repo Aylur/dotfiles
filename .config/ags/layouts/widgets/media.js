@@ -6,6 +6,7 @@ const { prefer } = imports.modules.mpris;
 Widget.widgets['mediabox'] = ({ player = prefer, ...props }) => Widget({
     ...props,
     type: 'mpris/box',
+    className: 'mediabox',
     player,
     children: [
         {
@@ -92,10 +93,21 @@ Widget.widgets['mediabox'] = ({ player = prefer, ...props }) => Widget({
 Widget.widgets['media/popup-content'] = props => Widget({
     ...props,
     type: 'box',
-    children: [
-        { type: 'mediabox', player: 'spotify', className: 'mediabox spotify' },
-        { type: 'mediabox', player: 'firefox', className: 'mediabox firefox' },
-        { type: 'mediabox', player: 'mpv', className: 'mediabox mpv' },
+    properties: [['players', new Map()]],
+    connections: [
+        [Mpris, (box, busName) => {
+            if (!busName || box._players.has(busName))
+                return;
+
+            const widget = ags.Widget({
+                type: 'mediabox',
+                player: busName,
+                className: Mpris.getPlayer(busName).name.toLowerCase(),
+            });
+            box._players.set(busName, widget);
+            box.add(widget);
+            widget.show();
+        }, 'player-added'],
     ],
 });
 

@@ -33,7 +33,7 @@
         image, > * {
             margin: $spacing;
 
-            @if $theme = 'light' {
+            @if $theme == 'light' {
                 -gtk-icon-shadow: $text_shadow;
             }
         }

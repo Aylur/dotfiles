@@ -2,13 +2,12 @@ window#powermenu, window#verification {
     .shader {
         min-width: 4000px;
         min-height: 4000px;
-        background: transparentize($bg_color, 0.5);
+        background-color: rgba(100,100,100,0.65);
     }
 }
 
 window#verification .verification {
     @include floating_widget;
-    box-shadow: none;
     padding: $popover_padding*1.2;
     min-width: 300px;
     min-height: 100px;
@@ -44,7 +43,6 @@ window#verification .verification {
 
 window#powermenu .powermenu {
     @include floating_widget;
-    box-shadow: none;
     padding: $popover_padding;
     border-radius: $radii*3;
 
