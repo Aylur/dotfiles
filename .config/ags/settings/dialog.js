@@ -54,7 +54,7 @@ const color = (title, prop) => row(title, {
     children: [
         {
             type: 'entry',
-            onAccept: value => Settings.setStyle(prop, value),
+            onAccept: ({ text }) => Settings.setStyle(prop, text),
             valign: 'center',
             connections: [[Settings, w => {
                 w.text = Settings.getStyle(prop) || defaults.style[prop];
@@ -123,6 +123,7 @@ const layout = pages => ({
                     {
                         type: 'button',
                         className: 'tab',
+                        tooltip: 'Reset Settings',
                         onClick: Settings.reset,
                         child: {
                             type: 'font-icon',
@@ -142,22 +143,18 @@ const layout = pages => ({
             }],
         },
         {
-            type: 'box',
+            type: 'stack',
             className: 'content',
-            properties: [['pages', {
-                'General': pages.general,
-                'Borders': pages.borders,
-                'Colors': pages.colors,
-                'Dark': pages.dark,
-                'Light': pages.light,
-            }]],
-            connections: [[Pages, box => {
-                if (box._child)
-                    box._child.destroy();
-
-                box._child = ags.Widget(box._pages[Pages.page]);
-                box.add(box._child);
-                box.show_all();
+            transition: 'slide_left_right',
+            items: [
+                ['General', pages.general],
+                ['Borders', pages.borders],
+                ['Colors', pages.colors],
+                ['Dark', pages.dark],
+                ['Light', pages.light],
+            ],
+            connections: [[Pages, stack => {
+                stack.showChild(Pages.page);
             }]],
         },
     ],
@@ -225,11 +222,7 @@ var dialog = () => {
                 spinbutton('Spacing', 'spacing', 18),
                 layoutRow,
                 switchbtn('Screen Corners', 'screen_corners'),
-                {
-                    type: 'label',
-                    label: 'Layout needs a reload to take effect',
-                    valign: 'end',
-                },
+                switchbtn('Floating Bar', 'floating_bar'),
             ],
         },
         borders: {

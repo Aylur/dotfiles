@@ -13,8 +13,8 @@ class QSMenu extends Service {
 
     constructor() {
         super();
-        App.instance.connect('window-toggled', (_a, n, v) => {
-            if (n === 'quicksettings' && !v) {
+        App.instance.connect('window-toggled', (_a, name, visible) => {
+            if (name === 'quicksettings' && !visible) {
                 QSMenu.opened = '';
                 QSMenu.instance.emit('changed');
             }
@@ -44,8 +44,8 @@ const arrow = (menu, toggleOn) => ({
             if (QSMenu.opened === menu && !icon._opened || QSMenu.opened !== menu && icon._opened) {
                 const step = QSMenu.opened === menu ? 10 : -10;
                 icon._opened = !icon._opened;
-                for (let i=0; i<9; ++i) {
-                    timeout(5*i, () => {
+                for (let i = 0; i < 9; ++i) {
+                    timeout(5 * i, () => {
                         icon._deg += step;
                         icon.setStyle(`-gtk-icon-transform: rotate(${icon._deg}deg);`);
                     });
@@ -75,7 +75,7 @@ const avatar = {
             className: 'user',
             halign: 'start',
             valign: 'end',
-            connections: [[Settings, l => l.label = '@'+Settings.userName]],
+            connections: [[Settings, l => l.label = '@' + Settings.userName]],
         },
     }],
 };
@@ -261,7 +261,10 @@ const bluetoothToggle = arrowToggle({
     label: 'bluetooth/label',
     connection: [Bluetooth, () => Bluetooth.enabled],
     toggle: () => Bluetooth.enabled = !Bluetooth.enabled,
-    toggleOn: () => Bluetooth.enabled = true,
+    toggleOn: () => {
+        Bluetooth.enabled = QSMenu.opened === 'bluetooth'
+            ? true : Bluetooth.enabled;
+    },
     name: 'bluetooth',
 });
 
@@ -423,7 +426,7 @@ Widget.widgets['quicksettings/panel-button'] = () => Widget({
                     for (const [, device] of Bluetooth.connectedDevices) {
                         box.add(Widget({
                             type: 'hover-revealer',
-                            indicator: { type: 'icon', icon: device.iconName+'-symbolic' },
+                            indicator: { type: 'icon', icon: device.iconName + '-symbolic' },
                             child: { type: 'label', label: device.name },
                         }));
                     }

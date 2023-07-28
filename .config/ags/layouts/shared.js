@@ -17,7 +17,7 @@ var desktop = monitor => ({
     layer: 'background',
 });
 
-var corners = monitor => ['topleft', 'topright', 'bottomleft', 'bottomright'].map(place => ({
+var corners = (monitor, places = ['topleft', 'topright', 'bottomleft', 'bottomright']) => places.map(place => ({
     monitor,
     name: `corner${monitor}${place}`,
     className: 'corners',

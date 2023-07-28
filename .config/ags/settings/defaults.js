@@ -9,6 +9,7 @@ var defaults = {
     layout: 'topbar',
     userName: USER,
     style: {
+        floating_bar: false,
         wm_gaps: 16,
         spacing: 9,
         radii: 7,

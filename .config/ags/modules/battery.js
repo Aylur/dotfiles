@@ -3,7 +3,7 @@ const { Battery } = ags.Service;
 
 function _default(charging) {
     const items = [];
-    for (let i=0; i<=90; i+=10) {
+    for (let i = 0; i <= 90; i += 10) {
         items.push({
             value: i,
             widget: {
@@ -62,7 +62,7 @@ Widget.widgets['battery/progress'] = props => Widget({
     ...props,
     type: 'progressbar',
     connections: [[Battery, progress => {
-        progress.setValue(Battery.percent/100);
+        progress.setValue(Battery.percent / 100);
         progress.toggleClassName('charging', Battery.charging);
         progress.toggleClassName('charged', Battery.charged);
         progress.toggleClassName('low', Battery.percent < 30);

@@ -20,6 +20,12 @@ $float: 5px;
         border-bottom: $border;
     }
 
+    @if $floating_bar {
+        @include floating_widget;
+        padding: 0;
+        border-radius: $radii + $float;
+    }
+
     .panel-button {
         @include panel_button($flat: true);
 

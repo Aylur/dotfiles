@@ -1,7 +1,7 @@
 /* exported config */
 const { exec } = ags.Utils;
+const { Settings } = imports.settings.service;
 
-const layout = imports.settings.service.Settings.layout;
 Object.keys(imports.modules).forEach(m => imports.modules[m]);
 Object.keys(imports.layouts.widgets).forEach(m => imports.layouts.widgets[m]);
 
@@ -21,16 +21,7 @@ var config = {
         imports.layouts.shared.overview,
         imports.layouts.shared.applauncher,
 
-        ...imports.layouts[layout].windows,
+        ...imports.layouts[Settings.layout].windows,
     ],
 };
 
-ags.App.instance.connect('config-parsed', () => {
-    for (const [name] of ags.App.windows) {
-        if (!name.includes('desktop')) {
-            exec(`hyprctl keyword layerrule "unset, ${name}"`);
-            exec(`hyprctl keyword layerrule "blur, ${name}"`);
-            exec(`hyprctl keyword layerrule "ignorealpha 0.6, ${name}"`);
-        }
-    }
-});

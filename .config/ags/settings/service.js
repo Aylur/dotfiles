@@ -7,13 +7,17 @@ const { defaults } = imports.settings.defaults;
 class SettingsService extends Service {
     static { Service.register(this); }
 
-    _path = CONFIG_DIR+'/settings.json';
+    _path = CONFIG_DIR + '/settings.json';
     _open = false;
 
     constructor() {
         super();
 
         exec('swww init');
+        ags.App.instance.connect('config-parsed', () => {
+            this.setupHyprland();
+        });
+
         this.setupStyle();
         this.setupWallpaper();
         this.setupDarkmode();
@@ -49,6 +53,17 @@ class SettingsService extends Service {
 
         if (name === 'wallpaper')
             this.setupWallpaper();
+
+        if (name === 'layout' && !this._notifSent) {
+            execAsync(['notify-send', 'Setting layout needs an Ags restart to take effect'], print, print);
+            this._notifSent = true;
+        }
+    }
+
+    getStyle(prop) {
+        return this.settings.style?.[prop] !== undefined
+            ? this.settings.style?.[prop]
+            : defaults.style[prop];
     }
 
     setStyle(prop, value) {
@@ -56,6 +71,40 @@ class SettingsService extends Service {
         style[prop] = value;
         this.setSetting('style', style);
         this.setupStyle();
+
+        if (prop === 'floating_bar')
+            this.setupHyprland();
+    }
+
+    setupHyprland() {
+        for (const [name] of ags.App.windows) {
+            if (!name.includes('desktop')) {
+                exec(`hyprctl keyword layerrule "unset, ${name}"`);
+                exec(`hyprctl keyword layerrule "blur, ${name}"`);
+                exec(`hyprctl keyword layerrule "ignorealpha 0.6, ${name}"`);
+            }
+        }
+
+        ags.Service.Hyprland.HyprctlGet('monitors').forEach(({ name }) => {
+            if (this.getStyle('floating_bar') == true) {
+                const layout = this.settings.layout || defaults.layout;
+                switch (layout) {
+                case 'topbar':
+                case 'unity':
+                    exec(`hyprctl keyword monitor ${name},addreserved,-${this.getStyle('wm_gaps')},0,0,0`);
+                    break;
+
+                case 'bottombar':
+                    exec(`hyprctl keyword monitor ${name},addreserved,0,-${this.getStyle('wm_gaps')},0,0`);
+                    break;
+
+                default:
+                    break;
+                }
+            } else {
+                exec(`hyprctl keyword monitor ${name},addreserved,0,0,0,0`);
+            }
+        });
     }
 
     setupStyle() {
@@ -69,7 +118,7 @@ class SettingsService extends Service {
         ['wm_gaps', 'spacing', 'radii', 'border_width']
             .forEach(v => sed(v, 'variables', `${check(style[v], defs[v])}px`));
 
-        ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners']
+        ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners', 'floating_bar']
             .forEach(v => sed(v, 'variables', check(style[v], defs[v])));
 
         sed('active_gradient', 'variables', `linear-gradient(${style.active_gradient || defs.active_gradient})`);
@@ -84,7 +133,7 @@ class SettingsService extends Service {
         execAsync(`hyprctl keyword decoration:rounding ${getValue('radii')}`);
         execAsync(`hyprctl keyword general:border_size ${getValue('border_width')}`);
         execAsync(`hyprctl keyword general:gaps_out ${getValue('wm_gaps')}`);
-        execAsync(`hyprctl keyword general:gaps_in ${getValue('wm_gaps')/2}`);
+        execAsync(`hyprctl keyword general:gaps_in ${getValue('wm_gaps') / 2}`);
 
         exec(`sassc ${CONFIG_DIR}/scss/dark.scss ${CONFIG_DIR}/dark.css`);
         exec(`sassc ${CONFIG_DIR}/scss/light.scss ${CONFIG_DIR}/light.css`);
@@ -120,7 +169,9 @@ class SettingsService extends Service {
     }
 
     get darkmode() {
-        return this.settings.darkmode === false ? false : defaults.darkmode;
+        return typeof this.settings.darkmode === 'boolean'
+            ? this.settings.darkmode
+            : defaults.darkmode;
     }
 }
 
@@ -133,7 +184,7 @@ var Settings = class Settings {
     static reset() { Settings.instance.reset(); }
 
     static setStyle(prop, value) { Settings.instance.setStyle(prop, value); }
-    static getStyle(prop) { return Settings.instance.settings.style?.[prop]; }
+    static getStyle(prop) { return Settings.instance.getStyle(prop); }
 
     static get darkmode() { return Settings.instance.darkmode; }
     static set darkmode(v) { Settings.instance.setSetting('darkmode', v); }
