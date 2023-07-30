@@ -413,10 +413,10 @@ Widget.widgets['quicksettings/panel-button'] = () => Widget({
     child: {
         type: 'box',
         children: [
-            ...(exec('which asusctl').includes('not found') ? [
+            ...(exec('which asusctl').includes('not found') ? [] : [
                 { type: 'asusctl/profile-indicator', balanced: null },
                 { type: 'asusctl/mode-indicator', hybrid: null },
-            ] : []),
+            ]),
             { type: 'audio/microphone-mute-indicator', unmuted: null },
             { type: 'notifications/dnd-indicator', noisy: null },
             {
