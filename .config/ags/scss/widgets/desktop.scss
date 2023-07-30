@@ -11,19 +11,34 @@
         box-shadow: inset 0 0 $spacing 0 $shadow;
     }
 
-    .clock-box {
+    .clock-box-shadow {
         border: 5px solid $fg_color;
         box-shadow: 2px 2px 2px 0 $shadow;
         border-radius: $radii;
 
-        .clock {
-            color: $fg_color;
-            font-size: 140px;
+        .clock-box {
             border-radius: max($radii - 5px, 0);
-            font-family: $mono_font;
             padding: 0 14px;
-            text-shadow: $text_shadow;
             box-shadow: inset 2px 2px 2px 0 $shadow;
+
+            .clock {
+                color: $fg_color;
+                font-size: 140px;
+                font-family: $mono_font;
+                text-shadow: $text_shadow;
+            }
+
+            .separator-box {
+                padding: 24px 0;
+
+                .separator {
+                    border-radius: $radii;
+                    min-width: 16px;
+                    min-height: 16px;
+                    background-color: $fg_color;
+                    box-shadow: 2px 2px 2px 0 $shadow;
+                }
+            }
         }
     }
 

@@ -18,8 +18,8 @@ const _appButton = (iconSize, icon) => ({
                 {
                     type: 'box',
                     className: 'indicator',
-                    valign: Settings.layout === 'unity' ? 'center' : 'end',
-                    halign: Settings.layout === 'unity' ? 'start' : 'center',
+                    valign: Settings.getStyle('layout') === 'unity' ? 'center' : 'end',
+                    halign: Settings.getStyle('layout') === 'unity' ? 'start' : 'center',
                 },
             ],
         }],

@@ -1,5 +1,4 @@
 /* exported config */
-const { exec } = ags.Utils;
 const { Settings } = imports.settings.service;
 
 Object.keys(imports.modules).forEach(m => imports.modules[m]);
@@ -21,7 +20,7 @@ var config = {
         imports.layouts.shared.overview,
         imports.layouts.shared.applauncher,
 
-        ...imports.layouts[Settings.layout].windows,
+        ...imports.layouts[Settings.getStyle('layout')].windows,
     ],
 };
 

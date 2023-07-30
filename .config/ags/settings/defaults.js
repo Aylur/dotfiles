@@ -6,9 +6,9 @@ var defaults = {
     wallpaper: `/home/${USER}/Pictures/Wallpapers/kitty/kittyb2.jpeg`,
     darkmode: true,
     preferredMpris: 'spotify',
-    layout: 'topbar',
     userName: USER,
     style: {
+        layout: 'topbar',
         floating_bar: false,
         wm_gaps: 16,
         spacing: 9,

@@ -53,11 +53,6 @@ class SettingsService extends Service {
 
         if (name === 'wallpaper')
             this.setupWallpaper();
-
-        if (name === 'layout' && !this._notifSent) {
-            execAsync(['notify-send', 'Setting layout needs an Ags restart to take effect'], print, print);
-            this._notifSent = true;
-        }
     }
 
     getStyle(prop) {
@@ -74,6 +69,11 @@ class SettingsService extends Service {
 
         if (prop === 'floating_bar')
             this.setupHyprland();
+
+        if (prop === 'layout' && !this._notifSent) {
+            execAsync(['notify-send', 'Setting layout needs an Ags restart to take effect']);
+            this._notifSent = true;
+        }
     }
 
     setupHyprland() {
@@ -86,8 +86,8 @@ class SettingsService extends Service {
         }
 
         ags.Service.Hyprland.HyprctlGet('monitors').forEach(({ name }) => {
-            if (this.getStyle('floating_bar') == true) {
-                const layout = this.settings.layout || defaults.layout;
+            if (this.getStyle('floating_bar')) {
+                const layout = this.getStyle('layout');
                 switch (layout) {
                 case 'topbar':
                 case 'unity':
@@ -118,7 +118,7 @@ class SettingsService extends Service {
         ['wm_gaps', 'spacing', 'radii', 'border_width']
             .forEach(v => sed(v, 'variables', `${check(style[v], defs[v])}px`));
 
-        ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners', 'floating_bar']
+        ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners', 'floating_bar', 'layout']
             .forEach(v => sed(v, 'variables', check(style[v], defs[v])));
 
         sed('active_gradient', 'variables', `linear-gradient(${style.active_gradient || defs.active_gradient})`);
@@ -191,9 +191,6 @@ var Settings = class Settings {
 
     static get wallpaper() { return Settings.instance.settings.wallpaper || defaults.wallpaper; }
     static set wallpaper(v) { Settings.instance.setSetting('wallpaper', v); }
-
-    static get layout() { return Settings.instance.settings.layout || defaults.layout; }
-    static set layout(v) { Settings.instance.setSetting('layout', v); }
 
     static get preferredMpris() { return Settings.instance.settings.preferredMpris || defaults.preferredMpris; }
     static set preferredMpris(v) { Settings.instance.setSetting('preferredMpris', v); }

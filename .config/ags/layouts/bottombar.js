@@ -50,7 +50,7 @@ const center = {
     type: 'box',
     className: 'left',
     children: [
-        { className: 'dock', type: 'dock', iconSize: 38 },
+        { className: 'dock', type: 'dock', iconSize: 34 },
     ],
 };
 

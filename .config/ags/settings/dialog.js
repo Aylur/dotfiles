@@ -182,13 +182,13 @@ const layoutRow = row('Layout', {
 
             const layout = box._layouts[index];
             label.label = layout;
-            Settings.layout = layout;
+            Settings.setStyle('layout', layout);
         }],
     ],
     children: [
         {
             type: 'label',
-            label: Settings.layout,
+            label: Settings.getStyle('layout'),
         },
         {
             type: 'button',
