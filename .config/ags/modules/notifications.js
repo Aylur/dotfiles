@@ -43,6 +43,20 @@ const notification = ({ id, summary, body, actions, urgency, time, ...icon }) =>
     type: 'eventbox',
     className: `notification ${urgency}`,
     onClick: () => Notifications.dismiss(id),
+    properties: [['hovered', false]],
+    onHover: w => {
+        if (w._hovered)
+            return;
+
+        timeout(300, () => w._hovered = true);
+    },
+    onHoverLost: w => {
+        if (!w._hovered)
+            return;
+
+        w._hovered = false;
+        Notifications.dismiss(id);
+    },
     vexpand: false,
     child: {
         type: 'box',
@@ -98,7 +112,7 @@ const notification = ({ id, summary, body, actions, urgency, time, ...icon }) =>
                                 justify: 'left',
                                 type: 'label',
                                 label: body.split(' ').map(word =>
-                                    word.split('').map((ch, i) => (i+1) % 24 === 0 ? ch+' ' : ch).join(''),
+                                    word.split('').map((ch, i) => (i + 1) % 24 === 0 ? ch + ' ' : ch).join(''),
                                 ).join(' '),
                                 wrap: true,
                             },
@@ -143,15 +157,15 @@ Widget.widgets['notifications/popup-list'] = ({ transition = 'slide_down' }) => 
             transition,
             type: 'revealer',
             connections: [[Notifications, revealer => {
-                revealer.reveal_child = Notifications.popups.size > 0;
+                revealer.reveal_child = revealer.get_child()._map.size > 0;
             }]],
             child: {
                 type: 'box',
                 orientation: 'vertical',
                 properties: [
                     ['map', new Map()],
-                    ['close', (box, id) => {
-                        if (!id || !box._map.has(id))
+                    ['dismiss', (box, id) => {
+                        if (!id || !box._map.has(id) || box._map.get(id)._hovered)
                             return;
 
                         timeout(200, () => {
@@ -159,24 +173,23 @@ Widget.widgets['notifications/popup-list'] = ({ transition = 'slide_down' }) => 
                             box._map.delete(id);
                         });
                     }],
-                ],
-                connections: [
-                    [Notifications, (box, id) => {
+                    ['notify', (box, id) => {
                         if (!id)
                             return;
 
-                        if (box._map.has(id)) {
+                        if (box._map.has(id))
                             box._map.get(id).destroy();
-                            box._map.delete(id);
-                        }
 
                         const widget = notification(Notifications.notifications.get(id));
                         box._map.set(id, widget);
                         box.add(widget);
                         box.show_all();
-                    }, 'notified'],
-                    [Notifications, (box, id) => box._close(box, id), 'dismissed'],
-                    [Notifications, (box, id) => box._close(box, id), 'closed'],
+                    }],
+                ],
+                connections: [
+                    [Notifications, (box, id) => box._notify(box, id), 'notified'],
+                    [Notifications, (box, id) => box._dismiss(box, id), 'dismissed'],
+                    [Notifications, (box, id) => box._dismiss(box, id), 'closed'],
                 ],
             },
         },
