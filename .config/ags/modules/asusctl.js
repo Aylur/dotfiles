@@ -3,6 +3,7 @@ const { exec, execAsync } = ags.Utils;
 
 class AsusctlService extends Service {
     static { Service.register(this); }
+    available = true;
 
     nextProfile() {
         execAsync('asusctl profile -n', () => {
@@ -21,8 +22,13 @@ class AsusctlService extends Service {
     constructor() {
         super();
 
-        this._profile = exec('asusctl profile -p').trim().split(' ')[3];
-        this._mode = exec('supergfxctl -g').trim();
+        if (exec('which asusctl')) {
+            this._profile = exec('asusctl profile -p').trim().split(' ')[3];
+            this._mode = exec('supergfxctl -g').trim();
+        }
+        else {
+            this.available = false;
+        }
     }
 
     get profile() { return this._profile; }
@@ -36,6 +42,7 @@ class Asusctl {
     static nextMode() { Asusctl.instance.nextMode(); }
     static get profile() { return Asusctl.instance.profile; }
     static get mode() { return Asusctl.instance.mode; }
+    static get available() { return Asusctl.instance.available; }
 }
 
 Widget.widgets['asusctl/profile-indicator'] = ({

@@ -373,13 +373,13 @@ Widget.widgets['quicksettings/popup-content'] = () => Widget({
                     className: 'small-toggles',
                     vexpand: true,
                     hexpand: false,
-                    children: exec('which asusctl').includes('not found')
+                    children: ags.Service.Asusctl?.available
                         ? [
-                            { type: 'box', children: [dndToggle, darkmodeToggle] },
-                            { type: 'box', children: [appmixerToggle, muteToggle] },
-                        ] : [
                             { type: 'box', children: [asusmodeToggle, asusctlToggle, darkmodeToggle] },
                             { type: 'box', children: [appmixerToggle, dndToggle, muteToggle] },
+                        ] : [
+                            { type: 'box', children: [dndToggle, darkmodeToggle] },
+                            { type: 'box', children: [appmixerToggle, muteToggle] },
                         ],
                 },
             ],
@@ -413,10 +413,10 @@ Widget.widgets['quicksettings/panel-button'] = () => Widget({
     child: {
         type: 'box',
         children: [
-            ...(exec('which asusctl').includes('not found') ? [] : [
+            ...(ags.Service.Asusctl?.available ? [
                 { type: 'asusctl/profile-indicator', balanced: null },
                 { type: 'asusctl/mode-indicator', hybrid: null },
-            ]),
+            ] : []),
             { type: 'audio/microphone-mute-indicator', unmuted: null },
             { type: 'notifications/dnd-indicator', noisy: null },
             {
