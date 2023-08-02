@@ -85,6 +85,9 @@ class SettingsService extends Service {
             }
         }
 
+        exec('hyprctl keyword layerrule "ignorealpha 0, powermenu"');
+        exec('hyprctl keyword layerrule "ignorealpha 0, verification"');
+
         ags.Service.Hyprland.HyprctlGet('monitors').forEach(({ name }) => {
             if (this.getStyle('floating_bar')) {
                 const layout = this.getStyle('layout');

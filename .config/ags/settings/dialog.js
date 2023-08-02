@@ -79,7 +79,7 @@ const text = (title, prop) => row(title, {
     connections: [[Settings, w => w.text = Settings.getStyle(prop) || defaults.style[prop]]],
     hexpand: true,
     halign: 'end',
-    onAccept: value => Settings.setStyle(prop, value),
+    onAccept: ({ text }) => Settings.setStyle(prop, text),
 });
 
 class Pages extends ags.Service {
