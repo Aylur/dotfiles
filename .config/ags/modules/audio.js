@@ -156,7 +156,6 @@ Widget.widgets['audio/app-mixer'] = ({ item, ...props }) => {
                 app.connect('destroy', () => stream.disconnect(id));
                 app.update();
             }
-
             box.show_all();
         }]],
     });
@@ -203,7 +202,6 @@ Widget.widgets['audio/stream-selector'] = ({ streams = 'speakers', ...props }) =
                 },
             }));
         }
-
         box.show_all();
     }]],
 });

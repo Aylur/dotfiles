@@ -6,7 +6,7 @@ const icons = [
     { value: 60, widget: { type: 'icon', icon: 'network-wireless-signal-good-symbolic' } },
     { value: 40, widget: { type: 'icon', icon: 'network-wireless-signal-ok-symbolic' } },
     { value: 20, widget: { type: 'icon', icon: 'network-wireless-signal-weak-symbolic' } },
-    { value: 0,  widget: { type: 'icon', icon: 'network-wireless-signal-none-symbolic' } },
+    { value: 0, widget: { type: 'icon', icon: 'network-wireless-signal-none-symbolic' } },
 ];
 
 Widget.widgets['network/ssid-label'] = props => Widget({

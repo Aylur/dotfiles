@@ -1,6 +1,6 @@
 const { Widget, Service, App } = ags;
 const { Bluetooth, Battery, Audio, Settings, Network } = ags.Service;
-const { execAsync, exec, timeout } = ags.Utils;
+const { execAsync, timeout } = ags.Utils;
 
 class QSMenu extends Service {
     static { Service.register(this); }

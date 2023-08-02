@@ -36,7 +36,7 @@ Widget.widgets['hyprland/workspaces'] = ({
     const forFixed = box => {
         box.get_children().forEach(ch => ch.destroy());
         const { workspaces } = Hyprland;
-        for (let i=1; i<fixed+1; ++i) {
+        for (let i = 1; i < fixed + 1; ++i) {
             if (workspaces.has(i)) {
                 const { windows } = workspaces.get(i);
                 box.add(button(windows, i));

@@ -10,14 +10,13 @@ class RecorderService extends Service {
         Service.register(this, { 'timer': ['int'] });
     }
 
-    _path = GLib.get_home_dir()+'/Videos/Screencasting';
+    _path = GLib.get_home_dir() + '/Videos/Screencasting';
 
     start() {
         execAsync('slurp', out => {
             ensureDirectory(this._path);
             this._file = `${this._path}/${now()}.mp4`;
             execAsync(['wf-recorder', '-g', out.trim(), '-f', this._file]);
-            print('wf-recorder', '-g', out.trim(), '-f', this._file);
             this._recording = true;
             this.emit('changed');
 
@@ -43,15 +42,15 @@ class RecorderService extends Service {
             this._file,
         ], res => {
             if (res.trim() === 'files')
-                execAsync('xdg-open '+this._path);
+                execAsync('xdg-open ' + this._path);
 
             if (res.trim() === 'view')
-                execAsync('xdg-open '+this._file);
+                execAsync('xdg-open ' + this._file);
         });
     }
 
     screenshot() {
-        const path = GLib.get_home_dir()+'/Pictures/Screenshots';
+        const path = GLib.get_home_dir() + '/Pictures/Screenshots';
         ensureDirectory(path);
         const file = `${path}/${now()}.png`;
         execAsync(`watershot -c -s path ${file}`);
@@ -68,10 +67,10 @@ class RecorderService extends Service {
                 file,
             ], res => {
                 if (res.trim() === 'files')
-                    execAsync('xdg-open '+path);
+                    execAsync('xdg-open ' + path);
 
                 if (res.trim() === 'view')
-                    execAsync('xdg-open '+file);
+                    execAsync('xdg-open ' + file);
             });
 
             GLib.source_remove(id);
@@ -111,7 +110,7 @@ Widget.widgets['recorder/indicator-button'] = props => Widget({
                 connections: [[Recorder, (label, time) => {
                     const sec = time % 60;
                     const min = Math.floor(time / 60);
-                    label.label = `${min}:${sec < 10 ? '0'+sec : sec}`;
+                    label.label = `${min}:${sec < 10 ? '0' + sec : sec}`;
                 }, 'timer']],
             },
         ],

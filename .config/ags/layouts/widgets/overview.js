@@ -25,13 +25,13 @@ const client = ({ address, size: [w, h], class: c, title }) => Widget({
     child: {
         type: 'icon',
         style: `
-            min-width: ${w*SCALE}px;
-            min-height: ${h*SCALE}px;
+            min-width: ${w * SCALE}px;
+            min-height: ${h * SCALE}px;
         `,
         icon: substitute(c),
     },
     tooltip: title,
-    onSecondaryClick: () => execAsync('hyprctl dispatch closewindow address:'+address),
+    onSecondaryClick: () => execAsync('hyprctl dispatch closewindow address:' + address),
     setup: button => {
         button.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
         button.drag_source_set_icon_name(substitute(c));
@@ -46,8 +46,8 @@ const workspace = index => {
         className: 'workspace',
         valign: 'center',
         style: `
-        min-width: ${1920*SCALE}px;
-        min-height: ${1080*SCALE}px;
+        min-width: ${1920 * SCALE}px;
+        min-height: ${1080 * SCALE}px;
         `,
         connections: [[Hyprland, box => {
             box.toggleClassName('active', Hyprland.active.workspace.id === index);
@@ -74,12 +74,12 @@ const workspace = index => {
         clients = clients.map(client => {
             const [x, y] = client.at;
             if (x > 1920)
-                client.at = [x-1920, y];
+                client.at = [x - 1920, y];
             return client;
         });
 
         fixed.get_children().forEach(ch => ch.destroy());
-        clients.forEach(c => c.mapped && fixed.put(client(c), c.at[0]*SCALE, c.at[1]*SCALE));
+        clients.forEach(c => c.mapped && fixed.put(client(c), c.at[0] * SCALE, c.at[1] * SCALE));
         fixed.show_all();
     };
     return widget;
@@ -87,7 +87,7 @@ const workspace = index => {
 
 const arr = n => {
     const array = [];
-    for (let i=1; i<=n; ++i)
+    for (let i = 1; i <= n; ++i)
         array.push(i);
 
     return array;

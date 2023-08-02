@@ -121,10 +121,10 @@ Widget.widgets['progress'] = ({ height = 18, width = 180, vertical = false, chil
 
         const frames = 10;
         const goal = preferred - fill._size;
-        const step = goal/frames;
+        const step = goal / frames;
 
-        for (let i=0; i<frames; ++i) {
-            timeout(5*i, () => {
+        for (let i = 0; i < frames; ++i) {
+            timeout(5 * i, () => {
                 fill._size += step;
                 fill.setStyle(`min-${axis}: ${fill._size}px`);
             });

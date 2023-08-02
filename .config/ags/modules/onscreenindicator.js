@@ -32,7 +32,7 @@ class IndicatorService extends Service {
             icons[67] = 'audio-volume-high-symbolic';
             icons[101] = 'audio-volume-overamplified-symbolic';
             for (const i of [101, 67, 34, 1, 0]) {
-                if (i <= value*100)
+                if (i <= value * 100)
                     return icons[i];
             }
         };
@@ -45,7 +45,7 @@ class IndicatorService extends Service {
             const value = ags.Service.Brightness.screen;
             const icon = value => {
                 const icons = ['󰛩', '󱩎', '󱩏', '󱩐', '󱩑', '󱩒', '󱩓', '󱩔', '󱩕', '󱩖', '󰛨'];
-                return icons[Math.ceil(value*10)];
+                return icons[Math.ceil(value * 10)];
             };
             this.popup(value, icon(value));
         });
@@ -55,7 +55,7 @@ class IndicatorService extends Service {
         // brightness is async, so lets wait a bit
         timeout(10, () => {
             const value = ags.Service.Brightness.kbd;
-            this.popup((value*33+1)/100, 'keyboard-brightness-symbolic');
+            this.popup((value * 33 + 1) / 100, 'keyboard-brightness-symbolic');
         });
     }
 
