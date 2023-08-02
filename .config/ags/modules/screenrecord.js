@@ -11,12 +11,16 @@ class RecorderService extends Service {
     }
 
     _path = GLib.get_home_dir() + '/Videos/Screencasting';
+    _recording = false;
 
     start() {
-        execAsync('slurp', out => {
+        if (this._recording)
+            return;
+
+        execAsync('slurp', area => {
             ensureDirectory(this._path);
             this._file = `${this._path}/${now()}.mp4`;
-            execAsync(['wf-recorder', '-g', out.trim(), '-f', this._file]);
+            execAsync(['wf-recorder', '-g', area.trim(), '-f', this._file]);
             this._recording = true;
             this.emit('changed');
 
@@ -29,6 +33,9 @@ class RecorderService extends Service {
     }
 
     stop() {
+        if (!this._recording)
+            return;
+
         execAsync('killall -INT wf-recorder');
         this._recording = false;
         this.emit('changed');
