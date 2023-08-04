@@ -16,18 +16,29 @@ var prefer = players => {
     return last;
 };
 
-Widget.widgets['mpris/box'] = ({ player = prefer, ...props }) => {
-    const box = Widget({
-        ...props,
-        type: 'box',
-        connections: [[Mpris, box => box.visible = Mpris.getPlayer(player)]],
-    });
-    const id = box.connect('draw', () => {
-        box.visible = Mpris.getPlayer(player);
-        box.disconnect(id);
-    });
-    return box;
-};
+Widget.widgets['mpris/box'] = ({ player = prefer, ...props }) => Widget({
+    ...props,
+    type: 'box',
+    connections: [[Mpris, box => {
+        const mpris = Mpris.getPlayer(player);
+        box.visible = mpris;
+
+        if (!mpris)
+            return;
+
+        if (box._current)
+            box.toggleClassName(box._current, false);
+
+        box._current = mpris.name;
+        box.toggleClassName(mpris.name);
+    }]],
+    setup: box => {
+        const id = box.connect('draw', () => {
+            box.visible = Mpris.getPlayer(player);
+            box.disconnect(id);
+        });
+    },
+});
 
 Widget.widgets['mpris/cover-art'] = ({ player = prefer, ...props }) => Widget({
     ...props,

@@ -33,11 +33,15 @@ class SettingsService extends Service {
     }
 
     openSettings() {
-        if (this._dialog)
-            this._dialog.hide();
+        if (!this._dialog) {
+            this._dialog = imports.settings.dialog.dialog();
+            this._dialog.connect('delete-event', () => {
+                this._dialog.hide();
+                return true;
+            });
+        }
 
-        this._dialog = imports.settings.dialog.dialog();
-        this._dialog.connect('destroy', () => this._dialog = null);
+        this._dialog.hide();
         this._dialog.show_all();
     }
 
@@ -67,8 +71,12 @@ class SettingsService extends Service {
         this.setSetting('style', style);
         this.setupStyle();
 
-        if (prop === 'floating_bar')
+        if (prop === 'bar_style') {
             this.setupHyprland();
+
+            if (value !== 'normal')
+                this.setStyle('screen_corners', false);
+        }
 
         if (prop === 'layout' && !this._notifSent) {
             execAsync(['notify-send', 'Setting layout needs an Ags restart to take effect']);
@@ -89,20 +97,20 @@ class SettingsService extends Service {
         exec('hyprctl keyword layerrule "ignorealpha 0, verification"');
 
         ags.Service.Hyprland.HyprctlGet('monitors').forEach(({ name }) => {
-            if (this.getStyle('floating_bar')) {
+            if (this.getStyle('bar_style') !== 'normal') {
                 const layout = this.getStyle('layout');
                 switch (layout) {
-                case 'topbar':
-                case 'unity':
-                    exec(`hyprctl keyword monitor ${name},addreserved,-${this.getStyle('wm_gaps')},0,0,0`);
-                    break;
+                    case 'topbar':
+                    case 'unity':
+                        exec(`hyprctl keyword monitor ${name},addreserved,-${this.getStyle('wm_gaps')},0,0,0`);
+                        break;
 
-                case 'bottombar':
-                    exec(`hyprctl keyword monitor ${name},addreserved,0,-${this.getStyle('wm_gaps')},0,0`);
-                    break;
+                    case 'bottombar':
+                        exec(`hyprctl keyword monitor ${name},addreserved,0,-${this.getStyle('wm_gaps')},0,0`);
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
                 }
             } else {
                 exec(`hyprctl keyword monitor ${name},addreserved,0,0,0,0`);
@@ -121,7 +129,7 @@ class SettingsService extends Service {
         ['wm_gaps', 'spacing', 'radii', 'border_width']
             .forEach(v => sed(v, 'variables', `${check(style[v], defs[v])}px`));
 
-        ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners', 'floating_bar', 'layout']
+        ['accent', 'accent_fg', 'bg', 'border_opacity', 'widget_opacity', 'screen_corners', 'bar_style', 'layout']
             .forEach(v => sed(v, 'variables', check(style[v], defs[v])));
 
         sed('active_gradient', 'variables', `linear-gradient(${style.active_gradient || defs.active_gradient})`);

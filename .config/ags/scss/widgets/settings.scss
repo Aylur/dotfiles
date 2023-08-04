@@ -68,12 +68,11 @@ window#settings {
                 min-width: 22em;
             }
 
-            .layout {
+            .text-spin {
                 @include widget;
 
                 button {
                     @include button($flat: true);
-                    border: none;
                     border-radius: 0;
                     padding: $spacing/2;
                     margin: -$border_width;

@@ -7,16 +7,29 @@ $float: 5px;
         font-weight: bold;
     }
 
+    @if $bar_style == 'separated' {
+        > * {
+            @include floating_widget;
+            border-radius: $radii;
+            margin: $wm_gaps $float;
+        }
+    }
+
     > * {
-        margin: $float;
         padding: .3em .5em;
+
+        @if $bar_style != 'separated' {
+            margin: $float;
+        }
     }
 }
 
 .panel {
-    background-color: $bg_color;
+    @if $bar_style == 'normal' {
+        background-color: $bg_color;
+    }
 
-    @if not $screen_corners {
+    @if not $screen_corners and $bar_style == 'normal' {
         @if $layout == 'bottombar' {
             border-top: $border;
         } @else {
@@ -24,10 +37,19 @@ $float: 5px;
         }
     }
 
-    @if $floating_bar {
+    @if $bar_style == 'floating' {
         @include floating_widget;
         padding: 0;
-        border-radius: $radii + $float;
+    }
+
+    @if $bar_style == 'separated' {
+        .right button:last-child > * {
+            margin-right: $wm_gaps;
+        }
+
+        .left button:first-child > * {
+            margin-left: $wm_gaps;
+        }
     }
 
     .panel-button {
@@ -52,27 +74,15 @@ $float: 5px;
     }
 
     .launcher {
-        color: transparentize($accent, 0.2);
-
-        &:hover label {
-            color: $accent;
-        }
-
-        &:active label {
-            color: $accent_fg;
-        }
+        label { color: transparentize($accent, 0.2); } 
+        &:hover label { color: $accent; }
+        &:active label { color: $accent_fg; }
     }
 
     .powermenu, .recorder {
-        color: transparentize($red, 0.3);
-
-        &:hover image {
-            color: transparentize($red, 0.15);
-        }
-
-        &:active image {
-            color: $red;
-        }
+        image { color: transparentize($red, 0.3); }
+        &:hover image { color: transparentize($red, 0.15); }
+        &:active image { color: $red; }
     }
 
     .quicksettings:not(.active) .battery {
@@ -83,8 +93,15 @@ $float: 5px;
     .workspaces {
         border: $float solid transparent;
 
-        .eventbox {
-            @include button;
+        @if $bar_style == 'separated' {
+            @include floating_widget;
+            border-radius: $radii;
+            margin: $wm_gaps+$border_width $float;
+            padding: 0;
+        } @else {
+            .eventbox {
+                @include button;
+            }
         }
 
         button {
@@ -131,6 +148,12 @@ $float: 5px;
                 background-color: transparent;
             }
         }
+    }
+
+    .media {
+        &.spotify .icon { color: $green; }
+        &.firefox .icon { color: $orange; }
+        &.mpv .icon { color: $magenta; }
     }
 
     .dock {

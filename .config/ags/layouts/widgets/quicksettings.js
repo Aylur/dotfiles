@@ -121,41 +121,7 @@ const systemBox = {
                 sysBtn('system-shutdown-symbolic', 'Shutdown', 'shutdown'),
             ],
         },
-        {
-            type: 'overlay',
-            className: 'battery',
-            connections: [[Battery, d => {
-                d.toggleClassName('half', Battery.percent < 46);
-            }]],
-            children: [
-                { type: 'battery/progress' },
-                {
-                    type: 'dynamic',
-                    halign: 'center',
-                    items: [
-                        {
-                            value: true, widget: {
-                                type: 'font-icon',
-                                className: 'icon',
-                                icon: '󱐋',
-                            },
-                        },
-                        {
-                            value: false, widget: {
-                                type: 'label',
-                                className: 'percent',
-                                connections: [[Battery, l => {
-                                    l.label = `${Battery.percent}%`;
-                                }]],
-                            },
-                        },
-                    ],
-                    connections: [[Battery, d => {
-                        d.update(v => v === (Battery.charging || Battery.charged));
-                    }]],
-                },
-            ],
-        },
+        { type: 'battery/progress' },
     ],
 };
 
@@ -439,6 +405,7 @@ Widget.widgets['quicksettings/panel-button'] = () => Widget({
             { type: 'audio/speaker-indicator' },
             {
                 type: 'hover-revealer',
+                direction: 'right',
                 indicator: { type: 'battery/indicator', className: 'battery' },
                 child: { type: 'battery/level-label' },
                 connection: [Battery, revealer => {

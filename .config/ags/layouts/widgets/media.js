@@ -102,8 +102,8 @@ Widget.widgets['media/popup-content'] = props => Widget({
             const widget = ags.Widget({
                 type: 'mediabox',
                 player: busName,
-                className: Mpris.getPlayer(busName).name.toLowerCase(),
             });
+
             box._players.set(busName, widget);
             box.add(widget);
             widget.show();
@@ -127,7 +127,12 @@ Widget.widgets['media/panel-indicator'] = ({
         onScrollUp: () => Mpris.getPlayer(player)?.next(),
         onScrollDown: () => Mpris.getPlayer(player)?.previous(),
         onSecondaryClick: () => Mpris.getPlayer(player)?.playPause(),
-        indicator: { type: 'mpris/player-icon', player },
+        indicator: {
+            type: 'mpris/player-icon',
+            className: 'icon',
+            player,
+            symbolic: true,
+        },
         child: {
             type: 'box',
             children: [

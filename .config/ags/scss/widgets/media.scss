@@ -65,6 +65,7 @@
 
         trough {
             border: none;
+            background-color: transparentize($shader_fg, 0.7);
         }
     }
 

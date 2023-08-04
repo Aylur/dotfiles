@@ -32,7 +32,8 @@ $mono_font: 'Mononoki Nerd Font', monospace;
 $shader_fg: if($theme == 'light', $bg_color, $fg_color);
 
 $screen_corners: true;
-$floating_bar: false;
+$bar_style: normal;
+$layout: topbar;
 
 window:not(#settings), window * {
    all: unset;

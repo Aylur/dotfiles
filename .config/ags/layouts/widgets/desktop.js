@@ -1,10 +1,10 @@
 const { Widget } = ags;
 
-Widget.widgets['desktop'] = props => Widget({
+Widget.widgets['desktop'] = ({ clock = true, ...props }) => Widget({
     ...props,
     type: 'box',
     className: 'desktop',
-    children: [{
+    children: clock ? [{
         type: 'box',
         orientation: 'vertical',
         valign: 'center',
@@ -50,5 +50,5 @@ Widget.widgets['desktop'] = props => Widget({
                 format: '%B %e. %A',
             },
         ],
-    }],
+    }] : [],
 });

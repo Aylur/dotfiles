@@ -55,16 +55,37 @@ Widget.widgets['battery/indicator'] = ({
 Widget.widgets['battery/level-label'] = props => Widget({
     ...props,
     type: 'label',
-    connections: [[Battery, label => label.label = `${Battery.percent}`]],
+    connections: [[Battery, label => label.label = `${Battery.percent}%`]],
 });
 
 Widget.widgets['battery/progress'] = props => Widget({
     ...props,
-    type: 'progressbar',
-    connections: [[Battery, progress => {
-        progress.setValue(Battery.percent / 100);
-        progress.toggleClassName('charging', Battery.charging);
-        progress.toggleClassName('charged', Battery.charged);
-        progress.toggleClassName('low', Battery.percent < 30);
+    type: 'box',
+    className: 'battery-progress',
+    connections: [[Battery, d => {
+        d.toggleClassName('half', Battery.percent < 46);
+        d.toggleClassName('charging', Battery.charging);
+        d.toggleClassName('charged', Battery.charged);
+        d.toggleClassName('low', Battery.percent < 30);
     }]],
+    children: [{
+        type: 'overlay',
+        children: [
+            {
+                type: 'progressbar',
+                hexpand: true,
+                connections: [[Battery, progress => {
+                    progress.setValue(Battery.percent / 100);
+                }]],
+            },
+            {
+                type: 'label',
+                connections: [[Battery, l => {
+                    l.label = Battery.charging || Battery.charged
+                        ? '󱐋'
+                        : `${Battery.percent}%`;
+                }]],
+            },
+        ],
+    }],
 });

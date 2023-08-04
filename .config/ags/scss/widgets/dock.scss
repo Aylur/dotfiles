@@ -31,7 +31,7 @@
         @include accs_button($flat: true);
 
         image, > * {
-            margin: $spacing;
+            margin: $spacing*0.7;
 
             @if $theme == 'light' {
                 -gtk-icon-shadow: $text_shadow;
@@ -63,7 +63,7 @@
 .floating-dock .dock {
     @include dock;
     @include floating_widget;
-    padding: $spacing;
+    padding: $spacing / 2;
 }
 
 .dock.vertical {

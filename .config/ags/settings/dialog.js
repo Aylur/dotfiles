@@ -82,6 +82,54 @@ const text = (title, prop) => row(title, {
     onAccept: ({ text }) => Settings.setStyle(prop, text),
 });
 
+const textspinbutton = (title, prop, list) => row(title, {
+    type: 'box',
+    className: 'text-spin',
+    hexpand: true,
+    halign: 'end',
+    properties: [
+        ['values', list],
+        ['step', (box, step) => {
+            const label = box.get_children()[0];
+            const max = box._values.length - 1;
+            let index = box._values.indexOf(label.label) + step;
+
+            if (index > max)
+                index = 0;
+
+            if (index < 0)
+                index = max;
+
+            const value = box._values[index];
+            label.label = value;
+            Settings.setStyle(prop, value);
+        }],
+    ],
+    children: [
+        {
+            type: 'label',
+            label: Settings.getStyle(prop),
+        },
+        {
+            type: 'button',
+            child: { type: 'icon', icon: 'pan-down-symbolic' },
+            onClick: btn => {
+                const box = btn.get_parent();
+                box._step(box, -1);
+            },
+        },
+        {
+            type: 'button',
+            child: { type: 'icon', icon: 'pan-up-symbolic' },
+            onClick: btn => {
+                const box = btn.get_parent();
+                box._step(box, +1);
+            },
+        },
+    ],
+
+});
+
 class Pages extends ags.Service {
     static { ags.Service.register(this); }
     static instance = new Pages();
@@ -160,55 +208,6 @@ const layout = pages => ({
     ],
 });
 
-const layoutRow = row('Layout', {
-    type: 'box',
-    className: 'layout',
-    hexpand: true,
-    halign: 'end',
-    properties: [
-        ['layouts', [
-            'topbar', 'bottombar', 'unity',
-        ]],
-        ['step', (box, step) => {
-            const label = box.get_children()[0];
-            const max = box._layouts.length - 1;
-            let index = box._layouts.indexOf(label.label) + step;
-
-            if (index > max)
-                index = 0;
-
-            if (index < 0)
-                index = max;
-
-            const layout = box._layouts[index];
-            label.label = layout;
-            Settings.setStyle('layout', layout);
-        }],
-    ],
-    children: [
-        {
-            type: 'label',
-            label: Settings.getStyle('layout'),
-        },
-        {
-            type: 'button',
-            child: { type: 'icon', icon: 'pan-start-symbolic' },
-            onClick: btn => {
-                const box = btn.get_parent();
-                box._step(box, -1);
-            },
-        },
-        {
-            type: 'button',
-            child: { type: 'icon', icon: 'pan-end-symbolic' },
-            onClick: btn => {
-                const box = btn.get_parent();
-                box._step(box, +1);
-            },
-        },
-    ],
-});
-
 var dialog = () => {
     const win = new Gtk.Window({ name: 'settings' });
     win.add(ags.Widget(layout({
@@ -220,9 +219,9 @@ var dialog = () => {
                 img('Avatar', 'avatar'),
                 spinbutton('Useless Gaps', 'wm_gaps', 128),
                 spinbutton('Spacing', 'spacing', 18),
-                layoutRow,
+                textspinbutton('Layout', 'layout', ['topbar', 'bottombar', 'unity']),
+                textspinbutton('Bar Style', 'bar_style', ['normal', 'floating', 'separated']),
                 switchbtn('Screen Corners', 'screen_corners'),
-                switchbtn('Floating Bar', 'floating_bar'),
             ],
         },
         borders: {
@@ -252,6 +251,12 @@ var dialog = () => {
                 color('Background Color', 'dark_bg_color'),
                 color('Foreground Color', 'dark_fg_color'),
                 color('Hover Foreground', 'dark_hover_fg'),
+                {
+                    type: 'button',
+                    halign: 'end',
+                    child: 'Switch to Darkmode',
+                    onClick: () => Settings.darkmode = true,
+                },
             ],
         },
         light: {
@@ -261,6 +266,12 @@ var dialog = () => {
                 color('Background Color', 'light_bg_color'),
                 color('Foreground Color', 'light_fg_color'),
                 color('Hover Foreground', 'light_hover_fg'),
+                {
+                    type: 'button',
+                    halign: 'end',
+                    child: 'Switch to Darkmode',
+                    onClick: () => Settings.darkmode = false,
+                },
             ],
         },
     })));

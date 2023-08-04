@@ -23,4 +23,3 @@ var config = {
         ...imports.layouts[Settings.getStyle('layout')].windows,
     ],
 };
-

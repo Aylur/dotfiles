@@ -29,7 +29,7 @@
 
         export PATH
         # exec nixGL ${pkgs.hyprland}/bin/Hyprland
-        exec Hyprland
+        exec /usr/bin/Hyprland
       '';
     };
   };

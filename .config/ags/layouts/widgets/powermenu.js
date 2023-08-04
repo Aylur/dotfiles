@@ -1,5 +1,5 @@
 const { App, Widget, Service } = ags;
-const { exec, error, USER } = ags.Utils;
+const { exec, error } = ags.Utils;
 
 class System extends Service {
     static {
@@ -13,7 +13,7 @@ class System extends Service {
         const cmd = {
             'Sleep': 'systemctl suspend',
             'Reboot': 'systemctl reboot',
-            'Log Out': `loginctl kill-user ${USER}`,
+            'Log Out': 'pkill Hyprland',
             'Shutdown': 'shutdown now',
         }[action];
 

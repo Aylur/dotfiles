@@ -28,6 +28,7 @@ const _appButton = (iconSize, icon) => ({
 
 const _pins = ({ iconSize, list, orientation }) => ({
     type: 'box',
+    className: 'pins',
     homogeneous: true,
     orientation,
     children: list
@@ -99,6 +100,7 @@ Widget.widgets['dock'] = ({
             type: 'box',
             valign: 'center',
             className: 'separator',
+            halign: 'center',
             connections: [[Hyprland, box => {
                 box.visible = box.get_parent().get_children()[launcher ? 3 : 2].get_children().length > 0;
             }]],

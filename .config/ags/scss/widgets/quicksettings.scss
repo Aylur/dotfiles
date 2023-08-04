@@ -10,7 +10,7 @@ window#quicksettings .quicksettings {
         .avatar {
             @include widget;
             margin-right: $spacing;
-            min-width: $spacing*7 + 32px;
+            min-width: $spacing*7 + 38px;
 
             .image {
                 border-radius: max($radii - $border_width, 0);
@@ -28,23 +28,20 @@ window#quicksettings .quicksettings {
             margin: $spacing/2;
         }
 
-        .battery {
+        .battery-progress {
             progressbar {
                 @include slider($width: $spacing*3.4);
                 margin-top: $spacing;
             }
 
-            &.half label { color: $fg_color; }
-
-            .icon, .percent {
+            label {
                 margin-top: $spacing;
                 color: $accent_fg;
-            }
-
-            .percent {
                 font-size: $spacing*2;
                 font-weight: bold;
             }
+
+            &.half label { color: $fg_color; }
         }
 
         button, .uptime {
