@@ -1,26 +1,38 @@
 $float: 5px;
 
 @mixin panel_button($flat: false, $reactive: true){
-    @include accs_button($flat, $reactive);
+    @if $bar_style == 'separated' {
+        > * {
+            @include floating_widget;
+            margin: $wm_gaps $float;
+            transition: $transition;
+        }
+
+        &:hover > * {
+            color: $hover_fg;
+            box-shadow: 0 0 $wm_gaps/2 0 $shadow,
+                        inset 0 0 0 99px $hover;
+        }
+
+        &:active > *, &.active > * {
+            label, image { color: $accent_fg; }
+            background-image: $active_gradient;
+            background-color: $accent;
+        }
+    } @else {
+        @include accs_button($flat, $reactive);
+
+        > * {
+            margin: $float;
+        }
+    }
 
     label {
         font-weight: bold;
     }
 
-    @if $bar_style == 'separated' {
-        > * {
-            @include floating_widget;
-            border-radius: $radii;
-            margin: $wm_gaps $float;
-        }
-    }
-
     > * {
         padding: .3em .5em;
-
-        @if $bar_style != 'separated' {
-            margin: $float;
-        }
     }
 }
 
@@ -41,13 +53,13 @@ $float: 5px;
         @include floating_widget;
         padding: 0;
     }
-
+    
     @if $bar_style == 'separated' {
-        .right button:last-child > * {
+        > .end button:last-child > * {
             margin-right: $wm_gaps;
         }
 
-        .left button:first-child > * {
+        > .start button:first-child > * {
             margin-left: $wm_gaps;
         }
     }
@@ -91,15 +103,14 @@ $float: 5px;
     }
 
     .workspaces {
-        border: $float solid transparent;
+        > * { padding: 0; }
 
-        @if $bar_style == 'separated' {
-            @include floating_widget;
-            border-radius: $radii;
-            margin: $wm_gaps+$border_width $float;
-            padding: 0;
-        } @else {
-            .eventbox {
+        .eventbox {
+            transition: $transition;
+
+            @if $bar_style == 'separated' {
+                &:hover { background-color: $hover; }
+            } @else {
                 @include button;
             }
         }

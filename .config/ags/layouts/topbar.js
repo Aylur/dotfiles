@@ -34,35 +34,24 @@ const quicksettings = {
 };
 
 // bar
-const { launcher } = imports.layouts.shared;
+const { launcher, bar } = imports.layouts.shared;
 const separator = { type: 'separator', valign: 'center' };
 
-const left = {
-    type: 'box',
-    className: 'left',
-    children: [
+const panel = bar({
+    anchor: ['top', 'left', 'right'],
+    start: [
         launcher(),
         separator,
-        { type: 'workspaces', className: 'workspaces' },
+        { type: 'workspaces', className: 'workspaces panel-button' },
         separator,
         { type: 'client', className: 'client panel-button' },
         { type: 'media/panel-indicator', className: 'media panel-button', hexpand: true, halign: 'end' },
     ],
-};
-
-const center = {
-    type: 'box',
-    className: 'center',
-    children: [
+    center: [
         { type: 'dashboard/panel-button' },
     ],
-};
-
-const right = {
-    type: 'box',
-    className: 'right',
-    children: [
-        { type: 'notifications/panel-indicator', direction: 'right', className: 'notifications panel-button' },
+    end: [
+        { type: 'notifications/panel-indicator', direction: 'right', className: 'notifications panel-button', hexpand: true },
         { type: 'box', hexpand: true },
         { type: 'recorder/indicator-button', className: 'recorder panel-button' },
         { type: 'colorpicker', className: 'colorpicker panel-button' },
@@ -71,22 +60,6 @@ const right = {
         separator,
         { type: 'powermenu/panel-button' },
     ],
-};
-
-const bar = monitor => ({
-    name: `bar${monitor}`,
-    monitor,
-    anchor: ['top', 'left', 'right'],
-    exclusive: true,
-    child: {
-        type: 'centerbox',
-        className: 'panel',
-        children: [
-            left,
-            center,
-            right,
-        ],
-    },
 });
 
 /* exported windows */
@@ -96,7 +69,7 @@ var windows = [
         notifications(id),
         desktop(id),
         ...corners(id),
-        bar(id),
+        panel(id),
     ])).flat(),
     dashboard,
     quicksettings,

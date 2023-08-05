@@ -12,7 +12,7 @@
     }
 
     .clock-box-shadow {
-        border: 5px solid $fg_color;
+        border: 5px solid $shader_fg;
         box-shadow: 2px 2px 2px 0 $shadow;
         border-radius: $radii;
 
@@ -22,7 +22,7 @@
             box-shadow: inset 2px 2px 2px 0 $shadow;
 
             .clock {
-                color: $fg_color;
+                color: $shader_fg;
                 font-size: 140px;
                 font-family: $mono_font;
                 text-shadow: $text_shadow;
@@ -35,7 +35,7 @@
                     border-radius: $radii;
                     min-width: 16px;
                     min-height: 16px;
-                    background-color: $fg_color;
+                    background-color: $shader_fg;
                     box-shadow: 2px 2px 2px 0 $shadow;
                 }
             }
@@ -43,7 +43,7 @@
     }
 
     .date {
-        color: $fg_color;
+        color: $shader_fg;
         font-size: 48px;
         text-shadow: $text_shadow;
     }

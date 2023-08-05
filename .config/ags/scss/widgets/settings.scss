@@ -44,6 +44,11 @@ window#settings {
                 &:last-child {
                     border-radius: 0 $radii $radii 0;
                 }
+
+                &:first-child {
+                    border-top: none;
+                    border-bottom: none;
+                }
             }
         }
 

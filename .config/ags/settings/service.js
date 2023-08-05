@@ -100,17 +100,17 @@ class SettingsService extends Service {
             if (this.getStyle('bar_style') !== 'normal') {
                 const layout = this.getStyle('layout');
                 switch (layout) {
-                    case 'topbar':
-                    case 'unity':
-                        exec(`hyprctl keyword monitor ${name},addreserved,-${this.getStyle('wm_gaps')},0,0,0`);
-                        break;
+                case 'topbar':
+                case 'unity':
+                    exec(`hyprctl keyword monitor ${name},addreserved,-${this.getStyle('wm_gaps')},0,0,0`);
+                    break;
 
-                    case 'bottombar':
-                        exec(`hyprctl keyword monitor ${name},addreserved,0,-${this.getStyle('wm_gaps')},0,0`);
-                        break;
+                case 'bottombar':
+                    exec(`hyprctl keyword monitor ${name},addreserved,0,-${this.getStyle('wm_gaps')},0,0`);
+                    break;
 
-                    default:
-                        break;
+                default:
+                    break;
                 }
             } else {
                 exec(`hyprctl keyword monitor ${name},addreserved,0,0,0,0`);

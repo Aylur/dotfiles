@@ -33,33 +33,27 @@ const quicksettings = {
 };
 
 // bar
-const { launcher } = imports.layouts.shared;
+const { launcher, bar } = imports.layouts.shared;
 const separator = { type: 'separator', valign: 'center' };
 
-const left = {
-    type: 'box',
-    className: 'left',
-    children: [
+const panel = bar({
+    anchor: ['bottom', 'left', 'right'],
+    start: [
         launcher(24),
         separator,
-        { type: 'workspaces', className: 'workspaces' },
+        { type: 'workspaces', className: 'workspaces panel-button' },
     ],
-};
-
-const center = {
-    type: 'box',
-    className: 'left',
-    children: [
-        { className: 'dock', type: 'dock', iconSize: 34 },
+    center: [
+        {
+            type: 'box',
+            className: 'panel-button dock-container',
+            children: [
+                { className: 'dock', type: 'dock', iconSize: 24 },
+            ],
+        },
     ],
-};
-
-const right = {
-    type: 'box',
-    className: 'right',
-    hexpand: true,
-    halign: 'end',
-    children: [
+    end: [
+        { type: 'box', hexpand: true },
         { type: 'recorder/indicator-button', className: 'recorder panel-button' },
         { type: 'colorpicker', className: 'colorpicker panel-button' },
         separator,
@@ -69,22 +63,6 @@ const right = {
         separator,
         { type: 'powermenu/panel-button' },
     ],
-};
-
-const bar = monitor => ({
-    name: `bar${monitor}`,
-    monitor,
-    anchor: ['bottom', 'left', 'right'],
-    exclusive: true,
-    child: {
-        type: 'centerbox',
-        className: 'panel',
-        children: [
-            left,
-            center,
-            right,
-        ],
-    },
 });
 
 /* exported windows */
@@ -92,7 +70,7 @@ var windows = [
     ...ags.Service.Hyprland.HyprctlGet('monitors').map(({ id }) => ([
         notifications(id),
         desktop(id),
-        bar(id),
+        panel(id),
         ...corners(id),
     ])).flat(),
     dashboard,
