@@ -106,6 +106,11 @@ var leaves_dark = {
     bar_style: 'floating',
     radii: 0,
     wallpaper_fg: 'white',
+    additional_scss: `
+        window#quicksettings .quicksettings {
+            margin-right: $wm_gaps;
+        }
+    `,
 };
 
 var leaves_light = {
@@ -143,7 +148,7 @@ var ivory = {
 };
 
 var cutefish = {
-    ...leaves_dark,
+    ...kitty_dark,
     wallpaper: WP + 'cutefish.jpeg',
     name: 'cutefish',
     icon: '󰈺',
@@ -154,4 +159,17 @@ var cutefish = {
     radii: 9,
     desktop_clock: 'end end',
     hypr_active_border: 'rgba(3f3f3fFF)',
+    bg_color: 'transparentize(#171717, 0.3)',
+};
+
+var cherry = {
+    ...kitty_dark,
+    wallpaper: WP + 'cherry.png',
+    name: 'cherry',
+    icon: '',
+    accent: '$blue',
+    active_gradient: 'to right, $accent, lighten(mix($magenta, $blue, 70%), 18%)',
+    brorder_width: 2,
+    radii: 13,
+    bg_color: 'transparentize(#171717, 0.3)',
 };
