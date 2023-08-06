@@ -1,10 +1,10 @@
 const { Widget } = ags;
-const { Mpris, Settings } = ags.Service;
+const { Mpris } = ags.Service;
 const { GLib } = imports.gi;
 const { MEDIA_CACHE_PATH, execAsync, ensureDirectory, lookUpIcon } = ags.Utils;
 
 var prefer = players => {
-    const preferred = Settings.preferredMpris;
+    const preferred = 'spotify';
     let last;
     for (const [name, mpris] of players) {
         if (name.includes(preferred))
@@ -70,9 +70,9 @@ Widget.widgets['mpris/blurred-cover-art'] = ({ player = prefer, ...props }) => W
         }
 
         ensureDirectory(blurredPath);
-        execAsync(['convert', url, '-blur', '0x22', blurred], () => {
-            box.setStyle(`background-image: url("${blurred}")`);
-        });
+        execAsync(['convert', url, '-blur', '0x22', blurred])
+            .then(() => box.setStyle(`background-image: url("${blurred}")`))
+            .catch(() => { });
     }]],
 });
 
@@ -114,7 +114,7 @@ Widget.widgets['mpris/player-icon'] = ({ symbolic = false, player = prefer, ...p
 Widget.widgets['mpris/volume-slider'] = ({ player = prefer, ...props }) => Widget({
     ...props,
     type: 'slider',
-    onChange: (_w, value) => {
+    onChange: ({ adjustment: { value } }) => {
         const mpris = Mpris.getPlayer(player);
         if (mpris && mpris.volume >= 0)
             Mpris.getPlayer(player).volume = value;
@@ -161,7 +161,7 @@ Widget.widgets['mpris/position-slider'] = ({ player = prefer, ...props }) => {
     return Widget({
         ...props,
         type: 'slider',
-        onChange: (_w, value) => {
+        onChange: ({ adjustment: { value } }) => {
             const mpris = Mpris.getPlayer(player);
             if (mpris && mpris.length >= 0)
                 Mpris.getPlayer(player).position = mpris.length * value;

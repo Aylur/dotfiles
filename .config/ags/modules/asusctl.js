@@ -6,25 +6,29 @@ class AsusctlService extends Service {
     available = true;
 
     nextProfile() {
-        execAsync('asusctl profile -n', () => {
-            this._profile = exec('asusctl profile -p').trim().split(' ')[3];
-            this.emit('changed');
-        });
+        execAsync('asusctl profile -n')
+            .then(() => {
+                this._profile = exec('asusctl profile -p').split(' ')[3];
+                this.emit('changed');
+            })
+            .catch(print);
     }
 
     nextMode() {
-        execAsync(`supergfxctl -m ${this._mode === 'Hybrid' ? 'Integrated' : 'Hybrid'}`, () => {
-            this._mode = exec('supergfxctl -g').trim();
-            this.emit('changed');
-        });
+        execAsync(`supergfxctl -m ${this._mode === 'Hybrid' ? 'Integrated' : 'Hybrid'}`)
+            .then(() => {
+                this._mode = exec('supergfxctl -g');
+                this.emit('changed');
+            })
+            .catch(print);
     }
 
     constructor() {
         super();
 
         if (exec('which asusctl')) {
-            this._profile = exec('asusctl profile -p').trim().split(' ')[3];
-            this._mode = exec('supergfxctl -g').trim();
+            this._profile = exec('asusctl profile -p').split(' ')[3];
+            this._mode = exec('supergfxctl -g');
         }
         else {
             this.available = false;

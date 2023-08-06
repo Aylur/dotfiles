@@ -1,4 +1,5 @@
 const { Widget } = ags;
+const { execAsync } = ags.Utils;
 
 const indicator = {
     type: 'box',
@@ -35,6 +36,7 @@ Widget.widgets['workspaces'] = props => Widget({
 Widget.widgets['client'] = props => Widget({
     ...props,
     type: 'button',
+    onSecondaryClick: () => execAsync('hyprctl dispatch killactive'),
     child: {
         type: 'box',
         children: [

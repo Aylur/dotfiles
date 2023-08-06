@@ -1,8 +1,6 @@
-.corners {
-    .corner {
-        background-color: if($screen_corners, $bg_color, transparent);
-        border-radius: $radii*2;
-    }
+.corners .corner {
+    background-color: if($screen_corners, $bg_color, transparent);
+    border-radius: $radii*2;
 }
 
 .desktop {
@@ -12,20 +10,17 @@
     }
 
     .clock-box-shadow {
-        border: 5px solid $shader_fg;
-        box-shadow: 2px 2px 2px 0 $shadow;
+        border: 5px solid $wallpaper_fg;
         border-radius: $radii;
 
         .clock-box {
             border-radius: max($radii - 5px, 0);
             padding: 0 14px;
-            box-shadow: inset 2px 2px 2px 0 $shadow;
 
             .clock {
-                color: $shader_fg;
+                color: $wallpaper_fg;
                 font-size: 140px;
                 font-family: $mono_font;
-                text-shadow: $text_shadow;
             }
 
             .separator-box {
@@ -35,17 +30,42 @@
                     border-radius: $radii;
                     min-width: 16px;
                     min-height: 16px;
-                    background-color: $shader_fg;
-                    box-shadow: 2px 2px 2px 0 $shadow;
+                    background-color: $wallpaper_fg;
                 }
             }
         }
     }
 
     .date {
-        color: $shader_fg;
+        color: $wallpaper_fg;
         font-size: 48px;
-        text-shadow: $text_shadow;
+    }
+
+    @if $drop_shadow {
+        .clock-box-shadow, .separator {
+            box-shadow: 2px 2px 2px 0 $shadow;
+        }
+
+        .clock-box {
+            box-shadow: inset 2px 2px 2px 0 $shadow;
+        }
+
+        label {
+            text-shadow: $text_shadow;
+        }
+    } @else {
+        .clock-box-shadow{
+            box-shadow: 0 0 0 $border_width $border_color,
+                        inset 0 0 0 $border_width $border_color;
+        }
+
+        .separator {
+            border: $border;
+        }
+
+        label {
+            @include text_border;
+        }
     }
 }
 

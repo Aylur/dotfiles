@@ -3,6 +3,8 @@
     padding: $spacing*2 $spacing*2 0;
 
     calendar{
+        all: unset;
+
         &.button{
             @include button($flat: true);
             margin: 1em;
@@ -44,9 +46,9 @@
     }
 
     .calendar {
-        margin-top: $spacing;
-
         @include calendar;
+
+        margin-top: $spacing*2;
     }
 }
 

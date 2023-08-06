@@ -17,26 +17,28 @@ class RecorderService extends Service {
         if (this._recording)
             return;
 
-        execAsync('slurp', area => {
-            ensureDirectory(this._path);
-            this._file = `${this._path}/${now()}.mp4`;
-            execAsync(['wf-recorder', '-g', area.trim(), '-f', this._file]);
-            this._recording = true;
-            this.emit('changed');
+        execAsync('slurp')
+            .then(area => {
+                ensureDirectory(this._path);
+                this._file = `${this._path}/${now()}.mp4`;
+                execAsync(['wf-recorder', '-g', area, '-f', this._file]);
+                this._recording = true;
+                this.emit('changed');
 
-            this._timer = 0;
-            this._interval = interval(1000, () => {
-                this.emit('timer', this._timer);
-                this._timer++;
-            });
-        });
+                this._timer = 0;
+                this._interval = interval(1000, () => {
+                    this.emit('timer', this._timer);
+                    this._timer++;
+                });
+            })
+            .catch(print);
     }
 
     stop() {
         if (!this._recording)
             return;
 
-        execAsync('killall -INT wf-recorder');
+        execAsync('killall -INT wf-recorder').catch(print);
         this._recording = false;
         this.emit('changed');
         GLib.source_remove(this._interval);
@@ -47,41 +49,40 @@ class RecorderService extends Service {
             '-i', 'video-x-generic-symbolic',
             'Screenrecord',
             this._file,
-        ], res => {
-            if (res.trim() === 'files')
-                execAsync('xdg-open ' + this._path);
+        ])
+            .then(res => {
+                if (res === 'files')
+                    execAsync('xdg-open ' + this._path);
 
-            if (res.trim() === 'view')
-                execAsync('xdg-open ' + this._file);
-        });
+                if (res === 'view')
+                    execAsync('xdg-open ' + this._file);
+            })
+            .catch(print);
     }
 
-    screenshot() {
-        const path = GLib.get_home_dir() + '/Pictures/Screenshots';
-        ensureDirectory(path);
-        const file = `${path}/${now()}.png`;
-        execAsync(`watershot -c -s path ${file}`);
-        const id = interval(100, () => {
-            if (!GLib.file_test(file, GLib.FileTest.EXISTS))
-                return;
-
-            execAsync([
+    async screenshot() {
+        try {
+            const area = await execAsync('slurp');
+            const path = GLib.get_home_dir() + '/Pictures/Screenshots';
+            ensureDirectory(path);
+            const file = `${path}/${now()}.png`;
+            await execAsync(['wayshot', '-s', area, '-f', file]);
+            const res = await execAsync([
                 'notify-send',
                 '-A', 'files=Show in Files',
                 '-A', 'view=View',
                 '-i', file,
                 'Screenshot',
                 file,
-            ], res => {
-                if (res.trim() === 'files')
-                    execAsync('xdg-open ' + path);
+            ]);
+            if (res === 'files')
+                execAsync('xdg-open ' + path);
 
-                if (res.trim() === 'view')
-                    execAsync('xdg-open ' + file);
-            });
-
-            GLib.source_remove(id);
-        });
+            if (res === 'view')
+                execAsync('xdg-open ' + file);
+        } catch (error) {
+            print(error);
+        }
     }
 
     constructor() {
@@ -91,6 +92,7 @@ class RecorderService extends Service {
         this._recording = false;
     }
 }
+
 
 class Recorder {
     static { Service.export(this, 'Recorder'); }

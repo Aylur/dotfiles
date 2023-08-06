@@ -31,7 +31,7 @@ const client = ({ address, size: [w, h], class: c, title }) => Widget({
         icon: substitute(c),
     },
     tooltip: title,
-    onSecondaryClick: () => execAsync('hyprctl dispatch closewindow address:' + address),
+    onSecondaryClick: () => execAsync('hyprctl dispatch closewindow address:' + address).catch(print),
     setup: button => {
         button.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
         button.drag_source_set_icon_name(substitute(c));
@@ -56,11 +56,11 @@ const workspace = index => {
             type: 'eventbox',
             hexpand: true,
             vexpand: true,
-            onClick: () => execAsync(`hyprctl dispatch workspace ${index}`),
+            onClick: () => execAsync(`hyprctl dispatch workspace ${index}`).catch(print),
             setup: eventbox => {
                 eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
                 eventbox.connect('drag-data-received', (_w, _c, _x, _y, data) => {
-                    execAsync(`hyprctl dispatch movetoworkspacesilent ${index},address:${data.get_text()}`);
+                    execAsync(`hyprctl dispatch movetoworkspacesilent ${index},address:${data.get_text()}`).catch(print);
                 });
             },
             child: fixed,
@@ -98,10 +98,10 @@ Widget.widgets['overview'] = ({ workspaces = 7, windowName = 'overview' }) => Wi
     className: 'overview',
     children: arr(workspaces).map(workspace),
     properties: [['update', box => {
-        execAsync('hyprctl -j clients', clients => {
+        execAsync('hyprctl -j clients').then(clients => {
             const json = JSON.parse(clients);
             box.get_children().forEach(ch => ch.update(json));
-        });
+        }).catch(print);
     }]],
     setup: box => box._update(box),
     connections: [[Hyprland, box => {

@@ -1,5 +1,5 @@
 local fg = '#171717'
-local bg = '#FFFFFF'
+local bg = '#FFFFFa'
 local bright_fg = '#373839'
 local bright_bg = '#c7c7c7'
 local white = '#313234'

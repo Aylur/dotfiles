@@ -68,30 +68,21 @@ const _layout = ({ entry, listbox }) => ({
     orientation: 'vertical',
     children: [
         {
-            type: 'box',
+            type: 'wallpaper',
             className: 'search',
             children: [{
-                type: 'overlay',
-                hexpand: true,
-                vexpand: true,
+                type: 'box',
+                valign: 'center',
+                className: 'entry',
                 children: [
                     {
-                        type: 'wallpaper',
+                        type: 'icon',
+                        icon: 'folder-saved-search-symbolic',
+                        size: 20,
                     },
-                    {
-                        type: 'box',
-                        valign: 'center',
-                        className: 'entry',
-                        children: [
-                            {
-                                type: 'icon',
-                                icon: 'folder-saved-search-symbolic',
-                                size: 20,
-                            },
-                            entry,
-                        ],
-                    },
+                    entry,
                 ],
+
             }],
         },
         {

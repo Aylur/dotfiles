@@ -1,13 +1,13 @@
 const { Widget } = ags;
-const { Settings } = ags.Service;
+const { Theme } = ags.Service;
 
 Widget.widgets['wallpaper'] = props => Widget({
     ...props,
     type: 'box',
     className: 'wallpaper',
-    connections: [[Settings, box => {
+    connections: [[Theme, box => {
         box.setStyle(`
-            background-image: url('${Settings.wallpaper}');
+            background-image: url('${Theme.getSetting('wallpaper')}');
             background-size: cover;
         `);
     }]],

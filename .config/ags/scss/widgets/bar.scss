@@ -1,17 +1,27 @@
 $float: 5px;
 
 @mixin panel_button($flat: false, $reactive: true){
+    all: unset;
+
     @if $bar_style == 'separated' {
+        transition: $transition;
+
         > * {
             @include floating_widget;
+            border-radius: $radii;
             margin: $wm_gaps $float;
             transition: $transition;
         }
 
         &:hover > * {
             color: $hover_fg;
-            box-shadow: 0 0 $wm_gaps/2 0 $shadow,
-                        inset 0 0 0 99px $hover;
+
+            @if $drop_shadow {
+                box-shadow: 0 0 $wm_gaps/2 0 $shadow,
+                    inset 0 0 0 99px $hover;
+            } @else {
+                box-shadow: inset 0 0 0 99px $hover;
+            }
         }
 
         &:active > *, &.active > * {
@@ -51,6 +61,7 @@ $float: 5px;
 
     @if $bar_style == 'floating' {
         @include floating_widget;
+        margin: $wm_gaps;
         padding: 0;
     }
     
@@ -66,10 +77,6 @@ $float: 5px;
 
     .panel-button {
         @include panel_button($flat: true);
-
-        &.client, &.media, &.notifications {
-            @include panel_button($flat: true, $reactive: false);
-        }
     }
 
     .quicksettings > box > * {
@@ -109,6 +116,7 @@ $float: 5px;
             transition: $transition;
 
             @if $bar_style == 'separated' {
+                border-radius: max($radii - $border_width, 0);
                 &:hover { background-color: $hover; }
             } @else {
                 @include button;
@@ -116,6 +124,8 @@ $float: 5px;
         }
 
         button {
+            all: unset;
+
             .indicator {
                 min-width: 10px;
                 min-height: 10px;
@@ -169,5 +179,10 @@ $float: 5px;
 
     .dock {
         @include dock($spacing: $float);
+
+        @if $bar_style != 'separated' {
+            margin: 0;
+            button > * { margin: 0 $float; }
+        }
     }
 }

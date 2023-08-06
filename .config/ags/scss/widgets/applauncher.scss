@@ -1,14 +1,17 @@
 window#applauncher .applauncher{
     @include floating_widget;
 
-    .search {
-        padding: $popover_padding;
-        min-height: 100px;
+    .search.wallpaper {
+        margin: $popover_padding;
+        margin-bottom: 0;
+        padding: $spacing;
+        border-radius: $radii;
 
-        .wallpaper {
-            box-shadow: inset 0 0 $spacing 0 $shadow;
-            background-position: bottom;
-            border-radius: $radii;
+        @if $drop_shadow {
+            box-shadow: 0 0 0 $border_width $border_color,
+                inset 0 0 $spacing 0 $shadow;
+        } @else {
+            box-shadow: 0 0 0 $border_width $border_color;
         }
 
         .entry {
@@ -47,9 +50,12 @@ window#applauncher .applauncher{
     }
 
     .app {
-        padding: $spacing 0;
+        all: unset;
+        transition: $transition;
+        padding: $spacing;
 
         label {
+            transition: $transition;
             min-width: 450px;
 
             &.title {
@@ -62,6 +68,7 @@ window#applauncher .applauncher{
         }
 
         image {
+            transition: $transition;
             margin-right: $spacing;
         }
 
@@ -78,6 +85,7 @@ window#applauncher .applauncher{
         &:active {
             background-color: transparentize($accent, 0.5);
             border-radius: $radii;
+            box-shadow: inset 0 0 0 $border_width $border_color;
 
             .title {
                 color: $fg_color;

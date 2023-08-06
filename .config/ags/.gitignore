@@ -3,4 +3,5 @@ package-lock.json
 weather_key
 *.css
 settings.json
-scss/variables.scss
+scss/generated.scss
+scss/additional.scss

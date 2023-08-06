@@ -27,7 +27,7 @@ Widget.widgets['hyprland/workspaces'] = ({
 
         return Widget({
             type: 'button',
-            onClick: () => execAsync(`hyprctl dispatch workspace ${i}`),
+            onClick: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
             className: `${workspace.id === i ? 'active' : ''} ${windows > 0 ? 'occupied' : 'empty'}`,
             child: child ? Widget(child) : `${workspaces.get(i)?.name || i}`,
         });
@@ -130,7 +130,7 @@ const _item = ({ iconName }, { address, title }) => ({
     child: { type: 'icon', icon: iconName },
     tooltip: title,
     className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
-    onClick: () => execAsync(`hyprctl dispatch focuswindow address:${address}`),
+    onClick: () => execAsync(`hyprctl dispatch focuswindow address:${address}`).catch(print),
 });
 
 Widget.widgets['hyprland/taskbar'] = ({

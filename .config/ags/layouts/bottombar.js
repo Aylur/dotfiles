@@ -48,7 +48,7 @@ const panel = bar({
             type: 'box',
             className: 'panel-button dock-container',
             children: [
-                { className: 'dock', type: 'dock', iconSize: 24 },
+                { className: 'dock', type: 'dock', iconSize: 38 },
             ],
         },
     ],

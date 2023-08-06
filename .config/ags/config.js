@@ -1,5 +1,5 @@
 /* exported config */
-const { Settings } = imports.settings.service;
+const { Theme } = imports.theme.theme;
 
 Object.keys(imports.modules).forEach(m => imports.modules[m]);
 Object.keys(imports.layouts.widgets).forEach(m => imports.layouts.widgets[m]);
@@ -20,6 +20,6 @@ var config = {
         imports.layouts.shared.overview,
         imports.layouts.shared.applauncher,
 
-        ...imports.layouts[Settings.getStyle('layout')].windows,
+        ...imports.layouts[Theme.getSetting('layout')].windows,
     ],
 };

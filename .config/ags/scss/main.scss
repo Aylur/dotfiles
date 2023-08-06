@@ -1,4 +1,4 @@
-@import './variables';
+@import './generated';
 @import './common';
 @import './widgets/notifications';
 @import './widgets/media';
@@ -12,6 +12,7 @@
 @import './widgets/dashboard';
 @import './widgets/bar';
 @import './widgets/settings';
+@import './additional';
 
 tooltip {
     @include tooltip;

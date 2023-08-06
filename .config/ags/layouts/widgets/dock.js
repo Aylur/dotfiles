@@ -1,6 +1,16 @@
 const { Widget } = ags;
-const { Hyprland, Applications, Settings } = ags.Service;
+const { Hyprland, Applications, Theme } = ags.Service;
 const { timeout, execAsync } = ags.Utils;
+
+const pinned = [
+    'firefox',
+    'wezterm',
+    'discord',
+    'caprine',
+    'nautilus',
+    'spotify',
+    'transmission',
+];
 
 const _appButton = (iconSize, icon) => ({
     type: 'button',
@@ -18,8 +28,8 @@ const _appButton = (iconSize, icon) => ({
                 {
                     type: 'box',
                     className: 'indicator',
-                    valign: Settings.getStyle('layout') === 'unity' ? 'center' : 'end',
-                    halign: Settings.getStyle('layout') === 'unity' ? 'start' : 'center',
+                    valign: Theme.getSetting('layout') === 'unity' ? 'center' : 'end',
+                    halign: Theme.getSetting('layout') === 'unity' ? 'start' : 'center',
                 },
             ],
         }],
@@ -32,27 +42,23 @@ const _pins = ({ iconSize, list, orientation }) => ({
     homogeneous: true,
     orientation,
     children: list
-        .map(([term, single]) => ({ app: Applications.query(term)?.[0], term, single }))
-        .filter(({ app }) => app !== undefined)
-        .map(({ app, term, single = true }) => ({
+        .map(term => ({ app: Applications.query(term)?.[0], term }))
+        .filter(({ app }) => app)
+        .map(({ app, term = true }) => ({
             ..._appButton(iconSize, app.iconName),
             onClick: () => {
-                if (!single)
-                    return app.launch();
-
                 for (const [, client] of Hyprland.clients) {
-                    if (client.class.toLowerCase().includes(term))
-                        return execAsync(`hyprctl dispatch focuswindow address:${client.address}`);
+                    if (client.class.toLowerCase().includes(term)) {
+                        execAsync(`hyprctl dispatch focuswindow address:${client.address}`).catch(print);
+                        return;
+                    }
                 }
 
                 app.launch();
             },
+            onMiddleClick: app.launch,
             tooltip: app.name,
-            className: !single ? 'single' : '',
             connections: [[Hyprland, button => {
-                if (!single)
-                    return;
-
                 let running = false;
                 for (const [, client] of Hyprland.clients) {
                     if (client.class.toLowerCase().includes(term))
@@ -85,16 +91,7 @@ Widget.widgets['dock'] = ({
         _pins({
             iconSize,
             orientation,
-            list: [
-                ['firefox', false],
-                ['wezterm', false],
-                ['nautilus'],
-                ['spotify'],
-                ['caprine'],
-                ['discord'],
-                ['transmission'],
-                ['bottles'],
-            ],
+            list: pinned,
         }),
         {
             type: 'box',
@@ -108,18 +105,12 @@ Widget.widgets['dock'] = ({
         {
             type: 'hyprland/taskbar',
             orientation,
-            skip: [
-                'discord',
-                'caprine',
-                'nautilus',
-                'spotify',
-                'transmission',
-            ],
+            skip: pinned,
             item: ({ iconName }, { address, title }) => ({
                 ..._appButton(iconSize, iconName),
                 tooltip: title,
                 className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
-                onClick: () => execAsync(`hyprctl dispatch focuswindow address:${address}`),
+                onClick: () => execAsync(`hyprctl dispatch focuswindow address:${address}`).catch(print),
             }),
         },
     ],

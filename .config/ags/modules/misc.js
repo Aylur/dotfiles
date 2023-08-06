@@ -1,6 +1,6 @@
 const { Widget } = ags;
 const { timeout, getConfig, exec } = ags.Utils;
-const { Settings } = ags.Service;
+const { Theme } = ags.Service;
 
 Widget.widgets['separator'] = props => Widget({
     ...props,
@@ -43,7 +43,8 @@ Widget.widgets['distro-icon'] = props => Widget({
     icon: (() => {
         // eslint-disable-next-line quotes
         const distro = exec(`bash -c "cat /etc/os-release | grep '^ID' | head -n 1 | cut -d '=' -f2"`)
-            .trim().toLowerCase();
+            .toLowerCase();
+
         switch (distro) {
         case 'fedora': return '';
         case 'arch': return '';
@@ -61,9 +62,9 @@ Widget.widgets['avatar'] = ({ child, ...props }) => Widget({
     ...props,
     type: 'box',
     className: 'image',
-    connections: [[Settings, box => {
+    connections: [[Theme, box => {
         box.setStyle(`
-            background-image: url('${Settings.avatar}');
+            background-image: url('${Theme.getSetting('avatar')}');
             background-size: cover;
             `);
     }]],

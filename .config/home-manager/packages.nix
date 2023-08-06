@@ -7,7 +7,7 @@
 
     # hyprland
     wl-gammactl wl-clipboard wf-recorder
-    hyprpicker watershot imagemagick
+    hyprpicker wayshot imagemagick
     pavucontrol brightnessctl swww
 
     # fun

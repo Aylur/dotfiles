@@ -14,22 +14,6 @@
         }
     }
 
-    .close-button {
-        @include button($flat: true);
-        margin-left: $spacing;
-        border-radius: $radii*0.8;
-        min-width: 1.2em;
-        min-height: 1.2em;
-
-        &:hover {
-            background-color: transparentize($red, .3);
-        }
-
-        &:active {
-            background-color: $red;
-        }
-    }
-
     .title {
         margin-right: $spacing;
         color: $fg_color;
@@ -48,6 +32,10 @@
     .icon {
         border-radius: $radii*0.8;
         margin-right: $spacing;
+
+        &.img {
+            border: $border;
+        }
     }
 
     .actions button {
@@ -63,6 +51,22 @@
 
         &:last-child {
             margin-right: 0;
+        }
+    }
+
+    button.close-button {
+        @include button($flat: true);
+        margin-left: $spacing;
+        border-radius: $radii*0.8;
+        min-width: 1.2em;
+        min-height: 1.2em;
+
+        &:hover {
+            background-color: transparentize($red, .5);
+        }
+
+        &:active {
+            background-image: linear-gradient($red, $red);
         }
     }
 }

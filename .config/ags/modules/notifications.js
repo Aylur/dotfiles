@@ -7,6 +7,7 @@ const _icon = ({ appEntry, appIcon, image }) => {
     if (image) {
         return {
             type: 'box',
+            className: 'icon img',
             style: `
                 background-image: url("${image}");
                 background-size: contain;
@@ -27,6 +28,7 @@ const _icon = ({ appEntry, appIcon, image }) => {
 
     return {
         type: 'box',
+        className: 'icon',
         style: `
             min-width: 78px;
             min-height: 78px;
@@ -66,7 +68,6 @@ const notification = ({ id, summary, body, actions, urgency, time, ...icon }) =>
                 type: 'box',
                 children: [
                     {
-                        className: 'icon',
                         valign: 'start',
                         hexpand: false,
                         ..._icon(icon),
@@ -88,6 +89,7 @@ const notification = ({ id, summary, body, actions, urgency, time, ...icon }) =>
                                         maxWidth: 24,
                                         wrap: true,
                                         label: summary,
+                                        markup: summary.startsWith('<'),
                                     },
                                     {
                                         className: 'time',
@@ -111,9 +113,7 @@ const notification = ({ id, summary, body, actions, urgency, time, ...icon }) =>
                                 xalign: 0,
                                 justify: 'left',
                                 type: 'label',
-                                label: body.split(' ').map(word =>
-                                    word.split('').map((ch, i) => (i + 1) % 24 === 0 ? ch + ' ' : ch).join(''),
-                                ).join(' '),
+                                label: body,
                                 wrap: true,
                             },
                         ],
@@ -164,8 +164,11 @@ Widget.widgets['notifications/popup-list'] = ({ transition = 'slide_down' }) => 
                 orientation: 'vertical',
                 properties: [
                     ['map', new Map()],
-                    ['dismiss', (box, id) => {
-                        if (!id || !box._map.has(id) || box._map.get(id)._hovered)
+                    ['dismiss', (box, id, force = false) => {
+                        if (!id || !box._map.has(id))
+                            return;
+
+                        if (box._map.get(id)._hovered && !force)
                             return;
 
                         timeout(200, () => {
@@ -189,7 +192,7 @@ Widget.widgets['notifications/popup-list'] = ({ transition = 'slide_down' }) => 
                 connections: [
                     [Notifications, (box, id) => box._notify(box, id), 'notified'],
                     [Notifications, (box, id) => box._dismiss(box, id), 'dismissed'],
-                    [Notifications, (box, id) => box._dismiss(box, id), 'closed'],
+                    [Notifications, (box, id) => box._dismiss(box, id, true), 'closed'],
                 ],
             },
         },

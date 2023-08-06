@@ -2,7 +2,7 @@ window#powermenu, window#verification {
     .shader {
         min-width: 4000px;
         min-height: 4000px;
-        background-color: rgba(100,100,100,0.05);
+        background-color: rgba(0, 0, 0, 0.05);
     }
 }
 
@@ -47,6 +47,8 @@ window#powermenu .powermenu {
     border-radius: $radii*3;
 
     button {
+        @include common;
+
         .icon {
             @include button;
             margin: $popover_padding;

@@ -15,7 +15,9 @@ Widget.widgets['clock'] = ({
 Widget.widgets['uptime'] = props => Widget({
     ...props,
     type: 'label',
-    connections: [[1000, label => execAsync(['bash', '-c', "uptime | awk '{print $3}' | tr ',' ' '"], time => {
-        label.label = time.trim();
-    })]],
+    connections: [[1000, label => {
+        execAsync(['bash', '-c', "uptime | awk '{print $3}' | tr ',' ' '"])
+            .then(time => label.label = time)
+            .catch(print);
+    }]],
 });

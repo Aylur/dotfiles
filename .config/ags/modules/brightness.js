@@ -18,10 +18,12 @@ class BrightnessService extends Service {
         if (value < 0 || value > this._kbdMax)
             return;
 
-        execAsync(`brightnessctl -d ${KBD} s ${value} -q`, () => {
-            this._kbd = value;
-            this.emit('changed');
-        }, console.log);
+        execAsync(`brightnessctl -d ${KBD} s ${value} -q`)
+            .then(() => {
+                this._kbd = value;
+                this.emit('changed');
+            })
+            .catch(print);
     }
 
     set screen(percent) {
@@ -31,10 +33,12 @@ class BrightnessService extends Service {
         if (percent > 1)
             percent = 1;
 
-        execAsync(`brightnessctl s ${percent * 100}% -q`, () => {
-            this._screen = percent;
-            this.emit('changed');
-        }, console.log);
+        execAsync(`brightnessctl s ${percent * 100}% -q`)
+            .then(() => {
+                this._screen = percent;
+                this.emit('changed');
+            })
+            .catch(print);
     }
 
     constructor() {
@@ -66,7 +70,7 @@ Widget.widgets['brightness/slider'] = props => Widget({
             slider.adjustment.value = Brightness.screen;
         }],
     ],
-    onChange: (_w, value) => Brightness.screen = value,
+    onChange: ({ adjustment: { value } }) => Brightness.screen = value,
 });
 
 Widget.widgets['brightness/icon'] = props => Widget({
