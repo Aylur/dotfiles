@@ -3,66 +3,25 @@ const { Hyprland, Applications } = ags.Service;
 const { execAsync, lookUpIcon, warning } = ags.Utils;
 
 Widget.widgets['hyprland/workspaces'] = ({
-    monitors, // number[]
-    fixed, // number
-    active, // Widget
-    empty, // Widget
-    occupied, // Widget
+    fixed = 7,
+    child,
     ...props
-}) => {
-    if (!monitors && !fixed) {
-        const err = 'hyprland/workspaces needs either "fixed" or "monitors" to be defined';
-        warning(err);
-        return Widget(err);
-    }
-
-    const button = (windows, i) => {
-        const { active: { workspace }, workspaces } = Hyprland;
-
-        const child = workspace.id === i
-            ? active
-            : windows > 0
-                ? occupied
-                : empty;
-
-        return Widget({
-            type: 'button',
-            onClick: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
-            className: `${workspace.id === i ? 'active' : ''} ${windows > 0 ? 'occupied' : 'empty'}`,
-            child: child ? Widget(child) : `${workspaces.get(i)?.name || i}`,
-        });
-    };
-
-    const forFixed = box => {
-        box.get_children().forEach(ch => ch.destroy());
-        const { workspaces } = Hyprland;
-        for (let i = 1; i < fixed + 1; ++i) {
-            if (workspaces.has(i)) {
-                const { windows } = workspaces.get(i);
-                box.add(button(windows, i));
-            } else {
-                box.add(button(0, i));
-            }
-        }
-    };
-
-    const forMonitors = box => {
-        box.get_children().forEach(ch => ch.destroy());
-        Hyprland.workspaces.forEach(({ id, windows, monitor }) => {
-            if (monitors.includes(Hyprland.monitors.get(monitor).id))
-                box.add(button(windows, id));
-        });
-    };
-
-    return Widget({
-        ...props,
-        type: 'box',
-        connections: [[Hyprland, box => {
-            fixed ? forFixed(box) : forMonitors(box);
-            box.show_all();
+}) => Widget({
+    ...props,
+    type: 'box',
+    children: Array.from({ length: fixed }, (_, i) => i + 1).map(i => ({
+        type: 'button',
+        onClick: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
+        child: child ? Widget(child) : `${i}`,
+        connections: [[Hyprland, btn => {
+            const { workspaces, active } = Hyprland;
+            const occupied = workspaces.has(i) && workspaces.get(i).windows > 0;
+            btn.toggleClassName('active', active.workspace.id === i);
+            btn.toggleClassName('occupied', occupied);
+            btn.toggleClassName('empty', !occupied);
         }]],
-    });
-};
+    })),
+});
 
 Widget.widgets['hyprland/client-label'] = ({
     show = 'title', // "class"|"title"

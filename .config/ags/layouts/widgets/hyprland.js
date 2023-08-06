@@ -1,16 +1,6 @@
 const { Widget } = ags;
 const { execAsync } = ags.Utils;
 
-const indicator = {
-    type: 'box',
-    className: 'indicator',
-    valign: 'center',
-    children: [{
-        type: 'box',
-        className: 'fill',
-    }],
-};
-
 Widget.widgets['workspaces'] = props => Widget({
     ...props,
     type: 'box',
@@ -22,12 +12,15 @@ Widget.widgets['workspaces'] = props => Widget({
             child: {
                 type: 'hyprland/workspaces',
                 fixed: 7,
-                active: {
-                    type: 'eventbox',
-                    child: indicator,
+                child: {
+                    type: 'box',
+                    className: 'indicator',
+                    valign: 'center',
+                    children: [{
+                        type: 'box',
+                        className: 'fill',
+                    }],
                 },
-                occupied: indicator,
-                empty: indicator,
             },
         }],
     }],

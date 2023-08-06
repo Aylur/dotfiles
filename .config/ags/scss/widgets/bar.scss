@@ -95,7 +95,7 @@ $float: 5px;
     .launcher {
         label { color: transparentize($accent, 0.2); } 
         &:hover label { color: $accent; }
-        &:active label { color: $accent_fg; }
+        &:active label, &.active label { color: $accent_fg; }
     }
 
     .powermenu, .recorder {
@@ -131,7 +131,7 @@ $float: 5px;
                 min-height: 10px;
                 border-radius: $radii*0.6;
                 border: 2px solid transparent;
-                transition: border $transition;
+                transition: border-color $transition;
                 margin: 0 $spacing/2;
 
                 .fill {
