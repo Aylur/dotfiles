@@ -10,6 +10,7 @@
 
     &:hover {
         .close-button{
+            @include button_hover;
             background-color: transparentize($red, .5);
         }
     }
