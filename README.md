@@ -1,10 +1,8 @@
 # Hyprland
 
-![2023-07-21_22-53-17](https://github.com/Aylur/dotfiles/assets/104676705/ffccc68c-9306-4204-a8fd-60c50525558b)
-
-![2023-07-21_22-49-44](https://github.com/Aylur/dotfiles/assets/104676705/bb787657-f86a-4fa9-9d23-4962e8e8530d)
-
-![2023-07-21_22-50-57](https://github.com/Aylur/dotfiles/assets/104676705/9b7a2185-3650-4e55-90ba-ed0fac5dce2c)
+![2023-08-07_01-55-11](https://github.com/Aylur/dotfiles/assets/104676705/aa24d424-9a62-4204-846e-c8e88248a52e)
+![2023-08-07_01-56-23](https://github.com/Aylur/dotfiles/assets/104676705/cdf190b2-7b06-4caf-b05e-5ae122d17d22)
+![2023-08-07_01-57-09](https://github.com/Aylur/dotfiles/assets/104676705/8e4967f0-e034-4d25-ad83-484029dd9b98)
 
 # Dependencies
 - [ags](https://github.com/Aylur/ags/wiki/installation)
