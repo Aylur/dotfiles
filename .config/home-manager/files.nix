@@ -1,34 +1,24 @@
+with builtins;
+let
+  nix-share = "${getEnv "HOME"}/.nix-profile/share/";
+  copy = path: source: if pathExists (nix-share + source) then {
+    "${path}" = {
+      recursive = true;
+      source = nix-share + source;
+    };
+  }
+  else {};
+  copy-icon = icon: copy ".local/share/icons/${icon}" "icons/${icon}";
+  copy-theme = theme: copy ".local/share/themes/${theme}" "themes/${theme}";
+in
 {
-  home.file = {
-    ".local/share/fonts" = {
-      recursive = true;
-      source = /home/demeter/.nix-profile/share/fonts/truetype/NerdFonts;
-    };
-    ".fonts" = {
-      recursive = true;
-      source = /home/demeter/.nix-profile/share/fonts/truetype/NerdFonts;
-    };
-    ".local/share/themes/adw-gtk3" = {
-      source = /home/demeter/.nix-profile/share/themes/adw-gtk3;
-    };
-    ".local/share/themes/adw-gtk3-dark" = {
-      source = /home/demeter/.nix-profile/share/themes/adw-gtk3-dark;
-    };
-    ".local/share/icons/Qogir" = {
-      recursive = true;
-      source = /home/demeter/.nix-profile/share/icons/Qogir;
-    };
-    ".local/share/icons/Colloid" = {
-      recursive = true;
-      source = /home/demeter/.nix-profile/share/icons/Colloid;
-    };
-    ".local/share/icons/WhiteSur" = {
-      recursive = true;
-      source = /home/demeter/.nix-profile/share/icons/WhiteSur;
-    };
-    ".local/share/icons/Papirus" = {
-      recursive = true;
-      source = /home/demeter/.nix-profile/share/icons/Papirus;
-    };
-  };
+  home.file = 
+    copy-icon "Qogir" //
+    copy-icon "Colloid" //
+    copy-icon "WhiteSur" //
+    copy-icon "Papirus" //
+    copy-theme "adw-gtk3" //
+    copy-theme "adw-gtk3-dark" //
+    copy ".local/share/fonts" "fonts/truetype/NerdFonts" //
+    copy ".fonts" "fonts/truetype/NerdFonts";
 }

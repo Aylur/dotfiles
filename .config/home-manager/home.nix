@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./browser.nix
     ./starship.nix
     ./packages.nix
     ./sh.nix
@@ -22,7 +23,6 @@
       QT_XCB_GL_INTEGRATION = "none"; # kde-connect
       EDITOR = "nvim";
       VISUAL = "code";
-      # BROWSER = "flatpak run org.mozilla.firefox";
       TERMINAL = "nixGL wezterm";
       XCURSOR_THEME = "Qogir";
       NIXPKGS_ALLOW_UNFREE = "1";
@@ -33,8 +33,8 @@
       "$HOME/.local/bin"
     ];
 
-    username = "demeter";
-    homeDirectory = "/home/demeter";
+    username = builtins.getEnv "USER";
+    homeDirectory = "/home/${builtins.getEnv "USER"}";
     stateVersion = "21.11";
   };
 
