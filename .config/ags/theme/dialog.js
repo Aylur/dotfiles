@@ -72,7 +72,7 @@ const text = (title, prop) => row(title, {
     hexpand: true,
     halign: 'end',
     connections: [[Theme, w => w.text = Theme.getSetting(prop)]],
-    onAccept: () => Theme.setSetting(prop, text),
+    onAccept: ({ text }) => Theme.setSetting(prop, text),
 });
 
 const textspinbutton = (title, prop, list) => row(title, {

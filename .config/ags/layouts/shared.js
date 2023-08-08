@@ -73,6 +73,7 @@ const popup = (name, child) => ({
     name,
     popup: true,
     focusable: true,
+    layer: 'overlay',
     child: {
         type: 'layout',
         layout: 'center',
