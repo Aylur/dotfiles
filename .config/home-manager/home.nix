@@ -2,14 +2,18 @@
 {
   imports = [
     ./browser.nix
-    ./starship.nix
+    ./desktopEntries.nix
+    ./hyprland.nix
+    ./neofetch.nix
+    ./nerdfonts.nix
     ./packages.nix
     ./sh.nix
-    ./neofetch.nix
-    ./desktopEntries.nix
-    ./theming.nix
-    ./files.nix
-    ./hyprland.nix
+    ./starship.nix
+    ./theme.nix
+  ];
+
+  home.packages = [
+    (import ./colorscript.nix { inherit pkgs; })
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -33,10 +37,18 @@
       "$HOME/.local/bin"
     ];
 
-    username = builtins.getEnv "USER";
-    homeDirectory = "/home/${builtins.getEnv "USER"}";
     stateVersion = "21.11";
   };
+
+  gtk.gtk3.bookmarks = [
+    "file:///home/demeter/Documents"
+    "file:///home/demeter/Music"
+    "file:///home/demeter/Pictures"
+    "file:///home/demeter/Videos"
+    "file:///home/demeter/Downloads"
+    "file:///home/demeter/Projects Projects"
+    "file:///home/demeter/School School"
+  ];
 
   services = {
     kdeconnect = {

@@ -1,16 +1,19 @@
-#!/usr/bin/env bash
+let
+    dark = "\\e[\${!j}\${i}m";
+    bright = "\\e[9\${i}m";
+in
+{ pkgs, ... }:
+pkgs.writeShellScriptBin "blocks" ''
+#!${pkgs.bash}/bin/bash
 
-# Author: GekkoP
-# Source: http://linuxbbq.org/bbs/viewtopic.php?f=4&t=1656#p33189
- 
 f=3 b=4
 for j in f b; do
   for i in {0..7}; do
-    printf -v $j$i %b "\e[${!j}${i}m"
+    printf -v $j$i %b "${dark}"
   done
 done
 for i in {0..7}; do
-    printf -v fbright$i %b "\e[9${i}m"
+    printf -v fbright$i %b "${bright}"
 done
 d=$'\e[1m'
 t=$'\e[0m'
@@ -60,4 +63,4 @@ case $1 in
 	8)	1x8;;
 	*)  1x6;;
 esac
-
+''
