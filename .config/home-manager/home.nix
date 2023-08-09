@@ -16,12 +16,16 @@
     (import ./colorscript.nix { inherit pkgs; })
   ];
 
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.package = pkgs.nix;
-
   targets.genericLinux.enable = true;
-  
+
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      warn-dirty = false;
+    };
+  };
+
   home = {
     sessionVariables = {
       QT_XCB_GL_INTEGRATION = "none"; # kde-connect
