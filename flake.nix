@@ -2,21 +2,20 @@
   description = "Home Manager configuration of Aylur";
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixgl.url = "github:guibou/nixGL";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs,  home-manager,  ... }:
+  outputs = { nixpkgs, nixgl,  home-manager,  ... }:
   let 
     username = "demeter";
-    system = "x86_64-linux";
     pkgs = import nixpkgs {
-      inherit system;
+      system = "x86_64-linux";
+      overlays = [ nixgl.overlay ];
       config.allowUnfree = true;
     };
   in
