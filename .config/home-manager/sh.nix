@@ -1,10 +1,6 @@
 let
   aliases = {
-    "nix-up" = ''
-      nix-channel --update &&
-      nix profile upgrade '.*' &&
-      home-manager switch
-      '';
+    "nix-up" = "nix-channel --update && home-manager switch --impure";
     "db" = "distrobox";
     "arch" = "distrobox-enter Arch -- zsh";
     "fedora" = "distrobox-enter Fedora -- zsh";

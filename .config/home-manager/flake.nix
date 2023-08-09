@@ -23,7 +23,7 @@
     homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
       pkgs = pkgs;
       modules = [
-        ./.config/home-manager/home.nix
+        ./home.nix
         {
           home.username = username;
           home.homeDirectory = "/home/${username}";
