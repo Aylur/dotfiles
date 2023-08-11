@@ -16,7 +16,7 @@
 - hyprpicker
 - slurp
 - wf-recorder
-- watershot
+- wayshot
 - imagemagick
 - wl-gammactl
 - pavucontrol
