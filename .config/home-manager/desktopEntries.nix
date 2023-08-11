@@ -5,7 +5,7 @@
       name = "WezTerm";
       comment = "Wez's Terminal Emulator";
       icon = "org.wezfurlong.wezterm";
-      exec = "nixGL ${pkgs.wezterm}/bin/wezterm start --cwd .";
+      exec = "nixGLIntel ${pkgs.wezterm}/bin/wezterm start --cwd .";
       categories = [ "System" "TerminalEmulator" "Utility" ];
       terminal = false;
     };
