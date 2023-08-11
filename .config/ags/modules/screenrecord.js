@@ -73,8 +73,7 @@ class RecorderService extends Service {
             const file = `${path}/${now()}.png`;
             ensureDirectory(path);
 
-            // copy flag doesn't work?
-            await execAsync(['wayshot', '-s', area, '-f', file, '-c']);
+            await execAsync(['wayshot', '-s', area, '-f', file]);
             execAsync(['bash', '-c', `wl-copy < ${file}`]);
 
             this._screenshotting = false;
