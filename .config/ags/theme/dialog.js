@@ -182,7 +182,7 @@ const layout = pages => ({
         {
             type: 'label',
             wrap: true,
-            label: 'These settings override all preset themes. To make them permanently: edit ~/.config/ags/theme/themes.js',
+            label: 'These settings override all preset themes. To make them permanent: edit ~/.config/ags/theme/themes.js',
             className: 'disclaimer',
         },
     ],
