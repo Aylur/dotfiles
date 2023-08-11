@@ -11,7 +11,9 @@ class RecorderService extends Service {
     }
 
     _path = GLib.get_home_dir() + '/Videos/Screencasting';
+    _timer = 0;
     _recording = false;
+    _screenshotting = false;
 
     start() {
         if (this._recording)
@@ -61,12 +63,21 @@ class RecorderService extends Service {
     }
 
     async screenshot() {
+        if (this._screenshotting)
+            return;
+
         try {
+            this._screenshotting = true;
             const area = await execAsync('slurp');
             const path = GLib.get_home_dir() + '/Pictures/Screenshots';
-            ensureDirectory(path);
             const file = `${path}/${now()}.png`;
-            await execAsync(['wayshot', '-s', area, '-f', file]);
+            ensureDirectory(path);
+
+            // copy flag doesn't work?
+            await execAsync(['wayshot', '-s', area, '-f', file, '-c']);
+            execAsync(['bash', '-c', `wl-copy < ${file}`]);
+
+            this._screenshotting = false;
             const res = await execAsync([
                 'notify-send',
                 '-A', 'files=Show in Files',
@@ -84,15 +95,7 @@ class RecorderService extends Service {
             print(error);
         }
     }
-
-    constructor() {
-        super();
-
-        this._timer = 0;
-        this._recording = false;
-    }
 }
-
 
 class Recorder {
     static { Service.export(this, 'Recorder'); }
