@@ -37,10 +37,10 @@ const _item = ({ name, description, iconName, launch }, window) => {
                 }),
             ],
         }),
-        onClick: () => {
-            App.toggleWindow(window);
+        connections: [['clicked', () => {
+            App.closeWindow(window);
             launch();
-        },
+        }]],
     });
     return btn;
 };

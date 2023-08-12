@@ -32,11 +32,10 @@ const client = ({ address, size: [w, h], class: c, title }) => Widget({
     },
     tooltip: title,
     onSecondaryClick: () => execAsync(`hyprctl dispatch closewindow address:${address}`).catch(print),
-    onClick: () => {
+    connections: [['clicked', () =>
         execAsync(`hyprctl dispatch focuswindow address:${address}`)
             .then(() => App.closeWindow('overview'))
-            .catch(print);
-    },
+            .catch(print)]],
     setup: button => {
         button.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
         button.drag_source_set_icon_name(substitute(c));
