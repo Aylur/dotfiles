@@ -1,5 +1,45 @@
 {
   "nodes": {
+    "ags": {
+      "inputs": {
+        "dongsu8142-nur": "dongsu8142-nur",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1691769770,
+        "narHash": "sha256-wDbNspHAvks5ggE6WXX0gwNdyKWZbAIi/Z0KApl5gjI=",
+        "owner": "Aylur",
+        "repo": "ags",
+        "rev": "318752eb6ecae011f8037b8984211ff4b79a4ad8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Aylur",
+        "repo": "ags",
+        "type": "github"
+      }
+    },
+    "dongsu8142-nur": {
+      "inputs": {
+        "nixpkgs": [
+          "ags",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1690083492,
+        "narHash": "sha256-UoIG+sl44U38FTmM2+m4X2Qi5aivjITcUxAkVHouZl4=",
+        "owner": "dongsu8142",
+        "repo": "nur",
+        "rev": "7f5c7067a482e96fe3787e07a54e21041a4d15c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dongsu8142",
+        "repo": "nur",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1659877975,
@@ -38,7 +78,7 @@
     "nixgl": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1685908677,
@@ -56,6 +96,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1690031011,
+        "narHash": "sha256-kzK0P4Smt7CL53YCdZCBbt9uBFFhE0iNvCki20etAf4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "12303c652b881435065a98729eb7278313041e49",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1660551188,
         "narHash": "sha256-a1LARMMYQ8DPx1BgoI/UN4bXe12hhZkCNqdxNi6uS0g=",
         "owner": "nixos",
@@ -69,7 +125,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1691472822,
         "narHash": "sha256-XVfYZ2oB3lNPVq6sHCY9WkdQ8lHoIDzzbpg8bB6oBxA=",
@@ -87,9 +143,10 @@
     },
     "root": {
       "inputs": {
+        "ags": "ags",
         "home-manager": "home-manager",
         "nixgl": "nixgl",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       }
     }
   },

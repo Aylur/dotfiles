@@ -1,6 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    # colorscript
+    (import ./colorscript.nix { inherit pkgs; })
+
     # nixgl
     nixgl.auto.nixGLDefault
     nixgl.auto.nixGLNvidia
@@ -12,6 +15,7 @@
     socat jq htop acpi inotify-tools ffmpeg
 
     # hyprland
+    ags
     wl-gammactl wl-clipboard wf-recorder
     hyprpicker wayshot imagemagick
     pavucontrol brightnessctl swww

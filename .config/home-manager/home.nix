@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, hostname, ... }:
+let
+  homeDirectory = "/home/${hostname}";
+in
 {
   imports = [
     ./browser.nix
@@ -12,10 +15,6 @@
     ./theme.nix
   ];
 
-  home.packages = [
-    (import ./colorscript.nix { inherit pkgs; })
-  ];
-
   targets.genericLinux.enable = true;
 
   nix = {
@@ -27,6 +26,9 @@
   };
 
   home = {
+    username = hostname;
+    homeDirectory = homeDirectory;
+
     sessionVariables = {
       QT_XCB_GL_INTEGRATION = "none"; # kde-connect
       EDITOR = "nvim";
@@ -45,13 +47,13 @@
   };
 
   gtk.gtk3.bookmarks = [
-    "file:///home/demeter/Documents"
-    "file:///home/demeter/Music"
-    "file:///home/demeter/Pictures"
-    "file:///home/demeter/Videos"
-    "file:///home/demeter/Downloads"
-    "file:///home/demeter/Projects Projects"
-    "file:///home/demeter/School School"
+    "file://${homeDirectory}/Documents"
+    "file://${homeDirectory}/Music"
+    "file://${homeDirectory}/Pictures"
+    "file://${homeDirectory}/Videos"
+    "file://${homeDirectory}/Downloads"
+    "file://${homeDirectory}/Projects Projects"
+    "file://${homeDirectory}/School School"
   ];
 
   services = {
