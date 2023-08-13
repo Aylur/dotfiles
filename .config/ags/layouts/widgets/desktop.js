@@ -1,11 +1,70 @@
 const { Widget } = ags;
-const { Theme } = ags.Service;
+const { Theme, System } = ags.Service;
+
+const menuitem = (child, icon, onActivate) => ({
+    type: 'menuitem',
+    onActivate,
+    child: {
+        type: 'box',
+        children: [
+            {
+                type: 'icon',
+                icon,
+                size: 16,
+            },
+            {
+                type: 'label',
+                label: child,
+                hexpand: true,
+                xalign: 0,
+            },
+        ],
+    },
+});
 
 Widget.widgets['desktop'] = props => Widget({
     ...props,
-    type: 'box',
-    className: 'desktop',
-    children: [{
+    type: 'eventbox',
+    onSecondaryClick: (_, event) => Widget({
+        type: 'menu',
+        className: 'desktop',
+        children: [
+            {
+                type: 'menuitem',
+                child: {
+                    type: 'box',
+                    children: [
+                        {
+                            type: 'icon',
+                            icon: 'system-shutdown-symbolic',
+                            size: 16,
+                        },
+                        {
+                            type: 'label',
+                            label: 'System',
+                            hexpand: true,
+                            xalign: 0,
+                        },
+                    ],
+                },
+                submenu: {
+                    type: 'menu',
+                    children: [
+                        menuitem('Shutdown', 'system-shutdown-symbolic', () => System.action('Shutdown')),
+                        menuitem('Log Out', 'system-log-out-symbolic', () => System.action('Log Out')),
+                        menuitem('Reboot', 'system-reboot-symbolic', () => System.action('Log Out')),
+                        menuitem('Sleep', 'weather-clear-night-symbolic', () => System.action('Log Out')),
+                    ],
+                },
+            },
+            {
+                type: 'menuitem',
+                className: 'separator',
+            },
+            menuitem('Settings', 'org.gnome.Settings-symbolic', Theme.openSettings),
+        ],
+    }).popup_at_pointer(event),
+    child: {
         type: 'box',
         orientation: 'vertical',
         vexpand: true,
@@ -58,5 +117,5 @@ Widget.widgets['desktop'] = props => Widget({
                 format: '%B %e. %A',
             },
         ],
-    }],
+    },
 });

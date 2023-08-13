@@ -242,22 +242,6 @@ window {
         $border_width -1 * $border_width 0 $border_color;
 }
 
-@mixin tooltip{
-    @include common;
-    background-color: transparent;
-    border: none;
-
-    > * > *{
-        background-color: $bg_color;
-        border-radius: $radii;
-        border: $border_width solid $popover_border_color;
-        color: $fg_color;
-        padding: 8px;
-        margin: 4px;
-        box-shadow: 0 0 3px 0 $shadow;
-    }
-}
-
 @mixin scrollbar{
     scrollbar, scrollbar * {
         all: unset;
@@ -290,4 +274,43 @@ window {
     }
 
     image { color: transparent; }
+}
+
+tooltip {
+    @include common;
+    background-color: transparent;
+    border: none;
+
+    > * > *{
+        background-color: $bg_color;
+        border-radius: $radii;
+        border: $border_width solid $popover_border_color;
+        color: $fg_color;
+        padding: 8px;
+        margin: 4px;
+        box-shadow: 0 0 3px 0 $shadow;
+    }
+}
+
+window.popup {
+    > * {
+        border: none;
+        box-shadow: none;
+    }
+
+    menu {
+        border-radius: $popover_radius;
+        background-color: $bg_color;
+        padding: $spacing;
+        border: $border;
+
+        menuitem {
+            @include button;
+            padding: $spacing/2;
+            margin: $spacing/2 0;
+            > * { margin-left: -30px; }
+            &:first-child { margin-top: 0; }
+            &:last-child { margin-bottom: 0; }
+        }
+    }
 }

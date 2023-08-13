@@ -13,7 +13,3 @@
 @import './widgets/bar';
 @import './widgets/settings';
 @import './additional';
-
-tooltip {
-    @include tooltip;
-}

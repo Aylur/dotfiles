@@ -12,6 +12,7 @@ var notifications = (monitor, transition, anchor) => ({
 var desktop = monitor => ({
     monitor,
     name: `desktop${monitor}`,
+    className: 'desktop',
     anchor: ['top', 'bottom', 'left', 'right'],
     child: { type: 'desktop' },
     layer: 'background',
