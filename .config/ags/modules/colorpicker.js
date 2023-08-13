@@ -8,5 +8,5 @@ Widget.widgets['colorpicker'] = props => Widget({
     },
     ...props,
     type: 'button',
-    onClick: () => execAsync('hyprpicker -a').catch(print),
+    connections: [['clicked', () => execAsync('hyprpicker -a').catch(print)]],
 });
