@@ -1,4 +1,4 @@
-const { execAsync, writeFile, CONFIG_DIR } = ags.Utils;
+import { execAsync, writeFile } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const generated = str => `// THIS FILE IS GENERATED
 ${str}`;
@@ -43,7 +43,7 @@ $drop_shadow: ${t.drop_shadow};
 
 $transition: ${t.transition}ms;
 
-$font_size: 15px;
+$font_size: 16px;
 $font: 'Ubuntu Nerd Font';
 $mono_font: 'Mononoki Nerd Font', monospace;
 $wallpaper_fg: ${t.wallpaper_fg};
@@ -53,15 +53,15 @@ $screen_corners: ${t.bar_style === 'normal' && t.screen_corners};
 $bar_style: ${t.bar_style};
 $layout: ${t.layout};`;
 
-/* exported setupScss */
-async function setupScss(theme) {
+export async function setupScss(theme) {
+    const path = ags.App.configDir;
     try {
-        await writeFile(generated(scss(theme)), `${CONFIG_DIR}/scss/generated.scss`);
-        await writeFile(generated(theme.additional_scss || ''), `${CONFIG_DIR}/scss/additional.scss`);
-        await execAsync(['sassc', `${CONFIG_DIR}/scss/main.scss`, `${CONFIG_DIR}/style.css`]);
+        await writeFile(generated(scss(theme)), `${path}/scss/generated.scss`);
+        await writeFile(generated(theme.additional_scss || ''), `${path}/scss/additional.scss`);
+        await execAsync(['sassc', `${path}/scss/main.scss`, `${path}/style.css`]);
         ags.App.resetCss();
-        ags.App.applyCss(`${CONFIG_DIR}/style.css`);
+        ags.App.applyCss(`${path}/style.css`);
     } catch (error) {
-        print(error);
+        logError(error);
     }
 }

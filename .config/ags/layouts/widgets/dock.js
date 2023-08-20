@@ -1,6 +1,8 @@
-const { Widget } = ags;
-const { Hyprland, Applications, Theme } = ags.Service;
+import { Separator } from '../../modules/misc.js';
+import { Taskbar } from '../../modules/hyprland.js';
+const { Hyprland, Applications } = ags.Service;
 const { timeout, execAsync } = ags.Utils;
+const { Button, Box, EventBox, Icon, Revealer, Overlay } = ags.Widget;
 
 const pinned = [
     'firefox',
@@ -12,41 +14,31 @@ const pinned = [
     'transmission',
 ];
 
-const _appButton = (iconSize, icon) => ({
-    type: 'button',
-    child: {
-        type: 'box',
-        children: [{
-            type: 'overlay',
-            children: [
-                typeof icon === 'string'
-                    ? {
-                        type: 'icon',
-                        size: iconSize,
-                        icon,
-                    } : icon,
-                {
-                    type: 'box',
-                    className: 'indicator',
-                    valign: Theme.getSetting('layout') === 'unity' ? 'center' : 'end',
-                    halign: Theme.getSetting('layout') === 'unity' ? 'start' : 'center',
-                },
-            ],
-        }],
-    },
+const AppButton = ({ icon, ...rest }) => Button({
+    ...rest,
+    child: Box({
+        className: 'box',
+        children: [Overlay({
+            child: icon,
+            overlays: [Box({
+                className: 'indicator',
+                valign: 'end',
+                halign: 'center',
+            })],
+        })],
+    }),
 });
 
-const _pins = ({ iconSize, list, orientation }) => ({
-    type: 'box',
+const PinnedApps = ({ list, vertical }) => Box({
     className: 'pins',
     homogeneous: true,
-    orientation,
+    vertical,
     children: list
         .map(term => ({ app: Applications.query(term)?.[0], term }))
         .filter(({ app }) => app)
-        .map(({ app, term = true }) => ({
-            ..._appButton(iconSize, app.iconName),
-            onClick: () => {
+        .map(({ app, term = true }) => AppButton({
+            icon: Icon({ icon: app.iconName }),
+            onPrimaryClick: () => {
                 for (const [, client] of Hyprland.clients) {
                     if (client.class.toLowerCase().includes(term)) {
                         execAsync(`hyprctl dispatch focuswindow address:${client.address}`).catch(print);
@@ -56,8 +48,8 @@ const _pins = ({ iconSize, list, orientation }) => ({
 
                 app.launch();
             },
-            onMiddleClick: app.launch,
-            tooltip: app.name,
+            onMiddleClick: () => app.launch(),
+            tooltipText: app.name,
             connections: [[Hyprland, button => {
                 let running = false;
                 for (const [, client] of Hyprland.clients) {
@@ -72,52 +64,46 @@ const _pins = ({ iconSize, list, orientation }) => ({
         })),
 });
 
-Widget.widgets['dock'] = ({
-    iconSize = 48,
+export const Dock = ({
     launcher = 'view-app-grid-symbolic',
-    orientation,
+    vertical = false,
     ...props
-}) => Widget({
+} = {}) => Box({
     ...props,
-    type: 'box',
-    orientation,
+    className: 'dock',
+    vertical,
     children: [
-        ...(launcher ? [{
-            tooltip: 'Applications',
-            onClick: () => ags.App.toggleWindow('applauncher'),
-            ..._appButton(iconSize, launcher),
+        launcher && AppButton({
             className: 'launcher nonrunning',
-        }] : []),
-        _pins({
-            iconSize,
-            orientation,
+            icon: Icon({ icon: launcher }),
+            tooltipText: 'Applications',
+            onClicked: () => ags.App.toggleWindow('applauncher'),
+        }),
+        PinnedApps({
+            vertical,
             list: pinned,
         }),
-        {
-            type: 'box',
+        Separator({
             valign: 'center',
-            className: 'separator',
             halign: 'center',
             connections: [[Hyprland, box => {
-                box.visible = box.get_parent().get_children()[launcher ? 3 : 2].get_children().length > 0;
+                box.visible = box.get_parent().children[launcher ? 3 : 2].children.length > 0;
             }]],
-        },
-        {
-            type: 'hyprland/taskbar',
-            orientation,
+        }),
+        Taskbar({
+            vertical,
             skip: pinned,
-            item: ({ iconName }, { address, title }) => ({
-                ..._appButton(iconSize, iconName),
-                tooltip: title,
+            item: ({ iconName }, { address, title }) => AppButton({
+                icon: Icon({ icon: iconName }),
+                tooltipText: title,
                 className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
-                onClick: () => execAsync(`hyprctl dispatch focuswindow address:${address}`).catch(print),
+                onClicked: () => execAsync(`hyprctl dispatch focuswindow address:${address}`).catch(print),
             }),
-        },
+        }),
     ],
 });
 
-Widget.widgets['floating-dock'] = () => Widget({
-    type: 'eventbox',
+export const FloatingDock = () => EventBox({
     className: 'floating-dock',
     valign: 'start',
     onHover: box => {
@@ -131,21 +117,18 @@ Widget.widgets['floating-dock'] = () => Widget({
         timeout(300, () => box._revealed = false);
         box.get_child().get_children()[0].reveal_child = false;
     },
-    child: {
-        type: 'box',
-        orientation: 'vertical',
+    child: Box({
+        vertical: true,
         style: 'padding: 1px;',
         children: [
-            {
+            Revealer({
                 transition: 'slide_up',
-                type: 'revealer',
-                child: { type: 'dock', className: 'dock' },
-            },
-            {
-                type: 'box',
+                child: Dock(),
+            }),
+            Box({
                 className: 'padding',
                 style: 'padding: 2px;',
-            },
+            }),
         ],
-    },
+    }),
 });

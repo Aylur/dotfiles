@@ -1,5 +1,7 @@
-const { Service, Widget } = ags;
+const { Service } = ags;
 const { timeout, lookUpIcon, connect } = ags.Utils;
+const { Box, Revealer, Stack, Icon } = ags.Widget;
+import { FontIcon, Progress } from './misc.js';
 
 class IndicatorService extends Service {
     static {
@@ -73,49 +75,40 @@ class Indicator {
     static kbd() { Indicator.instance.kbd(); }
 }
 
-Widget.widgets['on-screen-indicator'] = ({ height = 300, width = 48 }) => Widget({
-    type: 'box',
+export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Box({
     className: 'indicator',
     style: 'padding: 1px;',
-    children: [{
-        type: 'revealer',
+    children: [Revealer({
         transition: 'slide_left',
         connections: [[Indicator, (revealer, value) => {
-            revealer.reveal_child = value > -1;
+            revealer.revealChild = value > -1;
         }]],
-        child: {
-            type: 'progress',
+        child: Progress({
             width,
             height,
             vertical: true,
             connections: [[Indicator, (progress, value) => progress.setValue(value)]],
-            child: {
-                type: 'dynamic',
-                className: 'icon',
+            child: Stack({
                 valign: 'start',
                 halign: 'center',
-                hexpand: true,
+                hexpand: false,
                 items: [
-                    {
-                        value: true, widget: {
-                            type: 'icon',
-                            halign: 'center',
-                            size: width,
-                            connections: [[Indicator, (icon, _v, name) => icon.icon_name = name || '']],
-                        },
-                    },
-                    {
-                        value: false, widget: {
-                            type: 'label',
-                            halign: 'center',
-                            connections: [[Indicator, (lbl, _v, name) => lbl.label = name || '']],
-                        },
-                    },
+                    ['true', Icon({
+                        halign: 'center',
+                        size: width,
+                        connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
+                    })],
+                    ['false', FontIcon({
+                        halign: 'center',
+                        hexpand: true,
+                        style: `font-size: ${width}px;`,
+                        connections: [[Indicator, ({ label }, _v, name) => label.label = name || '']],
+                    })],
                 ],
-                connections: [[Indicator, (dynamic, _v, name) => {
-                    dynamic.update(value => value === !!lookUpIcon(name));
+                connections: [[Indicator, (stack, _v, name) => {
+                    stack.shown = `${!!lookUpIcon(name)}`;
                 }]],
-            },
-        },
-    }],
+            }),
+        }),
+    })],
 });

@@ -1,5 +1,7 @@
-const { Service, Widget } = ags;
+import { FontIcon } from './misc.js';
+const { Service } = ags;
 const { exec, execAsync } = ags.Utils;
+const { Icon, Stack, Button } = ags.Widget;
 
 class AsusctlService extends Service {
     static { Service.register(this); }
@@ -11,7 +13,7 @@ class AsusctlService extends Service {
                 this._profile = exec('asusctl profile -p').split(' ')[3];
                 this.emit('changed');
             })
-            .catch(print);
+            .catch(logError);
     }
 
     nextMode() {
@@ -20,7 +22,7 @@ class AsusctlService extends Service {
                 this._mode = exec('supergfxctl -g');
                 this.emit('changed');
             })
-            .catch(print);
+            .catch(logError);
     }
 
     constructor() {
@@ -28,7 +30,7 @@ class AsusctlService extends Service {
 
         if (exec('which asusctl')) {
             this._profile = exec('asusctl profile -p').split(' ')[3];
-            this._mode = exec('supergfxctl -g');
+            execAsync('supergfxctl -g').then(mode => this._mode = mode);
         }
         else {
             this.available = false;
@@ -36,7 +38,7 @@ class AsusctlService extends Service {
     }
 
     get profile() { return this._profile; }
-    get mode() { return this._mode; }
+    get mode() { return this._mode || 'Hybrid'; }
 }
 
 class Asusctl {
@@ -49,47 +51,48 @@ class Asusctl {
     static get available() { return Asusctl.instance.available; }
 }
 
-Widget.widgets['asusctl/profile-indicator'] = ({
-    balanced = { type: 'icon', icon: 'power-profile-balanced-symbolic' },
-    quiet = { type: 'icon', icon: 'power-profile-power-saver-symbolic' },
-    performance = { type: 'icon', icon: 'power-profile-performance-symbolic' },
-}) => Widget({
-    type: 'dynamic',
-    tooltip: 'Power Profile',
+export const ProfileIndicator = ({
+    balanced = Icon('power-profile-balanced-symbolic'),
+    quiet = Icon('power-profile-power-saver-symbolic'),
+    performance = Icon('power-profile-performance-symbolic'),
+    ...rest
+} = {}) => Stack({
+    ...rest,
+    tooltipText: 'Power Profile',
     items: [
-        { value: 'Balanced', widget: balanced },
-        { value: 'Quiet', widget: quiet },
-        { value: 'Performance', widget: performance },
+        ['Balanced', balanced],
+        ['Quiet', quiet],
+        ['Performance', performance],
     ],
-    connections: [[Asusctl, dynamic => dynamic.update(value => value === Asusctl.profile)]],
+    connections: [[Asusctl, stack => stack.shown = Asusctl.profile]],
 });
 
-Widget.widgets['asusctl/profile-toggle'] = props => Widget({
+export const ProfileToggle = props => Button({
     ...props,
-    type: 'button',
-    onClick: Asusctl.nextProfile,
+    onClicked: Asusctl.nextProfile,
     connections: [[Asusctl, button => {
         button.toggleClassName('on', Asusctl.profile === 'Quiet' || Asusctl.profile === 'Performance');
     }]],
 });
 
-Widget.widgets['asusctl/mode-indicator'] = ({
-    integrated = { type: 'font-icon', icon: '', fontSize: 24, tooltip: 'Integrated Mode' },
-    hybrid = { type: 'font-icon', icon: '󰢮', fontSize: 24, tooltip: 'Hybrid Mode' },
-}) => Widget({
-    type: 'dynamic',
+export const ModeIndicator = ({
+    integrated = FontIcon({ icon: '', tooltipText: 'Integrated Mode' }),
+    hybrid = FontIcon({ icon: '󰢮', tooltipText: 'Hybrid Mode' }),
+    ...rest
+} = {}) => Stack({
+    ...rest,
+    halign: 'center',
+    valign: 'center',
     items: [
-        { value: 'Integrated', widget: integrated },
-        { value: 'Hybrid', widget: hybrid },
+        ['Integrated', integrated],
+        ['Hybrid', hybrid],
     ],
-    halign: 'center', valign: 'center',
-    connections: [[Asusctl, w => w.update(v => v === Asusctl.mode)]],
+    connections: [[Asusctl, stack => stack.shown = Asusctl.mode]],
 });
 
-Widget.widgets['asusctl/mode-toggle'] = props => Widget({
+export const ModeToggle = props => Button({
     ...props,
-    type: 'button',
-    onClick: Asusctl.nextMode,
+    onClicked: Asusctl.nextMode,
     connections: [[Asusctl, button => {
         button.toggleClassName('on', Asusctl.mode === 'Integrated');
     }]],

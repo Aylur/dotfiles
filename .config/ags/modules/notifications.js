@@ -1,12 +1,13 @@
 const { GLib } = imports.gi;
 const { Notifications } = ags.Service;
 const { lookUpIcon, timeout } = ags.Utils;
-const { Widget } = ags;
+const { Box, Icon, Label, EventBox, Button, Stack, Revealer } = ags.Widget;
 
-const _icon = ({ appEntry, appIcon, image }) => {
+const NotificationIcon = ({ appEntry, appIcon, image }) => {
     if (image) {
-        return {
-            type: 'box',
+        return Box({
+            valign: 'start',
+            hexpand: false,
             className: 'icon img',
             style: `
                 background-image: url("${image}");
@@ -16,7 +17,7 @@ const _icon = ({ appEntry, appIcon, image }) => {
                 min-width: 78px;
                 min-height: 78px;
             `,
-        };
+        });
     }
 
     let icon = 'dialog-information-symbolic';
@@ -26,25 +27,25 @@ const _icon = ({ appEntry, appIcon, image }) => {
     if (lookUpIcon(appEntry))
         icon = appEntry;
 
-    return {
-        type: 'box',
+    return Box({
+        valign: 'start',
+        hexpand: false,
         className: 'icon',
         style: `
             min-width: 78px;
             min-height: 78px;
         `,
-        children: [{
-            type: 'icon', icon, size: 58,
+        children: [Icon({
+            icon, size: 58,
             halign: 'center', hexpand: true,
             valign: 'center', vexpand: true,
-        }],
-    };
+        })],
+    });
 };
 
-const notification = ({ id, summary, body, actions, urgency, time, ...icon }) => Widget({
-    type: 'eventbox',
+const Notification = ({ id, summary, body, actions, urgency, time, ...icon }) => EventBox({
     className: `notification ${urgency}`,
-    onClick: () => Notifications.dismiss(id),
+    onPrimaryClick: () => Notifications.dismiss(id),
     properties: [['hovered', false]],
     onHover: w => {
         if (w._hovered)
@@ -60,108 +61,89 @@ const notification = ({ id, summary, body, actions, urgency, time, ...icon }) =>
         Notifications.dismiss(id);
     },
     vexpand: false,
-    child: {
-        type: 'box',
-        orientation: 'vertical',
+    child: Box({
+        vertical: true,
         children: [
-            {
-                type: 'box',
+            Box({
                 children: [
-                    {
-                        valign: 'start',
-                        hexpand: false,
-                        ..._icon(icon),
-                    },
-                    {
-                        type: 'box',
+                    NotificationIcon(icon),
+                    Box({
                         hexpand: true,
-                        orientation: 'vertical',
+                        vertical: true,
                         children: [
-                            {
-                                type: 'box',
+                            Box({
                                 children: [
-                                    {
+                                    Label({
                                         className: 'title',
                                         xalign: 0,
-                                        justify: 'left',
+                                        justification: 'left',
                                         hexpand: true,
-                                        type: 'label',
-                                        maxWidth: 24,
+                                        maxWidthChars: 24,
+                                        ellipsize: 3,
                                         wrap: true,
                                         label: summary,
-                                        markup: summary.startsWith('<'),
-                                    },
-                                    {
+                                        useMarkup: summary.startsWith('<'),
+                                    }),
+                                    Label({
                                         className: 'time',
-                                        type: 'label',
                                         valign: 'start',
                                         label: GLib.DateTime.new_from_unix_local(time).format('%H:%M'),
-                                    },
-                                    {
+                                    }),
+                                    Button({
                                         className: 'close-button',
-                                        type: 'button',
                                         valign: 'start',
-                                        child: Widget({ type: 'icon', icon: 'window-close-symbolic' }),
-                                        onClick: () => Notifications.close(id),
-                                    },
+                                        child: Icon('window-close-symbolic'),
+                                        onClicked: () => Notifications.close(id),
+                                    }),
                                 ],
-                            },
-                            {
+                            }),
+                            Label({
                                 className: 'description',
                                 hexpand: true,
-                                markup: true,
+                                useMarkup: true,
                                 xalign: 0,
-                                justify: 'left',
-                                type: 'label',
+                                justification: 'left',
                                 label: body,
                                 wrap: true,
-                            },
+                            }),
                         ],
-                    },
+                    }),
                 ],
-            },
-            {
-                type: 'box',
+            }),
+            Box({
                 className: 'actions',
-                children: actions.map(action => ({
+                children: actions.map(action => Button({
                     className: 'action-button',
-                    type: 'button',
-                    onClick: () => Notifications.invoke(id, action.id),
+                    onClicked: () => Notifications.invoke(id, action.id),
                     hexpand: true,
-                    child: action.label,
+                    child: Label(action.label),
                 })),
-            },
+            }),
         ],
-    },
+    }),
 });
 
-Widget.widgets['notifications/notification-list'] = props => Widget({
+export const NotificationList = props => Box({
     ...props,
-    type: 'box',
-    orientation: 'vertical',
+    vertical: true,
+    vexpand: true,
+    className: 'notification-list',
     connections: [[Notifications, box => {
-        box.get_children().forEach(ch => ch.destroy());
-        for (const [, n] of Notifications.notifications)
-            box.add(notification(n));
+        box.children = Array.from(Notifications.notifications.values())
+            .map(n => Notification(n));
 
-        box.show_all();
+        box.visible = Notifications.notifications.size > 0;
     }]],
 });
 
-Widget.widgets['notifications/popup-list'] = ({ transition = 'slide_down' }) => Widget({
-    type: 'box',
+export const PopupList = ({ transition = 'slide_down' } = {}) => Box({
     className: 'notifications-popup-list',
     style: 'padding: 1px',
     children: [
-        {
+        Revealer({
             transition,
-            type: 'revealer',
-            connections: [[Notifications, revealer => {
-                revealer.reveal_child = revealer.get_child()._map.size > 0;
-            }]],
-            child: {
-                type: 'box',
-                orientation: 'vertical',
+            child: Box({
+                vertical: true,
                 properties: [
                     ['map', new Map()],
                     ['dismiss', (box, id, force = false) => {
@@ -171,8 +153,11 @@ Widget.widgets['notifications/popup-list'] = ({ transition = 'slide_down' }) => 
                         if (box._map.get(id)._hovered && !force)
                             return;
 
+                        if (box._map.size - 1 === 0)
+                            box.get_parent().reveal_child = false;
+
                         timeout(200, () => {
-                            box._map.get(id).destroy();
+                            box._map.get(id)?.destroy();
                             box._map.delete(id);
                         });
                     }],
@@ -183,10 +168,14 @@ Widget.widgets['notifications/popup-list'] = ({ transition = 'slide_down' }) => 
                         if (box._map.has(id))
                             box._map.get(id).destroy();
 
-                        const widget = notification(Notifications.notifications.get(id));
+                        const widget = Notification(Notifications.notifications.get(id));
                         box._map.set(id, widget);
                         box.add(widget);
                         box.show_all();
+
+                        timeout(10, () => {
+                            box.get_parent().reveal_child = true;
+                        });
                     }],
                 ],
                 connections: [
@@ -194,62 +183,64 @@ Widget.widgets['notifications/popup-list'] = ({ transition = 'slide_down' }) => 
                     [Notifications, (box, id) => box._dismiss(box, id), 'dismissed'],
                     [Notifications, (box, id) => box._dismiss(box, id, true), 'closed'],
                 ],
-            },
-        },
+            }),
+        }),
     ],
 });
 
-Widget.widgets['notifications/placeholder'] = props => Widget({
+export const Placeholder = props => Box({
+    className: 'placeholder',
+    vertical: true,
+    valign: 'center',
+    vexpand: true,
+    halign: 'center',
+    hexpand: true,
     ...props,
-    type: 'box',
+    children: [
+        Label({ label: '󰂛', className: 'icon' }),
+        Label('Your inbox is empty'),
+    ],
     connections: [
         [Notifications, box => box.visible = Notifications.notifications.size === 0],
     ],
 });
 
-Widget.widgets['notifications/clear-button'] = props => Widget({
+export const ClearButton = props => Button({
     ...props,
-    type: 'button',
-    onClick: Notifications.clear,
+    onClicked: Notifications.clear,
     connections: [[Notifications, button => button.sensitive = Notifications.notifications.size > 0]],
-    child: {
-        type: 'box',
+    child: Box({
         children: [
-            'Clear ',
-            {
-                type: 'dynamic',
+            Label('Clear '),
+            Stack({
                 items: [
-                    { value: true, widget: { type: 'icon', icon: 'user-trash-full-symbolic' } },
-                    { value: false, widget: { type: 'icon', icon: 'user-trash-symbolic' } },
+                    ['true', Icon('user-trash-full-symbolic')],
+                    ['false', Icon('user-trash-symbolic')],
                 ],
-                connections: [
-                    [Notifications, dynamic => dynamic.update(value => {
-                        return value === Notifications.notifications.size > 0;
-                    })],
-                ],
-            },
+                connections: [[Notifications, stack => {
+                    stack.shown = `${Notifications.notifications.size > 0}`;
+                }]],
+            }),
         ],
-    },
+    }),
 });
 
-Widget.widgets['notifications/dnd-indicator'] = ({
-    silent = Widget({ type: 'icon', icon: 'notifications-disabled-symbolic' }),
-    noisy = Widget({ type: 'icon', icon: 'preferences-system-notifications-symbolic' }),
-}) => Widget({
-    type: 'dynamic',
+export const DNDIndicator = ({
+    silent = Icon('notifications-disabled-symbolic'),
+    noisy = Icon('preferences-system-notifications-symbolic'),
+} = {}) => Stack({
     items: [
-        { value: true, widget: silent },
-        { value: false, widget: noisy },
+        ['true', silent],
+        ['false', noisy],
     ],
-    connections: [[Notifications, dynamic => {
-        dynamic.update(value => value === Notifications.dnd);
+    connections: [[Notifications, stack => {
+        stack.shown = `${Notifications.dnd}`;
     }]],
 });
 
-Widget.widgets['notifications/dnd-toggle'] = props => Widget({
+export const DNDToggle = props => Button({
     ...props,
-    type: 'button',
-    onClick: () => { Notifications.dnd = !Notifications.dnd; },
+    onClicked: () => { Notifications.dnd = !Notifications.dnd; },
     connections: [[Notifications, button => {
         button.toggleClassName('on', Notifications.dnd);
     }]],

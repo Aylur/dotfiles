@@ -1,6 +1,6 @@
-.corners .corner {
+window.corner .corner {
     background-color: if($screen_corners, $bg_color, transparent);
-    border-radius: $radii*2;
+    border-radius: if($screen_corners, $radii*2, 0);
 }
 
 menu.desktop {
@@ -98,9 +98,12 @@ window.indicator .progress {
             -gtk-icon-transform: scale(0.7);
         }
 
-        label {
-            margin: 3px;
+        .icon overlay {
             font-size: 34px;
+
+            label {
+                font-size: 34px;
+            }
         }
     }
 }

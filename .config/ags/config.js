@@ -1,25 +1,26 @@
-/* exported config */
-const { Theme } = imports.theme.theme;
+import { Theme } from './theme/theme.js';
+import topbar from './layouts/topbar.js';
+import bottombar from './layouts/bottombar.js';
+import * as shared from './layouts/shared.js';
 
-Object.keys(imports.modules).forEach(m => imports.modules[m]);
-Object.keys(imports.layouts.widgets).forEach(m => imports.layouts.widgets[m]);
+const layouts = {
+    topbar,
+    bottombar,
+};
 
-var config = {
-    baseIconSize: 20,
-    stackTraceOnError: true,
+const monitors = ags.Service.Hyprland.HyprctlGet('monitors')
+    .map(mon => mon.id);
+
+export default {
     closeWindowDelay: {
-        'dashboard': 350,
-        'quicksettings': 350,
+        'quicksettings': 300,
+        'dashboard': 300,
     },
     windows: [
-        ...ags.Service.Hyprland.HyprctlGet('monitors').map(({ id }) => ([
-            imports.layouts.shared.indicator(id),
-        ])).flat(),
-        imports.layouts.shared.powermenu,
-        imports.layouts.shared.verification,
-        imports.layouts.shared.overview,
-        imports.layouts.shared.applauncher,
-
-        ...imports.layouts[Theme.getSetting('layout')].windows,
+        ...layouts[Theme.getSetting('layout')](monitors),
+        shared.ApplauncherPopup(),
+        shared.OverviewPopup(),
+        shared.PowermenuPopup(),
+        shared.VerificationPopup(),
     ],
 };

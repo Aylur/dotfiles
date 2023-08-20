@@ -1,10 +1,9 @@
-const { Widget } = ags;
-const { Theme } = ags.Service;
+import { Theme } from '../theme/theme.js';
+const { Box } = ags.Widget;
 
-Widget.widgets['wallpaper'] = props => Widget({
-    ...props,
-    type: 'box',
+export const Wallpaper = props => Box({
     className: 'wallpaper',
+    ...props,
     connections: [[Theme, box => {
         box.setStyle(`
             background-image: url('${Theme.getSetting('wallpaper')}');

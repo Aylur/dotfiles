@@ -1,8 +1,8 @@
-const { Service, App } = ags;
-const { execAsync } = ags.Utils;
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import Service from 'resource:///com/github/Aylur/ags/service/service.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-/* exported setupHyprland */
-function setupHyprland({
+export function setupHyprland({
     wm_gaps,
     border_width,
     hypr_active_border,
@@ -31,17 +31,16 @@ function setupHyprland({
         Service.Hyprland.HyprctlGet('monitors').forEach(({ name }) => {
             if (bar_style !== 'normal') {
                 switch (layout) {
-                case 'topbar':
-                case 'unity':
-                    execAsync(`hyprctl keyword monitor ${name},addreserved,-${wm_gaps},0,0,0`);
-                    break;
+                    case 'topbar':
+                    case 'unity':
+                        execAsync(`hyprctl keyword monitor ${name},addreserved,-${wm_gaps},0,0,0`);
+                        break;
 
-                case 'bottombar':
-                    execAsync(`hyprctl keyword monitor ${name},addreserved,0,-${wm_gaps},0,0`);
-                    break;
+                    case 'bottombar':
+                        execAsync(`hyprctl keyword monitor ${name},addreserved,0,-${wm_gaps},0,0`);
+                        break;
 
-                default:
-                    break;
+                    default: break;
                 }
             } else {
                 execAsync(`hyprctl keyword monitor ${name},addreserved,0,0,0,0`);
@@ -56,6 +55,6 @@ function setupHyprland({
         execAsync(`hyprctl keyword decoration:rounding ${radii}`);
         execAsync(`hyprctl keyword decoration:drop_shadow ${drop_shadow ? 'yes' : 'no'}`);
     } catch (error) {
-        print(error);
+        logError(error);
     }
 }

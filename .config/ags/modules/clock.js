@@ -1,21 +1,25 @@
-const { Widget } = ags;
+const { Label } = ags.Widget;
 const { execAsync } = ags.Utils;
 const { DateTime } = imports.gi.GLib;
 
-Widget.widgets['clock'] = ({
+export const Clock = ({
     format = '%H:%M:%S %B %e. %A',
     interval = 1000,
     ...props
-}) => Widget({
+} = {}) => Label({
+    className: 'clock',
     ...props,
-    type: 'label',
-    connections: [[interval, label => label.label = DateTime.new_now_local().format(format)]],
+    connections: [[interval, label =>
+        label.label = DateTime.new_now_local().format(format),
+    ]],
 });
 
-Widget.widgets['uptime'] = props => Widget({
+export const Uptime = ({
+    interval = 100_000,
+    ...props
+} = {}) => Label({
     ...props,
-    type: 'label',
-    connections: [[1000, label => {
+    connections: [[interval, label => {
         execAsync(['bash', '-c', "uptime | awk '{print $3}' | tr ',' ' '"])
             .then(time => label.label = time)
             .catch(print);

@@ -1,22 +1,29 @@
-/* exported dialog */
-const { Gtk } = imports.gi;
-const { Theme } = ags.Service;
+import Gtk from 'gi://Gtk';
+import { Theme } from './theme.js';
+import themes from './themes.js';
+import { Wallpaper } from '../modules/wallpaper.js';
+const { Box, Stack, Label, Icon, Button, Scrollable, Entry, Widget } = ags.Widget;
 
-const row = (title, child) => ({
-    type: 'box',
+const Row = (title, child) => Box({
     className: 'row',
-    children: [`${title}: `, child],
+    children: [Label(`${title}: `), child],
 });
 
-const img = (title, prop) => row(title, {
-    type: () => Gtk.FileChooserButton.new(title, Gtk.FileChooserAction.OPEN),
+const Img = (title, prop) => Row(title, Widget({
+    title,
+    type: Gtk.FileChooserButton,
     hexpand: true,
     halign: 'end',
-    connections: [['selection-changed', w => Theme.setSetting(prop, w.get_uri().replace('file://', ''))]],
-});
+    connections: [['selection-changed',
+        w => Theme.setSetting(prop, w.get_uri().replace('file://', ''))]],
+}));
 
-const spinbutton = (title, prop, max = 100, min = 0) => row(title, {
-    type: () => Gtk.SpinButton.new_with_range(min, max, 1),
+const SpinButton = (title, prop, max = 100, min = 0) => Row(title, Widget({
+    type: Gtk.SpinButton,
+    setup: w => {
+        w.set_range(min, max);
+        w.set_increments(1, 1);
+    },
     hexpand: true,
     halign: 'end',
     connections: [
@@ -27,56 +34,55 @@ const spinbutton = (title, prop, max = 100, min = 0) => row(title, {
             b._block = false;
         }],
     ],
-});
+}));
 
-const switchbtn = (title, prop) => row(title, {
-    type: 'switch',
+const SwitchButton = (title, prop) => Row(title, Widget({
+    type: Gtk.Switch,
     halign: 'end',
     hexpand: true,
-    onActivate: s => !s._block && Theme.setSetting(prop, s.active),
-    connections: [[Theme, s => {
-        s._block = true;
-        s.active = Theme.getSetting(prop);
-        s._block = false;
-    }]],
-});
+    connections: [
+        [Theme, s => {
+            s._block = true;
+            s.active = Theme.getSetting(prop);
+            s._block = false;
+        }],
+        ['notify::active', s => !s._block && Theme.setSetting(prop, s.active)],
+    ],
+}));
 
-const color = (title, prop) => row(title, {
-    type: 'box',
+const Color = (title, prop) => Row(title, Box({
     hexpand: true,
     halign: 'end',
     className: 'color',
     children: [
-        {
-            type: 'entry',
+        Entry({
             onAccept: ({ text }) => Theme.setSetting(prop, text),
             valign: 'center',
             connections: [[Theme, w => w.text = Theme.getSetting(prop)]],
-        },
-        {
-            type: () => new Gtk.ColorButton({ alpha: true }),
+        }),
+        Widget({
+            type: Gtk.ColorButton,
+            alpha: true,
             valign: 'center',
             connections: [
                 ['color-set', w => {
-                    w.get_parent().get_children()[0].set_text(w.rgba.to_string());
+                    w.get_parent().children[0].set_text(w.rgba.to_string());
                     Theme.setSetting(prop, w.rgba.to_string());
                 }],
             ],
-        },
+        }),
     ],
-});
+}));
 
-const text = (title, prop) => row(title, {
-    type: 'entry',
+const Text = (title, prop) => Row(title, Entry({
     className: 'text',
     hexpand: true,
     halign: 'end',
     connections: [[Theme, w => w.text = Theme.getSetting(prop)]],
     onAccept: ({ text }) => Theme.setSetting(prop, text),
-});
+}));
 
-const textspinbutton = (title, prop, list) => row(title, {
-    type: 'box',
+const TextSpinButton = (title, prop, list) => Row(title, Box({
     className: 'text-spin',
     hexpand: true,
     halign: 'end',
@@ -99,29 +105,25 @@ const textspinbutton = (title, prop, list) => row(title, {
         }],
     ],
     children: [
-        {
-            type: 'label',
+        Label({
             connections: [[Theme, label => label.label = Theme.getSetting(prop)]],
-        },
-        {
-            type: 'button',
-            child: { type: 'icon', icon: 'pan-down-symbolic' },
-            onClick: btn => {
+        }),
+        Button({
+            child: Icon('pan-down-symbolic'),
+            onClicked: btn => {
                 const box = btn.get_parent();
                 box._step(box, -1);
             },
-        },
-        {
-            type: 'button',
-            child: { type: 'icon', icon: 'pan-up-symbolic' },
-            onClick: btn => {
+        }),
+        Button({
+            child: Icon('pan-up-symbolic'),
+            onClicked: btn => {
                 const box = btn.get_parent();
                 box._step(box, +1);
             },
-        },
+        }),
     ],
-
-});
+}));
 
 class Pages extends ags.Service {
     static { ags.Service.register(this); }
@@ -133,122 +135,112 @@ class Pages extends ags.Service {
     }
 }
 
-const tab = page => ({
-    type: 'button',
+const Tab = page => Button({
     hexpand: true,
     className: 'tab',
-    onClick: () => Pages.show(page),
-    child: page,
+    onClicked: () => Pages.show(page),
+    child: Label(page),
     connections: [[Pages, b => b.toggleClassName('active', Pages.page === page)]],
 });
 
-const layout = pages => ({
-    type: 'box',
-    orientation: 'vertical',
+const Layout = pages => Box({
+    vertical: true,
     className: 'settings',
     hexpand: false,
     children: [
-        {
-            type: 'box',
+        Box({
             className: 'headerbar',
             valign: 'start',
-            children: [{
-                type: 'box',
+            children: [Box({
                 className: 'tabs',
                 children: [
-                    ...Object.keys(pages).map(page => tab(page)),
-                    {
-                        type: 'button',
+                    ...Object.keys(pages).map(page => Tab(page)),
+                    Button({
                         className: 'tab',
-                        onClick: Theme.reset,
-                        child: '󰦛 Reset',
+                        onClicked: Theme.reset,
+                        child: Label('󰦛 Reset'),
                         hexpand: true,
-                    },
+                    }),
                 ],
-            }],
-        },
-        {
-            type: 'box',
+            })],
+        }),
+        Box({
             className: 'content',
-            children: [{
-                type: 'stack',
+            children: [Stack({
                 transition: 'slide_left_right',
                 items: Object.keys(pages).map(page => [page, pages[page]]),
                 connections: [[Pages, stack => {
-                    stack.showChild(Pages.page);
+                    stack.shown = Pages.page;
                 }]],
-            }],
-        },
-        {
-            type: 'label',
+            })],
+        }),
+        Label({
             wrap: true,
-            label: 'These settings override all preset themes. To make them permanent: edit ~/.config/ags/theme/themes.js',
             className: 'disclaimer',
-        },
+            label: 'These settings override all preset themes. ' +
+                'To make them permanent: edit ~/.config/ags/theme/themes.js',
+        }),
     ],
 });
 
-const page = children => ({
-    type: 'scrollable',
-    child: {
-        type: 'box',
-        orientation: 'vertical',
+const Page = children => Scrollable({
+    child: Box({
+        vertical: true,
         children,
-    },
+    }),
 });
 
-var dialog = () => {
-    const win = new Gtk.Window({ name: 'settings' });
-    win.add(ags.Widget(layout({
-        '󰒓 General': page([
-            {
-                type: 'wallpaper',
+export const SettingsDialog = () => Widget({
+    type: Gtk.Window,
+    name: 'settings',
+    child: Layout({
+        '󰒓 General': Page([
+            Wallpaper({
                 className: 'row',
                 hexpand: true,
                 vexpand: true,
-            },
-            img('Wallpaper', 'wallpaper'),
-            img('Avatar', 'avatar'),
-            spinbutton('Useless Gaps', 'wm_gaps', 128),
-            spinbutton('Spacing', 'spacing', 18),
-            spinbutton('Roundness', 'radii', 36),
-            textspinbutton('Layout', 'layout', ['topbar', 'bottombar', 'unity']),
-            textspinbutton('Bar Style', 'bar_style', ['normal', 'floating', 'separated']),
-            switchbtn('Screen Corners', 'screen_corners'),
+            }),
+            Img('Wallpaper', 'wallpaper'),
+            Img('Avatar', 'avatar'),
+            SpinButton('Useless Gaps', 'wm_gaps', 128),
+            SpinButton('Spacing', 'spacing', 18),
+            SpinButton('Roundness', 'radii', 36),
+            TextSpinButton('Layout', 'layout', ['topbar', 'bottombar']),
+            TextSpinButton('Bar Style', 'bar_style', ['normal', 'floating', 'separated']),
+            SwitchButton('Screen Corners', 'screen_corners'),
         ]),
-        '󰏘 Colors': page([
-            textspinbutton('Color Theme', 'color_scheme', ['light', 'dark']),
+        '󰏘 Colors': Page([
+            TextSpinButton('Color Theme', 'color_scheme', ['light', 'dark']),
             ...['Red', 'Green', 'Yellow', 'Blue', 'Magenta', 'Teal', 'Orange']
-                .map(c => color(c, c.toLowerCase())),
+                .map(c => Color(c, c.toLowerCase())),
         ]),
-        '󰃟 Theme': page([
-            textspinbutton('Theme', 'theme', Object.keys(imports.theme.themes)),
-            color('Background Color', 'bg_color'),
-            color('Foreground Color', 'fg_color'),
-            color('Hovered Foreground Color', 'hover_fg'),
-            text('Hyprland Active Border Color', 'hypr_active_border'),
-            text('Hyprland Inactive Border Color', 'hypr_inactive_border'),
-            color('Accent Color', 'accent'),
-            color('Accent Foreground', 'accent_fg'),
-            text('Active Gradient', 'active_gradient'),
-            color('Widget Background', 'widget_bg'),
-            spinbutton('Widget Opacity', 'widget_opacity'),
-            color('Border Color', 'border_color'),
-            spinbutton('Border Width', 'border_width'),
-            spinbutton('Border Opacity', 'border_opacity'),
+        '󰃟 Theme': Page([
+            TextSpinButton('Theme', 'theme', themes.map(t => t.name)),
+            Color('Background Color', 'bg_color'),
+            Color('Foreground Color', 'fg_color'),
+            Color('Hovered Foreground Color', 'hover_fg'),
+            Text('Hyprland Active Border Color', 'hypr_active_border'),
+            Text('Hyprland Inactive Border Color', 'hypr_inactive_border'),
+            Color('Accent Color', 'accent'),
+            Color('Accent Foreground', 'accent_fg'),
+            Text('Active Gradient', 'active_gradient'),
+            Color('Widget Background', 'widget_bg'),
+            SpinButton('Widget Opacity', 'widget_opacity'),
+            Color('Border Color', 'border_color'),
+            SpinButton('Border Width', 'border_width'),
+            SpinButton('Border Opacity', 'border_opacity'),
         ]),
-        '󰠱 Miscellaneous': page([
-            color('Shadow', 'shadow'),
-            switchbtn('Drop Shadow', 'drop_shadow'),
-            spinbutton('Transition', 'transition', 1000),
-            text('Desktop Clock Position', 'desktop_clock'),
-            color('Wallpaper Foreground Color', 'wallpaper_fg'),
+        '󰠱 Miscellaneous': Page([
+            Color('Shadow', 'shadow'),
+            SwitchButton('Drop Shadow', 'drop_shadow'),
+            SpinButton('Transition', 'transition', 1000),
+            Text('Desktop Clock Position', 'desktop_clock'),
+            Color('Wallpaper Foreground Color', 'wallpaper_fg'),
         ]),
-    })));
-    win.set_default_size(700, 600);
-    win.connect('delete-event', () => {
+    }),
+    connections: [['delete-event', win => {
         win.hide();
         return true;
-    });
-    return win;
-};
+    }]],
+    setup: win => win.set_default_size(700, 600),
+});

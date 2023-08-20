@@ -30,7 +30,7 @@
     button {
         @include accs_button($flat: true);
 
-        image, > * {
+        image, .box {
             margin: $spacing;
 
             @if $theme == 'light' {
@@ -62,6 +62,10 @@
     @include dock;
     @include floating_widget;
     padding: $spacing / 2;
+
+    button image {
+        font-size: 48px;
+    }
 }
 
 .dock.vertical {

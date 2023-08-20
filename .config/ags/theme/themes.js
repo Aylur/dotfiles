@@ -71,8 +71,7 @@ const colors = {
 };
 
 // themes
-/* exported kitty_dark kitty_light leaves_dark leaves_light, ivory, cutefish */
-var kitty_dark = {
+const kitty_dark = {
     wallpaper: WP + 'kitty.jpeg',
     name: 'kitty_dark',
     icon: '󰄛',
@@ -81,7 +80,7 @@ var kitty_dark = {
     ...colors,
 };
 
-var kitty_light = {
+const kitty_light = {
     wallpaper: WP + 'kitty.jpeg',
     name: 'kitty_light',
     icon: '󰄛',
@@ -92,7 +91,7 @@ var kitty_light = {
     widget_opacity: 84,
 };
 
-var leaves_dark = {
+const leaves_dark = {
     ...kitty_dark,
     wallpaper: WP + 'leaves.jpg',
     name: 'leaves_dark',
@@ -113,7 +112,7 @@ var leaves_dark = {
     `,
 };
 
-var leaves_light = {
+const leaves_light = {
     ...leaves_dark,
     ...light,
     name: 'leaves_light',
@@ -122,7 +121,7 @@ var leaves_light = {
     active_gradient: 'to right, $accent, darken($accent, 6%)',
 };
 
-var ivory = {
+const ivory = {
     wallpaper: WP + 'ivory.png',
     name: 'ivory',
     icon: '󰟆',
@@ -147,7 +146,7 @@ var ivory = {
     `,
 };
 
-var cutefish = {
+const cutefish = {
     ...kitty_dark,
     wallpaper: WP + 'cutefish.jpeg',
     name: 'cutefish',
@@ -162,7 +161,7 @@ var cutefish = {
     bg_color: 'transparentize(#171717, 0.3)',
 };
 
-var cherry = {
+const cherry = {
     ...kitty_dark,
     wallpaper: WP + 'cherry.png',
     name: 'cherry',
@@ -173,3 +172,13 @@ var cherry = {
     radii: 13,
     bg_color: 'transparentize(#171717, 0.3)',
 };
+
+export default [
+    kitty_dark,
+    kitty_light,
+    leaves_dark,
+    leaves_light,
+    ivory,
+    cutefish,
+    cherry,
+];

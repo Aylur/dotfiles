@@ -1,72 +1,54 @@
-const { Widget } = ags;
+import { Clock } from '../../modules/clock.js';
+import { Separator } from '../../modules/misc.js';
 const { Theme, System } = ags.Service;
+const { MenuItem, Menu, Box, Label, Icon, EventBox, CenterBox } = ags.Widget;
 
-const menuitem = (child, icon, onActivate) => ({
-    type: 'menuitem',
+const Item = (label, icon, onActivate) => MenuItem({
     onActivate,
-    child: {
-        type: 'box',
+    child: Box({
         children: [
-            {
-                type: 'icon',
-                icon,
-                size: 16,
-            },
-            {
-                type: 'label',
-                label: child,
+            Icon(icon),
+            Label({
+                label,
                 hexpand: true,
                 xalign: 0,
-            },
+            }),
         ],
-    },
+    }),
 });
 
-Widget.widgets['desktop'] = props => Widget({
+export const Desktop = props => EventBox({
     ...props,
-    type: 'eventbox',
-    onSecondaryClick: (_, event) => Widget({
-        type: 'menu',
+    onSecondaryClick: (_, event) => Menu({
         className: 'desktop',
         children: [
-            {
-                type: 'menuitem',
-                child: {
-                    type: 'box',
+            MenuItem({
+                child: Box({
                     children: [
-                        {
-                            type: 'icon',
-                            icon: 'system-shutdown-symbolic',
-                            size: 16,
-                        },
-                        {
-                            type: 'label',
+                        Icon('system-shutdown-symbolic'),
+                        Label({
                             label: 'System',
                             hexpand: true,
                             xalign: 0,
-                        },
+                        }),
                     ],
-                },
-                submenu: {
-                    type: 'menu',
+                }),
+                submenu: Menu({
                     children: [
-                        menuitem('Shutdown', 'system-shutdown-symbolic', () => System.action('Shutdown')),
-                        menuitem('Log Out', 'system-log-out-symbolic', () => System.action('Log Out')),
-                        menuitem('Reboot', 'system-reboot-symbolic', () => System.action('Log Out')),
-                        menuitem('Sleep', 'weather-clear-night-symbolic', () => System.action('Log Out')),
+                        Item('Shutdown', 'system-shutdown-symbolic', () => System.action('Shutdown')),
+                        Item('Log Out', 'system-log-out-symbolic', () => System.action('Log Out')),
+                        Item('Reboot', 'system-reboot-symbolic', () => System.action('Log Out')),
+                        Item('Sleep', 'weather-clear-night-symbolic', () => System.action('Log Out')),
                     ],
-                },
-            },
-            {
-                type: 'menuitem',
-                className: 'separator',
-            },
-            menuitem('Settings', 'org.gnome.Settings-symbolic', Theme.openSettings),
+                }),
+            }),
+            MenuItem({ className: 'separator' }),
+            Item('Settings', 'org.gnome.Settings-symbolic', Theme.openSettings),
         ],
     }).popup_at_pointer(event),
-    child: {
-        type: 'box',
-        orientation: 'vertical',
+    onMiddleClick: print,
+    child: Box({
+        vertical: true,
         vexpand: true,
         hexpand: true,
         connections: [[Theme, box => {
@@ -78,44 +60,35 @@ Widget.widgets['desktop'] = props => Widget({
             box.setStyle(`margin: ${Number(offset)}px;`);
         }]],
         children: [
-            {
-                type: 'box',
+            Box({
                 className: 'clock-box-shadow',
-                children: [{
-                    type: 'centerbox',
+                children: [CenterBox({
                     className: 'clock-box',
                     children: [
-                        {
-                            type: 'clock',
+                        Clock({
                             className: 'clock',
                             halign: 'center',
                             format: '%H',
-                        },
-                        {
-                            type: 'box',
+                        }),
+                        Box({
                             className: 'separator-box',
-                            orientation: 'vertical',
+                            vertical: true,
                             hexpand: true,
                             halign: 'center',
                             children: [
-                                { type: 'separator', valign: 'center', vexpand: true },
-                                { type: 'separator', valign: 'center', vexpand: true },
+                                Separator({ valign: 'center', vexpand: true }),
+                                Separator({ valign: 'center', vexpand: true }),
                             ],
-                        },
-                        {
-                            type: 'clock',
-                            halign: 'center',
+                        }),
+                        Clock({
                             className: 'clock',
+                            halign: 'center',
                             format: '%M',
-                        },
+                        }),
                     ],
-                }],
-            },
-            {
-                type: 'clock',
-                className: 'date',
-                format: '%B %e. %A',
-            },
+                })],
+            }),
+            Clock({ format: '%B %e. %A', className: 'date' }),
         ],
-    },
+    }),
 });

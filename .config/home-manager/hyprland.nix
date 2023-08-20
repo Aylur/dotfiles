@@ -15,7 +15,7 @@ let
         export PATH
 
         if  [[ $1 == 'nix' ]]; then
-            exec nixGL ${pkgs.hyprland}/bin/Hyprland; fi
+            exec nixGLIntel ${pkgs.hyprland}/bin/Hyprland; fi
 
         exec /usr/bin/Hyprland
     '';

@@ -1,5 +1,6 @@
-const { Service, Widget } = ags;
+const { Service } = ags;
 const { exec, execAsync } = ags.Utils;
+const { Icon, Label, Slider } = ags.Widget;
 
 // Change this to whatever keyboard you have
 // you can check with brightnessctl --list
@@ -59,30 +60,26 @@ class Brightness {
     static set screen(value) { Brightness.instance.screen = value; }
 }
 
-Widget.widgets['brightness/slider'] = props => Widget({
+export const BrightnessSlider = props => Slider({
     ...props,
-    type: 'slider',
+    drawValue: false,
+    hexpand: true,
     connections: [
         [Brightness, slider => {
-            if (slider._dragging || slider.has_focus)
-                return;
-
-            slider.adjustment.value = Brightness.screen;
+            slider.value = Brightness.screen;
         }],
     ],
-    onChange: ({ adjustment: { value } }) => Brightness.screen = value,
+    onChange: ({ value }) => Brightness.screen = value,
 });
 
-Widget.widgets['brightness/icon'] = props => Widget({
+export const Indicator = props => Icon({
     ...props,
-    type: 'icon',
     icon: 'display-brightness-symbolic',
 });
 
-Widget.widgets['brightness/percent'] = props => Widget({
+export const PercentLabel = props => Label({
     ...props,
-    type: 'label',
     connections: [
-        [Brightness, label => label.label = `${Math.floor(Brightness.screen * 100)}`],
+        [Brightness, label => label.label = `${Math.floor(Brightness.screen * 100)}%`],
     ],
 });

@@ -1,112 +1,50 @@
-const { App, Widget } = ags;
+const { App } = ags;
 const { Applications } = ags.Service;
+const { Label, Box, Icon, Button, Scrollable, Entry } = ags.Widget;
+import { Wallpaper } from './wallpaper.js';
+import { Separator } from './misc.js';
 
-const _item = ({ name, description, iconName, launch }, window) => {
-    const title = Widget({
-        className: 'title',
-        type: 'label',
-        label: name,
-        xalign: 0,
-        valign: 'center',
-    });
-    const desc = Widget({
-        className: 'description',
-        type: 'label',
-        label: description || '',
-        wrap: true,
-        xalign: 0,
-        justify: 'left',
-        valign: 'center',
-    });
-    const icon = Widget({
-        type: 'icon',
-        icon: iconName,
-        size: 38,
-    });
-    const btn = Widget({
-        className: 'app',
-        type: 'button',
-        child: Widget({
-            type: 'box',
-            children: [
-                icon,
-                Widget({
-                    type: 'box',
-                    orientation: 'vertical',
-                    children: [title, desc],
-                }),
-            ],
-        }),
-        connections: [['clicked', () => {
-            App.closeWindow(window);
-            launch();
-        }]],
-    });
-    return btn;
-};
-
-const _listbox = () => {
-    const box = Widget({
-        type: 'box',
-        orientation: 'vertical',
-    });
-    box.push = item => {
-        box.add(Widget(item));
-        box.add(Widget({ type: 'separator', hexpand: true }));
-        box.show_all();
-    };
-    box.clear = () => {
-        box.get_children().forEach(ch => ch.destroy());
-        box.add(Widget({ type: 'separator', hexpand: true }));
-        box.show_all();
-    };
-    return box;
-};
-
-const _layout = ({ entry, listbox }) => ({
-    type: 'box',
-    orientation: 'vertical',
-    children: [
-        {
-            type: 'wallpaper',
-            className: 'search',
-            children: [{
-                type: 'box',
-                valign: 'center',
-                className: 'entry',
+const AppItem = (app, window) => Button({
+    className: 'app',
+    connections: [['clicked', () => {
+        App.closeWindow(window);
+        app.launch();
+    }]],
+    child: Box({
+        children: [
+            Icon({
+                icon: app.iconName,
+                size: 42,
+            }),
+            Box({
+                vertical: true,
                 children: [
-                    {
-                        type: 'icon',
-                        icon: 'folder-saved-search-symbolic',
-                        size: 20,
-                    },
-                    entry,
+                    Label({
+                        className: 'title',
+                        label: app.name,
+                        xalign: 0,
+                        valign: 'center',
+                        ellipsize: 3,
+                    }),
+                    Label({
+                        className: 'description',
+                        label: app.description || '',
+                        wrap: true,
+                        xalign: 0,
+                        justification: 'left',
+                        valign: 'center',
+                    }),
                 ],
-
-            }],
-        },
-        {
-            type: 'scrollable',
-            hscroll: 'never',
-            child: listbox,
-        },
-    ],
+            }),
+        ],
+    }),
 });
 
-Widget.widgets['applauncher'] = ({
-    placeholder = 'Search',
-    windowName = 'applauncher',
-    listbox = _listbox,
-    item = _item,
-    layout = _layout,
-}) => {
-    const appsbox = Widget(listbox);
-
-    const entry = Widget({
-        type: 'entry',
+export const Applauncher = ({ windowName = 'applauncher' } = {}) => {
+    const list = Box({ vertical: true });
+    const entry = Entry({
         hexpand: true,
-        placeholder,
-        text: '-',
+        placeholderText: 'Search',
         onAccept: ({ text }) => {
             const list = Applications.query(text);
             if (list[0]) {
@@ -115,22 +53,37 @@ Widget.widgets['applauncher'] = ({
             }
         },
         onChange: ({ text }) => {
-            appsbox.clear();
-            Applications.query(text).forEach(app => {
-                appsbox.push(Widget(item(app, windowName)));
-            });
+            list.children = Applications.query(text).map(app => [
+                Separator(),
+                AppItem(app, windowName),
+            ]).flat();
+            list.add(Separator());
+            list.show_all();
         },
     });
 
-    return Widget({
-        type: () => Widget(layout({
-            entry,
-            listbox: appsbox,
-        })),
+    return Box({
+        className: 'applauncher',
+        properties: [['list', list]],
+        vertical: true,
+        children: [
+            Wallpaper({
+                children: [
+                    Icon('folder-saved-search-symbolic'),
+                    entry,
+                ],
+
+            }),
+            Scrollable({
+                hscroll: 'never',
+                child: list,
+            }),
+        ],
         connections: [[App, (_b, name, visible) => {
             if (name !== windowName)
                 return;
 
+            entry.set_text('-'); // force onChange
             entry.set_text('');
             if (visible)
                 entry.grab_focus();

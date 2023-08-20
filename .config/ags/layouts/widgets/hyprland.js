@@ -1,39 +1,31 @@
-const { Widget } = ags;
+import * as hyprland from '../../modules/hyprland.js';
+const { Box, EventBox, Button } = ags.Widget;
 const { execAsync } = ags.Utils;
 
-Widget.widgets['workspaces'] = props => Widget({
+export const Workspaces = props => Box({
     ...props,
-    type: 'box',
-    children: [{
-        type: 'box',
-        children: [{
-            type: 'eventbox',
+    className: 'workspaces panel-button',
+    children: [Box({
+        children: [EventBox({
             className: 'eventbox',
-            child: {
-                type: 'hyprland/workspaces',
-                child: {
-                    type: 'box',
+            child: hyprland.Workspaces({
+                indicator: () => Box({
                     className: 'indicator',
                     valign: 'center',
-                    children: [{
-                        type: 'box',
-                        className: 'fill',
-                    }],
-                },
-            },
-        }],
-    }],
+                    children: [Box({ className: 'fill' })],
+                }),
+            }),
+        })],
+    })],
 });
 
-Widget.widgets['client'] = props => Widget({
+export const Client = props => Button({
     ...props,
-    type: 'button',
+    className: 'client panel-button',
     onSecondaryClick: () => execAsync('hyprctl dispatch killactive'),
-    child: {
-        type: 'box',
+    child: Box({
         children: [
-            {
-                type: 'hyprland/client-icon',
+            hyprland.ClientIcon({
                 symbolic: true,
                 substitutes: [
                     { from: 'com.transmissionbt.Transmission._43_219944-symbolic', to: 'com.transmissionbt.Transmission-symbolic' },
@@ -44,9 +36,8 @@ Widget.widgets['client'] = props => Widget({
                     { from: 'Caprine-symbolic', to: 'facebook-messenger-symbolic' },
                     { from: '-symbolic', to: 'preferences-desktop-display-symbolic' },
                 ],
-            },
-            {
-                type: 'hyprland/client-label',
+            }),
+            hyprland.ClientLabel({
                 show: 'class',
                 substitutes: [
                     { from: 'com.transmissionbt.Transmission._43_219944', to: 'Transmission' },
@@ -63,7 +54,7 @@ Widget.widgets['client'] = props => Widget({
                     { from: 'libreoffice-writer', to: 'Writer' },
                     { from: '', to: 'Desktop' },
                 ],
-            },
+            }),
         ],
-    },
+    }),
 });

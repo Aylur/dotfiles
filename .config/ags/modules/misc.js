@@ -1,44 +1,42 @@
-const { Widget } = ags;
-const { timeout, getConfig, exec } = ags.Utils;
-const { Theme } = ags.Service;
+const { Box, Label, Overlay, Icon, Revealer, EventBox } = ags.Widget;
+const { timeout, exec } = ags.Utils;
 
-Widget.widgets['separator'] = props => Widget({
+export const Separator = ({ className = '', ...props } = {}) => Box({
+    hexpand: false,
+    vexpand: false,
     ...props,
-    type: 'box',
-    className: 'separator',
+    className: [...className.split(' '), 'separator'].join(' '),
 });
 
-Widget.widgets['font-icon'] = ({
-    icon,
-    size = getConfig().baseIconSize || 16,
-    scale = 1,
-    angle,
-}) => Widget({
-    type: 'box',
-    children: [{
-        type: 'overlay',
-        children: [
-            {
-                type: 'box',
-                style: `
-                    min-width: ${size}px;
-                    min-height: ${size}px;
-                `,
-            },
-            {
-                type: 'label',
-                label: icon,
-                angle,
-                style: `font-size: ${size * scale}px`,
-                halign: 'center', valign: 'center',
-            },
-        ],
-    }],
-});
+export const FontIcon = ({ icon = '', ...props }) => {
+    const box = Box({
+        style: 'min-width: 1px; min-height: 1px;',
+    });
+    const label = Label({
+        label: icon,
+        halign: 'center',
+        valign: 'center',
+    });
+    return Box({
+        ...props,
+        setup: box => box.label = label,
+        className: 'icon',
+        children: [Overlay({
+            child: box,
+            overlays: [label],
+            passThrough: true,
+            connections: [['draw', overlay => {
+                const size = overlay.get_style_context()
+                    .get_property('font-size', imports.gi.Gtk.StateFlags.NORMAL) || 11;
 
-Widget.widgets['distro-icon'] = props => Widget({
+                box.setStyle(`min-width: ${size}px; min-height: ${size}px;`);
+            }]],
+        })],
+    });
+};
+
+export const DistroIcon = props => FontIcon({
     ...props,
-    type: 'font-icon',
     className: 'distro-icon',
     icon: (() => {
         // eslint-disable-next-line quotes
@@ -46,38 +44,19 @@ Widget.widgets['distro-icon'] = props => Widget({
             .toLowerCase();
 
         switch (distro) {
-        case 'fedora': return '';
-        case 'arch': return '';
-        case 'nixos': return '';
-        case 'debian': return '';
-        case 'opensuse-tumbleweed': return '';
-        case 'ubuntu': return '';
-        case 'endeavouros': return '';
-        default: return '';
+            case 'fedora': return '';
+            case 'arch': return '';
+            case 'nixos': return '';
+            case 'debian': return '';
+            case 'opensuse-tumbleweed': return '';
+            case 'ubuntu': return '';
+            case 'endeavouros': return '';
+            default: return '';
         }
     })(),
 });
 
-Widget.widgets['avatar'] = ({ child, ...props }) => Widget({
-    ...props,
-    type: 'box',
-    className: 'image',
-    connections: [[Theme, box => {
-        box.setStyle(`
-            background-image: url('${Theme.getSetting('avatar')}');
-            background-size: cover;
-            `);
-    }]],
-    children: [{
-        type: 'box',
-        className: 'shader',
-        hexpand: true,
-        children: [child],
-    }],
-});
-
-Widget.widgets['spinner'] = ({ icon = 'process-working-symbolic' }) => Widget({
-    type: 'icon',
+export const Spinner = ({ icon = 'process-working-symbolic' }) => Icon({
     icon,
     properties: [['deg', 0]],
     connections: [[10, w => {
@@ -85,9 +64,8 @@ Widget.widgets['spinner'] = ({ icon = 'process-working-symbolic' }) => Widget({
     }]],
 });
 
-Widget.widgets['progress'] = ({ height = 18, width = 180, vertical = false, child, ...props }) => {
-    const fill = Widget({
-        type: 'box',
+export const Progress = ({ height = 18, width = 180, vertical = false, child, ...props }) => {
+    const fill = Box({
         className: 'fill',
         hexpand: vertical,
         vexpand: !vertical,
@@ -95,9 +73,8 @@ Widget.widgets['progress'] = ({ height = 18, width = 180, vertical = false, chil
         valign: vertical ? 'end' : 'fill',
         children: [child],
     });
-    const progress = Widget({
+    const progress = Box({
         ...props,
-        type: 'box',
         className: 'progress',
         style: `
             min-width: ${width}px;
@@ -134,11 +111,16 @@ Widget.widgets['progress'] = ({ height = 18, width = 180, vertical = false, chil
     return progress;
 };
 
-Widget.widgets['hover-revealer'] = ({ indicator, child, direction = 'left', connection, duration = 300, ...rest }) => Widget({
-    type: 'box',
-    children: [{
+export const HoverRevealer = ({
+    indicator,
+    child,
+    direction = 'left',
+    duration = 300,
+    connections,
+    ...rest
+}) => Box({
+    children: [EventBox({
         ...rest,
-        type: 'eventbox',
         onHover: w => {
             if (w._open)
                 return;
@@ -153,20 +135,18 @@ Widget.widgets['hover-revealer'] = ({ indicator, child, direction = 'left', conn
             w.get_child().get_children()[direction === 'down' || direction === 'right' ? 1 : 0].reveal_child = false;
             w._open = false;
         },
-        child: {
-            type: 'box',
-            orientation: direction === 'down' || direction === 'up' ? 'vertical' : 'horizontal',
+        child: Box({
+            vertical: direction === 'down' || direction === 'up',
             children: [
                 direction === 'down' || direction === 'right' ? indicator : null,
-                {
-                    type: 'revealer',
+                Revealer({
                     transition: `slide_${direction}`,
-                    connections: connection ? [connection] : undefined,
-                    duration,
+                    connections,
+                    transitionDuration: duration,
                     child,
-                },
+                }),
                 direction === 'up' || direction === 'left' ? indicator : null,
-            ].filter(i => i),
-        },
-    }],
+            ],
+        }),
+    })],
 });

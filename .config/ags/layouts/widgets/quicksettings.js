@@ -1,4 +1,16 @@
-const { Widget, Service, App } = ags;
+import { Uptime } from '../../modules/clock.js';
+import { FontIcon, HoverRevealer, Separator } from '../../modules/misc.js';
+import * as battery from '../../modules/battery.js';
+import * as audio from '../../modules/audio.js';
+import * as brightness from '../../modules/brightness.js';
+import * as network from '../../modules/network.js';
+import * as bluetooth from '../../modules/bluetooth.js';
+import * as notifications from '../../modules/notifications.js';
+import * as asusctl from '../../modules/asusctl.js';
+import * as theme from '../../theme/theme.js';
+import * as media from './media.js';
+const { Button, Box, Icon, Label, Revealer } = ags.Widget;
+const { Service, App } = ags;
 const { Bluetooth, Battery, Audio, Network, Theme } = Service;
 const { execAsync, timeout, USER } = ags.Utils;
 
@@ -22,10 +34,9 @@ class QSMenu extends Service {
     }
 }
 
-const arrow = (menu, toggleOn) => ({
-    type: 'button',
+const Arrow = (menu, toggleOn) => Button({
     className: 'arrow',
-    onClick: () => {
+    onClicked: () => {
         QSMenu.toggle(menu);
         if (toggleOn)
             toggleOn();
@@ -33,8 +44,7 @@ const arrow = (menu, toggleOn) => ({
     connections: [[QSMenu, button => {
         button.toggleClassName('opened', QSMenu.opened === menu);
     }]],
-    child: {
-        type: 'icon',
+    child: Icon({
         icon: 'pan-end-symbolic',
         properties: [
             ['deg', 0],
@@ -52,168 +62,155 @@ const arrow = (menu, toggleOn) => ({
                 }
             }
         }]],
-    },
+    }),
 });
 
-const menu = (name, child) => ({
-    type: 'box',
-    children: [{
-        type: 'revealer',
+const RevealerMenu = (name, child) => Box({
+    children: [Revealer({
         transition: 'slide_down',
         connections: [[QSMenu, r => r.reveal_child = name === QSMenu.opened]],
         child,
-    }],
+    })],
 });
 
-const avatar = {
-    type: 'box',
+const Avatar = () => Box({
     className: 'avatar',
-    children: [{
-        type: 'avatar',
-        child: {
-            type: 'label',
+    connections: [[Theme, box => {
+        box.setStyle(`
+            background-image: url('${Theme.getSetting('avatar')}');
+            background-size: cover;
+        `);
+    }]],
+    children: [Box({
+        className: 'shader',
+        hexpand: true,
+        children: [Label({
             className: 'user',
             halign: 'start',
             valign: 'end',
             label: '@' + USER,
-        },
-    }],
-};
-
-const sysBtn = (icon, action, className = '') => ({
-    type: 'button',
-    className,
-    onClick: () => Service.System.action(action),
-    tooltip: action,
-    child: {
-        type: 'icon',
-        icon,
-    },
+        })],
+    })],
 });
 
-const systemBox = {
-    type: 'box',
-    orientation: 'vertical',
+const SysButton = (icon, action, className = '') => Button({
+    className,
+    onClicked: () => Service.System.action(action),
+    tooltipText: action,
+    child: Icon(icon),
+});
+
+const SystemBox = () => Box({
+    vertical: true,
     halign: 'end',
     valign: 'center',
     children: [
-        {
-            type: 'box',
+        Box({
             valign: 'center',
             className: 'system',
             children: [
-                {
-                    type: 'button',
+                Button({
                     className: 'settings',
-                    onClick: () => { App.toggleWindow('quicksettings'); Theme.openSettings(); },
-                    tooltip: 'Settings',
-                    child: {
-                        type: 'icon',
-                        icon: 'org.gnome.Settings-symbolic',
-                    },
-                },
-                {
-                    type: 'box',
+                    onClicked: () => { App.toggleWindow('quicksettings'); Theme.openSettings(); },
+                    tooltipText: 'Settings',
+                    child: Icon('org.gnome.Settings-symbolic'),
+                }),
+                Box({
                     className: 'uptime',
-                    children: ['uptime: ', { type: 'uptime' }],
-                },
-                sysBtn('system-log-out-symbolic', 'Log Out'),
-                sysBtn('system-shutdown-symbolic', 'Shutdown', 'shutdown'),
-            ],
-        },
-        { type: 'battery/progress' },
-    ],
-};
-
-const volume = {
-    type: 'box',
-    orientation: 'vertical',
-    className: 'volume-box',
-    children: [
-        {
-            type: 'box',
-            className: 'volume',
-            children: [
-                {
-                    type: 'button',
-                    child: { type: 'audio/speaker-type-indicator' },
-                    onClick: 'pactl set-sink-mute @DEFAULT_SINK@ toggle',
-                },
-                { className: 'slider', type: 'audio/speaker-slider', hexpand: true },
-                { type: 'box', children: [{ type: 'audio/speaker-percent-label' }, '%'] },
-                arrow('stream-selector'),
-            ],
-        },
-        menu('stream-selector', {
-            type: 'box',
-            orientation: 'vertical',
-            className: 'menu',
-            children: [
-                { type: 'audio/stream-selector' },
-                { type: 'separator' },
-                {
-                    type: 'button',
-                    onClick: () => {
-                        execAsync('pavucontrol').catch(print);
-                        App.closeWindow('quicksettings');
-                    },
-                    child: {
-                        type: 'label',
-                        label: 'Settings',
-                        xalign: 0,
-                    },
-                },
+                    children: [
+                        Label('uptime: '),
+                        Uptime(),
+                    ],
+                }),
+                SysButton('system-log-out-symbolic', 'Log Out'),
+                SysButton('system-shutdown-symbolic', 'Shutdown', 'shutdown'),
             ],
         }),
-    ],
-};
-
-const brightness = {
-    type: 'box',
-    className: 'brightness',
-    children: [
-        {
-            type: 'button',
-            onClick: () => {
-                execAsync('wl-gammactl').catch(print);
-                App.closeWindow('quicksettings');
-            },
-            child: { type: 'brightness/icon' },
-        },
-        { className: 'slider', type: 'brightness/slider', hexpand: true },
-        { type: 'box', children: [{ type: 'brightness/percent' }, '%'] },
-    ],
-};
-
-const arrowToggle = ({ icon, label, connection, toggle, name, toggleOn }) => ({
-    type: 'box',
-    connections: [[
-        connection[0],
-        w => w.toggleClassName('active', connection[1]()),
-    ]],
-    className: `arrow toggle ${name}`,
-    children: [
-        {
-            type: 'button',
-            hexpand: true,
-            className: 'toggle',
-            onClick: toggle,
-            child: {
-                type: 'box',
-                children: [
-                    { type: icon },
-                    { type: label },
-                ],
-            },
-        },
-        arrow(name, toggleOn),
+        battery.BatteryProgress(),
     ],
 });
 
-const networkToggle = arrowToggle({
-    icon: 'network/wifi-indicator',
-    label: 'network/ssid-label',
-    connection: [Network, () => Network.wifi?.enabled],
+const VolumeBox = () => Box({
+    vertical: true,
+    className: 'volume-box',
+    children: [
+        Box({
+            className: 'volume',
+            children: [
+                Button({
+                    child: audio.SpeakerTypeIndicator(),
+                    onClicked: 'pactl set-sink-mute @DEFAULT_SINK@ toggle',
+                }),
+                audio.SpeakerSlider({ hexpand: true }),
+                audio.SpeakerPercentLabel(),
+                Arrow('stream-selector'),
+            ],
+        }),
+        RevealerMenu('stream-selector', Box({
+            vertical: true,
+            className: 'menu',
+            children: [
+                audio.StreamSelector(),
+                Separator(),
+                Button({
+                    onClicked: () => {
+                        execAsync('pavucontrol').catch(print);
+                        App.closeWindow('quicksettings');
+                    },
+                    child: Label({
+                        label: 'Settings',
+                        xalign: 0,
+                    }),
+                }),
+            ],
+        })),
+    ],
+});
+
+const BrightnessBox = () => Box({
+    className: 'brightness',
+    children: [
+        Button({
+            onClicked: () => {
+                execAsync('wl-gammactl').catch(print);
+                App.closeWindow('quicksettings');
+            },
+            child: brightness.Indicator(),
+        }),
+        brightness.BrightnessSlider(),
+        brightness.PercentLabel(),
+    ],
+});
+
+const ArrowToggle = ({ icon, label, connection, toggle, name, toggleOn }) => Box({
+    connections: [[
+        connection.service,
+        w => w.toggleClassName('active', connection.callback()),
+    ]],
+    className: `arrow toggle ${name}`,
+    children: [
+        Button({
+            hexpand: true,
+            className: 'toggle',
+            onClicked: toggle,
+            child: Box({
+                children: [
+                    icon,
+                    label,
+                ],
+            }),
+        }),
+        Arrow(name, toggleOn),
+    ],
+});
+
+const NetworkToggle = () => ArrowToggle({
+    icon: network.WifiIndicator(),
+    label: network.SSIDLabel(),
+    connection: {
+        service: Network,
+        callback: () => Network.wifi?.enabled,
+    },
     toggle: Network.toggleWifi,
     toggleOn: () => {
         Network.wifi.enabled = true;
@@ -222,10 +219,13 @@ const networkToggle = arrowToggle({
     name: 'network',
 });
 
-const bluetoothToggle = arrowToggle({
-    icon: 'bluetooth/indicator',
-    label: 'bluetooth/label',
-    connection: [Bluetooth, () => Bluetooth.enabled],
+const BluetoothToggle = () => ArrowToggle({
+    icon: bluetooth.Indicator(),
+    label: bluetooth.ConnectedLabel(),
+    connection: {
+        service: Bluetooth,
+        callback: () => Bluetooth.enabled,
+    },
     toggle: () => Bluetooth.enabled = !Bluetooth.enabled,
     toggleOn: () => {
         Bluetooth.enabled = QSMenu.opened === 'bluetooth'
@@ -234,148 +234,156 @@ const bluetoothToggle = arrowToggle({
     name: 'bluetooth',
 });
 
-const smallToggle = (toggle, indicator) => ({
+const SmallToggle = (toggle, indicator) => toggle({
     className: 'toggle',
     halign: 'fill',
     hexpand: true,
     vexpand: true,
-    type: toggle,
-    child: { type: indicator, halign: 'center' },
+    child: indicator({ halign: 'center' }),
 });
 
-const dndToggle = smallToggle(
-    'notifications/dnd-toggle',
-    'notifications/dnd-indicator',
+const DNDToggle = () => SmallToggle(
+    notifications.DNDToggle,
+    notifications.DNDIndicator,
 );
 
-const muteToggle = smallToggle(
-    'audio/microphone-mute-toggle',
-    'audio/microphone-mute-indicator',
+const MuteToggle = () => SmallToggle(
+    audio.MicrophoneMuteToggle,
+    audio.MicrophoneMuteIndicator,
 );
 
-const asusctlToggle = smallToggle(
-    'asusctl/profile-toggle',
-    'asusctl/profile-indicator',
+const AsusctlToggle = () => SmallToggle(
+    asusctl.ProfileToggle,
+    asusctl.ProfileIndicator,
 );
 
-const asusmodeToggle = smallToggle(
-    'asusctl/mode-toggle',
-    'asusctl/mode-indicator',
+const AsusmodeToggle = () => SmallToggle(
+    asusctl.ModeToggle,
+    asusctl.ModeIndicator,
 );
 
-const themeToggle = {
+const ThemeToggle = () => Button({
     className: 'toggle',
-    type: 'button',
-    onClick: () => QSMenu.toggle('theme'),
-    child: { type: 'theme/indicator' },
+    onClicked: () => QSMenu.toggle('theme'),
+    child: theme.Indicator(),
     connections: [[QSMenu, w => w.toggleClassName('on', QSMenu.opened === 'theme')]],
-};
+});
 
-const appmixerToggle = {
+const AppmixerToggle = () => Button({
     className: 'toggle',
-    type: 'button',
-    onClick: () => QSMenu.toggle('app-mixer'),
-    child: { type: 'font-icon', icon: '' },
+    onClicked: () => QSMenu.toggle('app-mixer'),
+    child: FontIcon({ icon: '' }),
+    tooltipText: 'App Mixer',
     connections: [[QSMenu, w => w.toggleClassName('on', QSMenu.opened === 'app-mixer')]],
-};
+});
 
-const submenu = ({ menuName, icon, title, contentType }) => menu(menuName, {
-    type: 'box',
-    orientation: 'vertical',
+const Submenu = ({ menuName, icon, title, contentType }) => RevealerMenu(menuName, Box({
+    vertical: true,
     className: `submenu ${menuName}`,
     children: [
-        { className: 'title', type: 'box', children: [icon, title] },
-        { className: 'content', type: contentType, hexpand: true },
+        Box({ className: 'title', children: [icon, Label(title)] }),
+        contentType({ className: 'content', hexpand: true }),
     ],
-});
+}));
 
-const appmixer = submenu({
+const Appmixer = () => Submenu({
     menuName: 'app-mixer',
-    icon: { type: 'font-icon', icon: '' },
+    icon: FontIcon({ icon: '' }),
     title: 'App Mixer',
-    contentType: 'audio/app-mixer',
+    contentType: audio.AppMixer,
 });
 
-const networkSelection = submenu({
+const NetworkSelection = () => Submenu({
     menuName: 'network',
-    icon: { type: 'icon', icon: 'network-wireless-symbolic' },
+    icon: Icon('network-wireless-symbolic'),
     title: 'Wireless Networks',
-    contentType: 'network/wifi-selection',
+    contentType: network.WifiSelection,
 });
 
-const bluetoothSelection = submenu({
+const BluetoothSelection = () => Submenu({
     menuName: 'bluetooth',
-    icon: { type: 'icon', icon: 'bluetooth-symbolic' },
+    icon: Icon('bluetooth-symbolic'),
     title: 'Bluetooth',
-    contentType: 'bluetooth/devices',
+    contentType: bluetooth.Devices,
 });
 
-const themeSelection = submenu({
+const ThemeSelection = () => Submenu({
     menuName: 'theme',
-    icon: { type: 'icon', icon: 'preferences-desktop-theme-symbolic' },
+    icon: Icon('preferences-desktop-theme-symbolic'),
     title: 'Theme',
-    contentType: 'theme/selector',
+    contentType: theme.Selector,
 });
 
-Widget.widgets['quicksettings/popup-content'] = () => Widget({
-    type: 'box',
+export const PopupContent = () => Box({
     className: 'quicksettings',
-    orientation: 'vertical',
+    vertical: true,
     hexpand: false,
     children: [
-        {
-            type: 'box',
+        Box({
             className: 'header',
             children: [
-                avatar,
-                systemBox,
+                Avatar(),
+                SystemBox(),
             ],
-        },
-        volume,
-        brightness,
-        {
-            type: 'box',
+        }),
+        VolumeBox(),
+        BrightnessBox(),
+        Box({
             className: 'toggles-box',
             children: [
-                {
-                    type: 'box',
-                    orientation: 'vertical',
+                Box({
+                    vertical: true,
                     className: 'arrow-toggles',
-                    children: [networkToggle, bluetoothToggle],
-                },
-                {
-                    type: 'box',
-                    orientation: 'vertical',
+                    children: [NetworkToggle(), BluetoothToggle()],
+                }),
+                Box({
+                    vertical: true,
                     className: 'small-toggles',
                     vexpand: true,
                     hexpand: false,
                     children: Service.Asusctl?.available
                         ? [
-                            { type: 'box', children: [asusmodeToggle, asusctlToggle, dndToggle] },
-                            { type: 'box', children: [appmixerToggle, themeToggle, muteToggle] },
+                            Box({ children: [AsusmodeToggle(), AsusctlToggle(), DNDToggle()] }),
+                            Box({ children: [AppmixerToggle(), ThemeToggle(), MuteToggle()] }),
                         ] : [
-                            { type: 'box', children: [dndToggle, muteToggle] },
-                            { type: 'box', children: [appmixerToggle, themeToggle] },
+                            Box({ children: [DNDToggle(), MuteToggle()] }),
+                            Box({ children: [AppmixerToggle(), ThemeToggle()] }),
                         ],
-                },
+                }),
             ],
-        },
-        appmixer,
-        networkSelection,
-        bluetoothSelection,
-        themeSelection,
-        {
-            type: 'media/popup-content',
-            orientation: 'vertical',
-            className: 'media',
-        },
+        }),
+        Appmixer(),
+        NetworkSelection(),
+        BluetoothSelection(),
+        ThemeSelection(),
+        media.PopupContent(),
     ],
 });
 
-Widget.widgets['quicksettings/panel-button'] = () => Widget({
-    type: 'button',
+const BluetoothIndicator = () => Box({
+    connections: [[Bluetooth, box => {
+        box.children = Array.from(Bluetooth.connectedDevices.values())
+            .map(({ iconName, name }) => HoverRevealer({
+                indicator: Icon(iconName + '-symbolic'),
+                child: Label(name),
+            }));
+
+        box.visible = Bluetooth.connectedDevices.size > 0;
+    }]],
+});
+
+const BatteryIndicator = () => HoverRevealer({
+    direction: 'right',
+    indicator: battery.Indicator(),
+    child: battery.LevelLabel(),
+    connections: [[Battery, revealer => {
+        revealer.reveal_child = Battery.percent < 100;
+    }]],
+});
+
+export const PanelButton = () => Button({
     className: 'quicksettings panel-button',
-    onClick: () => App.toggleWindow('quicksettings'),
+    onClicked: () => App.toggleWindow('quicksettings'),
     onScrollUp: () => {
         Audio.speaker.volume += 0.02;
         Service.Indicator.speaker();
@@ -387,42 +395,17 @@ Widget.widgets['quicksettings/panel-button'] = () => Widget({
     connections: [[App, (btn, win, visible) => {
         btn.toggleClassName('active', win === 'quicksettings' && visible);
     }]],
-    child: {
-        type: 'box',
+    child: Box({
         children: [
-            ...(Service.Asusctl?.available ? [
-                { type: 'asusctl/profile-indicator', balanced: null },
-                { type: 'asusctl/mode-indicator', hybrid: null },
-            ] : []),
-            { type: 'audio/microphone-mute-indicator', unmuted: null },
-            { type: 'notifications/dnd-indicator', noisy: null },
-            {
-                type: 'box',
-                connections: [[Bluetooth, box => {
-                    box.get_children().forEach(ch => ch.destroy());
-                    for (const [, device] of Bluetooth.connectedDevices) {
-                        box.add(Widget({
-                            type: 'hover-revealer',
-                            indicator: { type: 'icon', icon: device.iconName + '-symbolic' },
-                            child: { type: 'label', label: device.name },
-                        }));
-                    }
-                    box.show_all();
-                    box.visible = Bluetooth.connectedDevices.size > 0;
-                }]],
-            },
-            { type: 'bluetooth/indicator', disabled: null },
-            { type: 'network/indicator' },
-            { type: 'audio/speaker-indicator' },
-            {
-                type: 'hover-revealer',
-                direction: 'right',
-                indicator: { type: 'battery/indicator', className: 'battery' },
-                child: { type: 'battery/level-label' },
-                connection: [Battery, revealer => {
-                    revealer.reveal_child = Battery.percent < 100;
-                }],
-            },
+            Service.Asusctl?.available && asusctl.ProfileIndicator({ balanced: null }),
+            Service.Asusctl?.available && asusctl.ModeIndicator({ hybrid: null }),
+            audio.MicrophoneMuteIndicator({ unmuted: null }),
+            notifications.DNDIndicator({ noisy: null }),
+            BluetoothIndicator(),
+            bluetooth.Indicator({ disabled: null }),
+            network.Indicator(),
+            audio.SpeakerIndicator(),
+            BatteryIndicator(),
         ],
-    },
+    }),
 });

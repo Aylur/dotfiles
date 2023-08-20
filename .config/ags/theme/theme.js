@@ -1,15 +1,19 @@
-const { Service, Widget } = ags;
-const { CONFIG_DIR, USER, exec, execAsync, readFile, writeFile } = ags.Utils;
-const { setupHyprland } = imports.theme.hyprland;
-const { setupScss } = imports.theme.scss;
-const { themes } = imports.theme;
+import { FontIcon } from '../modules/misc.js';
+import { setupScss } from './scss.js';
+import { setupHyprland } from './hyprland.js';
+import themes from './themes.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import Service from 'resource:///com/github/Aylur/ags/service/service.js';
+import { USER, exec, execAsync, readFile, writeFile } from 'resource:///com/github/Aylur/ags/utils.js';
+import { Stack, Box, Icon, Label, Button } from 'resource:///com/github/Aylur/ags/widget.js';
+import { SettingsDialog } from './dialog.js';
 
 class ThemeService extends Service {
     static { Service.register(this); }
 
-    _settingsPath = CONFIG_DIR + '/settings.json';
+    _settingsPath = App.configDir + '/settings.json';
     _defaultAvatar = `/home/${USER}/Pictures/avatars/donna.jpg`;
-    _defaultTheme = Object.keys(themes)[0];
+    _defaultTheme = themes[0].name;
 
     constructor() {
         super();
@@ -19,15 +23,19 @@ class ThemeService extends Service {
 
     openSettings() {
         if (!this._dialog)
-            this._dialog = imports.theme.dialog.dialog();
+            this._dialog = SettingsDialog();
 
         this._dialog.hide();
         this._dialog.show_all();
     }
 
+    getTheme() {
+        return themes.find(({ name }) => name === this.getSetting('theme'));
+    }
+
     setup() {
         const theme = {
-            ...themes[this.getSetting('theme')],
+            ...this.getTheme(),
             ...this.settings,
         };
         setupScss(theme);
@@ -66,7 +74,12 @@ class ThemeService extends Service {
         if (this._settings)
             return this._settings;
 
-        this._settings = JSON.parse(readFile(this._settingsPath)) || {};
+        try {
+            this._settings = JSON.parse(readFile(this._settingsPath));
+        } catch (_) {
+            this._settings = {};
+        }
+
         return this._settings;
     }
 
@@ -97,11 +110,11 @@ class ThemeService extends Service {
 
         return this.settings[prop] !== undefined
             ? this.settings[prop]
-            : themes[this.getSetting('theme')][prop];
+            : this.getTheme()[prop];
     }
 }
 
-var Theme = class Theme {
+export class Theme {
     static { Service.export(this, 'Theme'); }
     static instance = new ThemeService();
     static get themes() { return themes; }
@@ -110,28 +123,24 @@ var Theme = class Theme {
     static openSettings() { Theme.instance.openSettings(); }
     static getSetting(prop) { return Theme.instance.getSetting(prop); }
     static setSetting(prop, value) { return Theme.instance.setSetting(prop, value); }
-};
+}
 
-Widget.widgets['theme/indicator'] = props => Widget({
+export const Indicator = props => Stack({
     ...props,
-    type: 'stack',
     transition: 'crossfade',
-    items: Object.values(themes).map(({ name, icon }) => [name, {
-        type: 'font-icon',
-        icon,
-    }]),
-    connections: [[Theme, stack => stack.showChild(Theme.getSetting('theme'))]],
+    items: themes.map(({ name, icon }) =>
+        [name, FontIcon({ icon })]),
+    connections: [[Theme, stack => stack.shown = Theme.getSetting('theme')]],
 });
 
-Widget.widgets['theme/toggle'] = props => Widget({
+export const Toggle = props => Button({
     ...props,
-    type: 'button',
     className: 'active',
     properties: [
-        ['list', Object.keys(themes)],
+        ['list', themes],
         ['current', Theme.getSetting('theme')],
     ],
-    onClick: btn => {
+    onClicked: btn => {
         let index = btn._list.indexOf(btn._current) + 1;
         if (index > btn._list.length)
             index = 0;
@@ -141,26 +150,22 @@ Widget.widgets['theme/toggle'] = props => Widget({
     },
 });
 
-Widget.widgets['theme/selector'] = props => Widget({
+export const Selector = props => Box({
     ...props,
-    type: 'box',
-    orientation: 'vertical',
-    children: Object.values(themes).map(({ name, icon }) => ({
-        type: 'button',
-        onClick: () => Theme.setSetting('theme', name),
-        child: {
-            type: 'box',
+    vertical: true,
+    children: themes.map(({ name, icon }) => Button({
+        onClicked: () => Theme.setSetting('theme', name),
+        child: Box({
             children: [
-                { type: 'font-icon', icon },
-                name.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-                {
-                    type: 'icon',
+                FontIcon({ icon }),
+                Label(name.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')),
+                Icon({
                     icon: 'object-select-symbolic',
                     hexpand: true,
                     halign: 'end',
                     connections: [[Theme, icon => icon.visible = Theme.getSetting('theme') === name]],
-                },
+                }),
             ],
-        },
+        }),
     })),
 });

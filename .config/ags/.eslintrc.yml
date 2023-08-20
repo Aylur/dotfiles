@@ -4,6 +4,7 @@ extends: eslint:recommended
 overrides: []
 parserOptions:
   ecmaVersion: latest
+  sourceType: 'module'
 rules:
   arrow-parens:
     - error
@@ -29,6 +30,7 @@ rules:
   indent:
     - error
     - 4
+    - SwitchCase: 1
   keyword-spacing:
     - error
     - before: true

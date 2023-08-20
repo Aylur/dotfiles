@@ -1,36 +1,27 @@
-const { Widget } = ags;
+import { Clock, Uptime } from '../../modules/clock.js';
+const { Box, Label } = ags.Widget;
 
-Widget.widgets['datemenu/popup-content'] = props => Widget({
+export const PopupContent = props => Box({
     ...props,
-    type: 'box',
-    orientation: 'vertical',
+    vertical: true,
     className: 'datemenu',
     children: [
-        {
-            type: 'clock',
-            format: '%H:%M',
-            className: 'clock',
-        },
-        {
-            type: 'box',
-            className: 'uptime',
+        Clock({ format: '%H:%M' }),
+        Box({
+            className: 'uptime-box',
             halign: 'center',
             children: [
-                'uptime: ',
-                { type: 'uptime' },
+                Label('uptime'),
+                Uptime(),
             ],
-        },
-        {
-            type: 'box',
+        }),
+        Box({
             className: 'calendar',
             children: [
-                {
-                    type: 'box',
-                    halign: 'center',
-                    hexpand: true,
-                    children: [{ type: imports.gi.Gtk.Calendar.new }],
-                },
+                ags.Widget({
+                    type: imports.gi.Gtk.Calendar,
+                }),
             ],
-        },
+        }),
     ],
 });

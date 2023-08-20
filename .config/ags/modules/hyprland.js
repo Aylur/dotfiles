@@ -1,18 +1,17 @@
-const { Widget, App } = ags;
+const { App } = ags;
 const { Hyprland, Applications } = ags.Service;
-const { execAsync, lookUpIcon, warning } = ags.Utils;
+const { execAsync, lookUpIcon } = ags.Utils;
+const { Box, Button, Label, Icon } = ags.Widget;
 
-Widget.widgets['hyprland/workspaces'] = ({
+export const Workspaces = ({
     fixed = 7,
-    child,
+    indicator,
     ...props
-}) => Widget({
+} = {}) => Box({
     ...props,
-    type: 'box',
-    children: Array.from({ length: fixed }, (_, i) => i + 1).map(i => ({
-        type: 'button',
-        onClick: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
-        child: child ? Widget(child) : `${i}`,
+    children: Array.from({ length: fixed }, (_, i) => i + 1).map(i => Button({
+        onClicked: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
+        child: indicator ? indicator() : Label(`${i}`),
         connections: [[Hyprland, btn => {
             const { workspaces, active } = Hyprland;
             const occupied = workspaces.has(i) && workspaces.get(i).windows > 0;
@@ -23,40 +22,30 @@ Widget.widgets['hyprland/workspaces'] = ({
     })),
 });
 
-Widget.widgets['hyprland/client-label'] = ({
+export const ClientLabel = ({
     show = 'title', // "class"|"title"
     substitutes = [], // { from: string, to: string }[]
     fallback = '',
     ...props
-}) => {
-    if (!(show === 'title' || show === 'class')) {
-        const err = 'show has to be "class" or "title" on hyprland/client-label';
-        warning(err);
-        return Widget(err);
-    }
+} = {}) => Label({
+    ...props,
+    connections: [[Hyprland, label => {
+        let name = Hyprland.active.client[show] || fallback;
+        substitutes.forEach(({ from, to }) => {
+            if (name === from)
+                name = to;
+        });
+        label.label = name;
+    }]],
+});
 
-    return Widget({
-        ...props,
-        type: 'label',
-        connections: [[Hyprland, label => {
-            let name = Hyprland.active.client[show] || fallback;
-            substitutes.forEach(({ from, to }) => {
-                if (name === from)
-                    name = to;
-            });
-            label.label = name;
-        }]],
-    });
-};
-
-Widget.widgets['hyprland/client-icon'] = ({
+export const ClientIcon = ({
     symbolic = false,
     substitutes = [], // { from: string, to: string }[]
     fallback = '',
     ...props
-}) => Widget({
+} = {}) => Icon({
     ...props,
-    type: 'icon',
     connections: [[Hyprland, icon => {
         let classIcon = `${Hyprland.active.client.class}${symbolic ? '-symbolic' : ''}`;
         let titleIcon = `${Hyprland.active.client.title}${symbolic ? '-symbolic' : ''}`;
@@ -72,54 +61,49 @@ Widget.widgets['hyprland/client-icon'] = ({
         const hasClassIcon = lookUpIcon(classIcon);
 
         if (fallback)
-            icon.icon_name = fallback;
+            icon.icon = fallback;
 
         if (hasClassIcon)
-            icon.icon_name = classIcon;
+            icon.icon = classIcon;
 
         if (hasTitleIcon)
-            icon.icon_name = titleIcon;
+            icon.icon = titleIcon;
 
         icon.visible = fallback || hasTitleIcon || hasClassIcon;
     }]],
 });
 
-const _item = ({ iconName }, { address, title }) => ({
-    type: 'button',
-    child: { type: 'icon', icon: iconName },
+const AppItem = ({ iconName }, { address, title }) => Button({
+    child: Icon(iconName),
     tooltip: title,
     className: Hyprland.active.client.address === address.substring(2) ? 'focused' : 'nonfocused',
-    onClick: () => execAsync(`hyprctl dispatch focuswindow address:${address}`).catch(print),
+    onClicked: () => execAsync(`hyprctl dispatch focuswindow address:${address}`).catch(print),
 });
 
-Widget.widgets['hyprland/taskbar'] = ({
-    item = _item,
+export const Taskbar = ({
+    item = AppItem,
     windowName,
     skip = [], // string[]
     ...props
-}) => Widget({
+}) => Box({
     ...props,
-    type: 'box',
     connections: [
         [Applications, box => box._apps = Applications.query('')],
         [Hyprland, box => {
             if (windowName && !App.getWindow(windowName).visible)
                 return;
 
-            box.get_children().forEach(ch => ch.destroy());
-            Hyprland.clients.forEach(client => {
+            box.children = Array.from(Hyprland.clients.values()).map(client => {
                 for (const appName of skip) {
                     if (client.class.toLowerCase().includes(appName.toLowerCase()))
-                        return;
+                        return null;
                 }
                 for (const app of box._apps) {
-                    if (client.title && app.match(client.title) || client.class && app.match(client.class)) {
-                        box.add(Widget(item(app, client)));
-                        return;
-                    }
+                    if (client.title && app.match(client.title) ||
+                        client.class && app.match(client.class))
+                        return item(app, client);
                 }
             });
-            box.show_all();
         }],
     ],
 });

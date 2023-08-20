@@ -216,9 +216,8 @@ window {
     }
 }
 
-@mixin shader($radius: $radii, $width: 3em){
+@mixin shader($width: 3em){
     @include common;
-    border-radius: max($radius - $border_width, 0);
 
     label {
         color: $shader_fg;

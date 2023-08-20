@@ -1,17 +1,14 @@
 const { Notifications } = ags.Service;
 const { execAsync } = ags.Utils;
-const { Widget } = ags;
 const { Gravity } = imports.gi.Gdk;
+const { Button, Icon, Menu, MenuItem, Label } = ags.Widget;
 
 const wlCopy = color => execAsync(['wl-copy', color]).catch(print);
 
-Widget.widgets['colorpicker'] = props => Widget({
-    child: {
-        type: 'icon',
-        icon: 'color-select-symbolic',
-    },
+export const PanelButton = props => Button({
     ...props,
-    type: 'button',
+    className: 'panel-button colorpicker',
+    child: Icon('color-select-symbolic'),
     properties: [['colors', []]],
     connections: [['clicked', btn => execAsync('hyprpicker').then(color => {
         wlCopy(color);
@@ -31,14 +28,12 @@ Widget.widgets['colorpicker'] = props => Widget({
             {},
         );
     }).catch(print)]],
-    onSecondaryClick: (btn, event) => btn._colors.length > 0 ? Widget({
-        type: 'menu',
+    onSecondaryClick: btn => btn._colors.length > 0 ? Menu({
         className: 'colorpicker',
-        children: btn._colors.map(color => ({
-            type: 'menuitem',
-            child: color,
+        children: btn._colors.map(color => MenuItem({
+            child: Label(color),
             style: `background-color: ${color}`,
             onActivate: () => wlCopy(color),
         })),
-    }).popup_at_widget(btn, Gravity.WEST, Gravity.EAST, event) : false,
+    }).popup_at_widget(btn, Gravity.WEST, Gravity.EAST, null) : false,
 });

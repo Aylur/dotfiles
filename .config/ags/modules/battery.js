@@ -1,91 +1,73 @@
-const { Widget } = ags;
 const { Battery } = ags.Service;
+const { Label, Icon, Stack, ProgressBar, Overlay, Box } = ags.Widget;
 
-function _default(charging) {
-    const items = [];
-    for (let i = 0; i <= 90; i += 10) {
-        items.push({
-            value: i,
-            widget: {
-                type: 'icon',
-                className: `${i} ${charging ? 'charging' : 'discharging'}`,
-                icon: `battery-level-${i}${charging ? '-charging' : ''}-symbolic`,
-            },
-        });
-    }
-    items.push({
-        value: 100,
-        widget: {
-            type: 'icon',
-            className: `100 ${charging ? 'charging' : 'discharging'}`,
-            icon: `battery-level-100${charging ? '-charged' : ''}-symbolic`,
-        },
-    });
-    return items.reverse();
-}
+const icons = charging => ([
+    ...Array.from({ length: 9 }, (_, i) => i * 10).map(i => ([
+        `${i}`, Icon({
+            className: `${i} ${charging ? 'charging' : 'discharging'}`,
+            icon: `battery-level-${i}${charging ? '-charging' : ''}-symbolic`,
+        }),
+    ])),
+    ['100', Icon({
+        className: `100 ${charging ? 'charging' : 'discharging'}`,
+        icon: `battery-level-100${charging ? '-charged' : ''}-symbolic`,
+    })],
+]);
 
-const _indicators = items => Widget({
-    type: 'dynamic',
-    items,
-    connections: [[Battery, dynamic => {
-        dynamic.update(value => Battery.percent >= value);
+const Indicators = charging => Stack({
+    items: icons(charging),
+    connections: [[Battery, stack => {
+        stack.shown = `${Math.floor(Battery.percent / 10) * 10}`;
     }]],
 });
 
-Widget.widgets['battery/indicator'] = ({
-    charging = _indicators(_default(true)),
-    discharging = _indicators(_default(false)),
+export const Indicator = ({
+    charging = Indicators(true),
+    discharging = Indicators(false),
     ...props
-}) => Widget({
+} = {}) => Stack({
     ...props,
-    type: 'dynamic',
+    className: 'battery',
     items: [
-        { value: true, widget: charging },
-        { value: false, widget: discharging },
+        ['true', charging],
+        ['false', discharging],
     ],
-    connections: [[Battery, dynamic => {
+    connections: [[Battery, stack => {
         const { charging, charged } = Battery;
-        dynamic.update(value => value === charging || value === charged);
-        dynamic.toggleClassName('charging', Battery.charging);
-        dynamic.toggleClassName('charged', Battery.charged);
-        dynamic.toggleClassName('low', Battery.percent < 30);
+        stack.shown = `${charging || charged}`;
+        stack.toggleClassName('charging', Battery.charging);
+        stack.toggleClassName('charged', Battery.charged);
+        stack.toggleClassName('low', Battery.percent < 30);
     }]],
 });
 
-Widget.widgets['battery/level-label'] = props => Widget({
+export const LevelLabel = props => Label({
     ...props,
-    type: 'label',
     connections: [[Battery, label => label.label = `${Battery.percent}%`]],
 });
 
-Widget.widgets['battery/progress'] = props => Widget({
+export const BatteryProgress = props => Box({
     ...props,
-    type: 'box',
     className: 'battery-progress',
-    connections: [[Battery, d => {
-        d.toggleClassName('half', Battery.percent < 46);
-        d.toggleClassName('charging', Battery.charging);
-        d.toggleClassName('charged', Battery.charged);
-        d.toggleClassName('low', Battery.percent < 30);
+    connections: [[Battery, w => {
+        w.toggleClassName('half', Battery.percent < 46);
+        w.toggleClassName('charging', Battery.charging);
+        w.toggleClassName('charged', Battery.charged);
+        w.toggleClassName('low', Battery.percent < 30);
     }]],
-    children: [{
-        type: 'overlay',
-        children: [
-            {
-                type: 'progressbar',
-                hexpand: true,
-                connections: [[Battery, progress => {
-                    progress.setValue(Battery.percent / 100);
-                }]],
-            },
-            {
-                type: 'label',
-                connections: [[Battery, l => {
-                    l.label = Battery.charging || Battery.charged
-                        ? '󱐋'
-                        : `${Battery.percent}%`;
-                }]],
-            },
-        ],
-    }],
+    children: [Overlay({
+        child: ProgressBar({
+            hexpand: true,
+            connections: [[Battery, progress => {
+                progress.fraction = Battery.percent / 100;
+            }]],
+        }),
+        overlays: [Label({
+            connections: [[Battery, l => {
+                l.label = Battery.charging || Battery.charged
+                    ? '󱐋'
+                    : `${Battery.percent}%`;
+            }]],
+        })],
+    })],
 });

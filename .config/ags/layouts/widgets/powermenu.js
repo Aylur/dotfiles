@@ -1,5 +1,6 @@
-const { App, Widget, Service } = ags;
+const { App, Service } = ags;
 const { exec, error } = ags.Utils;
+const { Icon, Label, Box, Button } = ags.Widget;
 
 class System extends Service {
     static {
@@ -27,80 +28,67 @@ class System extends Service {
     }
 }
 
-const button = (icon, action) => ({
-    type: 'button',
-    onClick: () => System.action(action),
-    child: {
-        type: 'box',
-        orientation: 'vertical',
+const SysButton = (icon, action) => Button({
+    onClicked: () => System.action(action),
+    child: Box({
+        vertical: true,
         children: [
-            { type: 'icon', className: 'icon', icon, size: 74 },
-            action,
+            Icon(icon),
+            Label(action),
         ],
-    },
+    }),
 });
 
-Widget.widgets['powermenu/popup-content'] = () => Widget({
-    type: 'box',
+export const PopupContent = () => Box({
     homogeneous: true,
     className: 'powermenu',
     children: [
-        button('weather-clear-night-symbolic', 'Sleep'),
-        button('system-reboot-symbolic', 'Reboot'),
-        button('system-log-out-symbolic', 'Log Out'),
-        button('system-shutdown-symbolic', 'Shutdown'),
+        SysButton('weather-clear-night-symbolic', 'Sleep'),
+        SysButton('system-reboot-symbolic', 'Reboot'),
+        SysButton('system-log-out-symbolic', 'Log Out'),
+        SysButton('system-shutdown-symbolic', 'Shutdown'),
     ],
 });
 
-Widget.widgets['powermenu/verification'] = () => Widget({
-    type: 'box',
+export const Verification = () => Box({
     className: 'verification',
-    orientation: 'vertical',
+    vertical: true,
     children: [
-        {
-            type: 'label',
+        Label({
             className: 'title',
             connections: [[System, label => {
                 label.label = System.instance._action?.action || '';
             }]],
-        },
-        {
-            type: 'label',
+        }),
+        Label({
             className: 'desc',
             label: 'Are you sure?',
-        },
-        {
-            type: 'box',
+        }),
+        Box({
             className: 'buttons',
             vexpand: true,
             valign: 'end',
             homogeneous: true,
             children: [
-                {
-                    type: 'button',
-                    child: 'No',
-                    onClick: () => App.toggleWindow('verification'),
-                },
-                {
-                    type: 'button',
-                    child: 'Yes',
-                    onClick: () => exec(System.instance._action.cmd),
-                },
+                Button({
+                    child: Label('No'),
+                    onClicked: () => App.toggleWindow('verification'),
+                }),
+                Button({
+                    child: Label('Yes'),
+                    onClicked: () => exec(System.instance._action.cmd),
+                }),
             ],
-        },
+        }),
     ],
 });
 
-Widget.widgets['powermenu/panel-button'] = () => Widget({
-    type: 'button',
+export const PanelButton = () => Button({
     className: 'powermenu panel-button',
-    onClick: () => App.toggleWindow('powermenu'),
+    onClicked: () => App.toggleWindow('powermenu'),
     connections: [[ags.App, (btn, win, visible) => {
         if (win === 'powermenu' || win === 'verification')
             btn.toggleClassName('active', visible);
     }]],
-    child: {
-        type: 'icon',
-        icon: 'system-shutdown-symbolic',
-    },
+    child: Icon('system-shutdown-symbolic'),
 });

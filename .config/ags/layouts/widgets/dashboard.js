@@ -1,61 +1,47 @@
-const { App, Widget } = ags;
+import { Clock } from '../../modules/clock.js';
+import { Separator } from '../../modules/misc.js';
+import { Wallpaper } from '../../modules/wallpaper.js';
+import * as datemenu from './datemenu.js';
+import * as notifications from './notifications.js';
+const { App } = ags;
+const { Button, Box } = ags.Widget;
 
-Widget.widgets['dashboard/panel-button'] = ({ format = '%H:%M:%S  %A %d.', ...props }) => Widget({
-    ...props,
-    type: 'button',
+
+export const PanelButton = ({ format } = {}) => Button({
     className: 'dashboard panel-button',
-    onClick: () => App.toggleWindow('dashboard'),
+    onClicked: () => App.toggleWindow('dashboard'),
     connections: [[App, (btn, win, visible) => {
         btn.toggleClassName('active', win === 'dashboard' && visible);
     }]],
-    child: {
+    child: Clock({
         format,
-        type: 'clock',
-    },
+        justification: 'center',
+    }),
 });
 
-Widget.widgets['dashboard/popup-content'] = () => Widget({
-    type: 'box',
+export const PopupContent = () => Box({
     className: 'dashboard',
     vexpand: false,
     children: [
-        {
-            type: 'box',
-            orientation: 'vertical',
-            children: [
-                {
-                    type: 'datemenu/popup-content',
-                    className: 'datemenu',
-                },
-            ],
-        },
-        {
-            type: 'separator',
-            vexpand: true,
-        },
-        {
-            type: 'box',
+        Box({
+            vertical: true,
+            children: [datemenu.PopupContent()],
+        }),
+        Separator({ vexpand: true }),
+        Box({
             className: 'notifications',
-            orientation: 'vertical',
+            vertical: true,
             children: [
-                {
-                    type: 'notifications/header',
-                    className: 'header',
-                },
-                {
-                    type: 'box',
+                notifications.Header(),
+                Box({
                     className: 'notification-list-box',
-                    children: [{
-                        type: 'wallpaper',
-                        children: [{
-                            type: 'notifications/list',
-                            className: 'notification-list',
-                            vexpand: true,
-                            hexpand: true,
-                        }],
-                    }],
-                },
+                    children: [
+                        Wallpaper({
+                            children: [notifications.List()],
+                        }),
+                    ],
+                }),
             ],
-        },
+        }),
     ],
 });

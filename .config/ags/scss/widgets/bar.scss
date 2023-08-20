@@ -41,6 +41,10 @@ $float: 5px;
         font-weight: bold;
     }
 
+    image {
+        font-size: $font-size * 1.2;
+    }
+
     > * {
         padding: .3em .5em;
     }
@@ -179,6 +183,9 @@ $float: 5px;
 
     .dock {
         @include dock($spacing: $float);
+        button image {
+            font-size: 38px;
+        }
 
         @if $bar_style != 'separated' {
             margin: 0;
