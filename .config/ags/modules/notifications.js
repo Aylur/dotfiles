@@ -79,7 +79,7 @@ const Notification = ({ id, summary, body, actions, urgency, time, ...icon }) =>
                                         justification: 'left',
                                         hexpand: true,
                                         maxWidthChars: 24,
-                                        ellipsize: 3,
+                                        truncate: 'end',
                                         wrap: true,
                                         label: summary,
                                         useMarkup: summary.startsWith('<'),

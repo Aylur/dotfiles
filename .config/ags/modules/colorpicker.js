@@ -11,6 +11,9 @@ export const PanelButton = props => Button({
     child: Icon('color-select-symbolic'),
     properties: [['colors', []]],
     connections: [['clicked', btn => execAsync('hyprpicker').then(color => {
+        if (!color)
+            return;
+
         wlCopy(color);
         if (!btn._colors.includes(color)) {
             btn._colors.push(color);
