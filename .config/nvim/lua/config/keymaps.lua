@@ -29,8 +29,14 @@ vim.keymap.set("n", "<C-a>", "ggVG")
 vim.keymap.set("v", "V", "j")
 
 -- colors
-vim.keymap.set("n", "<leader>c", vim.cmd.ColorizerToggle, { desc = "[C]olorizer" })
-vim.keymap.set("n", "<leader>p", vim.cmd.PickColor, { desc = "[P]ick Color" })
+vim.keymap.set("n", "<leader>cc", vim.cmd.ColorizerToggle, { desc = "[C]olorizer" })
+vim.keymap.set("n", "<leader>cp", vim.cmd.PickColor, { desc = "[P]ick Color" })
 
 -- generate docs
 vim.keymap.set("n", "<leader>dg", vim.cmd.DogeGenerate, { desc = "Generate Docs" })
+
+-- tmux
+vim.keymap.set({ "n", "i", "v" }, "<C-h>", vim.cmd.TmuxNavigateLeft)
+vim.keymap.set({ "n", "i", "v" }, "<C-j>", vim.cmd.TmuxNavigateDown)
+vim.keymap.set({ "n", "i", "v" }, "<C-k>", vim.cmd.TmuxNavigateUp)
+vim.keymap.set({ "n", "i", "v" }, "<C-l>", vim.cmd.TmuxNavigateRight)
