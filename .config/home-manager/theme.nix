@@ -1,15 +1,36 @@
 { pkgs, ... }:
 let
-  moreWaita = import ./morewaita.nix { inherit pkgs; };
-  icon-theme = pkg: name: {
-    ".local/share/icons/${name}".source = "${pkgs.${pkg}}/share/icons/${name}";
+  moreWaitaVersion = "44.2";
+  moreWaita = pkgs.stdenv.mkDerivation {
+    name = "MoreWaita-${moreWaitaVersion}";
+    src = pkgs.fetchurl {
+      url = "https://github.com/somepaulo/MoreWaita/archive/refs/tags/v${moreWaitaVersion}.zip";
+      sha256 = "sha256-Rn0tOlEJa0m33iHVl1mfttsZ8lCnOUpDDro4RykqeZg=";
+    };
+    dontUnpack = true;
+    installPhase = ''
+      mkdir -p $out
+      ${pkgs.unzip}/bin/unzip $src -d $out
+    '';
   };
-  gtk-theme = pkg: name: {
-    ".local/share/themes/${name}".source = "${pkgs.${pkg}}/share/themes/${name}";
+  nerdfonts = (pkgs.nerdfonts.override { fonts = [
+    "Ubuntu"
+    "UbuntuMono"
+    "CascadiaCode"
+    "FantasqueSansMono"
+    "FiraCode"
+    "VictorMono"
+    "Mononoki"
+  ]; });
+  theme = type: pkg: name: {
+    ".local/share/${type}s/${name}".source = "${pkgs.${pkg}}/share/${type}s/${name}";
   };
 in
 {
-  home.packages = [ moreWaita ];
+  home.packages = [
+    nerdfonts
+    moreWaita
+  ];
 
   home = {
     pointerCursor = {
@@ -19,6 +40,14 @@ in
       gtk.enable = true;
     };
     file = {
+      ".local/share/fonts" = {
+        recursive = true;
+        source = "${nerdfonts}/share/fonts/truetype/NerdFonts";
+      };
+      ".fonts" = {
+        recursive = true;
+        source = "${nerdfonts}/share/fonts/truetype/NerdFonts";
+      };
       ".config/gtk-4.0/gtk.css" = {
         text = ''
           window.messagedialog .response-area > button,
@@ -26,14 +55,16 @@ in
         .background.csd{ border-radius: 0; }
         '';
       };
-      ".local/share/icons/MoreWaita-44.1".source = "${moreWaita}/MoreWaita-44.1";
+      ".local/share/icons/MoreWaita-${moreWaitaVersion}" = {
+        source = "${moreWaita}/MoreWaita-${moreWaitaVersion}";
+      };
     } //
-    icon-theme "papirus-icon-theme" "Papirus" //
-    icon-theme "qogir-icon-theme" "Qogir" //
-    icon-theme "whitesur-icon-theme" "WhiteSur" //
-    icon-theme "colloid-icon-theme" "Colloid" //
-    gtk-theme "adw-gtk3" "adw-gtk3" //
-    gtk-theme "adw-gtk3" "adw-gtk3-dark";
+    theme "icon" "papirus-icon-theme" "Papirus" //
+    theme "icon" "qogir-icon-theme" "Qogir" //
+    theme "icon" "whitesur-icon-theme" "WhiteSur" //
+    theme "icon" "colloid-icon-theme" "Colloid" //
+    theme "theme" "adw-gtk3" "adw-gtk3" //
+    theme "theme" "adw-gtk3" "adw-gtk3-dark";
   };
 
   gtk = {
@@ -43,10 +74,12 @@ in
       name = "Qogir";
       package = pkgs.qogir-icon-theme;
     };
-    iconTheme.name = "MoreWaita-44.1";
+    iconTheme.name = "MoreWaita-${moreWaitaVersion}";
     gtk3.extraCss = ''
       headerbar, .titlebar,
-      .csd:not(.popup):not(tooltip):not(messagedialog) decoration{ border-radius: 0; }
+      .csd:not(.popup):not(tooltip):not(messagedialog) decoration{
+        border-radius: 0;
+      }
     '';
   };
 

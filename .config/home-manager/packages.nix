@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     # colorscript
@@ -15,19 +15,15 @@
     socat jq htop acpi inotify-tools ffmpeg
 
     # hyprland
-    ags
     wl-gammactl wl-clipboard wf-recorder
-    hyprpicker wayshot imagemagick
+    hyprpicker wayshot swappy imagemagick
     pavucontrol brightnessctl swww
 
     # fun
     fortune jp2a pywal
     glow vhs gum slides charm skate
     yabridge yabridgectl wine-staging
-
     distrobox
-    wezterm 
-    vscode
 
     # langs
     meson ninja

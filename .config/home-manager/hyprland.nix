@@ -1,24 +1,24 @@
 { pkgs, ... }:
 let
-    launcher = pkgs.writeShellScriptBin "hypr" ''
-      #!/${pkgs.bash}/bin/bash
-        export WLR_NO_HARDWARE_CURSORS=1
-        export _JAVA_AWT_WM_NONREPARENTING=1
-        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+  launcher = pkgs.writeShellScriptBin "hypr" ''
+    #!/${pkgs.bash}/bin/bash
+      export WLR_NO_HARDWARE_CURSORS=1
+      export _JAVA_AWT_WM_NONREPARENTING=1
+      . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
-        if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-          PATH="$HOME/.local/bin:$HOME/bin:$PATH"; fi
+      if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+        PATH="$HOME/.local/bin:$HOME/bin:$PATH"; fi
 
-        if ! [[ "$PATH" =~ "$HOME/.nix-profile/bin:" ]]; then
-          PATH="$HOME/.nix-profile/bin:$PATH"; fi
+      if ! [[ "$PATH" =~ "$HOME/.nix-profile/bin:" ]]; then
+        PATH="$HOME/.nix-profile/bin:$PATH"; fi
 
-        export PATH
+      export PATH
 
-        if  [[ $1 == 'nix' ]]; then
-            exec nixGLIntel ${pkgs.hyprland}/bin/Hyprland; fi
+      if  [[ $1 == 'nix' ]]; then
+          exec nixGLIntel ${pkgs.hyprland}/bin/Hyprland; fi
 
-        exec /usr/bin/Hyprland
-    '';
+      exec /usr/bin/Hyprland
+  '';
 in
 {
   home.packages = [ launcher ];

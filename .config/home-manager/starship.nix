@@ -1,4 +1,10 @@
 { lib, ... }:
+let
+  lang = icon: color: {
+    symbol = icon;
+    format = "[$symbol ](${color})";
+  };
+in
 {
   programs.starship = {
     enable = true;
@@ -84,34 +90,13 @@
         SUSE = "[ ](fg:green)";
         Ubuntu = "[ ](fg:bright-purple)";
       };
-      python = {
-        symbol = "";
-        format = "[$symbol ](yellow)";
-      };
-      nodejs = {
-        symbol = " ";
-        format = "[$symbol ](yellow)";
-      };
-      lua = {
-        symbol = "󰢱";
-        format = "[$symbol ](blue)";
-      };
-      rust = {
-        symbol = "";
-        format = "[$symbol ](red)";
-      };
-      java = {
-        symbol = "";
-        format = "[$symbol ](red)";
-      };
-      c = {
-        symbol = "";
-        format = "[$symbol ](blue)";
-      };
-      golang = {
-        symbol = "";
-        format = "[$symbol ](blue)";
-      };
+      python = lang "" "yellow";
+      nodejs = lang " " "yellow";
+      lua = lang "󰢱" "blue";
+      rust = lang "" "red";
+      java = lang "" "red";
+      c = lang "" "blue";
+      golang = lang "" "blue";
     };
   };
 }

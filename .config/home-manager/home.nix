@@ -5,12 +5,10 @@ in
 {
   imports = [
     ./browser.nix
-    ./desktopEntries.nix
+    ./terminal.nix
     ./hyprland.nix
     ./neofetch.nix
-    ./nerdfonts.nix
     ./packages.nix
-    ./sh.nix
     ./starship.nix
     ./theme.nix
   ];
@@ -32,7 +30,7 @@ in
     sessionVariables = {
       QT_XCB_GL_INTEGRATION = "none"; # kde-connect
       EDITOR = "nvim";
-      VISUAL = "code";
+      VISUAL = "nvim";
       TERMINAL = "nixGL wezterm";
       XCURSOR_THEME = "Qogir";
       NIXPKGS_ALLOW_UNFREE = "1";
@@ -54,6 +52,8 @@ in
     "file://${homeDirectory}/Downloads"
     "file://${homeDirectory}/Projects Projects"
     "file://${homeDirectory}/School School"
+    "file://${homeDirectory}/.config Config"
+    "file://${homeDirectory}/.local/share Local"
   ];
 
   services = {

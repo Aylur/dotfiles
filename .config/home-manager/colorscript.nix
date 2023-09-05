@@ -1,6 +1,6 @@
 let
-    dark = "\\e[\${!j}\${i}m";
-    bright = "\\e[9\${i}m";
+  dark = "\\e[\${!j}\${i}m";
+  bright = "\\e[9\${i}m";
 in
 { pkgs, ... }:
 pkgs.writeShellScriptBin "blocks" ''
