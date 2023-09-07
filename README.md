@@ -20,6 +20,7 @@
 - imagemagick
 - wl-gammactl
 - pavucontrol
+- swappy
 
 ```bash
 git clone https://github.com/Aylur/dotfiles.git
