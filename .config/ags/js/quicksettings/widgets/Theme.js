@@ -1,6 +1,5 @@
 import Theme from '../../services/theme/theme.js';
-import FontIcon from '../../misc/FontIcon.js';
-import { ArrowToggleButton, Menu } from '../ToggleButton.js';
+import { ArrowToggleButton, Menu, opened } from '../ToggleButton.js';
 import themes from '../../themes.js';
 import icons from '../../icons.js';
 import Separator from '../../misc/Separator.js';
@@ -13,7 +12,7 @@ const prettyName = name => name
 
 const ThemeIcon = () => Stack({
     transition: 'crossfade',
-    items: themes.map(({ name, icon }) => [name, FontIcon({ icon })]),
+    items: themes.map(({ name, icon }) => [name, Label(icon)]),
     connections: [[Theme, stack => stack.shown = Theme.getSetting('theme')]],
 });
 
@@ -25,8 +24,9 @@ export const ThemeToggle = () => ArrowToggleButton({
             label.label = prettyName(Theme.getSetting('theme'));
         }]],
     }),
-    connection: [Theme, () => false],
-    activate: () => { },
+    connection: [opened, () => opened.value === 'theme'],
+    activate: () => opened.setValue('theme'),
+    activateOnArrow: false,
     deactivate: () => { },
 });
 
@@ -40,7 +40,7 @@ export const ThemeSelector = () => Menu({
             onClicked: () => Theme.setSetting('theme', name),
             child: Box({
                 children: [
-                    FontIcon({ icon }),
+                    Label(icon),
                     Label(prettyName(name)),
                     Icon({
                         icon: icons.tick,

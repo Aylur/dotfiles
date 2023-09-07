@@ -3,7 +3,7 @@ import Separator from '../misc/Separator.js';
 const { timeout } = ags.Utils;
 const { Box, Button, Icon, Revealer } = ags.Widget;
 
-const opened = ags.Variable('');
+export const opened = ags.Variable('');
 ags.App.instance.connect('window-toggled', (_, name, visible) => {
     if (name === 'quicksettings' && !visible)
         timeout(500, () => opened.value = '');

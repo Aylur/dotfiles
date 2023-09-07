@@ -22,7 +22,7 @@ const Item = (label, icon, onActivate) => MenuItem({
 
 const Desktop = () => EventBox({
     onSecondaryClick: (_, event) => Menu({
-        className: 'desktop',
+        className: 'desktop-menu',
         children: [
             MenuItem({
                 child: Box({

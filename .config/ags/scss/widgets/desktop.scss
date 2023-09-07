@@ -3,22 +3,6 @@ window.corner .corner {
     border-radius: if($screen_corners, $radii*2, 0);
 }
 
-menu.desktop {
-    image {
-        margin: 0 $spacing/2;
-    }
-
-    menuitem.separator {
-        all: unset;
-        min-height: 2px;
-        border-radius: $radii;
-        box-shadow: inset 0 0 0 2px $border_color;
-        background-color: $widget_bg;
-        margin: $spacing/2 0;
-    }
-}
-
-
 window.desktop {
     @if $bar_style == 'normal' {
         border-radius: if($screen_corners, $popover_radius, 0);
@@ -42,7 +26,7 @@ window.desktop {
             .separator-box {
                 padding: 24px 12px;
 
-                .separator {
+                separator {
                     border-radius: $radii;
                     min-width: 16px;
                     min-height: 16px;
@@ -58,7 +42,7 @@ window.desktop {
     }
 
     @if $drop_shadow {
-        .clock-box-shadow, .separator {
+        .clock-box-shadow, separator {
             box-shadow: 2px 2px 2px 0 $shadow;
         }
 
@@ -75,13 +59,20 @@ window.desktop {
                         inset 0 0 0 $border_width $border_color;
         }
 
-        .separator {
+        separator {
             border: $border;
         }
 
         label {
             @include text_border;
         }
+    }
+}
+
+.desktop-menu {
+    image {
+        margin-left: -14px;
+        margin-right: 6px;
     }
 }
 
