@@ -68,6 +68,7 @@ class RecorderService extends Service {
             ensureDirectory(path);
 
             await execAsync(['wayshot', '-s', area, '-f', file]);
+            execAsync(['bash', '-c', `wl-copy < ${file}`]);
             execAsync(['swappy', '-f', file]);
 
             const res = await execAsync([
