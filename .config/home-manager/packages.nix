@@ -27,7 +27,7 @@
 
     # langs
     meson ninja
-    nodejs go
+    nodejs go bun
     nodePackages_latest.typescript
     nodePackages_latest.eslint
     sassc
