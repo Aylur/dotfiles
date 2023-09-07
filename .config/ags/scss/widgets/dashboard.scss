@@ -1,16 +1,65 @@
+@mixin calendar {
+    @include widget;
+    padding: $spacing*2 $spacing*2 0;
+
+    calendar{
+        all: unset;
+
+        &.button{
+            @include button($flat: true);
+            margin: 1em;
+        }
+
+        &:selected{
+            box-shadow: inset 0 -8px 0 0 transparentize($accent, 0.5),
+            inset 0 0 0 1px $accent;
+            border-radius: $radii*0.6;
+        }
+
+        &.header{
+            background-color: transparent;
+            border: none;
+            color: transparentize($fg_color, 0.5);
+        }
+
+        &.highlight{
+            background-color: transparent;
+            color: transparentize($accent, 0.5);
+        }
+
+        &:indeterminate {
+            color: transparentize($fg_color, 0.9);
+        }
+        font-size: 1.1em;
+        padding: .2em;
+    }
+}
+
 window#dashboard .dashboard {
     @include floating_widget;
 
     .notifications {
-        @include notifications;
         min-width: 450px;
 
         .header {
             padding-left: .3em;
             margin-bottom: $spacing;
+
+            label {
+                font-size: 1.2em;
+            }
+
+            button {
+                @include button;
+                padding: $spacing/2 $spacing;
+
+                label {
+                    font-size: 1.2em;
+                }
+            }
         }
 
-        .notification-list-box {
+        .notification-wallpaper-box {
             @include widget;
 
             .wallpaper {
@@ -23,24 +72,41 @@ window#dashboard .dashboard {
             }
         }
 
-        .notification-list {
-            padding: $spacing/2;
+        .notification-list-box {
+            @include scrollbar;
 
-            .notification > box {
-                @include floating_widget;
-                border-radius: $radii;
-                padding: $spacing;
-                margin: $spacing/2;
+            scrollbar, scrollbar:hover {
+                border-radius: max($radii - $border_width, 0);
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+
+            .notification-list {
+                padding: $spacing/2;
+            }
+
+            .notification {
+                @include notification;
+
+                > box {
+                    @include floating_widget;
+                    border-radius: $radii;
+                    padding: $spacing;
+                    margin: $spacing/2;
+                }
             }
         }
 
         .placeholder {
             color: $wallpaper_fg;
-            .icon { font-size: 7em }
+            image {  font-size: 7em; }
+            label {  font-size: 1.2em; }
 
-            label {
+            label, image {
                 @if $drop_shadow {
                     text-shadow: $text_shadow;
+                    -gtk-icon-shadow: $text_shadow;
                 } @else {
                     @include text_border;
                 }
@@ -49,14 +115,26 @@ window#dashboard .dashboard {
         }
     }
 
-    .separator {
-        background-color: transparentize($fg_color, 0.94);
+    separator {
+        background-color: $popover_border_color;
         min-width: 2px;
         border-radius: $radii;
         margin: 0 $spacing;
     }
 
-    .datemenu {
-        @include datemenu;
+
+    .clock {
+        font-size: 5em;
+    }
+
+    .uptime {
+        font-size: 2em;
+        color: transparentize($fg_color, 0.2);
+    }
+
+    .calendar {
+        @include calendar;
+
+        margin-top: $spacing*2;
     }
 }

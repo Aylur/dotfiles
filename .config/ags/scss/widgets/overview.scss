@@ -23,5 +23,10 @@ window#overview .overview {
         @include button;
         border-radius: $radii*0.8;
         margin: $spacing;
+
+        &.hidden {
+            @include hidden;
+            transition: 0;
+        }
     }
 }

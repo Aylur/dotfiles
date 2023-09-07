@@ -18,9 +18,15 @@
     .position-slider:hover trough {
         background-color: transparentize($color, 0.5);
     }
+
+    .player-icon {
+        color: $color;
+    }
 }
 
 @mixin media() {
+    @include widget;
+
     label {
         color: $shader_fg;
         text-shadow: $text_shadow;
@@ -30,7 +36,7 @@
         @include shader;
     }
 
-    .cover-art {
+    .cover {
         border-radius: $radii*0.8;
         min-height: 100px;
         min-width: 100px;
@@ -45,9 +51,10 @@
         }
     }
 
-    .cover-art-bg, .cover-art {
+    .blurred-cover, .cover {
         background-size: cover;
         background-position: center;
+        border-radius: max($radii - $border_width, 0);
     }
 
     .labels {
@@ -107,8 +114,4 @@
     &.spotify { @include player_color($green); }
     &.firefox { @include player_color($orange); }
     &.mpv { @include player_color($magenta); }
-
-    &.firefox .footer-box {
-        margin-top: -$spacing*2;
-    }
 }

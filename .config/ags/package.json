@@ -4,7 +4,6 @@
   "description": "My config files for AGS",
   "main": "config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --fix",
     "stylelint": "stylelint"
   },
@@ -13,7 +12,6 @@
     "url": "git+https://github.com/Aylur/dotfiles.git"
   },
   "author": "Aylur",
-  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/Aylur/dotfiles/issues"
   },

@@ -58,22 +58,12 @@
     }
 }
 
-.floating-dock .dock {
+window.floating-dock .dock {
     @include dock;
     @include floating_widget;
     padding: $spacing / 2;
 
     button image {
         font-size: 48px;
-    }
-}
-
-.dock.vertical {
-    @include dock;
-    background-color: $bg_color;
-
-    .launcher .distro-icon {
-        margin: $spacing/2;
-        color: $accent;
     }
 }

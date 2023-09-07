@@ -129,7 +129,7 @@ window {
     @include common;
 
     @if $drop_shadow {
-        box-shadow: 0 0 6px 0 $shadow;
+        box-shadow: 0 0 min(6px, $spacing/2) 0 $shadow;
     }
     margin: max($spacing, 8px);
     border: $border_width solid $popover_border_color;
@@ -192,12 +192,6 @@ window {
             background-color: transparentize($fg_color, 0.4);
             background-image: none;
         }
-
-        slider {
-            @if $slider {
-                background-color: transparentize($fg_color, 0.5);
-            }
-        }
     }
 
     @if $focusable {
@@ -239,6 +233,12 @@ window {
         $border_width $border_width 0 $border_color,
         -1 * $border_width $border_width 0 $border_color,
         $border_width -1 * $border_width 0 $border_color;
+
+    -gtk-icon-shadow:
+        -1 * $border_width -1 * $border_width 0 $border_color,
+        $border_width $border_width 0 $border_color,
+        -1 * $border_width $border_width 0 $border_color,
+        $border_width -1 * $border_width 0 $border_color;
 }
 
 @mixin scrollbar{
@@ -246,19 +246,27 @@ window {
         all: unset;
     }
 
-    scrollbar.vertical{
-        slider{
-            background: $widget_bg;
-            border-radius: $radii;
-            min-width: .6em;
-            min-height: 2em;
-            transition: $transition;
+    scrollbar.vertical {
+        transition: $transition;
+        background-color: transparentize($bg_color, 0.7);
 
-            &:hover {
-                background-color: transparentize($fg_color, 0.6);
-                min-width: .8em;
+        &:hover {
+            background-color: transparentize($bg_color, 0.3);
+
+            slider {
+                background-color: transparentize($fg_color, 0.3);
+                min-width: .6em;
             }
         }
+    }
+
+
+    scrollbar.vertical slider {
+        background-color: transparentize($fg_color, 0.5);
+        border-radius: $radii;
+        min-width: .4em;
+        min-height: 2em;
+        transition: $transition;
     }
 }
 
@@ -273,6 +281,22 @@ window {
     }
 
     image { color: transparent; }
+}
+
+@mixin hidden {
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+    box-shadow: none;
+    -gtk-icon-transform: scale(0);
+
+    * {
+        background-color: transparent;
+        background-image: none;
+        border-color: transparent;
+        box-shadow: none;
+        -gtk-icon-transform: scale(0);
+    }
 }
 
 tooltip {
@@ -303,11 +327,14 @@ window.popup {
         padding: $spacing;
         border: $border;
 
+        separator {
+            background-color: $widget_bg;
+        }
+
         menuitem {
             @include button;
             padding: $spacing/2;
             margin: $spacing/2 0;
-            > * { margin-left: -30px; }
             &:first-child { margin-top: 0; }
             &:last-child { margin-bottom: 0; }
         }

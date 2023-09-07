@@ -1,8 +1,7 @@
-@import './generated';
+@import './.generated';
 @import './common';
 @import './widgets/notifications';
 @import './widgets/media';
-@import './widgets/datemenu';
 @import './widgets/dock';
 @import './widgets/applauncher';
 @import './widgets/quicksettings';
@@ -12,4 +11,4 @@
 @import './widgets/dashboard';
 @import './widgets/bar';
 @import './widgets/settings';
-@import './additional';
+@import './.additional';

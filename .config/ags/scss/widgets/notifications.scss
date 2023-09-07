@@ -72,31 +72,6 @@
     }
 }
 
-@mixin notifications {
-    .header {
-        label {
-            font-size: 1.2em;
-        }
-
-        button {
-            @include button;
-            padding: $spacing/2 $spacing;
-
-            label {
-                font-size: 1.2em;
-            }
-        }
-    }
-
-    .notification-list {
-        @include scrollbar;
-
-        .notification {
-            @include notification;
-        }
-    }
-}
-
 .notifications-popup-list{
     .notification {
         @include notification;
