@@ -11,7 +11,14 @@ import PowerMenu from './buttons/PowerMenu.js';
 import Separator from '../misc/Separator.js';
 import ScreenRecord from './buttons/ScreenRecord.js';
 import BatteryBar from './buttons/BatteryBar.js';
+import SubMenu from './buttons/SubMenu.js';
 const { Window, CenterBox, Box } = ags.Widget;
+const { SystemTray } = ags.Service;
+
+const submenuItems = ags.Variable(1);
+SystemTray.instance.connect('changed', () => {
+    submenuItems.setValue(SystemTray.items.length + 1);
+});
 
 const SeparatorDot = (service, condition) => Separator({
     orientation: 'vertical',
@@ -51,24 +58,27 @@ const End = () => Box({
             () => !!ags.Service.Mpris.getPlayer(),
         ),
         MediaIndicator(),
+
         Box({ hexpand: true }),
+
+        SubMenu({
+            items: submenuItems,
+            children: [
+                SysTray(),
+                ColorPicker(),
+            ],
+        }),
+
         ScreenRecord(),
         SeparatorDot(
             ags.Service.Recorder,
             () => ags.Service.Recorder.recording,
         ),
-        SysTray(),
-        SeparatorDot(
-            ags.Service.SystemTray,
-            () => ags.Service.SystemTray.items.length > 0,
-        ),
-        ColorPicker(),
+        BatteryBar(),
         SeparatorDot(
             ags.Service.Battery,
-            () => ags.Service.available,
+            () => ags.Service.Battery.available,
         ),
-        BatteryBar(),
-        SeparatorDot(),
         SystemIndicators(),
         SeparatorDot(),
         PowerMenu(),

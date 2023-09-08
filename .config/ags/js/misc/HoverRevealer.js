@@ -6,6 +6,7 @@ export default ({
     direction = 'left',
     duration = 300,
     connections,
+    binds,
     ...rest
 }) => {
     let open = false;
@@ -16,6 +17,7 @@ export default ({
     const revealer = Revealer({
         transition: `slide_${direction}`,
         connections,
+        binds,
         transitionDuration: duration,
         child,
     });
@@ -39,9 +41,9 @@ export default ({
         child: Box({
             vertical,
             children: [
-                posStart ? indicator : null,
+                posStart && indicator,
                 revealer,
-                posEnd ? indicator : null,
+                posEnd && indicator,
             ],
         }),
     });

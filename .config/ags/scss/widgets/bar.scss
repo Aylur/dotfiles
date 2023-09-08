@@ -81,8 +81,7 @@ $float: $spacing * 0.7;
     }
 
     separator {
-        // background-color: transparentize($fg_color, 0.7);
-        background-color: transparent;
+        background-color: transparentize($fg_color, 0.9);
         border-radius: $radii;
         min-height: 5px;
         min-width: 5px;

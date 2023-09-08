@@ -15,9 +15,9 @@ const Indicator = () => Stack({
     }]],
 });
 
-const PercentLabel = reveal => Revealer({
+const PercentLabel = () => Revealer({
     transition: 'slide_right',
-    binds: [['revealChild', reveal]],
+    revealChild: options.battaryBar.showPercentage,
     child: Label({
         connections: [[Battery, label => {
             label.label = `${Battery.percent}%`;
@@ -34,11 +34,11 @@ const LevelBar = () => Widget({
 });
 
 export default () => {
-    const reveal = ags.Variable(options.battaryBar.showPercentage);
+    const revaler = PercentLabel();
 
     return PanelButton({
         className: 'battery-bar',
-        onClicked: () => reveal.value = !reveal.value,
+        onClicked: () => revaler.revealChild = !revaler.revealChild,
         content: Box({
             binds: [['visible', Battery, 'available']],
             connections: [[Battery, w => {
@@ -48,7 +48,7 @@ export default () => {
             }]],
             children: [
                 Indicator(),
-                PercentLabel(reveal),
+                revaler,
                 LevelBar(),
             ],
         }),
