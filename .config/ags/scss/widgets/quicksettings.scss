@@ -18,12 +18,6 @@ window#quicksettings .quicksettings {
         }
 
         .battery-progress {
-            progressbar {
-                @include slider($width: $spacing*3.4);
-                margin-top: $spacing;
-                min-height: 20px;
-            }
-
             label {
                 margin-top: $spacing;
                 color: $accent_fg;
@@ -32,6 +26,18 @@ window#quicksettings .quicksettings {
             }
 
             &.half label { color: $fg_color; }
+
+            progressbar {
+                @include slider($width: $spacing*3.4);
+                margin-top: $spacing;
+                min-height: 20px;
+            }
+
+            &.low progressbar {
+                @include slider($width: $spacing*3.4, $gradient: linear-gradient(to right, $red, $red));
+                margin-top: $spacing;
+                min-height: 20px;
+            }
         }
 
         .system-box {

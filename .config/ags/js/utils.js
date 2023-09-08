@@ -21,10 +21,11 @@ export function createSurfaceFromWidget(widget) {
 export function warnOnLowBattery() {
     const { Battery } = ags.Service;
     Battery.instance.connect('changed', () => {
-        if (Battery.percentage < options.battaryBar.low) {
+        const { low } = options.battaryBar;
+        if (Battery.percentage < low || Battery.percentage < low / 2) {
             ags.Utils.execAsync([
                 'notify-send',
-                'Low Battery Percentage',
+                `${Battery.percentage}% Battery Percentage`,
                 '-i', icons.battery.warning,
                 '-u', 'critical',
             ]);
