@@ -10,8 +10,11 @@ import Verification from './js/powermenu/Verification.js';
 import Desktop from './js/desktop/Desktop.js';
 import Notifications from './js/notifications/Notifications.js';
 import QuickSettings from './js/quicksettings/QuickSettings.js';
+import { warnOnLowBattery } from './js/utils.js';
 const ws = ags.Service.Hyprland.HyprctlGet('monitors');
 const forMonitors = widget => ws.map(mon => widget(mon.id));
+
+warnOnLowBattery();
 
 export default {
     maxStreamVolume: 1.05,

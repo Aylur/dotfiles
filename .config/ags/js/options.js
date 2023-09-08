@@ -8,8 +8,11 @@ export default {
     //
     dockItemSize: 56,
 
-    // at what percentages should the battery-bar change color
     battaryBar: {
+        // wether to show percentage by deafult
+        showPercentage: false,
+
+        // at what percentages should the battery-bar change color
         low: 30,
         medium: 50,
     },

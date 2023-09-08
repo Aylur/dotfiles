@@ -4,13 +4,6 @@ import options from '../../options.js';
 import PanelButton from '../PanelButton.js';
 const { Battery } = ags.Service;
 const { Widget, Box, Stack, Icon, Revealer, Label } = ags.Widget;
-const { writeFile, readFileAsync, CACHE_DIR } = ags.Utils;
-const REVEAL_STATE_CACHE = CACHE_DIR + '/battery-bar.json';
-
-const reveal = ags.Variable(false);
-readFileAsync(REVEAL_STATE_CACHE)
-    .catch(() => { })
-    .then(out => reveal.setValue(JSON.parse(out || 'true')));
 
 const Indicator = () => Stack({
     items: [
@@ -22,7 +15,7 @@ const Indicator = () => Stack({
     }]],
 });
 
-const PercentLabel = () => Revealer({
+const PercentLabel = reveal => Revealer({
     transition: 'slide_right',
     binds: [['revealChild', reveal]],
     child: Label({
@@ -40,23 +33,24 @@ const LevelBar = () => Widget({
     }]],
 });
 
-export default () => PanelButton({
-    className: 'battery-bar',
-    onClicked: () => {
-        reveal.value = !reveal.value;
-        writeFile(`${reveal.value}`, REVEAL_STATE_CACHE);
-    },
-    content: Box({
-        binds: [['visible', Battery, 'available']],
-        connections: [[Battery, w => {
-            w.toggleClassName('charging', Battery.charging || Battery.charged);
-            w.toggleClassName('medium', Battery.percent < options.battaryBar.medium);
-            w.toggleClassName('low', Battery.percent < options.battaryBar.low);
-        }]],
-        children: [
-            Indicator(),
-            PercentLabel(),
-            LevelBar(),
-        ],
-    }),
-});
+export default () => {
+    const reveal = ags.Variable(options.battaryBar.showPercentage);
+
+    return PanelButton({
+        className: 'battery-bar',
+        onClicked: () => reveal.value = !reveal.value,
+        content: Box({
+            binds: [['visible', Battery, 'available']],
+            connections: [[Battery, w => {
+                w.toggleClassName('charging', Battery.charging || Battery.charged);
+                w.toggleClassName('medium', Battery.percent < options.battaryBar.medium);
+                w.toggleClassName('low', Battery.percent < options.battaryBar.low);
+            }]],
+            children: [
+                Indicator(),
+                PercentLabel(reveal),
+                LevelBar(),
+            ],
+        }),
+    });
+};

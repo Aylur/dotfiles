@@ -142,7 +142,7 @@ $float: $spacing * 0.7;
         }
 
         @mixin color($color) {
-            color: $color;
+            image, label { color: $color }
 
             block.filled {
                 background-image: linear-gradient(to right, $color, lighten($color, 6%));

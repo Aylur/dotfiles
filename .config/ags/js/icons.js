@@ -37,6 +37,7 @@ export default {
     },
     battery: {
         charging: '󱐋',
+        warning: 'battery-empty-symbolic',
     },
     bluetooth: {
         enabled: 'bluetooth-active-symbolic',
