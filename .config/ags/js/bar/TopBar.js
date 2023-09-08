@@ -16,7 +16,7 @@ const { Window, CenterBox, Box } = ags.Widget;
 const SeparatorDot = (service, condition) => Separator({
     orientation: 'vertical',
     valign: 'center',
-    connections: [[service, dot => dot.visible = condition()]],
+    connections: service && [[service, dot => dot.visible = condition()]],
 });
 
 const Start = () => Box({

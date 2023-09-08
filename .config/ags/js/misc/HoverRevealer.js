@@ -7,35 +7,47 @@ export default ({
     duration = 300,
     connections,
     ...rest
-}) => Box({
-    children: [EventBox({
+}) => {
+    let open = false;
+    const vertical = direction === 'down' || direction === 'up';
+    const posStart = direction === 'down' || direction === 'right';
+    const posEnd = direction === 'up' || direction === 'left';
+
+    const revealer = Revealer({
+        transition: `slide_${direction}`,
+        connections,
+        transitionDuration: duration,
+        child,
+    });
+
+    const box = EventBox({
         ...rest,
-        onHover: w => {
-            if (w._open)
+        onHover: () => {
+            if (open)
                 return;
 
-            w.child.children[direction === 'down' || direction === 'right' ? 1 : 0].revealChild = true;
-            ags.Utils.timeout(duration, () => w._open = true);
+            revealer.revealChild = true;
+            ags.Utils.timeout(duration, () => open = true);
         },
-        onHoverLost: w => {
-            if (!w._open)
+        onHoverLost: () => {
+            if (!open)
                 return;
 
-            w.child.children[direction === 'down' || direction === 'right' ? 1 : 0].revealChild = false;
-            w._open = false;
+            revealer.revealChild = false;
+            open = false;
         },
         child: Box({
-            vertical: direction === 'down' || direction === 'up',
+            vertical,
             children: [
-                direction === 'down' || direction === 'right' ? indicator : null,
-                Revealer({
-                    transition: `slide_${direction}`,
-                    connections,
-                    transitionDuration: duration,
-                    child,
-                }),
-                direction === 'up' || direction === 'left' ? indicator : null,
+                posStart ? indicator : null,
+                revealer,
+                posEnd ? indicator : null,
             ],
         }),
-    })],
-});
+    });
+
+    return Box({
+        children: [box],
+    });
+};
+
