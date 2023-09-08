@@ -30,6 +30,8 @@ export default ({ direction = 'left' } = {}) => Box({
             }]],
         }),
         child: Label({
+            truncate: 'center',
+            maxWidthChars: 40,
             connections: [[Notifications, label => {
                 label.label = Array.from(Notifications.notifications.values()).pop()?.summary || '';
             }]],

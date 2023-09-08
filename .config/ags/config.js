@@ -14,6 +14,7 @@ const ws = ags.Service.Hyprland.HyprctlGet('monitors');
 const forMonitors = widget => ws.map(mon => widget(mon.id));
 
 export default {
+    maxStreamVolume: 1.05,
     closeWindowDelay: {
         'quicksettings': 300,
         'dashboard': 300,

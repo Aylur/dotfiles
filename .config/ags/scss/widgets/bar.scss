@@ -1,4 +1,4 @@
-$float: 5px;
+$float: $spacing * 0.7;
 
 @mixin panel_button($flat: false, $reactive: true){
     all: unset;
@@ -31,10 +31,7 @@ $float: 5px;
         }
     } @else {
         @include accs_button($flat, $reactive);
-
-        > * {
-            margin: $float;
-        }
+        > * { margin: $float; }
     }
 
     label {
@@ -109,6 +106,7 @@ $float: 5px;
         &:active image { color: $red; }
     }
 
+    /* stylelint-disable-next-line selector-not-notation */
     .quicksettings:not(.active):not(:active) {
         .bluetooth { color: $blue; }
 
@@ -126,6 +124,35 @@ $float: 5px;
 
     .notifications {
         image { color: $yellow; }
+    }
+
+    .battery-bar {
+        image { margin-right: $spacing/2; }
+        .font-icon { font-size: 1.3em; }
+
+        levelbar trough {
+            @include widget;
+            min-width: 70px;
+            min-height: 14px;
+
+            block.filled {
+                border-radius: max($radii - $border_width, 0);
+                background-image: $active_gradient;
+            }
+        }
+
+        @mixin color($color) {
+            color: $color;
+
+            block.filled {
+                background-image: linear-gradient(to right, $color, lighten($color, 6%));
+            }
+        }
+
+        .charging { @include color($green) }
+        .medium { @include color($yellow) }
+        .low { @include color($red) }
+        &:active { @include color($accent_fg) }
     }
 
     .workspaces {
@@ -150,6 +177,7 @@ $float: 5px;
                 min-width: 10px;
                 min-height: 10px;
                 border-radius: $radii*0.6;
+                border: $border;
                 margin: 0 $spacing/2;
                 transition: $transition/2;
                 background-color: transparentize($fg_color, 0.8);

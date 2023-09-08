@@ -7,6 +7,8 @@ const { Box, Label, Button, Icon, Overlay, ProgressBar } = ags.Widget;
 
 const Avatar = () => Box({
     className: 'avatar',
+    halign: 'start',
+    hexpand: false,
     connections: [[Theme, box => {
         box.setStyle(`
             background-image: url('${Theme.getSetting('avatar')}');
@@ -43,7 +45,7 @@ export const BatteryProgress = () => Box({
         overlays: [Label({
             connections: [[Battery, l => {
                 l.label = Battery.charging || Battery.charged
-                    ? '󱐋'
+                    ? icons.battery.charging
                     : `${Battery.percent}%`;
             }]],
         })],
@@ -57,6 +59,7 @@ export default () => Box({
         Box({
             className: 'system-box',
             vertical: true,
+            hexpand: true,
             children: [
                 Box({
                     children: [

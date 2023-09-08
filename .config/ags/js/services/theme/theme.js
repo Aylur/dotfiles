@@ -4,12 +4,12 @@ import setupHyprland from './hyprland.js';
 import { SettingsDialog } from '../../settingsdialog/SettingsDialog.js';
 const { App } = ags;
 const { Service } = ags;
-const { USER, exec, execAsync, readFile, writeFile } = ags.Utils;
+const { USER, exec, execAsync, readFile, writeFile, CACHE_DIR } = ags.Utils;
+const THEME_CACHE = CACHE_DIR + '/theme-overrides.json';
 
 class ThemeService extends Service {
     static { Service.register(this); }
 
-    _settingsPath = App.configDir + '/settings.json';
     _defaultAvatar = `/home/${USER}/Pictures/avatars/donna.jpg`;
     _defaultTheme = themes[0].name;
 
@@ -43,7 +43,7 @@ class ThemeService extends Service {
     }
 
     reset() {
-        exec(`rm ${this._settingsPath}`);
+        exec(`rm ${THEME_CACHE}`);
         this._settings = null;
         this.setup();
         this.emit('changed');
@@ -73,7 +73,7 @@ class ThemeService extends Service {
             return this._settings;
 
         try {
-            this._settings = JSON.parse(readFile(this._settingsPath));
+            this._settings = JSON.parse(readFile(THEME_CACHE));
         } catch (_) {
             this._settings = {};
         }
@@ -84,7 +84,7 @@ class ThemeService extends Service {
     setSetting(prop, value) {
         const settings = this.settings;
         settings[prop] = value;
-        writeFile(JSON.stringify(settings, null, 2), this._settingsPath).catch(print);
+        writeFile(JSON.stringify(settings, null, 2), THEME_CACHE).catch(print);
         this._settings = settings;
         this.emit('changed');
 

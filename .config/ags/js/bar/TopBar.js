@@ -10,12 +10,13 @@ import SystemIndicators from './buttons/SystemIndicators.js';
 import PowerMenu from './buttons/PowerMenu.js';
 import Separator from '../misc/Separator.js';
 import ScreenRecord from './buttons/ScreenRecord.js';
+import BatteryBar from './buttons/BatteryBar.js';
 const { Window, CenterBox, Box } = ags.Widget;
 
-const SeparatorDot = rest => Separator({
-    ...rest,
+const SeparatorDot = (service, condition) => Separator({
     orientation: 'vertical',
     valign: 'center',
+    connections: [[service, dot => dot.visible = condition()]],
 });
 
 const Start = () => Box({
@@ -28,11 +29,10 @@ const Start = () => Box({
         FocusedClient(),
         Box({ hexpand: true }),
         NotificationIndicator(),
-        SeparatorDot({
-            connections: [[ags.Service.Notifications, dot => {
-                dot.visible = ags.Service.Notifications.notifications.size > 0;
-            }]],
-        }),
+        SeparatorDot(
+            ags.Service.Notifications,
+            () => ags.Service.Notifications.notifications.size > 0,
+        ),
     ],
 });
 
@@ -46,26 +46,28 @@ const Center = () => Box({
 const End = () => Box({
     className: 'end',
     children: [
-        SeparatorDot({
-            connections: [[ags.Service.Mpris, dot => {
-                dot.visible = !!ags.Service.Mpris.getPlayer();
-            }]],
-        }),
+        SeparatorDot(
+            ags.Service.Mpris,
+            () => !!ags.Service.Mpris.getPlayer(),
+        ),
         MediaIndicator(),
         Box({ hexpand: true }),
         ScreenRecord(),
-        SeparatorDot({
-            connections: [[ags.Service.Recorder, dot => {
-                dot.visible = ags.Service.Recorder.recording;
-            }]],
-        }),
+        SeparatorDot(
+            ags.Service.Recorder,
+            () => ags.Service.Recorder.recording,
+        ),
         SysTray(),
-        SeparatorDot({
-            connections: [[ags.Service.SystemTray, dot => {
-                dot.visible = ags.Service.SystemTray.items.length > 0;
-            }]],
-        }),
+        SeparatorDot(
+            ags.Service.SystemTray,
+            () => ags.Service.SystemTray.items.length > 0,
+        ),
         ColorPicker(),
+        SeparatorDot(
+            ags.Service.Battery,
+            () => ags.Service.available,
+        ),
+        BatteryBar(),
         SeparatorDot(),
         SystemIndicators(),
         SeparatorDot(),

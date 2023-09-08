@@ -5,6 +5,7 @@ export default ({ icon = '', className, ...props }) => {
         style: 'min-width: 1px; min-height: 1px;',
     });
     const label = Label({
+        className: `font-icon ${className}`,
         label: icon,
         halign: 'center',
         valign: 'center',
@@ -12,7 +13,6 @@ export default ({ icon = '', className, ...props }) => {
     return Box({
         ...props,
         setup: box => box.label = label,
-        className: `font-icon ${className}`,
         children: [Overlay({
             child: box,
             overlays: [label],

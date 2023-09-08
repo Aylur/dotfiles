@@ -2,14 +2,15 @@ window#quicksettings .quicksettings {
     @include floating_widget;
 
     .row {
-        margin: 0 0 $spacing 0;
+        margin-top: $spacing;
+        &:first-child { margin-top: 0; }
     }
 
     .header {
         .avatar {
             @include widget;
             margin-right: $spacing;
-            min-width: $spacing*7 + 38px;
+            min-width: $spacing*6 + 38px;
 
             .shader {
                 @include shader;
@@ -104,6 +105,10 @@ window#quicksettings .quicksettings {
             @include button($flat: true);
             padding: $spacing/2;
         }
+
+        switch {
+            @include switch;
+        }
     }
 
     .toggle-button {
@@ -146,7 +151,6 @@ window#quicksettings .quicksettings {
 
     .media .player {
         @include media;
-        margin-bottom: $spacing;
-        &:last-child { margin-bottom: 0; }
+        margin-top: $spacing;
     }
 }

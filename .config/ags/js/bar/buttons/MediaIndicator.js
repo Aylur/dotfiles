@@ -12,12 +12,12 @@ const Indicator = ({ player, direction = 'right' } = {}) => Box({
         onScrollDown: () => player.previous(),
         onSecondaryClick: () => player.playPause(),
         indicator: mpris.PlayerIcon(player),
-        child: Box({
-            children: [
-                mpris.ArtistLabel(player),
-                Label(' - '),
-                mpris.TitleLabel(player),
-            ],
+        child: Label({
+            truncate: 'end',
+            maxWidthChars: 40,
+            connections: [[player, label => {
+                label.label = `${player.trackArtists[0]} - ${player.trackTitle}`;
+            }]],
         }),
         connections: [[player, revealer => {
             if (revealer._current === player.trackTitle)

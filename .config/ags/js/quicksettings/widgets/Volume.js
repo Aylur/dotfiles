@@ -24,17 +24,13 @@ const TypeIndicator = () => Button({
     onClicked: 'pactl set-sink-mute @DEFAULT_SINK@ toggle',
     child: Icon({
         connections: [[Audio, icon => {
-            if (Audio.speaker)
-                icon.icon = iconSubstitute(Audio.speaker.iconName);
+            if (!Audio.speaker)
+                return;
+
+            icon.icon = iconSubstitute(Audio.speaker.iconName);
+            icon.tooltipText = `Volume ${Math.floor(Audio.speaker.volume * 100)}%`;
         }, 'speaker-changed']],
     }),
-});
-
-const PercentLabel = () => Label({
-    connections: [[Audio, label => {
-        if (Audio.speaker)
-            label.label = `${Math.floor(Audio.speaker.volume * 100)}%`;
-    }, 'speaker-changed']],
 });
 
 const VolumeSlider = () => Slider({
@@ -55,7 +51,6 @@ export const Volume = () => Box({
     children: [
         TypeIndicator(),
         VolumeSlider(),
-        PercentLabel(),
         Arrow('sink-selector'),
         Box({
             children: [Arrow('app-mixer')],

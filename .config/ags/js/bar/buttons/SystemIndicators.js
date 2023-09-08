@@ -2,10 +2,9 @@ import HoverRevealer from '../../misc/HoverRevealer.js';
 import PanelButton from '../PanelButton.js';
 import Asusctl from '../../services/asusctl.js';
 import Indicator from '../../services/onScreenIndicator.js';
-import BatteryIcon from '../../misc/BatteryIcon.js';
 import icons from '../../icons.js';
 const { App } = ags;
-const { Bluetooth, Audio, Battery, Notifications, Network } = ags.Service;
+const { Bluetooth, Audio, Notifications, Network } = ags.Service;
 const { Box, Label, Icon, Stack } = ags.Widget;
 
 const ProfileIndicator = () => Icon({
@@ -52,18 +51,6 @@ const BluetoothIndicator = () => Icon({
     className: 'bluetooth',
     icon: icons.bluetooth.enabled,
     binds: [['visible', Bluetooth, 'enabled']],
-});
-
-const BatteryIndicator = () => HoverRevealer({
-    direction: 'right',
-    binds: [['visible', Battery, 'available']],
-    indicator: BatteryIcon(),
-    child: Label({
-        connections: [[Battery, label => label.label = `${Battery.percent}%`]],
-    }),
-    connections: [[Battery, revealer => {
-        revealer.revealChild = Battery.percent < 100;
-    }]],
 });
 
 const NetworkIndicator = () => Stack({
@@ -122,7 +109,6 @@ export default () => PanelButton({
             BluetoothIndicator(),
             NetworkIndicator(),
             AudioIndicator(),
-            BatteryIndicator(),
         ],
     }),
 });

@@ -35,6 +35,9 @@ export default {
         apps: 'view-app-grid-symbolic',
         search: 'folder-saved-search-symbolic',
     },
+    battery: {
+        charging: '󱐋',
+    },
     bluetooth: {
         enabled: 'bluetooth-active-symbolic',
         disabled: 'bluetooth-disabled-symbolic',
