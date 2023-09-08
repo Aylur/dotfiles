@@ -89,12 +89,8 @@ window.indicator .progress {
             -gtk-icon-transform: scale(0.7);
         }
 
-        .icon overlay {
+        .font-icon {
             font-size: 34px;
-
-            label {
-                font-size: 34px;
-            }
         }
     }
 }

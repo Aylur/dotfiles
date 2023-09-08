@@ -14,6 +14,7 @@ export default ({ icon = '', className, ...props }) => {
         ...props,
         setup: box => box.label = label,
         children: [Overlay({
+            className: `font-icon ${className}`,
             child: box,
             overlays: [label],
             connections: [['draw', overlay => {
