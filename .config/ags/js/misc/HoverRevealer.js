@@ -6,6 +6,7 @@ export default ({
     direction = 'left',
     duration = 300,
     connections,
+    eventboxConnections,
     binds,
     ...rest
 }) => {
@@ -24,6 +25,7 @@ export default ({
 
     const box = EventBox({
         ...rest,
+        connections: eventboxConnections,
         onHover: () => {
             if (open)
                 return;

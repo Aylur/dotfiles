@@ -68,7 +68,7 @@ const End = () => Box({
                 ColorPicker(),
             ],
         }),
-
+        SeparatorDot(),
         ScreenRecord(),
         SeparatorDot(
             ags.Service.Recorder,
