@@ -7,7 +7,7 @@
     info " " wm
     info " " shell
     info " " term
-    info "󰏖 " packages
+    # info "󰏖 " packages
     info "󰍛 " memory
     info "󰔛 " uptime
     prin " \n \n ╰─────────────────────────╯"
