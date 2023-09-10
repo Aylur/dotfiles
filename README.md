@@ -1,11 +1,13 @@
 # Hyprland
 
-![2023-08-07_01-55-11](https://github.com/Aylur/dotfiles/assets/104676705/aa24d424-9a62-4204-846e-c8e88248a52e)
-![2023-08-07_01-56-23](https://github.com/Aylur/dotfiles/assets/104676705/cdf190b2-7b06-4caf-b05e-5ae122d17d22)
-![2023-08-07_01-57-09](https://github.com/Aylur/dotfiles/assets/104676705/8e4967f0-e034-4d25-ad83-484029dd9b98)
+![2023-09-10_21-47-05](https://github.com/Aylur/dotfiles/assets/104676705/5ac6786b-7505-4af8-b608-e61912d2777c)
+![2023-09-10_21-52-48](https://github.com/Aylur/dotfiles/assets/104676705/12fa670d-da75-4108-b44e-c823c47f2679)
+![2023-09-10_21-49-24](https://github.com/Aylur/dotfiles/assets/104676705/aae92d15-6294-4794-b46b-62da55a6e2b1)
+
+
 
 # Dependencies
-- [ags](https://github.com/Aylur/ags/wiki/installation)
+- [aylurs-gtk-shell](https://github.com/Aylur/ags/wiki/installation)
 - sassc
 - swww
 - nerdfonts
