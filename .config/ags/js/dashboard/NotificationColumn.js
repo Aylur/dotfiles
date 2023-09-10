@@ -7,14 +7,14 @@ const { Button, Label, Box, Icon, Scrollable } = ags.Widget;
 const ClearButton = () => Button({
     onClicked: Notifications.clear,
     connections: [[Notifications, button => {
-        button.sensitive = Notifications.notifications.size > 0;
+        button.sensitive = Notifications.notifications.length > 0;
     }]],
     child: Box({
         children: [
             Label('Clear '),
             Icon({
                 connections: [[Notifications, icon => {
-                    icon.icon = Notifications.notifications.size > 0
+                    icon.icon = Notifications.notifications.length > 0
                         ? icons.trash.full : icons.trash.empty;
                 }]],
             }),
@@ -34,11 +34,11 @@ const NotificationList = () => Box({
     vertical: true,
     vexpand: true,
     connections: [[Notifications, box => {
-        box.children = Array.from(Notifications.notifications.values())
+        box.children = Notifications.notifications
             .reverse()
             .map(n => Notification(n));
 
-        box.visible = Notifications.notifications.size > 0;
+        box.visible = Notifications.notifications.length > 0;
     }]],
 });
 
@@ -54,7 +54,7 @@ const Placeholder = () => Box({
         Label('Your inbox is empty'),
     ],
     connections: [[Notifications, box => {
-        box.visible = Notifications.notifications.size === 0;
+        box.visible = Notifications.notifications.length === 0;
     }]],
 });
 

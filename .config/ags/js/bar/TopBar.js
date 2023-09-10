@@ -38,7 +38,7 @@ const Start = () => Box({
         NotificationIndicator(),
         SeparatorDot(
             ags.Service.Notifications,
-            () => ags.Service.Notifications.notifications.size > 0,
+            () => ags.Service.Notifications.notifications.length > 0,
         ),
     ],
 });

@@ -7,13 +7,13 @@ export default ({ direction = 'left' } = {}) => HoverRevealer({
     eventboxConnections: [
         [Notifications, box => {
             box.visible =
-                Notifications.notifications.size > 0 &&
+                Notifications.notifications.length > 0 &&
                 !Notifications.dnd;
         }],
         ['button-press-event', () => ags.App.openWindow('dashboard')],
     ],
     connections: [[Notifications, revealer => {
-        const title = Array.from(Notifications.notifications.values()).pop()?.summary;
+        const title = Notifications.notifications[0]?.summary;
         if (revealer._title === title)
             return;
 
@@ -35,7 +35,7 @@ export default ({ direction = 'left' } = {}) => HoverRevealer({
         truncate: 'center',
         maxWidthChars: 40,
         connections: [[Notifications, label => {
-            label.label = Array.from(Notifications.notifications.values()).pop()?.summary || '';
+            label.label = Notifications.notifications[0]?.summary || '';
         }]],
     }),
 });

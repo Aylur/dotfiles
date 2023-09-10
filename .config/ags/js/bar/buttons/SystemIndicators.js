@@ -37,13 +37,13 @@ const DNDIndicator = () => Icon({
 
 const BluetoothDevicesIndicator = () => Box({
     connections: [[Bluetooth, box => {
-        box.children = Array.from(Bluetooth.connectedDevices.values())
+        box.children = Bluetooth.connectedDevices
             .map(({ iconName, name }) => HoverRevealer({
                 indicator: Icon(iconName + '-symbolic'),
                 child: Label(name),
             }));
 
-        box.visible = Bluetooth.connectedDevices.size > 0;
+        box.visible = Bluetooth.connectedDevices.length > 0;
     }]],
 });
 

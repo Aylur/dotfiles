@@ -39,7 +39,7 @@ const Taskbar = ({ windowName, skip = [] } = {}) => Box({
             if (windowName && !App.getWindow(windowName).visible)
                 return;
 
-            box.children = Array.from(Hyprland.clients.values()).map(client => {
+            box.children = Hyprland.clients.map(client => {
                 for (const appName of skip) {
                     if (client.class.toLowerCase().includes(appName.toLowerCase()))
                         return null;
@@ -69,7 +69,7 @@ const PinnedApps = ({ list, vertical }) => Box({
         .map(({ app, term = true }) => AppButton({
             icon: app.iconName,
             onPrimaryClick: () => {
-                for (const [, client] of Hyprland.clients) {
+                for (const client of Hyprland.clients) {
                     if (client.class.toLowerCase().includes(term)) {
                         execAsync(`hyprctl dispatch focuswindow address:${client.address}`).catch(print);
                         return;
@@ -82,7 +82,7 @@ const PinnedApps = ({ list, vertical }) => Box({
             tooltipText: app.name,
             connections: [[Hyprland, button => {
                 let running = false;
-                for (const [, client] of Hyprland.clients) {
+                for (const client of Hyprland.clients) {
                     if (client.class.toLowerCase().includes(term))
                         running = client;
                 }

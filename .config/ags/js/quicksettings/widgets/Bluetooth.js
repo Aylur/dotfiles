@@ -19,13 +19,13 @@ export const BluetoothToggle = () => ArrowToggleButton({
             if (!Bluetooth.enabled)
                 return label.label = 'Disabled';
 
-            if (Bluetooth.connectedDevices.size === 0)
+            if (Bluetooth.connectedDevices.length === 0)
                 return label.label = 'Not Connected';
 
-            if (Bluetooth.connectedDevices.size === 1)
-                return label.label = Bluetooth.connectedDevices.entries().next().value[1].alias;
+            if (Bluetooth.connectedDevices.length === 1)
+                return label.label = Bluetooth.connectedDevices[0].alias;
 
-            label.label = `${Bluetooth.connectedDevices.size} Connected`;
+            label.label = `${Bluetooth.connectedDevices.length} Connected`;
         }]],
     }),
     connection: [Bluetooth, () => Bluetooth.enabled],
@@ -41,8 +41,7 @@ export const BluetoothDevices = () => Menu({
         hexpand: true,
         vertical: true,
         connections: [[Bluetooth, box => {
-            box.children = Array.from(Bluetooth.devices.values()).map(device => Box({
-                hexpand: false,
+            box.children = Bluetooth.devices.map(device => Box({
                 children: [
                     Icon(device.iconName + '-symbolic'),
                     Label(device.name),

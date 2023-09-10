@@ -1,7 +1,11 @@
 import HoverRevealer from '../../misc/HoverRevealer.js';
 import * as mpris from '../../misc/mpris.js';
+import options from '../../options.js';
 const { Box, Label } = ags.Widget;
 const { Mpris } = ags.Service;
+
+export const getPlayer = (name = options.preferredMpris) =>
+    Mpris.getPlayer(name) || Mpris.players[0] || null;
 
 const Indicator = ({ player, direction = 'right' } = {}) => HoverRevealer({
     className: `media panel-button ${player.name}`,
@@ -33,7 +37,7 @@ const Indicator = ({ player, direction = 'right' } = {}) => HoverRevealer({
 
 export default ({ direction } = {}) => Box({
     connections: [[Mpris, box => {
-        const player = Mpris.getPlayer(mpris.prefer);
+        const player = getPlayer();
         if (!player) {
             box._player = null;
             return;

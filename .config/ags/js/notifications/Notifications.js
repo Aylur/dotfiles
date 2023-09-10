@@ -27,7 +27,7 @@ const Popups = () => Box({
                 return;
 
             box._map.delete(id);
-            box._map.set(id, Notification(Notifications.notifications.get(id)));
+            box._map.set(id, Notification(Notifications.getNotification(id)));
             box.children = Array.from(box._map.values()).reverse();
             timeout(10, () => {
                 box.get_parent().revealChild = true;

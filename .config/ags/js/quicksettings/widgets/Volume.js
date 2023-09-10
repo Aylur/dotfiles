@@ -103,6 +103,7 @@ const MixerItem = stream => Box({
 });
 
 const SinkItem = stream => Button({
+    hexpand: true,
     onClicked: () => Audio.speaker = stream,
     child: Box({
         children: [
@@ -116,6 +117,7 @@ const SinkItem = stream => Button({
                 hexpand: true,
                 halign: 'end',
                 connections: [['draw', icon => {
+                    print(Audio.speaker, stream);
                     icon.visible = Audio.speaker === stream;
                 }]],
             }),
@@ -144,7 +146,7 @@ export const AppMixer = () => Menu({
             Box({
                 vertical: true,
                 connections: [[Audio, box => {
-                    box.children = Array.from(Audio.apps.values()).map(MixerItem);
+                    box.children = Audio.apps.map(MixerItem);
                 }]],
             }),
             Separator({ orientation: 'horizontal' }),
@@ -164,7 +166,7 @@ export const SinkSelector = () => Menu({
             Box({
                 vertical: true,
                 connections: [[Audio, box => {
-                    box.children = Array.from(Audio.speakers.values()).map(SinkItem);
+                    box.children = Audio.speakers.map(SinkItem);
                 }]],
             }),
             Separator({ orientation: 'horizontal' }),

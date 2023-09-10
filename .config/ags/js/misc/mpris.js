@@ -1,22 +1,9 @@
 import icons from '../icons.js';
-import options from '../options.js';
 const { CACHE_DIR, execAsync, ensureDirectory, lookUpIcon } = ags.Utils;
 const { Button, Icon, Label, Box, Stack, Slider } = ags.Widget;
 const { GLib } = imports.gi;
 
 const MEDIA_CACHE_PATH = CACHE_DIR + '/media';
-
-export const prefer = players => {
-    let last;
-    for (const [name, mpris] of players) {
-        if (name.includes(options.preferredMpris))
-            return mpris;
-
-        last = mpris;
-    }
-
-    return last;
-};
 
 export const CoverArt = (player, props) => Box({
     ...props,
