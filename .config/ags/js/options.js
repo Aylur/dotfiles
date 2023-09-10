@@ -16,4 +16,10 @@ export default {
         low: 30,
         medium: 50,
     },
+
+    // path to read temperature from
+    temperature: '/sys/class/thermal/thermal_zone0/temp',
+
+    // at what intervals should cpu, ram, temperature refresh
+    systemFetchInterval: 5000,
 };

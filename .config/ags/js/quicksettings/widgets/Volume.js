@@ -135,7 +135,7 @@ const SettingsButton = () => Button({
 
 export const AppMixer = () => Menu({
     name: 'app-mixer',
-    icon: FontIcon({ icon: icons.audio.mixer }),
+    icon: FontIcon(icons.audio.mixer),
     title: Label('App Mixer'),
     content: Box({
         className: 'app-mixer',

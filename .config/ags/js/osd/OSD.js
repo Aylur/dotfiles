@@ -31,7 +31,7 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Box({
                         halign: 'center',
                         hexpand: true,
                         style: `font-size: ${width}px;`,
-                        connections: [[Indicator, ({ label }, _v, name) => label.label = name || '']],
+                        connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
                     })],
                 ],
                 connections: [[Indicator, (stack, _v, name) => {

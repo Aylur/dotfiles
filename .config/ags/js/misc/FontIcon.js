@@ -1,29 +1,35 @@
-const { Box, Label, Overlay } = ags.Widget;
+import Gtk from 'gi://Gtk';
+import GObject from 'gi://GObject';
 
-export default ({ icon = '', className, ...props }) => {
-    const box = Box({
-        style: 'min-width: 1px; min-height: 1px;',
-    });
-    const label = Label({
-        className: `font-icon ${className}`,
-        label: icon,
-        halign: 'center',
-        valign: 'center',
-    });
-    return Box({
-        ...props,
-        setup: box => box.label = label,
-        children: [Overlay({
-            className: `font-icon ${className}`,
-            child: box,
-            overlays: [label],
-            connections: [['draw', overlay => {
-                const size = overlay.get_style_context()
-                    .get_property('font-size', imports.gi.Gtk.StateFlags.NORMAL) || 11;
+class FontIcon extends Gtk.Label {
+    static { GObject.registerClass(this); }
 
-                box.setStyle(`min-width: ${size}px; min-height: ${size}px;`);
-                overlay.passThrough = true;
-            }]],
-        })],
-    });
-};
+    constructor(params = '') {
+        const { icon = '', ...rest } = params;
+        super(typeof params === 'string' ? {} : rest);
+        this.toggleClassName('font-icon');
+
+        if (typeof params === 'object')
+            this.icon = icon;
+    }
+
+    get icon() { return this.label; }
+    set icon(icon) { this.label = icon; }
+
+    get size() {
+        return this.get_style_context()
+            .get_property('font-size', Gtk.StateFlags.NORMAL);
+    }
+
+    vfunc_get_preferred_height() {
+        return [this.size, this.size];
+    }
+
+    vfunc_get_preferred_width() {
+        return [this.size, this.size];
+    }
+}
+
+export default params => typeof params === 'string'
+    ? ags.Widget({ type: FontIcon, icon: params })
+    : ags.Widget({ type: FontIcon, ...params });

@@ -10,7 +10,7 @@ export default ({ direction = 'left' } = {}) => HoverRevealer({
                 Notifications.notifications.size > 0 &&
                 !Notifications.dnd;
         }],
-        ['button-press-event', () => ags.App.openWindw('dashboard')],
+        ['button-press-event', () => ags.App.openWindow('dashboard')],
     ],
     connections: [[Notifications, revealer => {
         const title = Array.from(Notifications.notifications.values()).pop()?.summary;

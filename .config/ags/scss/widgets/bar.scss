@@ -148,9 +148,9 @@ $float: $spacing * 0.7;
             }
         }
 
-        .charging { @include color($green) }
         .medium { @include color($yellow) }
         .low { @include color($red) }
+        .charging { @include color($green) }
         &:active { @include color($accent_fg) }
     }
 

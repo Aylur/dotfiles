@@ -8,5 +8,5 @@ export default () => PanelButton({
         btn.toggleClassName('active', win === 'overview' && visible);
     }]],
     onClicked: () => ags.App.toggleWindow('overview'),
-    content: FontIcon({ icon: distroIcon }),
+    content: FontIcon(distroIcon),
 });

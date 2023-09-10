@@ -58,7 +58,6 @@ const End = () => Box({
             () => !!ags.Service.Mpris.getPlayer(),
         ),
         MediaIndicator(),
-
         Box({ hexpand: true }),
 
         SubMenu({

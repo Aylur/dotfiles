@@ -137,4 +137,24 @@ window#dashboard .dashboard {
 
         margin-top: $spacing*2;
     }
+
+    .circular-progress-box {
+        @include widget;
+        margin-top: $spacing;
+        margin-right: $spacing;
+        &:last-child { margin-right: 0; }
+        padding: 10px;
+
+        .circular-progress {
+            min-height: 70px;
+            margin: $spacing/2;
+            font-size: $spacing*1.2;
+            background-color: $bg_color;
+            color: $accent;
+
+            image {
+                font-size: 2em;
+            }
+        }
+    }
 }
