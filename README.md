@@ -1,3 +1,6 @@
+> [!WARNING]  
+> This branch is no longer maintained, if you plan on using it, you are on you own.
+
 # Hyprland
 <img src="https://github.com/Aylur/dotfiles/blob/eww/assets/hyprland.png">
 
