@@ -4,6 +4,11 @@
     # colorscript
     (import ./colorscript.nix { inherit pkgs; })
 
+    # gui
+    obsidian spotify caprine-bin d-spy easyeffects
+    figma-linux github-desktop gimp transmission_4-gtk
+    teams-for-linux
+
     # nixgl
     nixgl.auto.nixGLDefault
     nixgl.auto.nixGLNvidia
@@ -26,13 +31,10 @@
     distrobox
 
     # langs
+    nodejs go bun sassc
     meson ninja
-    nodejs go bun
     nodePackages_latest.typescript
     nodePackages_latest.eslint
-    sassc
-
-    # ls
     llvmPackages_9.libclang
     nodePackages.bash-language-server
     nodePackages.vscode-langservers-extracted
@@ -40,6 +42,8 @@
     lua-language-server
     marksman
     gopls
+    golangci-lint
+    golangci-lint-langserver
 
     # neovim
     fzf ripgrep fd stylua cargo
