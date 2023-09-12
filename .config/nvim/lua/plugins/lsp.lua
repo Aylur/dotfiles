@@ -15,6 +15,7 @@ return {
                 nil_ls = {},
                 lua_ls = {},
                 gopls = {},
+                ruff_lsp = {},
             },
         },
     },

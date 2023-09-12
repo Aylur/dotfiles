@@ -1,13 +1,12 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
+  home.packages = with pkgs; with nodePackages_latest; [
     # colorscript
     (import ./colorscript.nix { inherit pkgs; })
 
     # gui
     obsidian spotify caprine-bin d-spy easyeffects
     figma-linux github-desktop gimp transmission_4-gtk
-    teams-for-linux
 
     # nixgl
     nixgl.auto.nixGLDefault
@@ -33,17 +32,18 @@
     # langs
     nodejs go bun sassc
     meson ninja
-    nodePackages_latest.typescript
-    nodePackages_latest.eslint
-    llvmPackages_9.libclang
-    nodePackages.bash-language-server
-    nodePackages.vscode-langservers-extracted
-    nodePackages.vls
-    lua-language-server
-    marksman
-    gopls
-    golangci-lint
-    golangci-lint-langserver
+    typescript
+    eslint
+    # ruff-lsp
+    # llvmPackages_9.libclang
+    # bash-language-server
+    # vscode-langservers-extracted
+    # vls
+    # lua-language-server
+    # marksman
+    # gopls
+    # golangci-lint
+    # golangci-lint-langserver
 
     # neovim
     fzf ripgrep fd stylua cargo
