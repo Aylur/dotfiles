@@ -10,7 +10,7 @@ window#quicksettings .quicksettings {
         .avatar {
             @include widget;
             margin-right: $spacing;
-            min-width: $spacing*6 + 38px;
+            min-width: $spacing*7 + 38px;
 
             .shader {
                 @include shader;
@@ -78,6 +78,10 @@ window#quicksettings .quicksettings {
 
         scale {
             @include slider;
+
+            &:last-child {
+                margin-right: $spacing/2;
+            }
         }
 
         .menu {

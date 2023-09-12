@@ -7,8 +7,7 @@ export default ({ direction = 'left' } = {}) => HoverRevealer({
     eventboxConnections: [
         [Notifications, box => {
             box.visible =
-                Notifications.notifications.length > 0 &&
-                !Notifications.dnd;
+                Notifications.notifications.length > 0 || Notifications.dnd;
         }],
         ['button-press-event', () => ags.App.openWindow('dashboard')],
     ],
@@ -32,7 +31,7 @@ export default ({ direction = 'left' } = {}) => HoverRevealer({
         }]],
     }),
     child: Label({
-        truncate: 'center',
+        truncate: 'end',
         maxWidthChars: 40,
         connections: [[Notifications, label => {
             label.label = Notifications.notifications[0]?.summary || '';

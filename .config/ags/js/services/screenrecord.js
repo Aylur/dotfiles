@@ -69,12 +69,12 @@ class RecorderService extends Service {
 
             await execAsync(['wayshot', '-s', area, '-f', file]);
             execAsync(['bash', '-c', `wl-copy < ${file}`]);
-            execAsync(['swappy', '-f', file]);
 
             const res = await execAsync([
                 'notify-send',
                 '-A', 'files=Show in Files',
                 '-A', 'view=View',
+                '-A', 'edit=Edit',
                 '-i', file,
                 'Screenshot',
                 file,
@@ -84,6 +84,11 @@ class RecorderService extends Service {
 
             if (res === 'view')
                 execAsync('xdg-open ' + file);
+
+            if (res === 'edit')
+                execAsync(['swappy', '-f', file]);
+
+            ags.App.closeWindow('dashboard');
         } catch (error) {
             logError(error);
         }

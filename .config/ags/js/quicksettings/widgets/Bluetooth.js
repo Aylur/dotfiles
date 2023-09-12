@@ -45,6 +45,7 @@ export const BluetoothDevices = () => Menu({
                 children: [
                     Icon(device.iconName + '-symbolic'),
                     Label(device.name),
+                    device.batteryPercentage > 0 && Label(`${device.batteryPercentage}%`),
                     Box({ hexpand: true }),
                     device.connecting ? Spinner() : ags.Widget({
                         type: imports.gi.Gtk.Switch,

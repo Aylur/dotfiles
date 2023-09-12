@@ -31,7 +31,11 @@ export default () => Box({
         Box({
             className: 'calendar',
             children: [
-                Widget({ type: imports.gi.Gtk.Calendar }),
+                Widget({
+                    type: imports.gi.Gtk.Calendar,
+                    hexpand: true,
+                    halign: 'center',
+                }),
             ],
         }),
         Box({

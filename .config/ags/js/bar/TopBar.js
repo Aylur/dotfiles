@@ -23,7 +23,9 @@ SystemTray.instance.connect('changed', () => {
 const SeparatorDot = (service, condition) => Separator({
     orientation: 'vertical',
     valign: 'center',
-    connections: service && [[service, dot => dot.visible = condition()]],
+    connections: service && [[ags.Service[service], dot => {
+        dot.visible = condition(ags.Service[service]);
+    }]],
 });
 
 const Start = () => Box({
@@ -36,10 +38,7 @@ const Start = () => Box({
         FocusedClient(),
         Box({ hexpand: true }),
         NotificationIndicator(),
-        SeparatorDot(
-            ags.Service.Notifications,
-            () => ags.Service.Notifications.notifications.length > 0,
-        ),
+        SeparatorDot('Notifications', n => n.notifications.length > 0 || n.dnd),
     ],
 });
 
@@ -53,10 +52,7 @@ const Center = () => Box({
 const End = () => Box({
     className: 'end',
     children: [
-        SeparatorDot(
-            ags.Service.Mpris,
-            () => !!ags.Service.Mpris.getPlayer(),
-        ),
+        SeparatorDot('Mpris', m => m.players.length > 0),
         MediaIndicator(),
         Box({ hexpand: true }),
 
@@ -69,15 +65,9 @@ const End = () => Box({
         }),
         SeparatorDot(),
         ScreenRecord(),
-        SeparatorDot(
-            ags.Service.Recorder,
-            () => ags.Service.Recorder.recording,
-        ),
+        SeparatorDot('Recorder', r => r.recording),
         BatteryBar(),
-        SeparatorDot(
-            ags.Service.Battery,
-            () => ags.Service.Battery.available,
-        ),
+        SeparatorDot('Battery', b => b.available),
         SystemIndicators(),
         SeparatorDot(),
         PowerMenu(),
