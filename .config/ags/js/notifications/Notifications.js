@@ -11,7 +11,7 @@ const Popups = () => Box({
             if (!id || !box._map.has(id))
                 return;
 
-            if (box._map.get(id)._hovered && !force)
+            if (box._map.get(id)._hovered.value && !force)
                 return;
 
             if (box._map.size - 1 === 0)
