@@ -15,7 +15,7 @@ const AppItem = (app, window) => Button({
     child: Box({
         children: [
             Icon({
-                icon: app.iconName,
+                icon: app.app.get_string('Icon'),
                 size: 42,
             }),
             Box({
