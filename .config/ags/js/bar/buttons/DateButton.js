@@ -1,7 +1,7 @@
 import Clock from '../../misc/Clock.js';
 import PanelButton from '../PanelButton.js';
 
-export default ({ format = '%H:%M  -  %e. %A' } = {}) => PanelButton({
+export default ({ format = '%H:%M - %A %e.' } = {}) => PanelButton({
     className: 'dashboard panel-button',
     onClicked: () => ags.App.toggleWindow('dashboard'),
     connections: [[ags.App, (btn, win, visible) => {
