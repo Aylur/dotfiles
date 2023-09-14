@@ -60,14 +60,16 @@ class RecorderService extends Service {
             .catch(print);
     }
 
-    async screenshot() {
+    async screenshot(full = false) {
         try {
-            const area = await execAsync('slurp');
+            const area = full ? null : await execAsync('slurp');
             const path = GLib.get_home_dir() + '/Pictures/Screenshots';
             const file = `${path}/${now()}.png`;
             ensureDirectory(path);
 
-            await execAsync(['wayshot', '-s', area, '-f', file]);
+            area ? await execAsync(['wayshot', '-s', area, '-f', file])
+                : await execAsync(['wayshot', '-f', file]);
+
             execAsync(['bash', '-c', `wl-copy < ${file}`]);
 
             const res = await execAsync([
@@ -100,6 +102,6 @@ export default class Recorder {
     static instance = new RecorderService();
     static start() { Recorder.instance.start(); }
     static stop() { Recorder.instance.stop(); }
-    static screenshot() { Recorder.instance.screenshot(); }
+    static screenshot(full) { Recorder.instance.screenshot(full); }
     static get recording() { return Recorder.instance._recording; }
 }
