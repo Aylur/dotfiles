@@ -302,6 +302,8 @@ window {
 
 tooltip {
     @include common;
+    * { all: unset; }
+
     background-color: transparent;
     border: none;
 
