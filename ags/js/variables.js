@@ -16,7 +16,7 @@ export const uptime = ags.Variable(0, {
 
 export const distro = ags.Utils.exec('cat /etc/os-release')
     .split('\n')
-    .find(line => line.includes('ID'))
+    .find(line => line.includes('\nID='))
     .split('=')[1];
 
 export const distroIcon = (() => {

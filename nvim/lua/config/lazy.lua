@@ -22,6 +22,7 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.lang.python" },
         { import = "plugins" },
     },
+    lockfile = vim.fn.stdpath("cache") .. "/lazy-lock.json",
     defaults = {
         lazy = false,
         version = false, -- always use the latest git commit

@@ -7,12 +7,14 @@ remove() {
 	rm ~/.config/ags
 	rm ~/.config/nvim
 	rm ~/.config/wezterm
+	rm ~/.config/hypr
 }
 
 symlink() {
 	ln -s ~/Projects/dotfiles/ags ~/.config/ags
 	ln -s ~/Projects/dotfiles/nvim ~/.config/nvim
 	ln -s ~/Projects/dotfiles/wezterm ~/.config/wezterm
+	ln -s ~/Projects/dotfiles/hypr ~/.config/hypr
 }
 
 remove
