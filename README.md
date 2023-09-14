@@ -4,8 +4,6 @@
 ![2023-09-10_21-52-48](https://github.com/Aylur/dotfiles/assets/104676705/12fa670d-da75-4108-b44e-c823c47f2679)
 ![2023-09-10_21-49-24](https://github.com/Aylur/dotfiles/assets/104676705/aae92d15-6294-4794-b46b-62da55a6e2b1)
 
-
-
 # Dependencies
 - [aylurs-gtk-shell](https://github.com/Aylur/ags/wiki/installation)
 - sassc
@@ -26,9 +24,8 @@
 
 ```bash
 git clone https://github.com/Aylur/dotfiles.git
-cd dotfiles
-cp -r .config/ags $HOME/.config/ags
-cp -r .config/hypr $HOME/.config/hypr
+cp -r dotfiles/ags $HOME/.config/ags
+cp -r dotfiles/hypr $HOME/.config/hypr
 
 # then run
 ags

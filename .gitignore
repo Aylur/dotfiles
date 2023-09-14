@@ -1,3 +1,0 @@
-*.backup
-.config/hypr/hyprland.conf
-.config/nvim/lazy-lock.json

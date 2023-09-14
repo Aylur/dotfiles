@@ -1,0 +1,1985 @@
+window {
+  background-color: transparent; }
+
+tooltip {
+  all: unset;
+  background-color: transparent;
+  border: none; }
+  tooltip * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  tooltip > * > * {
+    background-color: #171717;
+    border-radius: 9px;
+    border: 1px solid rgba(238, 238, 238, 0.04);
+    color: #eee;
+    padding: 8px;
+    margin: 4px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.6); }
+
+window.popup > * {
+  border: none;
+  box-shadow: none; }
+
+window.popup menu {
+  border-radius: 15.3px;
+  background-color: #171717;
+  padding: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.03); }
+  window.popup menu separator {
+    background-color: rgba(238, 238, 238, 0.03); }
+  window.popup menu menuitem {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    padding: 4.5px;
+    margin: 4.5px 0; }
+    window.popup menu menuitem * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window.popup menu menuitem:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window.popup menu menuitem:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window.popup menu menuitem:active, window.popup menu menuitem.on, window.popup menu menuitem.active, window.popup menu menuitem:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      window.popup menu menuitem:active:hover, window.popup menu menuitem.on:hover, window.popup menu menuitem.active:hover, window.popup menu menuitem:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    window.popup menu menuitem:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+    window.popup menu menuitem:first-child {
+      margin-top: 0; }
+    window.popup menu menuitem:last-child {
+      margin-bottom: 0; }
+
+.notifications-popup-list .notification.critical > box {
+  box-shadow: inset 0 0 0.5em 0 #e67090; }
+
+.notifications-popup-list .notification > box {
+  border-radius: 4.5px;
+  padding: 9px; }
+
+.notifications-popup-list .notification:hover .close-button {
+  box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+  background-color: rgba(238, 238, 238, 0.154);
+  color: #f1f1f1;
+  background-color: rgba(230, 112, 144, 0.5); }
+
+.notifications-popup-list .notification .content .title {
+  margin-right: 9px;
+  color: #eee;
+  font-size: 1.1em; }
+
+.notifications-popup-list .notification .content .time {
+  color: rgba(238, 238, 238, 0.8); }
+
+.notifications-popup-list .notification .content .description {
+  font-size: .9em;
+  color: rgba(238, 238, 238, 0.8); }
+
+.notifications-popup-list .notification .content .icon {
+  border-radius: 7.2px;
+  margin-right: 9px; }
+  .notifications-popup-list .notification .content .icon.img {
+    border: 1px solid rgba(238, 238, 238, 0.03); }
+
+.notifications-popup-list .notification .actions {
+  padding-top: 9px; }
+  .notifications-popup-list .notification .actions button {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    border-radius: 7.2px;
+    font-size: 1.2em;
+    padding: 4.5px 0;
+    margin: 0 4.5px 0; }
+    .notifications-popup-list .notification .actions button * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    .notifications-popup-list .notification .actions button:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    .notifications-popup-list .notification .actions button:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    .notifications-popup-list .notification .actions button:active, .notifications-popup-list .notification .actions button.on, .notifications-popup-list .notification .actions button.active, .notifications-popup-list .notification .actions button:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      .notifications-popup-list .notification .actions button:active:hover, .notifications-popup-list .notification .actions button.on:hover, .notifications-popup-list .notification .actions button.active:hover, .notifications-popup-list .notification .actions button:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    .notifications-popup-list .notification .actions button:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+    .notifications-popup-list .notification .actions button:first-child {
+      margin-left: 0; }
+    .notifications-popup-list .notification .actions button:last-child {
+      margin-right: 0; }
+
+.notifications-popup-list .notification button.close-button {
+  all: unset;
+  transition: 200ms;
+  border-radius: 9px;
+  color: #eee;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  margin-left: 9px;
+  border-radius: 7.2px;
+  min-width: 1.2em;
+  min-height: 1.2em; }
+  .notifications-popup-list .notification button.close-button * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  .notifications-popup-list .notification button.close-button:focus {
+    box-shadow: inset 0 0 0 1px #51a4e7;
+    background-color: rgba(238, 238, 238, 0.154);
+    color: #f1f1f1; }
+  .notifications-popup-list .notification button.close-button:hover {
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    background-color: rgba(238, 238, 238, 0.154);
+    color: #f1f1f1; }
+  .notifications-popup-list .notification button.close-button:active, .notifications-popup-list .notification button.close-button.on, .notifications-popup-list .notification button.close-button.active, .notifications-popup-list .notification button.close-button:checked {
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+    background-color: #51a4e7;
+    color: #141414; }
+    .notifications-popup-list .notification button.close-button:active:hover, .notifications-popup-list .notification button.close-button.on:hover, .notifications-popup-list .notification button.close-button.active:hover, .notifications-popup-list .notification button.close-button:checked:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+  .notifications-popup-list .notification button.close-button:disabled {
+    box-shadow: none;
+    background-color: transparent;
+    color: rgba(238, 238, 238, 0.3); }
+  .notifications-popup-list .notification button.close-button:hover {
+    background-color: rgba(230, 112, 144, 0.5); }
+  .notifications-popup-list .notification button.close-button:active {
+    background-image: linear-gradient(#e67090, #e67090); }
+
+.notifications-popup-list .notification > box {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px;
+  border-radius: 9px; }
+  .notifications-popup-list .notification > box * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+
+.notifications-popup-list .notification .description {
+  min-width: 350px; }
+
+window.floating-dock .dock {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px;
+  padding: 4.5px; }
+  window.floating-dock .dock separator {
+    border-radius: 9px;
+    background-color: rgba(238, 238, 238, 0.2);
+    margin: 0 6.3px; }
+  window.floating-dock .dock.horizontal separator {
+    min-width: 2px;
+    min-height: 2em; }
+  window.floating-dock .dock.horizontal button.focused .indicator {
+    min-width: 18px; }
+  window.floating-dock .dock button {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    color: #eee; }
+    window.floating-dock .dock button * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window.floating-dock .dock button:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+    window.floating-dock .dock button > * {
+      border-radius: 9px;
+      transition: 200ms;
+      background-color: transparent;
+      box-shadow: none; }
+    window.floating-dock .dock button:focus > *, window.floating-dock .dock button.focused > * {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window.floating-dock .dock button:hover > * {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window.floating-dock .dock button:active > *, window.floating-dock .dock button.active > *, window.floating-dock .dock button.on > *, window.floating-dock .dock button:checked > * {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+    window.floating-dock .dock button:active:hover > *, window.floating-dock .dock button.active:hover > *, window.floating-dock .dock button.on:hover > *, window.floating-dock .dock button:checked:hover > * {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    window.floating-dock .dock button image, window.floating-dock .dock button .box {
+      margin: 6.3px; }
+    window.floating-dock .dock button .indicator {
+      min-width: 6px;
+      min-height: 6px;
+      background-color: #eee;
+      border-radius: 9px;
+      margin-bottom: 2px; }
+    window.floating-dock .dock button.single .indicator, window.floating-dock .dock button.nonrunning .indicator {
+      background-color: transparent; }
+    window.floating-dock .dock button.focused .indicator {
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb); }
+  window.floating-dock .dock * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  window.floating-dock .dock button image {
+    font-size: 48px; }
+
+window#applauncher .applauncher {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px; }
+  window#applauncher .applauncher * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  window#applauncher .applauncher .wallpaper {
+    margin: 16.2px;
+    margin-bottom: 0;
+    border-radius: 9px;
+    padding: 30px;
+    box-shadow: 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 9px 0 rgba(0, 0, 0, 0.6); }
+    window#applauncher .applauncher .wallpaper image {
+      all: unset;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      border: 1px solid rgba(238, 238, 238, 0.03);
+      border-radius: 4.5px;
+      background-color: rgba(23, 23, 23, 0.6);
+      padding: 4.5px;
+      margin-right: 9px;
+      -gtk-icon-transform: scale(0.8);
+      font-size: 25.6px; }
+      window#applauncher .applauncher .wallpaper image * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#applauncher .applauncher .wallpaper entry {
+      all: unset;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      border: 1px solid rgba(238, 238, 238, 0.03);
+      border-radius: 4.5px;
+      background-color: rgba(23, 23, 23, 0.6);
+      transition: 200ms;
+      padding: 4.5px; }
+      window#applauncher .applauncher .wallpaper entry * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+  window#applauncher .applauncher .separator {
+    min-height: 1px;
+    background-color: rgba(238, 238, 238, 0.154);
+    margin: 4.5px; }
+  window#applauncher .applauncher scrolledwindow {
+    padding: 16.2px;
+    min-width: 500px;
+    min-height: 350px; }
+    window#applauncher .applauncher scrolledwindow scrollbar, window#applauncher .applauncher scrolledwindow scrollbar * {
+      all: unset; }
+    window#applauncher .applauncher scrolledwindow scrollbar.vertical {
+      transition: 200ms;
+      background-color: rgba(23, 23, 23, 0.3); }
+      window#applauncher .applauncher scrolledwindow scrollbar.vertical:hover {
+        background-color: rgba(23, 23, 23, 0.7); }
+        window#applauncher .applauncher scrolledwindow scrollbar.vertical:hover slider {
+          background-color: rgba(238, 238, 238, 0.7);
+          min-width: .6em; }
+    window#applauncher .applauncher scrolledwindow scrollbar.vertical slider {
+      background-color: rgba(238, 238, 238, 0.5);
+      border-radius: 9px;
+      min-width: .4em;
+      min-height: 2em;
+      transition: 200ms; }
+  window#applauncher .applauncher .app {
+    all: unset;
+    transition: 200ms;
+    padding: 9px; }
+    window#applauncher .applauncher .app label {
+      transition: 200ms; }
+      window#applauncher .applauncher .app label.title {
+        color: #eee; }
+      window#applauncher .applauncher .app label.description {
+        color: rgba(238, 238, 238, 0.7); }
+    window#applauncher .applauncher .app image {
+      transition: 200ms;
+      margin-right: 9px; }
+    window#applauncher .applauncher .app:hover .title, window#applauncher .applauncher .app:focus .title {
+      color: #51a4e7; }
+    window#applauncher .applauncher .app:hover image, window#applauncher .applauncher .app:focus image {
+      -gtk-icon-shadow: 2px 2px #51a4e7; }
+    window#applauncher .applauncher .app:active {
+      background-color: rgba(81, 164, 231, 0.5);
+      border-radius: 9px;
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03); }
+      window#applauncher .applauncher .app:active .title {
+        color: #eee; }
+
+window#quicksettings .quicksettings {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px; }
+  window#quicksettings .quicksettings * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  window#quicksettings .quicksettings .row {
+    margin-top: 9px; }
+    window#quicksettings .quicksettings .row:first-child {
+      margin-top: 0; }
+  window#quicksettings .quicksettings .header .avatar {
+    all: unset;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    border: 1px solid rgba(238, 238, 238, 0.03);
+    margin-right: 9px;
+    min-width: 101px; }
+    window#quicksettings .quicksettings .header .avatar * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#quicksettings .quicksettings .header .avatar .shader {
+      all: unset;
+      box-shadow: inset 0 0 3em 1em rgba(23, 23, 23, 0.7); }
+      window#quicksettings .quicksettings .header .avatar .shader * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .header .avatar .shader label {
+        color: white;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+  window#quicksettings .quicksettings .header .battery-progress label {
+    margin-top: 9px;
+    color: #141414;
+    font-size: 18px;
+    font-weight: bold; }
+  window#quicksettings .quicksettings .header .battery-progress.half label {
+    color: #eee; }
+  window#quicksettings .quicksettings .header .battery-progress progressbar {
+    all: unset;
+    margin-top: 9px;
+    min-height: 20px; }
+    window#quicksettings .quicksettings .header .battery-progress progressbar * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#quicksettings .quicksettings .header .battery-progress progressbar * {
+      all: unset; }
+    window#quicksettings .quicksettings .header .battery-progress progressbar trough {
+      transition: 200ms;
+      border-radius: 9px;
+      border: 1px solid rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.06);
+      min-height: 30.6px;
+      min-width: 30.6px; }
+      window#quicksettings .quicksettings .header .battery-progress progressbar trough highlight, window#quicksettings .quicksettings .header .battery-progress progressbar trough progress {
+        border-radius: 8px;
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        min-height: 30.6px;
+        min-width: 30.6px; }
+    window#quicksettings .quicksettings .header .battery-progress progressbar slider {
+      box-shadow: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      transition: 200ms;
+      border-radius: 9px;
+      min-height: 30.6px;
+      min-width: 30.6px;
+      margin: -0.5em; }
+    window#quicksettings .quicksettings .header .battery-progress progressbar:hover trough {
+      background-color: rgba(238, 238, 238, 0.154); }
+    window#quicksettings .quicksettings .header .battery-progress progressbar:hover slider {
+      background-color: #eee;
+      border-color: rgba(238, 238, 238, 0.03);
+      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.6); }
+    window#quicksettings .quicksettings .header .battery-progress progressbar:disabled highlight, window#quicksettings .quicksettings .header .battery-progress progressbar:disabled progress {
+      background-color: rgba(238, 238, 238, 0.6);
+      background-image: none; }
+    window#quicksettings .quicksettings .header .battery-progress progressbar trough:focus {
+      background-color: rgba(238, 238, 238, 0.154);
+      box-shadow: inset 0 0 0 1px #51a4e7; }
+      window#quicksettings .quicksettings .header .battery-progress progressbar trough:focus slider {
+        background-color: #eee;
+        box-shadow: inset 0 0 0 1px #51a4e7; }
+  window#quicksettings .quicksettings .header .battery-progress.low progressbar {
+    all: unset;
+    margin-top: 9px;
+    min-height: 20px; }
+    window#quicksettings .quicksettings .header .battery-progress.low progressbar * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#quicksettings .quicksettings .header .battery-progress.low progressbar * {
+      all: unset; }
+    window#quicksettings .quicksettings .header .battery-progress.low progressbar trough {
+      transition: 200ms;
+      border-radius: 9px;
+      border: 1px solid rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.06);
+      min-height: 30.6px;
+      min-width: 30.6px; }
+      window#quicksettings .quicksettings .header .battery-progress.low progressbar trough highlight, window#quicksettings .quicksettings .header .battery-progress.low progressbar trough progress {
+        border-radius: 8px;
+        background-image: linear-gradient(to right, #e67090, #e67090);
+        min-height: 30.6px;
+        min-width: 30.6px; }
+    window#quicksettings .quicksettings .header .battery-progress.low progressbar slider {
+      box-shadow: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      transition: 200ms;
+      border-radius: 9px;
+      min-height: 30.6px;
+      min-width: 30.6px;
+      margin: -0.5em; }
+    window#quicksettings .quicksettings .header .battery-progress.low progressbar:hover trough {
+      background-color: rgba(238, 238, 238, 0.154); }
+    window#quicksettings .quicksettings .header .battery-progress.low progressbar:hover slider {
+      background-color: #eee;
+      border-color: rgba(238, 238, 238, 0.03);
+      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.6); }
+    window#quicksettings .quicksettings .header .battery-progress.low progressbar:disabled highlight, window#quicksettings .quicksettings .header .battery-progress.low progressbar:disabled progress {
+      background-color: rgba(238, 238, 238, 0.6);
+      background-image: none; }
+    window#quicksettings .quicksettings .header .battery-progress.low progressbar trough:focus {
+      background-color: rgba(238, 238, 238, 0.154);
+      box-shadow: inset 0 0 0 1px #51a4e7; }
+      window#quicksettings .quicksettings .header .battery-progress.low progressbar trough:focus slider {
+        background-color: #eee;
+        box-shadow: inset 0 0 0 1px #51a4e7; }
+  window#quicksettings .quicksettings .header .system-box {
+    all: unset;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    border: 1px solid rgba(238, 238, 238, 0.03);
+    padding: 9px; }
+    window#quicksettings .quicksettings .header .system-box * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#quicksettings .quicksettings .header .system-box button, window#quicksettings .quicksettings .header .system-box .uptime {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      padding: 9px;
+      font-weight: bold;
+      margin-left: 9px;
+      min-height: 20px;
+      min-width: 20px; }
+      window#quicksettings .quicksettings .header .system-box button *, window#quicksettings .quicksettings .header .system-box .uptime * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .header .system-box button:focus, window#quicksettings .quicksettings .header .system-box .uptime:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .header .system-box button:hover, window#quicksettings .quicksettings .header .system-box .uptime:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .header .system-box button:active, window#quicksettings .quicksettings .header .system-box button.on, window#quicksettings .quicksettings .header .system-box button.active, window#quicksettings .quicksettings .header .system-box button:checked, window#quicksettings .quicksettings .header .system-box .uptime:active, window#quicksettings .quicksettings .header .system-box .uptime.on, window#quicksettings .quicksettings .header .system-box .uptime.active, window#quicksettings .quicksettings .header .system-box .uptime:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        window#quicksettings .quicksettings .header .system-box button:active:hover, window#quicksettings .quicksettings .header .system-box button.on:hover, window#quicksettings .quicksettings .header .system-box button.active:hover, window#quicksettings .quicksettings .header .system-box button:checked:hover, window#quicksettings .quicksettings .header .system-box .uptime:active:hover, window#quicksettings .quicksettings .header .system-box .uptime.on:hover, window#quicksettings .quicksettings .header .system-box .uptime.active:hover, window#quicksettings .quicksettings .header .system-box .uptime:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      window#quicksettings .quicksettings .header .system-box button:disabled, window#quicksettings .quicksettings .header .system-box .uptime:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+      window#quicksettings .quicksettings .header .system-box button:first-child, window#quicksettings .quicksettings .header .system-box .uptime:first-child {
+        margin-left: 0; }
+      window#quicksettings .quicksettings .header .system-box button image, window#quicksettings .quicksettings .header .system-box .uptime image {
+        font-size: 1.2em; }
+  window#quicksettings .quicksettings .slider-box {
+    all: unset;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    border: 1px solid rgba(238, 238, 238, 0.03);
+    padding: 9px; }
+    window#quicksettings .quicksettings .slider-box * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#quicksettings .quicksettings .slider-box > box:last-child {
+      margin-bottom: 0; }
+    window#quicksettings .quicksettings .slider-box .slider > * {
+      margin-left: 9px; }
+      window#quicksettings .quicksettings .slider-box .slider > *:first-child {
+        margin-left: 0; }
+    window#quicksettings .quicksettings .slider-box button, window#quicksettings .quicksettings .slider-box .icon {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: transparent;
+      background-image: none;
+      box-shadow: none;
+      padding: 4.5px; }
+      window#quicksettings .quicksettings .slider-box button *, window#quicksettings .quicksettings .slider-box .icon * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .slider-box button:focus, window#quicksettings .quicksettings .slider-box .icon:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .slider-box button:hover, window#quicksettings .quicksettings .slider-box .icon:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .slider-box button:active, window#quicksettings .quicksettings .slider-box button.on, window#quicksettings .quicksettings .slider-box button.active, window#quicksettings .quicksettings .slider-box button:checked, window#quicksettings .quicksettings .slider-box .icon:active, window#quicksettings .quicksettings .slider-box .icon.on, window#quicksettings .quicksettings .slider-box .icon.active, window#quicksettings .quicksettings .slider-box .icon:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        window#quicksettings .quicksettings .slider-box button:active:hover, window#quicksettings .quicksettings .slider-box button.on:hover, window#quicksettings .quicksettings .slider-box button.active:hover, window#quicksettings .quicksettings .slider-box button:checked:hover, window#quicksettings .quicksettings .slider-box .icon:active:hover, window#quicksettings .quicksettings .slider-box .icon.on:hover, window#quicksettings .quicksettings .slider-box .icon.active:hover, window#quicksettings .quicksettings .slider-box .icon:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      window#quicksettings .quicksettings .slider-box button:disabled, window#quicksettings .quicksettings .slider-box .icon:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+    window#quicksettings .quicksettings .slider-box scale {
+      all: unset; }
+      window#quicksettings .quicksettings .slider-box scale * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .slider-box scale * {
+        all: unset; }
+      window#quicksettings .quicksettings .slider-box scale trough {
+        transition: 200ms;
+        border-radius: 9px;
+        border: 1px solid rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.06);
+        min-height: 0.7em;
+        min-width: 0.7em; }
+        window#quicksettings .quicksettings .slider-box scale trough highlight, window#quicksettings .quicksettings .slider-box scale trough progress {
+          border-radius: 8px;
+          background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+          min-height: 0.7em;
+          min-width: 0.7em; }
+      window#quicksettings .quicksettings .slider-box scale slider {
+        box-shadow: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        transition: 200ms;
+        border-radius: 9px;
+        min-height: 0.7em;
+        min-width: 0.7em;
+        margin: -0.5em; }
+      window#quicksettings .quicksettings .slider-box scale:hover trough {
+        background-color: rgba(238, 238, 238, 0.154); }
+      window#quicksettings .quicksettings .slider-box scale:hover slider {
+        background-color: #eee;
+        border-color: rgba(238, 238, 238, 0.03);
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.6); }
+      window#quicksettings .quicksettings .slider-box scale:disabled highlight, window#quicksettings .quicksettings .slider-box scale:disabled progress {
+        background-color: rgba(238, 238, 238, 0.6);
+        background-image: none; }
+      window#quicksettings .quicksettings .slider-box scale trough:focus {
+        background-color: rgba(238, 238, 238, 0.154);
+        box-shadow: inset 0 0 0 1px #51a4e7; }
+        window#quicksettings .quicksettings .slider-box scale trough:focus slider {
+          background-color: #eee;
+          box-shadow: inset 0 0 0 1px #51a4e7; }
+      window#quicksettings .quicksettings .slider-box scale:last-child {
+        margin-right: 4.5px; }
+    window#quicksettings .quicksettings .slider-box .menu {
+      background-color: #171717;
+      border: 1px solid rgba(238, 238, 238, 0.04);
+      border-radius: 9px; }
+  window#quicksettings .quicksettings .mixer-item {
+    margin: 0 9px; }
+    window#quicksettings .quicksettings .mixer-item scale {
+      all: unset; }
+      window#quicksettings .quicksettings .mixer-item scale * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .mixer-item scale * {
+        all: unset; }
+      window#quicksettings .quicksettings .mixer-item scale trough {
+        transition: 200ms;
+        border-radius: 9px;
+        border: 1px solid rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.06);
+        min-height: 7px;
+        min-width: 7px; }
+        window#quicksettings .quicksettings .mixer-item scale trough highlight, window#quicksettings .quicksettings .mixer-item scale trough progress {
+          border-radius: 8px;
+          background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+          min-height: 7px;
+          min-width: 7px; }
+      window#quicksettings .quicksettings .mixer-item scale slider {
+        box-shadow: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        transition: 200ms;
+        border-radius: 9px;
+        min-height: 7px;
+        min-width: 7px;
+        margin: -0.5em; }
+      window#quicksettings .quicksettings .mixer-item scale:hover trough {
+        background-color: rgba(238, 238, 238, 0.154); }
+      window#quicksettings .quicksettings .mixer-item scale:hover slider {
+        background-color: #eee;
+        border-color: rgba(238, 238, 238, 0.03);
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.6); }
+      window#quicksettings .quicksettings .mixer-item scale:disabled highlight, window#quicksettings .quicksettings .mixer-item scale:disabled progress {
+        background-color: rgba(238, 238, 238, 0.6);
+        background-image: none; }
+      window#quicksettings .quicksettings .mixer-item scale trough:focus {
+        background-color: rgba(238, 238, 238, 0.154);
+        box-shadow: inset 0 0 0 1px #51a4e7; }
+        window#quicksettings .quicksettings .mixer-item scale trough:focus slider {
+          background-color: #eee;
+          box-shadow: inset 0 0 0 1px #51a4e7; }
+    window#quicksettings .quicksettings .mixer-item > box {
+      padding: 9px; }
+    window#quicksettings .quicksettings .mixer-item label:last-child {
+      min-width: 3em; }
+    window#quicksettings .quicksettings .mixer-item image {
+      font-size: 20px; }
+  window#quicksettings .quicksettings .menu {
+    all: unset;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    border: 1px solid rgba(238, 238, 238, 0.03);
+    margin-top: 9px;
+    padding: 9px; }
+    window#quicksettings .quicksettings .menu * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#quicksettings .quicksettings .menu separator {
+      background-color: rgba(238, 238, 238, 0.03);
+      margin: 9px 4.5px; }
+    window#quicksettings .quicksettings .menu label {
+      margin-left: 9px; }
+    window#quicksettings .quicksettings .menu button {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: transparent;
+      background-image: none;
+      box-shadow: none;
+      padding: 4.5px; }
+      window#quicksettings .quicksettings .menu button * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .menu button:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .menu button:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .menu button:active, window#quicksettings .quicksettings .menu button.on, window#quicksettings .quicksettings .menu button.active, window#quicksettings .quicksettings .menu button:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        window#quicksettings .quicksettings .menu button:active:hover, window#quicksettings .quicksettings .menu button.on:hover, window#quicksettings .quicksettings .menu button.active:hover, window#quicksettings .quicksettings .menu button:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      window#quicksettings .quicksettings .menu button:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+    window#quicksettings .quicksettings .menu switch {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03); }
+      window#quicksettings .quicksettings .menu switch * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .menu switch:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .menu switch:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .menu switch:active, window#quicksettings .quicksettings .menu switch.on, window#quicksettings .quicksettings .menu switch.active, window#quicksettings .quicksettings .menu switch:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        window#quicksettings .quicksettings .menu switch:active:hover, window#quicksettings .quicksettings .menu switch.on:hover, window#quicksettings .quicksettings .menu switch.active:hover, window#quicksettings .quicksettings .menu switch:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      window#quicksettings .quicksettings .menu switch:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+      window#quicksettings .quicksettings .menu switch slider {
+        background-color: #eee;
+        border-radius: 9px;
+        min-width: 24px;
+        min-height: 24px; }
+      window#quicksettings .quicksettings .menu switch image {
+        color: transparent; }
+  window#quicksettings .quicksettings .toggle-button {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    margin-right: 9px;
+    font-weight: bold; }
+    window#quicksettings .quicksettings .toggle-button * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#quicksettings .quicksettings .toggle-button:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#quicksettings .quicksettings .toggle-button:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#quicksettings .quicksettings .toggle-button:active, window#quicksettings .quicksettings .toggle-button.on, window#quicksettings .quicksettings .toggle-button.active, window#quicksettings .quicksettings .toggle-button:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      window#quicksettings .quicksettings .toggle-button:active:hover, window#quicksettings .quicksettings .toggle-button.on:hover, window#quicksettings .quicksettings .toggle-button.active:hover, window#quicksettings .quicksettings .toggle-button:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    window#quicksettings .quicksettings .toggle-button:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+    window#quicksettings .quicksettings .toggle-button label {
+      margin-left: 4.5px; }
+    window#quicksettings .quicksettings .toggle-button button {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: transparent;
+      background-image: none;
+      box-shadow: none;
+      padding: 9px; }
+      window#quicksettings .quicksettings .toggle-button button * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .toggle-button button:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .toggle-button button:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#quicksettings .quicksettings .toggle-button button:active, window#quicksettings .quicksettings .toggle-button button.on, window#quicksettings .quicksettings .toggle-button button.active, window#quicksettings .quicksettings .toggle-button button:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        window#quicksettings .quicksettings .toggle-button button:active:hover, window#quicksettings .quicksettings .toggle-button button.on:hover, window#quicksettings .quicksettings .toggle-button button.active:hover, window#quicksettings .quicksettings .toggle-button button:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      window#quicksettings .quicksettings .toggle-button button:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+      window#quicksettings .quicksettings .toggle-button button:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0; }
+      window#quicksettings .quicksettings .toggle-button button:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0; }
+    window#quicksettings .quicksettings .toggle-button.active {
+      background-color: #51a4e7; }
+      window#quicksettings .quicksettings .toggle-button.active label, window#quicksettings .quicksettings .toggle-button.active image {
+        color: #141414; }
+  window#quicksettings .quicksettings .simple-toggle {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    padding: 9px; }
+    window#quicksettings .quicksettings .simple-toggle * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#quicksettings .quicksettings .simple-toggle:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#quicksettings .quicksettings .simple-toggle:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#quicksettings .quicksettings .simple-toggle:active, window#quicksettings .quicksettings .simple-toggle.on, window#quicksettings .quicksettings .simple-toggle.active, window#quicksettings .quicksettings .simple-toggle:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      window#quicksettings .quicksettings .simple-toggle:active:hover, window#quicksettings .quicksettings .simple-toggle.on:hover, window#quicksettings .quicksettings .simple-toggle.active:hover, window#quicksettings .quicksettings .simple-toggle:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    window#quicksettings .quicksettings .simple-toggle:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+  window#quicksettings .quicksettings .media .player {
+    all: unset;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    border: 1px solid rgba(238, 238, 238, 0.03);
+    margin-top: 9px; }
+    window#quicksettings .quicksettings .media .player * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#quicksettings .quicksettings .media .player label {
+      color: white;
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+    window#quicksettings .quicksettings .media .player .shader {
+      all: unset;
+      box-shadow: inset 0 0 3em 1em rgba(23, 23, 23, 0.7); }
+      window#quicksettings .quicksettings .media .player .shader * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .media .player .shader label {
+        color: white;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+    window#quicksettings .quicksettings .media .player .cover {
+      border-radius: 7.2px;
+      min-height: 100px;
+      min-width: 100px;
+      box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.6);
+      margin: 9px;
+      margin-bottom: 0; }
+      window#quicksettings .quicksettings .media .player .cover .shader {
+        background-color: transparent;
+        border-radius: 6.2px;
+        box-shadow: inset 0 0 0 999px rgba(23, 23, 23, 0.2); }
+    window#quicksettings .quicksettings .media .player .blurred-cover, window#quicksettings .quicksettings .media .player .cover {
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px; }
+    window#quicksettings .quicksettings .media .player .labels {
+      margin-top: 9px; }
+      window#quicksettings .quicksettings .media .player .labels label {
+        font-size: 1.1em;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+        window#quicksettings .quicksettings .media .player .labels label.title {
+          font-weight: bold; }
+    window#quicksettings .quicksettings .media .player .position-slider {
+      all: unset;
+      margin: 9px 0; }
+      window#quicksettings .quicksettings .media .player .position-slider * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#quicksettings .quicksettings .media .player .position-slider * {
+        all: unset; }
+      window#quicksettings .quicksettings .media .player .position-slider trough {
+        transition: 200ms;
+        border-radius: 0;
+        border: 1px solid rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.06);
+        min-height: 0.4em;
+        min-width: 0.4em; }
+        window#quicksettings .quicksettings .media .player .position-slider trough highlight, window#quicksettings .quicksettings .media .player .position-slider trough progress {
+          border-radius: 0;
+          background-image: linear-gradient(white, white);
+          min-height: 0.4em;
+          min-width: 0.4em; }
+      window#quicksettings .quicksettings .media .player .position-slider slider {
+        box-shadow: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        transition: 200ms;
+        border-radius: 0;
+        min-height: 0.4em;
+        min-width: 0.4em;
+        margin: -0.5em; }
+      window#quicksettings .quicksettings .media .player .position-slider:hover trough {
+        background-color: rgba(238, 238, 238, 0.154); }
+      window#quicksettings .quicksettings .media .player .position-slider:disabled highlight, window#quicksettings .quicksettings .media .player .position-slider:disabled progress {
+        background-color: rgba(238, 238, 238, 0.6);
+        background-image: none; }
+      window#quicksettings .quicksettings .media .player .position-slider trough:focus {
+        background-color: rgba(238, 238, 238, 0.154);
+        box-shadow: inset 0 0 0 1px #51a4e7; }
+      window#quicksettings .quicksettings .media .player .position-slider trough {
+        border: none;
+        background-color: rgba(255, 255, 255, 0.3); }
+    window#quicksettings .quicksettings .media .player .footer-box {
+      margin: -4.5px 9px 4.5px; }
+      window#quicksettings .quicksettings .media .player .footer-box image {
+        -gtk-icon-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+    window#quicksettings .quicksettings .media .player .controls button {
+      all: unset; }
+      window#quicksettings .quicksettings .media .player .controls button label {
+        font-size: 2em;
+        color: rgba(255, 255, 255, 0.8);
+        transition: 200ms; }
+        window#quicksettings .quicksettings .media .player .controls button label.shuffle, window#quicksettings .quicksettings .media .player .controls button label.loop {
+          font-size: 1.4em; }
+      window#quicksettings .quicksettings .media .player .controls button:hover label {
+        color: rgba(255, 255, 255, 0.9); }
+      window#quicksettings .quicksettings .media .player .controls button:active label {
+        color: white; }
+    window#quicksettings .quicksettings .media .player.spotify button .shuffle.enabled {
+      color: #43c383; }
+    window#quicksettings .quicksettings .media .player.spotify button .loop.playlist, window#quicksettings .quicksettings .media .player.spotify button .loop.track {
+      color: #43c383; }
+    window#quicksettings .quicksettings .media .player.spotify button:active label {
+      color: #43c383; }
+    window#quicksettings .quicksettings .media .player.spotify .position-slider:hover trough {
+      background-color: rgba(67, 195, 131, 0.5); }
+    window#quicksettings .quicksettings .media .player.spotify .player-icon {
+      color: #43c383; }
+    window#quicksettings .quicksettings .media .player.firefox button .shuffle.enabled {
+      color: #E79E64; }
+    window#quicksettings .quicksettings .media .player.firefox button .loop.playlist, window#quicksettings .quicksettings .media .player.firefox button .loop.track {
+      color: #E79E64; }
+    window#quicksettings .quicksettings .media .player.firefox button:active label {
+      color: #E79E64; }
+    window#quicksettings .quicksettings .media .player.firefox .position-slider:hover trough {
+      background-color: rgba(231, 158, 100, 0.5); }
+    window#quicksettings .quicksettings .media .player.firefox .player-icon {
+      color: #E79E64; }
+    window#quicksettings .quicksettings .media .player.mpv button .shuffle.enabled {
+      color: #9077e7; }
+    window#quicksettings .quicksettings .media .player.mpv button .loop.playlist, window#quicksettings .quicksettings .media .player.mpv button .loop.track {
+      color: #9077e7; }
+    window#quicksettings .quicksettings .media .player.mpv button:active label {
+      color: #9077e7; }
+    window#quicksettings .quicksettings .media .player.mpv .position-slider:hover trough {
+      background-color: rgba(144, 119, 231, 0.5); }
+    window#quicksettings .quicksettings .media .player.mpv .player-icon {
+      color: #9077e7; }
+
+window#powermenu .shader, window#verification .shader {
+  background-color: rgba(0, 0, 0, 0.05); }
+
+window#verification .verification {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px;
+  padding: 19.44px;
+  min-width: 300px;
+  min-height: 100px; }
+  window#verification .verification * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  window#verification .verification .title {
+    font-size: 1.7em; }
+  window#verification .verification .desc {
+    color: rgba(238, 238, 238, 0.9);
+    font-size: 1.2em; }
+  window#verification .verification .buttons {
+    margin-top: 18px; }
+    window#verification .verification .buttons button {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      font-size: 1.6em;
+      padding: 9px;
+      margin: 0 9.72px; }
+      window#verification .verification .buttons button * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#verification .verification .buttons button:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#verification .verification .buttons button:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#verification .verification .buttons button:active, window#verification .verification .buttons button.on, window#verification .verification .buttons button.active, window#verification .verification .buttons button:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        window#verification .verification .buttons button:active:hover, window#verification .verification .buttons button.on:hover, window#verification .verification .buttons button.active:hover, window#verification .verification .buttons button:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      window#verification .verification .buttons button:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+      window#verification .verification .buttons button:first-child {
+        margin-left: 0; }
+      window#verification .verification .buttons button:last-child {
+        margin-right: 0; }
+
+window#powermenu .powermenu {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px;
+  padding: 16.2px;
+  border-radius: 27px; }
+  window#powermenu .powermenu * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  window#powermenu .powermenu button {
+    all: unset; }
+    window#powermenu .powermenu button * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#powermenu .powermenu button image {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      margin: 16.2px;
+      margin-bottom: 8.1px;
+      border-radius: 18px;
+      min-width: 120px;
+      min-height: 120px;
+      font-size: 68px; }
+      window#powermenu .powermenu button image * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#powermenu .powermenu button image:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#powermenu .powermenu button image:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#powermenu .powermenu button image:active, window#powermenu .powermenu button image.on, window#powermenu .powermenu button image.active, window#powermenu .powermenu button image:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        window#powermenu .powermenu button image:active:hover, window#powermenu .powermenu button image.on:hover, window#powermenu .powermenu button image.active:hover, window#powermenu .powermenu button image:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      window#powermenu .powermenu button image:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+    window#powermenu .powermenu button label, window#powermenu .powermenu button image {
+      color: rgba(238, 238, 238, 0.9); }
+    window#powermenu .powermenu button:hover image {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#powermenu .powermenu button:hover label {
+      color: #eee; }
+    window#powermenu .powermenu button:focus image {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#powermenu .powermenu button:active image {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+    window#powermenu .powermenu button:focus label, window#powermenu .powermenu button:active label {
+      color: #51a4e7; }
+
+window#overview .overview {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px; }
+  window#overview .overview * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  window#overview .overview .workspace {
+    margin: 0 9px; }
+    window#overview .overview .workspace:last-child {
+      margin-right: 0; }
+    window#overview .overview .workspace:first-child {
+      margin-left: 0; }
+    window#overview .overview .workspace.active > widget {
+      border-color: #51a4e7; }
+    window#overview .overview .workspace > widget {
+      all: unset;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      border: 1px solid rgba(238, 238, 238, 0.03); }
+      window#overview .overview .workspace > widget * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#overview .overview .workspace > widget:drop(active) {
+        border-color: #51a4e7; }
+  window#overview .overview .client {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    border-radius: 7.2px;
+    margin: 9px; }
+    window#overview .overview .client * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#overview .overview .client:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#overview .overview .client:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#overview .overview .client:active, window#overview .overview .client.on, window#overview .overview .client.active, window#overview .overview .client:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      window#overview .overview .client:active:hover, window#overview .overview .client.on:hover, window#overview .overview .client.active:hover, window#overview .overview .client:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    window#overview .overview .client:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+    window#overview .overview .client.hidden {
+      background-color: transparent;
+      background-image: none;
+      border-color: transparent;
+      box-shadow: none;
+      -gtk-icon-transform: scale(0);
+      transition: 0; }
+      window#overview .overview .client.hidden * {
+        background-color: transparent;
+        background-image: none;
+        border-color: transparent;
+        box-shadow: none;
+        -gtk-icon-transform: scale(0); }
+
+window.corner .corner {
+  background-color: #171717;
+  border-radius: 18px; }
+
+window.desktop {
+  border-radius: 15.3px;
+  box-shadow: inset 0 0 9px 0 rgba(0, 0, 0, 0.6); }
+  window.desktop .clock-box-shadow {
+    border: 5px solid white;
+    border-radius: 9px; }
+    window.desktop .clock-box-shadow .clock-box {
+      border-radius: 4px;
+      padding: 0 14px; }
+      window.desktop .clock-box-shadow .clock-box .clock {
+        color: white;
+        font-size: 140px;
+        font-family: "Mononoki Nerd Font", monospace; }
+      window.desktop .clock-box-shadow .clock-box .separator-box {
+        padding: 24px 12px; }
+        window.desktop .clock-box-shadow .clock-box .separator-box separator {
+          border-radius: 9px;
+          min-width: 16px;
+          min-height: 16px;
+          background-color: white; }
+  window.desktop .date {
+    color: white;
+    font-size: 48px; }
+  window.desktop .clock-box-shadow, window.desktop separator {
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.6); }
+  window.desktop .clock-box {
+    box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.6); }
+  window.desktop label {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+
+.desktop-menu image {
+  margin-left: -14px;
+  margin-right: 6px; }
+
+window.indicator .progress {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px;
+  padding: 4.5px; }
+  window.indicator .progress * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  window.indicator .progress .fill {
+    border-radius: 10.8px;
+    background-color: #51a4e7;
+    color: #141414; }
+    window.indicator .progress .fill image {
+      -gtk-icon-transform: scale(0.7); }
+    window.indicator .progress .fill .font-icon {
+      font-size: 34px; }
+
+window#dashboard .dashboard {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px; }
+  window#dashboard .dashboard * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  window#dashboard .dashboard .notifications {
+    min-width: 450px; }
+    window#dashboard .dashboard .notifications .header {
+      padding-left: .3em;
+      margin-bottom: 9px; }
+      window#dashboard .dashboard .notifications .header label {
+        font-size: 1.2em; }
+      window#dashboard .dashboard .notifications .header button {
+        all: unset;
+        transition: 200ms;
+        border-radius: 9px;
+        color: #eee;
+        background-color: rgba(238, 238, 238, 0.06);
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        padding: 4.5px 9px; }
+        window#dashboard .dashboard .notifications .header button * {
+          font-size: 16px;
+          font-family: "Ubuntu Nerd Font", sans-serif; }
+        window#dashboard .dashboard .notifications .header button:focus {
+          box-shadow: inset 0 0 0 1px #51a4e7;
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        window#dashboard .dashboard .notifications .header button:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        window#dashboard .dashboard .notifications .header button:active, window#dashboard .dashboard .notifications .header button.on, window#dashboard .dashboard .notifications .header button.active, window#dashboard .dashboard .notifications .header button:checked {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+          background-color: #51a4e7;
+          color: #141414; }
+          window#dashboard .dashboard .notifications .header button:active:hover, window#dashboard .dashboard .notifications .header button.on:hover, window#dashboard .dashboard .notifications .header button.active:hover, window#dashboard .dashboard .notifications .header button:checked:hover {
+            box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+        window#dashboard .dashboard .notifications .header button:disabled {
+          box-shadow: none;
+          background-color: transparent;
+          color: rgba(238, 238, 238, 0.3); }
+        window#dashboard .dashboard .notifications .header button label {
+          font-size: 1.2em; }
+    window#dashboard .dashboard .notifications .notification-wallpaper-box {
+      all: unset;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      border: 1px solid rgba(238, 238, 238, 0.03); }
+      window#dashboard .dashboard .notifications .notification-wallpaper-box * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#dashboard .dashboard .notifications .notification-wallpaper-box .wallpaper {
+        border-radius: 8px;
+        background-position: bottom right;
+        box-shadow: inset 0 0 9px 0 rgba(0, 0, 0, 0.6); }
+    window#dashboard .dashboard .notifications .notification-list-box scrollbar, window#dashboard .dashboard .notifications .notification-list-box scrollbar * {
+      all: unset; }
+    window#dashboard .dashboard .notifications .notification-list-box scrollbar.vertical {
+      transition: 200ms;
+      background-color: rgba(23, 23, 23, 0.3); }
+      window#dashboard .dashboard .notifications .notification-list-box scrollbar.vertical:hover {
+        background-color: rgba(23, 23, 23, 0.7); }
+        window#dashboard .dashboard .notifications .notification-list-box scrollbar.vertical:hover slider {
+          background-color: rgba(238, 238, 238, 0.7);
+          min-width: .6em; }
+    window#dashboard .dashboard .notifications .notification-list-box scrollbar.vertical slider {
+      background-color: rgba(238, 238, 238, 0.5);
+      border-radius: 9px;
+      min-width: .4em;
+      min-height: 2em;
+      transition: 200ms; }
+    window#dashboard .dashboard .notifications .notification-list-box scrollbar, window#dashboard .dashboard .notifications .notification-list-box scrollbar:hover {
+      border-radius: 8px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0; }
+    window#dashboard .dashboard .notifications .notification-list-box .notification-list {
+      padding: 4.5px; }
+    window#dashboard .dashboard .notifications .notification-list-box .notification.critical > box {
+      box-shadow: inset 0 0 0.5em 0 #e67090; }
+    window#dashboard .dashboard .notifications .notification-list-box .notification > box {
+      border-radius: 4.5px;
+      padding: 9px; }
+    window#dashboard .dashboard .notifications .notification-list-box .notification:hover .close-button {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1;
+      background-color: rgba(230, 112, 144, 0.5); }
+    window#dashboard .dashboard .notifications .notification-list-box .notification .content .title {
+      margin-right: 9px;
+      color: #eee;
+      font-size: 1.1em; }
+    window#dashboard .dashboard .notifications .notification-list-box .notification .content .time {
+      color: rgba(238, 238, 238, 0.8); }
+    window#dashboard .dashboard .notifications .notification-list-box .notification .content .description {
+      font-size: .9em;
+      color: rgba(238, 238, 238, 0.8); }
+    window#dashboard .dashboard .notifications .notification-list-box .notification .content .icon {
+      border-radius: 7.2px;
+      margin-right: 9px; }
+      window#dashboard .dashboard .notifications .notification-list-box .notification .content .icon.img {
+        border: 1px solid rgba(238, 238, 238, 0.03); }
+    window#dashboard .dashboard .notifications .notification-list-box .notification .actions {
+      padding-top: 9px; }
+      window#dashboard .dashboard .notifications .notification-list-box .notification .actions button {
+        all: unset;
+        transition: 200ms;
+        border-radius: 9px;
+        color: #eee;
+        background-color: rgba(238, 238, 238, 0.06);
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        border-radius: 7.2px;
+        font-size: 1.2em;
+        padding: 4.5px 0;
+        margin: 0 4.5px 0; }
+        window#dashboard .dashboard .notifications .notification-list-box .notification .actions button * {
+          font-size: 16px;
+          font-family: "Ubuntu Nerd Font", sans-serif; }
+        window#dashboard .dashboard .notifications .notification-list-box .notification .actions button:focus {
+          box-shadow: inset 0 0 0 1px #51a4e7;
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        window#dashboard .dashboard .notifications .notification-list-box .notification .actions button:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        window#dashboard .dashboard .notifications .notification-list-box .notification .actions button:active, window#dashboard .dashboard .notifications .notification-list-box .notification .actions button.on, window#dashboard .dashboard .notifications .notification-list-box .notification .actions button.active, window#dashboard .dashboard .notifications .notification-list-box .notification .actions button:checked {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+          background-color: #51a4e7;
+          color: #141414; }
+          window#dashboard .dashboard .notifications .notification-list-box .notification .actions button:active:hover, window#dashboard .dashboard .notifications .notification-list-box .notification .actions button.on:hover, window#dashboard .dashboard .notifications .notification-list-box .notification .actions button.active:hover, window#dashboard .dashboard .notifications .notification-list-box .notification .actions button:checked:hover {
+            box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+        window#dashboard .dashboard .notifications .notification-list-box .notification .actions button:disabled {
+          box-shadow: none;
+          background-color: transparent;
+          color: rgba(238, 238, 238, 0.3); }
+        window#dashboard .dashboard .notifications .notification-list-box .notification .actions button:first-child {
+          margin-left: 0; }
+        window#dashboard .dashboard .notifications .notification-list-box .notification .actions button:last-child {
+          margin-right: 0; }
+    window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: transparent;
+      background-image: none;
+      box-shadow: none;
+      margin-left: 9px;
+      border-radius: 7.2px;
+      min-width: 1.2em;
+      min-height: 1.2em; }
+      window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button:active, window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button.on, window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button.active, window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button:active:hover, window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button.on:hover, window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button.active:hover, window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+      window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button:hover {
+        background-color: rgba(230, 112, 144, 0.5); }
+      window#dashboard .dashboard .notifications .notification-list-box .notification button.close-button:active {
+        background-image: linear-gradient(#e67090, #e67090); }
+    window#dashboard .dashboard .notifications .notification-list-box .notification > box {
+      all: unset;
+      box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+      margin: 9px;
+      border: 1px solid rgba(238, 238, 238, 0.04);
+      border-radius: 15.3px;
+      background-color: #171717;
+      color: #eee;
+      padding: 16.2px;
+      border-radius: 9px;
+      padding: 9px;
+      margin: 4.5px; }
+      window#dashboard .dashboard .notifications .notification-list-box .notification > box * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#dashboard .dashboard .notifications .placeholder {
+      color: white; }
+      window#dashboard .dashboard .notifications .placeholder image {
+        font-size: 7em; }
+      window#dashboard .dashboard .notifications .placeholder label {
+        font-size: 1.2em; }
+      window#dashboard .dashboard .notifications .placeholder label, window#dashboard .dashboard .notifications .placeholder image {
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+        -gtk-icon-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+  window#dashboard .dashboard separator {
+    background-color: rgba(238, 238, 238, 0.04);
+    min-width: 2px;
+    border-radius: 9px;
+    margin: 0 9px; }
+  window#dashboard .dashboard .clock {
+    font-size: 5em; }
+  window#dashboard .dashboard .uptime {
+    font-size: 2em;
+    color: rgba(238, 238, 238, 0.8); }
+  window#dashboard .dashboard .calendar {
+    all: unset;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    border: 1px solid rgba(238, 238, 238, 0.03);
+    padding: 18px 18px 0;
+    margin-top: 18px; }
+    window#dashboard .dashboard .calendar * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#dashboard .dashboard .calendar calendar {
+      all: unset;
+      font-size: 1.1em;
+      padding: .2em; }
+      window#dashboard .dashboard .calendar calendar.button {
+        all: unset;
+        transition: 200ms;
+        border-radius: 9px;
+        color: #eee;
+        background-color: transparent;
+        background-image: none;
+        box-shadow: none;
+        margin: 1em; }
+        window#dashboard .dashboard .calendar calendar.button * {
+          font-size: 16px;
+          font-family: "Ubuntu Nerd Font", sans-serif; }
+        window#dashboard .dashboard .calendar calendar.button:focus {
+          box-shadow: inset 0 0 0 1px #51a4e7;
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        window#dashboard .dashboard .calendar calendar.button:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        window#dashboard .dashboard .calendar calendar.button:active, window#dashboard .dashboard .calendar calendar.button.on, window#dashboard .dashboard .calendar calendar.button.active, window#dashboard .dashboard .calendar calendar.button:checked {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+          background-color: #51a4e7;
+          color: #141414; }
+          window#dashboard .dashboard .calendar calendar.button:active:hover, window#dashboard .dashboard .calendar calendar.button.on:hover, window#dashboard .dashboard .calendar calendar.button.active:hover, window#dashboard .dashboard .calendar calendar.button:checked:hover {
+            box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+        window#dashboard .dashboard .calendar calendar.button:disabled {
+          box-shadow: none;
+          background-color: transparent;
+          color: rgba(238, 238, 238, 0.3); }
+      window#dashboard .dashboard .calendar calendar:selected {
+        box-shadow: inset 0 -8px 0 0 rgba(81, 164, 231, 0.5), inset 0 0 0 1px #51a4e7;
+        border-radius: 5.4px; }
+      window#dashboard .dashboard .calendar calendar.header {
+        background-color: transparent;
+        border: none;
+        color: rgba(238, 238, 238, 0.5); }
+      window#dashboard .dashboard .calendar calendar.highlight {
+        background-color: transparent;
+        color: rgba(81, 164, 231, 0.5); }
+      window#dashboard .dashboard .calendar calendar:indeterminate {
+        color: rgba(238, 238, 238, 0.1); }
+  window#dashboard .dashboard .circular-progress-box {
+    all: unset;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    border: 1px solid rgba(238, 238, 238, 0.03);
+    margin-top: 9px;
+    margin-right: 9px;
+    padding: 9px; }
+    window#dashboard .dashboard .circular-progress-box * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#dashboard .dashboard .circular-progress-box:last-child {
+      margin-right: 0; }
+    window#dashboard .dashboard .circular-progress-box .circular-progress {
+      min-height: 72px;
+      min-width: 72px;
+      margin: 4.5px;
+      font-size: 9px;
+      background-color: #171717;
+      color: #51a4e7; }
+      window#dashboard .dashboard .circular-progress-box .circular-progress image {
+        font-size: 1.8em; }
+
+.panel {
+  background-color: #171717;
+  /* stylelint-disable-next-line selector-not-notation */ }
+  .panel .panel-button {
+    all: unset;
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    color: #eee; }
+    .panel .panel-button * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    .panel .panel-button:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+    .panel .panel-button > * {
+      border-radius: 9px;
+      transition: 200ms;
+      background-color: transparent;
+      box-shadow: none; }
+    .panel .panel-button:focus > *, .panel .panel-button.focused > * {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    .panel .panel-button:hover > * {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    .panel .panel-button:active > *, .panel .panel-button.active > *, .panel .panel-button.on > *, .panel .panel-button:checked > * {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+    .panel .panel-button:active:hover > *, .panel .panel-button.active:hover > *, .panel .panel-button.on:hover > *, .panel .panel-button:checked:hover > * {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    .panel .panel-button > * {
+      margin: 6.3px; }
+    .panel .panel-button label {
+      font-weight: bold; }
+    .panel .panel-button image {
+      font-size: 19.2px; }
+    .panel .panel-button > * {
+      padding: .3em .5em; }
+  .panel separator {
+    background-color: rgba(238, 238, 238, 0.1);
+    border-radius: 9px;
+    min-height: 5px;
+    min-width: 5px; }
+  .panel .quicksettings > box > * {
+    margin: 0 4.5px; }
+    .panel .quicksettings > box > *:last-child {
+      margin-right: 0; }
+    .panel .quicksettings > box > *:first-child {
+      margin-left: 0; }
+  .panel .overview label {
+    color: rgba(81, 164, 231, 0.8); }
+  .panel .overview:hover label {
+    color: #51a4e7; }
+  .panel .overview:active label, .panel .overview.active label {
+    color: #141414; }
+  .panel .powermenu image, .panel .recorder image {
+    color: rgba(230, 112, 144, 0.7); }
+  .panel .powermenu:hover image, .panel .recorder:hover image {
+    color: rgba(230, 112, 144, 0.85); }
+  .panel .powermenu:active image, .panel .recorder:active image {
+    color: #e67090; }
+  .panel .quicksettings:not(.active):not(:active) .bluetooth {
+    color: #51a4e7; }
+  .panel .quicksettings:not(.active):not(:active) .battery.low {
+    color: #e67090; }
+  .panel .quicksettings:not(.active):not(:active) .battery.charged, .panel .quicksettings:not(.active):not(:active) .battery.charging {
+    color: #43c383; }
+  .panel .media.spotify image {
+    color: #43c383; }
+  .panel .media.firefox image {
+    color: #E79E64; }
+  .panel .media.mpv image {
+    color: #9077e7; }
+  .panel .notifications image {
+    color: #d8e77b; }
+  .panel .battery-bar image {
+    margin-right: 4.5px; }
+  .panel .battery-bar .font-icon {
+    font-size: 1.3em; }
+  .panel .battery-bar levelbar trough {
+    all: unset;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    border: 1px solid rgba(238, 238, 238, 0.03);
+    min-width: 70px;
+    min-height: 14px; }
+    .panel .battery-bar levelbar trough * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    .panel .battery-bar levelbar trough block.filled {
+      border-radius: 8px;
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb); }
+  .panel .battery-bar .medium image, .panel .battery-bar .medium label {
+    color: #d8e77b; }
+  .panel .battery-bar .medium block.filled {
+    background-image: linear-gradient(to right, #d8e77b, #e0ec95); }
+  .panel .battery-bar .low image, .panel .battery-bar .low label {
+    color: #e67090; }
+  .panel .battery-bar .low block.filled {
+    background-image: linear-gradient(to right, #e67090, #eb8aa4); }
+  .panel .battery-bar .charging image, .panel .battery-bar .charging label {
+    color: #43c383; }
+  .panel .battery-bar .charging block.filled {
+    background-image: linear-gradient(to right, #43c383, #5aca92); }
+  .panel .battery-bar:active image, .panel .battery-bar:active label {
+    color: #141414; }
+  .panel .battery-bar:active block.filled {
+    background-image: linear-gradient(to right, #141414, #232323); }
+  .panel .workspaces > * {
+    padding: 0; }
+  .panel .workspaces .eventbox {
+    transition: 200ms;
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none; }
+    .panel .workspaces .eventbox * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    .panel .workspaces .eventbox:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    .panel .workspaces .eventbox:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    .panel .workspaces .eventbox:active, .panel .workspaces .eventbox.on, .panel .workspaces .eventbox.active, .panel .workspaces .eventbox:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      .panel .workspaces .eventbox:active:hover, .panel .workspaces .eventbox.on:hover, .panel .workspaces .eventbox.active:hover, .panel .workspaces .eventbox:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    .panel .workspaces .eventbox:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+  .panel .workspaces button {
+    all: unset; }
+    .panel .workspaces button .indicator {
+      font-size: 0;
+      min-width: 6px;
+      min-height: 6px;
+      border-radius: 5.4px;
+      border: 1px solid rgba(238, 238, 238, 0.03);
+      margin: 0 4.5px;
+      transition: 100ms;
+      background-color: rgba(238, 238, 238, 0.2); }
+    .panel .workspaces button:last-child .indicator {
+      margin-right: 9px; }
+    .panel .workspaces button:first-child .indicator {
+      margin-left: 9px; }
+    .panel .workspaces button.occupied .indicator {
+      background-color: rgba(238, 238, 238, 0.8);
+      min-width: 10px;
+      min-height: 10px; }
+    .panel .workspaces button:hover .indicator {
+      box-shadow: inset 0 0 0 10px rgba(238, 238, 238, 0.2); }
+    .panel .workspaces button.active .indicator, .panel .workspaces button:active .indicator {
+      background-color: #51a4e7; }
+    .panel .workspaces button.active .indicator {
+      min-width: 14px;
+      min-height: 14px; }
+
+window#settings {
+  background-color: #171717;
+  color: #eee; }
+  window#settings scrolledwindow scrollbar, window#settings scrolledwindow scrollbar * {
+    all: unset; }
+  window#settings scrolledwindow scrollbar.vertical {
+    transition: 200ms;
+    background-color: rgba(23, 23, 23, 0.3); }
+    window#settings scrolledwindow scrollbar.vertical:hover {
+      background-color: rgba(23, 23, 23, 0.7); }
+      window#settings scrolledwindow scrollbar.vertical:hover slider {
+        background-color: rgba(238, 238, 238, 0.7);
+        min-width: .6em; }
+  window#settings scrolledwindow scrollbar.vertical slider {
+    background-color: rgba(238, 238, 238, 0.5);
+    border-radius: 9px;
+    min-width: .4em;
+    min-height: 2em;
+    transition: 200ms; }
+  window#settings .settings .content {
+    padding: 16.2px; }
+  window#settings .settings .headerbar {
+    background-color: rgba(238, 238, 238, 0.06);
+    padding: 4.5px;
+    border-bottom: 1px solid rgba(238, 238, 238, 0.03); }
+  window#settings .settings .tab {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    margin: 4.5px;
+    padding: 4.5px; }
+    window#settings .settings .tab * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#settings .settings .tab:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#settings .settings .tab:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#settings .settings .tab:active, window#settings .settings .tab.on, window#settings .settings .tab.active, window#settings .settings .tab:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      window#settings .settings .tab:active:hover, window#settings .settings .tab.on:hover, window#settings .settings .tab.active:hover, window#settings .settings .tab:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    window#settings .settings .tab:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+  window#settings .settings .wallpaper {
+    border-radius: 8px;
+    background-position: center;
+    border: 1px solid rgba(238, 238, 238, 0.03); }
+  window#settings .settings button, window#settings .settings entry {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    padding: 6.3px; }
+    window#settings .settings button *, window#settings .settings entry * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#settings .settings button:focus, window#settings .settings entry:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#settings .settings button:hover, window#settings .settings entry:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#settings .settings button:active, window#settings .settings button.on, window#settings .settings button.active, window#settings .settings button:checked, window#settings .settings entry:active, window#settings .settings entry.on, window#settings .settings entry.active, window#settings .settings entry:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      window#settings .settings button:active:hover, window#settings .settings button.on:hover, window#settings .settings button.active:hover, window#settings .settings button:checked:hover, window#settings .settings entry:active:hover, window#settings .settings entry.on:hover, window#settings .settings entry.active:hover, window#settings .settings entry:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    window#settings .settings button:disabled, window#settings .settings entry:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+  window#settings .settings spinbutton, window#settings .settings spinbutton:focus {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03); }
+    window#settings .settings spinbutton *, window#settings .settings spinbutton:focus * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#settings .settings spinbutton:focus, window#settings .settings spinbutton:focus:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#settings .settings spinbutton:hover, window#settings .settings spinbutton:focus:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#settings .settings spinbutton:active, window#settings .settings spinbutton.on, window#settings .settings spinbutton.active, window#settings .settings spinbutton:checked, window#settings .settings spinbutton:focus:active, window#settings .settings spinbutton:focus.on, window#settings .settings spinbutton:focus.active, window#settings .settings spinbutton:focus:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      window#settings .settings spinbutton:active:hover, window#settings .settings spinbutton.on:hover, window#settings .settings spinbutton.active:hover, window#settings .settings spinbutton:checked:hover, window#settings .settings spinbutton:focus:active:hover, window#settings .settings spinbutton:focus.on:hover, window#settings .settings spinbutton:focus.active:hover, window#settings .settings spinbutton:focus:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    window#settings .settings spinbutton:disabled, window#settings .settings spinbutton:focus:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+    window#settings .settings spinbutton button, window#settings .settings spinbutton entry, window#settings .settings spinbutton:focus button, window#settings .settings spinbutton:focus entry {
+      all: unset;
+      padding: 6.3px; }
+      window#settings .settings spinbutton button:last-child, window#settings .settings spinbutton entry:last-child, window#settings .settings spinbutton:focus button:last-child, window#settings .settings spinbutton:focus entry:last-child {
+        border-radius: 0 9px 9px 0; }
+      window#settings .settings spinbutton button:first-child, window#settings .settings spinbutton entry:first-child, window#settings .settings spinbutton:focus button:first-child, window#settings .settings spinbutton:focus entry:first-child {
+        border-top: none;
+        border-bottom: none; }
+  window#settings .settings switch {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+    color: #eee;
+    background-color: rgba(238, 238, 238, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03); }
+    window#settings .settings switch * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    window#settings .settings switch:focus {
+      box-shadow: inset 0 0 0 1px #51a4e7;
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#settings .settings switch:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1; }
+    window#settings .settings switch:active, window#settings .settings switch.on, window#settings .settings switch.active, window#settings .settings switch:checked {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+      background-color: #51a4e7;
+      color: #141414; }
+      window#settings .settings switch:active:hover, window#settings .settings switch.on:hover, window#settings .settings switch.active:hover, window#settings .settings switch:checked:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+    window#settings .settings switch:disabled {
+      box-shadow: none;
+      background-color: transparent;
+      color: rgba(238, 238, 238, 0.3); }
+    window#settings .settings switch slider {
+      background-color: #eee;
+      border-radius: 9px;
+      min-width: 24px;
+      min-height: 24px; }
+    window#settings .settings switch image {
+      color: transparent; }
+  window#settings .settings .row {
+    margin-bottom: 9px; }
+    window#settings .settings .row:last-child {
+      margin-bottom: 0; }
+    window#settings .settings .row label:first-child {
+      margin-right: 45px; }
+    window#settings .settings .row .color entry {
+      margin-right: 9px;
+      min-width: 20em; }
+    window#settings .settings .row entry.text {
+      min-width: 22em; }
+    window#settings .settings .row .text-spin {
+      all: unset;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      border: 1px solid rgba(238, 238, 238, 0.03); }
+      window#settings .settings .row .text-spin * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      window#settings .settings .row .text-spin button {
+        all: unset;
+        transition: 200ms;
+        border-radius: 9px;
+        color: #eee;
+        background-color: transparent;
+        background-image: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 4.5px;
+        margin: -1px; }
+        window#settings .settings .row .text-spin button * {
+          font-size: 16px;
+          font-family: "Ubuntu Nerd Font", sans-serif; }
+        window#settings .settings .row .text-spin button:focus {
+          box-shadow: inset 0 0 0 1px #51a4e7;
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        window#settings .settings .row .text-spin button:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        window#settings .settings .row .text-spin button:active, window#settings .settings .row .text-spin button.on, window#settings .settings .row .text-spin button.active, window#settings .settings .row .text-spin button:checked {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+          background-color: #51a4e7;
+          color: #141414; }
+          window#settings .settings .row .text-spin button:active:hover, window#settings .settings .row .text-spin button.on:hover, window#settings .settings .row .text-spin button.active:hover, window#settings .settings .row .text-spin button:checked:hover {
+            box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+        window#settings .settings .row .text-spin button:disabled {
+          box-shadow: none;
+          background-color: transparent;
+          color: rgba(238, 238, 238, 0.3); }
+        window#settings .settings .row .text-spin button:last-child {
+          border-radius: 0 9px 9px 0; }
+      window#settings .settings .row .text-spin label {
+        margin: 0 4.5px; }
+  window#settings .settings .disclaimer {
+    padding: 9px;
+    padding-top: 0;
+    color: rgba(238, 238, 238, 0.5); }
