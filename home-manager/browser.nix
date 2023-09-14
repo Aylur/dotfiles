@@ -6,7 +6,7 @@
       target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
       source = (fetchTarball {
         url = "https://github.com/rafaelmardojai/firefox-gnome-theme/archive/master.tar.gz";
-        sha256 = "1i3zhxbma5wg861i05ls3npmsy3i9rk8c1r86xb26icnmnfvk16h";
+        sha256 = "1jqg4mbhm9gnr2bjdd0xn175v7pzif7xq8hkny5sv444ap26wqwi";
       });
     };
   };

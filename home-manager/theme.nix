@@ -27,12 +27,9 @@ let
   };
 in
 {
-  home.packages = [
-    nerdfonts
-    moreWaita
-  ];
-
   home = {
+    packages = [ nerdfonts moreWaita ];
+    sessionVariables.XCURSOR_THEME = "Qogir";
     pointerCursor = {
       package = pkgs.qogir-icon-theme;
       name = "Qogir";
@@ -51,8 +48,10 @@ in
       ".config/gtk-4.0/gtk.css" = {
         text = ''
           window.messagedialog .response-area > button,
-        window.dialog.message .dialog-action-area > button,
-        .background.csd{ border-radius: 0; }
+          window.dialog.message .dialog-action-area > button,
+          .background.csd{
+            border-radius: 0;
+          }
         '';
       };
       ".local/share/icons/MoreWaita-${moreWaitaVersion}" = {
@@ -70,6 +69,7 @@ in
   gtk = {
     enable = true;
     font.name = "Ubuntu Nerd Font";
+    theme.name = "adw-gtk3-dark";
     cursorTheme = {
       name = "Qogir";
       package = pkgs.qogir-icon-theme;

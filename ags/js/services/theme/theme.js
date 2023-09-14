@@ -51,8 +51,10 @@ class ThemeService extends Service {
     setupOther() {
         const darkmode = this.getSetting('color_scheme') === 'dark';
 
-        const gsettings = 'gsettings set org.gnome.desktop.interface color-scheme';
-        execAsync(`${gsettings} "prefer-${darkmode ? 'dark' : 'light'}"`).catch(print);
+        if (exec('which gsettings')) {
+            const gsettings = 'gsettings set org.gnome.desktop.interface color-scheme';
+            execAsync(`${gsettings} "prefer-${darkmode ? 'dark' : 'light'}"`).catch(print);
+        }
     }
 
     setupWallpaper() {

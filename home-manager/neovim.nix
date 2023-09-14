@@ -11,6 +11,11 @@
     fontpreview xclip
   ];
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
   programs.neovim = {
     enable = true;
     viAlias = true;

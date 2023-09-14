@@ -6,6 +6,7 @@ let
     "fedora" = "distrobox-enter Fedora -- zsh";
     "eza" = "eza -l --sort type --no-permissions --no-user --no-time --header --icons --no-filesize --group-directories-first";
     "ll" = "eza";
+    "éé" = "eza";
     "és" = "eza";
     "l" = "eza";
     "nv" = "nvim";

@@ -85,7 +85,7 @@ in
         Debian = "[ ](fg:red)";
         EndeavourOS = "[ ](fg:purple)";
         Fedora = "[ ](fg:blue)";
-        NixOS = "[ ](fg:bright-white)";
+        NixOS = "[ ](fg:blue)";
         openSUSE = "[ ](fg:green)";
         SUSE = "[ ](fg:green)";
         Ubuntu = "[ ](fg:bright-purple)";

@@ -4,32 +4,49 @@ let
 
   launcher = pkgs.writeShellScriptBin "hypr" ''
     #!/${pkgs.bash}/bin/bash
-      export WLR_NO_HARDWARE_CURSORS=1
-      export _JAVA_AWT_WM_NONREPARENTING=1
-      . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+    export WLR_NO_HARDWARE_CURSORS=1
+    export _JAVA_AWT_WM_NONREPARENTING=1
+    . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
-      if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
         PATH="$HOME/.local/bin:$HOME/bin:$PATH"; fi
 
-      if ! [[ "$PATH" =~ "$HOME/.nix-profile/bin:" ]]; then
+    if ! [[ "$PATH" =~ "$HOME/.nix-profile/bin:" ]]; then
         PATH="$HOME/.nix-profile/bin:$PATH"; fi
 
-      export PATH
+    export PATH
 
-      if  [[ $1 == 'nix' ]]; then
-          exec nixGLIntel ${hyprland}/bin/Hyprland; fi
+    if [[ $1 == 'fedora' ]]; then
+        exec /usr/bin/Hyprland
+    fi
 
-      exec /usr/bin/Hyprland
+    if command -v "nixGLIntel" &> /dev/null; then
+        nixGLIntel ${hyprland}/bin/Hyprland
+    else
+        exec ${hyprland}/bin/Hyprland
+    fi
   '';
 in
 {
   home.packages = [ launcher ];
-  xdg.configFile.hypr.source = ../hypr;
+  home.file.".config/hypr/config".source = ../hypr;
   wayland.windowManager.hyprland = {
     enable = true;
     package = hyprland;
-    systemdIntegration = false;
+    systemdIntegration = true;
     enableNvidiaPatches = true;
     xwayland.enable = true;
+    extraConfig = ''
+      source=~/.config/hypr/config/monitors.conf
+      source=~/.config/hypr/config/settings.conf
+      source=~/.config/hypr/config/rules.conf
+      source=~/.config/hypr/config/binds.conf
+      source=~/.config/hypr/config/theme.conf
+
+      # exec-once = /usr/libexec/polkit-gnome-authentication-agent-1
+      exec-once = ags -b hypr
+      exec-once = flatpak run com.transmissionbt.Transmission
+      exec-once = hyprctl setcursor Qogir 24
+    '';
   };
 }

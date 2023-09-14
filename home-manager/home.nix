@@ -31,10 +31,6 @@ in
 
     sessionVariables = {
       QT_XCB_GL_INTEGRATION = "none"; # kde-connect
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-      TERMINAL = "nixGL wezterm";
-      XCURSOR_THEME = "Qogir";
       NIXPKGS_ALLOW_UNFREE = "1";
       SHELL = "${pkgs.zsh}/bin/zsh";
     };

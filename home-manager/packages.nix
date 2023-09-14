@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; with nodePackages_latest; [
     # colorscript
@@ -7,12 +7,6 @@
     # gui
     obsidian spotify caprine-bin d-spy easyeffects
     figma-linux github-desktop gimp transmission_4-gtk
-
-    # nixgl
-    nixgl.auto.nixGLDefault
-    nixgl.auto.nixGLNvidia
-    nixgl.auto.nixGLNvidiaBumblebee
-    nixgl.nixGLIntel
 
     # tools
     bat eza ranger fd ripgrep fzf
