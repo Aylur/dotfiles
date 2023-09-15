@@ -6,6 +6,7 @@ in
   imports = [
     ./ags.nix
     ./browser.nix
+    ./git.nix
     ./hyprland.nix
     ./neofetch.nix
     ./neovim.nix

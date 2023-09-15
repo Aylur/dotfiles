@@ -5,8 +5,18 @@
     (import ./colorscript.nix { inherit pkgs; })
 
     # gui
-    obsidian spotify caprine-bin d-spy easyeffects
-    figma-linux github-desktop gimp transmission_4-gtk
+    obsidian
+    spotify
+    caprine-bin
+    d-spy
+    easyeffects
+    figma-linux
+    github-desktop
+    gimp
+    transmission_4-gtk
+    discord
+    bottles
+    teams-for-linux
 
     # tools
     bat eza ranger fd ripgrep fzf

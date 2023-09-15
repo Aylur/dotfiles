@@ -25,22 +25,9 @@
     glib
   ];
 
-  programs = {
-    dconf.enable = true;
-  };
-
   services = {
     printing.enable = true;
-    upower.enable = true;
     flatpak.enable = true;
-    gvfs.enable = true;
-    devmon.enable = true;
-    udisks2.enable = true;
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   users.users.${username} = {
