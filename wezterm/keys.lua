@@ -26,7 +26,18 @@ wezterm.on("toggle-opacity", function(window)
 	window:set_config_overrides(overrides)
 end)
 
+wezterm.on("toggle-darkmode", function(window)
+	local overrides = window:get_config_overrides() or {}
+	if overrides.color_scheme == "Gnome Light" then
+		overrides.color_scheme = "Charmful Dark"
+	else
+		overrides.color_scheme = "Gnome Light"
+	end
+	window:set_config_overrides(overrides)
+end)
+
 return {
 	{ key = "p", mods = "CTRL", action = wa.EmitEvent("padding-off") },
 	{ key = "o", mods = "CTRL", action = wa.EmitEvent("toggle-opacity") },
+	{ key = "i", mods = "CTRL", action = wa.EmitEvent("toggle-darkmode") },
 }

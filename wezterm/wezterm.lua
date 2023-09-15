@@ -1,5 +1,9 @@
 return {
-	colors = require("charm"),
+	color_schemes = {
+		["Gnome Light"] = require("gnome"),
+		["Charmful Dark"] = require("charmful"),
+	},
+	color_scheme = "Charmful Dark",
 	font = require("wezterm").font("CaskaydiaCove NF"),
 	default_cursor_style = "BlinkingBar",
 

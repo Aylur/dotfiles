@@ -1,10 +1,10 @@
 { pkgs, username, ... }: {
 
   imports = [
+    /etc/nixos/hardware-configuration.nix
     ./asus.nix
     ./bootloader.nix
     ./gnome.nix
-    ./hardware-configuration.nix
     ./hyprland.nix
     ./locale.nix
     ./nix.nix
