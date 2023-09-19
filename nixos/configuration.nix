@@ -12,6 +12,7 @@
     ./sound.nix
   ];
 
+  documentation.nixos.enable = false;
   virtualisation.podman.enable = true;
 
   environment.systemPackages = with pkgs; [
