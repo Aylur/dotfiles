@@ -1,5 +1,4 @@
 import icons from '../icons.js';
-import Wallpaper from '../misc/Wallpaper.js';
 import Notification from '../misc/Notification.js';
 const { Notifications } = ags.Service;
 const { Button, Label, Box, Icon, Scrollable } = ags.Widget;
@@ -63,23 +62,19 @@ export default () => Box({
     vertical: true,
     children: [
         Header(),
-        Box({
-            className: 'notification-wallpaper-box',
-            children: [Wallpaper({
-                children: [Scrollable({
-                    className: 'notification-list-box',
-                    hscroll: 'never',
-                    vscroll: 'automatic',
-                    child: Box({
-                        className: 'notification-list',
-                        vertical: true,
-                        children: [
-                            NotificationList(),
-                            Placeholder(),
-                        ],
-                    }),
-                })],
-            })],
+        Scrollable({
+            vexpand: true,
+            className: 'notification-scrollable',
+            hscroll: 'never',
+            vscroll: 'automatic',
+            child: Box({
+                className: 'notification-list',
+                vertical: true,
+                children: [
+                    NotificationList(),
+                    Placeholder(),
+                ],
+            }),
         }),
     ],
 });

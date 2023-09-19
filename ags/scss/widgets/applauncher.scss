@@ -1,35 +1,19 @@
 window#applauncher .applauncher{
     @include floating_widget;
 
-    .wallpaper {
+    .header {
         margin: $popover_padding;
         margin-bottom: 0;
-        border-radius: $radii;
-        padding: 30px;
 
-        @if $drop_shadow {
-            box-shadow: 0 0 0 $border_width $border_color,
-                inset 0 0 $spacing 0 $shadow;
-        } @else {
-            box-shadow: 0 0 0 $border_width $border_color;
+        image, entry {
+            @include widget;
+            padding: $spacing/2;
         }
 
         image {
-            @include widget;
-            border-radius: $radii/2;
-            background-color: transparentize($bg_color, 0.4);
-            padding: $spacing/2;
             margin-right: $spacing;
             -gtk-icon-transform: scale(0.8);
             font-size: $font-size * 1.6;
-        }
-
-        entry {
-            @include widget;
-            border-radius: $radii/2;
-            background-color: transparentize($bg_color, 0.4);
-            transition: $transition;
-            padding: $spacing/2;
         }
     }
 
@@ -44,6 +28,12 @@ window#applauncher .applauncher{
         padding: $popover_padding;
         min-width: 500px;
         min-height: 350px;
+    }
+
+    .placeholder {
+        margin-top: $spacing;
+        color: $fg_color;
+        font-size: 1.2em;
     }
 
     .app {

@@ -1,5 +1,9 @@
 { inputs, pkgs, ... }:
 {
+  services.xserver = {
+    displayManager.startx.enable = true;
+  };
+
   programs = {
     dconf.enable = true;
     hyprland = {
@@ -12,7 +16,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
   };
 
   security = {
@@ -20,7 +24,14 @@
   };
 
   environment.systemPackages = with pkgs.gnome; [
+    pkgs.glib
+    adwaita-icon-theme
+    nautilus
     gnome-calendar
+    gnome-boxes
+    gnome-system-monitor
+    gnome-control-center
+    gnome-weather
   ];
 
   systemd = {

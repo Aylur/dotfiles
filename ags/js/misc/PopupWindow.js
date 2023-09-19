@@ -1,3 +1,5 @@
+import options from '../options.js';
+
 const { EventBox, CenterBox, Box, Revealer, Window } = ags.Widget;
 const { App } = ags;
 
@@ -13,7 +15,7 @@ const PopupRevealer = (windowName, transition, child) => Box({
     children: [Revealer({
         transition,
         child,
-        transitionDuration: 350,
+        transitionDuration: options.windowAnimationDuration,
         connections: [[App, (revealer, name, visible) => {
             if (name === windowName)
                 revealer.reveal_child = visible;
@@ -24,7 +26,7 @@ const PopupRevealer = (windowName, transition, child) => Box({
 const layouts = {
     'center': (windowName, child, expand) => CenterBox({
         className: 'shader',
-        style: expand ? 'min-width: 5000px; min-height: 3000px;': '',
+        style: expand ? 'min-width: 5000px; min-height: 3000px;' : '',
         children: [
             Padding(windowName),
             CenterBox({

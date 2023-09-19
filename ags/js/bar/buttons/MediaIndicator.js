@@ -38,14 +38,16 @@ const Indicator = ({ player, direction = 'right' } = {}) => HoverRevealer({
 export default ({ direction } = {}) => Box({
     connections: [[Mpris, box => {
         const player = getPlayer();
+        box.visible = !!player;
+
         if (!player) {
             box._player = null;
             return;
         }
+
         if (box._player === player)
             return;
 
-        box.visible = true;
         box._player = player;
         box.children = [Indicator({ player, direction })];
     }]],

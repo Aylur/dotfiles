@@ -1,5 +1,5 @@
 export default {
-    settings: 'org.gnome.Settings-symbolic',
+    settings: 'emblem-system-symbolic',
     tick: 'object-select-symbolic',
     audio: {
         mic: {
@@ -46,7 +46,7 @@ export default {
     brightness: {
         indicator: 'display-brightness-symbolic',
         keyboard: 'keyboard-brightness-symbolic',
-        screen: ['󰛩', '󱩎', '󱩏', '󱩐', '󱩑', '󱩒', '󱩓', '󱩔', '󱩕', '󱩖', '󰛨'],
+        screen: 'display-brightness-symbolic',
     },
     powermenu: {
         sleep: 'weather-clear-night-symbolic',

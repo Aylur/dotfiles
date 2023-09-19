@@ -5,6 +5,7 @@
     (import ./colorscript.nix { inherit pkgs; })
 
     # gui
+    (mpv.override { scripts = [mpvScripts.mpris]; })
     obsidian
     spotify
     caprine-bin
@@ -17,15 +18,34 @@
     discord
     bottles
     teams-for-linux
+    icon-library
 
     # tools
-    bat eza ranger fd ripgrep fzf
-    socat jq htop acpi inotify-tools ffmpeg
+    bat
+    eza
+    ranger
+    fd
+    ripgrep
+    fzf
+    socat
+    jq
+    htop
+    acpi
+    inotify-tools
+    ffmpeg
 
     # hyprland
-    wl-gammactl wl-clipboard wf-recorder
-    hyprpicker wayshot swappy imagemagick
-    pavucontrol brightnessctl swww
+    wl-gammactl
+    wl-clipboard
+    wf-recorder
+    hyprpicker
+    wayshot
+    swappy
+    slurp
+    imagemagick
+    pavucontrol
+    brightnessctl
+    swww
 
     # fun
     fortune jp2a pywal
@@ -34,8 +54,14 @@
     distrobox
 
     # langs
-    nodejs go bun sassc
-    typescript python311
-    meson ninja eslint
+    nodejs
+    go
+    bun
+    sassc
+    typescript
+    python311
+    meson
+    ninja
+    eslint
   ];
 }

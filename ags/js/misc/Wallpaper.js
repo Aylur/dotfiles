@@ -1,5 +1,4 @@
 import Theme from '../services/theme/theme.js';
-import GLib from 'gi://GLib';
 const { Box } = ags.Widget;
 
 export default ({ className, ...props }) => Box({

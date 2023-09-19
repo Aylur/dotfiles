@@ -12,22 +12,27 @@
     ./sound.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    gnome.adwaita-icon-theme
-    gnome.gnome-software
-    gnome.nautilus
+  virtualisation.podman.enable = true;
 
-    neovim
+  environment.systemPackages = with pkgs; [
+    gnome.gnome-software # for flatpak
     home-manager
+    neovim
     git
     tree
     wget
-    glib
   ];
 
   services = {
+    xserver.enable = true;
     printing.enable = true;
     flatpak.enable = true;
+  };
+
+  # KDE Connect
+  networking.firewall = rec {
+    allowedTCPPortRanges = [{ from = 1714; to = 1764; }];
+    allowedUDPPortRanges = allowedTCPPortRanges;
   };
 
   users.users.${username} = {

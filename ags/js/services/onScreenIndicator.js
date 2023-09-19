@@ -34,19 +34,16 @@ class IndicatorService extends Service {
 
     display() {
         // brightness is async, so lets wait a bit
-        timeout(10, () => {
-            const value = ags.Service.Brightness.screen;
-            const icon = icons.brightness.screen[Math.ceil(value * 10)];
-            this.popup(value, icon);
-        });
+        timeout(10, () => this.popup(
+            ags.Service.Brightness.screen,
+            icons.brightness.screen));
     }
 
     kbd() {
         // brightness is async, so lets wait a bit
-        timeout(10, () => {
-            const value = ags.Service.Brightness.kbd;
-            this.popup((value * 33 + 1) / 100, icons.brightness.keyboard);
-        });
+        timeout(10, () => this.popup(
+            (ags.Service.Brightness.kbd * 33 + 1) / 100,
+            icons.brightness.keyboard));
     }
 
     connectWidget(widget, callback) {

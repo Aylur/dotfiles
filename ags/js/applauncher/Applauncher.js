@@ -1,4 +1,3 @@
-import Wallpaper from '../misc/Wallpaper.js';
 import Separator from '../misc/Separator.js';
 import PopupWindow from '../misc/PopupWindow.js';
 import icons from '../icons.js';
@@ -44,6 +43,10 @@ const AppItem = (app, window) => Button({
 
 const Applauncher = ({ windowName = 'applauncher' } = {}) => {
     const list = Box({ vertical: true });
+    const placeholder = Label({
+        label: " Couldn't find a match",
+        className: 'placeholder',
+    });
     const entry = Entry({
         hexpand: true,
         placeholderText: 'Search',
@@ -61,6 +64,8 @@ const Applauncher = ({ windowName = 'applauncher' } = {}) => {
             ]).flat();
             list.add(Separator());
             list.show_all();
+
+            placeholder.visible = list.children.length === 1;
         },
     });
 
@@ -69,16 +74,19 @@ const Applauncher = ({ windowName = 'applauncher' } = {}) => {
         properties: [['list', list]],
         vertical: true,
         children: [
-            Wallpaper({
+            Box({
+                className: 'header',
                 children: [
                     Icon(icons.apps.search),
                     entry,
                 ],
-
             }),
             Scrollable({
                 hscroll: 'never',
-                child: list,
+                child: Box({
+                    vertical: true,
+                    children: [list, placeholder],
+                }),
             }),
         ],
         connections: [[App, (_b, name, visible) => {

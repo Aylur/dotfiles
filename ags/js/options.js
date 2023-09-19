@@ -22,4 +22,7 @@ export default {
 
     // at what intervals should cpu, ram, temperature refresh
     systemFetchInterval: 5000,
+
+    // the slide down animation on quicksettings and dashboard
+    windowAnimationDuration: 250,
 };
