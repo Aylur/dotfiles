@@ -63,5 +63,10 @@
       dynamic-workspaces = false;
       num-workspaces = 5;
     };
+
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
+    };
   };
 }

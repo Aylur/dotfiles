@@ -4,14 +4,11 @@
     displayManager.startx.enable = true;
   };
 
-  programs = {
-    dconf.enable = true;
-    hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-      xwayland.enable = true;
-      enableNvidiaPatches = true;
-    };
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    xwayland.enable = true;
+    enableNvidiaPatches = true;
   };
 
   xdg.portal = {

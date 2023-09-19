@@ -13,7 +13,15 @@
   ];
 
   documentation.nixos.enable = false;
-  virtualisation.podman.enable = true;
+
+  virtualisation = {
+    podman.enable = true;
+    libvirtd.enable = true;
+  };
+
+  programs = {
+    dconf.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     gnome.gnome-software # for flatpak
@@ -38,7 +46,7 @@
 
   users.users.${username} = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
   };
 
   networking = {
