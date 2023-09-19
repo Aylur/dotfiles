@@ -1,24 +1,11 @@
 import icons from '../../icons.js';
 import FontIcon from '../../misc/FontIcon.js';
 import Separator from '../../misc/Separator.js';
+import { getAudioTypeIcon } from '../../utils.js';
 import { Arrow } from '../ToggleButton.js';
 import { Menu } from '../ToggleButton.js';
 const { Audio } = ags.Service;
 const { Label, Icon, Box, Slider, Button } = ags.Widget;
-
-const iconSubstitute = item => {
-    const substitues = [
-        ['audio-headset-bluetooth', icons.audio.type.headset],
-        ['audio-card-analog-usb', icons.audio.type.speaker],
-        ['audio-card-analog-pci', icons.audio.type.card],
-    ];
-
-    for (const [from, to] of substitues) {
-        if (from === item)
-            return to;
-    }
-    return item;
-};
 
 const TypeIndicator = () => Button({
     onClicked: 'pactl set-sink-mute @DEFAULT_SINK@ toggle',
@@ -27,7 +14,7 @@ const TypeIndicator = () => Button({
             if (!Audio.speaker)
                 return;
 
-            icon.icon = iconSubstitute(Audio.speaker.iconName);
+            icon.icon = getAudioTypeIcon(Audio.speaker.iconName);
             icon.tooltipText = `Volume ${Math.floor(Audio.speaker.volume * 100)}%`;
         }, 'speaker-changed']],
     }),
@@ -66,10 +53,12 @@ const MixerItem = stream => Box({
     className: 'mixer-item',
     children: [
         Icon({
-            binds: [
-                ['icon', stream, 'iconName'],
-                ['tooltipText', stream, 'name'],
-            ],
+            binds: [['tooltipText', stream, 'name']],
+            connections: [[stream, icon => {
+                icon.icon = ags.Utils.lookUpIcon(stream.name)
+                    ? stream.name
+                    : icons.mpris.fallback;
+            }]],
         }),
         Box({
             children: [
@@ -108,7 +97,7 @@ const SinkItem = stream => Button({
     child: Box({
         children: [
             Icon({
-                icon: iconSubstitute(stream.iconName),
+                icon: getAudioTypeIcon(stream.iconName),
                 tooltipText: stream.iconName,
             }),
             Label(stream.description.split(' ').slice(0, 4).join(' ')),
@@ -117,7 +106,6 @@ const SinkItem = stream => Button({
                 hexpand: true,
                 halign: 'end',
                 connections: [['draw', icon => {
-                    print(Audio.speaker, stream);
                     icon.visible = Audio.speaker === stream;
                 }]],
             }),
@@ -127,6 +115,7 @@ const SinkItem = stream => Button({
 
 const SettingsButton = () => Button({
     onClicked: 'pavucontrol',
+    hexpand: true,
     child: Box({
         children: [
             Icon(icons.settings),
