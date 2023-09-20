@@ -62,6 +62,7 @@
       edge-tiling = true;
       dynamic-workspaces = false;
       num-workspaces = 5;
+      workspaces-only-on-primary = true;
     };
 
     "org/virt-manager/virt-manager/connections" = {
