@@ -28,7 +28,6 @@
     home-manager
     neovim
     git
-    tree
     wget
   ];
 

@@ -5,6 +5,7 @@ let
     "arch" = "distrobox-enter Arch -- zsh";
     "fedora" = "distrobox-enter Fedora -- zsh";
     "eza" = "eza -l --sort type --no-permissions --no-user --no-time --header --icons --no-filesize --group-directories-first";
+    "tree" = "eza --tree";
     "ll" = "eza";
     "éé" = "eza";
     "és" = "eza";
