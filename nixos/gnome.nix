@@ -18,9 +18,11 @@
 
   environment.systemPackages = with pkgs; [
     gnome-extension-manager
+    nautilus-open-any-terminal
   ];
 
   environment.gnome.excludePackages = (with pkgs; [
+    gnome-text-editor
     gnome-console
     gnome-photos
     gnome-tour
