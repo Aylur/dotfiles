@@ -33,6 +33,7 @@
 
   services = {
     xserver.enable = true;
+    xserver.excludePackages = [ pkgs.xterm ];
     printing.enable = true;
     flatpak.enable = true;
   };

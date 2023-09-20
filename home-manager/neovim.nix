@@ -26,7 +26,6 @@
 
     extraPackages = with pkgs; [
       gnumake
-      stylua
       cargo
       gcc13
       unzip
@@ -37,12 +36,6 @@
       python311Packages.pynvim
       php82Packages.composer
       python311Packages.pip
-      nil
-      chafa
-      ffmpegthumbnailer
-      poppler_utils
-      fontpreview
-      xclip
     ];
   };
 

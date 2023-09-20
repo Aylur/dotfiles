@@ -1,5 +1,13 @@
 { pkgs, ... }:
 {
+  # hide entries
+  xdg.desktopEntries = {
+    "ranger" = {
+      name = "ranger";
+      noDisplay = true;
+    };
+  };
+
   home.packages = with pkgs; with nodePackages_latest; [
     # colorscript
     (import ./colorscript.nix { inherit pkgs; })
@@ -13,7 +21,6 @@
     fzf
     socat
     jq
-    htop
     acpi
     inotify-tools
     ffmpeg

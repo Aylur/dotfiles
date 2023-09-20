@@ -47,15 +47,15 @@ in
       enable = true;
       shellAliases = aliases;
     };
-    nushell = {
-      enable = true;
-      shellAliases = aliases;
-      extraConfig = ''
-        $env.config = {
-          show_banner: false,
-        }
-      '';
-    };
+    # nushell = {
+    #   enable = true;
+    #   shellAliases = aliases;
+    #   extraConfig = ''
+    #     $env.config = {
+    #       show_banner: false,
+    #     }
+    #   '';
+    # };
   };
 
   programs.tmux = {

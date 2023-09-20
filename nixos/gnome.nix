@@ -26,6 +26,7 @@
     gnome-console
     gnome-photos
     gnome-tour
+    gnome-connections
   ]) ++ (with pkgs.gnome; [
     cheese # webcam tool
     gnome-music
@@ -43,5 +44,7 @@
     gnome-contacts
     gnome-initial-setup
     gnome-shell-extensions
+    gnome-maps
+    gnome-font-viewer
   ]);
 }

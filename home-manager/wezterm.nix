@@ -8,10 +8,14 @@ let
         ${weztem}
     fi
   '';
+
+  xterm = pkgs.writeShellScriptBin "xterm" ''
+    wezterm "$@"
+  '';
 in 
 {
   home = {
-    packages = [ wez ];
+    packages = [ wez xterm ];
     sessionVariables.TERMINAL = "wez";
   };
 
@@ -22,7 +26,7 @@ in
     name = "WezTerm";
     comment = "Wez's Terminal Emulator";
     icon = "org.wezfurlong.wezterm";
-    exec = "${wez}/bin/wez";
+    exec = "${wez}/bin/wez %F";
     categories = [ "System" "TerminalEmulator" "Utility" ];
     terminal = false;
   };
