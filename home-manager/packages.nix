@@ -4,22 +4,6 @@
     # colorscript
     (import ./colorscript.nix { inherit pkgs; })
 
-    # gui
-    (mpv.override { scripts = [mpvScripts.mpris]; })
-    obsidian
-    spotify
-    caprine-bin
-    d-spy
-    easyeffects
-    figma-linux
-    github-desktop
-    gimp
-    transmission_4-gtk
-    discord
-    bottles
-    teams-for-linux
-    icon-library
-
     # tools
     bat
     eza
