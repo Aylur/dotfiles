@@ -33,6 +33,7 @@
     acpi
     inotify-tools
     ffmpeg
+    libnotify
 
     # hyprland
     wl-gammactl
@@ -48,9 +49,18 @@
     swww
 
     # fun
-    fortune jp2a pywal
-    glow vhs gum slides charm skate
-    yabridge yabridgectl wine-staging
+    fortune
+    jp2a
+    pywal
+    glow
+    vhs
+    gum
+    slides
+    charm
+    skate
+    yabridge
+    yabridgectl
+    wine-staging
     distrobox
 
     # langs
