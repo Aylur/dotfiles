@@ -81,7 +81,7 @@ $float: $spacing * 0.7;
     }
 
     separator {
-        background-color: transparentize($fg_color, 0.9);
+        background-color: transparentize($fg_color, 0.98);
         border-radius: $radii;
         min-height: 5px;
         min-width: 5px;
@@ -131,7 +131,7 @@ $float: $spacing * 0.7;
 
         levelbar trough {
             @include widget;
-            min-width: 70px;
+            min-width: 60px;
             min-height: 14px;
 
             block.filled {
@@ -187,8 +187,8 @@ $float: $spacing * 0.7;
 
             &.occupied .indicator {
                 background-color: transparentize($fg_color, 0.2);
-                min-width: 10px;
-                min-height: 10px;
+                min-width: 8px;
+                min-height: 8px;
             }
 
             &:hover .indicator {
@@ -200,8 +200,8 @@ $float: $spacing * 0.7;
             }
 
             &.active .indicator {
-                min-width: 14px;
-                min-height: 14px;
+                min-width: 24px;
+                min-height: 12px;
             }
         }
     }
