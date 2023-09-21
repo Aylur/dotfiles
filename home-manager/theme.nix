@@ -13,6 +13,7 @@ let
       ${pkgs.unzip}/bin/unzip $src -d $out
     '';
   };
+
   nerdfonts = (pkgs.nerdfonts.override { fonts = [
     "Ubuntu"
     "UbuntuMono"
@@ -22,17 +23,21 @@ let
     "VictorMono"
     "Mononoki"
   ]; });
+
   theme = type: pkg: name: {
     ".local/share/${type}s/${name}".source = "${pkgs.${pkg}}/share/${type}s/${name}";
   };
+
+  cursor-theme = "Qogir";
+  cursor-package = pkgs.qogir-icon-theme;
 in
 {
   home = {
     packages = [ nerdfonts moreWaita ];
-    sessionVariables.XCURSOR_THEME = "Qogir";
+    sessionVariables.XCURSOR_THEME = cursor-theme;
     pointerCursor = {
-      package = pkgs.qogir-icon-theme;
-      name = "Qogir";
+      package = cursor-package;
+      name = cursor-theme;
       size = 24;
       gtk.enable = true;
     };
@@ -71,8 +76,8 @@ in
     font.name = "Ubuntu Nerd Font";
     theme.name = "adw-gtk3-dark";
     cursorTheme = {
-      name = "Qogir";
-      package = pkgs.qogir-icon-theme;
+      name = cursor-theme;
+      package = cursor-package;
     };
     iconTheme.name = "MoreWaita-${moreWaitaVersion}";
     gtk3.extraCss = ''

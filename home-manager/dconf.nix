@@ -52,6 +52,14 @@
       toggle-fullscreen = [ "<Super>g" ];
     };
 
+    "org/gnome/shell/keybindings" = {
+      switch-to-application-1 = [];
+      switch-to-application-2 = [];
+      switch-to-application-3 = [];
+      switch-to-application-4 = [];
+      switch-to-application-5 = [];
+    };
+
     "org/gnome/desktop/wm/preferences" = {
       mouse-button-modifier = "<Super>";
       num-workspaces = 5;

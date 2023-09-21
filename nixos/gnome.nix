@@ -12,6 +12,9 @@
         "org/gnome/desktop/peripherals/touchpad" = {
           tap-to-click = true;
         };
+        "org/gnome/desktop/interface" = {
+          cursor-theme = "Qogir";
+        };
       };
     }];
   };
@@ -19,6 +22,7 @@
   environment.systemPackages = with pkgs; [
     gnome-extension-manager
     nautilus-open-any-terminal
+    qogir-icon-theme
   ];
 
   environment.gnome.excludePackages = (with pkgs; [
