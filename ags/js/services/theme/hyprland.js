@@ -2,6 +2,8 @@ const { App } = ags;
 const { Hyprland } = ags.Service;
 const { execAsync } = ags.Utils;
 
+const noAlphaignore = ['verification', 'powermenu', 'lockscreen'];
+
 export default function({
     wm_gaps,
     border_width,
@@ -15,16 +17,14 @@ export default function({
     try {
         App.instance.connect('config-parsed', () => {
             for (const [name] of App.windows) {
-                if (!name.includes('desktop') && name !== 'verification' && name !== 'powermenu') {
-                    execAsync(['hyprctl', 'keyword', 'layerrule', `unset, ${name}`]).then(() => {
-                        execAsync(['hyprctl', 'keyword', 'layerrule', `blur, ${name}`]);
-                        execAsync(['hyprctl', 'keyword', 'layerrule', `ignorealpha 0.6, ${name}`]);
-                    });
-                }
-            }
+                execAsync(['hyprctl', 'keyword', 'layerrule', `unset, ${name}`]).then(() => {
+                    execAsync(['hyprctl', 'keyword', 'layerrule', `blur, ${name}`]);
+                    if (!noAlphaignore.every(skip => !name.includes(skip)))
+                        return;
 
-            for (const name of ['verification', 'powermenu'])
-                execAsync(['hyprctl', 'keyword', 'layerrule', `blur, ${name}`]);
+                    execAsync(['hyprctl', 'keyword', 'layerrule', `ignorealpha 0.6, ${name}`]);
+                });
+            }
         });
 
 
@@ -55,6 +55,6 @@ export default function({
         execAsync(`hyprctl keyword decoration:rounding ${radii}`);
         execAsync(`hyprctl keyword decoration:drop_shadow ${drop_shadow ? 'yes' : 'no'}`);
     } catch (error) {
-        logError(error);
+        console.error(error);
     }
 }

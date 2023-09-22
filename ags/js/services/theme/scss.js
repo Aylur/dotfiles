@@ -63,6 +63,6 @@ export default async function(theme) {
         ags.App.resetCss();
         ags.App.applyCss(`${tmp}/style.css`);
     } catch (error) {
-        logError(error);
+        console.error(error);
     }
 }

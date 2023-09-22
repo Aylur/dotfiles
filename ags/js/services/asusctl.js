@@ -11,7 +11,7 @@ class AsusctlService extends Service {
                 this._profile = exec('asusctl profile -p').split(' ')[3];
                 this.emit('changed');
             })
-            .catch(logError);
+            .catch(console.error);
     }
 
     setProfile(prof) {
@@ -20,7 +20,7 @@ class AsusctlService extends Service {
                 this._profile = prof;
                 this.emit('changed');
             })
-            .catch(logError);
+            .catch(console.error);
     }
 
     nextMode() {
@@ -29,7 +29,7 @@ class AsusctlService extends Service {
                 this._mode = exec('supergfxctl -g');
                 this.emit('changed');
             })
-            .catch(logError);
+            .catch(console.error);
     }
 
     constructor() {

@@ -10,10 +10,9 @@ import Verification from './js/powermenu/Verification.js';
 import Desktop from './js/desktop/Desktop.js';
 import Notifications from './js/notifications/Notifications.js';
 import QuickSettings from './js/quicksettings/QuickSettings.js';
-import { scssWatcher, warnOnLowBattery } from './js/utils.js';
+import Lockscreen from './js/lockscreen/Lockscreen.js';
+import { scssWatcher, warnOnLowBattery, forMonitors } from './js/utils.js';
 import options from './js/options.js';
-const ws = ags.Service.Hyprland.HyprctlGet('monitors');
-const forMonitors = widget => ws.map(mon => widget(mon.id));
 
 warnOnLowBattery();
 scssWatcher();
@@ -32,6 +31,7 @@ export default {
         forMonitors(FloatingDock),
         forMonitors(Desktop),
         forMonitors(Notifications),
+        forMonitors(Lockscreen),
         Applauncher(),
         Overview(),
         Dashboard(),

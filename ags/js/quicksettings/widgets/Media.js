@@ -27,6 +27,7 @@ const Footer = player => CenterBox({
             symbolic: false,
             hexpand: true,
             halign: 'end',
+            tooltipText: player.name,
         }),
     ],
 });

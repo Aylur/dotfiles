@@ -10,7 +10,7 @@ export default () => PopupWindow({
         properties: [
             ['update', box => {
                 ags.Utils.execAsync('hyprctl -j clients')
-                    .catch(logError)
+                    .catch(console.error)
                     .then(clients => {
                         const json = JSON.parse(clients);
                         box.children.forEach(ch => ch.update(json));

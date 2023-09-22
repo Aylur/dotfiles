@@ -76,7 +76,6 @@
     bun
     sassc
     typescript
-    python311
     meson
     ninja
     eslint

@@ -92,7 +92,7 @@ class RecorderService extends Service {
 
             ags.App.closeWindow('dashboard');
         } catch (error) {
-            logError(error);
+            console.error(error);
         }
     }
 }

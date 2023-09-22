@@ -1,28 +1,12 @@
 import icons from '../../icons.js';
 import PowerMenu from '../../services/powermenu.js';
 import Theme from '../../services/theme/theme.js';
+import Lockscreen from '../../services/lockscreen.js';
+import Avatar from '../../misc/Avatar.js';
 import { uptime } from '../../variables.js';
 const { Battery } = ags.Service;
 const { Box, Label, Button, Icon, Overlay, ProgressBar } = ags.Widget;
 
-const Avatar = () => Box({
-    className: 'avatar',
-    halign: 'start',
-    hexpand: false,
-    connections: [[Theme, box => {
-        box.setStyle(`
-            background-image: url('${Theme.getSetting('avatar')}');
-            background-size: cover;
-        `);
-    }]],
-    children: [
-        Box({
-            className: 'shader',
-            vexpand: true,
-            hexpand: true,
-        }),
-    ],
-});
 
 export const BatteryProgress = () => Box({
     className: 'battery-progress',
@@ -76,8 +60,8 @@ export default () => Box({
                         }),
                         Button({
                             valign: 'center',
-                            onClicked: () => PowerMenu.action('logout'),
-                            child: Icon(icons.powermenu.logout),
+                            onClicked: Lockscreen.lockscreen,
+                            child: Icon(icons.lock),
                         }),
                         Button({
                             valign: 'center',

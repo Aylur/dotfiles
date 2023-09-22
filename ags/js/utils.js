@@ -3,6 +3,11 @@ import options from './options.js';
 import icons from './icons.js';
 import Theme from './services/theme/theme.js';
 
+export function forMonitors(widget) {
+    const ws = ags.Service.Hyprland.HyprctlGet('monitors');
+    return ws.map(mon => widget(mon.id));
+}
+
 export function createSurfaceFromWidget(widget) {
     const alloc = widget.get_allocation();
     const surface = new Cairo.ImageSurface(

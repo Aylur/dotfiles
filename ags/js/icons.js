@@ -1,6 +1,7 @@
 export default {
     settings: 'emblem-system-symbolic',
     tick: 'object-select-symbolic',
+    lock: 'system-lock-screen-symbolic',
     audio: {
         mic: {
             muted: 'microphone-disabled-symbolic',
