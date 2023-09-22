@@ -8,17 +8,17 @@ const { Box, Button, Icon, Overlay } = ags.Widget;
 
 const pinned = [
     'firefox',
-    'wezterm',
-    'nautilus',
-    'calendar',
+    'org.wezfurlong.wezterm',
+    'org.gnome.Nautilus',
+    'org.gnome.Calendar',
     'obsidian',
-    'discord',
+    'transmission-gtk',
     'caprine',
+    'teams-for-linux',
+    'discord',
     'spotify',
-    'transmission',
-    'bottles',
-    'org.gnome.software',
-    'teams',
+    'com.usebottles.bottles',
+    'org.gnome.Software',
 ];
 
 const AppButton = ({ icon, ...rest }) => Button({
