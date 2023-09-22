@@ -51,7 +51,8 @@ in
     "file://${homeDirectory}/Videos"
     "file://${homeDirectory}/Downloads"
     "file://${homeDirectory}/Projects Projects"
-    "file://${homeDirectory}/School School"
+    "file://${homeDirectory}/Vault Vault"
+    "file://${homeDirectory}/Vault/School School"
     "file://${homeDirectory}/.config Config"
     "file://${homeDirectory}/.local/share Local"
   ];

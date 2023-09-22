@@ -3,19 +3,19 @@ let
   weztem = "${pkgs.wezterm}/bin/wezterm start --cwd .";
   wez = pkgs.writeShellScriptBin "wez" ''
     if command -v "nixGLIntel" &> /dev/null; then
-        nixGLIntel ${weztem}
+        nixGLIntel ${weztem} "$@"
     else
-        ${weztem}
+        ${weztem} "$@"
     fi
   '';
 
-  xterm = pkgs.writeShellScriptBin "xterm" ''
+  substitute = name: pkgs.writeShellScriptBin name ''
     wezterm "$@"
   '';
 in 
 {
   home = {
-    packages = [ wez xterm ];
+    packages = [ wez (substitute "xterm") ];
     sessionVariables.TERMINAL = "wez";
   };
 

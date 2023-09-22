@@ -128,5 +128,9 @@
     "system/locale" = {
       region = "hu_HU.UTF-8";
     };
+
+    "com/github/stunkymonkey/nautilus-open-any-terminal" = {
+      terminal = "wezterm";
+    };
   };
 }
