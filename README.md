@@ -21,6 +21,8 @@
 - wl-gammactl
 - pavucontrol
 - swappy
+- python
+- python-pam
 
 ```bash
 git clone https://github.com/Aylur/dotfiles.git
