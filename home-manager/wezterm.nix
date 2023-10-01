@@ -8,17 +8,9 @@ let
         ${weztem} "$@"
     fi
   '';
-
-  substitute = name: pkgs.writeShellScriptBin name ''
-    wezterm "$@"
-  '';
 in 
 {
-  home = {
-    packages = [ wez (substitute "xterm") ];
-    sessionVariables.TERMINAL = "wez";
-  };
-
+  home.packages = [ wez ];
   programs.wezterm.enable = true;
   xdg.configFile.wezterm.source = ../wezterm;
 

@@ -6,6 +6,7 @@ in
   imports = [
     ./ags.nix
     ./browser.nix
+    ./blackbox.nix
     ./dconf.nix
     ./git.nix
     ./hyprland.nix
@@ -50,9 +51,10 @@ in
     "file://${homeDirectory}/Pictures"
     "file://${homeDirectory}/Videos"
     "file://${homeDirectory}/Downloads"
-    "file://${homeDirectory}/Projects Projects"
-    "file://${homeDirectory}/Vault Vault"
-    "file://${homeDirectory}/Vault/School School"
+    "file://${homeDirectory}/Desktop"
+    "file://${homeDirectory}/Projects"
+    "file://${homeDirectory}/Vault"
+    "file://${homeDirectory}/Vault/School"
     "file://${homeDirectory}/.config Config"
     "file://${homeDirectory}/.local/share Local"
   ];

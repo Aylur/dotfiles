@@ -8,13 +8,14 @@
     };
   };
 
-  home.packages = with pkgs; with nodePackages_latest; [
+  home.packages = with pkgs; with nodePackages_latest; with gnome; [
     # colorscript
     (import ./colorscript.nix { inherit pkgs; })
 
     # gui
     obsidian
     (mpv.override { scripts = [mpvScripts.mpris]; })
+    libreoffice
     spotify
     caprine-bin
     d-spy
@@ -27,6 +28,7 @@
     bottles
     teams-for-linux
     icon-library
+    dconf-editor
 
     # tools
     bat
@@ -41,6 +43,7 @@
     inotify-tools
     ffmpeg
     libnotify
+    killall
 
     # hyprland
     wl-gammactl

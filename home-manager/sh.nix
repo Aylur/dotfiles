@@ -19,6 +19,7 @@ let
     "gc" = "git commit";
     "ga" = "git add";
     "gr" = "git reset --soft HEAD~1";
+    "vault" = "ga . && gc -m \"sync $(date '+%Y-%m-%d %H:%M')\" && git push";
   };
   tmux-theme = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "charmful";

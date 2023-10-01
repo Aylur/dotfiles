@@ -2,7 +2,7 @@
   home.packages = [ pkgs.neofetch ];
   home.file.".config/neofetch/config.conf".text = ''
     print_info() {
-    prin " \n \n ╭───────┤ $(color 4) edora $(color 15)├───────╮"
+    prin " \n \n ╭───────┤ $(color 5) NixOS $(color 15)├───────╮"
     info " " kernel
     info " " wm
     info " " shell
@@ -36,13 +36,13 @@
     image_source="/home/demeter/.config/neofetch/image.png" # auto /path/to/img /path/to/ascii
     image_size="200px" # auto 00px 00% none
 
-    ascii_distro="Fedora_small"
+    ascii_distro="NixOS_small"
     ascii_colors=(distro)
     ascii_bold="on"
 
     image_loop="true"
     crop_mode="normal" # normal fit fill
     crop_offset="center" # northwest north northeast west center east southwest south southeast
-    gap=0 # num -num
+    gap=1 # num -num
 '';
 }

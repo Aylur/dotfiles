@@ -4,7 +4,7 @@
     /etc/nixos/hardware-configuration.nix
     ./asus.nix
     ./bootloader.nix
-    ./gnome.nix
+    # ./gnome.nix
     ./hyprland.nix
     ./locale.nix
     ./nix.nix

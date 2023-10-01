@@ -64,6 +64,7 @@
       mouse-button-modifier = "<Super>";
       num-workspaces = 5;
       resize-with-right-button = true;
+      focus-mode = "sloppy";
     };
 
     "org/gnome/mutter" = {
@@ -89,7 +90,7 @@
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Super>Return";
-      command = "wez";
+      command = "xterm";
       name = "term";
     };
 
@@ -131,6 +132,11 @@
 
     "com/github/stunkymonkey/nautilus-open-any-terminal" = {
       terminal = "wezterm";
+    };
+
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = ["qemu:///system"];
+        uris = ["qemu:///system"];
     };
   };
 }
