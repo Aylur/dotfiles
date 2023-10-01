@@ -1,7 +1,7 @@
-const { Button, Box } = ags.Widget;
+import { Widget } from '../imports.js';
 
-export default ({ className, content, ...rest }) => Button({
+export default ({ className, content, ...rest }) => Widget.Button({
     className: `panel-button ${className}`,
-    child: Box({ children: [content] }),
+    child: Widget.Box({ children: [content] }),
     ...rest,
 });

@@ -11,11 +11,13 @@ import Desktop from './js/desktop/Desktop.js';
 import Notifications from './js/notifications/Notifications.js';
 import QuickSettings from './js/quicksettings/QuickSettings.js';
 import Lockscreen from './js/lockscreen/Lockscreen.js';
-import { scssWatcher, warnOnLowBattery, forMonitors } from './js/utils.js';
 import options from './js/options.js';
+import * as setup from './js/utils.js';
+import { forMonitors } from './js/utils.js';
 
-warnOnLowBattery();
-scssWatcher();
+setup.warnOnLowBattery();
+setup.scssWatcher();
+setup.globalServices();
 
 export default {
     maxStreamVolume: 1.05,

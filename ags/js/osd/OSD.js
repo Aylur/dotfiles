@@ -1,13 +1,12 @@
-const { lookUpIcon } = ags.Utils;
-const { Box, Revealer, Stack, Icon, Window } = ags.Widget;
+import { Utils, Widget } from '../imports.js';
 import FontIcon from '../misc/FontIcon.js';
 import Progress from '../misc/Progress.js';
 import Indicator from '../services/onScreenIndicator.js';
 
-export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Box({
+export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.Box({
     className: 'indicator',
     style: 'padding: 1px;',
-    children: [Revealer({
+    children: [Widget.Revealer({
         transition: 'slide_left',
         connections: [[Indicator, (revealer, value) => {
             revealer.revealChild = value > -1;
@@ -17,12 +16,12 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Box({
             height,
             vertical: true,
             connections: [[Indicator, (progress, value) => progress.setValue(value)]],
-            child: Stack({
+            child: Widget.Stack({
                 valign: 'start',
                 halign: 'center',
                 hexpand: false,
                 items: [
-                    ['true', Icon({
+                    ['true', Widget.Icon({
                         halign: 'center',
                         size: width,
                         connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
@@ -35,14 +34,14 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Box({
                     })],
                 ],
                 connections: [[Indicator, (stack, _v, name) => {
-                    stack.shown = `${!!lookUpIcon(name)}`;
+                    stack.shown = `${!!Utils.lookUpIcon(name)}`;
                 }]],
             }),
         }),
     })],
 });
 
-export default monitor => Window({
+export default monitor => Widget.Window({
     name: `indicator${monitor}`,
     monitor,
     className: 'indicator',

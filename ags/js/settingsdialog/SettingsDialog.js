@@ -2,11 +2,11 @@ import Gtk from 'gi://Gtk';
 import Theme from '../services/theme/theme.js';
 import themes from '../themes.js';
 import Wallpaper from '../misc/Wallpaper.js';
-const { Box, Stack, Label, Icon, Button, Scrollable, Entry, Widget } = ags.Widget;
+import { Widget, Variable } from '../imports.js';
 
-const Row = (title, child) => Box({
+const Row = (title, child) => Widget.Box({
     className: 'row',
-    children: [Label(`${title}: `), child],
+    children: [Widget.Label(`${title}: `), child],
 });
 
 const Img = (title, prop) => Row(title, Widget({
@@ -50,12 +50,12 @@ const SwitchButton = (title, prop) => Row(title, Widget({
     ],
 }));
 
-const Color = (title, prop) => Row(title, Box({
+const Color = (title, prop) => Row(title, Widget.Box({
     hexpand: true,
     halign: 'end',
     className: 'color',
     children: [
-        Entry({
+        Widget.Entry({
             onAccept: ({ text }) => Theme.setSetting(prop, text),
             valign: 'center',
             connections: [[Theme, w => w.text = Theme.getSetting(prop)]],
@@ -74,7 +74,7 @@ const Color = (title, prop) => Row(title, Box({
     ],
 }));
 
-const Text = (title, prop) => Row(title, Entry({
+const Text = (title, prop) => Row(title, Widget.Entry({
     className: 'text',
     hexpand: true,
     halign: 'end',
@@ -82,7 +82,7 @@ const Text = (title, prop) => Row(title, Entry({
     onAccept: ({ text }) => Theme.setSetting(prop, text),
 }));
 
-const TextSpinButton = (title, prop, list) => Row(title, Box({
+const TextSpinButton = (title, prop, list) => Row(title, Widget.Box({
     className: 'text-spin',
     hexpand: true,
     halign: 'end',
@@ -105,18 +105,18 @@ const TextSpinButton = (title, prop, list) => Row(title, Box({
         }],
     ],
     children: [
-        Label({
+        Widget.Label({
             connections: [[Theme, label => label.label = Theme.getSetting(prop)]],
         }),
-        Button({
-            child: Icon('pan-down-symbolic'),
+        Widget.Button({
+            child: Widget.Icon('pan-down-symbolic'),
             onClicked: btn => {
                 const box = btn.get_parent();
                 box._step(box, -1);
             },
         }),
-        Button({
-            child: Icon('pan-up-symbolic'),
+        Widget.Button({
+            child: Widget.Icon('pan-up-symbolic'),
             onClicked: btn => {
                 const box = btn.get_parent();
                 box._step(box, +1);
@@ -125,56 +125,59 @@ const TextSpinButton = (title, prop, list) => Row(title, Box({
     ],
 }));
 
-class Pages extends ags.Service {
-    static { ags.Service.register(this); }
-    static instance = new Pages();
-    static page = '󰒓 General';
-    static show(page) {
-        Pages.page = page;
-        Pages.instance.emit('changed');
-    }
-}
+const FontButton = (title, prop) => Row(title, Widget({
+    type: Gtk.FontButton,
+    hexpand: true,
+    halign: 'end',
+    useSize: false,
+    showSize: false,
+    fontName: Theme.getSetting(prop),
+    connections: [['font-set', ({ fontName }) => {
+        Theme.setSetting(prop, fontName);
+    }]],
+}));
 
-const Tab = page => Button({
+const page = Variable('󰒓 General');
+const showPage = p => page.value = p;
+
+const Tab = page => Widget.Button({
     hexpand: true,
     className: 'tab',
-    onClicked: () => Pages.show(page),
-    child: Label(page),
-    connections: [[Pages, b => b.toggleClassName('active', Pages.page === page)]],
+    onClicked: () => showPage(page),
+    child: Widget.Label(page),
+    connections: [[page, b => b.toggleClassName('active', page.value === page)]],
 });
 
-const Layout = pages => Box({
+const Layout = pages => Widget.Box({
     vertical: true,
     className: 'settings',
     hexpand: false,
     children: [
-        Box({
+        Widget.Box({
             className: 'headerbar',
             valign: 'start',
-            children: [Box({
+            children: [Widget.Box({
                 className: 'tabs',
                 children: [
                     ...Object.keys(pages).map(page => Tab(page)),
-                    Button({
+                    Widget.Button({
                         className: 'tab',
                         onClicked: Theme.reset,
-                        child: Label('󰦛 Reset'),
+                        child: Widget.Label('󰦛 Reset'),
                         hexpand: true,
                     }),
                 ],
             })],
         }),
-        Box({
+        Widget.Box({
             className: 'content',
-            children: [Stack({
+            children: [Widget.Stack({
                 transition: 'slide_left_right',
                 items: Object.keys(pages).map(page => [page, pages[page]]),
-                connections: [[Pages, stack => {
-                    stack.shown = Pages.page;
-                }]],
+                binds: [['shown', page]],
             })],
         }),
-        Label({
+        Widget.Label({
             wrap: true,
             className: 'disclaimer',
             label: 'These settings override all preset themes. ' +
@@ -183,8 +186,8 @@ const Layout = pages => Box({
     ],
 });
 
-const Page = children => Scrollable({
-    child: Box({
+const Page = children => Widget.Scrollable({
+    child: Widget.Box({
         vertical: true,
         children,
     }),
@@ -236,6 +239,9 @@ export const SettingsDialog = () => Widget({
             SpinButton('Transition', 'transition', 1000),
             Text('Desktop Clock Position', 'desktop_clock'),
             Color('Wallpaper Foreground Color', 'wallpaper_fg'),
+            FontButton('Font', 'font'),
+            FontButton('Mono Font', 'mono_font'),
+            SpinButton('Font Size', 'font_size'),
         ]),
     }),
     connections: [['delete-event', win => {

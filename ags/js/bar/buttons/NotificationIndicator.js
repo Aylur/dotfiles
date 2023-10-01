@@ -1,15 +1,13 @@
+import icons from '../../icons.js';
 import HoverRevealer from '../../misc/HoverRevealer.js';
-const { Label, Icon } = ags.Widget;
-const { Notifications } = ags.Service;
+import { Widget, Notifications, Utils, App } from '../../imports.js';
 
 export default ({ direction = 'left' } = {}) => HoverRevealer({
     className: 'notifications panel-button',
     eventboxConnections: [
-        [Notifications, box => {
-            box.visible =
-                Notifications.notifications.length > 0 || Notifications.dnd;
-        }],
-        ['button-press-event', () => ags.App.openWindow('dashboard')],
+        ['button-press-event', () => App.openWindow('dashboard')],
+        [Notifications, box => box.visible =
+            Notifications.notifications.length > 0 || Notifications.dnd],
     ],
     connections: [[Notifications, revealer => {
         const title = Notifications.notifications[0]?.summary;
@@ -18,23 +16,20 @@ export default ({ direction = 'left' } = {}) => HoverRevealer({
 
         revealer._title = title;
         revealer.revealChild = true;
-        ags.Utils.timeout(3000, () => {
+        Utils.timeout(3000, () => {
             revealer.revealChild = false;
         });
     }]],
     direction,
-    indicator: Icon({
-        connections: [[Notifications, icon => {
-            icon.icon = Notifications.dnd
-                ? 'notifications-disabled-symbolic'
-                : 'preferences-system-notifications-symbolic';
-        }]],
+    indicator: Widget.Icon({
+        binds: [['icon', Notifications, 'dnd', dnd => dnd
+            ? icons.notifications.silent
+            : icons.notifications.noisy,
+        ]],
     }),
-    child: Label({
+    child: Widget.Label({
         truncate: 'end',
         maxWidthChars: 40,
-        connections: [[Notifications, label => {
-            label.label = Notifications.notifications[0]?.summary || '';
-        }]],
+        binds: [['label', Notifications, 'notifications', n => n[0]?.summary || '']],
     }),
 });

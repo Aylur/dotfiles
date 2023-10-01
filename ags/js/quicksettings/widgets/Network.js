@@ -1,16 +1,15 @@
 import icons from '../../icons.js';
 import { Menu, ArrowToggleButton } from '../ToggleButton.js';
-const { Network } = ags.Service;
-const { Icon, Label, Box, Button } = ags.Widget;
+import { Network, Widget } from '../../imports.js';
 
 export const NetworkToggle = () => ArrowToggleButton({
     name: 'network',
-    icon: Icon({
+    icon: Widget.Icon({
         connections: [[Network, icon => {
             icon.icon = Network.wifi?.iconName || '';
         }]],
     }),
-    label: Label({
+    label: Widget.Label({
         truncate: 'end',
         connections: [[Network, label => {
             label.label = Network.wifi?.ssid || 'Not Connected';
@@ -26,22 +25,22 @@ export const NetworkToggle = () => ArrowToggleButton({
 
 export const WifiSelection = () => Menu({
     name: 'network',
-    icon: Icon({
+    icon: Widget.Icon({
         connections: [[Network, icon => {
             icon.icon = Network.wifi?.iconName;
         }]],
     }),
-    title: Label('Wifi Selection'),
-    content: Box({
+    title: Widget.Label('Wifi Selection'),
+    content: Widget.Box({
         vertical: true,
         connections: [[Network, box => box.children =
-            Network.wifi?.accessPoints.map(ap => Button({
+            Network.wifi?.accessPoints.map(ap => Widget.Button({
                 onClicked: `nmcli device wifi connect ${ap.bssid}`,
-                child: Box({
+                child: Widget.Box({
                     children: [
-                        Icon(ap.iconName),
-                        Label(ap.ssid),
-                        ap.active && Icon({
+                        Widget.Icon(ap.iconName),
+                        Widget.Label(ap.ssid),
+                        ap.active && Widget.Icon({
                             icon: icons.tick,
                             hexpand: true,
                             halign: 'end',

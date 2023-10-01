@@ -1,27 +1,22 @@
 import icons from '../../icons.js';
 import Brightness from '../../services/brightness.js';
-const { Slider, Box, Icon } = ags.Widget;
+import { Widget } from '../../imports.js';
 
-const BrightnessSlider = () => Slider({
+const BrightnessSlider = () => Widget.Slider({
     drawValue: false,
     hexpand: true,
-    connections: [
-        [Brightness, slider => {
-            slider.value = Brightness.screen;
-        }],
-    ],
+    binds: [['value', Brightness, 'screen']],
     onChange: ({ value }) => Brightness.screen = value,
 });
 
-export default () => Box({
+export default () => Widget.Box({
     className: 'slider',
     children: [
-        Icon({
+        Widget.Icon({
             icon: icons.brightness.indicator,
             className: 'icon',
-            connections: [[Brightness, icon => {
-                icon.tooltipText = `Screen Brightness ${Math.floor(Brightness.screen * 100)}%`;
-            }]],
+            binds: [['tooltip-text', Brightness, 'screen', v =>
+                `Screen Brightness: ${Math.floor(v * 100)}%`]],
         }),
         BrightnessSlider(),
     ],

@@ -3,11 +3,15 @@ window#applauncher .applauncher{
 
     .header {
         margin: $popover_padding;
-        margin-bottom: 0;
+        margin-bottom: $popover_padding/2;
 
         image, entry {
             @include widget;
             padding: $spacing/2;
+        }
+
+        entry {
+            padding-left: $spacing;
         }
 
         image {

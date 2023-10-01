@@ -1,9 +1,7 @@
 import icons from '../icons.js';
 import Separator from '../misc/Separator.js';
 import options from '../options.js';
-const { Hyprland, Applications } = ags.Service;
-const { execAsync } = ags.Utils;
-const { Box, Button, Icon, Overlay } = ags.Widget;
+import { App, Hyprland, Applications, Utils, Widget } from '../imports.js';
 
 const pinned = [
     'firefox',
@@ -20,13 +18,13 @@ const pinned = [
     'org.gnome.Software',
 ];
 
-const AppButton = ({ icon, ...rest }) => Button({
+const AppButton = ({ icon, ...rest }) => Widget.Button({
     ...rest,
-    child: Box({
+    child: Widget.Box({
         className: 'box',
-        children: [Overlay({
-            child: Icon({ icon, size: options.dockItemSize }),
-            overlays: [Box({
+        children: [Widget.Overlay({
+            child: Widget.Icon({ icon, size: options.dockItemSize }),
+            overlays: [Widget.Box({
                 className: 'indicator',
                 valign: 'end',
                 halign: 'center',
@@ -35,33 +33,29 @@ const AppButton = ({ icon, ...rest }) => Button({
     }),
 });
 
-const Taskbar = skip => Box({
-    properties: [['apps', Applications.query('')]],
-    connections: [
-        [Applications, box => box._apps = Applications.query('')],
-        [Hyprland, box => box.children = Hyprland.clients.map(client => {
-            for (const appName of skip) {
-                if (client.class.toLowerCase().includes(appName.toLowerCase()))
-                    return null;
+const Taskbar = () => Widget.Box({
+    binds: [['children', Hyprland, 'clients', c => c.map(client => {
+        for (const appName of pinned) {
+            if (client.class.toLowerCase().includes(appName.toLowerCase()))
+                return null;
+        }
+        for (const app of Applications.list) {
+            if (client.title && app.match(client.title) ||
+                client.class && app.match(client.class)) {
+                return AppButton({
+                    icon: app.iconName,
+                    tooltipText: app.name,
+                    onMiddleClick: () => app.launch(),
+                });
             }
-            for (const app of box._apps) {
-                if (client.title && app.match(client.title) ||
-                    client.class && app.match(client.class)) {
-                    return AppButton({
-                        icon: app.iconName,
-                        tooltipText: app.name,
-                        onMiddleClick: () => app.launch(),
-                    });
-                }
-            }
-        })],
-    ],
+        }
+    })]],
 });
 
-const PinnedApps = list => Box({
+const PinnedApps = () => Widget.Box({
     className: 'pins',
     homogeneous: true,
-    children: list
+    children: pinned
         .map(term => ({ app: Applications.query(term)?.[0], term }))
         .filter(({ app }) => app)
         .map(({ app, term = true }) => AppButton({
@@ -69,7 +63,7 @@ const PinnedApps = list => Box({
             onPrimaryClick: () => {
                 for (const client of Hyprland.clients) {
                     if (client.class.toLowerCase().includes(term)) {
-                        execAsync(`hyprctl dispatch focuswindow address:${client.address}`).catch(print);
+                        Utils.execAsync(`hyprctl dispatch focuswindow address:${client.address}`).catch(print);
                         return;
                     }
                 }
@@ -88,18 +82,18 @@ const PinnedApps = list => Box({
                 button.toggleClassName('nonrunning', !running);
                 button.toggleClassName('focused', Hyprland.active.client.address === running.address?.substring(2));
                 button.set_tooltip_text(running ? running.title : app.name);
-            }]],
+            }, 'notify::clients']],
         })),
 });
 
 export default () => {
-    const pinnedapps = PinnedApps(pinned);
-    const taskbar = Taskbar(pinned);
+    const pinnedapps = PinnedApps();
+    const taskbar = Taskbar();
     const applauncher = AppButton({
         className: 'launcher nonrunning',
         icon: icons.apps.apps,
         tooltipText: 'Applications',
-        onClicked: () => ags.App.toggleWindow('applauncher'),
+        onClicked: () => App.toggleWindow('applauncher'),
     });
     const separator = Separator({
         valign: 'center',
@@ -107,7 +101,7 @@ export default () => {
         orientation: 'vertical',
         connections: [[Hyprland, box => box.visible = taskbar.children.length > 0]],
     });
-    return Box({
+    return Widget.Box({
         className: 'dock',
         children: [applauncher, pinnedapps, separator, taskbar],
     });

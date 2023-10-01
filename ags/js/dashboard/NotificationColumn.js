@@ -1,47 +1,41 @@
 import icons from '../icons.js';
 import Notification from '../misc/Notification.js';
-const { Notifications } = ags.Service;
-const { Button, Label, Box, Icon, Scrollable } = ags.Widget;
+import { Widget, Notifications } from '../imports.js';
 
-const ClearButton = () => Button({
-    onClicked: Notifications.clear,
-    connections: [[Notifications, button => {
-        button.sensitive = Notifications.notifications.length > 0;
-    }]],
-    child: Box({
+const ClearButton = () => Widget.Button({
+    onClicked: () => Notifications.clear(),
+    binds: [['sensitive', Notifications, 'notifications', n => n.length > 0]],
+    child: Widget.Box({
         children: [
-            Label('Clear '),
-            Icon({
-                connections: [[Notifications, icon => {
-                    icon.icon = Notifications.notifications.length > 0
-                        ? icons.trash.full : icons.trash.empty;
-                }]],
+            Widget.Label('Clear '),
+            Widget.Icon({
+                binds: [['icon', Notifications, 'notifications', n =>
+                    n.length > 0 ? icons.trash.full : icons.trash.empty]],
             }),
         ],
     }),
 });
 
-const Header = () => Box({
+const Header = () => Widget.Box({
     className: 'header',
     children: [
-        Label({ label: 'Notifications', hexpand: true, xalign: 0 }),
+        Widget.Label({ label: 'Notifications', hexpand: true, xalign: 0 }),
         ClearButton(),
     ],
 });
 
-const NotificationList = () => Box({
+const NotificationList = () => Widget.Box({
     vertical: true,
     vexpand: true,
     connections: [[Notifications, box => {
         box.children = Notifications.notifications
-            .reverse()
-            .map(n => Notification(n));
+            .reverse().map(Notification);
 
         box.visible = Notifications.notifications.length > 0;
     }]],
 });
 
-const Placeholder = () => Box({
+const Placeholder = () => Widget.Box({
     className: 'placeholder',
     vertical: true,
     valign: 'center',
@@ -49,25 +43,23 @@ const Placeholder = () => Box({
     vexpand: true,
     hexpand: true,
     children: [
-        Icon(icons.notifications.silent),
-        Label('Your inbox is empty'),
+        Widget.Icon(icons.notifications.silent),
+        Widget.Label('Your inbox is empty'),
     ],
-    connections: [[Notifications, box => {
-        box.visible = Notifications.notifications.length === 0;
-    }]],
+    binds: [['visible', Notifications, 'notifications', n => n.length === 0]],
 });
 
-export default () => Box({
+export default () => Widget.Box({
     className: 'notifications',
     vertical: true,
     children: [
         Header(),
-        Scrollable({
+        Widget.Scrollable({
             vexpand: true,
             className: 'notification-scrollable',
             hscroll: 'never',
             vscroll: 'automatic',
-            child: Box({
+            child: Widget.Box({
                 className: 'notification-list',
                 vertical: true,
                 children: [

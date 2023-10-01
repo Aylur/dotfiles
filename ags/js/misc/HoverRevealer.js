@@ -1,4 +1,4 @@
-const { Box, EventBox, Revealer } = ags.Widget;
+import { Widget, Utils } from '../imports.js';
 
 export default ({
     indicator,
@@ -15,7 +15,7 @@ export default ({
     const posStart = direction === 'down' || direction === 'right';
     const posEnd = direction === 'up' || direction === 'left';
 
-    const revealer = Revealer({
+    const revealer = Widget.Revealer({
         transition: `slide_${direction}`,
         connections,
         binds,
@@ -23,7 +23,7 @@ export default ({
         child,
     });
 
-    const box = EventBox({
+    const box = Widget.EventBox({
         ...rest,
         connections: eventboxConnections,
         onHover: () => {
@@ -31,7 +31,7 @@ export default ({
                 return;
 
             revealer.revealChild = true;
-            ags.Utils.timeout(duration, () => open = true);
+            Utils.timeout(duration, () => open = true);
         },
         onHoverLost: () => {
             if (!open)
@@ -40,7 +40,7 @@ export default ({
             revealer.revealChild = false;
             open = false;
         },
-        child: Box({
+        child: Widget.Box({
             vertical,
             children: [
                 posStart && indicator,
@@ -50,7 +50,7 @@ export default ({
         }),
     });
 
-    return Box({
+    return Widget.Box({
         children: [box],
     });
 };

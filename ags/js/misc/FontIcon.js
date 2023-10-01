@@ -1,5 +1,6 @@
 import Gtk from 'gi://Gtk';
 import GObject from 'gi://GObject';
+import { Widget } from '../imports.js';
 
 class FontIcon extends Gtk.Label {
     static { GObject.registerClass(this); }
@@ -31,5 +32,5 @@ class FontIcon extends Gtk.Label {
 }
 
 export default params => typeof params === 'string'
-    ? ags.Widget({ type: FontIcon, icon: params })
-    : ags.Widget({ type: FontIcon, ...params });
+    ? Widget({ type: FontIcon, icon: params })
+    : Widget({ type: FontIcon, ...params });

@@ -1,4 +1,5 @@
-const WP = `/home/${ags.Utils.USER}/Pictures/Wallpapers/`;
+import { Utils } from './imports.js';
+const WP = `/home/${Utils.USER}/Pictures/Wallpapers/`;
 
 const editScheme = (scheme, edit) => {
     const obj = {};
@@ -17,9 +18,9 @@ const gnome = {
 };
 
 const charm = {
-    red: '#e67090',
-    green: '#43c383',
-    yellow: '#d8e77b',
+    red: '#e55f86',
+    green: '#00D787',
+    yellow: '#EBFF71',
     blue: '#51a4e7',
     magenta: '#9077e7',
     teal: '#51e6e6',
@@ -53,6 +54,9 @@ const misc = {
     bar_style: 'normal',
     layout: 'topbar',
     desktop_clock: 'center center',
+    font: 'Ubuntu Nerd Font',
+    mono_font: 'Mononoki Nerd Font',
+    font_size: 16,
 };
 
 const colors = {

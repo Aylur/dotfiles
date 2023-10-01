@@ -2,19 +2,21 @@ import themes from '../../themes.js';
 import setupScss from './scss.js';
 import setupHyprland from './hyprland.js';
 import { SettingsDialog } from '../../settingsdialog/SettingsDialog.js';
-const { Service } = ags;
-const { USER, exec, execAsync, readFile, writeFile, CACHE_DIR } = ags.Utils;
-const THEME_CACHE = CACHE_DIR + '/theme-overrides.json';
+import { Service, Utils } from '../../imports.js';
+
+const THEME_CACHE = Utils.CACHE_DIR + '/theme-overrides.json';
 
 class ThemeService extends Service {
     static { Service.register(this); }
 
-    _defaultAvatar = `/home/${USER}/Pictures/avatars/donna.jpg`;
+    get themes() { return themes; }
+
+    _defaultAvatar = `/home/${Utils.USER}/Pictures/avatars/donna.jpg`;
     _defaultTheme = themes[0].name;
 
     constructor() {
         super();
-        exec('swww init');
+        Utils.exec('swww init');
         this.setup();
     }
 
@@ -42,7 +44,7 @@ class ThemeService extends Service {
     }
 
     reset() {
-        exec(`rm ${THEME_CACHE}`);
+        Utils.exec(`rm ${THEME_CACHE}`);
         this._settings = null;
         this.setup();
         this.emit('changed');
@@ -51,17 +53,17 @@ class ThemeService extends Service {
     setupOther() {
         const darkmode = this.getSetting('color_scheme') === 'dark';
 
-        if (exec('which gsettings')) {
+        if (Utils.exec('which gsettings')) {
             const gsettings = 'gsettings set org.gnome.desktop.interface color-scheme';
-            execAsync(`${gsettings} "prefer-${darkmode ? 'dark' : 'light'}"`).catch(print);
+            Utils.execAsync(`${gsettings} "prefer-${darkmode ? 'dark' : 'light'}"`).catch(print);
         }
     }
 
     setupWallpaper() {
-        execAsync([
+        Utils.execAsync([
             'swww', 'img',
             '--transition-type', 'grow',
-            '--transition-pos', exec('hyprctl cursorpos').replace(' ', ''),
+            '--transition-pos', Utils.exec('hyprctl cursorpos').replace(' ', ''),
             this.getSetting('wallpaper'),
         ]).catch(print);
     }
@@ -71,7 +73,7 @@ class ThemeService extends Service {
             return this._settings;
 
         try {
-            this._settings = JSON.parse(readFile(THEME_CACHE));
+            this._settings = JSON.parse(Utils.readFile(THEME_CACHE));
         } catch (_) {
             this._settings = {};
         }
@@ -82,14 +84,14 @@ class ThemeService extends Service {
     setSetting(prop, value) {
         const settings = this.settings;
         settings[prop] = value;
-        writeFile(JSON.stringify(settings, null, 2), THEME_CACHE).catch(print);
+        Utils.writeFile(JSON.stringify(settings, null, 2), THEME_CACHE).catch(print);
         this._settings = settings;
         this.emit('changed');
 
         if (prop === 'layout') {
             if (!this._notiSent) {
                 this._notiSent = true;
-                execAsync(['notify-send', 'Layout Change Needs a Reload']);
+                Utils.execAsync(['notify-send', 'Layout Change Needs a Reload']);
             }
             return;
         }
@@ -110,14 +112,4 @@ class ThemeService extends Service {
     }
 }
 
-export default class Theme {
-    static { Service.Theme = this; }
-    static instance = new ThemeService();
-    static get themes() { return themes; }
-
-    static setup() { Theme.instance.setup(); }
-    static reset() { Theme.instance.reset(); }
-    static openSettings() { Theme.instance.openSettings(); }
-    static getSetting(prop) { return Theme.instance.getSetting(prop); }
-    static setSetting(prop, value) { return Theme.instance.setSetting(prop, value); }
-}
+export default new ThemeService();

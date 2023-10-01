@@ -1,9 +1,10 @@
+import { Service, Utils } from '../imports.js';
 import icons from '../icons.js';
 import { getAudioTypeIcon } from '../utils.js';
-const { Service } = ags;
-const { timeout, connect } = ags.Utils;
+import { Audio } from '../imports.js';
+import Brightness from './brightness.js';
 
-class IndicatorService extends Service {
+class Indicator extends Service {
     static {
         Service.register(this, {
             'popup': ['double', 'string'],
@@ -16,7 +17,7 @@ class IndicatorService extends Service {
     popup(value, icon) {
         this.emit('popup', value, icon);
         this._count++;
-        timeout(this._delay, () => {
+        Utils.timeout(this._delay, () => {
             this._count--;
 
             if (this._count === 0)
@@ -26,35 +27,28 @@ class IndicatorService extends Service {
 
     speaker() {
         this.popup(
-            ags.Service.Audio.speaker.volume,
-            getAudioTypeIcon(ags.Service.Audio.speaker.iconName),
+            Audio.speaker.volume,
+            getAudioTypeIcon(Audio.speaker.iconName),
         );
     }
 
     display() {
         // brightness is async, so lets wait a bit
-        timeout(10, () => this.popup(
-            ags.Service.Brightness.screen,
+        Utils.timeout(10, () => this.popup(
+            Brightness.screen,
             icons.brightness.screen));
     }
 
     kbd() {
         // brightness is async, so lets wait a bit
-        timeout(10, () => this.popup(
-            (ags.Service.Brightness.kbd * 33 + 1) / 100,
+        Utils.timeout(10, () => this.popup(
+            (Brightness.kbd * 33 + 1) / 100,
             icons.brightness.keyboard));
     }
 
     connectWidget(widget, callback) {
-        connect(this, widget, callback, 'popup');
+        Utils.connect(this, widget, callback, 'popup');
     }
 }
 
-export default class Indicator {
-    static { Service.Indicator = this; }
-    static instance = new IndicatorService();
-    static popup(value, icon) { Indicator.instance.popup(value, icon); }
-    static speaker() { Indicator.instance.speaker(); }
-    static display() { Indicator.instance.display(); }
-    static kbd() { Indicator.instance.kbd(); }
-}
+export default new Indicator();

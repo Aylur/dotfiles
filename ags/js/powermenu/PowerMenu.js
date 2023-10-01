@@ -1,15 +1,15 @@
 import icons from '../icons.js';
 import PowerMenu from '../services/powermenu.js';
 import PopupWindow from '../misc/PopupWindow.js';
-const { Box, Icon, Label, Button } = ags.Widget;
+import { Widget } from '../imports.js';
 
-const SysButton = (action, label) => Button({
+const SysButton = (action, label) => Widget.Button({
     onClicked: () => PowerMenu.action(action),
-    child: Box({
+    child: Widget.Box({
         vertical: true,
         children: [
-            Icon(icons.powermenu[action]),
-            Label(label),
+            Widget.Icon(icons.powermenu[action]),
+            Widget.Label(label),
         ],
     }),
 });
@@ -17,7 +17,7 @@ const SysButton = (action, label) => Button({
 export default () => PopupWindow({
     name: 'powermenu',
     expand: true,
-    content: Box({
+    content: Widget.Box({
         className: 'powermenu',
         homogeneous: true,
         children: [

@@ -1,6 +1,7 @@
 import Gtk from 'gi://Gtk';
+import { Widget } from '../imports.js';
 
-const Corner = place => ags.Widget({
+const Corner = place => Widget({
     type: Gtk.DrawingArea,
     className: 'corner',
     hexpand: true,
@@ -43,7 +44,7 @@ const Corner = place => ags.Widget({
 });
 
 const places = ['topleft', 'topright', 'bottomleft', 'bottomright'];
-export default monitor => places.map(place => ags.Widget.Window({
+export default monitor => places.map(place => Widget.Window({
     name: `corner${monitor}${place}`,
     monitor,
     className: 'corner',

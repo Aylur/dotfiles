@@ -1,9 +1,8 @@
-const { Battery } = ags.Service;
-const { Icon } = ags.Widget;
+import { Battery, Widget } from '../imports.js';
 
-export default () => Icon({
+export default () => Widget.Icon({
     className: 'battery',
-    binds: [['icon', Battery, 'iconName']],
+    binds: [['icon', Battery, 'icon-name']],
     connections: [[Battery, stack => {
         const { charging, charged } = Battery;
         stack.shown = `${charging || charged}`;

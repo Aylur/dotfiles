@@ -1,14 +1,14 @@
-const { Label } = ags.Widget;
-const { DateTime } = imports.gi.GLib;
+import { Widget } from '../imports.js';
+import GLib from 'gi://GLib';
 
 export default ({
     format = '%H:%M:%S %B %e. %A',
     interval = 1000,
     ...props
-} = {}) => Label({
+} = {}) => Widget.Label({
     className: 'clock',
     ...props,
     connections: [[interval, label =>
-        label.label = DateTime.new_now_local().format(format),
+        label.label = GLib.DateTime.new_now_local().format(format),
     ]],
 });

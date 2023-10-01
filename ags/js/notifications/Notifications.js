@@ -1,58 +1,59 @@
 import Notification from '../misc/Notification.js';
-const { Notifications } = ags.Service;
-const { Box, Revealer, Window } = ags.Widget;
-const { timeout } = ags.Utils;
+import { Notifications, Widget, Utils } from '../imports.js';
 
-const Popups = () => Box({
-    vertical: true,
-    properties: [
-        ['map', new Map()],
-        ['dismiss', (box, id, force = false) => {
-            if (!id || !box._map.has(id))
-                return;
+const Popups = () => {
+    const map = new Map();
 
-            if (box._map.get(id)._hovered.value && !force)
-                return;
+    const onDismissed = (box, id, force = false) => {
+        if (!id || !map.has(id))
+            return;
 
-            if (box._map.size - 1 === 0)
-                box.get_parent().reveal_child = false;
+        if (map.get(id)._hovered.value && !force)
+            return;
 
-            timeout(200, () => {
-                box._map.get(id)?.destroy();
-                box._map.delete(id);
-            });
-        }],
-        ['notify', (box, id) => {
-            if (!id || Notifications.dnd)
-                return;
+        if (map.size - 1 === 0)
+            box.get_parent().revealChild = false;
 
-            box._map.delete(id);
-            box._map.set(id, Notification(Notifications.getNotification(id)));
-            box.children = Array.from(box._map.values()).reverse();
-            timeout(10, () => {
-                box.get_parent().revealChild = true;
-            });
-        }],
-    ],
-    connections: [
-        [Notifications, (box, id) => box._notify(box, id), 'notified'],
-        [Notifications, (box, id) => box._dismiss(box, id), 'dismissed'],
-        [Notifications, (box, id) => box._dismiss(box, id, true), 'closed'],
-    ],
-});
+        Utils.timeout(200, () => {
+            map.get(id)?.destroy();
+            map.delete(id);
+        });
+    };
 
-const PopupList = ({ transition = 'slide_down' } = {}) => Box({
+    const onNotified = (box, id) => {
+        if (!id || Notifications.dnd)
+            return;
+
+        map.delete(id);
+        map.set(id, Notification(Notifications.getNotification(id)));
+        box.children = Array.from(map.values()).reverse();
+        Utils.timeout(10, () => {
+            box.get_parent().revealChild = true;
+        });
+    };
+
+    return Widget.Box({
+        vertical: true,
+        connections: [
+            [Notifications, onNotified, 'notified'],
+            [Notifications, onDismissed, 'dismissed'],
+            [Notifications, (box, id) => onDismissed(box, id, true), 'closed'],
+        ],
+    });
+};
+
+const PopupList = ({ transition = 'slide_down' } = {}) => Widget.Box({
     className: 'notifications-popup-list',
     style: 'padding: 1px',
     children: [
-        Revealer({
+        Widget.Revealer({
             transition,
             child: Popups(),
         }),
     ],
 });
 
-export default monitor => Window({
+export default monitor => Widget.Window({
     monitor,
     name: `notifications${monitor}`,
     anchor: 'top',

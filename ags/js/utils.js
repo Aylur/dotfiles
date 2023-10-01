@@ -2,9 +2,10 @@ import Cairo from 'cairo';
 import options from './options.js';
 import icons from './icons.js';
 import Theme from './services/theme/theme.js';
+import { Utils, App, Battery } from './imports.js';
 
 export function forMonitors(widget) {
-    const ws = ags.Service.Hyprland.HyprctlGet('monitors');
+    const ws = JSON.parse(Utils.exec('hyprctl -j monitors'));
     return ws.map(mon => widget(mon.id));
 }
 
@@ -25,11 +26,10 @@ export function createSurfaceFromWidget(widget) {
 }
 
 export function warnOnLowBattery() {
-    const { Battery } = ags.Service;
-    Battery.instance.connect('changed', () => {
+    Battery.connect('changed', () => {
         const { low } = options.battaryBar;
         if (Battery.percentage < low || Battery.percentage < low / 2) {
-            ags.Utils.execAsync([
+            Utils.execAsync([
                 'notify-send',
                 `${Battery.percentage}% Battery Percentage`,
                 '-i', icons.battery.warning,
@@ -55,10 +55,22 @@ export function getAudioTypeIcon(icon) {
 }
 
 export function scssWatcher() {
-    return ags.Utils.subprocess([
+    return Utils.subprocess([
         'inotifywait',
         '--recursive',
         '--event', 'create,modify',
-        '-m', ags.App.configDir + '/scss',
-    ], Theme.setup);
+        '-m', App.configDir + '/scss',
+    ], () => Theme.setup());
+}
+
+import recorder from './services/screenrecord.js';
+import brightness from './services/brightness.js';
+import indicator from './services/onScreenIndicator.js';
+import { Audio as audio, Mpris as mpris } from './imports.js';
+export async function globalServices() {
+    globalThis.recorder = recorder;
+    globalThis.brightness = brightness;
+    globalThis.indicator = indicator;
+    globalThis.audio = audio;
+    globalThis.mpris = mpris;
 }

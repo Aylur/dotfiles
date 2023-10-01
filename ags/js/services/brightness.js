@@ -1,12 +1,14 @@
-const { Service } = ags;
-const { exec, execAsync } = ags.Utils;
+import { Service, Utils } from '../imports.js';
+import options from '../options.js';
+const KBD = options.brightnessctlKBD;
 
-// Change this to whatever keyboard you have
-// you can check with brightnessctl --list
-const KBD = 'asus::kbd_backlight';
-
-class BrightnessService extends Service {
-    static { Service.register(this); }
+class Brightness extends Service {
+    static {
+        Service.register(this, {}, {
+            'screen': ['float', 'rw'],
+            'kbd': ['int', 'rw'],
+        });
+    }
 
     _kbd = 0;
     _screen = 0;
@@ -18,10 +20,10 @@ class BrightnessService extends Service {
         if (value < 0 || value > this._kbdMax)
             return;
 
-        execAsync(`brightnessctl -d ${KBD} s ${value} -q`)
+        Utils.execAsync(`brightnessctl -d ${KBD} s ${value} -q`)
             .then(() => {
                 this._kbd = value;
-                this.emit('changed');
+                this.changed('kbd');
             })
             .catch(print);
     }
@@ -33,28 +35,20 @@ class BrightnessService extends Service {
         if (percent > 1)
             percent = 1;
 
-        execAsync(`brightnessctl s ${percent * 100}% -q`)
+        Utils.execAsync(`brightnessctl s ${percent * 100}% -q`)
             .then(() => {
                 this._screen = percent;
-                this.emit('changed');
+                this.changed('screen');
             })
             .catch(print);
     }
 
     constructor() {
         super();
-        this._kbd = Number(exec(`brightnessctl -d ${KBD} g`));
-        this._kbdMax = Number(exec(`brightnessctl -d ${KBD} m`));
-        this._screen = Number(exec('brightnessctl g')) / Number(exec('brightnessctl m'));
+        this._kbd = Number(Utils.exec(`brightnessctl -d ${KBD} g`));
+        this._kbdMax = Number(Utils.exec(`brightnessctl -d ${KBD} m`));
+        this._screen = Number(Utils.exec('brightnessctl g')) / Number(Utils.exec('brightnessctl m'));
     }
 }
 
-export default class Brightness {
-    static { Service.Brightness = this; }
-    static instance = new BrightnessService();
-
-    static get kbd() { return Brightness.instance.kbd; }
-    static get screen() { return Brightness.instance.screen; }
-    static set kbd(value) { Brightness.instance.kbd = value; }
-    static set screen(value) { Brightness.instance.screen = value; }
-}
+export default new Brightness();

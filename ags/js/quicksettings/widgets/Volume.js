@@ -4,12 +4,11 @@ import Separator from '../../misc/Separator.js';
 import { getAudioTypeIcon } from '../../utils.js';
 import { Arrow } from '../ToggleButton.js';
 import { Menu } from '../ToggleButton.js';
-const { Audio } = ags.Service;
-const { Label, Icon, Box, Slider, Button } = ags.Widget;
+import { Audio, Widget, Utils } from '../../imports.js';
 
-const TypeIndicator = () => Button({
-    onClicked: 'pactl set-sink-mute @DEFAULT_SINK@ toggle',
-    child: Icon({
+const TypeIndicator = () => Widget.Button({
+    onClicked: () => Audio.speaker.isMuted = !Audio.speaker.isMuted,
+    child: Widget.Icon({
         connections: [[Audio, icon => {
             if (!Audio.speaker)
                 return;
@@ -20,26 +19,22 @@ const TypeIndicator = () => Button({
     }),
 });
 
-const VolumeSlider = () => Slider({
+const VolumeSlider = () => Widget.Slider({
     hexpand: true,
     drawValue: false,
     onChange: ({ value }) => Audio.speaker.volume = value,
     connections: [[Audio, slider => {
-        if (!Audio.speaker)
-            return;
-
-        slider.sensitive = !Audio.speaker.isMuted;
-        slider.value = Audio.speaker.volume;
+        slider.value = Audio.speaker?.volume;
     }, 'speaker-changed']],
 });
 
-export const Volume = () => Box({
+export const Volume = () => Widget.Box({
     className: 'slider',
     children: [
         TypeIndicator(),
         VolumeSlider(),
         Arrow('sink-selector'),
-        Box({
+        Widget.Box({
             children: [Arrow('app-mixer')],
             connections: [[Audio, box => {
                 box.visible = Array.from(Audio.apps).length > 0;
@@ -48,39 +43,37 @@ export const Volume = () => Box({
     ],
 });
 
-const MixerItem = stream => Box({
+const MixerItem = stream => Widget.Box({
     hexpand: true,
     className: 'mixer-item',
     children: [
-        Icon({
+        Widget.Icon({
             binds: [['tooltipText', stream, 'name']],
             connections: [[stream, icon => {
-                icon.icon = ags.Utils.lookUpIcon(stream.name)
+                icon.icon = Utils.lookUpIcon(stream.name)
                     ? stream.name
                     : icons.mpris.fallback;
             }]],
         }),
-        Box({
+        Widget.Box({
             children: [
-                Box({
+                Widget.Box({
                     vertical: true,
                     children: [
-                        Label({
+                        Widget.Label({
                             xalign: 0,
                             truncate: 'end',
                             binds: [['label', stream, 'description']],
                         }),
-                        Slider({
+                        Widget.Slider({
                             hexpand: true,
                             drawValue: false,
                             binds: [['value', stream, 'volume']],
-                            onChange: ({ value }) => {
-                                stream.volume = value;
-                            },
+                            onChange: ({ value }) => stream.volume = value,
                         }),
                     ],
                 }),
-                Label({
+                Widget.Label({
                     xalign: 1,
                     connections: [[stream, l => {
                         l.label = `${Math.floor(stream.volume * 100)}%`;
@@ -91,17 +84,17 @@ const MixerItem = stream => Box({
     ],
 });
 
-const SinkItem = stream => Button({
+const SinkItem = stream => Widget.Button({
     hexpand: true,
     onClicked: () => Audio.speaker = stream,
-    child: Box({
+    child: Widget.Box({
         children: [
-            Icon({
+            Widget.Icon({
                 icon: getAudioTypeIcon(stream.iconName),
                 tooltipText: stream.iconName,
             }),
-            Label(stream.description.split(' ').slice(0, 4).join(' ')),
-            Icon({
+            Widget.Label(stream.description.split(' ').slice(0, 4).join(' ')),
+            Widget.Icon({
                 icon: icons.tick,
                 hexpand: true,
                 halign: 'end',
@@ -113,13 +106,13 @@ const SinkItem = stream => Button({
     }),
 });
 
-const SettingsButton = () => Button({
+const SettingsButton = () => Widget.Button({
     onClicked: 'pavucontrol',
     hexpand: true,
-    child: Box({
+    child: Widget.Box({
         children: [
-            Icon(icons.settings),
-            Label('Settings'),
+            Widget.Icon(icons.settings),
+            Widget.Label('Settings'),
         ],
     }),
 });
@@ -127,16 +120,14 @@ const SettingsButton = () => Button({
 export const AppMixer = () => Menu({
     name: 'app-mixer',
     icon: FontIcon(icons.audio.mixer),
-    title: Label('App Mixer'),
-    content: Box({
+    title: Widget.Label('App Mixer'),
+    content: Widget.Box({
         className: 'app-mixer',
         vertical: true,
         children: [
-            Box({
+            Widget.Box({
                 vertical: true,
-                connections: [[Audio, box => {
-                    box.children = Audio.apps.map(MixerItem);
-                }]],
+                binds: [['children', Audio, 'apps', a => a.map(MixerItem)]],
             }),
             Separator({ orientation: 'horizontal' }),
             SettingsButton(),
@@ -146,17 +137,17 @@ export const AppMixer = () => Menu({
 
 export const SinkSelector = () => Menu({
     name: 'sink-selector',
-    icon: Icon(icons.audio.type.headset),
-    title: Label('Sink Selector'),
-    content: Box({
+    icon: Widget.Icon(icons.audio.type.headset),
+    title: Widget.Label('Sink Selector'),
+    content: Widget.Box({
         className: 'sink-selector',
         vertical: true,
         children: [
-            Box({
+            Widget.Box({
                 vertical: true,
                 connections: [[Audio, box => {
                     box.children = Audio.speakers.map(SinkItem);
-                }]],
+                }, 'notify::speaker']],
             }),
             Separator({ orientation: 'horizontal' }),
             SettingsButton(),

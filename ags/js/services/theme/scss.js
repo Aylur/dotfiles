@@ -1,4 +1,4 @@
-const { exec, writeFile, ensureDirectory } = ags.Utils;
+import { Utils, App } from '../../imports.js';
 
 const generated = str => `// THIS FILE IS GENERATED
 ${str}`;
@@ -43,9 +43,9 @@ $drop_shadow: ${t.drop_shadow};
 
 $transition: ${t.transition}ms;
 
-$font_size: 16px;
-$font: 'Ubuntu Nerd Font';
-$mono_font: 'Mononoki Nerd Font', monospace;
+$font_size: ${t.font_size}px;
+$font: '${t.font}';
+$mono_font: '${t.mono_font}', monospace;
 $wallpaper_fg: ${t.wallpaper_fg};
 $shader_fg: white;
 
@@ -55,13 +55,13 @@ $layout: ${t.layout};`;
 
 export default async function(theme) {
     const tmp = '/tmp/ags/scss';
-    ensureDirectory(tmp);
+    Utils.ensureDirectory(tmp);
     try {
-        await writeFile(generated(scss(theme)), `${tmp}/generated.scss`);
-        await writeFile(generated(theme.additional_scss || ''), `${tmp}/additional.scss`);
-        exec(`sassc ${ags.App.configDir}/scss/main.scss ${tmp}/style.css`);
-        ags.App.resetCss();
-        ags.App.applyCss(`${tmp}/style.css`);
+        await Utils.writeFile(generated(scss(theme)), `${tmp}/generated.scss`);
+        await Utils.writeFile(generated(theme.additional_scss || ''), `${tmp}/additional.scss`);
+        Utils.exec(`sassc ${App.configDir}/scss/main.scss ${tmp}/style.css`);
+        App.resetCss();
+        App.applyCss(`${tmp}/style.css`);
     } catch (error) {
         console.error(error);
     }

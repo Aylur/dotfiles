@@ -1,6 +1,6 @@
 import icons from '../../icons.js';
 import PanelButton from '../PanelButton.js';
-const { Icon, Box, Revealer } = ags.Widget;
+import { Widget, Utils, Variable } from '../../imports.js';
 
 const Arrow = (revealer, direction, items) => PanelButton({
     className: 'sub-menu',
@@ -12,7 +12,7 @@ const Arrow = (revealer, direction, items) => PanelButton({
         revealer.revealChild = !revealer.revealChild;
         icon._animate(icon);
     },
-    child: Icon({
+    child: Widget.Icon({
         icon: icons.ui.arrow[direction],
         setup: i => i._animate(i),
         properties: [
@@ -20,7 +20,7 @@ const Arrow = (revealer, direction, items) => PanelButton({
             ['animate', icon => {
                 const step = revealer.revealChild ? 10 : -10;
                 for (let i = 0; i < 18; ++i) {
-                    ags.Utils.timeout(2 * i, () => {
+                    Utils.timeout(2 * i, () => {
                         icon._deg += step;
                         icon.setStyle(`-gtk-icon-transform: rotate(${icon._deg}deg);`);
                     });
@@ -30,17 +30,17 @@ const Arrow = (revealer, direction, items) => PanelButton({
     }),
 });
 
-export default ({ children, direction = 'left', items = ags.Variable(0) }) => {
+export default ({ children, direction = 'left', items = Variable(0) }) => {
     const posStart = direction === 'up' || direction === 'left';
     const posEnd = direction === 'down' || direction === 'right';
-    const revealer = Revealer({
+    const revealer = Widget.Revealer({
         transition: `slide_${direction}`,
-        child: Box({
+        child: Widget.Box({
             children,
         }),
     });
 
-    return Box({
+    return Widget.Box({
         vertical: direction === 'up' || direction === 'down',
         children: [
             posStart && revealer,

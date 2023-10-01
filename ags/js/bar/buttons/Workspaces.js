@@ -1,19 +1,17 @@
-const { Hyprland } = ags.Service;
-const { Box, Button, EventBox, Label } = ags.Widget;
-const { execAsync } = ags.Utils;
+import { Hyprland, Widget, Utils } from '../../imports.js';
 import options from '../../options.js';
 
-export default ({ workspaces = options.workspaces } = {}) => Box({
+export default ({ workspaces = options.workspaces } = {}) => Widget.Box({
     className: 'workspaces panel-button',
-    child: Box({
-        children: [EventBox({
-            onScrollUp: () => execAsync('hyprctl dispatch workspace +1'),
-            onScrollDown: () => execAsync('hyprctl dispatch workspace -1'),
+    child: Widget.Box({
+        children: [Widget.EventBox({
+            onScrollUp: () => Utils.execAsync('hyprctl dispatch workspace +1'),
+            onScrollDown: () => Utils.execAsync('hyprctl dispatch workspace -1'),
             className: 'eventbox',
-            child: Box({
-                children: Array.from({ length: workspaces }, (_, i) => i + 1).map(i => Button({
-                    onClicked: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
-                    child: Label({
+            child: Widget.Box({
+                children: Array.from({ length: workspaces }, (_, i) => i + 1).map(i => Widget.Button({
+                    onClicked: () => Utils.execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
+                    child: Widget.Label({
                         label: `${i}`,
                         className: 'indicator',
                         valign: 'center',

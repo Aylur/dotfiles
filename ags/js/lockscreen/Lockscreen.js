@@ -1,10 +1,10 @@
 import Avatar from '../misc/Avatar.js';
 import Spinner from '../misc/Spinner.js';
 import Lockscreen from '../services/lockscreen.js';
-const { GtkLayerShell: Layer } = imports.gi;
-const { Entry, Box, Window } = ags.Widget;
+import { Widget } from '../imports.js';
+import { default as Layer } from 'gi://GtkLayerShell';
 
-export default monitor => Window({
+export default monitor => Widget.Window({
     name: `lockscreen${monitor}`,
     className: 'lockscreen',
     monitor,
@@ -12,10 +12,10 @@ export default monitor => Window({
     visible: false,
     setup: self => Layer.set_keyboard_mode(self, Layer.KeyboardMode.EXCLUSIVE),
     connections: [[Lockscreen, (w, lock) => w.visible = lock, 'lock']],
-    child: Box({
+    child: Widget.Box({
         style: 'min-width: 3000px; min-height: 2000px;',
         className: 'shader',
-        children: [Box({
+        children: [Widget.Box({
             className: 'content',
             vertical: true,
             hexpand: true,
@@ -28,9 +28,9 @@ export default monitor => Window({
                     halign: 'center',
                     valign: 'center',
                 }),
-                Box({
+                Widget.Box({
                     children: [
-                        Entry({
+                        Widget.Entry({
                             connections: [[Lockscreen, entry => entry.text = '', 'lock']],
                             visibility: false,
                             placeholderText: 'Password',

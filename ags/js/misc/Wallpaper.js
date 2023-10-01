@@ -1,7 +1,7 @@
 import Theme from '../services/theme/theme.js';
-const { Box } = ags.Widget;
+import { Widget } from '../imports.js';
 
-export default ({ className, ...props }) => Box({
+export default ({ className, ...props }) => Widget.Box({
     ...props,
     className: `wallpaper ${className}`,
     connections: [[Theme, box => {

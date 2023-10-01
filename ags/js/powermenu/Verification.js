@@ -1,37 +1,35 @@
 import PopupWindow from '../misc/PopupWindow.js';
 import PowerMenu from '../services/powermenu.js';
-const { Label, Box, Button } = ags.Widget;
+import { Widget, App, Utils } from '../imports.js';
 
 export default () => PopupWindow({
     name: 'verification',
     expand: true,
-    content: Box({
+    content: Widget.Box({
         className: 'verification',
         vertical: true,
         children: [
-            Label({
+            Widget.Label({
                 className: 'title',
-                connections: [[PowerMenu, label => {
-                    label.label = PowerMenu.instance.title || '';
-                }]],
+                binds: [['label', PowerMenu, 'title']],
             }),
-            Label({
+            Widget.Label({
                 className: 'desc',
                 label: 'Are you sure?',
             }),
-            Box({
+            Widget.Box({
                 className: 'buttons',
                 vexpand: true,
                 valign: 'end',
                 homogeneous: true,
                 children: [
-                    Button({
-                        child: Label('No'),
-                        onClicked: () => ags.App.toggleWindow('verification'),
+                    Widget.Button({
+                        child: Widget.Label('No'),
+                        onClicked: () => App.toggleWindow('verification'),
                     }),
-                    Button({
-                        child: Label('Yes'),
-                        onClicked: () => ags.Utils.exec(PowerMenu.instance.cmd),
+                    Widget.Button({
+                        child: Widget.Label('Yes'),
+                        onClicked: () => Utils.exec(PowerMenu.cmd),
                     }),
                 ],
             }),

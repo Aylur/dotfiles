@@ -2,19 +2,15 @@ import icons from '../../icons.js';
 import Separator from '../../misc/Separator.js';
 import Asusctl from '../../services/asusctl.js';
 import { ArrowToggleButton, Menu } from '../ToggleButton.js';
-const { Icon, Label, Box, Button } = ags.Widget;
+import { Widget } from '../../imports.js';
 
 export const ProfileToggle = () => ArrowToggleButton({
     name: 'asusctl-profile',
-    icon: Icon({
-        connections: [[Asusctl, icon => {
-            icon.icon = icons.asusctl.profile[Asusctl.profile];
-        }]],
+    icon: Widget.Icon({
+        binds: [['icon', Asusctl, 'profile', p => icons.asusctl.profile[p]]],
     }),
-    label: Label({
-        connections: [[Asusctl, label => {
-            label.label = Asusctl.profile;
-        }]],
+    label: Widget.Label({
+        binds: [['label', Asusctl, 'profile']],
     }),
     connection: [Asusctl, () => Asusctl.profile !== 'Balanced'],
     activate: () => Asusctl.setProfile('Quiet'),
@@ -24,31 +20,29 @@ export const ProfileToggle = () => ArrowToggleButton({
 
 export const ProfileSelector = () => Menu({
     name: 'asusctl-profile',
-    icon: Icon({
-        connections: [[Asusctl, icon => {
-            icon.icon = icons.asusctl.profile[Asusctl.profile];
-        }]],
+    icon: Widget.Icon({
+        binds: [['icon', Asusctl, 'profile', p => icons.asusctl.profile[p]]],
     }),
-    title: Label('Profile Selector'),
-    content: Box({
+    title: Widget.Label('Profile Selector'),
+    content: Widget.Box({
         vertical: true,
         hexpand: true,
-        children: Asusctl.profiles.map(prof => Button({
+        children: Asusctl.profiles.map(prof => Widget.Button({
             onClicked: () => Asusctl.setProfile(prof),
-            child: Box({
+            child: Widget.Box({
                 children: [
-                    Icon(icons.asusctl.profile[prof]),
-                    Label(prof),
+                    Widget.Icon(icons.asusctl.profile[prof]),
+                    Widget.Label(prof),
                 ],
             }),
         })).concat([
             Separator({ orientation: 'horizontal' }),
-            Button({
+            Widget.Button({
                 onClicked: 'rog-control-center',
-                child: Box({
+                child: Widget.Box({
                     children: [
-                        Icon(icons.settings),
-                        Label('Rog Control Center'),
+                        Widget.Icon(icons.settings),
+                        Widget.Label('Rog Control Center'),
                     ],
                 }),
             }),

@@ -3,23 +3,23 @@ import { ArrowToggleButton, Menu, opened } from '../ToggleButton.js';
 import themes from '../../themes.js';
 import icons from '../../icons.js';
 import Separator from '../../misc/Separator.js';
-const { Stack, Label, Box, Button, Icon } = ags.Widget;
+import { Widget } from '../../imports.js';
 
 const prettyName = name => name
     .split('_')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 
-const ThemeIcon = () => Stack({
+const ThemeIcon = () => Widget.Stack({
     transition: 'crossfade',
-    items: themes.map(({ name, icon }) => [name, Label(icon)]),
+    items: themes.map(({ name, icon }) => [name, Widget.Label(icon)]),
     connections: [[Theme, stack => stack.shown = Theme.getSetting('theme')]],
 });
 
 export const ThemeToggle = () => ArrowToggleButton({
     name: 'theme',
     icon: ThemeIcon(),
-    label: Label({
+    label: Widget.Label({
         connections: [[Theme, label => {
             label.label = prettyName(Theme.getSetting('theme'));
         }]],
@@ -33,16 +33,16 @@ export const ThemeToggle = () => ArrowToggleButton({
 export const ThemeSelector = () => Menu({
     name: 'theme',
     icon: ThemeIcon(),
-    title: Label('Theme Selector'),
-    content: Box({
+    title: Widget.Label('Theme Selector'),
+    content: Widget.Box({
         vertical: true,
-        children: themes.map(({ name, icon }) => Button({
+        children: themes.map(({ name, icon }) => Widget.Button({
             onClicked: () => Theme.setSetting('theme', name),
-            child: Box({
+            child: Widget.Box({
                 children: [
-                    Label(icon),
-                    Label(prettyName(name)),
-                    Icon({
+                    Widget.Label(icon),
+                    Widget.Label(prettyName(name)),
+                    Widget.Icon({
                         icon: icons.tick,
                         hexpand: true,
                         halign: 'end',
@@ -54,12 +54,12 @@ export const ThemeSelector = () => Menu({
             }),
         })).concat([
             Separator({ orientation: 'horizontal' }),
-            Button({
+            Widget.Button({
                 onClicked: () => Theme.openSettings(),
-                child: Box({
+                child: Widget.Box({
                     children: [
-                        Icon(icons.settings),
-                        Label('Theme Settings'),
+                        Widget.Icon(icons.settings),
+                        Widget.Label('Theme Settings'),
                     ],
                 }),
             }),

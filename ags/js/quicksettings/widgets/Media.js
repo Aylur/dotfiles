@@ -1,11 +1,12 @@
 import * as mpris from '../../misc/mpris.js';
-const { Mpris } = ags.Service;
-const { Box, CenterBox } = ags.Widget;
+import { Mpris, Widget } from '../../imports.js';
 
-const Footer = player => CenterBox({
+const blackList = ['Caprine'];
+
+const Footer = player => Widget.CenterBox({
     className: 'footer-box',
     children: [
-        Box({
+        Widget.Box({
             className: 'position',
             children: [
                 mpris.PositionLabel(player),
@@ -13,7 +14,7 @@ const Footer = player => CenterBox({
                 mpris.LengthLabel(player),
             ],
         }),
-        Box({
+        Widget.Box({
             className: 'controls',
             children: [
                 mpris.ShuffleButton(player),
@@ -27,22 +28,21 @@ const Footer = player => CenterBox({
             symbolic: false,
             hexpand: true,
             halign: 'end',
-            tooltipText: player.name,
         }),
     ],
 });
 
-const TextBox = player => Box({
+const TextBox = player => Widget.Box({
     children: [
         mpris.CoverArt(player, {
             halign: 'end',
             hexpand: false,
-            child: Box({
+            child: Widget.Box({
                 className: 'shader',
                 hexpand: true,
             }),
         }),
-        Box({
+        Widget.Box({
             hexpand: true,
             vertical: true,
             className: 'labels',
@@ -62,13 +62,13 @@ const TextBox = player => Box({
     ],
 });
 
-const PlayerBox = player => Box({
+const PlayerBox = player => Widget.Box({
     className: `player ${player.name}`,
     children: [
         mpris.BlurredCoverArt(player, {
             className: 'cover-art-bg',
             hexpand: true,
-            children: [Box({
+            children: [Widget.Box({
                 className: 'shader',
                 hexpand: true,
                 vertical: true,
@@ -82,7 +82,7 @@ const PlayerBox = player => Box({
     ],
 });
 
-export default () => Box({
+export default () => Widget.Box({
     vertical: true,
     className: 'media',
     properties: [['players', new Map()]],
@@ -92,6 +92,9 @@ export default () => Box({
                 return;
 
             const player = Mpris.getPlayer(busName);
+            if (blackList.includes(player.identity))
+                return;
+
             box._players.set(busName, PlayerBox(player));
             box.children = Array.from(box._players.values());
         }, 'player-added'],

@@ -1,19 +1,17 @@
 import icons from '../icons.js';
-const { CACHE_DIR, execAsync, ensureDirectory, lookUpIcon } = ags.Utils;
-const { Button, Icon, Label, Box, Stack, Slider } = ags.Widget;
-const { GLib } = imports.gi;
+import { Utils, Widget } from '../imports.js';
+import GLib from 'gi://GLib';
 
-const MEDIA_CACHE_PATH = CACHE_DIR + '/media';
+const MEDIA_CACHE_PATH = Utils.CACHE_DIR + '/media';
 
-export const CoverArt = (player, props) => Box({
+export const CoverArt = (player, props) => Widget.Box({
     ...props,
     className: 'cover',
-    connections: [[player, box => {
-        box.setStyle(`background-image: url("${player.coverPath}")`);
-    }]],
+    binds: [['style', player, 'cover-path',
+        path => `background-image: url("${path}")`]],
 });
 
-export const BlurredCoverArt = (player, props) => Box({
+export const BlurredCoverArt = (player, props) => Widget.Box({
     ...props,
     className: 'blurred-cover',
     connections: [[player, box => {
@@ -30,40 +28,38 @@ export const BlurredCoverArt = (player, props) => Box({
             return;
         }
 
-        ensureDirectory(blurredPath);
-        execAsync(['convert', url, '-blur', '0x22', blurred])
+        Utils.ensureDirectory(blurredPath);
+        Utils.execAsync(['convert', url, '-blur', '0x22', blurred])
             .then(() => box.setStyle(`background-image: url("${blurred}")`))
             .catch(() => { });
-    }]],
+    }, 'notify::cover-path']],
 });
 
-export const TitleLabel = (player, props) => Label({
+export const TitleLabel = (player, props) => Widget.Label({
     ...props,
     className: 'title',
-    binds: [['label', player, 'trackTitle']],
+    binds: [['label', player, 'track-title']],
 });
 
-export const ArtistLabel = (player, props) => Label({
+export const ArtistLabel = (player, props) => Widget.Label({
     ...props,
     className: 'artist',
-    connections: [[player, label => {
-        label.label = player.trackArtists.join(', ') || '';
-    }]],
+    binds: [['label', player, 'track-artists', a => a.join(', ') || '']],
 });
 
-export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => Icon({
+export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => Widget.Icon({
     ...props,
     className: 'player-icon',
-    tooltipText: player.indentity || '',
+    tooltipText: player.identity || '',
     connections: [[player, icon => {
         const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
-        lookUpIcon(name)
+        Utils.lookUpIcon(name)
             ? icon.icon = name
             : icon.icon = icons.mpris.fallback;
     }]],
 });
 
-export const PositionSlider = (player, props) => Slider({
+export const PositionSlider = (player, props) => Widget.Slider({
     ...props,
     className: 'position-slider',
     drawValue: false,
@@ -79,6 +75,7 @@ export const PositionSlider = (player, props) => Slider({
             slider.value = player.position / player.length;
     }]],
     connections: [
+        [player, s => s._update(s)],
         [player, s => s._update(s), 'position'],
         [1000, s => s._update(s)],
     ],
@@ -86,24 +83,24 @@ export const PositionSlider = (player, props) => Slider({
 
 function lengthStr(length) {
     const min = Math.floor(length / 60);
-    const sec0 = Math.floor(length % 60) < 10 ? '0' : '';
     const sec = Math.floor(length % 60);
+    const sec0 = sec < 10 ? '0' : '';
     return `${min}:${sec0}${sec}`;
 }
 
-export const PositionLabel = player => Label({
-    properties: [['update', label => {
+export const PositionLabel = player => Widget.Label({
+    properties: [['update', (label, time) => {
         player.length > 0
-            ? label.label = lengthStr(player.position)
+            ? label.label = lengthStr(time || player.position)
             : label.visible = !!player;
     }]],
     connections: [
-        [player, l => l._update(l), 'position'],
+        [player, (l, time) => l._update(l, time), 'position'],
         [1000, l => l._update(l)],
     ],
 });
 
-export const LengthLabel = player => Label({
+export const LengthLabel = player => Widget.Label({
     connections: [[player, label => {
         player.length > 0
             ? label.label = lengthStr(player.length)
@@ -111,108 +108,108 @@ export const LengthLabel = player => Label({
     }]],
 });
 
-export const Slash = player => Label({
+export const Slash = player => Widget.Label({
     label: '/',
     connections: [[player, label => {
         label.visible = player.length > 0;
     }]],
 });
 
-const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) => Button({
-    child: Stack({ items }),
-    onClicked: () => player[onClick](),
-    connections: [[player, button => {
-        button.visible = player[canProp] !== cantValue;
-        button.child.shown = `${player[prop]}`;
-    }]],
+const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) => Widget.Button({
+    child: Widget.Stack({
+        items,
+        binds: [['shown', player, prop, p => `${p}`]],
+    }),
+    onClicked: player[onClick].bind(player),
+    binds: [['visible', player, canProp, c => c !== cantValue]],
 });
 
 export const ShuffleButton = player => PlayerButton({
     player,
     items: [
-        ['true', Label({
+        ['true', Widget.Label({
             className: 'shuffle enabled',
             label: icons.mpris.shuffle.enabled,
         })],
-        ['false', Label({
+        ['false', Widget.Label({
             className: 'shuffle disabled',
             label: icons.mpris.shuffle.disabled,
         })],
     ],
     onClick: 'shuffle',
-    prop: 'shuffleStatus',
-    canProp: 'shuffleStatus',
+    prop: 'shuffle-status',
+    canProp: 'shuffle-status',
     cantValue: null,
 });
 
 export const LoopButton = player => PlayerButton({
     player,
     items: [
-        ['None', Label({
+        ['None', Widget.Label({
             className: 'loop none',
             label: icons.mpris.loop.none,
         })],
-        ['Track', Label({
+        ['Track', Widget.Label({
             className: 'loop track',
             label: icons.mpris.loop.track,
         })],
-        ['Playlist', Label({
+        ['Playlist', Widget.Label({
             className: 'loop playlist',
             label: icons.mpris.loop.playlist,
         })],
     ],
     onClick: 'loop',
-    prop: 'loopStatus',
-    canProp: 'loopStatus',
+    prop: 'loop-status',
+    canProp: 'loop-status',
     cantValue: null,
 });
 
 export const PlayPauseButton = player => PlayerButton({
     player,
     items: [
-        ['Playing', Label({
+        ['Playing', Widget.Label({
             className: 'playing',
             label: icons.mpris.playing,
         })],
-        ['Paused', Label({
+        ['Paused', Widget.Label({
             className: 'paused',
             label: icons.mpris.paused,
         })],
-        ['Stopped', Label({
+        ['Stopped', Widget.Label({
             className: 'stopped',
             label: icons.mpris.stopped,
         })],
     ],
     onClick: 'playPause',
-    prop: 'playBackStatus',
-    canProp: 'canPlay',
+    prop: 'play-back-status',
+    canProp: 'can-play',
     cantValue: false,
 });
 
 export const PreviousButton = player => PlayerButton({
     player,
     items: [
-        ['true', Label({
+        ['true', Widget.Label({
             className: 'previous',
             label: icons.mpris.prev,
         })],
     ],
     onClick: 'previous',
-    prop: 'canGoPrev',
-    canProp: 'canGoPrev',
+    prop: 'can-go-prev',
+    canProp: 'can-go-prev',
     cantValue: false,
 });
 
 export const NextButton = player => PlayerButton({
     player,
     items: [
-        ['true', Label({
+        ['true', Widget.Label({
             className: 'next',
             label: icons.mpris.next,
         })],
     ],
     onClick: 'next',
-    prop: 'canGoNext',
-    canProp: 'canGoNext',
+    prop: 'can-go-next',
+    canProp: 'can-go-next',
     cantValue: false,
 });

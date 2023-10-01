@@ -1,34 +1,33 @@
 import Dock from './Dock.js';
-const { timeout } = ags.Utils;
-const { EventBox, Window, Box, Revealer } = ags.Widget;
+import { Utils, Widget } from '../imports.js';
 
-export default monitor => Window({
+export default monitor => Widget.Window({
     monitor,
     name: `dock${monitor}`,
     className: 'floating-dock',
     anchor: ['bottom'],
-    child: EventBox({
+    child: Widget.EventBox({
         valign: 'start',
         onHover: box => {
-            timeout(300, () => box._revealed = true);
+            Utils.timeout(300, () => box._revealed = true);
             box.child.children[0].revealChild = true;
         },
         onHoverLost: box => {
             if (!box._revealed)
                 return;
 
-            timeout(300, () => box._revealed = false);
+            Utils.timeout(300, () => box._revealed = false);
             box.child.children[0].revealChild = false;
         },
-        child: Box({
+        child: Widget.Box({
             vertical: true,
             style: 'padding: 1px;',
             children: [
-                Revealer({
+                Widget.Revealer({
                     transition: 'slide_up',
                     child: Dock(),
                 }),
-                Box({
+                Widget.Box({
                     className: 'padding',
                     style: 'padding: 2px;',
                 }),

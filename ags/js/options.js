@@ -25,4 +25,7 @@ export default {
 
     // the slide down animation on quicksettings and dashboard
     windowAnimationDuration: 250,
+
+    // keyboard id for brightnessctl
+    brightnessctlKBD: 'asus::kbd_backlight',
 };

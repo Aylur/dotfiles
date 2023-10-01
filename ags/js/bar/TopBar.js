@@ -12,23 +12,24 @@ import Separator from '../misc/Separator.js';
 import ScreenRecord from './buttons/ScreenRecord.js';
 import BatteryBar from './buttons/BatteryBar.js';
 import SubMenu from './buttons/SubMenu.js';
-const { Window, CenterBox, Box } = ags.Widget;
-const { SystemTray } = ags.Service;
+import { SystemTray, Widget, Variable } from '../imports.js';
+import { Notifications, Mpris, Battery } from '../imports.js';
+import Recorder from '../services/screenrecord.js';
 
-const submenuItems = ags.Variable(1);
-SystemTray.instance.connect('changed', () => {
+const submenuItems = Variable(1);
+SystemTray.connect('changed', () => {
     submenuItems.setValue(SystemTray.items.length + 1);
 });
 
 const SeparatorDot = (service, condition) => Separator({
     orientation: 'vertical',
     valign: 'center',
-    connections: service && [[ags.Service[service], dot => {
-        dot.visible = condition(ags.Service[service]);
+    connections: service && [[service, dot => {
+        dot.visible = condition(service);
     }]],
 });
 
-const Start = () => Box({
+const Start = () => Widget.Box({
     className: 'start',
     children: [
         OverviewButton(),
@@ -36,25 +37,25 @@ const Start = () => Box({
         Workspaces(),
         SeparatorDot(),
         FocusedClient(),
-        Box({ hexpand: true }),
+        Widget.Box({ hexpand: true }),
         NotificationIndicator(),
-        SeparatorDot('Notifications', n => n.notifications.length > 0 || n.dnd),
+        SeparatorDot(Notifications, n => n.notifications.length > 0 || n.dnd),
     ],
 });
 
-const Center = () => Box({
+const Center = () => Widget.Box({
     className: 'center',
     children: [
         DateButton(),
     ],
 });
 
-const End = () => Box({
+const End = () => Widget.Box({
     className: 'end',
     children: [
-        SeparatorDot('Mpris', m => m.players.length > 0),
+        SeparatorDot(Mpris, m => m.players.length > 0),
         MediaIndicator(),
-        Box({ hexpand: true }),
+        Widget.Box({ hexpand: true }),
 
         SubMenu({
             items: submenuItems,
@@ -65,21 +66,21 @@ const End = () => Box({
         }),
         SeparatorDot(),
         ScreenRecord(),
-        SeparatorDot('Recorder', r => r.recording),
+        SeparatorDot(Recorder, r => r.recording),
         SystemIndicators(),
-        SeparatorDot('Battery', b => b.available),
+        SeparatorDot(Battery, b => b.available),
         BatteryBar(),
         SeparatorDot(),
         PowerMenu(),
     ],
 });
 
-export default monitor => Window({
+export default monitor => Widget.Window({
     name: `bar${monitor}`,
     exclusive: true,
     monitor,
     anchor: 'top left right',
-    child: CenterBox({
+    child: Widget.CenterBox({
         className: 'panel',
         startWidget: Start(),
         centerWidget: Center(),
