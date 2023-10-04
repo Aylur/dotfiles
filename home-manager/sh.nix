@@ -20,6 +20,7 @@ let
     "ga" = "git add";
     "gr" = "git reset --soft HEAD~1";
     "vault" = "ga . && gc -m \"sync $(date '+%Y-%m-%d %H:%M')\" && git push";
+    "f" = ''fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'';
   };
   tmux-theme = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "charmful";

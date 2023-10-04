@@ -51,7 +51,7 @@ local navic = {
 
 local position = {
     "location",
-    padding = { left = 0, right = 1 },
+    padding = { left = 1, right = 1 },
 }
 
 return {
@@ -61,8 +61,10 @@ return {
         opts = function()
             return {
                 options = {
-                    component_separators = { left = "╲", right = "│" },
-                    section_separators = { left = "", right = "" },
+                    -- component_separators = { left = "╲", right = "│" },
+                    -- section_separators = { left = "", right = "" },
+                    component_separators = { left = "│", right = "│" },
+                    section_separators = { left = "", right = "" },
                     theme = "auto",
                     globalstatus = true,
                     disabled_filetypes = { statusline = { "dashboard", "alpha" } },

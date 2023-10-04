@@ -1,11 +1,11 @@
 { pkgs, ... }:
 let
-  moreWaitaVersion = "44.2";
+  moreWaitaVersion = "45";
   moreWaita = pkgs.stdenv.mkDerivation {
     name = "MoreWaita-${moreWaitaVersion}";
     src = pkgs.fetchurl {
       url = "https://github.com/somepaulo/MoreWaita/archive/refs/tags/v${moreWaitaVersion}.zip";
-      sha256 = "sha256-Rn0tOlEJa0m33iHVl1mfttsZ8lCnOUpDDro4RykqeZg=";
+      sha256 = "sha256-j4Nc+4swwhsjj7fhliO0j1xX91FGQS+OASGbpNHW8XI=";
     };
     dontUnpack = true;
     installPhase = ''
@@ -20,7 +20,6 @@ let
     "CascadiaCode"
     "FantasqueSansMono"
     "FiraCode"
-    "VictorMono"
     "Mononoki"
   ]; });
 

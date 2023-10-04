@@ -44,6 +44,7 @@
     ffmpeg
     libnotify
     killall
+    zip
 
     # hyprland
     wl-gammactl
