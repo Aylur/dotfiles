@@ -12,10 +12,10 @@ return {
 	hide_tab_bar_if_only_one_tab = true,
 
 	window_padding = {
-		top = "1.5cell",
-		right = "2cell",
-		bottom = "1.5cell",
-		left = "2cell",
+		top = "1cell",
+		right = "3cell",
+		bottom = "1cell",
+		left = "3cell",
 	},
 
 	inactive_pane_hsb = {

@@ -89,6 +89,7 @@ export default ({
     name,
     child: layouts[layout](name, content, expand),
     popup: true,
+    visible: false,
     focusable: true,
     ...rest,
 });

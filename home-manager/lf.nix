@@ -85,6 +85,7 @@
       preview = true;
       drawbox = true;
       icons = true;
+      cursorpreviewfmt = "";
     };
   };
 

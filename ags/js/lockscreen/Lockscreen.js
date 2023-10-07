@@ -2,7 +2,7 @@ import Avatar from '../misc/Avatar.js';
 import Spinner from '../misc/Spinner.js';
 import Lockscreen from '../services/lockscreen.js';
 import { Widget } from '../imports.js';
-import { default as Layer } from 'gi://GtkLayerShell';
+import Layer from 'gi://GtkLayerShell';
 
 export default monitor => Widget.Window({
     name: `lockscreen${monitor}`,

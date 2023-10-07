@@ -4,7 +4,7 @@ import PopupWindow from '../misc/PopupWindow.js';
 import Separator from '../misc/Separator.js';
 import { Widget } from '../imports.js';
 
-export default ({ anchor = 'top', layout = 'top' } = {}) => PopupWindow({
+export default ({ anchor = ['top'], layout = 'top' } = {}) => PopupWindow({
     name: 'dashboard',
     layout,
     anchor,

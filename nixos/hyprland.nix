@@ -29,6 +29,7 @@
     gnome-system-monitor
     gnome-control-center
     gnome-weather
+    gnome-calculator
   ];
 
   systemd = {

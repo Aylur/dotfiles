@@ -20,6 +20,8 @@ in
     ./wezterm.nix
   ];
 
+  news.display = "show";
+
   targets.genericLinux.enable = true;
 
   nix = {

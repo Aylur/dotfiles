@@ -63,14 +63,12 @@ export function scssWatcher() {
     ], () => Theme.setup());
 }
 
-import recorder from './services/screenrecord.js';
-import brightness from './services/brightness.js';
-import indicator from './services/onScreenIndicator.js';
-import { Audio as audio, Mpris as mpris } from './imports.js';
 export async function globalServices() {
-    globalThis.recorder = recorder;
-    globalThis.brightness = brightness;
-    globalThis.indicator = indicator;
-    globalThis.audio = audio;
-    globalThis.mpris = mpris;
+    globalThis.ags = await import('./imports.js');
+    globalThis.recorder = (await import('./services/screenrecord.js')).default;
+    globalThis.brightness = (await import('./services/brightness.js')).default;
+    globalThis.indicator = (await import('./services/onScreenIndicator.js')).default;
+    globalThis.theme = (await import('./services/theme/theme.js')).default;
+    globalThis.audio = globalThis.ags.Audio;
+    globalThis.mpris = globalThis.ags.Mpris;
 }

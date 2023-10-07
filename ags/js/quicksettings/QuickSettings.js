@@ -29,7 +29,7 @@ const Homogeneous = toggles => Widget.Box({
 
 export default () => PopupWindow({
     name: 'quicksettings',
-    anchor: 'top right',
+    anchor: ['top', 'right'],
     layout: 'top right',
     content: Widget.Box({
         className: 'quicksettings',

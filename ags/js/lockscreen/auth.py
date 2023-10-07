@@ -1,5 +1,4 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i python3 -p python3Packages.python-pam
+#! /usr/bin/env python
 
 import pam
 import sys
