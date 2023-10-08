@@ -45,6 +45,7 @@
     libnotify
     killall
     zip
+    unzip
 
     # hyprland
     wl-gammactl

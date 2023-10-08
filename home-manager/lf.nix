@@ -40,7 +40,7 @@
         fi
       }}'';
 
-      extract = ''''${{
+      unzip = ''''${{
         set -f
         case $f in
             *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
@@ -67,12 +67,15 @@
       on-select = ''&{{
         lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
       }}'';
+
+      q = "quit";
     };
 
     keybindings = {
       a = "push %mkdir<space>";
       t = "push %touch<space>";
       r = "push :rename<space>";
+      x = "trash";
       "." = "set hidden!";
       "<delete>" = "trash";
       "<enter>" = "open";
