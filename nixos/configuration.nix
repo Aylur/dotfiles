@@ -4,12 +4,12 @@
     /etc/nixos/hardware-configuration.nix
     ./asus.nix
     ./bootloader.nix
-    # ./gnome.nix
+    ./gnome.nix
     ./hyprland.nix
     ./locale.nix
     ./nix.nix
     ./nvidia.nix
-    ./sound.nix
+    ./audio.nix
   ];
 
   documentation.nixos.enable = false;
@@ -46,7 +46,12 @@
 
   users.users.${username} = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "libvirtd"
+    ];
   };
 
   networking = {
