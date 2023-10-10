@@ -14,10 +14,6 @@
       url = "https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example";
       flake = false;
     };
-    tmux-theme = {
-      url = "https://github.com/Aylur/tmux-charmful/archive/refs/heads/main.zip";
-      flake = false;
-    };
     more-waita = {
       url = "https://github.com/somepaulo/MoreWaita/archive/refs/heads/main.zip";
       flake = false;

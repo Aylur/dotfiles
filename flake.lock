@@ -164,8 +164,7 @@
         "hyprland": "hyprland",
         "lf-icons": "lf-icons",
         "more-waita": "more-waita",
-        "nixpkgs": "nixpkgs_3",
-        "tmux-theme": "tmux-theme"
+        "nixpkgs": "nixpkgs_3"
       }
     },
     "systems": {
@@ -181,18 +180,6 @@
         "owner": "nix-systems",
         "repo": "default-linux",
         "type": "github"
-      }
-    },
-    "tmux-theme": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-zfQjSQ+epekWy7YK1G2oeKP2XSU1L3+S5dYvKCR8UEQ=",
-        "type": "tarball",
-        "url": "https://github.com/Aylur/tmux-charmful/archive/refs/heads/main.zip"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/Aylur/tmux-charmful/archive/refs/heads/main.zip"
       }
     },
     "wlroots": {

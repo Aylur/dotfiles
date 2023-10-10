@@ -1,10 +1,6 @@
-{ inputs, ... }: {
+{ inputs, pkgs, ... }: {
   programs.lf = {
     enable = true;
-
-    extraConfig = ''
-      $mkdir -p ~/.trash
-    '';
 
     commands = let
       trash = ''''${{
@@ -90,6 +86,19 @@
       icons = true;
       cursorpreviewfmt = "";
     };
+
+    previewer = {
+      keybinding = "i";
+      source = "${pkgs.ctpv}/bin/ctpv";
+    };
+
+    extraConfig = ''
+      $mkdir -p ~/.trash
+
+      &${pkgs.ctpv}/bin/ctpv -s $id
+      cmd on-quit %${pkgs.ctpv}/bin/ctpv -e $id
+      set cleaner ${pkgs.ctpv}/bin/ctpvclear
+    '';
   };
 
   xdg.configFile."lf/icons".source = inputs.lf-icons;

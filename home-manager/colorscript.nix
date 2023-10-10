@@ -1,11 +1,8 @@
+{ pkgs, ... }:
 let
   dark = "\\e[\${!j}\${i}m";
   bright = "\\e[9\${i}m";
-in
-{ pkgs, ... }:
-pkgs.writeShellScriptBin "blocks" ''
-#!${pkgs.bash}/bin/bash
-
+in pkgs.writeShellScriptBin "blocks" ''
 f=3 b=4
 for j in f b; do
   for i in {0..7}; do
