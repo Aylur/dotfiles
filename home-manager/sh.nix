@@ -1,4 +1,3 @@
-{ pkgs, inputs, ... }:
 let
   aliases = {
     "db" = "distrobox";
@@ -22,11 +21,6 @@ let
     "vault" = "ga . && gc -m \"sync $(date '+%Y-%m-%d %H:%M')\" && git push";
     "f" = ''fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'';
   };
-  tmux-theme = pkgs.tmuxPlugins.mkTmuxPlugin {
-    pluginName = "charmful";
-    version = "1.0.0";
-    src = inputs.tmux-theme;
-  };
 in
 { 
   programs = {
@@ -44,10 +38,12 @@ in
       '';
       shellAliases = aliases;
     };
+
     bash = {
       enable = true;
       shellAliases = aliases;
     };
+
     # nushell = {
     #   enable = true;
     #   shellAliases = aliases;
@@ -57,31 +53,5 @@ in
     #     }
     #   '';
     # };
-
-    tmux = {
-      enable = true;
-      plugins = with pkgs.tmuxPlugins; [
-        tmux-theme
-        battery
-        vim-tmux-navigator
-        yank
-      ];
-      prefix = "C-Space";
-      baseIndex = 1;
-      escapeTime = 0;
-      keyMode = "vi";
-      mouse = true;
-      shell = "${pkgs.zsh}/bin/zsh";
-      extraConfig = ''
-        set-option -sa terminal-overrides ",xterm*:Tc"
-        bind v copy-mode
-        bind-key -T copy-mode-vi v send-keys -X begin-selection
-        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-        bind-key b set-option status
-        bind '"' split-window -v -c "#{pane_current_path}"
-        bind % split-window -h -c "#{pane_current_path}"
-      '';
-    };
   };
 }
