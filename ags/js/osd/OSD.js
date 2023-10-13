@@ -6,7 +6,7 @@ import Indicator from '../services/onScreenIndicator.js';
 export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.Box({
     className: 'indicator',
     style: 'padding: 1px;',
-    children: [Widget.Revealer({
+    child: Widget.Revealer({
         transition: 'slide_left',
         connections: [[Indicator, (revealer, value) => {
             revealer.revealChild = value > -1;
@@ -38,7 +38,7 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.B
                 }]],
             }),
         }),
-    })],
+    }),
 });
 
 export default monitor => Widget.Window({

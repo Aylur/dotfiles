@@ -5,12 +5,7 @@
     commands = let
       trash = ''''${{
         set -f
-        if gio trash 2>/dev/null; then
-            gio trash $fx
-        else
-            mkdir -p ~/.trash
-            mv -- $fx ~/.trash
-        fi
+        gio trash $fx
       }}'';
     in {
       trash = trash;

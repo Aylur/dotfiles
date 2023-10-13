@@ -4,7 +4,7 @@ import options from '../../options.js';
 export default ({ workspaces = options.workspaces } = {}) => Widget.Box({
     className: 'workspaces panel-button',
     child: Widget.Box({
-        children: [Widget.EventBox({
+        child: Widget.EventBox({
             onScrollUp: () => Utils.execAsync('hyprctl dispatch workspace +1'),
             onScrollDown: () => Utils.execAsync('hyprctl dispatch workspace -1'),
             className: 'eventbox',
@@ -23,6 +23,6 @@ export default ({ workspaces = options.workspaces } = {}) => Widget.Box({
                     }]],
                 })),
             }),
-        })],
+        }),
     }),
 });

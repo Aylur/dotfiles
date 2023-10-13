@@ -59,7 +59,7 @@ export default index => {
         connections: [[Hyprland, box => {
             box.toggleClassName('active', Hyprland.active.workspace.id === index);
         }]],
-        children: [Widget.EventBox({
+        child: Widget.EventBox({
             hexpand: true,
             vexpand: true,
             onPrimaryClick: () => Utils.execAsync(`hyprctl dispatch workspace ${index}`).catch(print),
@@ -70,7 +70,7 @@ export default index => {
                 });
             },
             child: fixed,
-        })],
+        }),
     });
 
     widget.update = clients => {

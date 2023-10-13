@@ -15,7 +15,7 @@ export default monitor => Widget.Window({
     child: Widget.Box({
         style: 'min-width: 3000px; min-height: 2000px;',
         className: 'shader',
-        children: [Widget.Box({
+        child: Widget.Box({
             className: 'content',
             vertical: true,
             hexpand: true,
@@ -45,6 +45,6 @@ export default monitor => Widget.Window({
                     ],
                 }),
             ],
-        })],
+        }),
     }),
 });

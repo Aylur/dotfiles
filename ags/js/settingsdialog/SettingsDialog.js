@@ -156,7 +156,7 @@ const Layout = pages => Widget.Box({
         Widget.Box({
             className: 'headerbar',
             valign: 'start',
-            children: [Widget.Box({
+            child: Widget.Box({
                 className: 'tabs',
                 children: [
                     ...Object.keys(pages).map(page => Tab(page)),
@@ -167,15 +167,15 @@ const Layout = pages => Widget.Box({
                         hexpand: true,
                     }),
                 ],
-            })],
+            }),
         }),
         Widget.Box({
             className: 'content',
-            children: [Widget.Stack({
+            child: Widget.Stack({
                 transition: 'slide_left_right',
                 items: Object.keys(pages).map(page => [page, pages[page]]),
                 binds: [['shown', page]],
-            })],
+            }),
         }),
         Widget.Label({
             wrap: true,

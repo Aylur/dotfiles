@@ -22,14 +22,14 @@ const AppButton = ({ icon, ...rest }) => Widget.Button({
     ...rest,
     child: Widget.Box({
         className: 'box',
-        children: [Widget.Overlay({
+        child: Widget.Overlay({
             child: Widget.Icon({ icon, size: options.dockItemSize }),
             overlays: [Widget.Box({
                 className: 'indicator',
                 valign: 'end',
                 halign: 'center',
             })],
-        })],
+        }),
     }),
 });
 

@@ -33,11 +33,11 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
             min-width: 78px;
             min-height: 78px;
         `,
-        children: [Widget.Icon({
+        child: Widget.Icon({
             icon, size: 58,
             halign: 'center', hexpand: true,
             valign: 'center', vexpand: true,
-        })],
+        }),
     });
 };
 

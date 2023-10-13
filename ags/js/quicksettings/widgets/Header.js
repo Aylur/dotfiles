@@ -14,7 +14,7 @@ export const BatteryProgress = () => Widget.Box({
         w.toggleClassName('half', Battery.percent < 46);
         w.toggleClassName('low', Battery.percent < 30);
     }]],
-    children: [Widget.Overlay({
+    child: Widget.Overlay({
         vexpand: true,
         child: Widget.ProgressBar({
             hexpand: true,
@@ -30,7 +30,7 @@ export const BatteryProgress = () => Widget.Box({
                     : `${Battery.percent}%`;
             }]],
         })],
-    })],
+    }),
 });
 
 export default () => Widget.Box({

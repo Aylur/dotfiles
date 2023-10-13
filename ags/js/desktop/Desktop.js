@@ -6,7 +6,7 @@ import { Widget } from '../imports.js';
 
 const DesktopClock = () => Widget.Box({
     className: 'clock-box-shadow',
-    children: [Widget.CenterBox({
+    child: Widget.CenterBox({
         className: 'clock-box',
         children: [
             Clock({
@@ -30,7 +30,7 @@ const DesktopClock = () => Widget.Box({
                 format: '%M',
             }),
         ],
-    })],
+    }),
 });
 
 const Desktop = () => Widget.EventBox({

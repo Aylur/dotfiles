@@ -46,6 +46,7 @@
     killall
     zip
     unzip
+    glib
 
     # hyprland
     wl-gammactl
