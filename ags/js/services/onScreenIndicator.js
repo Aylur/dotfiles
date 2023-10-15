@@ -46,6 +46,11 @@ class Indicator extends Service {
             icons.brightness.keyboard));
     }
 
+    connect(event = 'popup', callback) {
+        return super.connect(event, callback);
+    }
+
+    // TODO remove
     connectWidget(widget, callback) {
         Utils.connect(this, widget, callback, 'popup');
     }
