@@ -72,3 +72,8 @@ export async function globalServices() {
     globalThis.audio = globalThis.ags.Audio;
     globalThis.mpris = globalThis.ags.Mpris;
 }
+
+export function launchApp(app) {
+    Utils.execAsync(`hyprctl dispatch exec ${app.executable}`);
+    app.frequency += 1;
+}

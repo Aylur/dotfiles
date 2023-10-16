@@ -2,6 +2,7 @@ import icons from '../icons.js';
 import Separator from '../misc/Separator.js';
 import options from '../options.js';
 import { App, Hyprland, Applications, Utils, Widget } from '../imports.js';
+import { launchApp } from '../utils.js';
 
 const AppButton = ({ icon, ...rest }) => Widget.Button({
     ...rest,
@@ -30,7 +31,7 @@ const Taskbar = () => Widget.Box({
                 return AppButton({
                     icon: app.iconName,
                     tooltipText: app.name,
-                    onMiddleClick: () => app.launch(),
+                    onMiddleClick: () => launchApp(app),
                 });
             }
         }
@@ -53,9 +54,9 @@ const PinnedApps = () => Widget.Box({
                     }
                 }
 
-                app.launch();
+                launchApp(app);
             },
-            onMiddleClick: () => app.launch(),
+            onMiddleClick: () => launchApp(app),
             tooltipText: app.name,
             connections: [[Hyprland, button => {
                 let running = false;
