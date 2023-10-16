@@ -5,9 +5,6 @@ export default {
     // number of workspaces shown on panel and overview
     workspaces: 7,
 
-    //
-    dockItemSize: 56,
-
     battaryBar: {
         // wether to show percentage by deafult
         showPercentage: false,
@@ -28,4 +25,22 @@ export default {
 
     // keyboard id for brightnessctl
     brightnessctlKBD: 'asus::kbd_backlight',
+
+    dock: {
+        iconSize: 56,
+        pinnedApps: [
+            'firefox',
+            'org.wezfurlong.wezterm',
+            'org.gnome.Nautilus',
+            'org.gnome.Calendar',
+            'obsidian',
+            'transmission-gtk',
+            'caprine',
+            'teams-for-linux',
+            'discord',
+            'spotify',
+            'com.usebottles.bottles',
+            'org.gnome.Software',
+        ],
+    },
 };

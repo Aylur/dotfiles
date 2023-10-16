@@ -1,23 +1,24 @@
 {
-  "name": "ags-dotfiles",
-  "version": "1.0.0",
-  "description": "My config files for AGS",
-  "main": "config.js",
-  "scripts": {
-    "lint": "eslint . --fix",
-    "stylelint": "stylelint"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Aylur/dotfiles.git"
-  },
-  "author": "Aylur",
-  "bugs": {
-    "url": "https://github.com/Aylur/dotfiles/issues"
-  },
-  "homepage": "https://github.com/Aylur/dotfiles#readme",
-  "devDependencies": {
-    "eslint": "^8.44.0",
-    "stylelint-config-standard-scss": "^10.0.0"
-  }
+    "name": "ags-dotfiles",
+    "version": "1.5.0",
+    "description": "My config files for AGS",
+    "main": "config.js",
+    "scripts": {
+        "lint": "eslint . --fix",
+        "stylelint": "stylelint"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Aylur/dotfiles.git"
+    },
+    "author": "Aylur",
+    "bugs": {
+        "url": "https://github.com/Aylur/dotfiles/issues"
+    },
+    "homepage": "https://github.com/Aylur/dotfiles#readme",
+    "devDependencies": {
+        "eslint": "^8.44.0",
+        "stylelint-config-standard-scss": "^10.0.0",
+        "@girs/gtk-3.0": "^3.24.39-3.2.2"
+    }
 }

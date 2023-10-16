@@ -3,27 +3,12 @@ import Separator from '../misc/Separator.js';
 import options from '../options.js';
 import { App, Hyprland, Applications, Utils, Widget } from '../imports.js';
 
-const pinned = [
-    'firefox',
-    'org.wezfurlong.wezterm',
-    'org.gnome.Nautilus',
-    'org.gnome.Calendar',
-    'obsidian',
-    'transmission-gtk',
-    'caprine',
-    'teams-for-linux',
-    'discord',
-    'spotify',
-    'com.usebottles.bottles',
-    'org.gnome.Software',
-];
-
 const AppButton = ({ icon, ...rest }) => Widget.Button({
     ...rest,
     child: Widget.Box({
         className: 'box',
         child: Widget.Overlay({
-            child: Widget.Icon({ icon, size: options.dockItemSize }),
+            child: Widget.Icon({ icon, size: options.dock.iconSize }),
             overlays: [Widget.Box({
                 className: 'indicator',
                 valign: 'end',
@@ -35,7 +20,7 @@ const AppButton = ({ icon, ...rest }) => Widget.Button({
 
 const Taskbar = () => Widget.Box({
     binds: [['children', Hyprland, 'clients', c => c.map(client => {
-        for (const appName of pinned) {
+        for (const appName of options.dock.pinnedApps) {
             if (client.class.toLowerCase().includes(appName.toLowerCase()))
                 return null;
         }
@@ -55,7 +40,7 @@ const Taskbar = () => Widget.Box({
 const PinnedApps = () => Widget.Box({
     className: 'pins',
     homogeneous: true,
-    children: pinned
+    children: options.dock.pinnedApps
         .map(term => ({ app: Applications.query(term)?.[0], term }))
         .filter(({ app }) => app)
         .map(({ app, term = true }) => AppButton({
