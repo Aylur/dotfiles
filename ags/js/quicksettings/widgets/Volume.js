@@ -6,40 +6,52 @@ import { Arrow } from '../ToggleButton.js';
 import { Menu } from '../ToggleButton.js';
 import { Audio, Widget, Utils } from '../../imports.js';
 
-const TypeIndicator = () => Widget.Button({
-    onClicked: () => Audio.speaker.isMuted = !Audio.speaker.isMuted,
+const VolumeIndicator = (type = 'speaker') => Widget.Button({
+    onClicked: () => Audio[type].isMuted = !Audio[type].isMuted,
     child: Widget.Icon({
         connections: [[Audio, icon => {
-            if (!Audio.speaker)
+            if (!Audio[type])
                 return;
 
-            icon.icon = getAudioTypeIcon(Audio.speaker.iconName);
-            icon.tooltipText = `Volume ${Math.floor(Audio.speaker.volume * 100)}%`;
-        }, 'speaker-changed']],
+            icon.icon = type === 'speaker'
+                ? getAudioTypeIcon(Audio[type].iconName)
+                : icons.audio.mic.high;
+
+            icon.tooltipText = `Volume ${Math.floor(Audio[type].volume * 100)}%`;
+        }, `${type}-changed`]],
     }),
 });
 
-const VolumeSlider = () => Widget.Slider({
+const VolumeSlider = (type = 'speaker') => Widget.Slider({
     hexpand: true,
     drawValue: false,
-    onChange: ({ value }) => Audio.speaker.volume = value,
+    onChange: ({ value }) => Audio[type].volume = value,
     connections: [[Audio, slider => {
-        slider.value = Audio.speaker?.volume;
-    }, 'speaker-changed']],
+        slider.value = Audio[type]?.volume;
+    }, `${type}-changed`]],
 });
 
 export const Volume = () => Widget.Box({
     className: 'slider',
     children: [
-        TypeIndicator(),
-        VolumeSlider(),
+        VolumeIndicator('speaker'),
+        VolumeSlider('speaker'),
         Arrow('sink-selector'),
         Widget.Box({
             child: Arrow('app-mixer'),
             connections: [[Audio, box => {
-                box.visible = Array.from(Audio.apps).length > 0;
+                box.visible = Audio.apps.length > 0;
             }]],
         }),
+    ],
+});
+
+export const Microhone = () => Widget.Box({
+    className: 'slider',
+    binds: [['visible', Audio, 'recorders', r => r.length > 0]],
+    children: [
+        VolumeIndicator('microphone'),
+        VolumeSlider('microphone'),
     ],
 });
 

@@ -64,19 +64,6 @@ const layouts = {
             }),
         ],
     }),
-    'bottom right': (windowName, child) => Widget.Box({
-        children: [
-            Padding(windowName),
-            Widget.Box({
-                hexpand: false,
-                vertical: true,
-                children: [
-                    Padding(windowName),
-                    PopupRevealer(windowName, 'slide_up', child),
-                ],
-            }),
-        ],
-    }),
 };
 
 export default ({

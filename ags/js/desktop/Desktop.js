@@ -44,8 +44,8 @@ const Desktop = () => Widget.EventBox({
             const [halign = 'center', valign = 'center', offset = 64] =
                 Theme.getSetting('desktop_clock')?.split(' ') || [];
 
-            box.halign = imports.gi.Gtk.Align[halign.toUpperCase()];
-            box.valign = imports.gi.Gtk.Align[valign.toUpperCase()];
+            box.halign = halign;
+            box.valign = valign;
             box.setStyle(`margin: ${Number(offset)}px;`);
         }]],
         children: [

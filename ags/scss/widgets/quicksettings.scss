@@ -64,7 +64,7 @@ window#quicksettings .quicksettings {
         @include widget;
         padding: $spacing;
 
-        > box:last-child { margin-bottom: 0; }
+        > box { margin: 0; }
 
         .slider > * {
             margin-left: $spacing;

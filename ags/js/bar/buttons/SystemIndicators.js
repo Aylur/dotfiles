@@ -20,11 +20,20 @@ const ModeIndicator = () => Widget.Icon({
     }]],
 });
 
-const MicrophoneMuteIndicator = () => Widget.Icon({
-    icon: icons.audio.mic.muted,
+const MicrophoneIndicator = () => Widget.Icon({
     connections: [[Audio, icon => {
-        icon.visible = Audio.microphone?.isMuted;
-    }, 'microphone-changed']],
+        if (!Audio.microphone)
+            return;
+
+        const { muted, low, medium, high } = icons.audio.mic;
+        if (Audio.microphone.isMuted)
+            return icon.icon = muted;
+
+        icon.icon = [[67, high], [34, medium], [1, low], [0, muted]]
+            .find(([threshold]) => threshold <= Audio.microphone.volume * 100)[1];
+
+        icon.visible = Audio.recorders.length > 0 || Audio.microphone.isMuted;
+    }]],
 });
 
 const DNDIndicator = () => Widget.Icon({
@@ -98,12 +107,12 @@ export default () => PanelButton({
         children: [
             Asusctl?.available && ProfileIndicator(),
             Asusctl?.available && ModeIndicator(),
-            MicrophoneMuteIndicator(),
             DNDIndicator(),
             BluetoothDevicesIndicator(),
             BluetoothIndicator(),
             NetworkIndicator(),
             AudioIndicator(),
+            MicrophoneIndicator(),
         ],
     }),
 });
