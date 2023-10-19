@@ -31,6 +31,10 @@ return {
                 "regex",
                 "vim",
                 "vimdoc",
+
+                -- FIXME: remove after uni
+                "java",
+                "sql",
             },
         },
     },

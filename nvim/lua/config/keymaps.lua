@@ -1,16 +1,18 @@
+local km = vim.keymap.set
+
 -- Telescope
-vim.keymap.set("n", "<leader>fg", require("telescope.builtin").live_grep, { desc = "[F]ind in file using Telescope" })
-vim.keymap.set("n", "f", function()
+km("n", "<leader>fg", require("telescope.builtin").live_grep, { desc = "[F]ind in file using Telescope" })
+km("n", "f", function()
     require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({ previewer = false }))
 end, { desc = "Telescope [f]ind file" })
 
 -- move selected lines
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+km("v", "J", ":m '>+1<CR>gv=gv")
+km("v", "K", ":m '<-2<CR>gv=gv")
 
 -- diagnostics
-vim.keymap.set("n", "<leader>xx", vim.cmd.TroubleToggle, { desc = "TroubleToggle" })
-vim.keymap.set(
+km("n", "<leader>xx", vim.cmd.TroubleToggle, { desc = "TroubleToggle" })
+km(
     "n",
     "<leader>xw",
     "<cmd>TroubleToggle workspace_diagnostics<cr>",
@@ -18,25 +20,25 @@ vim.keymap.set(
 )
 
 -- buffers
-vim.keymap.set({ "n", "i", "v" }, "<A-l>", vim.cmd.bnext, { desc = "Switch to next Buffer" })
-vim.keymap.set({ "n", "i", "v" }, "<A-h>", vim.cmd.bprev, { desc = "Switch to prev Buffer" })
-vim.keymap.set("n", "q", function()
+km({ "n", "i", "v" }, "<A-l>", vim.cmd.bnext, { desc = "Switch to next Buffer" })
+km({ "n", "i", "v" }, "<A-h>", vim.cmd.bprev, { desc = "Switch to prev Buffer" })
+km("n", "q", function()
     vim.cmd("bw")
 end, { desc = "Close Buffer" })
 
 -- selection
-vim.keymap.set("n", "<C-a>", "ggVG")
-vim.keymap.set("v", "V", "j")
+km("n", "<C-a>", "ggVG")
+km("v", "V", "j")
 
 -- colors
-vim.keymap.set("n", "<leader>cc", vim.cmd.ColorizerToggle, { desc = "[C]olorizer" })
-vim.keymap.set("n", "<leader>cp", vim.cmd.PickColor, { desc = "[P]ick Color" })
+km("n", "<leader>cc", vim.cmd.ColorizerToggle, { desc = "[C]olorizer" })
+km("n", "<leader>cp", vim.cmd.PickColor, { desc = "[P]ick Color" })
 
 -- generate docs
-vim.keymap.set("n", "<leader>dg", vim.cmd.DogeGenerate, { desc = "Generate Docs" })
+km("n", "<Leader>dg", require('neogen').generate, { desc = "Generate Docs" })
 
 -- tmux
-vim.keymap.set({ "n", "i", "v" }, "<C-h>", vim.cmd.TmuxNavigateLeft)
-vim.keymap.set({ "n", "i", "v" }, "<C-j>", vim.cmd.TmuxNavigateDown)
-vim.keymap.set({ "n", "i", "v" }, "<C-k>", vim.cmd.TmuxNavigateUp)
-vim.keymap.set({ "n", "i", "v" }, "<C-l>", vim.cmd.TmuxNavigateRight)
+km({ "n", "i", "v" }, "<C-h>", vim.cmd.TmuxNavigateLeft)
+km({ "n", "i", "v" }, "<C-j>", vim.cmd.TmuxNavigateDown)
+km({ "n", "i", "v" }, "<C-k>", vim.cmd.TmuxNavigateUp)
+km({ "n", "i", "v" }, "<C-l>", vim.cmd.TmuxNavigateRight)
