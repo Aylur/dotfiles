@@ -5,6 +5,7 @@ in
 {
   imports = [
     ./ags.nix
+    ./bspwm.nix
     ./blackbox.nix
     ./browser.nix
     ./dconf.nix
@@ -42,14 +43,12 @@ in
       SHELL = "${pkgs.zsh}/bin/zsh";
       BAT_THEME = "base16";
       GOPATH = "${homeDirectory}/.local/share/go";
-      GOMODCACHE="${homeDirectory}/go/pkg/mod";
+      GOMODCACHE="${homeDirectory}/.local/share/go/pkg/mod";
     };
 
     sessionPath = [
       "$HOME/.local/bin"
     ];
-
-    stateVersion = "21.11";
   };
 
   gtk.gtk3.bookmarks = [
@@ -74,4 +73,5 @@ in
   };
 
   programs.home-manager.enable = true;
+  home.stateVersion = "21.11";
 }

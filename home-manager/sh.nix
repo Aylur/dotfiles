@@ -20,6 +20,7 @@ let
     "gr" = "git reset --soft HEAD~1";
     "vault" = "ga . && gc -m \"sync $(date '+%Y-%m-%d %H:%M')\" && git push";
     "f" = ''fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'';
+    "rm" = "gio trash";
   };
 in
 { 

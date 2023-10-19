@@ -42,11 +42,20 @@
 
   # services
   services = {
-    xserver.enable = true;
-    xserver.excludePackages = [ pkgs.xterm ];
+    xserver = {
+      enable = true;
+      excludePackages = [ pkgs.xterm ];
+    };
     printing.enable = true;
     flatpak.enable = true;
   };
+
+  # logind
+  services.logind.extraConfig = ''
+    HandlePowerKey=ignore
+    HandleLidSwitch=suspend
+    HandleLidSwitchExternalPower=ignore
+  '';
 
   # kde connect
   networking.firewall = rec {
