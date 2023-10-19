@@ -44,8 +44,10 @@ export default () => PopupWindow({
                 children: [
                     Row(
                         [Volume()],
-                        [Microhone()],
                         [SinkSelector(), AppMixer()],
+                    ),
+                    Row(
+                        [Microhone()],
                     ),
                     Row(
                         [Brightness()],

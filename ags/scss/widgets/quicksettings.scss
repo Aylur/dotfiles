@@ -101,7 +101,7 @@ window#quicksettings .quicksettings {
 
     .menu {
         @include widget;
-        margin-top: $spacing;
+        margin: $spacing 0;
         padding: $spacing;
 
         separator { 

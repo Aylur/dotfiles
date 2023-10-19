@@ -1,36 +1,30 @@
 import PanelButton from '../PanelButton.js';
 import { Hyprland, Utils, Widget } from '../../imports.js';
+import options from '../../options.js';
+import { substitute } from '../../utils.js';
+const { icons, titles } = options.substitutions;
 
-export const ClientLabel = substitutes => Widget.Label({
-    binds: [['label', Hyprland.active.client, 'class', c => substitutes
-        .find(([from]) => from === c)?.[1] || c]],
+export const ClientLabel = () => Widget.Label({
+    binds: [['label', Hyprland.active.client, 'class', c => substitute(titles, c)]],
 });
 
-export const ClientIcon = substitutes => Widget.Icon({
-    connections: [[Hyprland.active.client, icon => {
-        let classIcon = Hyprland.active.client.class;
-        let titleIcon = Hyprland.active.client.title;
-        substitutes.forEach(([from, to]) => {
-            if (classIcon === from)
-                classIcon = to;
+export const ClientIcon = () => Widget.Icon({
+    connections: [[Hyprland.active.client, self => {
+        const { client } = Hyprland.active;
 
-            if (titleIcon === from)
-                titleIcon = to;
-        });
-
-        classIcon += '-symbolic';
-        titleIcon += '-symbolic';
+        const classIcon = substitute(icons, client.class) + '-symbolic';
+        const titleIcon = substitute(icons, client.class) + '-symbolic';
 
         const hasTitleIcon = Utils.lookUpIcon(titleIcon);
         const hasClassIcon = Utils.lookUpIcon(classIcon);
 
         if (hasClassIcon)
-            icon.icon = classIcon;
+            self.icon = classIcon;
 
         if (hasTitleIcon)
-            icon.icon = titleIcon;
+            self.icon = titleIcon;
 
-        icon.visible = hasTitleIcon || hasClassIcon;
+        self.visible = hasTitleIcon || hasClassIcon;
     }]],
 });
 
@@ -38,29 +32,9 @@ export default () => PanelButton({
     className: 'focused-client',
     content: Widget.Box({
         children: [
-            ClientIcon([
-                ['transmission-gtk', 'transmission'],
-                ['blueberry.py', 'bluetooth'],
-                ['org.wezfurlong.wezterm', 'folder-code'],
-                ['com.raggesilver.BlackBox', 'folder-code'],
-                ['Caprine', 'facebook-messenger'],
-                ['', 'preferences-desktop-display'],
-            ]),
-            ClientLabel([
-                ['transmission-gtk', 'Transmission'],
-                ['com.obsproject.Studio', 'OBS'],
-                ['com.usebottles.bottles', 'Bottles'],
-                ['com.github.wwmm.easyeffects', 'Easy Effects'],
-                ['org.gnome.TextEditor', 'Text Editor'],
-                ['org.gnome.design.IconLibrary', 'Icon Library'],
-                ['blueberry.py', 'Blueberry'],
-                ['org.wezfurlong.wezterm', 'Wezterm'],
-                ['com.raggesilver.BlackBox', 'BlackBox'],
-                ['firefox', 'Firefox'],
-                ['org.gnome.Nautilus', 'Files'],
-                ['libreoffice-writer', 'Writer'],
-                ['', 'Desktop'],
-            ]),
+            ClientIcon(),
+            ClientLabel(),
         ],
+        binds: [['tooltip-text', Hyprland.active, 'client', c => c.title]],
     }),
 });

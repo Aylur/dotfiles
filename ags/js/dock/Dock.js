@@ -59,11 +59,8 @@ const PinnedApps = () => Widget.Box({
             onMiddleClick: () => launchApp(app),
             tooltipText: app.name,
             connections: [[Hyprland, button => {
-                let running = false;
-                for (const client of Hyprland.clients) {
-                    if (client.class.toLowerCase().includes(term))
-                        running = client;
-                }
+                const running = Hyprland.clients
+                    .find(client => client.class.toLowerCase().includes(term)) || false;
 
                 button.toggleClassName('nonrunning', !running);
                 button.toggleClassName('focused', Hyprland.active.client.address === running.address?.substring(2));
