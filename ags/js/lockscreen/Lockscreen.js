@@ -24,7 +24,6 @@ export default monitor => Widget.Window({
             valign: 'center',
             children: [
                 Avatar({
-                    shader: false,
                     halign: 'center',
                     valign: 'center',
                 }),
