@@ -1,30 +1,34 @@
-import Cairo from 'cairo';
+import cairo from 'cairo';
 import options from './options.js';
 import icons from './icons.js';
 import Theme from './services/theme/theme.js';
 import { Utils, App, Battery } from './imports.js';
 
+/** @type {function(number, number): number[]}*/
 export function range(length, start = 1) {
     return Array.from({ length }, (_, i) => i + start);
 }
 
+/** @type {function([any], any): any}*/
 export function substitute(collection, item) {
     return collection.find(([from]) => from === item)?.[1] || item;
 }
 
+/** @type {function((id: number) => Gtk.Widget): Gtk.Widget[]}*/
 export function forMonitors(widget) {
     const ws = JSON.parse(Utils.exec('hyprctl -j monitors'));
     return ws.map(mon => widget(mon.id));
 }
 
+/** @type {function(Gtk.Widget): cairo.ImageSurface}*/
 export function createSurfaceFromWidget(widget) {
     const alloc = widget.get_allocation();
-    const surface = new Cairo.ImageSurface(
-        Cairo.Format.ARGB32,
+    const surface = new cairo.ImageSurface(
+        cairo.Format.ARGB32,
         alloc.width,
         alloc.height,
     );
-    const cr = new Cairo.Context(surface);
+    const cr = new cairo.Context(surface);
     cr.setSourceRGBA(255, 255, 255, 0);
     cr.rectangle(0, 0, alloc.width, alloc.height);
     cr.fill();
@@ -47,6 +51,7 @@ export function warnOnLowBattery() {
     });
 }
 
+/** @type {function(string): string}*/
 export function getAudioTypeIcon(icon) {
     const substitues = [
         ['audio-headset-bluetooth', icons.audio.type.headset],
@@ -81,6 +86,7 @@ export async function globalServices() {
     globalThis.mpris = globalThis.ags.Mpris;
 }
 
+/** @type {function(Applications.Application): void}*/
 export function launchApp(app) {
     Utils.execAsync(`hyprctl dispatch exec ${app.executable}`);
     app.frequency += 1;

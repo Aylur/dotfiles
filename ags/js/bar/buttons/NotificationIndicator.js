@@ -30,6 +30,6 @@ export default ({ direction = 'left' } = {}) => HoverRevealer({
     child: Widget.Label({
         truncate: 'end',
         maxWidthChars: 40,
-        binds: [['label', Notifications, 'notifications', n => n[0]?.summary || '']],
+        binds: [['label', Notifications, 'notifications', n => n.reverse()[0]?.summary || '']],
     }),
 });

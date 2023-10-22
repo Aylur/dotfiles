@@ -1,6 +1,8 @@
 import Notification from '../misc/Notification.js';
 import { Notifications, Widget, Utils } from '../imports.js';
 
+const blackList = ['Spotify'];
+
 const Popups = () => {
     const map = new Map();
 
@@ -24,8 +26,12 @@ const Popups = () => {
         if (!id || Notifications.dnd)
             return;
 
+        const n = Notifications.getNotification(id);
+        if (blackList.includes(n?.app_name))
+            return;
+
         map.delete(id);
-        map.set(id, Notification(Notifications.getNotification(id)));
+        map.set(id, Notification(n));
         box.children = Array.from(map.values()).reverse();
         Utils.timeout(10, () => {
             box.get_parent().revealChild = true;

@@ -1,25 +1,22 @@
+import GLib from 'gi://GLib';
 import options from './options.js';
-import { Variable, Utils } from './imports.js';
+import { Variable } from './imports.js';
 
-const prettyUptime = str => {
-    if (str.length >= 4)
-        return str;
-
-    if (str.length === 1)
-        return '0:0' + str;
-
-    if (str.length === 2)
-        return '0:' + str;
-};
+const intval = options.systemFetchInterval;
 
 export const uptime = Variable(0, {
-    poll: [60_000, 'uptime', line => prettyUptime(line.split(/\s+/)[2].replace(',', ''))],
+    poll: [60_000, 'cat /proc/uptime', (/** @type {string} */ line) => {
+        const uptime = Number.parseInt(line.split('.')[0]) / 60;
+        if (uptime > 18 * 60)
+            return 'Go Sleep';
+
+        const h = Math.floor(uptime / 60);
+        const s = Math.floor(uptime % 60);
+        return `${h}:${s < 10 ? '0' + s : s}`;
+    }],
 });
 
-export const distro = Utils.exec('cat /etc/os-release')
-    .split('\n')
-    .find(line => line.startsWith('ID'))
-    .split('=')[1];
+export const distro = GLib.get_os_info('ID');
 
 export const distroIcon = (() => {
     switch (distro) {
@@ -34,21 +31,25 @@ export const distroIcon = (() => {
     }
 })();
 
-const divide = ([total, free]) => free / total;
+/** @type {function([string, string]): number} */
+const divide = ([total, free]) => Number.parseInt(free) / Number.parseInt(total);
+
 export const cpu = Variable(0, {
-    poll: [options.systemFetchInterval, 'top -b -n 1', out => divide([100, out.split('\n')
+    poll: [intval, 'top -b -n 1', out => divide(['100', out.split('\n')
         .find(line => line.includes('Cpu(s)'))
         .split(/\s+/)[1]
         .replace(',', '.')])],
 });
 
 export const ram = Variable(0, {
-    poll: [options.systemFetchInterval, 'free', out => divide(out.split('\n')
+    poll: [intval, 'free', out => divide(out.split('\n')
         .find(line => line.includes('Mem:'))
         .split(/\s+/)
         .splice(1, 2))],
 });
 
 export const temp = Variable(0, {
-    poll: [options.systemFetchInterval, 'cat ' + options.temperature, n => n / 100_000],
+    poll: [intval, 'cat ' + options.temperature, n => {
+        return Number.parseInt(n) / 100_000;
+    }],
 });

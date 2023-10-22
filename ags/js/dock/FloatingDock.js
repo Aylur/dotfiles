@@ -1,5 +1,5 @@
 import Dock from './Dock.js';
-import { Utils, Widget } from '../imports.js';
+import { Hyprland, Utils, Widget } from '../imports.js';
 
 export default monitor => Widget.Window({
     monitor,
@@ -26,6 +26,15 @@ export default monitor => Widget.Window({
                 Widget.Revealer({
                     transition: 'slide_up',
                     child: Dock(),
+                    setup: self => {
+                        const update = () => {
+                            const ws = Hyprland.getWorkspace(Hyprland.active.workspace.id);
+                            self.revealChild = ws?.windows === 0;
+                        };
+                        Utils.connect(Hyprland, self, update, 'client-added');
+                        Utils.connect(Hyprland, self, update, 'client-removed');
+                        Utils.connect(Hyprland.active.workspace, self, update);
+                    },
                 }),
                 Widget.Box({
                     className: 'padding',

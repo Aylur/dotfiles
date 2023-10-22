@@ -1,19 +1,35 @@
-const resource = file => `resource:///com/github/Aylur/ags/${file}.js`;
-const require = async file => (await import(resource(file))).default;
-const service = async file => (await require(`service/${file}`));
+// typedefs
+/// <reference path="../types/ags.d.ts" />
 
-export const App = await require('app');
-export const Widget = await require('widget');
-export const Service = await require('service');
-export const Variable = await require('variable');
-export const Utils = await import(resource('utils'));
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Service from 'resource:///com/github/Aylur/ags/service.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 
-export const Applications = await service('applications');
-export const Audio = await service('audio');
-export const Battery = await service('battery');
-export const Bluetooth = await service('bluetooth');
-export const Hyprland = await service('hyprland');
-export const Mpris = await service('mpris');
-export const Network = await service('network');
-export const Notifications = await service('notifications');
-export const SystemTray = await service('systemtray');
+import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
+import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+import Network from 'resource:///com/github/Aylur/ags/service/network.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
+
+export {
+    App,
+    Widget,
+    Service,
+    Variable,
+    Utils,
+    Applications,
+    Audio,
+    Battery,
+    Bluetooth,
+    Hyprland,
+    Mpris,
+    Network,
+    Notifications,
+    SystemTray,
+};

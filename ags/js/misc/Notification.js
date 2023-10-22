@@ -9,7 +9,7 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
             className: 'icon img',
             style: `
                 background-image: url("${image}");
-                background-size: contain;
+                background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
                 min-width: 78px;

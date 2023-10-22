@@ -1,9 +1,17 @@
 import { Utils } from './imports.js';
 const WP = `/home/${Utils.USER}/Pictures/Wallpapers/`;
 
+/**
+ * @param {Record<string, string>} scheme
+ * @param {function(string): string} edit
+ * @returns {Record<string, string>}
+ */
 const editScheme = (scheme, edit) => {
+    /** @type {Record<string, string>} */
     const obj = {};
-    Object.keys(scheme).forEach(color => obj[color] = edit(scheme[color]));
+    Object.keys(scheme).forEach(color => {
+        obj[color] = edit(scheme[color]);
+    });
     return obj;
 };
 

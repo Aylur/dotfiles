@@ -59,20 +59,12 @@ const BluetoothIndicator = () => Widget.Icon({
     binds: [['visible', Bluetooth, 'enabled']],
 });
 
-const NetworkIndicator = () => Widget.Stack({
-    items: [
-        ['wifi', Widget.Icon({
-            connections: [[Network, icon => {
-                icon.icon = Network.wifi?.iconName;
-            }]],
-        })],
-        ['wired', Widget.Icon({
-            connections: [[Network, icon => {
-                icon.icon = Network.wired?.iconName;
-            }]],
-        })],
-    ],
-    binds: [['shown', Network, 'primary']],
+const NetworkIndicator = () => Widget.Icon({
+    connections: [[Network, self => {
+        const icon = Network[Network.primary]?.iconName;
+        self.icon = icon || '';
+        self.visible = icon;
+    }]],
 });
 
 const AudioIndicator = () => Widget.Icon({

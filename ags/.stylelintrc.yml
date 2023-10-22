@@ -1,5 +1,7 @@
 extends: stylelint-config-standard-scss
-ignoreFiles: "**/*.js"
+ignoreFiles: 
+  - "**/*.js"
+  - "**/*.ts"
 rules:
   selector-type-no-unknown: null
   declaration-empty-line-before: null
