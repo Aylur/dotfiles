@@ -68,12 +68,16 @@ export function getAudioTypeIcon(icon) {
 }
 
 export function scssWatcher() {
-    return Utils.subprocess([
-        'inotifywait',
-        '--recursive',
-        '--event', 'create,modify',
-        '-m', App.configDir + '/scss',
-    ], () => Theme.setup());
+    return Utils.subprocess(
+        [
+            'inotifywait',
+            '--recursive',
+            '--event', 'create,modify',
+            '-m', App.configDir + '/scss',
+        ],
+        () => Theme.setup(),
+        () => print('missing dependancy for css hotreload: inotify-tools'),
+    );
 }
 
 export async function globalServices() {

@@ -20,7 +20,7 @@ class ThemeService extends Service {
         try {
             Utils.exec('swww init');
         } catch (error) {
-            console.error('missing dependancy: swww');
+            print('missing dependancy: swww');
         }
         this.setup();
     }
