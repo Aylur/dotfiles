@@ -4,6 +4,8 @@ import options from '../options.js';
 import { App, Hyprland, Applications, Utils, Widget } from '../imports.js';
 import { launchApp } from '../utils.js';
 
+const focus = ({ address }) => Utils.execAsync(`hyprctl dispatch focuswindow address:${address}`);
+
 const AppButton = ({ icon, ...rest }) => Widget.Button({
     ...rest,
     child: Widget.Box({
@@ -31,6 +33,7 @@ const Taskbar = () => Widget.Box({
                 return AppButton({
                     icon: app.iconName,
                     tooltipText: app.name,
+                    onPrimaryClick: () => focus(client),
                     onMiddleClick: () => launchApp(app),
                 });
             }
@@ -48,10 +51,8 @@ const PinnedApps = () => Widget.Box({
             icon: app.iconName,
             onPrimaryClick: () => {
                 for (const client of Hyprland.clients) {
-                    if (client.class.toLowerCase().includes(term)) {
-                        Utils.execAsync(`hyprctl dispatch focuswindow address:${client.address}`).catch(print);
-                        return;
-                    }
+                    if (client.class.toLowerCase().includes(term))
+                        return focus(client);
                 }
 
                 launchApp(app);
