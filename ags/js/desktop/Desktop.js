@@ -35,7 +35,6 @@ const DesktopClock = () => Widget.Box({
 
 const Desktop = () => Widget.EventBox({
     onSecondaryClick: (_, event) => DesktopMenu().popup_at_pointer(event),
-    onMiddleClick: print,
     child: Widget.Box({
         vertical: true,
         vexpand: true,

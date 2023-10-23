@@ -3,7 +3,8 @@ import { Notifications, Utils, Widget, Variable } from '../../imports.js';
 import Gdk from 'gi://Gdk';
 
 const COLORS_CACHE = Utils.CACHE_DIR + '/colorpicker.json';
-const wlCopy = color => Utils.execAsync(['wl-copy', color]).catch(print);
+const wlCopy = color => Utils.execAsync(['wl-copy', color])
+    .catch(err => console.error(err));
 
 const colors = Variable([]);
 Utils.readFileAsync(COLORS_CACHE)
@@ -39,7 +40,7 @@ export default () => PanelButton({
             [],
             {},
         );
-    }).catch(print),
+    }).catch(err => console.error(err)),
     onSecondaryClick: btn => colors.value.length > 0 ? Widget.Menu({
         className: 'colorpicker',
         children: colors.value.map(color => Widget.MenuItem({

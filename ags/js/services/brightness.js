@@ -25,7 +25,7 @@ class Brightness extends Service {
                 this._kbd = value;
                 this.changed('kbd');
             })
-            .catch(print);
+            .catch(console.error);
     }
 
     set screen(percent) {
@@ -40,14 +40,18 @@ class Brightness extends Service {
                 this._screen = percent;
                 this.changed('screen');
             })
-            .catch(print);
+            .catch(console.error);
     }
 
     constructor() {
         super();
-        this._kbd = Number(Utils.exec(`brightnessctl -d ${KBD} g`));
-        this._kbdMax = Number(Utils.exec(`brightnessctl -d ${KBD} m`));
-        this._screen = Number(Utils.exec('brightnessctl g')) / Number(Utils.exec('brightnessctl m'));
+        try {
+            this._kbd = Number(Utils.exec(`brightnessctl -d ${KBD} g`));
+            this._kbdMax = Number(Utils.exec(`brightnessctl -d ${KBD} m`));
+            this._screen = Number(Utils.exec('brightnessctl g')) / Number(Utils.exec('brightnessctl m'));
+        } catch (error) {
+            console.error('missing dependancy: brightnessctl');
+        }
     }
 }
 

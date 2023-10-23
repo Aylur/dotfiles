@@ -33,14 +33,14 @@ class Recorder extends Service {
                     this.timer++;
                 });
             })
-            .catch(print);
+            .catch(err => console.error(err));
     }
 
     stop() {
         if (!this.recording)
             return;
 
-        Utils.execAsync('killall -INT wf-recorder').catch(print);
+        Utils.execAsync('killall -INT wf-recorder');
         this.recording = false;
         this.changed('recording');
         GLib.source_remove(this._interval);
@@ -59,7 +59,7 @@ class Recorder extends Service {
                 if (res === 'view')
                     Utils.execAsync('xdg-open ' + this._file);
             })
-            .catch(print);
+            .catch(err => console.error(err));
     }
 
     async screenshot(full = false) {
