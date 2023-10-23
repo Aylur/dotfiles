@@ -29,7 +29,8 @@ export default monitor => Widget.Window({
                     setup: self => {
                         const update = () => {
                             const ws = Hyprland.getWorkspace(Hyprland.active.workspace.id);
-                            self.revealChild = ws?.windows === 0;
+                            if (Hyprland.getMonitor(monitor)?.name === ws?.monitor)
+                                self.revealChild = ws?.windows === 0;
                         };
                         Utils.connect(Hyprland, self, update, 'client-added');
                         Utils.connect(Hyprland, self, update, 'client-removed');
