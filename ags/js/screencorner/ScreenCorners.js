@@ -8,7 +8,7 @@ const Corner = place => Widget({
     vexpand: true,
     halign: place.includes('left') ? 'start' : 'end',
     valign: place.includes('top') ? 'start' : 'end',
-    setup: widget => { widget.set_size_request(0, 0); },
+    setup: widget => widget.set_size_request(32, 22),
     connections: [['draw', (widget, cr) => {
         const context = widget.get_style_context();
         const c = context.get_property('background-color', Gtk.StateFlags.NORMAL);
@@ -40,6 +40,7 @@ const Corner = place => Widget({
         cr.closePath();
         cr.setSourceRGBA(c.red, c.green, c.blue, c.alpha);
         cr.fill();
+        cr.$dispose();
     }]],
 });
 

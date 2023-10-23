@@ -14,10 +14,10 @@ export function substitute(collection, item) {
     return collection.find(([from]) => from === item)?.[1] || item;
 }
 
-/** @type {function((id: number) => Gtk.Widget): Gtk.Widget[]}*/
+/** @type {function((id: number) => typeof Gtk.Widget): typeof Gtk.Widget[]}*/
 export function forMonitors(widget) {
     const ws = JSON.parse(Utils.exec('hyprctl -j monitors'));
-    return ws.map(mon => widget(mon.id));
+    return ws.map((/** @type {Record<string, number>} */ mon) => widget(mon.id));
 }
 
 /** @type {function(Gtk.Widget): cairo.ImageSurface}*/
@@ -38,12 +38,12 @@ export function createSurfaceFromWidget(widget) {
 }
 
 export function warnOnLowBattery() {
-    Battery.connect('changed', () => {
-        const { low } = options.battaryBar;
-        if (Battery.percentage < low || Battery.percentage < low / 2) {
+    const { low } = options.battaryBar;
+    Battery.connect('notify::percent', () => {
+        if (Battery.percent === low || Battery.percent === low / 2) {
             Utils.execAsync([
                 'notify-send',
-                `${Battery.percentage}% Battery Percentage`,
+                `${Battery.percent}% Battery Percentage`,
                 '-i', icons.battery.warning,
                 '-u', 'critical',
             ]);
