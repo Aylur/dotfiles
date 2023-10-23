@@ -1,4 +1,5 @@
 import Gtk from 'gi://Gtk';
+import Theme from '../services/theme/theme.js';
 import { Widget } from '../imports.js';
 
 const Corner = place => Widget({
@@ -8,12 +9,14 @@ const Corner = place => Widget({
     vexpand: true,
     halign: place.includes('left') ? 'start' : 'end',
     valign: place.includes('top') ? 'start' : 'end',
-    setup: widget => widget.set_size_request(32, 22),
-    connections: [['draw', (widget, cr) => {
-        const context = widget.get_style_context();
+    connections: [[Theme, self => {
+        const r = Theme.getSetting('radii') * 2;
+        self.set_size_request(r, r);
+    }]],
+    setup: self => self.connect('draw', (self, cr) => {
+        const context = self.get_style_context();
         const c = context.get_property('background-color', Gtk.StateFlags.NORMAL);
         const r = context.get_property('border-radius', Gtk.StateFlags.NORMAL);
-        widget.set_size_request(r, r);
 
         switch (place) {
             case 'topleft':
@@ -40,8 +43,7 @@ const Corner = place => Widget({
         cr.closePath();
         cr.setSourceRGBA(c.red, c.green, c.blue, c.alpha);
         cr.fill();
-        cr.$dispose();
-    }]],
+    }),
 });
 
 const places = ['topleft', 'topright', 'bottomleft', 'bottomright'];
@@ -50,5 +52,17 @@ export default monitor => places.map(place => Widget.Window({
     monitor,
     className: 'corner',
     anchor: [place.includes('top') ? 'top' : 'bottom', place.includes('right') ? 'right' : 'left'],
-    child: Corner(place),
+    child: Widget.Box({
+        children: [
+            place.includes('right') && Widget.Label({
+                label: 'for some reason single chidren sometimes dont render',
+                style: 'color: transparent;',
+            }),
+            Corner(place),
+            place.includes('left') && Widget.Label({
+                label: 'for some reason single chidren sometimes dont render',
+                style: 'color: transparent;',
+            }),
+        ],
+    }),
 }));
