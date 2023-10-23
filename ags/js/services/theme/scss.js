@@ -63,6 +63,6 @@ export default async function(theme) {
         App.resetCss();
         App.applyCss(`${tmp}/style.css`);
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
     }
 }
