@@ -25,10 +25,6 @@
   let
     username = "demeter";
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
   in
   {
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
@@ -37,7 +33,10 @@
     };
 
     homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
       extraSpecialArgs = { inherit inputs username; };
       modules = [ ./home-manager/home.nix ];
     };

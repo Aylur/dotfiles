@@ -2,11 +2,11 @@
 
   imports = [
     /etc/nixos/hardware-configuration.nix
+    ./audio.nix
     ./gnome.nix
     ./hyprland.nix
+    ./laptop.nix
     ./locale.nix
-    ./nvidia.nix
-    ./audio.nix
   ];
 
   # nix
@@ -35,10 +35,6 @@
     git
     wget
   ];
-
-  # asusctl
-  services.asusd.enable = true;
-  programs.rog-control-center.enable = true;
 
   # services
   services = {

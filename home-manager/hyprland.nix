@@ -1,35 +1,20 @@
 { inputs, pkgs, ... }:
 let
   hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  hyprbars = inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars;
-  borderspp = inputs.hyprland-plugins.packages.${pkgs.system}.borders-plus-plus;
+  plugins = inputs.hyprland-plugins.packages.${pkgs.system};
 
   launcher = pkgs.writeShellScriptBin "hypr" ''
     #!/${pkgs.bash}/bin/bash
+
     export WLR_NO_HARDWARE_CURSORS=1
     export _JAVA_AWT_WM_NONREPARENTING=1
-    . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
-    if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-        PATH="$HOME/.local/bin:$HOME/bin:$PATH"; fi
-
-    if ! [[ "$PATH" =~ "$HOME/.nix-profile/bin:" ]]; then
-        PATH="$HOME/.nix-profile/bin:$PATH"; fi
-
-    export PATH
-
-    if [[ $1 == 'fedora' ]]; then
-        exec /usr/bin/Hyprland
-    fi
-
-    if command -v "nixGLIntel" &> /dev/null; then
-        nixGLIntel ${hyprland}/bin/Hyprland
-    else
-        exec ${hyprland}/bin/Hyprland
-    fi
+    exec ${hyprland}/bin/Hyprland
   '';
 in
 {
+  home.packages = [ launcher ];
+
   xdg.desktopEntries."org.gnome.Settings" = {
     name = "Settings";
     comment = "Gnome Control Center";
@@ -39,23 +24,199 @@ in
     terminal = false;
   };
 
-  home.packages = [ launcher ];
-  home.file.".config/hypr/config".source = ../hypr;
-
   wayland.windowManager.hyprland = {
     enable = true;
     package = hyprland;
     systemd.enable = true;
     enableNvidiaPatches = true;
     xwayland.enable = true;
-    # plugins = [ hyprbars borderspp ];
-    extraConfig = ''
-      source=~/.config/hypr/config/monitors.conf
-      source=~/.config/hypr/config/settings.conf
-      source=~/.config/hypr/config/rules.conf
-      source=~/.config/hypr/config/binds.conf
-      source=~/.config/hypr/config/theme.conf
-      source=~/.config/hypr/config/exec.conf
-    '';
+    # plugins = with plugins; [ hyprbars borderspp ];
+
+    settings = {
+      exec-once = [
+        "ags -b hypr"
+        "hyprctl setcursor Qogir 24"
+        "transmission-gtk"
+      ];
+
+      monitor = [
+        "eDP-1, 1920x1080, 0x0, 1"
+        "HDMI-A-1, 2560x1440, 1920x0, 1"
+      ];
+
+      general = {
+        layout = "dwindle";
+        resize_on_border = true;
+      };
+
+      misc = {
+        layers_hog_keyboard_focus = false;
+        disable_splash_rendering = true;
+        disable_hyprland_logo = true;
+      };
+
+      input = {
+        kb_layout = "hu";
+        kb_model = "pc104";
+        follow_mouse = 1;
+        touchpad = {
+          natural_scroll = "yes";
+        };
+        sensitivity = 0;
+      };
+
+      binds = {
+        allow_workspace_cycles = true;
+      };
+
+      dwindle = {
+        pseudotile = "yes";
+        preserve_split = "yes";
+        # no_gaps_when_only = "yes";
+      };
+
+      gestures = {
+        workspace_swipe = "on";
+      };
+
+      windowrule = let
+        f = regex: "float, ^(${regex})$";
+      in [
+		(f "Rofi")
+		(f "org.gnome.Calculator")
+		(f "org.gnome.Nautilus")
+		(f "eww")
+		(f "pavucontrol")
+		(f "nm-connection-editor")
+		(f "blueberry.py")
+		(f "org.gnome.Settings")
+		(f "org.gnome.design.Palette")
+		(f "Color Picker")
+		(f "Network")
+		(f "xdg-desktop-portal")
+		(f "xdg-desktop-portal-gnome")
+		(f "transmission-gtk")
+		"workspace 7, title:Spotify"
+      ];
+
+      bind = let
+        binding = mod: cmd: key: arg: "${mod}, ${key}, ${cmd}, ${arg}";
+        mvfocus = binding "SUPER" "movefocus";
+        ws = binding "SUPER" "workspace";
+        resizeactive = binding "SUPER CTRL" "resizeactive";
+        mvactive = binding "SUPER ALT" "moveactive";
+        mvtows = binding "SUPER ALT" "movetoworkspace";
+        e = "exec, ags -b hypr";
+        arr = [1 2 3 4 5 6 7 8 9];
+      in [
+        "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
+        "SUPER, R,       ${e} -t applauncher"
+        ", XF86PowerOff, ${e} -t powermenu"
+        "SUPER, Tab,     ${e} -t overview"
+        ", XF86Launch4,  ${e} -r 'recorder.start()'"
+        ",Print,         ${e} -r 'recorder.screenshot()'"
+        "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
+        "SUPER, Return, exec, wezterm"
+        "SUPER, W, exec, firefox"
+        "SUPER, E, exec, wezterm -e lf"
+
+        "ALT, Tab, focuscurrentorlast"
+        "CTRL ALT, Delete, exit"
+        "ALT, Q, killactive"
+        "SUPER, F, togglefloating"
+        "SUPER, G, fullscreen"
+        "SUPER, O, fakefullscreen"
+        "SUPER, P, togglesplit"
+
+        (mvfocus "k" "u")
+        (mvfocus "j" "d")
+        (mvfocus "l" "r")
+        (mvfocus "h" "l")
+        (ws "left" "e-1")
+        (ws "right" "e+1")
+        (mvtows "left" "e-1")
+        (mvtows "right" "e+1")
+        (resizeactive "k" "0 -20")
+        (resizeactive "j" "0 20")
+        (resizeactive "l" "20 0")
+        (resizeactive "h" "-20 0")
+        (mvactive "k" "0 -20")
+        (mvactive "j" "0 20")
+        (mvactive "l" "20 0")
+        (mvactive "h" "-20 0")
+      ]
+      ++ map (i: ws (toString i) (toString i)) arr
+      ++ map (i: mvtows (toString i) (toString i)) arr;
+
+      bindle = let e = "exec, ags -b hypr -r"; in [
+        ",XF86MonBrightnessUp,   ${e} 'brightness.screen += 0.05; indicator.display()'"
+        ",XF86MonBrightnessDown, ${e} 'brightness.screen -= 0.05; indicator.display()'"
+        ",XF86KbdBrightnessUp,   ${e} 'brightness.kbd++; indicator.kbd()'"
+        ",XF86KbdBrightnessDown, ${e} 'brightness.kbd--; indicator.kbd()'"
+        ",XF86AudioRaiseVolume,  ${e} 'audio.speaker.volume += 0.05; indicator.speaker()'"
+        ",XF86AudioLowerVolume,  ${e} 'audio.speaker.volume -= 0.05; indicator.speaker()'"
+      ];
+
+      bindl = let e = "exec, ags -b hypr -r"; in [
+        ",XF86AudioPlay,    ${e} 'mpris.players[0]?.playPause()'"
+        ",XF86AudioStop,    ${e} 'mpris.players[0]?.stop()'"
+        ",XF86AudioPause,   ${e} 'mpris.players[0]?.pause()'"
+        ",XF86AudioPrev,    ${e} 'mpris.players[0]?.previous()'"
+        ",XF86AudioNext,    ${e} 'mpris.players[0]?.next()'"
+        ",XF86AudioMicMute, ${e} 'audio.microphone.isMuted = !audio.microphone.isMuted'"
+      ];
+
+      bindm = [
+        "SUPER, mouse:273, resizewindow"
+        "SUPER, mouse:272, movewindow"
+      ];
+
+      decoration = {
+        drop_shadow = "yes";
+        shadow_range = 8;
+        shadow_render_power = 2;
+        "col.shadow" = "rgba(00000044)";
+
+        dim_inactive = false;
+
+        blur = {
+          enabled = true;
+          size = 8;
+          passes = 3;
+          new_optimizations = "on";
+          noise = 0.01;
+          contrast = 0.9;
+          brightness = 0.8;
+        };
+      };
+
+      animations = {
+        enabled = "yes";
+        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+        animation = [
+          "windows, 1, 5, myBezier"
+          "windowsOut, 1, 7, default, popin 80%"
+          "border, 1, 10, default"
+          "fade, 1, 7, default"
+          "workspaces, 1, 6, default"
+        ];
+      };
+
+      plugin = {
+        hyprbars = {
+          bar_color = "rgb(2a2a2a)";
+          bar_height = 28;
+          col_text = "rgba(ffffffdd)";
+          bar_text_size = 11;
+          bar_text_font = "Ubuntu Nerd Font";
+
+          buttons = {
+            button_size = 0;
+            "col.maximize" = "rgba(ffffff11)";
+            "col.close" = "rgba(ff111133)";
+          };
+        };
+      };
+    };
   };
 }

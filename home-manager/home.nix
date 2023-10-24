@@ -43,7 +43,7 @@ in
       SHELL = "${pkgs.zsh}/bin/zsh";
       BAT_THEME = "base16";
       GOPATH = "${homeDirectory}/.local/share/go";
-      GOMODCACHE="${homeDirectory}/.local/share/go/pkg/mod";
+      GOMODCACHE="${homeDirectory}/./go/pkg/mod";
     };
 
     sessionPath = [

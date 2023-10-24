@@ -1,5 +1,12 @@
 { config, ... }:
 {
+  # asusctl
+  services.asusd = {
+    enable = true;
+    enableUserService = true;
+  };
+
+  # nvidia
   hardware.opengl = {
     enable = true;
     driSupport = true;

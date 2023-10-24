@@ -1,12 +1,7 @@
 { pkgs, ... }:
-let
-    substitute = name: pkgs.writeShellScriptBin name ''
-        ${pkgs.blackbox-terminal}/bin/blackbox "$@"
-    '';
-in 
 {
   home = {
-    packages = with pkgs; [ blackbox-terminal (substitute "xterm") ];
+    packages = with pkgs; [ blackbox-terminal ];
     sessionVariables.TERMINAL = "blackbox";
   };
 
