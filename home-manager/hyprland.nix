@@ -105,7 +105,7 @@ in
         ws = binding "SUPER" "workspace";
         resizeactive = binding "SUPER CTRL" "resizeactive";
         mvactive = binding "SUPER ALT" "moveactive";
-        mvtows = binding "SUPER ALT" "movetoworkspace";
+        mvtows = binding "SUPER SHIFT" "movetoworkspace";
         e = "exec, ags -b hypr";
         arr = [1 2 3 4 5 6 7 8 9];
       in [
@@ -145,8 +145,8 @@ in
         (mvactive "l" "20 0")
         (mvactive "h" "-20 0")
       ]
-      ++ map (i: ws (toString i) (toString i)) arr
-      ++ map (i: mvtows (toString i) (toString i)) arr;
+      ++ (map (i: ws (toString i) (toString i)) arr)
+      ++ (map (i: mvtows (toString i) (toString i)) arr);
 
       bindle = let e = "exec, ags -b hypr -r"; in [
         ",XF86MonBrightnessUp,   ${e} 'brightness.screen += 0.05; indicator.display()'"
@@ -158,11 +158,11 @@ in
       ];
 
       bindl = let e = "exec, ags -b hypr -r"; in [
-        ",XF86AudioPlay,    ${e} 'mpris.players[0]?.playPause()'"
-        ",XF86AudioStop,    ${e} 'mpris.players[0]?.stop()'"
-        ",XF86AudioPause,   ${e} 'mpris.players[0]?.pause()'"
-        ",XF86AudioPrev,    ${e} 'mpris.players[0]?.previous()'"
-        ",XF86AudioNext,    ${e} 'mpris.players[0]?.next()'"
+        ",XF86AudioPlay,    ${e} 'mpris()?.playPause()'"
+        ",XF86AudioStop,    ${e} 'mpris()?.stop()'"
+        ",XF86AudioPause,   ${e} 'mpris()?.pause()'"
+        ",XF86AudioPrev,    ${e} 'mpris()?.previous()'"
+        ",XF86AudioNext,    ${e} 'mpris()?.next()'"
         ",XF86AudioMicMute, ${e} 'audio.microphone.isMuted = !audio.microphone.isMuted'"
       ];
 

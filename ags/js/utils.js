@@ -2,7 +2,7 @@ import cairo from 'cairo';
 import options from './options.js';
 import icons from './icons.js';
 import Theme from './services/theme/theme.js';
-import { Utils, App, Battery } from './imports.js';
+import { Utils, App, Battery, Mpris, Audio } from './imports.js';
 
 /** @type {function(number, number): number[]}*/
 export function range(length, start = 1) {
@@ -80,14 +80,23 @@ export function scssWatcher() {
     );
 }
 
+export function activePlayer() {
+    let active;
+    globalThis.mpris = () => active || Mpris.players[0];
+    Mpris.connect('player-added', (mpris, bus) => {
+        mpris.getPlayer(bus)?.connect('changed', player => {
+            active = player;
+        });
+    });
+}
+
 export async function globalServices() {
+    globalThis.audio = Audio;
     globalThis.ags = await import('./imports.js');
     globalThis.recorder = (await import('./services/screenrecord.js')).default;
     globalThis.brightness = (await import('./services/brightness.js')).default;
     globalThis.indicator = (await import('./services/onScreenIndicator.js')).default;
     globalThis.theme = (await import('./services/theme/theme.js')).default;
-    globalThis.audio = globalThis.ags.Audio;
-    globalThis.mpris = globalThis.ags.Mpris;
 }
 
 /** @type {function(Applications.Application): void}*/
