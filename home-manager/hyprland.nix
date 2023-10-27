@@ -52,7 +52,7 @@ in
       misc = {
         layers_hog_keyboard_focus = false;
         disable_splash_rendering = true;
-        disable_hyprland_logo = true;
+        force_default_wallpaper = 0;
       };
 
       input = {
@@ -61,8 +61,11 @@ in
         follow_mouse = 1;
         touchpad = {
           natural_scroll = "yes";
+          disable_while_typing = true;
+          drag_lock = true;
         };
         sensitivity = 0;
+        float_switch_override_focus = 2;
       };
 
       binds = {
@@ -77,22 +80,22 @@ in
 
       gestures = {
         workspace_swipe = "on";
+        workspace_swipe_direction_lock = false;
+        workspace_swipe_forever = true;
+        workspace_swipe_numbered = true;
       };
 
       windowrule = let
         f = regex: "float, ^(${regex})$";
       in [
-		(f "Rofi")
 		(f "org.gnome.Calculator")
 		(f "org.gnome.Nautilus")
-		(f "eww")
 		(f "pavucontrol")
 		(f "nm-connection-editor")
 		(f "blueberry.py")
 		(f "org.gnome.Settings")
 		(f "org.gnome.design.Palette")
 		(f "Color Picker")
-		(f "Network")
 		(f "xdg-desktop-portal")
 		(f "xdg-desktop-portal-gnome")
 		(f "transmission-gtk")
@@ -116,7 +119,7 @@ in
         ", XF86Launch4,  ${e} -r 'recorder.start()'"
         ",Print,         ${e} -r 'recorder.screenshot()'"
         "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
-        "SUPER, Return, exec, wezterm"
+        "SUPER, Return, exec, blackbox"
         "SUPER, W, exec, firefox"
         "SUPER, E, exec, wezterm -e lf"
 

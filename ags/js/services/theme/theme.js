@@ -64,7 +64,12 @@ class ThemeService extends Service {
 
         if (Utils.exec('which gsettings')) {
             const gsettings = 'gsettings set org.gnome.desktop.interface color-scheme';
-            Utils.execAsync(`${gsettings} "prefer-${darkmode ? 'dark' : 'light'}"`).catch(print);
+            Utils.execAsync(`${gsettings} "prefer-${darkmode ? 'dark' : 'light'}"`);
+        }
+
+        if (Utils.exec('which tmux')) {
+            const color = c => this.getSetting(c).replace('$', '');
+            Utils.execAsync(`tmux set @main_accent ${color('accent')}`);
         }
     }
 

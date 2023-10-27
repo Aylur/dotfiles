@@ -4,15 +4,16 @@ let
   fg = "default";
   bg2 = "brightblack";
   fg2 = "white";
+  color = c: "#{@${c}}";
 
   indicator = rec {
-    accent = "yellow";
+    accent = color "indicator_color";
     content = "  ";
     module = "#[reverse,fg=${accent}]#{?client_prefix,${content},}";
   };
 
   current_window = rec {
-    accent = "blue";
+    accent = color "main_accent";
     index = "#[reverse,fg=${accent},bg=${fg}] #I ";
     name = "#[fg=${bg2},bg=${fg2}] #W ";
 	flags = "#{?window_flags,#{window_flags}, }";
@@ -20,7 +21,7 @@ let
   };
 
   window_status = rec {
-    accent = "magenta";
+    accent = color "window_color";
     index = "#[reverse,fg=${accent},bg=${fg}] #I ";
     name = "#[fg=${bg2},bg=${fg2}] #W ";
 	flags = "#{?window_flags,#{window_flags}, }";
@@ -28,7 +29,7 @@ let
   };
 
   time = rec {
-    accent = "blue";
+    accent = color "main_accent";
     format = "%H:%M";
 
     icon = pkgs.writeShellScriptBin "icon" ''
@@ -92,7 +93,7 @@ let
   };
 
   pwd = rec {
-    accent = "blue";
+    accent = color "main_accent";
     icon = "#[fg=${accent}] ";
     format = "#[fg=${fg}]#{b:pane_current_path}";
     module = "${icon}${format}";
@@ -121,6 +122,9 @@ in
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
 
+      set-option -g @indicator_color "yellow"
+      set-option -g @window_color "magenta"
+      set-option -g @main_accent "blue"
       set-option -g status-style "bg=${bg} fg=${fg}"
       set-option -g status-left "${indicator.module}"
       set-option -g status-right "${pwd.module} | ${bat.module} ${time.module}"
