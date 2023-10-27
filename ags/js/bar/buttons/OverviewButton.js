@@ -5,9 +5,7 @@ import { App } from '../../imports.js';
 
 export default () => PanelButton({
     className: 'overview',
-    connections: [[App, (btn, win, visible) => {
-        btn.toggleClassName('active', win === 'overview' && visible);
-    }]],
+    window: 'overview',
     onClicked: () => App.toggleWindow('overview'),
     content: FontIcon(distroIcon),
 });

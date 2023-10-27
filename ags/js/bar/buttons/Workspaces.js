@@ -29,8 +29,8 @@ export default () => Widget.Box({
     child: Widget.Box({
         // its nested like this to keep it consistent with other PanelButton widgets
         child: Widget.EventBox({
-            onScrollUp: dispatch(`${ws ? 'r' : 'm'}+1`),
-            onScrollDown: dispatch(`${ws ? 'r' : 'm'}-1`),
+            onScrollUp: dispatch('m+1'),
+            onScrollDown: dispatch('m-1'),
             className: 'eventbox',
             child: Workspaces(),
         }),
