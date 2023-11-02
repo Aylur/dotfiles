@@ -20,7 +20,6 @@
     caprine-bin
     d-spy
     easyeffects
-    figma-linux
     github-desktop
     gimp
     transmission_4-gtk
