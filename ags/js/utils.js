@@ -2,6 +2,7 @@ import cairo from 'cairo';
 import options from './options.js';
 import icons from './icons.js';
 import Theme from './services/theme/theme.js';
+import Gdk from 'gi://Gdk';
 import { Utils, App, Battery, Mpris, Audio } from './imports.js';
 
 export function range(length, start = 1) {
@@ -13,8 +14,8 @@ export function substitute(collection, item) {
 }
 
 export function forMonitors(widget) {
-    const ws = JSON.parse(Utils.exec('hyprctl -j monitors'));
-    return ws.map((/** @type {Record<string, number>} */ mon) => widget(mon.id));
+    const n = Gdk.Display.get_default().get_n_monitors();
+    return range(n, 0).map(widget);
 }
 
 export function createSurfaceFromWidget(widget) {
