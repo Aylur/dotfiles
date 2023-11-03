@@ -9,7 +9,8 @@
     name = "NeoVim";
     comment = "Edit text files";
     icon = "nvim";
-    exec = "${pkgs.wezterm}/bin/wezterm -e ${pkgs.neovim}/bin/nvim %F";
+    # xterm is a symlink and not actually xterm
+    exec = "xterm -e ${pkgs.neovim}/bin/nvim %F";
     categories = [ "TerminalEmulator" ];
     terminal = false;
     mimeType = [ "text/plain" ];

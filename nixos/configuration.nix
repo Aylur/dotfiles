@@ -85,6 +85,7 @@
 
   # bootloader
   boot = {
+    tmp.cleanOnBoot = true;
     supportedFilesystems = [ "ntfs" ];
     loader = {
       timeout = 2;

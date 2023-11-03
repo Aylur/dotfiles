@@ -1,8 +1,16 @@
 { pkgs, ... }:
+# let
+#   xterm = pkgs.writeShellScriptBin "xterm" ''
+#     ${pkgs.blackbox-terminal}/bin/blackbox "$@"
+#   '';
+# in
 {
   home = {
-    packages = with pkgs; [ blackbox-terminal ];
-    sessionVariables.TERMINAL = "blackbox";
+    packages = with pkgs; [
+      blackbox-terminal
+      # xterm
+    ];
+    # sessionVariables.TERMINAL = "blackbox";
   };
 
   home.file.".local/share/blackbox/schemes/charmful.json".text = ''{

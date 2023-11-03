@@ -1,11 +1,14 @@
 { pkgs, ... }:
 let
-  substitute = name: pkgs.writeShellScriptBin name ''
+  xterm = pkgs.writeShellScriptBin "xterm" ''
     ${pkgs.wezterm}/bin/wezterm "$@"
   '';
 in
 {
-  home.packages = [ pkgs.wezterm (substitute "xterm") ];
+  home.packages = [
+    pkgs.wezterm
+    xterm
+  ];
   programs.wezterm.enable = true;
   xdg.configFile.wezterm.source = ../wezterm;
 }
