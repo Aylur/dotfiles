@@ -1,7 +1,7 @@
 import { Battery, Widget } from '../imports.js';
 
 export default () => Widget.Icon({
-    className: 'battery',
+    class_name: 'battery',
     binds: [['icon', Battery, 'icon-name']],
     connections: [[Battery, stack => {
         const { charging, charged } = Battery;

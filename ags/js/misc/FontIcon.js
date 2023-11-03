@@ -1,8 +1,8 @@
 import Gtk from 'gi://Gtk';
 import GObject from 'gi://GObject';
-import { Widget } from '../imports.js';
+import AgsLabel from 'resource:///com/github/Aylur/ags/widgets/label.js';
 
-class FontIcon extends Gtk.Label {
+class FontIcon extends AgsLabel {
     static { GObject.registerClass(this); }
 
     constructor(params = '') {
@@ -12,6 +12,9 @@ class FontIcon extends Gtk.Label {
 
         if (typeof params === 'object')
             this.icon = icon;
+
+        if (typeof params === 'string')
+            this.icon = params;
     }
 
     get icon() { return this.label; }
@@ -31,6 +34,4 @@ class FontIcon extends Gtk.Label {
     }
 }
 
-export default params => typeof params === 'string'
-    ? Widget({ type: FontIcon, icon: params })
-    : Widget({ type: FontIcon, ...params });
+export default params => new FontIcon(params);

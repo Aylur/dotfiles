@@ -1,7 +1,6 @@
 import DateColumn from './DateColumn.js';
 import NotificationColumn from './NotificationColumn.js';
 import PopupWindow from '../misc/PopupWindow.js';
-import Separator from '../misc/Separator.js';
 import { Widget } from '../imports.js';
 
 export default ({ anchor = ['top'], layout = 'top' } = {}) => PopupWindow({
@@ -9,10 +8,10 @@ export default ({ anchor = ['top'], layout = 'top' } = {}) => PopupWindow({
     layout,
     anchor,
     content: Widget.Box({
-        className: 'dashboard',
+        class_name: 'dashboard',
         children: [
             NotificationColumn(),
-            Separator({ orientation: 'vertical' }),
+            Widget.Separator({ orientation: 1 }),
             DateColumn(),
         ],
     }),

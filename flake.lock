@@ -5,15 +5,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1698886068,
-        "narHash": "sha256-cJtFHwdZQvN8oIOfpx9bpFvELENxTN0J/AjKVsQbvEE=",
+        "lastModified": 1699027941,
+        "narHash": "sha256-1Wraito99BNIS2T2GHHbl1AyoFwcxxzJivxPqKkNC0A=",
         "owner": "Aylur",
         "repo": "ags",
-        "rev": "dc3439fe1fe06873828ca250cd1bb06c490ddc16",
+        "rev": "65097c6ff63c8cce1a8e0d7bb98f645352108442",
         "type": "github"
       },
       "original": {
         "owner": "Aylur",
+        "ref": "feat/widgets-subclass-rewrite",
         "repo": "ags",
         "type": "github"
       }

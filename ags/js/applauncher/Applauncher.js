@@ -1,5 +1,4 @@
 import { Widget, App, Applications } from '../imports.js';
-import Separator from '../misc/Separator.js';
 import PopupWindow from '../misc/PopupWindow.js';
 import icons from '../icons.js';
 import { launchApp } from '../utils.js';
@@ -7,8 +6,8 @@ import { launchApp } from '../utils.js';
 const WINDOW_NAME = 'applauncher';
 
 const AppItem = app => Widget.Button({
-    className: 'app',
-    onClicked: () => {
+    class_name: 'app',
+    on_clicked: () => {
         App.closeWindow(WINDOW_NAME);
         launchApp(app);
     },
@@ -22,19 +21,19 @@ const AppItem = app => Widget.Button({
                 vertical: true,
                 children: [
                     Widget.Label({
-                        className: 'title',
+                        class_name: 'title',
                         label: app.name,
                         xalign: 0,
-                        valign: 'center',
+                        vpack: 'center',
                         ellipsize: 3,
                     }),
                     Widget.Label({
-                        className: 'description',
+                        class_name: 'description',
                         label: app.description || '',
                         wrap: true,
                         xalign: 0,
                         justification: 'left',
-                        valign: 'center',
+                        vpack: 'center',
                     }),
                 ],
             }),
@@ -47,26 +46,26 @@ const Applauncher = () => {
 
     const placeholder = Widget.Label({
         label: " Couldn't find a match",
-        className: 'placeholder',
+        class_name: 'placeholder',
     });
 
     const entry = Widget.Entry({
         hexpand: true,
         text: '-',
-        placeholderText: 'Search',
-        onAccept: ({ text }) => {
-            const list = Applications.query(text);
+        placeholder_text: 'Search',
+        on_accept: ({ text }) => {
+            const list = Applications.query(text || '');
             if (list[0]) {
                 App.toggleWindow(WINDOW_NAME);
                 launchApp(list[0]);
             }
         },
-        onChange: ({ text }) => {
-            list.children = Applications.query(text).map(app => [
-                Separator(),
+        on_change: ({ text }) => {
+            list.children = Applications.query(text || '').map(app => [
+                Widget.Separator(),
                 AppItem(app),
             ]).flat();
-            list.add(Separator());
+            list.add(Widget.Separator());
             list.show_all();
 
             placeholder.visible = list.children.length === 1;
@@ -74,12 +73,12 @@ const Applauncher = () => {
     });
 
     return Widget.Box({
-        className: 'applauncher',
+        class_name: 'applauncher',
         properties: [['list', list]],
         vertical: true,
         children: [
             Widget.Box({
-                className: 'header',
+                class_name: 'header',
                 children: [
                     Widget.Icon(icons.apps.search),
                     entry,

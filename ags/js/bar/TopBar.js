@@ -8,7 +8,6 @@ import SysTray from './buttons/SysTray.js';
 import ColorPicker from './buttons/ColorPicker.js';
 import SystemIndicators from './buttons/SystemIndicators.js';
 import PowerMenu from './buttons/PowerMenu.js';
-import Separator from '../misc/Separator.js';
 import ScreenRecord from './buttons/ScreenRecord.js';
 import BatteryBar from './buttons/BatteryBar.js';
 import SubMenu from './buttons/SubMenu.js';
@@ -21,16 +20,16 @@ SystemTray.connect('changed', () => {
     submenuItems.setValue(SystemTray.items.length + 1);
 });
 
-const SeparatorDot = (service, condition) => Separator({
-    orientation: 'vertical',
-    valign: 'center',
-    connections: service && [[service, dot => {
+const SeparatorDot = (service, condition) => Widget.Separator({
+    orientation: 0,
+    vpack: 'center',
+    connections: !service ? [] : [[service, dot => {
         dot.visible = condition(service);
     }]],
 });
 
 const Start = () => Widget.Box({
-    className: 'start',
+    class_name: 'start',
     children: [
         OverviewButton(),
         SeparatorDot(),
@@ -44,14 +43,14 @@ const Start = () => Widget.Box({
 });
 
 const Center = () => Widget.Box({
-    className: 'center',
+    class_name: 'center',
     children: [
         DateButton(),
     ],
 });
 
 const End = () => Widget.Box({
-    className: 'end',
+    class_name: 'end',
     children: [
         SeparatorDot(Mpris, m => m.players.length > 0),
         MediaIndicator(),
@@ -64,6 +63,7 @@ const End = () => Widget.Box({
                 ColorPicker(),
             ],
         }),
+
         SeparatorDot(),
         ScreenRecord(),
         SeparatorDot(Recorder, r => r.recording),
@@ -81,9 +81,9 @@ export default monitor => Widget.Window({
     monitor,
     anchor: ['top', 'left', 'right'],
     child: Widget.CenterBox({
-        className: 'panel',
-        startWidget: Start(),
-        centerWidget: Center(),
-        endWidget: End(),
+        class_name: 'panel',
+        start_widget: Start(),
+        center_widget: Center(),
+        end_widget: End(),
     }),
 });

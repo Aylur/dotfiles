@@ -1,13 +1,13 @@
 import { Widget, App } from '../imports.js';
 
 export default ({
-    className,
+    class_name,
     content,
     window = '',
     connections = [],
     ...rest
 }) => Widget.Button({
-    className: `panel-button ${className}`,
+    class_name: `panel-button ${class_name}`,
     setup: self => self.open = false,
     child: Widget.Box({ children: [content] }),
     connections: connections.concat([

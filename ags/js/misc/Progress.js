@@ -8,18 +8,18 @@ export default ({
     ...props
 }) => {
     const fill = Widget.Box({
-        className: 'fill',
+        class_name: 'fill',
         hexpand: vertical,
         vexpand: !vertical,
-        halign: vertical ? 'fill' : 'start',
-        valign: vertical ? 'end' : 'fill',
+        hpack: vertical ? 'fill' : 'start',
+        vpack: vertical ? 'end' : 'fill',
         children: [child],
     });
 
     return Widget.Box({
         ...props,
-        className: 'progress',
-        style: `
+        class_name: 'progress',
+        css: `
             min-width: ${width}px;
             min-height: ${height}px;
         `,
@@ -35,7 +35,7 @@ export default ({
 
             if (!fill._size) {
                 fill._size = preferred;
-                fill.setStyle(`min-${axis}: ${preferred}px;`);
+                fill.setCss(`min-${axis}: ${preferred}px;`);
                 return;
             }
 
@@ -46,7 +46,7 @@ export default ({
             for (let i = 0; i < frames; ++i) {
                 Utils.timeout(5 * i, () => {
                     fill._size += step;
-                    fill.setStyle(`min-${axis}: ${fill._size}px`);
+                    fill.setCss(`min-${axis}: ${fill._size}px`);
                 });
             }
         },

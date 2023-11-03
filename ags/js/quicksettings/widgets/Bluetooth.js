@@ -49,8 +49,7 @@ export const BluetoothDevices = () => Menu({
                         Widget.Label(device.name),
                         device.batteryPercentage > 0 && Widget.Label(`${device.batteryPercentage}%`),
                         Widget.Box({ hexpand: true }),
-                        device.connecting ? Spinner() : Widget({
-                            type: Gtk.Switch,
+                        device.connecting ? Spinner() : Widget.Switch({
                             active: device.connected,
                             connections: [['notify::active', ({ active }) => {
                                 device.setConnection(active);

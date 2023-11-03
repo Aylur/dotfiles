@@ -1,6 +1,5 @@
 // typedefs
 /// <reference path="../types/ags.d.ts" />
-/// <reference path="../types/gtk-types/gtk-3.0.d.ts" />
 
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';

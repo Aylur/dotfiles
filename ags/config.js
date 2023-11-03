@@ -1,47 +1,17 @@
-'use strict';
+import App from 'resource:///com/github/Aylur/ags/app.js';
+const expectedVersion = '1.5.1';
+let config = {};
 
-import TopBar from './js/bar/TopBar.js';
-import ScreenCorners from './js/screencorner/ScreenCorners.js';
-import Overview from './js/overview/Overview.js';
-import Dashboard from './js/dashboard/Dashboard.js';
-import OSD from './js/osd/OSD.js';
-import FloatingDock from './js/dock/FloatingDock.js';
-import Applauncher from './js/applauncher/Applauncher.js';
-import PowerMenu from './js/powermenu/PowerMenu.js';
-import Verification from './js/powermenu/Verification.js';
-import Desktop from './js/desktop/Desktop.js';
-import Notifications from './js/notifications/Notifications.js';
-import QuickSettings from './js/quicksettings/QuickSettings.js';
-import Lockscreen from './js/lockscreen/Lockscreen.js';
-import options from './js/options.js';
-import * as setup from './js/utils.js';
-import { forMonitors } from './js/utils.js';
+if (pkg.version === expectedVersion) {
+    config = (await import('./js/main.js')).default;
+}
+else {
+    print('your ags version is ' + pkg.version);
+    // print('my config uses the git branch which is ' + expectedVersion);
+    // print('update ags to the current git version');
+    // FIXME: remove this line after merging #153
+    print('my config uses the feat/widgets-subclass-rewrite branch');
+    App.connect('config-parsed', app => app.Quit());
+}
 
-setup.warnOnLowBattery();
-setup.scssWatcher();
-setup.globalServices();
-setup.activePlayer();
-
-export default {
-    maxStreamVolume: 1.05,
-    cacheNotificationActions: true,
-    closeWindowDelay: {
-        'quicksettings': options.windowAnimationDuration,
-        'dashboard': options.windowAnimationDuration,
-    },
-    windows: [
-        forMonitors(TopBar),
-        forMonitors(ScreenCorners),
-        forMonitors(OSD),
-        forMonitors(FloatingDock),
-        forMonitors(Desktop),
-        forMonitors(Notifications),
-        forMonitors(Lockscreen),
-        Applauncher(),
-        Overview(),
-        Dashboard(),
-        QuickSettings(),
-        PowerMenu(),
-        Verification(),
-    ].flat(2),
-};
+export default config;

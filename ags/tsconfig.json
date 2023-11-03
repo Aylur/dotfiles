@@ -1,20 +1,24 @@
 {
-    // "compilerOptions": {
-    //     "target": "ES2022",
-    //     "module": "ES2022",
-    //     "lib": [ "ES2017" ],
-    //     "allowJs": true,
-    //     "checkJs": true,
-    //     "strict": true,
-    //     "baseUrl": ".",
-    //     "typeRoots": [
-    //         "./node_modules/@girs",
-    //         "./types"
-    //     ],
-    //     "skipLibCheck": true,
-    //     "forceConsistentCasingInFileNames": true
-    // },
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ES2022",
+        "lib": [
+            "ES2022"
+        ],
+        "allowJs": true,
+        "checkJs": true,
+        "strict": true,
+        "noImplicitAny": false,
+        "baseUrl": ".",
+        "typeRoots": [
+            "./node_modules/@girs",
+            "./types"
+        ],
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    },
     "include": [
+        "config.js",
         "@girs",
         "types",
         "js"

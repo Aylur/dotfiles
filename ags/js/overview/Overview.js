@@ -16,11 +16,11 @@ const update = box => Utils.execAsync('hyprctl -j clients')
 export default () => PopupWindow({
     name: 'overview',
     content: Widget.Box({
-        className: 'overview',
+        class_name: 'overview',
         children: range(ws).map(Workspace),
         setup: update,
         connections: [[Hyprland, box => {
-            if (!App.getWindow('overview').visible)
+            if (!App.getWindow('overview')?.visible)
                 return;
 
             update(box);

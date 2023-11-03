@@ -6,7 +6,7 @@ export default ({
     interval = 1000,
     ...props
 } = {}) => Widget.Label({
-    className: 'clock',
+    class_name: 'clock',
     ...props,
     connections: [[interval, label =>
         label.label = GLib.DateTime.new_now_local().format(format),

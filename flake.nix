@@ -10,7 +10,7 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
-    ags.url = "github:Aylur/ags";
+    ags.url = "github:Aylur/ags/feat/widgets-subclass-rewrite";
     lf-icons = {
       url = "https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example";
       flake = false;

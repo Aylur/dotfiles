@@ -1,6 +1,6 @@
 import icons from '../../icons.js';
 import { Menu, ArrowToggleButton } from '../ToggleButton.js';
-import { Network, Widget } from '../../imports.js';
+import { Network, Utils, Widget } from '../../imports.js';
 
 export const NetworkToggle = () => ArrowToggleButton({
     name: 'network',
@@ -34,16 +34,16 @@ export const WifiSelection = () => Menu({
     content: Widget.Box({
         vertical: true,
         connections: [[Network, box => box.children =
-            Network.wifi?.accessPoints.map(ap => Widget.Button({
-                onClicked: `nmcli device wifi connect ${ap.bssid}`,
+            Network.wifi?.access_points.map(ap => Widget.Button({
+                on_clicked: () => Utils.execAsync(`nmcli device wifi connect ${ap.bssid}`),
                 child: Widget.Box({
                     children: [
                         Widget.Icon(ap.iconName),
-                        Widget.Label(ap.ssid),
+                        Widget.Label(ap.ssid || ''),
                         ap.active && Widget.Icon({
                             icon: icons.tick,
                             hexpand: true,
-                            halign: 'end',
+                            hpack: 'end',
                         }),
                     ],
                 }),

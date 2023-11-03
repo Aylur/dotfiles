@@ -5,9 +5,9 @@ export default ({
     child,
     direction = 'left',
     duration = 300,
-    connections,
-    eventboxConnections,
-    binds,
+    connections = [],
+    eventboxConnections = [],
+    binds = [],
     ...rest
 }) => {
     let open = false;
@@ -19,25 +19,25 @@ export default ({
         transition: `slide_${direction}`,
         connections,
         binds,
-        transitionDuration: duration,
+        transition_duration: duration,
         child,
     });
 
     const box = Widget.EventBox({
         ...rest,
         connections: eventboxConnections,
-        onHover: () => {
+        on_hover: () => {
             if (open)
                 return;
 
-            revealer.revealChild = true;
+            revealer.reveal_child = true;
             Utils.timeout(duration, () => open = true);
         },
-        onHoverLost: () => {
+        on_hover_lost: () => {
             if (!open)
                 return;
 
-            revealer.revealChild = false;
+            revealer.reveal_child = false;
             open = false;
         },
         child: Widget.Box({

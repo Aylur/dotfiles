@@ -4,8 +4,8 @@ import Progress from '../misc/Progress.js';
 import Indicator from '../services/onScreenIndicator.js';
 
 export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.Box({
-    className: 'indicator',
-    style: 'padding: 1px;',
+    class_name: 'indicator',
+    css: 'padding: 1px;',
     child: Widget.Revealer({
         transition: 'slide_left',
         connections: [[Indicator, (revealer, value) => {
@@ -17,19 +17,19 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.B
             vertical: true,
             connections: [[Indicator, (progress, value) => progress.setValue(value)]],
             child: Widget.Stack({
-                valign: 'start',
-                halign: 'center',
+                vpack: 'start',
+                hpack: 'center',
                 hexpand: false,
                 items: [
                     ['true', Widget.Icon({
-                        halign: 'center',
+                        hpack: 'center',
                         size: width,
                         connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
                     })],
                     ['false', FontIcon({
-                        halign: 'center',
+                        hpack: 'center',
                         hexpand: true,
-                        style: `font-size: ${width}px;`,
+                        css: `font-size: ${width}px;`,
                         connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
                     })],
                 ],
@@ -44,7 +44,7 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.B
 export default monitor => Widget.Window({
     name: `indicator${monitor}`,
     monitor,
-    className: 'indicator',
+    class_name: 'indicator',
     layer: 'overlay',
     anchor: ['right'],
     child: OnScreenIndicator(),

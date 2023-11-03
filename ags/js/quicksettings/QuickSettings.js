@@ -11,8 +11,8 @@ import DND from './widgets/DND.js';
 import MicMute from './widgets/MicMute.js';
 import { Widget } from '../imports.js';
 
-const Row = (toggles, menus = []) => Widget.Box({
-    className: 'row',
+const Row = (toggles = [], menus = []) => Widget.Box({
+    class_name: 'row',
     vertical: true,
     children: [
         Widget.Box({
@@ -32,14 +32,14 @@ export default () => PopupWindow({
     anchor: ['top', 'right'],
     layout: 'top right',
     content: Widget.Box({
-        className: 'quicksettings',
+        class_name: 'quicksettings',
         vertical: true,
         children: [
             Row(
                 [Header()],
             ),
             Row([Widget.Box({
-                className: 'slider-box',
+                class_name: 'slider-box',
                 vertical: true,
                 children: [
                     Row(

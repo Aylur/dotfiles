@@ -3,7 +3,7 @@ import PanelButton from '../PanelButton.js';
 import { App } from '../../imports.js';
 
 export default ({ format = '%H:%M - %A %e.' } = {}) => PanelButton({
-    className: 'dashboard panel-button',
+    class_name: 'dashboard panel-button',
     onClicked: () => App.toggleWindow('dashboard'),
     window: 'dashboard',
     content: Clock({ format }),

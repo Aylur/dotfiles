@@ -4,15 +4,15 @@ import { Hyprland, Utils, Widget } from '../imports.js';
 export default monitor => Widget.Window({
     monitor,
     name: `dock${monitor}`,
-    className: 'floating-dock',
+    class_name: 'floating-dock',
     anchor: ['bottom'],
     child: Widget.EventBox({
-        valign: 'start',
-        onHover: box => {
+        vpack: 'start',
+        on_hover: box => {
             Utils.timeout(300, () => box._revealed = true);
             box.child.children[0].revealChild = true;
         },
-        onHoverLost: box => {
+        on_hover_lost: box => {
             if (!box._revealed)
                 return;
 
@@ -21,7 +21,7 @@ export default monitor => Widget.Window({
         },
         child: Widget.Box({
             vertical: true,
-            style: 'padding: 1px;',
+            css: 'padding: 1px;',
             children: [
                 Widget.Revealer({
                     transition: 'slide_up',
@@ -30,16 +30,16 @@ export default monitor => Widget.Window({
                         const update = () => {
                             const ws = Hyprland.getWorkspace(Hyprland.active.workspace.id);
                             if (Hyprland.getMonitor(monitor)?.name === ws?.monitor)
-                                self.revealChild = ws?.windows === 0;
+                                self.reveal_child = ws?.windows === 0;
                         };
-                        Utils.connect(Hyprland, self, update, 'client-added');
-                        Utils.connect(Hyprland, self, update, 'client-removed');
-                        Utils.connect(Hyprland.active.workspace, self, update);
+                        self.connectTo(Hyprland, update, 'client-added');
+                        self.connectTo(Hyprland, update, 'client-removed');
+                        self.connectTo(Hyprland.active.workspace, update);
                     },
                 }),
                 Widget.Box({
-                    className: 'padding',
-                    style: 'padding: 2px;',
+                    class_name: 'padding',
+                    css: 'padding: 2px;',
                 }),
             ],
         }),

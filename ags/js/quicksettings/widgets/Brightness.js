@@ -3,18 +3,18 @@ import Brightness from '../../services/brightness.js';
 import { Widget } from '../../imports.js';
 
 const BrightnessSlider = () => Widget.Slider({
-    drawValue: false,
+    draw_value: false,
     hexpand: true,
     binds: [['value', Brightness, 'screen']],
-    onChange: ({ value }) => Brightness.screen = value,
+    on_change: ({ value }) => Brightness.screen = value,
 });
 
 export default () => Widget.Box({
-    className: 'slider',
+    class_name: 'slider',
     children: [
         Widget.Icon({
             icon: icons.brightness.indicator,
-            className: 'icon',
+            class_name: 'icon',
             binds: [['tooltip-text', Brightness, 'screen', v =>
                 `Screen Brightness: ${Math.floor(v * 100)}%`]],
         }),

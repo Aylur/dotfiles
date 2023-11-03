@@ -29,7 +29,7 @@ export const ClientIcon = () => Widget.Icon({
 });
 
 export default () => PanelButton({
-    className: 'focused-client',
+    class_name: 'focused-client',
     content: Widget.Box({
         children: [
             ClientIcon(),

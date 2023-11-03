@@ -4,10 +4,10 @@ import icons from '../../icons.js';
 import { Widget } from '../../imports.js';
 
 export default () => PanelButton({
-    className: 'recorder',
+    class_name: 'recorder',
     onClicked: () => Recorder.stop(),
     binds: [['visible', Recorder, 'recording']],
-    child: Widget.Box({
+    content: Widget.Box({
         children: [
             Widget.Icon(icons.recorder.recording),
             Widget.Label({

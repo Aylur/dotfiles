@@ -3,17 +3,8 @@
         border-radius: $radii;
         background-color: transparentize($fg_color, 0.8);
         margin: 0 $spacing;
-    }
-
-    &.horizontal {
-        separator {
-            min-width: 2px;
-            min-height: 2em;
-        }
-
-        button.focused .indicator {
-            min-width: 18px;
-        }
+        min-width: 2px;
+        min-height: 2em;
     }
 
     button {
