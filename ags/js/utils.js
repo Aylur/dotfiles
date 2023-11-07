@@ -37,7 +37,7 @@ export function createSurfaceFromWidget(widget) {
 export function warnOnLowBattery() {
     const { low } = options.battaryBar;
     Battery.connect('notify::percent', () => {
-        if (Battery.percent === low || Battery.percent === low / 2) {
+        if (Battery.percent === low || Battery.percent === low / 2 || !Battery.charging) {
             Utils.execAsync([
                 'notify-send',
                 `${Battery.percent}% Battery Percentage`,
