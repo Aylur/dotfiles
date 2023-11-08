@@ -11,16 +11,10 @@
         "noImplicitAny": false,
         "baseUrl": ".",
         "typeRoots": [
-            "./node_modules/@girs",
-            "./types"
+            "./types/ags.d.ts",
+            "./node_modules/@girs"
         ],
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "include": [
-        "config.js",
-        "@girs",
-        "types",
-        "js"
-    ]
+    }
 }

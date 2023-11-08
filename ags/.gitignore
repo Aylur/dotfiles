@@ -2,3 +2,4 @@ node_modules
 types
 package-lock.json
 weather_key
+setup.sh

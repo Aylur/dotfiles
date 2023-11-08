@@ -1,5 +1,4 @@
 import Avatar from '../misc/Avatar.js';
-import Spinner from '../misc/Spinner.js';
 import Lockscreen from '../services/lockscreen.js';
 import { Widget } from '../imports.js';
 import Layer from 'gi://GtkLayerShell';
@@ -14,7 +13,8 @@ const PasswordEntry = () => Widget.Box({
             hpack: 'center',
             hexpand: true,
         }),
-        Spinner({
+        Widget.Spinner({
+            active: true,
             vpack: 'center',
             connections: [[Lockscreen, (w, auth) => w.visible = auth, 'authenticating']],
         }),
