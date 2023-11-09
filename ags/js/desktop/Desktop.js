@@ -1,7 +1,7 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Theme from '../services/theme/theme.js';
 import Clock from '../misc/Clock.js';
 import DesktopMenu from './DesktopMenu.js';
-import { Widget } from '../imports.js';
 
 const DesktopClock = () => Widget.Box({
     class_name: 'clock-box-shadow',
@@ -53,6 +53,7 @@ const Desktop = () => Widget.EventBox({
     }),
 });
 
+/** @param {number} monitor */
 export default monitor => Widget.Window({
     monitor,
     name: `desktop${monitor}`,

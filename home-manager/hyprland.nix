@@ -161,11 +161,11 @@ in
       ];
 
       bindl = let e = "exec, ags -b hypr -r"; in [
-        ",XF86AudioPlay,    ${e} 'mpris()?.playPause()'"
-        ",XF86AudioStop,    ${e} 'mpris()?.stop()'"
-        ",XF86AudioPause,   ${e} 'mpris()?.pause()'"
-        ",XF86AudioPrev,    ${e} 'mpris()?.previous()'"
-        ",XF86AudioNext,    ${e} 'mpris()?.next()'"
+        ",XF86AudioPlay,    ${e} 'mpris?.playPause()'"
+        ",XF86AudioStop,    ${e} 'mpris?.stop()'"
+        ",XF86AudioPause,   ${e} 'mpris?.pause()'"
+        ",XF86AudioPrev,    ${e} 'mpris?.previous()'"
+        ",XF86AudioNext,    ${e} 'mpris?.next()'"
         ",XF86AudioMicMute, ${e} 'audio.microphone.isMuted = !audio.microphone.isMuted'"
       ];
 

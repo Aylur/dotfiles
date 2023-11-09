@@ -1,3 +1,9 @@
+import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import OverviewButton from './buttons/OverviewButton.js';
 import Workspaces from './buttons/Workspaces.js';
 import FocusedClient from './buttons/FocusedClient.js';
@@ -11,8 +17,6 @@ import PowerMenu from './buttons/PowerMenu.js';
 import ScreenRecord from './buttons/ScreenRecord.js';
 import BatteryBar from './buttons/BatteryBar.js';
 import SubMenu from './buttons/SubMenu.js';
-import { SystemTray, Widget, Variable } from '../imports.js';
-import { Notifications, Mpris, Battery } from '../imports.js';
 import Recorder from '../services/screenrecord.js';
 
 const submenuItems = Variable(1);

@@ -1,9 +1,10 @@
+import Service from 'resource:///com/github/Aylur/ags/service.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import themes from '../../themes.js';
 import setupScss from './scss.js';
 import setupHyprland from './hyprland.js';
 import SettingsDialog from '../../settingsdialog/SettingsDialog.js';
 import IconBrowser from '../../misc/IconBrowser.js';
-import { Service, Utils } from '../../imports.js';
 
 const THEME_CACHE = Utils.CACHE_DIR + '/theme-overrides.json';
 

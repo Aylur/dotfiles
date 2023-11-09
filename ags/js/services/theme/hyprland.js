@@ -1,6 +1,10 @@
-import { App, Utils } from '../../imports.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import { execAsync, exec } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const noAlphaignore = ['verification', 'powermenu', 'lockscreen'];
+
+/** @param {Array<string>} args */
+const keyword = (...args) => execAsync(['hyprctl', 'keyword', ...args]);
 
 export default function({
     wm_gaps,
@@ -15,42 +19,42 @@ export default function({
     try {
         App.connect('config-parsed', () => {
             for (const [name] of App.windows) {
-                Utils.execAsync(['hyprctl', 'keyword', 'layerrule', `unset, ${name}`]).then(() => {
-                    Utils.execAsync(['hyprctl', 'keyword', 'layerrule', `blur, ${name}`]);
+                keyword('layerrule', `unset, ${name}`).then(() => {
+                    keyword('layerrule', `blur, ${name}`);
                     if (!noAlphaignore.every(skip => !name.includes(skip)))
                         return;
 
-                    Utils.execAsync(['hyprctl', 'keyword', 'layerrule', `ignorealpha 0.6, ${name}`]);
+                    keyword('layerrule', `ignorealpha 0.6, ${name}`);
                 });
             }
         });
 
-        JSON.parse(Utils.exec('hyprctl -j monitors')).forEach(({ name }) => {
+        JSON.parse(exec('hyprctl -j monitors')).forEach(({ name }) => {
             if (bar_style !== 'normal') {
                 switch (layout) {
                     case 'topbar':
                     case 'unity':
-                        Utils.execAsync(`hyprctl keyword monitor ${name},addreserved,-${wm_gaps},0,0,0`);
+                        keyword('monitor', `${name},addreserved,-${wm_gaps},0,0,0`);
                         break;
 
                     case 'bottombar':
-                        Utils.execAsync(`hyprctl keyword monitor ${name},addreserved,0,-${wm_gaps},0,0`);
+                        keyword('monitor', `${name},addreserved,0,-${wm_gaps},0,0`);
                         break;
 
                     default: break;
                 }
             } else {
-                Utils.execAsync(`hyprctl keyword monitor ${name},addreserved,0,0,0,0`);
+                keyword('monitor', `${name},addreserved,0,0,0,0`);
             }
         });
 
-        Utils.execAsync(`hyprctl keyword general:border_size ${border_width}`);
-        Utils.execAsync(`hyprctl keyword general:gaps_out ${wm_gaps}`);
-        Utils.execAsync(`hyprctl keyword general:gaps_in ${wm_gaps / 2}`);
-        Utils.execAsync(`hyprctl keyword general:col.active_border ${hypr_active_border}`);
-        Utils.execAsync(`hyprctl keyword general:col.inactive_border ${hypr_inactive_border}`);
-        Utils.execAsync(`hyprctl keyword decoration:rounding ${radii}`);
-        Utils.execAsync(`hyprctl keyword decoration:drop_shadow ${drop_shadow ? 'yes' : 'no'}`);
+        keyword('general:border_size', `${border_width}`);
+        keyword('general:gaps_out', `${wm_gaps}`);
+        keyword('general:gaps_in', `${wm_gaps / 2}`);
+        keyword('general:col.active_border', `${hypr_active_border}`);
+        keyword('general:col.inactive_border', `${hypr_inactive_border}`);
+        keyword('decoration:rounding', `${radii}`);
+        keyword('decoration:drop_shadow', `${drop_shadow ? 'yes' : 'no'}`);
     } catch (error) {
         console.error(error);
     }

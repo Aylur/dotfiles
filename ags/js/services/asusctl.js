@@ -1,4 +1,5 @@
-import { Service, Utils } from '../imports.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Service from 'resource:///com/github/Aylur/ags/service.js';
 
 class Asusctl extends Service {
     static {
@@ -8,19 +9,22 @@ class Asusctl extends Service {
         });
     }
 
+    #profile = 'Balanced';
+
     nextProfile() {
         Utils.execAsync('asusctl profile -n')
             .then(() => {
-                this._profile = Utils.exec('asusctl profile -p').split(' ')[3];
+                this.#profile = Utils.exec('asusctl profile -p').split(' ')[3];
                 this.changed('profile');
             })
             .catch(console.error);
     }
 
+    /** @param {'Performance' | 'Balanced' | 'Quiet'} prof */
     setProfile(prof) {
         Utils.execAsync(`asusctl profile --profile-set ${prof}`)
             .then(() => {
-                this._profile = prof;
+                this.#profile = prof;
                 this.changed('profile');
             })
             .catch(console.error);
@@ -40,7 +44,7 @@ class Asusctl extends Service {
 
         if (Utils.exec('which asusctl')) {
             this.available = true;
-            this._profile = Utils.exec('asusctl profile -p').split(' ')[3];
+            this.#profile = Utils.exec('asusctl profile -p').split(' ')[3];
             Utils.execAsync('supergfxctl -g').then(mode => this._mode = mode);
         }
         else {
@@ -49,7 +53,7 @@ class Asusctl extends Service {
     }
 
     get profiles() { return ['Performance', 'Balanced', 'Quiet']; }
-    get profile() { return this._profile; }
+    get profile() { return this.#profile; }
     get mode() { return this._mode || 'Hybrid'; }
 }
 

@@ -1,5 +1,7 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import PanelButton from '../PanelButton.js';
-import { Hyprland, Utils, Widget } from '../../imports.js';
 import options from '../../options.js';
 import { substitute } from '../../utils.js';
 const { icons, titles } = options.substitutions;
@@ -24,7 +26,7 @@ export const ClientIcon = () => Widget.Icon({
         if (hasTitleIcon)
             self.icon = titleIcon;
 
-        self.visible = hasTitleIcon || hasClassIcon;
+        self.visible = !!(hasTitleIcon || hasClassIcon);
     }]],
 });
 

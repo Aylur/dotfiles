@@ -1,8 +1,9 @@
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Theme from '../services/theme/theme.js';
 import themes from '../themes.js';
 import Wallpaper from '../misc/Wallpaper.js';
 import RegularWindow from '../misc/RegularWindow.js';
-import { Widget, Variable } from '../imports.js';
 
 const Row = (title, child) => Widget.Box({
     class_name: 'row',

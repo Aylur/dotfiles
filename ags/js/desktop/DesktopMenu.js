@@ -1,9 +1,15 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import Theme from '../services/theme/theme.js';
 import PowerMenu from '../services/powermenu.js';
 import icons from '../icons.js';
-import { App, Widget } from '../imports.js';
 import Gtk from 'gi://Gtk';
 
+/**
+ * @param {string} label
+ * @param {string} icon
+ * @param {import('types/widgets/menu').MenuItemProps['on_activate']} on_activate
+ */
 const Item = (label, icon, on_activate) => Widget.MenuItem({
     on_activate,
     child: Widget.Box({

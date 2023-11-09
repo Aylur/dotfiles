@@ -1,5 +1,14 @@
-import { Widget, Utils } from '../imports.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 
+/**
+ * @param {import('types/widgets/box').BoxProps & {
+ *    indicator?: import('types/widgets/box').BoxProps['child']
+ *    direction?: 'left' | 'right' | 'down' | 'up'
+ *    duration?: number
+ *    eventboxConnections?: import('types/widgets/box').BoxProps['connections']
+ * }} config
+ */
 export default ({
     indicator,
     child,

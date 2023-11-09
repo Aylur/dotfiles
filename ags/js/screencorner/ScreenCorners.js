@@ -1,7 +1,8 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk';
 import Theme from '../services/theme/theme.js';
-import { Widget } from '../imports.js';
 
+/** @param {'topleft' | 'topright' | 'bottomleft' | 'bottomright'} place  */
 const Corner = place => Widget.DrawingArea({
     class_name: 'corner',
     hexpand: true,
@@ -45,7 +46,10 @@ const Corner = place => Widget.DrawingArea({
     }),
 });
 
+/** @type {Array<'topleft' | 'topright' | 'bottomleft' | 'bottomright'>} */
 const places = ['topleft', 'topright', 'bottomleft', 'bottomright'];
+
+/** @param {number} monitor  */
 export default monitor => places.map(place => Widget.Window({
     name: `corner${monitor}${place}`,
     monitor,

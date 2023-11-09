@@ -1,5 +1,15 @@
-import { Widget, App } from '../imports.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 
+/**
+ * @typedef {Object} PanelButtonProps
+ * @property {any} content
+ * @property {string=} window
+ */
+
+/**
+ * @param {import('types/widgets/button').ButtonProps & PanelButtonProps} o
+ */
 export default ({
     class_name,
     content,

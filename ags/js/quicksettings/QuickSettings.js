@@ -1,3 +1,4 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Header from './widgets/Header.js';
 import PopupWindow from '../misc/PopupWindow.js';
 import { Volume, Microhone, SinkSelector, AppMixer } from './widgets/Volume.js';
@@ -9,7 +10,6 @@ import Media from './widgets/Media.js';
 import Brightness from './widgets/Brightness.js';
 import DND from './widgets/DND.js';
 import MicMute from './widgets/MicMute.js';
-import { Widget } from '../imports.js';
 
 const Row = (toggles = [], menus = []) => Widget.Box({
     class_name: 'row',

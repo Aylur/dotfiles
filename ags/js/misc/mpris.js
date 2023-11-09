@@ -1,9 +1,14 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../icons.js';
-import { Utils, Widget } from '../imports.js';
 import GLib from 'gi://GLib';
 
 const MEDIA_CACHE_PATH = Utils.CACHE_DIR + '/media';
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/box').BoxProps=} props
+ */
 export const CoverArt = (player, props) => Widget.Box({
     ...props,
     class_name: 'cover',
@@ -11,11 +16,15 @@ export const CoverArt = (player, props) => Widget.Box({
         path => `background-image: url("${path}")`]],
 });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/box').BoxProps=} props
+ */
 export const BlurredCoverArt = (player, props) => Widget.Box({
     ...props,
     class_name: 'blurred-cover',
     connections: [[player, box => {
-        const url = player.coverPath;
+        const url = player.cover_path;
         if (!url)
             return;
 
@@ -35,22 +44,34 @@ export const BlurredCoverArt = (player, props) => Widget.Box({
     }, 'notify::cover-path']],
 });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/label').Props=} props
+ */
 export const TitleLabel = (player, props) => Widget.Label({
     ...props,
     class_name: 'title',
     binds: [['label', player, 'track-title']],
 });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/label').Props=} props
+ */
 export const ArtistLabel = (player, props) => Widget.Label({
     ...props,
     class_name: 'artist',
     binds: [['label', player, 'track-artists', a => a.join(', ') || '']],
 });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/icon').Props & { symbolic?: boolean }=} props
+ */
 export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => Widget.Icon({
     ...props,
     class_name: 'player-icon',
-    tooltipText: player.identity || '',
+    tooltip_text: player.identity || '',
     connections: [[player, icon => {
         const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
         Utils.lookUpIcon(name)
@@ -59,11 +80,15 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => Widget
     }]],
 });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/slider').SliderProps=} props
+ */
 export const PositionSlider = (player, props) => Widget.Slider({
     ...props,
     class_name: 'position-slider',
-    drawValue: false,
-    onChange: ({ value }) => {
+    draw_value: false,
+    on_change: ({ value }) => {
         player.position = player.length * value;
     },
     properties: [['update', slider => {
@@ -81,6 +106,7 @@ export const PositionSlider = (player, props) => Widget.Slider({
     ],
 });
 
+/** @param {number} length */
 function lengthStr(length) {
     const min = Math.floor(length / 60);
     const sec = Math.floor(length % 60);
@@ -88,6 +114,7 @@ function lengthStr(length) {
     return `${min}:${sec0}${sec}`;
 }
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const PositionLabel = player => Widget.Label({
     properties: [['update', (label, time) => {
         player.length > 0
@@ -100,6 +127,7 @@ export const PositionLabel = player => Widget.Label({
     ],
 });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const LengthLabel = player => Widget.Label({
     connections: [[player, label => {
         player.length > 0
@@ -108,6 +136,7 @@ export const LengthLabel = player => Widget.Label({
     }]],
 });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const Slash = player => Widget.Label({
     label: '/',
     connections: [[player, label => {
@@ -115,15 +144,25 @@ export const Slash = player => Widget.Label({
     }]],
 });
 
+/**
+ * @param {Object} o
+ * @param {import('types/service/mpris').MprisPlayer} o.player
+ * @param {import('types/widgets/stack').StackProps['items']} o.items
+ * @param {'shuffle' | 'loop' | 'playPause' | 'previous' | 'next'} o.onClick
+ * @param {string} o.prop
+ * @param {string} o.canProp
+ * @param {any} o.cantValue
+ */
 const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) => Widget.Button({
     child: Widget.Stack({
         items,
         binds: [['shown', player, prop, p => `${p}`]],
     }),
-    onClicked: player[onClick].bind(player),
+    on_clicked: player[onClick].bind(player),
     binds: [['visible', player, canProp, c => c !== cantValue]],
 });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const ShuffleButton = player => PlayerButton({
     player,
     items: [
@@ -142,6 +181,7 @@ export const ShuffleButton = player => PlayerButton({
     cantValue: null,
 });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const LoopButton = player => PlayerButton({
     player,
     items: [
@@ -164,6 +204,7 @@ export const LoopButton = player => PlayerButton({
     cantValue: null,
 });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const PlayPauseButton = player => PlayerButton({
     player,
     items: [
@@ -186,6 +227,7 @@ export const PlayPauseButton = player => PlayerButton({
     cantValue: false,
 });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const PreviousButton = player => PlayerButton({
     player,
     items: [
@@ -200,6 +242,7 @@ export const PreviousButton = player => PlayerButton({
     cantValue: false,
 });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const NextButton = player => PlayerButton({
     player,
     items: [

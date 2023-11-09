@@ -1,6 +1,9 @@
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../../icons.js';
 import HoverRevealer from '../../misc/HoverRevealer.js';
-import { Widget, Notifications, Utils, App } from '../../imports.js';
 
 export default ({ direction = 'left' } = {}) => HoverRevealer({
     class_name: 'notifications panel-button',

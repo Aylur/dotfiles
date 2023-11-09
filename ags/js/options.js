@@ -1,4 +1,30 @@
-export default {
+/**
+ * an object holding Options that are Variable objects with cached values
+ * Options will automatically cache their value upon changing
+ *
+ * to update an option at runtime simply run
+ * ags -r "options.path.to.option.setValue('value')"
+ */
+
+import Option from './services/Option.js';
+
+const options = {
+    applauncher: {
+        width: Option(500, 'applauncher.width'),
+        height: Option(500, 'applauncher.height'),
+        iconSize: Option(52, 'applauncher.iconSize'),
+    },
+    spacing: Option(12, 'spacing'),
+
+
+    notifications: {
+        blackList: ['Spotify'],
+    },
+
+    mpris: {
+        blackList: ['Caprine'],
+    },
+
     // if this player is running this will be shown on panel
     preferredMpris: 'spotify',
 
@@ -71,3 +97,6 @@ export default {
         ],
     },
 };
+
+globalThis.options = options;
+export default options;

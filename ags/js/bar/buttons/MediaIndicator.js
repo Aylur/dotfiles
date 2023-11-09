@@ -1,7 +1,9 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import HoverRevealer from '../../misc/HoverRevealer.js';
 import * as mpris from '../../misc/mpris.js';
 import options from '../../options.js';
-import { Widget, Mpris, Utils } from '../../imports.js';
 
 export const getPlayer = (name = options.preferredMpris) =>
     Mpris.getPlayer(name) || Mpris.players[0] || null;
@@ -34,7 +36,7 @@ const Indicator = ({ player, direction = 'right' } = {}) => HoverRevealer({
     }]],
 });
 
-export default ({ direction } = {}) => Widget.Box({
+export default ({ direction = 'right' } = {}) => Widget.Box({
     connections: [[Mpris, box => {
         const player = getPlayer();
         box.visible = !!player;

@@ -1,4 +1,5 @@
-import { Service, Utils } from '../imports.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Service from 'resource:///com/github/Aylur/ags/service.js';
 import options from '../options.js';
 const KBD = options.brightnessctlKBD;
 
@@ -10,19 +11,20 @@ class Brightness extends Service {
         });
     }
 
-    _kbd = 0;
-    _screen = 0;
+    #kbd = 0;
+    #kbdMax = 3;
+    #screen = 0;
 
-    get kbd() { return this._kbd; }
-    get screen() { return this._screen; }
+    get kbd() { return this.#kbd; }
+    get screen() { return this.#screen; }
 
     set kbd(value) {
-        if (value < 0 || value > this._kbdMax)
+        if (value < 0 || value > this.#kbdMax)
             return;
 
         Utils.execAsync(`brightnessctl -d ${KBD} s ${value} -q`)
             .then(() => {
-                this._kbd = value;
+                this.#kbd = value;
                 this.changed('kbd');
             })
             .catch(console.error);
@@ -37,7 +39,7 @@ class Brightness extends Service {
 
         Utils.execAsync(`brightnessctl s ${percent * 100}% -q`)
             .then(() => {
-                this._screen = percent;
+                this.#screen = percent;
                 this.changed('screen');
             })
             .catch(console.error);
@@ -46,9 +48,9 @@ class Brightness extends Service {
     constructor() {
         super();
         try {
-            this._kbd = Number(Utils.exec(`brightnessctl -d ${KBD} g`));
-            this._kbdMax = Number(Utils.exec(`brightnessctl -d ${KBD} m`));
-            this._screen = Number(Utils.exec('brightnessctl g')) / Number(Utils.exec('brightnessctl m'));
+            this.#kbd = Number(Utils.exec(`brightnessctl -d ${KBD} g`));
+            this.#kbdMax = Number(Utils.exec(`brightnessctl -d ${KBD} m`));
+            this.#screen = Number(Utils.exec('brightnessctl g')) / Number(Utils.exec('brightnessctl m'));
         } catch (error) {
             console.error('missing dependancy: brightnessctl');
         }

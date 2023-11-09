@@ -1,6 +1,6 @@
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import GLib from 'gi://GLib';
 import options from './options.js';
-import { Variable } from './imports.js';
 
 const intval = options.systemFetchInterval;
 

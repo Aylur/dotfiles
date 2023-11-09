@@ -1,12 +1,15 @@
+import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../../icons.js';
 import FontIcon from '../../misc/FontIcon.js';
 import { getAudioTypeIcon } from '../../utils.js';
 import { Arrow } from '../ToggleButton.js';
 import { Menu } from '../ToggleButton.js';
-import { Audio, Widget, Utils } from '../../imports.js';
 
+/** @param {'speaker' | 'microphone'=} type */
 const VolumeIndicator = (type = 'speaker') => Widget.Button({
-    on_clicked: () => Audio[type].isMuted = !Audio[type].isMuted,
+    on_clicked: () => Audio[type].is_muted = !Audio[type].is_muted,
     child: Widget.Icon({
         connections: [[Audio, icon => {
             if (!Audio[type])
@@ -21,6 +24,7 @@ const VolumeIndicator = (type = 'speaker') => Widget.Button({
     }),
 });
 
+/** @param {'speaker' | 'microphone'=} type */
 const VolumeSlider = (type = 'speaker') => Widget.Slider({
     hexpand: true,
     draw_value: false,
@@ -54,6 +58,7 @@ export const Microhone = () => Widget.Box({
     ],
 });
 
+/** @param {import('types/service/audio').Stream} stream */
 const MixerItem = stream => Widget.Box({
     hexpand: true,
     class_name: 'mixer-item',
@@ -61,8 +66,8 @@ const MixerItem = stream => Widget.Box({
         Widget.Icon({
             binds: [['tooltipText', stream, 'name']],
             connections: [[stream, icon => {
-                icon.icon = Utils.lookUpIcon(stream.name)
-                    ? stream.name
+                icon.icon = Utils.lookUpIcon(stream.name || '')
+                    ? (stream.name || '')
                     : icons.mpris.fallback;
             }]],
         }),
@@ -95,16 +100,17 @@ const MixerItem = stream => Widget.Box({
     ],
 });
 
+/** @param {import('types/service/audio').Stream} stream */
 const SinkItem = stream => Widget.Button({
     hexpand: true,
     on_clicked: () => Audio.speaker = stream,
     child: Widget.Box({
         children: [
             Widget.Icon({
-                icon: getAudioTypeIcon(stream.iconName),
-                tooltip_text: stream.iconName,
+                icon: getAudioTypeIcon(stream.icon_name || ''),
+                tooltip_text: stream.icon_name,
             }),
-            Widget.Label(stream.description.split(' ').slice(0, 4).join(' ')),
+            Widget.Label((stream.description || '').split(' ').slice(0, 4).join(' ')),
             Widget.Icon({
                 icon: icons.tick,
                 hexpand: true,

@@ -1,10 +1,14 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import icons from '../icons.js';
 import PowerMenu from '../services/powermenu.js';
 import PopupWindow from '../misc/PopupWindow.js';
-import { Widget } from '../imports.js';
 
+/**
+ * @param {'sleep' | 'reboot' | 'logout' | 'shutdown'} action
+ * @param {string} label
+ */
 const SysButton = (action, label) => Widget.Button({
-    onClicked: () => PowerMenu.action(action),
+    on_clicked: () => PowerMenu.action(action),
     child: Widget.Box({
         vertical: true,
         children: [

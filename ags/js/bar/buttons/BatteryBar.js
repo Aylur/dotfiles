@@ -1,8 +1,9 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import icons from '../../icons.js';
 import FontIcon from '../../misc/FontIcon.js';
 import options from '../../options.js';
 import PanelButton from '../PanelButton.js';
-import { Battery, Widget } from '../../imports.js';
 
 const Indicator = () => Widget.Stack({
     items: [

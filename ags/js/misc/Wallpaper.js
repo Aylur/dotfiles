@@ -1,6 +1,7 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Theme from '../services/theme/theme.js';
-import { Widget } from '../imports.js';
 
+/** @param { import('types/widgets/box').BoxProps} o */
 export default ({ class_name, ...props }) => Widget.Box({
     ...props,
     class_name: `wallpaper ${class_name}`,

@@ -1,21 +1,23 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Network from 'resource:///com/github/Aylur/ags/service/network.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../../icons.js';
 import { Menu, ArrowToggleButton } from '../ToggleButton.js';
-import { Network, Utils, Widget } from '../../imports.js';
 
 export const NetworkToggle = () => ArrowToggleButton({
     name: 'network',
     icon: Widget.Icon({
         connections: [[Network, icon => {
-            icon.icon = Network.wifi?.iconName || '';
+            icon.icon = Network.wifi.icon_name || '';
         }]],
     }),
     label: Widget.Label({
         truncate: 'end',
         connections: [[Network, label => {
-            label.label = Network.wifi?.ssid || 'Not Connected';
+            label.label = Network.wifi.ssid || 'Not Connected';
         }]],
     }),
-    connection: [Network, () => Network.wifi?.enabled],
+    connection: [Network, () => Network.wifi.enabled],
     deactivate: () => Network.wifi.enabled = false,
     activate: () => {
         Network.wifi.enabled = true;
@@ -27,7 +29,7 @@ export const WifiSelection = () => Menu({
     name: 'network',
     icon: Widget.Icon({
         connections: [[Network, icon => {
-            icon.icon = Network.wifi?.iconName;
+            icon.icon = Network.wifi.icon_name;
         }]],
     }),
     title: Widget.Label('Wifi Selection'),

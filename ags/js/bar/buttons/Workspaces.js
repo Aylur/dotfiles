@@ -1,4 +1,6 @@
-import { Hyprland, Widget, Utils } from '../../imports.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import options from '../../options.js';
 import { range } from '../../utils.js';
 

@@ -1,4 +1,5 @@
-import { Utils, Widget } from '../imports.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import FontIcon from '../misc/FontIcon.js';
 import Progress from '../misc/Progress.js';
 import Indicator from '../services/onScreenIndicator.js';
@@ -9,7 +10,7 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.B
     child: Widget.Revealer({
         transition: 'slide_left',
         connections: [[Indicator, (revealer, value) => {
-            revealer.revealChild = value > -1;
+            revealer.reveal_child = value > -1;
         }]],
         child: Progress({
             width,
@@ -41,6 +42,7 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.B
     }),
 });
 
+/** @param {number} monitor */
 export default monitor => Widget.Window({
     name: `indicator${monitor}`,
     monitor,

@@ -1,42 +1,17 @@
-import { createSurfaceFromWidget } from '../utils.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
-import { Hyprland, Utils, Widget, App } from '../imports.js';
-import options from '../options.js';
+import Client from './Client.js';
 
 const SCALE = 0.08;
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 
+/** @param {string} args */
 const dispatch = args => Utils.execAsync(`hyprctl dispatch ${args}`);
 
-const substitute = str => options.substitutions.icons
-    .find(([from]) => from === str)?.[1] || str;
-
-const Client = ({ address, size: [w, h], class: c, title }) => Widget.Button({
-    class_name: 'client',
-    tooltipText: title,
-    child: Widget.Icon({
-        css: `
-            min-width: ${w * SCALE}px;
-            min-height: ${h * SCALE}px;
-        `,
-        icon: substitute(c),
-    }),
-    onSecondaryClick: () => dispatch(`closewindow address:${address}`),
-    onClicked: () => dispatch(`focuswindow address:${address}`)
-        .then(() => App.closeWindow('overview')),
-
-    setup: btn => {
-        btn.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
-        btn.connect('drag-data-get', (_w, _c, data) => data.set_text(address, address.length));
-        btn.connect('drag-begin', (_, context) => {
-            Gtk.drag_set_icon_surface(context, createSurfaceFromWidget(btn));
-            btn.toggleClassName('hidden', true);
-        });
-        btn.connect('drag-end', () => btn.toggleClassName('hidden', false));
-    },
-});
-
+/** @param {number} index */
 export default index => {
     const fixed = Gtk.Fixed.new();
 
@@ -53,7 +28,7 @@ export default index => {
         child: Widget.EventBox({
             hexpand: true,
             vexpand: true,
-            onPrimaryClick: () => dispatch(`workspace ${index}`),
+            on_primary_click: () => dispatch(`workspace ${index}`),
             setup: eventbox => {
                 eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
                 eventbox.connect('drag-data-received', (_w, _c, _x, _y, data) => {

@@ -1,7 +1,8 @@
-import { Service, Utils } from '../imports.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Service from 'resource:///com/github/Aylur/ags/service.js';
+import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import icons from '../icons.js';
 import { getAudioTypeIcon } from '../utils.js';
-import { Audio } from '../imports.js';
 import Brightness from './brightness.js';
 
 class Indicator extends Service {
@@ -11,16 +12,20 @@ class Indicator extends Service {
         });
     }
 
-    _delay = 1500;
-    _count = 0;
+    #delay = 1500;
+    #count = 0;
 
+    /**
+     * @param {number} value - 0 < v < 1
+     * @param {string} icon
+     */
     popup(value, icon) {
         this.emit('popup', value, icon);
-        this._count++;
-        Utils.timeout(this._delay, () => {
-            this._count--;
+        this.#count++;
+        Utils.timeout(this.#delay, () => {
+            this.#count--;
 
-            if (this._count === 0)
+            if (this.#count === 0)
                 this.emit('popup', -1, icon);
         });
     }
@@ -28,7 +33,7 @@ class Indicator extends Service {
     speaker() {
         this.popup(
             Audio.speaker.volume,
-            getAudioTypeIcon(Audio.speaker.iconName),
+            getAudioTypeIcon(Audio.speaker.icon_name || ''),
         );
     }
 
@@ -48,11 +53,6 @@ class Indicator extends Service {
 
     connect(event = 'popup', callback) {
         return super.connect(event, callback);
-    }
-
-    // TODO remove
-    connectWidget(widget, callback) {
-        Utils.connect(this, widget, callback, 'popup');
     }
 }
 

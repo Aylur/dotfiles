@@ -1,8 +1,11 @@
-import { Utils, App } from '../../imports.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 
+/** @param {string} str */
 const generated = str => `// THIS FILE IS GENERATED
 ${str}`;
 
+/** @param {Record<string, any>} t */
 const scss = t => `$theme: '${t.color_scheme}';
 
 $red: ${t.red};
@@ -53,6 +56,7 @@ $screen_corners: ${t.bar_style === 'normal' && t.screen_corners};
 $bar_style: ${t.bar_style};
 $layout: ${t.layout};`;
 
+/** @param {Record<string,any>} theme */
 export default async function(theme) {
     const tmp = '/tmp/ags/scss';
     Utils.ensureDirectory(tmp);

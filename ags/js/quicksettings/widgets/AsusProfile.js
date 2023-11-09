@@ -1,7 +1,8 @@
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import icons from '../../icons.js';
 import Asusctl from '../../services/asusctl.js';
 import { ArrowToggleButton, Menu } from '../ToggleButton.js';
-import { Utils, Widget } from '../../imports.js';
 
 export const ProfileToggle = () => ArrowToggleButton({
     name: 'asusctl-profile',
@@ -26,15 +27,16 @@ export const ProfileSelector = () => Menu({
     content: Widget.Box({
         vertical: true,
         hexpand: true,
-        children: Asusctl.profiles.map(prof => Widget.Button({
-            on_clicked: () => Asusctl.setProfile(prof),
-            child: Widget.Box({
-                children: [
-                    Widget.Icon(icons.asusctl.profile[prof]),
-                    Widget.Label(prof),
-                ],
-            }),
-        })).concat([
+        children: [
+            ...Asusctl.profiles.map(prof => Widget.Button({
+                on_clicked: () => Asusctl.setProfile(prof),
+                child: Widget.Box({
+                    children: [
+                        Widget.Icon(icons.asusctl.profile[prof]),
+                        Widget.Label(prof),
+                    ],
+                }),
+            })),
             Widget.Separator(),
             Widget.Button({
                 on_clicked: () => Utils.execAsync('rog-control-center'),
@@ -45,6 +47,6 @@ export const ProfileSelector = () => Menu({
                     ],
                 }),
             }),
-        ]),
+        ],
     }),
 });

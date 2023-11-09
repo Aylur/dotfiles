@@ -1,6 +1,7 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import icons from '../../icons.js';
 import PanelButton from '../PanelButton.js';
-import { Widget, App } from '../../imports.js';
 
 export default () => PanelButton({
     class_name: 'powermenu',

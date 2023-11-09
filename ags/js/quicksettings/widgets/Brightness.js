@@ -1,6 +1,6 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import icons from '../../icons.js';
 import Brightness from '../../services/brightness.js';
-import { Widget } from '../../imports.js';
 
 const BrightnessSlider = () => Widget.Slider({
     draw_value: false,

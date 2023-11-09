@@ -1,10 +1,15 @@
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import icons from '../icons.js';
 import options from '../options.js';
-import { App, Hyprland, Applications, Utils, Widget } from '../imports.js';
 import { launchApp } from '../utils.js';
 
 const focus = ({ address }) => Utils.execAsync(`hyprctl dispatch focuswindow address:${address}`);
 
+/** @param {import('types/widgets/button').ButtonProps & { icon: string }} o */
 const AppButton = ({ icon, ...rest }) => Widget.Button({
     ...rest,
     child: Widget.Box({
@@ -30,10 +35,10 @@ const Taskbar = () => Widget.Box({
             if (client.title && app.match(client.title) ||
                 client.class && app.match(client.class)) {
                 return AppButton({
-                    icon: app.icon_name,
-                    tooltipText: app.name,
-                    onPrimaryClick: () => focus(client),
-                    onMiddleClick: () => launchApp(app),
+                    icon: app.icon_name || '',
+                    tooltip_text: app.name,
+                    on_primary_click: () => focus(client),
+                    on_middle_click: () => launchApp(app),
                 });
             }
         }
@@ -47,8 +52,8 @@ const PinnedApps = () => Widget.Box({
         .map(term => ({ app: Applications.query(term)?.[0], term }))
         .filter(({ app }) => app)
         .map(({ app, term = true }) => AppButton({
-            icon: app.icon_name,
-            onPrimaryClick: () => {
+            icon: app.icon_name || '',
+            on_primary_click: () => {
                 for (const client of Hyprland.clients) {
                     if (client.class.toLowerCase().includes(term))
                         return focus(client);
@@ -56,8 +61,8 @@ const PinnedApps = () => Widget.Box({
 
                 launchApp(app);
             },
-            onMiddleClick: () => launchApp(app),
-            tooltipText: app.name,
+            on_middle_click: () => launchApp(app),
+            tooltip_text: app.name,
             connections: [[Hyprland, button => {
                 const running = Hyprland.clients
                     .find(client => client.class.toLowerCase().includes(term)) || false;
@@ -75,8 +80,8 @@ export default () => {
     const applauncher = AppButton({
         class_name: 'launcher nonrunning',
         icon: icons.apps.apps,
-        tooltipText: 'Applications',
-        onClicked: () => App.toggleWindow('applauncher'),
+        tooltip_text: 'Applications',
+        on_clicked: () => App.toggleWindow('applauncher'),
     });
     const separator = Widget.Separator({
         vpack: 'center',

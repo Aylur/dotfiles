@@ -1,11 +1,15 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import PopupWindow from '../misc/PopupWindow.js';
 import Workspace from './Workspace.js';
 import options from '../options.js';
-import { Utils, App, Widget, Hyprland } from '../imports.js';
 import { range } from '../utils.js';
 
 const ws = options.workspaces;
 
+/** @param {import('types/widgets/box').default} box */
 const update = box => Utils.execAsync('hyprctl -j clients')
     .then(clients => {
         const json = JSON.parse(clients);

@@ -1,9 +1,10 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Theme from '../../services/theme/theme.js';
 import { ArrowToggleButton, Menu, opened } from '../ToggleButton.js';
 import themes from '../../themes.js';
 import icons from '../../icons.js';
-import { Widget } from '../../imports.js';
 
+/** @param {string} name  */
 const prettyName = name => name
     .split('_')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -35,23 +36,24 @@ export const ThemeSelector = () => Menu({
     title: Widget.Label('Theme Selector'),
     content: Widget.Box({
         vertical: true,
-        children: themes.map(({ name, icon }) => Widget.Button({
-            on_clicked: () => Theme.setSetting('theme', name),
-            child: Widget.Box({
-                children: [
-                    Widget.Label(icon),
-                    Widget.Label(prettyName(name)),
-                    Widget.Icon({
-                        icon: icons.tick,
-                        hexpand: true,
-                        hpack: 'end',
-                        connections: [[Theme, icon => {
-                            icon.visible = Theme.getSetting('theme') === name;
-                        }]],
-                    }),
-                ],
-            }),
-        })).concat([
+        children: [
+            ...themes.map(({ name, icon }) => Widget.Button({
+                on_clicked: () => Theme.setSetting('theme', name),
+                child: Widget.Box({
+                    children: [
+                        Widget.Label(icon),
+                        Widget.Label(prettyName(name)),
+                        Widget.Icon({
+                            icon: icons.tick,
+                            hexpand: true,
+                            hpack: 'end',
+                            connections: [[Theme, icon => {
+                                icon.visible = Theme.getSetting('theme') === name;
+                            }]],
+                        }),
+                    ],
+                }),
+            })),
             Widget.Separator(),
             Widget.Button({
                 on_clicked: () => Theme.openSettings(),
@@ -62,6 +64,6 @@ export const ThemeSelector = () => Menu({
                     ],
                 }),
             }),
-        ]),
+        ],
     }),
 });

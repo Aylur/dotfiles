@@ -1,109 +1,94 @@
-import { Widget, App, Applications } from '../imports.js';
-import PopupWindow from '../misc/PopupWindow.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import AppItem from './AppItem.js';
+import options from '../options.js';
+import PopopWindow from '../misc/PopupWindow.js';
 import icons from '../icons.js';
-import { launchApp } from '../utils.js';
 
 const WINDOW_NAME = 'applauncher';
 
-const AppItem = app => Widget.Button({
-    class_name: 'app',
-    on_clicked: () => {
-        App.closeWindow(WINDOW_NAME);
-        launchApp(app);
-    },
-    child: Widget.Box({
-        children: [
-            Widget.Icon({
-                icon: app.iconName,
-                size: 48,
-            }),
-            Widget.Box({
-                vertical: true,
-                children: [
-                    Widget.Label({
-                        class_name: 'title',
-                        label: app.name,
-                        xalign: 0,
-                        vpack: 'center',
-                        ellipsize: 3,
-                    }),
-                    Widget.Label({
-                        class_name: 'description',
-                        label: app.description || '',
-                        wrap: true,
-                        xalign: 0,
-                        justification: 'left',
-                        vpack: 'center',
-                    }),
-                ],
-            }),
-        ],
-    }),
-});
-
 const Applauncher = () => {
-    const list = Widget.Box({ vertical: true });
+    const children = () => [
+        ...Applications.query('').flatMap(app => {
+            const item = AppItem(app);
+            return [
+                Widget.Separator({
+                    hexpand: true,
+                    binds: [['visible', item, 'visible']],
+                }),
+                item,
+            ];
+        }),
+        Widget.Separator({ hexpand: true }),
+    ];
 
-    const placeholder = Widget.Label({
-        label: " Couldn't find a match",
-        class_name: 'placeholder',
+    const list = Widget.Box({
+        binds: [['spacing', options.spacing]],
+        vertical: true,
+        children: children(),
     });
 
     const entry = Widget.Entry({
         hexpand: true,
+        binds: [['css', options.spacing, 'value', m => `margin-bottom: ${m}px;`]],
+
+        // set some text so on-change works the first time
         text: '-',
-        placeholder_text: 'Search',
         on_accept: ({ text }) => {
             const list = Applications.query(text || '');
             if (list[0]) {
                 App.toggleWindow(WINDOW_NAME);
-                launchApp(list[0]);
+                list[0].launch();
             }
         },
-        on_change: ({ text }) => {
-            list.children = Applications.query(text || '').map(app => [
-                Widget.Separator(),
-                AppItem(app),
-            ]).flat();
-            list.add(Widget.Separator());
-            list.show_all();
-
-            placeholder.visible = list.children.length === 1;
-        },
+        on_change: ({ text }) => list.children.map(item => {
+            if (item.app)
+                item.visible = item.app.match(text);
+        }),
     });
 
     return Widget.Box({
-        class_name: 'applauncher',
-        properties: [['list', list]],
         vertical: true,
+        binds: [['css', options.spacing, 'value', m => `margin: ${m * 2}px;`]],
         children: [
             Widget.Box({
-                class_name: 'header',
                 children: [
                     Widget.Icon(icons.apps.search),
                     entry,
                 ],
             }),
             Widget.Scrollable({
+                binds: [
+                    ['css', options.applauncher.height, 'value', h => `
+                        min-width: ${options.applauncher.width.value}px;
+                        min-height: ${h}px;
+
+                    `],
+                    ['css', options.applauncher.width, 'value', w => `
+                        min-width: ${w}px;
+                        min-height: ${options.applauncher.height.value}px;
+
+                    `],
+                ],
                 hscroll: 'never',
-                child: Widget.Box({
-                    vertical: true,
-                    children: [list, placeholder],
-                }),
+                child: list,
             }),
         ],
         connections: [[App, (_, name, visible) => {
             if (name !== WINDOW_NAME)
                 return;
 
-            entry.set_text('');
+            entry.text = '';
             if (visible)
                 entry.grab_focus();
+            else
+                list.children = children();
         }]],
     });
 };
 
-export default () => PopupWindow({
+export default () => PopopWindow({
     name: WINDOW_NAME,
     content: Applauncher(),
 });

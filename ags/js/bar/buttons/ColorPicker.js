@@ -1,5 +1,8 @@
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import PanelButton from '../PanelButton.js';
-import { Notifications, Utils, Widget, Variable } from '../../imports.js';
 import Gdk from 'gi://Gdk';
 
 const COLORS_CACHE = Utils.CACHE_DIR + '/colorpicker.json';

@@ -1,9 +1,14 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import icons from '../icons.js';
 import Clock from '../misc/Clock.js';
 import * as vars from '../variables.js';
-import { Widget } from '../imports.js';
 import Theme from '../services/theme/theme.js';
 
+/**
+ * @param {'cpu' | 'ram' | 'temp'} type
+ * @param {string} title
+ * @param {string} unit
+ */
 const SysProgress = (type, title, unit) => Widget.Box({
     class_name: `circular-progress-box ${type}`,
     hexpand: true,
