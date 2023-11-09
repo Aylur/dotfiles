@@ -111,6 +111,10 @@ in
         mvtows = binding "SUPER SHIFT" "movetoworkspace";
         e = "exec, ags -b hypr";
         arr = [1 2 3 4 5 6 7 8 9];
+        yt = pkgs.writeShellScriptBin "yt" ''
+            notify-send "Opening video" "$(wl-paste)"
+            mpv "$(wl-paste)"
+        '';
       in [
         "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
         "SUPER, R,       ${e} -t applauncher"
@@ -122,6 +126,9 @@ in
         "SUPER, Return, exec, xterm" # xterm is a symlink, not actually xterm
         "SUPER, W, exec, firefox"
         "SUPER, E, exec, wezterm -e lf"
+
+        # youtube
+        ", XF86Launch1,  exec, ${yt}/bin/yt"
 
         "ALT, Tab, focuscurrentorlast"
         "CTRL ALT, Delete, exit"
