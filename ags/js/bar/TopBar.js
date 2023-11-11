@@ -18,19 +18,32 @@ import ScreenRecord from './buttons/ScreenRecord.js';
 import BatteryBar from './buttons/BatteryBar.js';
 import SubMenu from './buttons/SubMenu.js';
 import Recorder from '../services/screenrecord.js';
+import options from '../options.js';
 
 const submenuItems = Variable(1);
 SystemTray.connect('changed', () => {
     submenuItems.setValue(SystemTray.items.length + 1);
 });
 
-const SeparatorDot = (service, condition) => Widget.Separator({
-    orientation: 0,
-    vpack: 'center',
-    connections: !service ? [] : [[service, dot => {
-        dot.visible = condition(service);
-    }]],
-});
+/**
+ * @template T
+ * @param {T=} service
+ * @param {(self: T) => boolean=} condition
+ */
+const SeparatorDot = (service, condition) => {
+    const visibility = self => {
+        self.visible = condition && service
+            ? condition(service)
+            : options.bar.separators.value;
+    };
+
+    const conn = service ? [[service, visibility]] : [];
+    return Widget.Separator({
+        connections: [['draw', visibility], ...conn],
+        binds: [['visible', options.bar.separators]],
+        vpack: 'center',
+    });
+};
 
 const Start = () => Widget.Box({
     class_name: 'start',
@@ -79,8 +92,10 @@ const End = () => Widget.Box({
     ],
 });
 
+/** @param {number} monitor */
 export default monitor => Widget.Window({
     name: `bar${monitor}`,
+    class_name: 'transparent',
     exclusive: true,
     monitor,
     anchor: ['top', 'left', 'right'],

@@ -26,8 +26,7 @@ export default app => {
         binds: [['size', options.applauncher.iconSize]],
     });
 
-    const vbox = Widget.Box({
-        binds: [['spacing', options.spacing]],
+    const textBox = Widget.Box({
         vertical: true,
         vpack: 'center',
         children: app.description ? [title, description] : [title],
@@ -41,8 +40,7 @@ export default app => {
             app.launch();
         },
         child: Widget.Box({
-            binds: [['spacing', options.spacing]],
-            children: [icon, vbox],
+            children: [icon, textBox],
         }),
     });
 };

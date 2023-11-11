@@ -6,6 +6,7 @@ import FontIcon from '../../misc/FontIcon.js';
 import { getAudioTypeIcon } from '../../utils.js';
 import { Arrow } from '../ToggleButton.js';
 import { Menu } from '../ToggleButton.js';
+import options from '../../options.js';
 
 /** @param {'speaker' | 'microphone'=} type */
 const VolumeIndicator = (type = 'speaker') => Widget.Button({
@@ -35,12 +36,15 @@ const VolumeSlider = (type = 'speaker') => Widget.Slider({
 });
 
 export const Volume = () => Widget.Box({
-    class_name: 'slider',
     children: [
         VolumeIndicator('speaker'),
         VolumeSlider('speaker'),
-        Arrow('sink-selector'),
         Widget.Box({
+            vpack: 'center',
+            child: Arrow('sink-selector'),
+        }),
+        Widget.Box({
+            vpack: 'center',
             child: Arrow('app-mixer'),
             connections: [[Audio, box => {
                 box.visible = Audio.apps.length > 0;
@@ -72,30 +76,26 @@ const MixerItem = stream => Widget.Box({
             }]],
         }),
         Widget.Box({
+            vertical: true,
             children: [
-                Widget.Box({
-                    vertical: true,
-                    children: [
-                        Widget.Label({
-                            xalign: 0,
-                            truncate: 'end',
-                            binds: [['label', stream, 'description']],
-                        }),
-                        Widget.Slider({
-                            hexpand: true,
-                            draw_value: false,
-                            binds: [['value', stream, 'volume']],
-                            on_change: ({ value }) => stream.volume = value,
-                        }),
-                    ],
-                }),
                 Widget.Label({
-                    xalign: 1,
-                    connections: [[stream, l => {
-                        l.label = `${Math.floor(stream.volume * 100)}%`;
-                    }]],
+                    xalign: 0,
+                    truncate: 'end',
+                    binds: [['label', stream, 'description']],
+                }),
+                Widget.Slider({
+                    hexpand: true,
+                    draw_value: false,
+                    binds: [['value', stream, 'volume']],
+                    on_change: ({ value }) => stream.volume = value,
                 }),
             ],
+        }),
+        Widget.Label({
+            xalign: 1,
+            connections: [[stream, l => {
+                l.label = `${Math.floor(stream.volume * 100)}%`;
+            }]],
         }),
     ],
 });

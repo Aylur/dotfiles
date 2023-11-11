@@ -1,6 +1,5 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import Theme from '../services/theme/theme.js';
 import PowerMenu from '../services/powermenu.js';
 import icons from '../icons.js';
 import Gtk from 'gi://Gtk';
@@ -49,6 +48,6 @@ export default () => Widget.Menu({
         }),
         Item('Applications', icons.apps.apps, () => App.openWindow('applauncher')),
         new Gtk.SeparatorMenuItem,
-        Item('Settings', icons.settings, () => Theme.openSettings()),
+        Item('Settings', icons.settings, () => print('todo')),
     ],
 });

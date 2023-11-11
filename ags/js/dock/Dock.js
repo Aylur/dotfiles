@@ -5,29 +5,42 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import icons from '../icons.js';
 import options from '../options.js';
-import { launchApp } from '../utils.js';
+import { launchApp, range } from '../utils.js';
 
 const focus = ({ address }) => Utils.execAsync(`hyprctl dispatch focuswindow address:${address}`);
 
-/** @param {import('types/widgets/button').ButtonProps & { icon: string }} o */
-const AppButton = ({ icon, ...rest }) => Widget.Button({
-    ...rest,
-    child: Widget.Box({
-        class_name: 'box',
-        child: Widget.Overlay({
-            child: Widget.Icon({ icon, size: options.dock.iconSize }),
-            overlays: [Widget.Box({
-                class_name: 'indicator',
-                vpack: 'end',
-                hpack: 'center',
-            })],
+/** @param {import('types/widgets/button').ButtonProps & { icon: string, pinned?: boolean }} o */
+const AppButton = ({ icon, pinned = false, ...rest }) => {
+    const indicators = Widget.Box({
+        vpack: 'end',
+        hpack: 'center',
+        children: range(5, 0).map(() => Widget.Box({
+            class_name: 'indicator',
+            visible: false,
+        })),
+    });
+
+    const button = Widget.Button({
+        ...rest,
+        child: Widget.Box({
+            class_name: 'box',
+            child: Widget.Overlay({
+                child: Widget.Icon({
+                    icon,
+                    binds: [['size', options.dock.iconSize]],
+                }),
+                pass_through: true,
+                overlays: pinned ? [indicators] : [],
+            }),
         }),
-    }),
-});
+    });
+
+    return Object.assign(button, { indicators });
+};
 
 const Taskbar = () => Widget.Box({
     binds: [['children', Hyprland, 'clients', c => c.map(client => {
-        for (const appName of options.dock.pinnedApps) {
+        for (const appName of options.dock.pinnedApps.value) {
             if (client.class.toLowerCase().includes(appName.toLowerCase()))
                 return null;
         }
@@ -48,10 +61,11 @@ const Taskbar = () => Widget.Box({
 const PinnedApps = () => Widget.Box({
     class_name: 'pins',
     homogeneous: true,
-    children: options.dock.pinnedApps
+    binds: [['children', options.dock.pinnedApps, 'value', v => v
         .map(term => ({ app: Applications.query(term)?.[0], term }))
         .filter(({ app }) => app)
         .map(({ app, term = true }) => AppButton({
+            pinned: true,
             icon: app.icon_name || '',
             on_primary_click: () => {
                 for (const client of Hyprland.clients) {
@@ -65,13 +79,23 @@ const PinnedApps = () => Widget.Box({
             tooltip_text: app.name,
             connections: [[Hyprland, button => {
                 const running = Hyprland.clients
-                    .find(client => client.class.toLowerCase().includes(term)) || false;
+                    .filter(client => client.class.toLowerCase().includes(term));
 
-                button.toggleClassName('nonrunning', !running);
-                button.toggleClassName('focused', Hyprland.active.client.address == running.address);
-                button.set_tooltip_text(running ? running.title : app.name);
+                const focused = running.find(client =>
+                    client.address === Hyprland.active.client.address);
+
+                const index = running.findIndex(c => c === focused);
+
+                for (let i = 0; i < 5; ++i) {
+                    const indicator = button.indicators.children[i];
+                    indicator.visible = i < running.length;
+                    indicator.toggleClassName('focused', i === index);
+                }
+
+                button.set_tooltip_text(running.length === 1 ? running[0].title : app.name);
             }]],
         })),
+    ]],
 });
 
 export default () => {

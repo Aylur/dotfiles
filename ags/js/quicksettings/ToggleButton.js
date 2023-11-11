@@ -3,6 +3,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../icons.js';
+import options from '../options.js';
 
 /** name of the currently opened menu  */
 export const opened = Variable('');
@@ -94,9 +95,7 @@ export const ArrowToggleButton = ({
  */
 export const Menu = ({ name, icon, title, content }) => Widget.Revealer({
     transition: 'slide_down',
-    connections: [[opened, revealer => {
-        revealer.reveal_child = opened.value === name;
-    }]],
+    binds: [['reveal-child', opened, 'value', v => v === name]],
     child: Widget.Box({
         class_name: 'menu',
         vertical: true,

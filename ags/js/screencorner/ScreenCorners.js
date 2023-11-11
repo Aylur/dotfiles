@@ -1,6 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk';
-import Theme from '../services/theme/theme.js';
+import options from '../options.js';
 
 /** @param {'topleft' | 'topright' | 'bottomleft' | 'bottomright'} place  */
 const Corner = place => Widget.DrawingArea({
@@ -9,8 +9,8 @@ const Corner = place => Widget.DrawingArea({
     vexpand: true,
     hpack: place.includes('left') ? 'start' : 'end',
     vpack: place.includes('top') ? 'start' : 'end',
-    connections: [[Theme, self => {
-        const r = Theme.getSetting('radii') * 2;
+    connections: [[options.radii, self => {
+        const r = options.radii.value * 2;
         self.set_size_request(r, r);
     }]],
     setup: self => self.connect('draw', (self, cr) => {

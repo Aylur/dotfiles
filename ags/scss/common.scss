@@ -1,93 +1,103 @@
-window {
-    background-color: transparent;
-}
+$hover: transparentize($_widget-bg, ($widget-opacity * 0.9) / 100);
+$widget-bg: transparentize($_widget-bg, $widget-opacity / 100);
+$active-gradient: linear-gradient($accent-gradient);
 
-@mixin common{
+$border-color: transparentize($_border-color, $border-opacity / 100);
+$border: $border-width solid $border-color;
+
+$text-shadow: 2px 2px 2px $shadow;
+
+$popover-border-color: transparentize($_border-color, max(($border-opacity - 1) / 100, 0));
+$popover-radius: if($radii == 0, 0, $radii + $popover-padding);
+
+* { font-size: $font-size }
+
+@mixin unset($rec: false){
     all: unset;
 
-    * {
-        font-size: $font_size;
-        font-family: $font, sans-serif;
+    @if $rec {
+        * { all: unset };
     }
 }
 
 @mixin widget{
-    @include common;
+    @include unset;
+    transition: $transition;
     border-radius: $radii;
-    color: $fg_color;
-    background-color: $widget_bg;
+    color: $fg-color;
+    background-color: $widget-bg;
     border: $border;
 }
 
-@mixin button_focus() {
-    box-shadow: inset 0 0 0 $border_width $accent;
+@mixin button-focus() {
+    box-shadow: inset 0 0 0 $border-width $accent;
     background-color: $hover;
-    color: $hover_fg;
+    color: $hover-fg;
 }
 
-@mixin button_hover() {
-    box-shadow: inset 0 0 0 $border_width $border_color;
+@mixin button-hover() {
+    box-shadow: inset 0 0 0 $border-width $border-color;
     background-color: $hover;
-    color: $hover_fg;
+    color: $hover-fg;
 }
 
-@mixin button_active() {
-    box-shadow: inset 0 0 0 $border_width $border_color;
-    background-image: $active_gradient;
+@mixin button-active() {
+    box-shadow: inset 0 0 0 $border-width $border-color;
+    background-image: $active-gradient;
     background-color: $accent;
-    color: $accent_fg;
+    color: $accent-fg;
 }
 
-@mixin button_disabled() {
+@mixin button-disabled() {
     box-shadow: none;
     background-color: transparent;
-    color: transparentize($fg_color, 0.7);
+    color: transparentize($fg-color, 0.7);
 }
 
 @mixin button($flat: false, $reactive: true, $radii: $radii, $focusable: true){
-    @include common;
+    @include unset;
     transition: $transition;
     border-radius: $radii;
-    color: $fg_color;
+    color: $fg-color;
 
     @if $flat{
         background-color: transparent;
         background-image: none;
         box-shadow: none;
     } @else{
-        background-color: $widget_bg;
-        box-shadow: inset 0 0 0 $border_width $border_color;
+        background-color: $widget-bg;
+        box-shadow: inset 0 0 0 $border-width $border-color;
     }
 
     @if $reactive{
         @if $focusable {
             &:focus{
-                @include button_focus;
+                @include button-focus;
             }
         }
 
         &:hover{
-            @include button_hover;
+            @include button-hover;
         }
 
         &:active, &.on, &.active, &:checked {
-            @include button_active;
+            @include button-active;
 
             &:hover {
-                box-shadow: inset 0 0 0 $border_width $border_color,
+                box-shadow: inset 0 0 0 $border-width $border-color,
                             inset 0 0 0 99px $hover;
             }
         }
     }
 
     &:disabled {
-        @include button_disabled;
+        @include button-disabled;
     }
 }
 
-@mixin accs_button($flat: false, $reactive: true){
+@mixin accs-button($flat: false, $reactive: true){
     @include button($flat: true, $reactive: false, $focusable: false);
-    color: $fg_color;
+    color: $fg-color;
 
     > * {
         border-radius: $radii;
@@ -97,62 +107,60 @@ window {
             background-color: transparent;
             box-shadow: none;
         } @else{
-            background-color: $widget_bg;
-            box-shadow: inset 0 0 0 $border_width $border_color;
+            background-color: $widget-bg;
+            box-shadow: inset 0 0 0 $border-width $border-color;
         }
     }
 
 
     @if $reactive{
         &:focus > *, &.focused > * {
-            @include button_focus;
+            @include button-focus;
         }
 
         &:hover > * {
-            @include button_hover;
+            @include button-hover;
         }
 
         &:active, &.active, &.on, &:checked {
             > * {
-                @include button_active;
+                @include button-active;
             }
 
             &:hover > * {
-                box-shadow: inset 0 0 0 $border_width $border_color,
+                box-shadow: inset 0 0 0 $border-width $border-color,
                             inset 0 0 0 99px $hover;
             }
         }
     }
 }
 
-@mixin floating_widget {
-    @include common;
-
-    @if $drop_shadow {
+@mixin floating-widget {
+    @if $drop-shadow {
         box-shadow: 0 0 min(6px, $spacing/2) 0 $shadow;
     }
+    transition: $transition;
     margin: max($spacing, 8px);
-    border: $border_width solid $popover_border_color;
-    border-radius: $popover_radius;
-    background-color: $bg_color;
-    color: $fg_color;
-    padding: $popover_padding;
+    border: $border-width solid $popover-border-color;
+    background-color: $bg-color;
+    color: $fg-color;
+    border-radius: $popover-radius;
+    padding: $popover-padding;
 }
 
-@mixin slider($width: .7em, $slider_width: .5em, $gradient: $active_gradient, $slider: true, $focusable: true, $radii: $radii){
-    @include common;
-    * { all:unset; }
+@mixin slider($width: 0.7em, $slider-width: .5em, $gradient: $active-gradient, $slider: true, $focusable: true, $radii: $radii){
+    @include unset($rec: true);
 
     trough{
         transition: $transition;
         border-radius: $radii;
         border: $border;
-        background-color: $widget_bg;
+        background-color: $widget-bg;
         min-height: $width;
         min-width:  $width;
 
         highlight, progress{
-            border-radius: max($radii - $border_width, 0);
+            border-radius: max($radii - $border-width, 0);
             background-image: $gradient;
             min-height: $width;
             min-width:  $width;
@@ -162,12 +170,12 @@ window {
     slider {
         box-shadow: none;
         background-color: transparent;
-        border: $border_width solid transparent;
+        border: $border-width solid transparent;
         transition: $transition;
         border-radius: $radii;
         min-height: $width;
         min-width:  $width;
-        margin: -$slider_width;
+        margin: -$slider-width;
     }
 
     &:hover {
@@ -177,10 +185,10 @@ window {
 
         slider {
             @if $slider{
-                background-color: $fg_color;
+                background-color: $fg-color;
                 border-color: $border-color;
 
-                @if $drop_shadow {
+                @if $drop-shadow {
                     box-shadow: 0 0 3px 0 $shadow;
                 }
             }
@@ -189,7 +197,7 @@ window {
 
     &:disabled {
         highlight, progress{
-            background-color: transparentize($fg_color, 0.4);
+            background-color: transparentize($fg-color, 0.4);
             background-image: none;
         }
     }
@@ -197,12 +205,12 @@ window {
     @if $focusable {
         trough:focus{
             background-color: $hover;
-            box-shadow: inset 0 0 0 $border_width $accent;
+            box-shadow: inset 0 0 0 $border-width $accent;
 
             slider {
                 @if $slider {
-                    background-color: $fg_color;
-                    box-shadow: inset 0 0 0 $border_width $accent;
+                    background-color: $fg-color;
+                    box-shadow: inset 0 0 0 $border-width $accent;
                 }
             }
         }
@@ -211,35 +219,34 @@ window {
 }
 
 @mixin shader($width: 3em){
-    @include common;
-    border-radius: max($radii - $border_width, 0);
+    border-radius: max($radii - $border-width, 0);
 
     label {
-        color: $shader_fg;
-        text-shadow: $text_shadow;
+        color: $shader-fg;
+        text-shadow: $text-shadow;
     }
 
-    @if $theme == 'dark' {
-        box-shadow: inset 0 0 $width $width/3 transparentize($bg_color, 0.3);
+    @if $color-scheme == 'dark' {
+        box-shadow: inset 0 0 $width $width/3 transparentize($bg-color, 0.3);
     }
 
-    @if $theme == 'light' {
-        background-color: transparentize($bg_color, 0.8);
+    @if $color-scheme == 'light' {
+        background-color: transparentize($bg-color, 0.8);
     }
 }
 
-@mixin text_border{
+@mixin text-border{
     text-shadow:
-        -1 * $border_width -1 * $border_width 0 $border_color,
-        $border_width $border_width 0 $border_color,
-        -1 * $border_width $border_width 0 $border_color,
-        $border_width -1 * $border_width 0 $border_color;
+        -1 * $border-width -1 * $border-width 0 $border-color,
+        $border-width $border-width 0 $border-color,
+        -1 * $border-width $border-width 0 $border-color,
+        $border-width -1 * $border-width 0 $border-color;
 
     -gtk-icon-shadow:
-        -1 * $border_width -1 * $border_width 0 $border_color,
-        $border_width $border_width 0 $border_color,
-        -1 * $border_width $border_width 0 $border_color,
-        $border_width -1 * $border_width 0 $border_color;
+        -1 * $border-width -1 * $border-width 0 $border-color,
+        $border-width $border-width 0 $border-color,
+        -1 * $border-width $border-width 0 $border-color,
+        $border-width -1 * $border-width 0 $border-color;
 }
 
 @mixin scrollbar{
@@ -249,13 +256,13 @@ window {
 
     scrollbar.vertical {
         transition: $transition;
-        background-color: transparentize($bg_color, 0.7);
+        background-color: transparentize($bg-color, 0.7);
 
         &:hover {
-            background-color: transparentize($bg_color, 0.3);
+            background-color: transparentize($bg-color, 0.3);
 
             slider {
-                background-color: transparentize($fg_color, 0.3);
+                background-color: transparentize($fg-color, 0.3);
                 min-width: .6em;
             }
         }
@@ -263,7 +270,7 @@ window {
 
 
     scrollbar.vertical slider {
-        background-color: transparentize($fg_color, 0.5);
+        background-color: transparentize($fg-color, 0.5);
         border-radius: $radii;
         min-width: .4em;
         min-height: 2em;
@@ -275,7 +282,7 @@ window {
     @include button;
 
     slider {
-        background-color: $fg_color;
+        background-color: $fg-color;
         border-radius: $radii;
         min-width: 24px;
         min-height: 24px;
@@ -301,17 +308,16 @@ window {
 }
 
 tooltip {
-    @include common;
     * { all: unset; }
 
     background-color: transparent;
     border: none;
 
     > * > *{
-        background-color: $bg_color;
+        background-color: $bg-color;
         border-radius: $radii;
-        border: $border_width solid $popover_border_color;
-        color: $fg_color;
+        border: $border-width solid $popover-border-color;
+        color: $fg-color;
         padding: 8px;
         margin: 4px;
         box-shadow: 0 0 3px 0 $shadow;
@@ -325,13 +331,13 @@ window.popup {
     }
 
     menu {
-        border-radius: $popover_radius;
-        background-color: $bg_color;
-        padding: $spacing;
-        border: $border;
+        border-radius: $popover-radius;
+        background-color: $bg-color;
+        padding: $popover-padding;
+        border: $border-width solid $popover-border-color;
 
         separator {
-            background-color: $border_color;
+            background-color: $border-color;
         }
 
         menuitem {

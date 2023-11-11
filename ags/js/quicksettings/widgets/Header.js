@@ -2,10 +2,10 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import icons from '../../icons.js';
 import PowerMenu from '../../services/powermenu.js';
-import Theme from '../../services/theme/theme.js';
 import Lockscreen from '../../services/lockscreen.js';
 import Avatar from '../../misc/Avatar.js';
 import { uptime } from '../../variables.js';
+import options from '../../options.js';
 
 export const BatteryProgress = () => Widget.Box({
     class_name: 'battery-progress',
@@ -35,7 +35,6 @@ export const BatteryProgress = () => Widget.Box({
 });
 
 export default () => Widget.Box({
-    class_name: 'header',
     children: [
         Avatar(),
         Widget.Box({
@@ -47,7 +46,7 @@ export default () => Widget.Box({
                     children: [
                         Widget.Button({
                             vpack: 'center',
-                            on_clicked: () => Theme.openSettings(),
+                            // on_clicked: () => Theme.openSettings(),
                             child: Widget.Icon(icons.settings),
                         }),
                         Widget.Label({

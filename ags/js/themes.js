@@ -1,3 +1,4 @@
+// FIXME: generate from options
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 const WP = `/home/${Utils.USER}/Pictures/Wallpapers/`;
 
@@ -55,6 +56,7 @@ const misc = {
     wm_gaps: 22,
     radii: 9,
     spacing: 9,
+    padding: 8,
     shadow: 'rgba(0, 0, 0, .6)',
     drop_shadow: true,
     transition: 200,
@@ -65,6 +67,10 @@ const misc = {
     font: 'Ubuntu Nerd Font',
     mono_font: 'Mononoki Nerd Font',
     font_size: 16,
+
+    bar: {
+        spacing: 6,
+    },
 };
 
 const colors = {

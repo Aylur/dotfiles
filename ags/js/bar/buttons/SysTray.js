@@ -16,10 +16,14 @@ const SysTrayItem = item => PanelButton({
             menu.disconnect(id);
         });
     },
-    on_primary_click: btn =>
-        item.menu?.popup_at_widget(btn, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null),
-    on_secondary_click: btn =>
-        item.menu?.popup_at_widget(btn, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null),
+
+    // @ts-expect-error popup_at_widget missing from types?
+    on_primary_click: btn => item.menu?.popup_at_widget(
+        btn, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null),
+
+    // @ts-expect-error popup_at_widget missing from types?
+    on_secondary_click: btn => item.menu?.popup_at_widget(
+        btn, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null),
 });
 
 export default () => Widget.Box({

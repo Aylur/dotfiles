@@ -1,4 +1,4 @@
-@mixin player_color($color) {
+@mixin player-color($color) {
     button {
         .shuffle.enabled {
             color: $color;
@@ -28,8 +28,8 @@
     @include widget;
 
     label {
-        color: $shader_fg;
-        text-shadow: $text_shadow;
+        color: $shader-fg;
+        text-shadow: $text-shadow;
     }
 
     .shader {
@@ -41,28 +41,27 @@
         min-height: 100px;
         min-width: 100px;
         box-shadow: 2px 2px 2px 0 $shadow;
-        margin: $spacing;
-        margin-bottom: 0;
+        margin: $padding;
 
         .shader {
             background-color: transparent;
             border-radius: max($radii*0.8 - 1px, 0);
-            box-shadow: inset 0 0 0 999px transparentize($bg_color, 0.8);
+            box-shadow: inset 0 0 0 999px transparentize($bg-color, 0.8);
         }
     }
 
     .blurred-cover, .cover {
         background-size: cover;
         background-position: center;
-        border-radius: max($radii - $border_width, 0);
+        border-radius: max($radii - $border-width, 0);
     }
 
     .labels {
-        margin-top: $spacing;
+        margin-top: $padding;
 
         label {
             font-size: 1.1em;
-            text-shadow: $text_shadow;
+            text-shadow: $text-shadow;
 
             &.title {
                 font-weight: bold;
@@ -71,29 +70,29 @@
     }
 
     .position-slider {
-        @include slider($width: .4em, $slider: false, $gradient: linear-gradient($shader_fg, $shader_fg), $radii: 0);
-        margin: $spacing 0;
+        @include slider($width: .4em, $slider: false, $gradient: linear-gradient($shader-fg, $shader-fg), $radii: 0);
+        margin-bottom: $padding/2;
 
         trough {
             border: none;
-            background-color: transparentize($shader_fg, 0.7);
+            background-color: transparentize($shader-fg, 0.7);
         }
     }
 
     .footer-box {
-        margin: -$spacing/2 $spacing $spacing/2;
+        margin: -$padding/2 $padding $padding/2;
 
         image {
-            -gtk-icon-shadow: $text_shadow;
+            -gtk-icon-shadow: $text-shadow;
         }
     }
 
     .controls button {
-        all: unset;
+        @include unset;
 
         label {
             font-size: 2em;
-            color: transparentize($shader_fg, 0.2);
+            color: transparentize($shader-fg, 0.2);
             transition: $transition;
 
             &.shuffle, &.loop {
@@ -103,15 +102,15 @@
         }
 
         &:hover label {
-            color: transparentize($shader_fg, 0.1);
+            color: transparentize($shader-fg, 0.1);
         }
 
         &:active label {
-            color: $shader_fg;
+            color: $shader-fg;
         }
     }
 
-    &.spotify { @include player_color($green); }
-    &.firefox { @include player_color($orange); }
-    &.mpv { @include player_color($magenta); }
+    &.spotify { @include player-color($green); }
+    &.firefox { @include player-color($orange); }
+    &.mpv { @include player-color($magenta); }
 }

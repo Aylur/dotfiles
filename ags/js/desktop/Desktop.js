@@ -1,7 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Theme from '../services/theme/theme.js';
 import Clock from '../misc/Clock.js';
 import DesktopMenu from './DesktopMenu.js';
+import options from '../options.js';
 
 const DesktopClock = () => Widget.Box({
     class_name: 'clock-box-shadow',
@@ -38,12 +38,13 @@ const Desktop = () => Widget.EventBox({
         vertical: true,
         vexpand: true,
         hexpand: true,
-        connections: [[Theme, box => {
+        binds: [['visible', options.desktop.clock.enable]],
+        connections: [[options.desktop.clock.position, box => {
             const [hpack = 'center', vpack = 'center', offset = 64] =
-                Theme.getSetting('desktop_clock')?.split(' ') || [];
+                options.desktop.clock.position.value.split(' ') || [];
 
-            box.hpack = hpack;
-            box.vpack = vpack;
+            // @ts-expect-error
+            box.hpack = hpack; box.vpack = vpack;
             box.setCss(`margin: ${Number(offset)}px;`);
         }]],
         children: [

@@ -8,32 +8,35 @@ import icons from '../../icons.js';
  * @param {any} direction
  * @param {any} items
  */
-const Arrow = (revealer, direction, items) => Widget.Button({
-    class_name: 'panel-button sub-menu',
-    connections: [[items, btn => {
-        btn.tooltip_text = `${items.value} Items`;
-    }]],
-    on_clicked: button => {
-        revealer.reveal_child = !revealer.reveal_child;
-        button.child.animate();
-    },
-    child: Widget.Icon({
+const Arrow = (revealer, direction, items) => {
+    let deg = 180;
+
+    const icon = Widget.Icon({
         icon: icons.ui.arrow[direction],
-        setup: icon => {
-            icon._deg = 180;
-            icon.animate = () => {
-                const step = revealer.reveal_child ? 10 : -10;
-                for (let i = 0; i < 18; ++i) {
-                    Utils.timeout(2 * i, () => {
-                        icon._deg += step;
-                        icon.setCss(`-gtk-icon-transform: rotate(${icon._deg}deg);`);
-                    });
-                }
-            };
-            icon.animate();
+    });
+
+    const animate = () => {
+        const step = revealer.reveal_child ? 10 : -10;
+        for (let i = 0; i < 18; ++i) {
+            Utils.timeout(2 * i, () => {
+                deg += step;
+                icon.setCss(`-gtk-icon-transform: rotate(${deg}deg);`);
+            });
+        }
+    };
+
+    return Widget.Button({
+        class_name: 'panel-button sub-menu',
+        connections: [[items, btn => {
+            btn.tooltip_text = `${items.value} Items`;
+        }]],
+        on_clicked: () => {
+            revealer.reveal_child = !revealer.reveal_child;
+            animate();
         },
-    }),
-});
+        child: icon,
+    });
+};
 
 /**
  * @param {Object} o

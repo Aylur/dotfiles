@@ -5,7 +5,7 @@ import icons from '../../icons.js';
 
 export default () => PanelButton({
     class_name: 'recorder',
-    onClicked: () => Recorder.stop(),
+    on_clicked: () => Recorder.stop(),
     binds: [['visible', Recorder, 'recording']],
     content: Widget.Box({
         children: [

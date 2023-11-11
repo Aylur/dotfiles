@@ -9,7 +9,7 @@ window.lockscreen {
     }
 
     .content {
-        @include floating_widget;
+        @include floating-widget;
         padding: $spacing * 4;
     }
 

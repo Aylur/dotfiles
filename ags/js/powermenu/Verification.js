@@ -11,13 +11,19 @@ export default () => PopupWindow({
         class_name: 'verification',
         vertical: true,
         children: [
-            Widget.Label({
-                class_name: 'title',
-                binds: [['label', PowerMenu, 'title']],
-            }),
-            Widget.Label({
-                class_name: 'desc',
-                label: 'Are you sure?',
+            Widget.Box({
+                class_name: 'text-box',
+                vertical: true,
+                children: [
+                    Widget.Label({
+                        class_name: 'title',
+                        binds: [['label', PowerMenu, 'title']],
+                    }),
+                    Widget.Label({
+                        class_name: 'desc',
+                        label: 'Are you sure?',
+                    }),
+                ],
             }),
             Widget.Box({
                 class_name: 'buttons',

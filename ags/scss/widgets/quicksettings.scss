@@ -1,119 +1,92 @@
 window#quicksettings .quicksettings {
-    @include floating_widget;
+    @include floating-widget;
 
     .row {
-        margin-top: $spacing;
-        &:first-child { margin-top: 0; }
+        background-color: red;
     }
-
-    .header {
-        .avatar {
-            @include widget;
-            margin-right: $spacing;
-            min-width: $spacing*7 + 38px;
-
-            .shader {
-                @include shader;
-            }
-        }
-
-        .battery-progress {
-            label {
-                margin-top: $spacing;
-                color: $accent_fg;
-                font-size: $spacing*2;
-                font-weight: bold;
-            }
-
-            &.half label { color: $fg_color; }
-
-            progressbar {
-                @include slider($width: $spacing*3.4);
-                margin-top: $spacing;
-                min-height: 20px;
-            }
-
-            &.low progressbar {
-                @include slider($width: $spacing*3.4, $gradient: linear-gradient(to right, $red, $red));
-                margin-top: $spacing;
-                min-height: 20px;
-            }
-        }
-
-        .system-box {
-            @include widget;
-            padding: $spacing;
-
-            button, .uptime {
-                @include button;
-                padding: $spacing;
-                font-weight: bold;
-                margin-left: $spacing;
-                &:first-child { margin-left: 0; }
-                min-height: 20px;
-                min-width: 20px;
-                
-                image {
-                    font-size: 1.2em;
-                }
-            }
-        }
-    }
-
-    .slider-box {
+    .avatar {
         @include widget;
-        padding: $spacing;
+        min-width: $padding*7 + 38px;
+    }
 
-        > box { margin: 0; }
-
-        .slider > * {
-            margin-left: $spacing;
-            &:first-child { margin-left: 0; }
+    .battery-progress {
+        label {
+            color: $accent-fg;
+            font-size: $padding*2;
+            font-weight: bold;
         }
 
-        button, .icon {
+        &.half label { color: $fg-color; }
+
+        progressbar {
+            @include slider($width: $padding*3.6);
+        }
+
+        &.low progressbar {
+            @include slider($width: $padding*3.6, $gradient: linear-gradient(to right, $red, $red));
+        }
+    }
+
+    .system-box {
+        @include widget;
+        padding: $padding;
+
+        button, .uptime {
+            @include button;
+            padding: $padding;
+            font-weight: bold;
+            min-height: 20px;
+            min-width: 20px;
+
+            image {
+                font-size: 1.2em;
+            }
+        }
+    }
+
+    .sliders-box {
+        @include widget;
+        padding: $padding;
+
+        button {
             @include button($flat: true);
-            padding: $spacing/2;
+            padding: $padding / 2;
         }
 
         scale {
             @include slider;
-
-            &:last-child {
-                margin-right: $spacing/2;
-            }
         }
 
         .menu {
-            background-color: $bg_color;
-            border: $border_width solid $popover_border_color;
+            margin: $spacing / 2 0;
+            margin-top: $spacing;
+            background-color: $bg-color;
+            border: $border-width solid $popover-border-color;
             border-radius: $radii;
         }
     }
 
     .mixer-item {
-        margin: 0 $spacing;
         scale { @include slider($width: 7px); }
-        > box { padding: $spacing; }
-        label:last-child { min-width: 3em; }
-        image { font-size: 20px; }
+        image { font-size: 1.2em; }
     }
 
     .menu {
         @include widget;
-        margin: $spacing 0;
-        padding: $spacing;
+        padding: $padding;
+        margin-top: $spacing;
 
-        separator { 
-            background-color: $border_color;
-            margin: $spacing $spacing/2;
+        .title *:first-child {
+            margin: 0 $spacing 0 $spacing / 2;
         }
 
-        label { margin-left: $spacing; }
+        separator {
+            background-color: $border-color;
+        }
 
         button {
             @include button($flat: true);
-            padding: $spacing/2;
+            padding: $padding / 2;
         }
 
         switch {
@@ -123,16 +96,11 @@ window#quicksettings .quicksettings {
 
     .toggle-button {
         @include button;
-        margin-right: $spacing;
         font-weight: bold;
-
-        label {
-            margin-left: $spacing/2;
-        }
 
         button {
             @include button($flat: true);
-            padding: $spacing;
+            padding: $padding;
 
             &:first-child {
                 border-top-right-radius: 0;
@@ -149,7 +117,7 @@ window#quicksettings .quicksettings {
             background-color: $accent;
 
             label, image {
-                color: $accent_fg;
+                color: $accent-fg;
             }
         }
     }
@@ -161,6 +129,5 @@ window#quicksettings .quicksettings {
 
     .media .player {
         @include media;
-        margin-top: $spacing;
     }
 }

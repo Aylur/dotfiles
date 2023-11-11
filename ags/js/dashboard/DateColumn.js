@@ -2,7 +2,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import icons from '../icons.js';
 import Clock from '../misc/Clock.js';
 import * as vars from '../variables.js';
-import Theme from '../services/theme/theme.js';
+import options from '../options.js';
 
 /**
  * @param {'cpu' | 'ram' | 'temp'} type
@@ -19,10 +19,10 @@ const SysProgress = (type, title, unit) => Widget.Box({
         class_name: `circular-progress ${type}`,
         child: Widget.Icon(icons.system[type]),
         start_at: 0.75,
-        binds: [['value', vars[type]]],
-        connections: [[Theme, prog => {
-            prog.rounded = Theme.getSetting('radii') > 0;
-        }]],
+        binds: [
+            ['value', vars[type]],
+            ['rounded', options.radii, 'value', v => v > 0],
+        ],
     }),
 });
 
@@ -30,9 +30,16 @@ export default () => Widget.Box({
     vertical: true,
     class_name: 'datemenu',
     children: [
-        Clock({ format: '%H:%M' }),
-        Widget.Label({
-            binds: [['label', vars.uptime, 'value', t => `uptime: ${t}`]],
+        Widget.Box({
+            class_name: 'clock-box',
+            vertical: true,
+            children: [
+                Clock({ format: '%H:%M' }),
+                Widget.Label({
+                    class_name: 'uptime',
+                    binds: [['label', vars.uptime, 'value', t => `uptime: ${t}`]],
+                }),
+            ],
         }),
         Widget.Box({
             class_name: 'calendar',

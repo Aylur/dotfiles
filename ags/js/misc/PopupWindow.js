@@ -89,6 +89,7 @@ export default ({
     content,
     ...rest
 }) => Widget.Window({
+    class_name: 'popup-window',
     name,
     popup: true,
     visible: false,

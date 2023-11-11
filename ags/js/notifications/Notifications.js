@@ -36,7 +36,7 @@ const Popups = parent => {
         if (!n)
             return;
 
-        if (blackList.includes(n.app_name || ''))
+        if (blackList.value.includes(n.app_name || ''))
             return;
 
         map.delete(id);
@@ -59,7 +59,7 @@ const Popups = parent => {
 
 /** @param {import('types/widgets/revealer').RevealerProps['transition']} transition */
 const PopupList = (transition = 'slide_down') => Widget.Box({
-    class_name: 'notifications-popup-list',
+    class_name: 'content',
     css: 'padding: 1px',
     children: [
         Widget.Revealer({
@@ -73,6 +73,7 @@ const PopupList = (transition = 'slide_down') => Widget.Box({
 export default monitor => Widget.Window({
     monitor,
     name: `notifications${monitor}`,
+    class_name: 'notifications',
     anchor: ['top'],
     child: PopupList(),
 });

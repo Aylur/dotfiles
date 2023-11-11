@@ -3,6 +3,7 @@ import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../../icons.js';
 import { Menu, ArrowToggleButton } from '../ToggleButton.js';
+import options from '../../options.js';
 
 export const NetworkToggle = () => ArrowToggleButton({
     name: 'network',

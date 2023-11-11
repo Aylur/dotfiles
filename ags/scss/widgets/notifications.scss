@@ -10,7 +10,7 @@
 
     &:hover {
         .close-button{
-            @include button_hover;
+            @include button-hover;
             background-color: transparentize($red, .5);
         }
     }
@@ -18,17 +18,17 @@
     .content {
         .title {
             margin-right: $spacing;
-            color: $fg_color;
+            color: $fg-color;
             font-size: 1.1em;
         }
 
         .time {
-            color: transparentize($fg_color, .2);
+            color: transparentize($fg-color, .2);
         }
 
         .description {
             font-size: .9em;
-            color: transparentize($fg_color, .2);
+            color: transparentize($fg-color, .2);
         }
 
         .icon {
@@ -48,7 +48,7 @@
             @include button;
             border-radius: $radii*0.8;
             font-size: 1.2em;
-            padding: $spacing/2 0;
+            padding: $padding;
             margin: 0 $spacing/2 0;
 
             &:first-child {
@@ -78,12 +78,15 @@
     }
 }
 
-.notifications-popup-list{
-    .notification {
+window.notifications{
+    @include unset;
+    background-color: transparent;
+
+    .content .notification {
         @include notification;
 
         > box {
-            @include floating_widget;
+            @include floating-widget;
             border-radius: $radii;
         }
 

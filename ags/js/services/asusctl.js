@@ -52,6 +52,7 @@ class Asusctl extends Service {
         }
     }
 
+    /** @returns {['Performance', 'Balanced', 'Quiet']} */
     get profiles() { return ['Performance', 'Balanced', 'Quiet']; }
     get profile() { return this.#profile; }
     get mode() { return this._mode || 'Hybrid'; }

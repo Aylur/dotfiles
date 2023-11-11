@@ -12,7 +12,6 @@ import DND from './widgets/DND.js';
 import MicMute from './widgets/MicMute.js';
 
 const Row = (toggles = [], menus = []) => Widget.Box({
-    class_name: 'row',
     vertical: true,
     children: [
         Widget.Box({
@@ -35,25 +34,19 @@ export default () => PopupWindow({
         class_name: 'quicksettings',
         vertical: true,
         children: [
-            Row(
-                [Header()],
-            ),
-            Row([Widget.Box({
-                class_name: 'slider-box',
+            Header(),
+            Widget.Box({
+                class_name: 'sliders-box',
                 vertical: true,
                 children: [
                     Row(
                         [Volume()],
                         [SinkSelector(), AppMixer()],
                     ),
-                    Row(
-                        [Microhone()],
-                    ),
-                    Row(
-                        [Brightness()],
-                    ),
+                    Microhone(),
+                    Brightness(),
                 ],
-            })]),
+            }),
             Row(
                 [Homogeneous([NetworkToggle(), BluetoothToggle()]), DND()],
                 [WifiSelection(), BluetoothDevices()],

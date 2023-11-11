@@ -5,6 +5,10 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../../icons.js';
 import HoverRevealer from '../../misc/HoverRevealer.js';
 
+/**
+ * @param {Object} o
+ * @param {import('../../misc/HoverRevealer').HoverRevealProps['direction']=} o.direction
+ */
 export default ({ direction = 'left' } = {}) => HoverRevealer({
     class_name: 'notifications panel-button',
     eventboxConnections: [
@@ -18,9 +22,9 @@ export default ({ direction = 'left' } = {}) => HoverRevealer({
             return;
 
         revealer._title = title;
-        revealer.revealChild = true;
+        revealer.reveal_child = true;
         Utils.timeout(3000, () => {
-            revealer.revealChild = false;
+            revealer.reveal_child = false;
         });
     }]],
     direction,

@@ -1,22 +1,22 @@
-$float: $spacing * 0.7;
+$float: $bar-spacing;
 
-@mixin panel_button($flat: false, $reactive: true){
-    all: unset;
+@mixin panel-button($flat: false, $reactive: true){
+    @include unset;
 
-    @if $bar_style == 'separated' {
+    @if $bar-style == 'separated' {
         transition: $transition;
 
         > * {
-            @include floating_widget;
+            @include floating-widget;
             border-radius: $radii;
-            margin: $wm_gaps $float;
+            margin: $wm-gaps $float;
             transition: $transition;
         }
 
         &:hover > * {
-            color: $hover_fg;
+            color: $hover-fg;
 
-            @if $drop_shadow {
+            @if $drop-shadow {
                 box-shadow: 0 0 min(6px, $spacing/2) 0 $shadow,
                     inset 0 0 0 99px $hover;
             } @else {
@@ -25,35 +25,30 @@ $float: $spacing * 0.7;
         }
 
         &:active > *, &.active > * {
-            label, image { color: $accent_fg; }
-            background-image: $active_gradient;
+            label, image { color: $accent-fg; }
+            background-image: $active-gradient;
             background-color: $accent;
         }
     } @else {
-        @include accs_button($flat, $reactive);
+        @include accs-button($flat, $reactive);
         > * { margin: $float; }
     }
 
-    label {
-        font-size: $font-size;
+    label, image {
         font-weight: bold;
     }
 
-    image {
-        font-size: $font-size * 1.2;
-    }
-
     > * {
-        padding: .3em .5em;
+        padding: $padding * 0.4 $padding * 0.7;
     }
 }
 
 .panel {
-    @if $bar_style == 'normal' {
-        background-color: $bg_color;
+    @if $bar-style == 'normal' {
+        background-color: $bg-color;
     }
 
-    @if not $screen_corners and $bar_style == 'normal' {
+    @if not $screen-corners and $bar-style == 'normal' {
         @if $layout == 'bottombar' {
             border-top: $border;
         } @else {
@@ -61,28 +56,28 @@ $float: $spacing * 0.7;
         }
     }
 
-    @if $bar_style == 'floating' {
-        @include floating_widget;
-        margin: $wm_gaps;
+    @if $bar-style == 'floating' {
+        @include floating-widget;
+        margin: $wm-gaps;
         padding: 0;
     }
 
-    @if $bar_style == 'separated' {
+    @if $bar-style == 'separated' {
         > .end > button:last-child > * {
-            margin-right: $wm_gaps;
+            margin-right: $wm-gaps;
         }
 
         > .start > button:first-child > * {
-            margin-left: $wm_gaps;
+            margin-left: $wm-gaps;
         }
     }
 
     .panel-button {
-        @include panel_button($flat: true);
+        @include panel-button($flat: true);
     }
 
     separator {
-        background-color: transparentize($fg_color, 0.98);
+        background-color: transparentize($fg-color, 0.86);
         border-radius: $radii;
         min-height: 5px;
         min-width: 5px;
@@ -97,7 +92,7 @@ $float: $spacing * 0.7;
     .overview {
         label { color: transparentize($accent, 0.2); }
         &:hover label { color: $accent; }
-        &:active label, &.active label { color: $accent_fg; }
+        &:active label, &.active label { color: $accent-fg; }
     }
 
     .powermenu, .recorder {
@@ -132,12 +127,12 @@ $float: $spacing * 0.7;
 
         levelbar trough {
             @include widget;
-            min-width: 60px;
-            min-height: 14px;
+            min-width: $battery-bar-width;
+            min-height: $battery-bar-height;
 
             block.filled {
-                border-radius: max($radii - $border_width, 0);
-                background-image: $active_gradient;
+                border-radius: max($radii - $border-width, 0);
+                background-image: $active-gradient;
             }
         }
 
@@ -152,7 +147,7 @@ $float: $spacing * 0.7;
         .medium { @include color($yellow) }
         .low { @include color($red) }
         .charging { @include color($green) }
-        &:active { @include color($accent_fg) }
+        &:active { @include color($accent-fg) }
     }
 
     .workspaces {
@@ -161,8 +156,8 @@ $float: $spacing * 0.7;
         .eventbox {
             transition: $transition;
 
-            @if $bar_style == 'separated' {
-                border-radius: max($radii - $border_width, 0);
+            @if $bar-style == 'separated' {
+                border-radius: max($radii - $border-width, 0);
                 &:hover { background-color: $hover; }
             } @else {
                 @include button($flat: true);
@@ -178,22 +173,22 @@ $float: $spacing * 0.7;
                 min-height: 6px;
                 border-radius: $radii*0.6;
                 border: $border;
-                margin: 0 $spacing/2;
+                margin: 0 $padding/2;
                 transition: $transition/2;
-                background-color: transparentize($fg_color, 0.8);
+                background-color: transparentize($fg-color, 0.8);
             }
 
-            &:last-child .indicator { margin-right: $spacing; }
-            &:first-child .indicator { margin-left: $spacing; }
+            &:last-child .indicator { margin-right: $padding; }
+            &:first-child .indicator { margin-left: $padding; }
 
             &.occupied .indicator {
-                background-color: transparentize($fg_color, 0.2);
+                background-color: transparentize($fg-color, 0.2);
                 min-width: 8px;
                 min-height: 8px;
             }
 
             &:hover .indicator {
-                box-shadow: inset 0 0 0 10px transparentize($fg_color, 0.8);
+                box-shadow: inset 0 0 0 10px transparentize($fg-color, 0.8);
             }
 
             &.active .indicator, &:active .indicator {

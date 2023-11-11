@@ -1,5 +1,4 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Theme from '../../services/theme/theme.js';
 import { ArrowToggleButton, Menu, opened } from '../ToggleButton.js';
 import themes from '../../themes.js';
 import icons from '../../icons.js';
@@ -13,16 +12,16 @@ const prettyName = name => name
 const ThemeIcon = () => Widget.Stack({
     transition: 'crossfade',
     items: themes.map(({ name, icon }) => [name, Widget.Label(icon)]),
-    connections: [[Theme, stack => stack.shown = Theme.getSetting('theme')]],
+    // connections: [[Theme, stack => stack.shown = Theme.getSetting('theme')]],
 });
 
 export const ThemeToggle = () => ArrowToggleButton({
     name: 'theme',
     icon: ThemeIcon(),
     label: Widget.Label({
-        connections: [[Theme, label => {
-            label.label = prettyName(Theme.getSetting('theme'));
-        }]],
+        // connections: [[Theme, label => {
+        //     label.label = prettyName(Theme.getSetting('theme'));
+        // }]],
     }),
     connection: [opened, () => opened.value === 'theme'],
     activate: () => opened.setValue('theme'),
@@ -38,7 +37,7 @@ export const ThemeSelector = () => Menu({
         vertical: true,
         children: [
             ...themes.map(({ name, icon }) => Widget.Button({
-                on_clicked: () => Theme.setSetting('theme', name),
+                // on_clicked: () => Theme.setSetting('theme', name),
                 child: Widget.Box({
                     children: [
                         Widget.Label(icon),
@@ -47,16 +46,16 @@ export const ThemeSelector = () => Menu({
                             icon: icons.tick,
                             hexpand: true,
                             hpack: 'end',
-                            connections: [[Theme, icon => {
-                                icon.visible = Theme.getSetting('theme') === name;
-                            }]],
+                            // connections: [[Theme, icon => {
+                            //     icon.visible = Theme.getSetting('theme') === name;
+                            // }]],
                         }),
                     ],
                 }),
             })),
             Widget.Separator(),
             Widget.Button({
-                on_clicked: () => Theme.openSettings(),
+                // on_clicked: () => Theme.openSettings(),
                 child: Widget.Box({
                     children: [
                         Widget.Icon(icons.settings),

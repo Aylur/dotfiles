@@ -10,27 +10,40 @@ import { range } from '../utils.js';
 const ws = options.workspaces;
 
 /** @param {import('types/widgets/box').default} box */
-const update = box => Utils.execAsync('hyprctl -j clients')
-    .then(clients => {
-        const json = JSON.parse(clients);
-        box.children.forEach(ch => ch.update(json));
-    })
-    .catch(console.error);
+const update = box => {
+    if (App.windows.has('overview') && !App.getWindow('overview')?.visible)
+        return;
+
+    Utils.execAsync('hyprctl -j clients')
+        .then(clients => {
+            const json = JSON.parse(clients);
+            box.children.forEach(ch => ch.update(json));
+        })
+        .catch(console.error);
+};
+
+/** @param {import('types/widgets/box').default} box */
+const children = box => {
+    if (ws.value === 0) {
+        box.children = Hyprland.workspaces
+            .sort((ws1, ws2) => ws1.id > ws2.id)
+            .map(({ id }) => Workspace(id));
+    }
+};
 
 export default () => PopupWindow({
     name: 'overview',
     content: Widget.Box({
         class_name: 'overview',
-        children: range(ws).map(Workspace),
         setup: update,
-        connections: [[Hyprland, box => {
-            if (!App.getWindow('overview')?.visible)
-                return;
-
-            update(box);
-        }]],
-        binds: ws ? [] : [['children', Hyprland, 'workspaces',
-            w => w.sort((ws1, ws2) => ws1.id < ws2.id).map(({ id }) => Workspace(id)),
-        ]],
+        connections: [
+            [ws, box => {
+                box.children = range(ws.value + 1).map(Workspace);
+                update(box);
+                children(box);
+            }],
+            [Hyprland, update],
+            [Hyprland, children, 'notify::workspaces'],
+        ],
     }),
 });

@@ -12,5 +12,3 @@ rules:
   scss/operator-no-unspaced: null
   scss/no-global-function-names: null
   scss/dollar-variable-empty-line-before: null
-  scss/dollar-variable-pattern: ^[a-z]+(_[a-z]+)*$
-  scss/at-mixin-pattern: ^[a-z]+(_[a-z]+)*$

@@ -6,6 +6,6 @@ import { distroIcon } from '../../variables.js';
 export default () => PanelButton({
     class_name: 'overview',
     window: 'overview',
-    onClicked: () => App.toggleWindow('overview'),
+    on_clicked: () => App.toggleWindow('overview'),
     content: FontIcon(distroIcon),
 });

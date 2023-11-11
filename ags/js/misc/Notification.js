@@ -47,16 +47,17 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
 /** @param {import('types/service/notifications').Notification} notification */
 export default notification => {
     const hovered = Variable(false);
+    let block = false;
 
     const hover = () => {
         hovered.value = true;
-        hovered._block = true;
+        block = true;
 
-        Utils.timeout(100, () => hovered._block = false);
+        Utils.timeout(100, () => block = false);
     };
 
     const hoverLost = () => GLib.idle_add(0, () => {
-        if (hovered._block)
+        if (block)
             return GLib.SOURCE_REMOVE;
 
         hovered.value = false;

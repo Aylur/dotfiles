@@ -1,17 +1,14 @@
 window#overview .overview {
-    @include floating_widget;
+    @include floating-widget;
 
     .workspace {
-        margin: 0 $spacing;
-        &:last-child { margin-right: 0; }
-        &:first-child { margin-left: 0; }
-
         &.active > widget {
             border-color: $accent
         }
 
         > widget {
             @include widget;
+            border-radius: $radii + $padding;
 
             &:drop(active) {
                 border-color: $accent;
@@ -21,8 +18,8 @@ window#overview .overview {
 
     .client {
         @include button;
-        border-radius: $radii*0.8;
-        margin: $spacing;
+        border-radius: $radii;
+        margin: $padding;
 
         &.hidden {
             @include hidden;

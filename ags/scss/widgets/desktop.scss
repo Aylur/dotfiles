@@ -1,16 +1,16 @@
 window.corner .corner {
-    background-color: if($screen_corners, $bg_color, transparent);
-    border-radius: if($screen_corners, $radii*2, 0);
+    background-color: if($screen-corners, $bg-color, transparent);
+    border-radius: if($screen-corners, $radii * 2, 0);
 }
 
 window.desktop {
-    @if $bar_style == 'normal' {
-        border-radius: if($screen_corners, $popover_radius, 0);
+    @if $bar-style == 'normal' {
+        border-radius: if($screen-corners, $radii * 2, 0);
         box-shadow: inset 0 0 $spacing 0 $shadow;
     }
 
     .clock-box-shadow {
-        border: 5px solid $wallpaper_fg;
+        border: 5px solid $wallpaper-fg;
         border-radius: $radii;
 
         .clock-box {
@@ -18,9 +18,9 @@ window.desktop {
             padding: 0 14px;
 
             .clock {
-                color: $wallpaper_fg;
+                color: $wallpaper-fg;
                 font-size: 140px;
-                font-family: $mono_font;
+                font-family: $mono-font;
             }
 
             .separator-box {
@@ -30,18 +30,18 @@ window.desktop {
                     border-radius: $radii;
                     min-width: 16px;
                     min-height: 16px;
-                    background-color: $wallpaper_fg;
+                    background-color: $wallpaper-fg;
                 }
             }
         }
     }
 
     .date {
-        color: $wallpaper_fg;
+        color: $wallpaper-fg;
         font-size: 48px;
     }
 
-    @if $drop_shadow {
+    @if $drop-shadow {
         .clock-box-shadow, separator {
             box-shadow: 2px 2px 2px 0 $shadow;
         }
@@ -51,12 +51,12 @@ window.desktop {
         }
 
         label {
-            text-shadow: $text_shadow;
+            text-shadow: $text-shadow;
         }
     } @else {
         .clock-box-shadow{
-            box-shadow: 0 0 0 $border_width $border_color,
-                        inset 0 0 0 $border_width $border_color;
+            box-shadow: 0 0 0 $border-width $border-color,
+                        inset 0 0 0 $border-width $border-color;
         }
 
         separator {
@@ -64,7 +64,7 @@ window.desktop {
         }
 
         label {
-            @include text_border;
+            @include text-border;
         }
     }
 }
@@ -77,13 +77,13 @@ window.desktop {
 }
 
 window.indicator .progress {
-    @include floating_widget;
-    padding: $spacing/2;
+    @include floating-widget;
+    padding: $padding/3;
 
     .fill {
-        border-radius: max($popover_radius - $spacing/2, 0);
+        border-radius: max($popover-radius - $spacing/2, 0);
         background-color: $accent;
-        color: $accent_fg;
+        color: $accent-fg;
 
         image {
             -gtk-icon-transform: scale(0.7);

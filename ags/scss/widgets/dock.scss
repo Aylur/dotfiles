@@ -1,38 +1,36 @@
 @mixin dock($spacing: $spacing * 0.7) {
     separator {
         border-radius: $radii;
-        background-color: transparentize($fg_color, 0.8);
+        background-color: transparentize($fg-color, 0.8);
         margin: 0 $spacing;
         min-width: 2px;
         min-height: 2em;
     }
 
     button {
-        @include accs_button($flat: true);
+        @include accs-button($flat: true);
 
-        image, .box {
+        .box {
             margin: $spacing;
+        }
 
-            @if $theme == 'light' {
-                -gtk-icon-shadow: $text_shadow;
+        image {
+            margin: $padding;
+
+            @if $color-scheme == 'light' {
+                -gtk-icon-shadow: $text-shadow;
             }
         }
 
         .indicator {
-            min-width: 6px;
-            min-height: 6px;
-            background-color: $fg_color;
+            min-width: 8px;
+            min-height: 8px;
+            background-color: $fg-color;
             border-radius: $radii;
-            margin-bottom: 2px;
-        }
+            margin-bottom: $padding/2;
 
-        &.single .indicator, &.nonrunning .indicator {
-            background-color: transparent;
-        }
-
-        &.focused {
-            .indicator {
-                background-image: $active_gradient;
+            &.focused {
+                background-image: $active-gradient;
             }
         }
     }
@@ -40,10 +38,7 @@
 
 window.floating-dock .dock {
     @include dock;
-    @include floating_widget;
-    padding: $spacing / 2;
-
-    button image {
-        font-size: 48px;
-    }
+    @include floating-widget;
+    border-radius: $radii + $padding / 2;
+    padding: $padding / 2;
 }

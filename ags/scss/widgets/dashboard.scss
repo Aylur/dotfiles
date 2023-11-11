@@ -1,13 +1,12 @@
 @mixin calendar {
     @include widget;
-    padding: $spacing*2 $spacing*2 0;
+    padding: $padding*2 $padding*2 0;
 
     calendar{
         all: unset;
 
         &.button{
             @include button($flat: true);
-            margin: 1em;
         }
 
         &:selected{
@@ -19,7 +18,7 @@
         &.header{
             background-color: transparent;
             border: none;
-            color: transparentize($fg_color, 0.5);
+            color: transparentize($fg-color, 0.5);
         }
 
         &.highlight{
@@ -28,7 +27,7 @@
         }
 
         &:indeterminate {
-            color: transparentize($fg_color, 0.9);
+            color: transparentize($fg-color, 0.9);
         }
         font-size: 1.1em;
         padding: .2em;
@@ -36,102 +35,70 @@
 }
 
 window#dashboard .dashboard {
-    @include floating_widget;
+    @include floating-widget;
 
     .notifications {
-        min-width: 450px;
+        min-width: $notifications-width;
 
         .header {
-            padding-left: .3em;
-            margin-bottom: $spacing;
-
-            label {
-                font-size: 1.2em;
-            }
+            > label { margin-left: $radii / 2; }
 
             button {
                 @include button;
-                padding: $spacing/2 $spacing;
-
-                label {
-                    font-size: 1.2em;
-                }
+                padding: $padding/2 $padding;
             }
         }
 
         .notification-scrollable {
             @include scrollbar;
 
-            scrollbar, scrollbar:hover {
-                border-radius: max($radii - $border_width, 0);
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-            }
-
             .notification {
                 @include notification;
 
                 > box {
                     @include widget;
-                    margin: $spacing/2 0;
-                    padding: $spacing;
                 }
             }
         }
 
         .placeholder {
-            color: $wallpaper_fg;
             image {  font-size: 7em; }
             label {  font-size: 1.2em; }
-
-            label, image {
-                @if $drop_shadow {
-                    text-shadow: $text_shadow;
-                    -gtk-icon-shadow: $text_shadow;
-                } @else {
-                    @include text_border;
-                }
-
-            }
         }
     }
 
     separator {
-        background-color: $popover_border_color;
+        background-color: $popover-border-color;
         min-width: 2px;
         border-radius: $radii;
-        margin: 0 $spacing;
     }
 
+    .clock-box {
+        padding: $padding;
 
-    .clock {
-        font-size: 5em;
-    }
+        .clock {
+            font-size: 5em;
+        }
 
-    .uptime {
-        font-size: 2em;
-        color: transparentize($fg_color, 0.2);
+        .uptime {
+            color: transparentize($fg-color, 0.2);
+        }
     }
 
     .calendar {
         @include calendar;
-
-        margin-top: $spacing*2;
     }
 
     .circular-progress-box {
         @include widget;
-        margin-top: $spacing;
-        margin-right: $spacing;
-        &:last-child { margin-right: 0; }
-        padding: $spacing;
+        padding: $padding;
 
         .circular-progress {
-            min-height: $spacing * 8;
-            min-width: $spacing * 8;
-            margin: $spacing/2;
-            font-size: $spacing;
-            background-color: $bg_color;
+            min-height: $sys-info-size;
+            min-width: $sys-info-size;
+            margin: $padding/2;
+            font-size: $padding;
+            background-color: $bg-color;
             color: $accent;
 
             image {

@@ -1,24 +1,29 @@
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import { Variable } from 'resource:///com/github/Aylur/ags/variable.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import PanelButton from '../PanelButton.js';
 import Gdk from 'gi://Gdk';
 
 const COLORS_CACHE = Utils.CACHE_DIR + '/colorpicker.json';
+
+/** @param {string} color */
 const wlCopy = color => Utils.execAsync(['wl-copy', color])
     .catch(err => console.error(err));
 
-const colors = Variable([]);
+/** @type {Variable<string[]>} */
+const colors = new Variable([]);
 Utils.readFileAsync(COLORS_CACHE)
     .then(out => colors.setValue(JSON.parse(out || '[]')))
     .catch(() => print('no colorpicker cache found'));
+
+let notifId = 0;
 
 export default () => PanelButton({
     class_name: 'panel-button colorpicker',
     content: Widget.Icon('color-select-symbolic'),
     binds: [['tooltip-text', colors, 'value', v => `${v.length} colors`]],
-    onClicked: btn => Utils.execAsync('hyprpicker').then(color => {
+    on_clicked: () => Utils.execAsync('hyprpicker').then(color => {
         if (!color)
             return;
 
@@ -34,9 +39,9 @@ export default () => PanelButton({
                 .catch(err => console.error(err));
         }
 
-        btn._id = Notifications.Notify(
+        notifId = Notifications.Notify(
             'Color Picker',
-            btn._id || null,
+            notifId,
             'color-select-symbolic',
             color,
             '',
@@ -44,7 +49,7 @@ export default () => PanelButton({
             {},
         );
     }).catch(err => console.error(err)),
-    onSecondaryClick: btn => colors.value.length > 0 ? Widget.Menu({
+    on_secondary_click: btn => colors.value.length > 0 ? Widget.Menu({
         class_name: 'colorpicker',
         children: colors.value.map(color => Widget.MenuItem({
             child: Widget.Label(color),
