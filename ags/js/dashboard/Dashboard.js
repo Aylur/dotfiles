@@ -13,7 +13,6 @@ export default ({ anchor = ['top'], layout = 'top' } = {}) => PopupWindow({
     layout,
     anchor,
     content: Widget.Box({
-        class_name: 'dashboard',
         children: [
             NotificationColumn(),
             Widget.Separator({ orientation: 1 }),

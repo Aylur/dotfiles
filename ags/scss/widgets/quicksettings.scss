@@ -1,12 +1,34 @@
-window#quicksettings .quicksettings {
+window#quicksettings .window-content {
     @include floating-widget;
+    @include spacing;
 
-    .row {
-        background-color: red;
-    }
     .avatar {
         @include widget;
         min-width: $padding*7 + 38px;
+    }
+
+    .header {
+        @include spacing;
+    }
+
+    .system-box {
+        @include widget;
+        @include spacing($rec: true);
+
+        padding: $padding;
+
+
+        button, .uptime {
+            @include button;
+            padding: $padding;
+            font-weight: bold;
+            min-height: 20px;
+            min-width: 20px;
+
+            image {
+                font-size: 1.2em;
+            }
+        }
     }
 
     .battery-progress {
@@ -27,25 +49,10 @@ window#quicksettings .quicksettings {
         }
     }
 
-    .system-box {
-        @include widget;
-        padding: $padding;
-
-        button, .uptime {
-            @include button;
-            padding: $padding;
-            font-weight: bold;
-            min-height: 20px;
-            min-width: 20px;
-
-            image {
-                font-size: 1.2em;
-            }
-        }
-    }
-
     .sliders-box {
         @include widget;
+        @include spacing($rec: true);
+        @include spacing(0);
         padding: $padding;
 
         button {
@@ -55,11 +62,11 @@ window#quicksettings .quicksettings {
 
         scale {
             @include slider;
+            margin-left: $spacing * -0.5;
         }
 
         .menu {
-            margin: $spacing / 2 0;
-            margin-top: $spacing;
+            margin: $spacing 0;
             background-color: $bg-color;
             border: $border-width solid $popover-border-color;
             border-radius: $radii;
@@ -71,17 +78,23 @@ window#quicksettings .quicksettings {
         image { font-size: 1.2em; }
     }
 
+    .row {
+        @include spacing($rec: true);
+    }
+
     .menu {
+        @include unset;
         @include widget;
+        @include spacing($rec: true);
         padding: $padding;
         margin-top: $spacing;
 
-        .title *:first-child {
-            margin: 0 $spacing 0 $spacing / 2;
+        .title {
+            @include spacing(.5);
         }
 
         separator {
-            background-color: $border-color;
+            margin: 0 $radii / 2;
         }
 
         button {
@@ -97,6 +110,10 @@ window#quicksettings .quicksettings {
     .toggle-button {
         @include button;
         font-weight: bold;
+
+        .label-box {
+            @include spacing(.5);
+        }
 
         button {
             @include button($flat: true);
@@ -124,10 +141,14 @@ window#quicksettings .quicksettings {
 
     .simple-toggle {
         @include button;
-        padding: $spacing;
+        padding: $padding;
     }
 
-    .media .player {
-        @include media;
+    .media {
+        @include spacing;
+
+        .player {
+            @include media;
+        }
     }
 }

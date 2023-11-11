@@ -1,6 +1,6 @@
-$float: $bar-spacing;
+$bar-spacing: $spacing / 2;
 
-@mixin panel-button($flat: false, $reactive: true){
+@mixin panel-button($flat: $bar-flat-buttons, $reactive: true){
     @include unset;
 
     @if $bar-style == 'separated' {
@@ -9,7 +9,7 @@ $float: $bar-spacing;
         > * {
             @include floating-widget;
             border-radius: $radii;
-            margin: $wm-gaps $float;
+            margin: $wm-gaps $bar-spacing;
             transition: $transition;
         }
 
@@ -31,7 +31,7 @@ $float: $bar-spacing;
         }
     } @else {
         @include accs-button($flat, $reactive);
-        > * { margin: $float; }
+        > * { margin: $bar-spacing; }
     }
 
     label, image {
@@ -73,6 +73,10 @@ $float: $bar-spacing;
     }
 
     .panel-button {
+        @include panel-button;
+    }
+
+    .tray-item, .color-picker {
         @include panel-button($flat: true);
     }
 
@@ -81,12 +85,6 @@ $float: $bar-spacing;
         border-radius: $radii;
         min-height: 5px;
         min-width: 5px;
-    }
-
-    .quicksettings > box > * {
-        margin: 0 $spacing/2;
-        &:last-child { margin-right: 0; }
-        &:first-child { margin-left: 0; }
     }
 
     .overview {
@@ -99,6 +97,11 @@ $float: $bar-spacing;
         image { color: transparentize($red, 0.3); }
         &:hover image { color: transparentize($red, 0.15); }
         &:active image { color: $red; }
+    }
+
+    .focused-client > box > box,
+    .quicksettings > box {
+        @include spacing(1, $bar-spacing);
     }
 
     /* stylelint-disable-next-line selector-not-notation */
@@ -122,8 +125,11 @@ $float: $bar-spacing;
     }
 
     .battery-bar {
-        image { margin-right: $spacing/2; }
         .font-icon { font-size: 1.3em; }
+
+        image, .font-icon {
+            margin-right: $bar-spacing * .5;
+        }
 
         levelbar trough {
             @include widget;

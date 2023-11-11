@@ -34,13 +34,16 @@
     }
 }
 
-window#dashboard .dashboard {
+window#dashboard .window-content {
     @include floating-widget;
 
     .notifications {
         min-width: $notifications-width;
 
         .header {
+            margin-bottom: $spacing;
+            margin-right: $spacing;
+
             > label { margin-left: $radii / 2; }
 
             button {
@@ -50,14 +53,20 @@ window#dashboard .dashboard {
         }
 
         .notification-scrollable {
-            @include scrollbar;
+            @include scrollable;
+        }
 
-            .notification {
-                @include notification;
+        .notification-list {
+            margin-right: $spacing;
+        }
 
-                > box {
-                    @include widget;
-                }
+        .notification {
+            @include notification;
+
+            > box {
+                @include widget;
+                padding: $padding;
+                margin-bottom: $spacing;
             }
         }
 
@@ -71,6 +80,11 @@ window#dashboard .dashboard {
         background-color: $popover-border-color;
         min-width: 2px;
         border-radius: $radii;
+        margin-right: $spacing;
+    }
+
+    .datemenu, .system-info {
+        @include spacing;
     }
 
     .clock-box {

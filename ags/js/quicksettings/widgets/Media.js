@@ -87,7 +87,7 @@ const PlayerBox = player => Widget.Box({
 
 export default () => Widget.Box({
     vertical: true,
-    class_name: 'media',
+    class_name: 'media vertical',
     binds: [['children', Mpris, 'players', ps =>
         ps.filter(p => !blackList.value.includes(p.identity)).map(PlayerBox)]],
 });

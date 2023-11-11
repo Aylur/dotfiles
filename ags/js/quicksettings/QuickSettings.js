@@ -15,6 +15,7 @@ const Row = (toggles = [], menus = []) => Widget.Box({
     vertical: true,
     children: [
         Widget.Box({
+            class_name: 'row horizontal',
             children: toggles,
         }),
         ...menus,
@@ -31,12 +32,11 @@ export default () => PopupWindow({
     anchor: ['top', 'right'],
     layout: 'top right',
     content: Widget.Box({
-        class_name: 'quicksettings',
         vertical: true,
         children: [
             Header(),
             Widget.Box({
-                class_name: 'sliders-box',
+                class_name: 'sliders-box vertical',
                 vertical: true,
                 children: [
                     Row(

@@ -33,36 +33,38 @@ export const ThemeSelector = () => Menu({
     name: 'theme',
     icon: ThemeIcon(),
     title: Widget.Label('Theme Selector'),
-    content: Widget.Box({
-        vertical: true,
-        children: [
-            ...themes.map(({ name, icon }) => Widget.Button({
-                // on_clicked: () => Theme.setSetting('theme', name),
-                child: Widget.Box({
-                    children: [
-                        Widget.Label(icon),
-                        Widget.Label(prettyName(name)),
-                        Widget.Icon({
-                            icon: icons.tick,
-                            hexpand: true,
-                            hpack: 'end',
-                            // connections: [[Theme, icon => {
-                            //     icon.visible = Theme.getSetting('theme') === name;
-                            // }]],
-                        }),
-                    ],
-                }),
-            })),
-            Widget.Separator(),
-            Widget.Button({
-                // on_clicked: () => Theme.openSettings(),
-                child: Widget.Box({
-                    children: [
-                        Widget.Icon(icons.settings),
-                        Widget.Label('Theme Settings'),
-                    ],
-                }),
+    content: [
+        Widget.Box({
+            vertical: true,
+            children: [
+                ...themes.map(({ name, icon }) => Widget.Button({
+                    // on_clicked: () => Theme.setSetting('theme', name),
+                    child: Widget.Box({
+                        children: [
+                            Widget.Label(icon),
+                            Widget.Label(prettyName(name)),
+                            Widget.Icon({
+                                icon: icons.tick,
+                                hexpand: true,
+                                hpack: 'end',
+                                // connections: [[Theme, icon => {
+                                //     icon.visible = Theme.getSetting('theme') === name;
+                                // }]],
+                            }),
+                        ],
+                    }),
+                })),
+            ],
+        }),
+        Widget.Separator(),
+        Widget.Button({
+            // on_clicked: () => Theme.openSettings(),
+            child: Widget.Box({
+                children: [
+                    Widget.Icon(icons.settings),
+                    Widget.Label('Theme Settings'),
+                ],
             }),
-        ],
-    }),
+        }),
+    ],
 });

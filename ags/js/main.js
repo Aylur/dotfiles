@@ -11,12 +11,8 @@ import QuickSettings from './quicksettings/QuickSettings.js';
 import ScreenCorners from './screencorner/ScreenCorners.js';
 import TopBar from './bar/TopBar.js';
 import Verification from './powermenu/Verification.js';
-import options from './options.js';
-import * as setup from './settings/setup.js';
+import { init } from './settings/setup.js';
 import { forMonitors } from './utils.js';
-
-setup.scssWatcher();
-setup.init();
 
 const windows = () => [
     forMonitors(Desktop),
@@ -34,12 +30,4 @@ const windows = () => [
     Verification(),
 ];
 
-export default {
-    windows: windows().flat(1),
-    maxStreamVolume: 1.05,
-    cacheNotificationActions: true,
-    closeWindowDelay: {
-        'quicksettings': options.windowAnimationDuration,
-        'dashboard': options.windowAnimationDuration,
-    },
-};
+export default init(windows().flat(2));

@@ -6,7 +6,6 @@ import FontIcon from '../../misc/FontIcon.js';
 import { getAudioTypeIcon } from '../../utils.js';
 import { Arrow } from '../ToggleButton.js';
 import { Menu } from '../ToggleButton.js';
-import options from '../../options.js';
 
 /** @param {'speaker' | 'microphone'=} type */
 const VolumeIndicator = (type = 'speaker') => Widget.Button({
@@ -65,7 +64,7 @@ export const Microhone = () => Widget.Box({
 /** @param {import('types/service/audio').Stream} stream */
 const MixerItem = stream => Widget.Box({
     hexpand: true,
-    class_name: 'mixer-item',
+    class_name: 'mixer-item horizontal',
     children: [
         Widget.Icon({
             binds: [['tooltipText', stream, 'name']],
@@ -138,34 +137,26 @@ export const AppMixer = () => Menu({
     name: 'app-mixer',
     icon: FontIcon(icons.audio.mixer),
     title: Widget.Label('App Mixer'),
-    content: Widget.Box({
-        class_name: 'app-mixer',
-        vertical: true,
-        children: [
-            Widget.Box({
-                vertical: true,
-                binds: [['children', Audio, 'apps', a => a.map(MixerItem)]],
-            }),
-            Widget.Separator(),
-            SettingsButton(),
-        ],
-    }),
+    content: [
+        Widget.Box({
+            vertical: true,
+            binds: [['children', Audio, 'apps', a => a.map(MixerItem)]],
+        }),
+        Widget.Separator(),
+        SettingsButton(),
+    ],
 });
 
 export const SinkSelector = () => Menu({
     name: 'sink-selector',
     icon: Widget.Icon(icons.audio.type.headset),
     title: Widget.Label('Sink Selector'),
-    content: Widget.Box({
-        class_name: 'sink-selector',
-        vertical: true,
-        children: [
-            Widget.Box({
-                vertical: true,
-                binds: [['children', Audio, 'speakers', s => s.map(SinkItem)]],
-            }),
-            Widget.Separator(),
-            SettingsButton(),
-        ],
-    }),
+    content: [
+        Widget.Box({
+            vertical: true,
+            binds: [['children', Audio, 'speakers', s => s.map(SinkItem)]],
+        }),
+        Widget.Separator(),
+        SettingsButton(),
+    ],
 });

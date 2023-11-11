@@ -34,7 +34,6 @@ const children = box => {
 export default () => PopupWindow({
     name: 'overview',
     content: Widget.Box({
-        class_name: 'overview',
         setup: update,
         connections: [
             [ws, box => {

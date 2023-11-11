@@ -26,7 +26,7 @@ const options = {
     },
 
     popover: {
-        padding: Option(18),
+        padding: { multiplier: Option(1.4, { unit: '' }) },
     },
 
     color: {
@@ -81,7 +81,6 @@ const options = {
 
     bar: {
         separators: Option(true, { reload: false }),
-        spacing: Option(6),
         style: Option('normal'),
         flat_buttons: Option(false, { scss: 'bar-flat-buttons' }),
     },
@@ -134,24 +133,22 @@ const options = {
     },
 
     mpris: {
-        blackList: Option(['Caprine']), // bus-name | name | identity | entry
-        preferred: Option('spotify'), // if this player is running this will be shown on panel
+        blackList: Option(['Caprine'], {
+            'description': 'bus-name | name | identity | entry',
+        }),
+        preferred: Option('spotify', {
+            'summary': 'Preferred player on the bar',
+        }),
     },
 
-    workspaces: Option(7), // set to 0 to make it dynamic
+    workspaces: Option(7, {
+        'summary': 'No. workspaces on bar and overview',
+        'description': 'Set it to 0 to make it dynamic',
+    }),
 
-    // path to read temperature from
     temperature: '/sys/class/thermal/thermal_zone0/temp',
-
-    // at what intervals should cpu, ram, temperature refresh
     systemFetchInterval: 5000,
-
-    // the slide down animation on quicksettings and dashboard
-    windowAnimationDuration: 250,
-
-    // keyboard id for brightnessctl
     brightnessctlKBD: 'asus::kbd_backlight',
-
     substitutions: {
         icons: [
             ['transmission-gtk', 'transmission'],

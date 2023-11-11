@@ -36,25 +36,27 @@ export const BluetoothDevices = () => Menu({
     name: 'bluetooth',
     icon: Widget.Icon(icons.bluetooth.disabled),
     title: Widget.Label('Bluetooth'),
-    content: Widget.Box({
-        hexpand: true,
-        vertical: true,
-        connections: [[Bluetooth, box => box.children = Bluetooth.devices
-            .filter(d => d.name)
-            .map(device => Widget.Box({
-                children: [
-                    Widget.Icon(device.iconName + '-symbolic'),
-                    Widget.Label(device.name),
-                    device.batteryPercentage > 0 && Widget.Label(`${device.batteryPercentage}%`),
-                    Widget.Box({ hexpand: true }),
-                    device.connecting ? Widget.Spinner({ active: true }) : Widget.Switch({
-                        active: device.connected,
-                        connections: [['notify::active', ({ active }) => {
-                            device.setConnection(active);
-                        }]],
-                    }),
-                ],
-            })),
-        ]],
-    }),
+    content: [
+        Widget.Box({
+            hexpand: true,
+            vertical: true,
+            connections: [[Bluetooth, box => box.children = Bluetooth.devices
+                .filter(d => d.name)
+                .map(device => Widget.Box({
+                    children: [
+                        Widget.Icon(device.iconName + '-symbolic'),
+                        Widget.Label(device.name),
+                        device.batteryPercentage > 0 && Widget.Label(`${device.batteryPercentage}%`),
+                        Widget.Box({ hexpand: true }),
+                        device.connecting ? Widget.Spinner({ active: true }) : Widget.Switch({
+                            active: device.connected,
+                            connections: [['notify::active', ({ active }) => {
+                                device.setConnection(active);
+                            }]],
+                        }),
+                    ],
+                })),
+            ]],
+        }),
+    ],
 });

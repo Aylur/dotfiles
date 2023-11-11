@@ -59,7 +59,6 @@ const Popups = parent => {
 
 /** @param {import('types/widgets/revealer').RevealerProps['transition']} transition */
 const PopupList = (transition = 'slide_down') => Widget.Box({
-    class_name: 'content',
     css: 'padding: 1px',
     children: [
         Widget.Revealer({

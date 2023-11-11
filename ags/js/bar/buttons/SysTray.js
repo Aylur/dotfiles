@@ -5,6 +5,7 @@ import Gdk from 'gi://Gdk';
 
 /** @param {import('types/service/systemtray').TrayItem} item */
 const SysTrayItem = item => PanelButton({
+    class_name: 'tray-item',
     content: Widget.Icon({ binds: [['icon', item, 'icon']] }),
     binds: [['tooltipMarkup', item, 'tooltip-markup']],
     setup: btn => {

@@ -22,8 +22,6 @@ export default () => PopupWindow({
     name: 'powermenu',
     expand: true,
     content: Widget.Box({
-        class_name: 'powermenu',
-        homogeneous: true,
         children: [
             SysButton('sleep', 'Sleep'),
             SysButton('reboot', 'Reboot'),

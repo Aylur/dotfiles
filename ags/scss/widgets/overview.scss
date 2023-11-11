@@ -1,5 +1,6 @@
-window#overview .overview {
+window#overview .window-content {
     @include floating-widget;
+    @include spacing;
 
     .workspace {
         &.active > widget {

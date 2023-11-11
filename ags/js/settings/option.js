@@ -8,8 +8,7 @@ const CACHE_FILE = CACHE_DIR + '/options.json';
 /**
  * @template T
  * @typedef {Object} OptionConfig<T>
- * @property {string=} scss - name of scss variable
- *      set to "exclude" to not include it in the generated scss file
+ * @property {string=} scss - name of scss variable set to "exclude" to not include it in the generated scss file
  * @property {string=} unit - unit on numbers, default is "px"
  * @property {string=} summary
  * @property {string=} description

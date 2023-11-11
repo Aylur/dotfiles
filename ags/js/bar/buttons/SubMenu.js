@@ -2,23 +2,25 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import icons from '../../icons.js';
+import options from '../../options.js';
 
 /**
  * @param {import('types/widgets/revealer').default} revealer
- * @param {any} direction
- * @param {any} items
+ * @param {'left' | 'right' | 'up' | 'down'} direction
+ * @param {import('types/variable').Variable} items
  */
 const Arrow = (revealer, direction, items) => {
-    let deg = 180;
+    let deg = 0;
 
     const icon = Widget.Icon({
         icon: icons.ui.arrow[direction],
     });
 
     const animate = () => {
+        const t = options.transition.value / 10;
         const step = revealer.reveal_child ? 10 : -10;
         for (let i = 0; i < 18; ++i) {
-            Utils.timeout(2 * i, () => {
+            Utils.timeout(t * i, () => {
                 deg += step;
                 icon.setCss(`-gtk-icon-transform: rotate(${deg}deg);`);
             });
@@ -31,8 +33,8 @@ const Arrow = (revealer, direction, items) => {
             btn.tooltip_text = `${items.value} Items`;
         }]],
         on_clicked: () => {
-            revealer.reveal_child = !revealer.reveal_child;
             animate();
+            revealer.reveal_child = !revealer.reveal_child;
         },
         child: icon,
     });

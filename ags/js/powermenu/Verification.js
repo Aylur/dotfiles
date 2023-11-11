@@ -8,7 +8,6 @@ export default () => PopupWindow({
     name: 'verification',
     expand: true,
     content: Widget.Box({
-        class_name: 'verification',
         vertical: true,
         children: [
             Widget.Box({
@@ -26,7 +25,7 @@ export default () => PopupWindow({
                 ],
             }),
             Widget.Box({
-                class_name: 'buttons',
+                class_name: 'buttons horizontal',
                 vexpand: true,
                 vpack: 'end',
                 homogeneous: true,

@@ -20,7 +20,7 @@ Utils.readFileAsync(COLORS_CACHE)
 let notifId = 0;
 
 export default () => PanelButton({
-    class_name: 'panel-button colorpicker',
+    class_name: 'color-picker',
     content: Widget.Icon('color-select-symbolic'),
     binds: [['tooltip-text', colors, 'value', v => `${v.length} colors`]],
     on_clicked: () => Utils.execAsync('hyprpicker').then(color => {

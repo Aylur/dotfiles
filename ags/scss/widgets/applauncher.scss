@@ -1,4 +1,4 @@
-window#applauncher .content{
+window#applauncher .window-content {
     @include floating_widget;
 
     entry {
@@ -13,13 +13,14 @@ window#applauncher .content{
     }
 
     scrolledwindow {
-        @include scrollbar;
+        @include scrollable;
         min-width: $applauncher-width;
         min-height: $applauncher-height;
     }
 
     button.app-item {
         @include button($flat: true, $reactive: false);
+        > box { @include spacing(0.5); }
         transition: $transition;
         padding: $padding;
 

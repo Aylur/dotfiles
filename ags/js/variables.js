@@ -31,7 +31,7 @@ export const distroIcon = (() => {
     }
 })();
 
-/** @type {function([string, string]): number} */
+/** @type {function([string, string] | string[]): number} */
 const divide = ([total, free]) => Number.parseInt(free) / Number.parseInt(total);
 
 export const cpu = Variable(0, {

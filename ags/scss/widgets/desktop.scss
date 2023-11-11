@@ -75,22 +75,3 @@ window.desktop {
         margin-right: 6px;
     }
 }
-
-window.indicator .progress {
-    @include floating-widget;
-    padding: $padding/3;
-
-    .fill {
-        border-radius: max($popover-radius - $spacing/2, 0);
-        background-color: $accent;
-        color: $accent-fg;
-
-        image {
-            -gtk-icon-transform: scale(0.7);
-        }
-
-        .font-icon {
-            font-size: 34px;
-        }
-    }
-}

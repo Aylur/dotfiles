@@ -28,7 +28,7 @@ const SysProgress = (type, title, unit) => Widget.Box({
 
 export default () => Widget.Box({
     vertical: true,
-    class_name: 'datemenu',
+    class_name: 'datemenu vertical',
     children: [
         Widget.Box({
             class_name: 'clock-box',
@@ -51,7 +51,7 @@ export default () => Widget.Box({
             ],
         }),
         Widget.Box({
-            class_name: 'system-info',
+            class_name: 'system-info horizontal',
             children: [
                 SysProgress('cpu', 'Cpu', '%'),
                 SysProgress('ram', 'Ram', '%'),

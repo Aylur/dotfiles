@@ -1,6 +1,7 @@
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Service from 'resource:///com/github/Aylur/ags/service.js';
 import options from '../options.js';
+
 const KBD = options.brightnessctlKBD;
 
 class Brightness extends Service {

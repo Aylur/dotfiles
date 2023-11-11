@@ -20,7 +20,7 @@ const PopupRevealer = (windowName, transition, child) => Widget.Box({
     child: Widget.Revealer({
         transition,
         child,
-        transitionDuration: options.windowAnimationDuration,
+        transitionDuration: options.transition.value,
         connections: [[App, (revealer, name, visible) => {
             if (name === windowName)
                 revealer.reveal_child = visible;
@@ -79,6 +79,7 @@ const layouts = {
  * @property {import('types/widgets/box').default} content
  * @property {'center' | 'top' | 'top right'=} layout
  * @property {boolean=} expand
+ * @property {string} name
  */
 
 /** @param {import('types/widgets/window').WindowProps & PopopWindowProps} o */
@@ -89,13 +90,13 @@ export default ({
     content,
     ...rest
 }) => Widget.Window({
-    class_name: 'popup-window',
+    class_names: ['popup-window', name],
     name,
     popup: true,
     visible: false,
     focusable: true,
     setup(self) {
-        content.toggleClassName('content');
+        content.toggleClassName('window-content');
         self.child = layouts[layout](name, content, expand);
     },
     ...rest,

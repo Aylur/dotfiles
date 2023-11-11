@@ -3,7 +3,8 @@ import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../../icons.js';
 import { Menu, ArrowToggleButton } from '../ToggleButton.js';
-import options from '../../options.js';
+import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import { launchApp } from '../../utils.js';
 
 export const NetworkToggle = () => ArrowToggleButton({
     name: 'network',
@@ -34,23 +35,35 @@ export const WifiSelection = () => Menu({
         }]],
     }),
     title: Widget.Label('Wifi Selection'),
-    content: Widget.Box({
-        vertical: true,
-        connections: [[Network, box => box.children =
-            Network.wifi?.access_points.map(ap => Widget.Button({
-                on_clicked: () => Utils.execAsync(`nmcli device wifi connect ${ap.bssid}`),
-                child: Widget.Box({
-                    children: [
-                        Widget.Icon(ap.iconName),
-                        Widget.Label(ap.ssid || ''),
-                        ap.active && Widget.Icon({
-                            icon: icons.tick,
-                            hexpand: true,
-                            hpack: 'end',
-                        }),
-                    ],
-                }),
-            })),
-        ]],
-    }),
+    content: [
+        Widget.Box({
+            vertical: true,
+            connections: [[Network, box => box.children =
+                Network.wifi?.access_points.map(ap => Widget.Button({
+                    on_clicked: () => Utils.execAsync(`nmcli device wifi connect ${ap.bssid}`),
+                    child: Widget.Box({
+                        children: [
+                            Widget.Icon(ap.iconName),
+                            Widget.Label(ap.ssid || ''),
+                            ap.active && Widget.Icon({
+                                icon: icons.tick,
+                                hexpand: true,
+                                hpack: 'end',
+                            }),
+                        ],
+                    }),
+                })),
+            ]],
+        }),
+        Widget.Separator(),
+        Widget.Button({
+            on_clicked: () => launchApp(Applications.query('gnome-control-center')?.[0]),
+            child: Widget.Box({
+                children: [
+                    Widget.Icon(icons.settings),
+                    Widget.Label('Network'),
+                ],
+            }),
+        }),
+    ],
 });

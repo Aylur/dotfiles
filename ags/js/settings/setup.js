@@ -10,7 +10,7 @@ import { setupHyprland } from './hyprland.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import Gtk from 'gi://Gtk';
 
-export function init() {
+export function init(windows) {
     try {
         Utils.exec('swww init');
     } catch (error) {
@@ -25,6 +25,7 @@ export function init() {
     tmux();
     gsettigsColorScheme();
     wallpaper();
+    scssWatcher();
 
     timeout(5, () => {
         reloadScss();
@@ -32,9 +33,28 @@ export function init() {
     });
 
     options.bar.style.connect('changed', setupHyprland);
+
+    const config = {
+        windows,
+        maxStreamVolume: 1.05,
+        cacheNotificationActions: true,
+        closeWindowDelay: {
+            'quicksettings': options.transition.value,
+            'dashboard': options.transition.value,
+        },
+    };
+
+    options.transition.connect('changed', ({ value }) => {
+        config.closeWindowDelay = {
+            'quicksettings': value,
+            'dashboard': value,
+        };
+    });
+
+    return config;
 }
 
-export function scssWatcher() {
+function scssWatcher() {
     return Utils.subprocess(
         [
             'inotifywait',

@@ -3,7 +3,6 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../icons.js';
-import options from '../options.js';
 
 /** name of the currently opened menu  */
 export const opened = Variable('');
@@ -70,6 +69,7 @@ export const ArrowToggleButton = ({
         Widget.Button({
             child: Widget.Box({
                 hexpand: true,
+                class_name: 'label-box horizontal',
                 children: [icon, label],
             }),
             on_clicked: () => {
@@ -91,24 +91,21 @@ export const ArrowToggleButton = ({
  * @param {string} o.name - menu name
  * @param {import('gi://Gtk').Gtk.Widget} o.icon
  * @param {import('gi://Gtk').Gtk.Widget} o.title
- * @param {import('gi://Gtk').Gtk.Widget} o.content
+ * @param {import('gi://Gtk').Gtk.Widget[]} o.content
  */
 export const Menu = ({ name, icon, title, content }) => Widget.Revealer({
     transition: 'slide_down',
     binds: [['reveal-child', opened, 'value', v => v === name]],
     child: Widget.Box({
-        class_name: 'menu',
+        class_names: ['menu', name],
         vertical: true,
         children: [
             Widget.Box({
-                class_name: 'title',
+                class_name: 'title horizontal',
                 children: [icon, title],
             }),
             Widget.Separator(),
-            Widget.Box({
-                class_name: 'content',
-                children: [content],
-            }),
+            ...content,
         ],
     }),
 });

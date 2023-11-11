@@ -5,7 +5,6 @@ import PowerMenu from '../../services/powermenu.js';
 import Lockscreen from '../../services/lockscreen.js';
 import Avatar from '../../misc/Avatar.js';
 import { uptime } from '../../variables.js';
-import options from '../../options.js';
 
 export const BatteryProgress = () => Widget.Box({
     class_name: 'battery-progress',
@@ -35,6 +34,7 @@ export const BatteryProgress = () => Widget.Box({
 });
 
 export default () => Widget.Box({
+    class_name: 'header horizontal',
     children: [
         Avatar(),
         Widget.Box({

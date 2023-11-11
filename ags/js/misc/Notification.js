@@ -120,7 +120,7 @@ export default notification => {
         child: Widget.EventBox({
             on_hover: hover,
             child: Widget.Box({
-                class_name: 'actions',
+                class_name: 'actions horizontal',
                 children: notification.actions.map(action => Widget.Button({
                     on_hover: hover,
                     class_name: 'action-button',
