@@ -43,6 +43,7 @@ export default () => {
                 w.toggleClassName('charging', Battery.charging || Battery.charged);
                 w.toggleClassName('medium', Battery.percent < options.battery.medium.value);
                 w.toggleClassName('low', Battery.percent < options.battery.low.value);
+                w.toggleClassName('half', Battery.percent < 48);
             }]],
             children: [
                 Indicator(),

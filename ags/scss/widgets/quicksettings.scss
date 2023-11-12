@@ -4,7 +4,6 @@ window#quicksettings .window-content {
 
     .avatar {
         @include widget;
-        min-width: $padding*7 + 38px;
     }
 
     .header {
@@ -34,8 +33,11 @@ window#quicksettings .window-content {
     .battery-progress {
         label {
             color: $accent-fg;
-            font-size: $padding*2;
             font-weight: bold;
+        }
+
+        &.charging label {
+            font-size: $padding*2;
         }
 
         &.half label { color: $fg-color; }

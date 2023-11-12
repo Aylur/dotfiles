@@ -5,6 +5,10 @@ window#applauncher .window-content {
         @include button;
         padding: $padding;
         margin-bottom: $spacing;
+
+        label, image {
+            color: $fg-color;
+        }
     }
 
     separator {

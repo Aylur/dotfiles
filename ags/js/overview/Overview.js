@@ -37,7 +37,7 @@ export default () => PopupWindow({
         setup: update,
         connections: [
             [ws, box => {
-                box.children = range(ws.value + 1).map(Workspace);
+                box.children = range(ws.value).map(Workspace);
                 update(box);
                 children(box);
             }],

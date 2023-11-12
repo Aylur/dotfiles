@@ -9,7 +9,7 @@ window#overview .window-content {
 
         > widget {
             @include widget;
-            border-radius: $radii + $padding;
+            border-radius: if($radii == 0, 0, $radii + $padding);
 
             &:drop(active) {
                 border-color: $accent;

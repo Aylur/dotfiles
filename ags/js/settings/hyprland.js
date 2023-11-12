@@ -2,10 +2,9 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import { execAsync, exec } from 'resource:///com/github/Aylur/ags/utils.js';
 import options from '../options.js';
 
-const noAlphaignore = ['verification', 'powermenu', 'lockscreen'];
-
 /** @param {Array<string>} args */
 const keyword = (...args) => execAsync(['hyprctl', 'keyword', ...args]);
+const noAlphaignore = ['verification', 'powermenu', 'lockscreen'];
 
 export function setupHyprland() {
     const wm_gaps = options.hypr.wm_gaps.value;
@@ -17,17 +16,15 @@ export function setupHyprland() {
     const bar_style = options.bar.style.value;
 
     try {
-        App.connect('config-parsed', () => {
-            for (const [name] of App.windows) {
-                keyword('layerrule', `unset, ${name}`).then(() => {
-                    keyword('layerrule', `blur, ${name}`);
-                    if (!noAlphaignore.every(skip => !name.includes(skip)))
-                        return;
+        for (const [name] of App.windows) {
+            keyword('layerrule', `unset, ${name}`).then(() => {
+                keyword('layerrule', `blur, ${name}`);
+                if (!noAlphaignore.every(skip => !name.includes(skip)))
+                    return;
 
-                    keyword('layerrule', `ignorealpha 0.6, ${name}`);
-                });
-            }
-        });
+                keyword('layerrule', `ignorealpha 0.6, ${name}`);
+            });
+        }
 
         JSON.parse(exec('hyprctl -j monitors')).forEach(({ name }) => {
             if (bar_style !== 'normal')

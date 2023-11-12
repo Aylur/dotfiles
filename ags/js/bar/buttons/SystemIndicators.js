@@ -9,6 +9,7 @@ import PanelButton from '../PanelButton.js';
 import Asusctl from '../../services/asusctl.js';
 import Indicator from '../../services/onScreenIndicator.js';
 import icons from '../../icons.js';
+import FontIcon from '../../misc/FontIcon.js';
 
 const ProfileIndicator = () => Widget.Icon({
     connections: [[Asusctl, icon => {
@@ -17,7 +18,7 @@ const ProfileIndicator = () => Widget.Icon({
     }]],
 });
 
-const ModeIndicator = () => Widget.Icon({
+const ModeIndicator = () => FontIcon({
     connections: [[Asusctl, icon => {
         icon.visible = Asusctl.mode !== 'Hybrid';
         icon.icon = icons.asusctl.mode[Asusctl.mode];

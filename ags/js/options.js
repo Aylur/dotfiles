@@ -8,14 +8,22 @@
  * ags -r "options.reset()"
  */
 
-import { Option, resetOptions } from './settings/option.js';
+import { Option, resetOptions, getValues, apply } from './settings/option.js';
 import { USER } from 'resource:///com/github/Aylur/ags/utils.js';
+import themes from './themes.js';
 
-const options = {
+export default {
     reset: resetOptions,
+    values: getValues,
+    apply: apply,
 
-    spacing: Option(8),
-    padding: Option(9),
+    theme: {
+        name: Option(themes[0].name),
+        icon: Option(themes[0].icon),
+    },
+
+    spacing: Option(9),
+    padding: Option(8),
     radii: Option(9),
     transition: Option(200, { unit: 'ms' }),
 
@@ -44,7 +52,7 @@ const options = {
     },
 
     hover_fg: Option('#fff', { scss: 'hover-fg' }),
-    shader_fg: Option('$fg-color', { scss: 'shader-fg' }),
+    shader_fg: Option('#fff', { scss: 'shader-fg' }),
 
     accent: {
         accent: Option('$blue', { scss: 'accent' }),
@@ -64,8 +72,8 @@ const options = {
     },
 
     hypr: {
-        active_border: Option('rgba(3f3f3fFF)', { scss: 'exclude' }),
-        inactive_border: Option('rgba(3f3f3fDD)', { scss: 'exclude' }),
+        active_border: Option('rgba(3f3f3f55)', { scss: 'exclude' }),
+        inactive_border: Option('rgba(3f3f3f22)', { scss: 'exclude' }),
         wm_gaps: Option(22, { scss: 'wm-gaps' }),
     },
 
@@ -74,19 +82,21 @@ const options = {
     avatar: Option(`/home/${USER}/Pictures/avatars/donna.jpg`, { format: v => `"${v}"` }),
 
     applauncher: {
-        width: Option(500, { reload: false }),
-        height: Option(500, { reload: false }),
-        iconSize: Option(52, { reload: false }),
+        width: Option(500),
+        height: Option(500),
+        iconSize: Option(52),
     },
 
     bar: {
-        separators: Option(true, { reload: false }),
+        separators: Option(true),
         style: Option('normal'),
-        flat_buttons: Option(false, { scss: 'bar-flat-buttons' }),
+        flat_buttons: Option(true, { scss: 'bar-flat-buttons' }),
+        position: Option('top'),
+        icon: Option('distro-icon'),
     },
 
     battery: {
-        showPercentage: Option(true, { reload: false }),
+        showPercentage: Option(true, { noReload: false }),
         bar: {
             width: Option(70),
             height: Option(14),
@@ -153,12 +163,11 @@ const options = {
         icons: [
             ['transmission-gtk', 'transmission'],
             ['blueberry.py', 'bluetooth'],
-            ['org.wezfurlong.wezterm', 'folder-code'],
-            ['com.raggesilver.BlackBox', 'folder-code'],
             ['Caprine', 'facebook-messenger'],
             ['', 'preferences-desktop-display'],
         ],
         titles: [
+            ['com.github.Aylur.ags', 'AGS'],
             ['transmission-gtk', 'Transmission'],
             ['com.obsproject.Studio', 'OBS'],
             ['com.usebottles.bottles', 'Bottles'],
@@ -175,6 +184,3 @@ const options = {
         ],
     },
 };
-
-globalThis.options = options;
-export default options;

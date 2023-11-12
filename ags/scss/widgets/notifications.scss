@@ -38,17 +38,11 @@
         @include spacing(0.5);
         margin-top: $spacing;
 
-        &.horizontal {
-            margin: 0 $spacing * 1;
-            &:first-child { margin-left: 0; }
-            &:last-child { margin-right: 0; }
-        }
-
         button {
             @include button;
             border-radius: $radii*0.8;
             font-size: 1.2em;
-            padding: $padding;
+            padding: $padding * 0.7;
         }
     }
 

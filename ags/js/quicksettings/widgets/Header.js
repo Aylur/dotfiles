@@ -5,14 +5,18 @@ import PowerMenu from '../../services/powermenu.js';
 import Lockscreen from '../../services/lockscreen.js';
 import Avatar from '../../misc/Avatar.js';
 import { uptime } from '../../variables.js';
+import options from '../../options.js';
+import { openSettings } from '../../settings/theme.js';
 
 export const BatteryProgress = () => Widget.Box({
     class_name: 'battery-progress',
     vexpand: true,
     binds: [['visible', Battery, 'available']],
     connections: [[Battery, w => {
-        w.toggleClassName('half', Battery.percent < 46);
-        w.toggleClassName('low', Battery.percent < 30);
+        w.toggleClassName('charging', Battery.charging || Battery.charged);
+        w.toggleClassName('medium', Battery.percent < options.battery.medium.value);
+        w.toggleClassName('low', Battery.percent < options.battery.low.value);
+        w.toggleClassName('half', Battery.percent < 48);
     }]],
     child: Widget.Overlay({
         vexpand: true,
@@ -46,7 +50,7 @@ export default () => Widget.Box({
                     children: [
                         Widget.Button({
                             vpack: 'center',
-                            // on_clicked: () => Theme.openSettings(),
+                            on_clicked: openSettings,
                             child: Widget.Icon(icons.settings),
                         }),
                         Widget.Label({

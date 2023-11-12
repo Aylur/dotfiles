@@ -9,10 +9,14 @@ import Overview from './overview/Overview.js';
 import PowerMenu from './powermenu/PowerMenu.js';
 import QuickSettings from './quicksettings/QuickSettings.js';
 import ScreenCorners from './screencorner/ScreenCorners.js';
+import SettingsDialog from './settings/SettingsDialog.js';
 import TopBar from './bar/TopBar.js';
 import Verification from './powermenu/Verification.js';
+import options from './options.js';
 import { init } from './settings/setup.js';
 import { forMonitors } from './utils.js';
+
+init();
 
 const windows = () => [
     forMonitors(Desktop),
@@ -27,7 +31,16 @@ const windows = () => [
     Overview(),
     PowerMenu(),
     QuickSettings(),
+    SettingsDialog(),
     Verification(),
 ];
 
-export default init(windows().flat(2));
+export default {
+    windows: windows().flat(1),
+    maxStreamVolume: 1.05,
+    cacheNotificationActions: true,
+    closeWindowDelay: {
+        'quicksettings': options.transition.value,
+        'dashboard': options.transition.value,
+    },
+};

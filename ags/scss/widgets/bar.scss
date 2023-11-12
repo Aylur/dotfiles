@@ -49,7 +49,7 @@ $bar-spacing: $spacing / 2;
     }
 
     @if not $screen-corners and $bar-style == 'normal' {
-        @if $layout == 'bottombar' {
+        @if $bar-position == 'bottom' {
             border-top: $border;
         } @else {
             border-bottom: $border;

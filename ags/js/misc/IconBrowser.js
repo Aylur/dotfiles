@@ -10,8 +10,8 @@ export default () => {
     const flowbox = Widget.FlowBox({
         min_children_per_line: 10,
         setup: self => {
-            self.connect('child-activated', (_, { child }) => {
-                selected.label = child.iconName;
+            self.connect('child-activated', (_, child) => {
+                selected.label = child.get_child().iconName;
             });
 
             Gtk.IconTheme.get_default().list_icons(null).sort().map(icon => {
@@ -27,7 +27,7 @@ export default () => {
 
     const entry = Widget.Entry({
         on_change: ({ text }) => flowbox.get_children().forEach(child => {
-            child.visible = child.child.iconName.includes(text);
+            child.visible = child.get_child().iconName.includes(text);
         }),
     });
 

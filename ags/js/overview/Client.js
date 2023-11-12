@@ -18,7 +18,7 @@ const substitute = str => options.substitutions.icons
 
 export default ({ address, size: [w, h], class: c, title }) => Widget.Button({
     class_name: 'client',
-    tooltip_text: title,
+    tooltip_text: `${title}`,
     child: Widget.Icon({
         css: `
             min-width: ${w * SCALE}px;

@@ -32,6 +32,9 @@ SystemTray.connect('changed', () => {
  */
 const SeparatorDot = (service, condition) => {
     const visibility = self => {
+        if (!options.bar.separators.value)
+            return self.visible = false;
+
         self.visible = condition && service
             ? condition(service)
             : options.bar.separators.value;
@@ -98,7 +101,9 @@ export default monitor => Widget.Window({
     class_name: 'transparent',
     exclusive: true,
     monitor,
-    anchor: ['top', 'left', 'right'],
+    binds: [['anchor', options.bar.position, 'value', pos => ([
+        pos, 'left', 'right',
+    ])]],
     child: Widget.CenterBox({
         class_name: 'panel',
         start_widget: Start(),

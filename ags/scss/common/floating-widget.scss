@@ -1,6 +1,6 @@
 @mixin floating-widget {
     @if $drop-shadow {
-        box-shadow: 0 0 min(6px, $spacing/2) 0 $shadow;
+        box-shadow: 0 0 5px 0 $shadow;
     }
 
     margin: max($spacing, 8px);

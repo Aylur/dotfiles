@@ -1,6 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import options from '../options.js';
+import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 export default app => {
@@ -22,7 +23,7 @@ export default app => {
     });
 
     const icon = Widget.Icon({
-        icon: app.icon_name || '',
+        icon: lookUpIcon(app.icon_name || '') ? app.icon_name || '' : '',
         binds: [['size', options.applauncher.iconSize]],
     });
 

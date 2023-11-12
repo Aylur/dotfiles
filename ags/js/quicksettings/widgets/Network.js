@@ -4,7 +4,6 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../../icons.js';
 import { Menu, ArrowToggleButton } from '../ToggleButton.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
-import { launchApp } from '../../utils.js';
 
 export const NetworkToggle = () => ArrowToggleButton({
     name: 'network',
@@ -57,7 +56,7 @@ export const WifiSelection = () => Menu({
         }),
         Widget.Separator(),
         Widget.Button({
-            on_clicked: () => launchApp(Applications.query('gnome-control-center')?.[0]),
+            on_clicked: () => Applications.query('gnome-control-center')?.[0].launch(),
             child: Widget.Box({
                 children: [
                     Widget.Icon(icons.settings),
