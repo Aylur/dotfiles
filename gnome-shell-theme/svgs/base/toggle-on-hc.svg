@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg width="48" height="26" xmlns="http://www.w3.org/2000/svg">
-  <g transform="translate(0 -291.18)">
-    <rect style="stroke: none; stroke-width: 1; marker: none; fill: rgb(98, 160, 234);" x="0" y="291.18" width="48" height="26" rx="10" ry="10"/>
-    <rect style="stroke:none;stroke-width:.999999;marker:none;fill:#000;fill-opacity:.2" fill="#f8f7f7" x="24" y="294.18" width="22" height="22" rx="8" ry="8"/>
-    <rect style="stroke:none;stroke-width:.999999;marker:none" fill="#f8f7f7" x="24" y="293.18" width="22" height="22" rx="8" ry="8"/>
-  </g>
-</svg>
