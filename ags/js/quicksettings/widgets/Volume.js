@@ -111,12 +111,10 @@ const SinkItem = stream => Widget.Button({
             }),
             Widget.Label((stream.description || '').split(' ').slice(0, 4).join(' ')),
             Widget.Icon({
-                icon: icons.tick,
+                icon: icons.ui.tick,
                 hexpand: true,
                 hpack: 'end',
-                connections: [['draw', icon => {
-                    icon.visible = Audio.speaker === stream;
-                }]],
+                binds: [['visible', Audio, 'speaker', s => s === stream]],
             }),
         ],
     }),

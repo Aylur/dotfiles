@@ -8,7 +8,7 @@
  * ags -r "options.reset()"
  */
 
-import { Option, resetOptions, getValues, apply } from './settings/option.js';
+import { Option, resetOptions, getValues, apply, getOptions } from './settings/option.js';
 import { USER } from 'resource:///com/github/Aylur/ags/utils.js';
 import themes from './themes.js';
 
@@ -16,6 +16,7 @@ export default {
     reset: resetOptions,
     values: getValues,
     apply: apply,
+    list: getOptions,
 
     spacing: Option(9),
     padding: Option(8),
@@ -60,7 +61,7 @@ export default {
             'title': 'Background Color',
             'scss': 'bg-color',
         }),
-        fg: Option('#eee', {
+        fg: Option('#eeeeee', {
             'title': 'Foreground Color',
             'scss': 'fg-color',
         }),
@@ -84,7 +85,7 @@ export default {
         },
 
         widget: {
-            bg: Option('$fg_color', {
+            bg: Option('$fg-color', {
                 'category': 'Theme',
                 'title': 'Widget Background Color',
                 'scss': '_widget-bg',
@@ -99,7 +100,7 @@ export default {
     },
 
     border: {
-        color: Option('$fg_color', {
+        color: Option('$fg-color', {
             'category': 'Border',
             'title': 'Border Color',
             'scss': '_border-color',
@@ -116,12 +117,7 @@ export default {
     },
 
     hypr: {
-        active_border: Option('rgba(3f3f3f55)', {
-            'category': 'Border',
-            'title': 'Border on Active Windows',
-            'scss': 'exclude',
-        }),
-        inactive_border: Option('rgba(3f3f3f22)', {
+        inactive_border: Option('rgba(333333ff)', {
             'category': 'Border',
             'title': 'Border on Inactive Windows',
             'scss': 'exclude',
@@ -183,7 +179,11 @@ export default {
     },
 
     battery: {
-        show_percentage: Option(true, { 'noReload': false, 'category': 'exclude' }),
+        show_percentage: Option(true, {
+            'persist': true,
+            'noReload': false,
+            'category': 'exclude',
+        }),
         bar: {
             width: Option(70, { 'category': 'Bar' }),
             height: Option(14, { 'category': 'Bar' }),

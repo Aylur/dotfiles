@@ -61,7 +61,7 @@ export default () => Widget.Window({
                 vpack: 'end',
                 children: [
                     LinkButton({
-                        label: 'Donate on Ko-fi',
+                        label: 'Support me on Ko-fi',
                         link: pkg.kofi,
                     }),
                     LinkButton({

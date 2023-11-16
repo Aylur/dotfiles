@@ -45,7 +45,7 @@ export const WifiSelection = () => Menu({
                             Widget.Icon(ap.iconName),
                             Widget.Label(ap.ssid || ''),
                             ap.active && Widget.Icon({
-                                icon: icons.tick,
+                                icon: icons.ui.tick,
                                 hexpand: true,
                                 hpack: 'end',
                             }),

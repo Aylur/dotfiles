@@ -198,7 +198,7 @@ const sidebar = Widget.Revealer({
                 child: Widget.Button({
                     class_name: 'copy',
                     child: Widget.Label({
-                        label: ' Copy',
+                        label: ' Save',
                         xalign: 0,
                     }),
                     hexpand: true,
@@ -212,6 +212,7 @@ const sidebar = Widget.Revealer({
                             'notify-send',
                             '-i', 'preferences-desktop-theme-symbolic',
                             'Theme copied to clipboard',
+                            'To save it permanently, make a new theme in <span weight="bold">themes.js</span>',
                         ]);
                     },
                 }),

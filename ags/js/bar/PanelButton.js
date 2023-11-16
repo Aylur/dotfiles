@@ -19,7 +19,7 @@ export default ({
 }) => {
     let open = false;
 
-    const connection = [[App, (self, win, visible) => {
+    const connection = [App, (self, win, visible) => {
         if (win !== window)
             return;
 
@@ -32,12 +32,12 @@ export default ({
             open = true;
             self.toggleClassName('active');
         }
-    }]];
+    }];
 
     return Widget.Button({
         class_name: `panel-button ${class_name}`,
         child: Widget.Box({ children: [content] }),
-        connections: connections.concat(connection),
+        connections: connections.concat([connection]),
         ...rest,
     });
 };

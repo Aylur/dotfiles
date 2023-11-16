@@ -35,6 +35,7 @@ export class Opt extends Service {
     #value;
     unit = 'px';
     noReload = false;
+    persist = false;
     id = '';
     scss = '';
     title = '';
@@ -81,6 +82,8 @@ export class Opt extends Service {
             ? 'General'
             : words.at(0) || 'General';
 
+        this.scss ||= this.id.split('.').join('-').split('_').join('-');
+
         this.connect('changed', () => {
             cacheObj[this.id] = this.value;
             writeFile(
@@ -114,7 +117,8 @@ export class Opt extends Service {
     }
 
     reset(reload = false) {
-        this.setValue(this.defaultValue, reload);
+        if (!this.persist)
+            this.setValue(this.defaultValue, reload);
     }
 }
 

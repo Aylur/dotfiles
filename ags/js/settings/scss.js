@@ -31,10 +31,9 @@ export async function reloadScss() {
         if (opt.scss === 'exclude')
             return '';
 
-        const name = opt.id.split('.').join('-').split('_').join('-');
         const unit = typeof opt.value === 'number' ? opt.unit : '';
         const value = opt.format ? opt.format(opt.value) : opt.value;
-        return `$${opt.scss || name}: ${value}${unit};`;
+        return `$${opt.scss}: ${value}${unit};`;
     });
 
     const bar_style = opts.find(opt => opt.id === 'bar.style')?.value || '';

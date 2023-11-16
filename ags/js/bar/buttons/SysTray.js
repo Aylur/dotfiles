@@ -8,14 +8,17 @@ const SysTrayItem = item => PanelButton({
     class_name: 'tray-item',
     content: Widget.Icon({ binds: [['icon', item, 'icon']] }),
     binds: [['tooltipMarkup', item, 'tooltip-markup']],
-    setup: btn => {
+    setup: self => {
         const id = item.menu?.connect('popped-up', menu => {
-            btn.toggleClassName('active');
+            self.toggleClassName('active');
             menu.connect('notify::visible', menu => {
-                btn.toggleClassName('active', menu.visible);
+                self.toggleClassName('active', menu.visible);
             });
             menu.disconnect(id);
         });
+
+        if (id)
+            self.connect('destroy', () => item.menu?.disconnect(id));
     },
 
     // @ts-expect-error popup_at_widget missing from types?
