@@ -7,6 +7,8 @@ export function initWallpaper() {
     } catch (error) {
         print('missing dependancy: swww');
     }
+
+    options.desktop.wallpaper.img.connect('changed', wallpaper);
 }
 
 export function wallpaper() {
@@ -17,6 +19,6 @@ export function wallpaper() {
         'swww', 'img',
         '--transition-type', 'grow',
         '--transition-pos', exec('hyprctl cursorpos').replace(' ', ''),
-        options.desktop.wallpaper.value,
+        options.desktop.wallpaper.img.value,
     ]).catch(err => console.error(err));
 }

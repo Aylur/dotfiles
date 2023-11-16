@@ -58,8 +58,6 @@ export default () => Widget.Box({
         Widget.Scrollable({
             vexpand: true,
             class_name: 'notification-scrollable',
-            hscroll: 'never',
-            vscroll: 'automatic',
             child: Widget.Box({
                 class_name: 'notification-list',
                 vertical: true,

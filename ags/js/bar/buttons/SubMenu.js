@@ -17,7 +17,7 @@ const Arrow = (revealer, direction, items) => {
     });
 
     const animate = () => {
-        const t = options.transition.value / 10;
+        const t = options.transition.value / 20;
         const step = revealer.reveal_child ? 10 : -10;
         for (let i = 0; i < 18; ++i) {
             Utils.timeout(t * i, () => {

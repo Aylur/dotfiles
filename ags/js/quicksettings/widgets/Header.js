@@ -51,7 +51,7 @@ export default () => Widget.Box({
                         Widget.Button({
                             vpack: 'center',
                             on_clicked: openSettings,
-                            child: Widget.Icon(icons.settings),
+                            child: Widget.Icon(icons.ui.settings),
                         }),
                         Widget.Label({
                             class_name: 'uptime',

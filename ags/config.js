@@ -1,6 +1,8 @@
+import { readFile } from 'resource:///com/github/Aylur/ags/utils.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
+const pkgjson = JSON.parse(readFile(App.configDir + '/package.json'));
 
-const expectedVersion = '1.5.1';
+const expectedVersion = pkgjson.version;
 let config = {};
 
 if (pkg.version === expectedVersion) {

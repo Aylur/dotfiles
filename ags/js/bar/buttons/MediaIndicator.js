@@ -47,21 +47,27 @@ const Indicator = ({ player, direction = 'right' }) => HoverRevealer({
  */
 export default ({ direction = 'right' } = {}) => {
     let current = null;
+
+    const update = box => {
+        const player = getPlayer();
+        box.visible = !!player;
+
+        if (!player) {
+            current = null;
+            return;
+        }
+
+        if (current === player)
+            return;
+
+        current = player;
+        box.children = [Indicator({ player, direction })];
+    };
+
     return Widget.Box({
-        connections: [[Mpris, box => {
-            const player = getPlayer();
-            box.visible = !!player;
-
-            if (!player) {
-                current = null;
-                return;
-            }
-
-            if (current === player)
-                return;
-
-            current = player;
-            box.children = [Indicator({ player, direction })];
-        }, 'notify::players']],
+        connections: [
+            [options.mpris.preferred, update],
+            [Mpris, update, 'notify::players'],
+        ],
     });
 };

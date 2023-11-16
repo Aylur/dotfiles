@@ -2,6 +2,19 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import { getOptions } from './option.js';
 
+export function scssWatcher() {
+    return Utils.subprocess(
+        [
+            'inotifywait',
+            '--recursive',
+            '--event', 'create,modify',
+            '-m', App.configDir + '/scss',
+        ],
+        reloadScss,
+        () => print('missing dependancy for css hotreload: inotify-tools'),
+    );
+}
+
 /**
  * generate an scss file that makes every option available as a variable
  * based on the passed scss parameter or the path in the object
@@ -10,12 +23,15 @@ import { getOptions } from './option.js';
  * options.bar.style.value => $bar-style
  */
 export async function reloadScss() {
+    if (!Utils.exec('which sassc'))
+        return print('missing dependancy: sassc');
+
     const opts = getOptions();
     const vars = opts.map(opt => {
         if (opt.scss === 'exclude')
             return '';
 
-        const name = opt.id.split('.').join('-');
+        const name = opt.id.split('.').join('-').split('_').join('-');
         const unit = typeof opt.value === 'number' ? opt.unit : '';
         const value = opt.format ? opt.format(opt.value) : opt.value;
         return `$${opt.scss || name}: ${value}${unit};`;
@@ -35,13 +51,9 @@ export async function reloadScss() {
 
     const tmp = '/tmp/ags/scss';
     Utils.ensureDirectory(tmp);
-    try {
-        await Utils.writeFile(vars.join('\n'), `${tmp}/options.scss`);
-        await Utils.writeFile(additional, `${tmp}/additional.scss`);
-        await Utils.execAsync(`sassc ${App.configDir}/scss/main.scss ${tmp}/style.css`);
-        App.resetCss();
-        App.applyCss(`${tmp}/style.css`);
-    } catch (error) {
-        console.error(error);
-    }
+    await Utils.writeFile(vars.join('\n'), `${tmp}/options.scss`);
+    await Utils.writeFile(additional, `${tmp}/additional.scss`);
+    await Utils.execAsync(`sassc ${App.configDir}/scss/main.scss ${tmp}/style.css`);
+    App.resetCss();
+    App.applyCss(`${tmp}/style.css`);
 }

@@ -6,8 +6,8 @@ export default props => Widget.Box({
     ...props,
     class_name: 'avatar',
     connections: [
-        [options.avatar, box => box.setCss(`
-            background-image: url('${options.avatar.value}');
+        [options.desktop.avatar, box => box.setCss(`
+            background-image: url('${options.desktop.avatar.value}');
             background-size: cover;
         `)],
         ['draw', box => {

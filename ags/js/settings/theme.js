@@ -1,5 +1,4 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import { USER } from 'resource:///com/github/Aylur/ags/utils.js';
 import options from '../options.js';
 import themes from '../themes.js';
 import { reloadScss } from './scss.js';
@@ -19,10 +18,10 @@ export function setTheme(name) {
     wallpaper();
 }
 
-export const WP = `/home/${USER}/Pictures/Wallpapers/`;
+export const WP = App.configDir + '/assets/';
 
 export const lightColors = {
-    'color.scheme': 'light',
+    'theme.scheme': 'light',
     'color.red': '#e55f86',
     'color.green': '#00D787',
     'color.yellow': '#EBFF71',
@@ -30,9 +29,8 @@ export const lightColors = {
     'color.magenta': '#9077e7',
     'color.teal': '#51e6e6',
     'color.orange': '#E79E64',
-    'color.bg': '#fffffa',
-    'color.fg': '#141414',
-    'hover_fg': '#0a0a0a',
+    'theme.bg': '#fffffa',
+    'theme.fg': '#141414',
 };
 
 export const Theme = ({ name, icon = ' ', ...options }) => ({
@@ -45,6 +43,16 @@ export const Theme = ({ name, icon = ' ', ...options }) => ({
     },
 });
 
-export function openSettings() {
-    App.openWindow('settings-dialog');
+let settingsDialog;
+export async function openSettings() {
+    if (settingsDialog)
+        return settingsDialog.present();
+
+    try {
+        settingsDialog = (await import('./SettingsDialog.js')).default;
+        settingsDialog.present();
+    } catch (error) {
+        if (error instanceof Error)
+            console.error(error.message);
+    }
 }

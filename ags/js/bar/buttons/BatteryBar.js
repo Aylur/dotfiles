@@ -17,7 +17,7 @@ const Indicator = () => Widget.Stack({
 
 const PercentLabel = () => Widget.Revealer({
     transition: 'slide_right',
-    binds: [['reveal-child', options.battery.showPercentage]],
+    binds: [['reveal-child', options.battery.show_percentage]],
     child: Widget.Label({
         binds: [['label', Battery, 'percent', p => `${p}%`]],
     }),
@@ -34,8 +34,8 @@ export default () => {
     return PanelButton({
         class_name: 'battery-bar',
         on_clicked: () => {
-            const v = options.battery.showPercentage.value;
-            options.battery.showPercentage.value = !v;
+            const v = options.battery.show_percentage.value;
+            options.battery.show_percentage.value = !v;
         },
         content: Widget.Box({
             binds: [['visible', Battery, 'available']],

@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 let
-  hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland-nvidia;
   plugins = inputs.hyprland-plugins.packages.${pkgs.system};
 
   launcher = pkgs.writeShellScriptBin "hypr" ''
@@ -99,6 +99,7 @@ in
 		(f "xdg-desktop-portal")
 		(f "xdg-desktop-portal-gnome")
 		(f "transmission-gtk")
+		(f "com.github.Aylur.ags")
 		"workspace 7, title:Spotify"
       ];
 

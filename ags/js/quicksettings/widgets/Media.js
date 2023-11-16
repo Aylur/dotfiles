@@ -3,8 +3,6 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import * as mpris from '../../misc/mpris.js';
 import options from '../../options.js';
 
-const { blackList } = options.mpris;
-
 /** @param {import('types/service/mpris').MprisPlayer} player */
 const Footer = player => Widget.CenterBox({
     class_name: 'footer-box',
@@ -88,6 +86,12 @@ const PlayerBox = player => Widget.Box({
 export default () => Widget.Box({
     vertical: true,
     class_name: 'media vertical',
-    binds: [['children', Mpris, 'players', ps =>
-        ps.filter(p => !blackList.value.includes(p.identity)).map(PlayerBox)]],
+    connections: [['draw', self => {
+        self.visible = Mpris.players.length > 0;
+    }]],
+    binds: [
+        ['children', Mpris, 'players', ps =>
+            ps.filter(p => !options.mpris.black_list.value
+                .includes(p.identity)).map(PlayerBox)],
+    ],
 });

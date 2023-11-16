@@ -18,6 +18,7 @@
 @import './common/spacing';
 
 // widgets
+@import './widgets/about';
 @import './widgets/applauncher';
 @import './widgets/bar';
 @import './widgets/desktop';
@@ -30,6 +31,7 @@
 @import './widgets/lockscreen';
 @import './widgets/media';
 @import './widgets/quicksettings';
+@import './widgets/settings';
 
 // additional overrides
 @import '/tmp/ags/scss/additional';

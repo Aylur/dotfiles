@@ -9,14 +9,16 @@ import Overview from './overview/Overview.js';
 import PowerMenu from './powermenu/PowerMenu.js';
 import QuickSettings from './quicksettings/QuickSettings.js';
 import ScreenCorners from './screencorner/ScreenCorners.js';
-import SettingsDialog from './settings/SettingsDialog.js';
 import TopBar from './bar/TopBar.js';
 import Verification from './powermenu/Verification.js';
+import About from './about/about.js';
 import options from './options.js';
 import { init } from './settings/setup.js';
 import { forMonitors } from './utils.js';
+import { showAbout } from './about/about.js';
 
 init();
+showAbout();
 
 const windows = () => [
     forMonitors(Desktop),
@@ -31,8 +33,8 @@ const windows = () => [
     Overview(),
     PowerMenu(),
     QuickSettings(),
-    SettingsDialog(),
     Verification(),
+    About(),
 ];
 
 export default {

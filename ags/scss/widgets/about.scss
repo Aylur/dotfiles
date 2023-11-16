@@ -1,0 +1,62 @@
+window#about {
+    @include unset;
+
+    .window-content {
+        @include floating-widget;
+        min-width: 300px;
+    }
+
+    .avatar {
+        min-width: 200px;
+        min-height: 200px;
+        background-size: cover;
+        border: $border;
+        margin: $spacing 0;
+    }
+
+    .labels {
+        .title {
+            font-size: 1.2em;
+        }
+
+        .author {
+            color: transparentize($fg-color, 0.2)
+        }
+
+        .version {
+            margin-top: $spacing;
+            margin-bottom: $spacing * 2;
+            border-radius: $radii;
+            background-color: $widget-bg;
+            color: $accent;
+            padding: $padding;
+        }
+    }
+
+    .buttons {
+        padding-bottom: $popover-padding;
+
+        button {
+            @include button;
+            padding: $padding;
+
+            &:first-child {
+                border-radius: $radii $radii 0 0;
+            }
+
+            &:last-child {
+                border-radius: 0 0 $radii $radii;
+            }
+        }
+    }
+
+    .dont-show {
+        @include button;
+        padding: $padding;
+
+        image {
+            font-size: 1.4em;
+            color: $red;
+        }
+    }
+}

@@ -59,7 +59,7 @@ export const WifiSelection = () => Menu({
             on_clicked: () => Applications.query('gnome-control-center')?.[0].launch(),
             child: Widget.Box({
                 children: [
-                    Widget.Icon(icons.settings),
+                    Widget.Icon(icons.ui.settings),
                     Widget.Label('Network'),
                 ],
             }),

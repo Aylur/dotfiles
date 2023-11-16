@@ -27,7 +27,7 @@ const AppButton = ({ icon, pinned = false, ...rest }) => {
             child: Widget.Overlay({
                 child: Widget.Icon({
                     icon,
-                    binds: [['size', options.dock.iconSize]],
+                    binds: [['size', options.desktop.dock.icon_size]],
                 }),
                 pass_through: true,
                 overlays: pinned ? [indicators] : [],
@@ -40,7 +40,7 @@ const AppButton = ({ icon, pinned = false, ...rest }) => {
 
 const Taskbar = () => Widget.Box({
     binds: [['children', Hyprland, 'clients', c => c.map(client => {
-        for (const appName of options.dock.pinnedApps.value) {
+        for (const appName of options.desktop.dock.pinned_apps.value) {
             if (client.class.toLowerCase().includes(appName.toLowerCase()))
                 return null;
         }
@@ -61,7 +61,7 @@ const Taskbar = () => Widget.Box({
 const PinnedApps = () => Widget.Box({
     class_name: 'pins',
     homogeneous: true,
-    binds: [['children', options.dock.pinnedApps, 'value', v => v
+    binds: [['children', options.desktop.dock.pinned_apps, 'value', v => v
         .map(term => ({ app: Applications.query(term)?.[0], term }))
         .filter(({ app }) => app)
         .map(({ app, term = true }) => AppButton({

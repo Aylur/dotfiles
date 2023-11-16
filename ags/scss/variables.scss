@@ -5,6 +5,8 @@ $hover: transparentize($_widget-bg, ($widget-opacity * 0.9) / 100);
 $widget-bg: transparentize($_widget-bg, $widget-opacity / 100);
 $active-gradient: linear-gradient($accent-gradient);
 
+$hover-fg: if($color-scheme == 'dark', lighten($fg-color, 10%), darken($fg-color, 8%));
+
 $border-color: transparentize($_border-color, $border-opacity / 100);
 $border: $border-width solid $border-color;
 
@@ -14,4 +16,8 @@ $popover-border-color: transparentize($_border-color, max(($border-opacity - 1) 
 $popover-padding: $padding * $popover-padding-multiplier;
 $popover-radius: if($radii == 0, 0, $radii + $popover-padding);
 
-* { font-size: $font-size }
+$wm-gaps: $spacing * $wm-gaps-multiplier;
+
+$shader-fg: #fff;
+
+* { font-size: $font-size; }

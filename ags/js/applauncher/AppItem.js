@@ -24,7 +24,7 @@ export default app => {
 
     const icon = Widget.Icon({
         icon: lookUpIcon(app.icon_name || '') ? app.icon_name || '' : '',
-        binds: [['size', options.applauncher.iconSize]],
+        binds: [['size', options.applauncher.icon_size]],
     });
 
     const textBox = Widget.Box({

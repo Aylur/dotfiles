@@ -3,6 +3,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import PowerMenu from '../services/powermenu.js';
 import icons from '../icons.js';
 import Gtk from 'gi://Gtk';
+import { openSettings } from '../settings/theme.js';
 
 /**
  * @param {string} label
@@ -48,6 +49,6 @@ export default () => Widget.Menu({
         }),
         Item('Applications', icons.apps.apps, () => App.openWindow('applauncher')),
         new Gtk.SeparatorMenuItem,
-        Item('Settings', icons.settings, () => print('todo')),
+        Item('Settings', icons.ui.settings, openSettings),
     ],
 });

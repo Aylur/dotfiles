@@ -53,7 +53,7 @@ export const Volume = () => Widget.Box({
 });
 
 export const Microhone = () => Widget.Box({
-    class_name: 'slider',
+    class_name: 'slider horizontal',
     binds: [['visible', Audio, 'recorders', r => r.length > 0]],
     children: [
         VolumeIndicator('microphone'),
@@ -127,7 +127,7 @@ const SettingsButton = () => Widget.Button({
     hexpand: true,
     child: Widget.Box({
         children: [
-            Widget.Icon(icons.settings),
+            Widget.Icon(icons.ui.settings),
             Widget.Label('Settings'),
         ],
     }),

@@ -1,0 +1,143 @@
+window#settings-dialog {
+    background-color: $bg-color;
+
+    .page {
+        @include scrollable;
+    }
+
+    .page-content {
+        margin: $spacing;
+    }
+
+    .sidebar-box {
+        @include spacing($rec: true);
+        background-color: $widget-bg;
+        border-right: $border;
+        padding: $spacing / 2;
+
+        button {
+            @include button($flat: true);
+            padding: $padding / 2 $padding * 2;
+        }
+
+        scrolledwindow {
+            @include scrollable;
+        }
+
+    }
+
+    .sidebar-header  {
+        background-color: $widget-bg;
+        border-right: $border;
+        border-bottom: $border;
+        padding: $spacing / 2;
+
+        button {
+            @include button($flat: true);
+            padding: $padding / 2 $padding;
+        }
+
+        button:last-child {
+            margin-left: $spacing / 2;
+        }
+    }
+
+    .sidebar-footer {
+        background-color: $widget-bg;
+        border-right: $border;
+        border-top: $border;
+        padding: $spacing / 2;
+
+        button {
+            @include button($flat: true);
+            padding: $padding / 2 $padding;
+        }
+    }
+
+    entry.search {
+        @include button;
+        border-radius: 0;
+        padding: $padding;
+    }
+
+    .row {
+        @include widget;
+        border-radius: 0;
+        border-bottom-width: 0;
+        padding: $padding;
+        transition: border-radius 0;
+
+        &:last-child {
+            border-radius: 0 0 $radii $radii;
+            border-bottom-width: $border-width;
+        }
+
+        &:first-child {
+            border-radius: $radii $radii 0 0;
+        }
+
+        &:first-child:last-child {
+            border-radius: $radii;
+        }
+
+        .overlay-padding {
+            min-height: $font-size * 3;
+        }
+
+        &:hover {
+            background-color: $hover;
+        }
+
+        entry, button {
+            @include button;
+            padding: $padding;
+        }
+
+        switch {
+            @include switch;
+        }
+
+        spinbutton {
+            @include unset;
+
+            entry {
+                border-radius: $radii 0 0 $radii;
+            }
+
+            button {
+                border-radius: 0;
+            }
+
+            button:last-child {
+                border-radius: 0 $radii $radii 0;
+            }
+        }
+
+        .enum-setter {
+            label {
+                background-color: $widget-bg;
+                border-top: $border;
+                border-bottom: $border;
+                padding: 0 $padding;
+            }
+
+            button:first-child {
+                border-radius: $radii 0 0 $radii;
+            }
+
+            button:last-child {
+                border-radius: 0 $radii $radii 0;
+            }
+        }
+    }
+
+    .id, .note {
+        font-size: .8em;
+        color: transparentize($fg-color, $amount: 0.5);
+    }
+
+    .id {
+        font-family: $mono-font;
+    }
+
+}

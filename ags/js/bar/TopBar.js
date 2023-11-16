@@ -99,7 +99,7 @@ const End = () => Widget.Box({
 export default monitor => Widget.Window({
     name: `bar${monitor}`,
     class_name: 'transparent',
-    exclusive: true,
+    exclusivity: 'exclusive',
     monitor,
     binds: [['anchor', options.bar.position, 'value', pos => ([
         pos, 'left', 'right',
