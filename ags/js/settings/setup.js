@@ -4,8 +4,7 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import options from '../options.js';
 import icons from '../icons.js';
-import { scssWatcher } from './scss.js';
-import { setTheme } from './theme.js';
+import { reloadScss, scssWatcher } from './scss.js';
 import { initWallpaper, wallpaper } from './wallpaper.js';
 import { hyprlandInit } from './hyprland.js';
 import { globals } from './globals.js';
@@ -24,7 +23,7 @@ export function init() {
     dependandOptions();
 
     App.connect('config-parsed', () => {
-        setTheme(options.theme.name.value);
+        reloadScss();
         hyprlandInit();
         wallpaper();
         showAbout();
@@ -42,8 +41,19 @@ function tmux() {
     if (!Utils.exec('which tmux'))
         return;
 
+    /** @param {string} scss */
+    function getColor(scss) {
+        if (scss.includes('#'))
+            return scss;
+
+        if (scss.includes('$')) {
+            const opt = options.list().find(opt => opt.scss === scss.replace('$', ''));
+            return opt?.value;
+        }
+    }
+
     options.theme.accent.accent.connect('changed', ({ value }) => Utils
-        .execAsync(`tmux set @main_accent ${value.replace('$', '')}`)
+        .execAsync(`tmux set @main_accent ${getColor(value)}`)
         .catch(err => console.error(err.message)));
 }
 
