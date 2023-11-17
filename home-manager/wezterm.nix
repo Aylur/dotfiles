@@ -9,6 +9,6 @@ in
     pkgs.wezterm
     xterm
   ];
-  programs.wezterm.enable = true;
+
   xdg.configFile.wezterm.source = ../wezterm;
 }

@@ -12,13 +12,11 @@ import ScreenCorners from './screencorner/ScreenCorners.js';
 import TopBar from './bar/TopBar.js';
 import Verification from './powermenu/Verification.js';
 import About from './about/about.js';
-import options from './options.js';
 import { init } from './settings/setup.js';
 import { forMonitors } from './utils.js';
-import { showAbout } from './about/about.js';
+import options from './options.js';
 
 init();
-showAbout();
 
 const windows = () => [
     forMonitors(Desktop),

@@ -70,6 +70,6 @@ export default monitor => Widget.Window({
     monitor,
     name: `notifications${monitor}`,
     class_name: 'notifications',
-    anchor: ['top'],
+    binds: [['anchor', options.notifications.position]],
     child: PopupList(),
 });

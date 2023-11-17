@@ -33,7 +33,7 @@ const children = box => {
 
 export default () => PopupWindow({
     name: 'overview',
-    content: Widget.Box({
+    child: Widget.Box({
         setup: update,
         connections: [
             [ws, box => {

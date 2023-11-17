@@ -10,6 +10,7 @@ import Media from './widgets/Media.js';
 import Brightness from './widgets/Brightness.js';
 import DND from './widgets/DND.js';
 import MicMute from './widgets/MicMute.js';
+import options from '../options.js';
 
 const Row = (toggles = [], menus = []) => Widget.Box({
     vertical: true,
@@ -29,9 +30,15 @@ const Homogeneous = toggles => Widget.Box({
 
 export default () => PopupWindow({
     name: 'quicksettings',
-    anchor: ['top', 'right'],
-    layout: 'top right',
-    content: Widget.Box({
+    connections: [[options.bar.position, self => {
+        self.anchor = ['right', options.bar.position.value];
+        if (options.bar.position.value === 'top')
+            self.transition = 'slide_down';
+
+        if (options.bar.position.value === 'bottom')
+            self.transition = 'slide_up';
+    }]],
+    child: Widget.Box({
         vertical: true,
         children: [
             Header(),

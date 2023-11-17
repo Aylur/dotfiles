@@ -44,8 +44,8 @@ export default index => {
         clients
             .filter(({ workspace: { id } }) => id === index)
             .forEach(c => {
-                c.at[0] -= Hyprland.monitors.find(m => m.name === Hyprland.getWorkspace(c.workspace.id).monitor).x;
-                c.at[1] -= Hyprland.monitors.find(m => m.name === Hyprland.getWorkspace(c.workspace.id).monitor).y;
+                c.at[0] -= Hyprland.getMonitor(c.monitor)?.x || 0;
+                c.at[1] -= Hyprland.getMonitor(c.monitor)?.y || 0;
                 c.mapped && fixed.put(Client(c), c.at[0] * SCALE, c.at[1] * SCALE);
             });
 

@@ -9,6 +9,7 @@ import { setTheme } from './theme.js';
 import { initWallpaper, wallpaper } from './wallpaper.js';
 import { hyprlandInit } from './hyprland.js';
 import { globals } from './globals.js';
+import { showAbout } from '../about/about.js';
 import Gtk from 'gi://Gtk';
 
 export function init() {
@@ -26,6 +27,7 @@ export function init() {
         setTheme(options.theme.name.value);
         hyprlandInit();
         wallpaper();
+        showAbout();
     });
 }
 

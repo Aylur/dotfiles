@@ -1,8 +1,8 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import PopupWindow from '../misc/PopupWindow.js';
 import AppItem from './AppItem.js';
-import PopopWindow from '../misc/PopupWindow.js';
 import icons from '../icons.js';
 import { launchApp } from '../utils.js';
 
@@ -69,7 +69,8 @@ const Applauncher = () => {
     });
 };
 
-export default () => PopopWindow({
+export default () => PopupWindow({
     name: WINDOW_NAME,
-    content: Applauncher(),
+    transition: 'slide_down',
+    child: Applauncher(),
 });

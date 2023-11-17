@@ -113,5 +113,6 @@ export default {
         General: '󰒓',
         Miscellaneous: '󰠱',
         Theme: '󰃟',
+        Notifications: '󰂚 ',
     },
 };

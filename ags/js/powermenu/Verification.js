@@ -1,13 +1,13 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
-import PopupWindow from '../misc/PopupWindow.js';
 import PowerMenu from '../services/powermenu.js';
+import ShadedPopup from './ShadedPopup.js';
 
-export default () => PopupWindow({
+export default () => ShadedPopup({
     name: 'verification',
     expand: true,
-    content: Widget.Box({
+    child: Widget.Box({
         vertical: true,
         children: [
             Widget.Box({

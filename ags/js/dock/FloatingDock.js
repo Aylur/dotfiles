@@ -2,6 +2,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Dock from './Dock.js';
+import options from '../options.js';
 
 /** @param {number} monitor */
 export default monitor => {
@@ -56,6 +57,7 @@ export default monitor => {
         class_name: 'floating-dock',
         anchor: ['bottom'],
         child: eventbox,
+        binds: [['visible', options.bar.position, 'value', v => v !== 'bottom']],
     });
 };
 
