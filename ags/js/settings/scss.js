@@ -33,7 +33,6 @@ export async function reloadScss() {
 
         const unit = typeof opt.value === 'number' ? opt.unit : '';
         const value = opt.scssFormat ? opt.scssFormat(opt.value) : opt.value;
-        print(opt.scss, opt.id);
         return `$${opt.scss}: ${value}${unit};`;
     });
 
