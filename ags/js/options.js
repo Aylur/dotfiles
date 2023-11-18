@@ -194,12 +194,12 @@ export default {
         wallpaper: {
             fg: Option('#fff', { 'scss': 'wallpaper-fg' }),
             img: Option(themes[0].options['desktop.wallpaper.img'], {
-                'format': v => `"${v}"`,
+                'scssFormat': v => `"${v}"`,
                 'type': 'img',
             }),
         },
         avatar: Option(`/var/lib/AccountsService/icons/${USER}`, {
-            'format': v => `"${v}"`,
+            'scssFormat': v => `"${v}"`,
             'type': 'img',
             'note': 'displayed in quicksettings and locksreen',
         }),

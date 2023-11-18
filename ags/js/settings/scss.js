@@ -32,7 +32,8 @@ export async function reloadScss() {
             return '';
 
         const unit = typeof opt.value === 'number' ? opt.unit : '';
-        const value = opt.format ? opt.format(opt.value) : opt.value;
+        const value = opt.scssFormat ? opt.scssFormat(opt.value) : opt.value;
+        print(opt.scss, opt.id);
         return `$${opt.scss}: ${value}${unit};`;
     });
 
@@ -48,11 +49,19 @@ export async function reloadScss() {
         }
     `;
 
-    const tmp = '/tmp/ags/scss';
-    Utils.ensureDirectory(tmp);
-    await Utils.writeFile(vars.join('\n'), `${tmp}/options.scss`);
-    await Utils.writeFile(additional, `${tmp}/additional.scss`);
-    await Utils.execAsync(`sassc ${App.configDir}/scss/main.scss ${tmp}/style.css`);
-    App.resetCss();
-    App.applyCss(`${tmp}/style.css`);
+    try {
+        const tmp = '/tmp/ags/scss';
+        Utils.ensureDirectory(tmp);
+        await Utils.writeFile(vars.join('\n'), `${tmp}/options.scss`);
+        await Utils.writeFile(additional, `${tmp}/additional.scss`);
+        await Utils.execAsync(`sassc ${App.configDir}/scss/main.scss ${tmp}/style.css`);
+        App.resetCss();
+        App.applyCss(`${tmp}/style.css`);
+    } catch (error) {
+        if (error instanceof Error)
+            console.error(error.message);
+
+        if (typeof error === 'string')
+            console.error(error);
+    }
 }

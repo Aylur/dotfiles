@@ -39,6 +39,7 @@ export function hyprlandInit() {
     ]));
 
     writeFile('init', '/tmp/ags/hyprland-init');
+    setupHyprland();
 }
 
 export async function setupHyprland() {

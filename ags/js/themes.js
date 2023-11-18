@@ -24,7 +24,7 @@ export default [
         'desktop.wallpaper.img': WP + 'leaves.jpg',
         'theme.accent.accent': '$green',
         'theme.widget.opacity': 92,
-        'accent.gradient': 'to right, $accent, darken($accent, 14%)',
+        'active.gradient': 'to right, $accent, darken($accent, 14%)',
         'border.opacity': 86,
         'theme.bg': 'transparentize(#171717, 0.3)',
         'bar.style': 'floating',

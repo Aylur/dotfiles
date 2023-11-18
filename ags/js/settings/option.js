@@ -13,7 +13,7 @@ let cacheObj = JSON.parse(readFile(CACHE_FILE) || '{}');
  * @template T
  * @typedef {Object} OptionConfig
  * @property {string=} scss - name of scss variable set to "exclude" to not include it in the generated scss file
- * @property {string=} unit - unit on numbers, default is "px"
+ * @property {string=} unit - scss unit on numbers, default is "px"
  * @property {string=} title
  * @property {string=} note
  * @property {string=} category
@@ -22,6 +22,7 @@ let cacheObj = JSON.parse(readFile(CACHE_FILE) || '{}');
  * @property {'object' | 'string' | 'img' | 'number' | 'float' | 'font' | 'enum' =} type
  * @property {Array<string> =} enums
  * @property {(value: T) => any=} format
+ * @property {(value: T) => any=} scssFormat
  */
 
 /** @template T */
@@ -33,11 +34,11 @@ export class Opt extends Service {
     }
 
     #value;
+    #scss = '';
     unit = 'px';
     noReload = false;
     persist = false;
     id = '';
-    scss = '';
     title = '';
     note = '';
     type = '';
@@ -48,6 +49,9 @@ export class Opt extends Service {
 
     /** @type {(v: T) => any} */
     format = v => v;
+
+    /** @type {(v: T) => any} */
+    scssFormat = v => v;
 
 
     /**
@@ -66,6 +70,15 @@ export class Opt extends Service {
         import('../options.js').then(this.#init.bind(this));
     }
 
+    set scss(scss) { this.#scss = scss; }
+    get scss() {
+        return this.#scss || this.id
+            .split('.')
+            .join('-')
+            .split('_')
+            .join('-');
+    }
+
     #init() {
         getOptions(); // sets the ids as a side effect
 
@@ -81,8 +94,6 @@ export class Opt extends Service {
         this.category ||= words.length === 1
             ? 'General'
             : words.at(0) || 'General';
-
-        this.scss ||= this.id.split('.').join('-').split('_').join('-');
 
         this.connect('changed', () => {
             cacheObj[this.id] = this.value;
@@ -106,7 +117,7 @@ export class Opt extends Service {
         }
 
         if (this.value !== value) {
-            this.#value = value;
+            this.#value = this.format(value);
             this.changed('value');
 
             if (reload && !this.noReload) {
