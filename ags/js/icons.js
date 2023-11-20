@@ -1,5 +1,8 @@
 export default {
     lock: 'system-lock-screen-symbolic',
+    fallback: {
+        executable: 'application-x-executable-symbolic',
+    },
     audio: {
         mic: {
             muted: 'microphone-disabled-symbolic',

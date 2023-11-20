@@ -16,7 +16,7 @@ $popover-border-color: transparentize($_border-color, max(($border-opacity - 1) 
 $popover-padding: $padding * $popover-padding-multiplier;
 $popover-radius: if($radii == 0, 0, $radii + $popover-padding);
 
-$wm-gaps: $spacing * $wm-gaps-multiplier;
+$wm-gaps: floor($spacing * $wm-gaps-multiplier);
 
 $shader-fg: #fff;
 

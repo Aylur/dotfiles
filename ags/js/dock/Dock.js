@@ -1,13 +1,12 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import icons from '../icons.js';
 import options from '../options.js';
 import { launchApp, range } from '../utils.js';
 
-const focus = ({ address }) => Utils.execAsync(`hyprctl dispatch focuswindow address:${address}`);
+const focus = ({ address }) => Hyprland.sendMessage(`dispatch focuswindow address:${address}`);
 
 /** @param {import('types/widgets/button').ButtonProps & { icon: string, pinned?: boolean }} o */
 const AppButton = ({ icon, pinned = false, ...rest }) => {

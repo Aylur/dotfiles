@@ -12,9 +12,7 @@ function sendBatch(batch) {
         .map(x => `keyword ${x}`)
         .join('; ');
 
-    Hyprland.sendMessage(`[[BATCH]]/${cmd}`)
-        .then(print)
-        .catch(err => console.error(`Hyprland.sendMessage: ${err.message}`));
+    Hyprland.sendMessage(`[[BATCH]]/${cmd}`);
 }
 
 /** @param {string} scss */
@@ -39,18 +37,16 @@ export function hyprlandInit() {
     ]));
 
     writeFile('init', '/tmp/ags/hyprland-init');
-    setupHyprland();
 }
 
 export async function setupHyprland() {
-    const wm_gaps = options.hypr.wm_gaps_multiplier.value * options.spacing.value;
+    const wm_gaps = Math.floor(options.hypr.wm_gaps_multiplier.value * options.spacing.value);
     const border_width = options.border.width.value;
     const radii = options.radii.value;
     const drop_shadow = options.desktop.drop_shadow.value;
     const bar_style = options.bar.style.value;
     const bar_pos = options.bar.position.value;
     const inactive_border = options.hypr.inactive_border.value;
-
     const accent = getColor(options.theme.accent.accent.value);
 
     const batch = [];
@@ -66,7 +62,7 @@ export async function setupHyprland() {
     batch.push(
         `general:border_size ${border_width}`,
         `general:gaps_out ${wm_gaps}`,
-        `general:gaps_in ${wm_gaps / 2}`,
+        `general:gaps_in ${Math.floor(wm_gaps / 2)}`,
         `general:col.active_border rgba(${accent}ff)`,
         `general:col.inactive_border ${inactive_border}`,
         `decoration:rounding ${radii}`,

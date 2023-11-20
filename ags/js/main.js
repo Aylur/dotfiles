@@ -16,8 +16,6 @@ import { init } from './settings/setup.js';
 import { forMonitors } from './utils.js';
 import options from './options.js';
 
-init();
-
 const windows = () => [
     forMonitors(Desktop),
     forMonitors(FloatingDock),
@@ -36,6 +34,7 @@ const windows = () => [
 ];
 
 export default {
+    onConfigParsed: init,
     windows: windows().flat(1),
     maxStreamVolume: 1.05,
     cacheNotificationActions: true,

@@ -101,7 +101,7 @@ $bar-spacing: $spacing / 2;
 
     .focused-client > box > box,
     .quicksettings > box {
-        @include spacing(1, $bar-spacing);
+        @include spacing(1, if($bar-spacing == 0, $padding / 2, $bar-spacing));
     }
 
     /* stylelint-disable-next-line selector-not-notation */

@@ -2,17 +2,17 @@ import { readFile } from 'resource:///com/github/Aylur/ags/utils.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 const pkgjson = JSON.parse(readFile(App.configDir + '/package.json'));
 
-const expectedVersion = pkgjson.version;
-let config = {};
+const v = {
+    ags: `v${pkg.version}`,
+    expected: `v${pkgjson.version}`,
+};
 
-if (pkg.version === expectedVersion) {
-    config = (await import('./js/main.js')).default;
-}
-else {
-    print('your ags version is ' + pkg.version);
-    print('my config uses the git branch which is ' + expectedVersion);
-    print('update ags to the current git version');
+function mismatch() {
+    print(`my config expects ${v.expected}, but your ags is ${v.ags}`);
     App.connect('config-parsed', app => app.Quit());
+    return {};
 }
 
-export default config;
+export default v.ags === v.expected
+    ? (await import('./js/main.js')).default
+    : mismatch();
