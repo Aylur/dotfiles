@@ -2,7 +2,7 @@
   description = "Home Manager and NixOS configuration of Aylur";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,6 +17,10 @@
     };
     more-waita = {
       url = "https://github.com/somepaulo/MoreWaita/archive/refs/heads/main.zip";
+      flake = false;
+    };
+    firefox-gnome-theme = {
+      url = "https://github.com/rafaelmardojai/firefox-gnome-theme/archive/master.tar.gz";
       flake = false;
     };
   };
