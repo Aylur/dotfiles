@@ -84,5 +84,6 @@
     meson
     ninja
     eslint
+    gcc
   ];
 }

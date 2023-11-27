@@ -1,34 +1,30 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import options from '../options.js';
 import icons from '../icons.js';
 import { reloadScss, scssWatcher } from './scss.js';
-import { initWallpaper, wallpaper } from './wallpaper.js';
+import { wallpaper } from './wallpaper.js';
 import { hyprlandInit, setupHyprland } from './hyprland.js';
 import { globals } from './globals.js';
 import { showAbout } from '../about/about.js';
 import Gtk from 'gi://Gtk';
 
 export function init() {
-    App.connect('config-parsed', () => {
-        initWallpaper();
-        notificationBlacklist();
-        warnOnLowBattery();
-        globals();
-        tmux();
-        gsettigsColorScheme();
-        gtkFontSettings();
-        scssWatcher();
-        dependandOptions();
+    notificationBlacklist();
+    warnOnLowBattery();
+    globals();
+    tmux();
+    gsettigsColorScheme();
+    gtkFontSettings();
+    scssWatcher();
+    dependandOptions();
 
-        reloadScss();
-        hyprlandInit();
-        setupHyprland();
-        wallpaper();
-        showAbout();
-    });
+    reloadScss();
+    hyprlandInit();
+    setupHyprland();
+    wallpaper();
+    showAbout();
 }
 
 function dependandOptions() {

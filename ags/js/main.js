@@ -14,7 +14,10 @@ import Verification from './powermenu/Verification.js';
 import About from './about/about.js';
 import { init } from './settings/setup.js';
 import { forMonitors } from './utils.js';
+import { initWallpaper } from './settings/wallpaper.js';
 import options from './options.js';
+
+initWallpaper();
 
 const windows = () => [
     forMonitors(Desktop),
