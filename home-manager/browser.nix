@@ -14,7 +14,6 @@
     profiles.default = {
       name = "Default";
       settings = {
-        "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "svg.context-properties.content.enabled" = true;
         "gnomeTheme.hideSingleTab" = true;
@@ -24,6 +23,9 @@
       };
       userChrome = ''
         @import "firefox-gnome-theme/userChrome.css";
+      '';
+      userContent = ''
+        @import "firefox-gnome-theme/userContent.css";
       '';
     };
   };
