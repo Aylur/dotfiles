@@ -58,12 +58,7 @@ export function getAudioTypeIcon(icon) {
         ['audio-card-analog-pci', icons.audio.type.card],
     ];
 
-    for (const [from, to] of substitues) {
-        if (from === icon)
-            return to;
-    }
-
-    return icon;
+    return substitute(substitues, icon);
 }
 
 

@@ -1,7 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
-import { createSurfaceFromWidget } from '../utils.js';
+import { createSurfaceFromWidget, substitute } from '../utils.js';
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import options from '../options.js';
@@ -13,8 +13,7 @@ const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 const dispatch = args => Utils.execAsync(`hyprctl dispatch ${args}`);
 
 /** @param {string} str */
-const substitute = str => options.substitutions.icons
-    .find(([from]) => from === str)?.[1] || str;
+const icon = str => substitute(options.substitutions.icons, str);
 
 export default ({ address, size: [w, h], class: c, title }) => Widget.Button({
     class_name: 'client',
@@ -24,7 +23,7 @@ export default ({ address, size: [w, h], class: c, title }) => Widget.Button({
             min-width: ${w * SCALE}px;
             min-height: ${h * SCALE}px;
         `,
-        icon: substitute(c),
+        icon: icon(c),
     }),
     on_secondary_click: () => dispatch(`closewindow address:${address}`),
     on_clicked: () => dispatch(`focuswindow address:${address}`)
