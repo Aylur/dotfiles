@@ -2,9 +2,14 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import icons from '../icons.js';
 import Notification from '../misc/Notification.js';
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const ClearButton = () => Widget.Button({
-    on_clicked: () => Notifications.clear(),
+    on_clicked: () => {
+        const list = Array.from(Notifications.notifications);
+        for (let i = 0; i < list.length; i++)
+            timeout(50 * i, () => list[i]?.close());
+    },
     binds: [['sensitive', Notifications, 'notifications', n => n.length > 0]],
     child: Widget.Box({
         children: [
