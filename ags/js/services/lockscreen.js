@@ -21,7 +21,7 @@ class Lockscreen extends Service {
                 this.emit('lock', out !== 'True');
                 this.emit('authenticating', false);
             })
-            .catch(console.error);
+            .catch(err => console.error(err));
     }
 }
 

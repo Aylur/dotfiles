@@ -1,19 +1,18 @@
 import options from '../options.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { dependencies } from '../utils.js';
 
 export function initWallpaper() {
-    try {
+    if (dependencies(['swww'])) {
         exec('swww init');
-    } catch (error) {
-        print('missing dependancy: swww');
-    }
 
-    options.desktop.wallpaper.img.connect('changed', wallpaper);
+        options.desktop.wallpaper.img.connect('changed', wallpaper);
+    }
 }
 
 export function wallpaper() {
-    if (!exec('which swww'))
-        return print('missing dependancy: swww');
+    if (!dependencies(['swww']))
+        return;
 
     execAsync([
         'swww', 'img',

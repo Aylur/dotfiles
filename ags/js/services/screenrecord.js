@@ -2,6 +2,7 @@ import Service from 'resource:///com/github/Aylur/ags/service.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import GLib from 'gi://GLib';
+import { dependencies } from '../utils.js';
 
 const now = () => GLib.DateTime.new_now_local().format('%Y-%m-%d_%H-%M-%S');
 
@@ -20,28 +21,31 @@ class Recorder extends Service {
     recording = false;
     timer = 0;
 
-    start() {
+    async start() {
+        if (!(await dependencies(['slurp', 'wf-recorder'])))
+            return;
+
         if (this.recording)
             return;
 
-        Utils.execAsync('slurp')
-            .then(area => {
-                Utils.ensureDirectory(this.#path);
-                this.#file = `${this.#path}/${now()}.mp4`;
-                Utils.execAsync(['wf-recorder', '-g', area, '-f', this.#file]);
-                this.recording = true;
-                this.changed('recording');
+        const area = await Utils.execAsync('slurp');
+        Utils.ensureDirectory(this.#path);
+        this.#file = `${this.#path}/${now()}.mp4`;
+        Utils.execAsync(['wf-recorder', '-g', area, '-f', this.#file]);
+        this.recording = true;
+        this.changed('recording');
 
-                this.timer = 0;
-                this.#interval = Utils.interval(1000, () => {
-                    this.changed('timer');
-                    this.timer++;
-                });
-            })
-            .catch(err => console.error(err));
+        this.timer = 0;
+        this.#interval = Utils.interval(1000, () => {
+            this.changed('timer');
+            this.timer++;
+        });
     }
 
-    stop() {
+    async stop() {
+        if (!(await dependencies(['notify-send'])))
+            return;
+
         if (!this.recording)
             return;
 
@@ -49,58 +53,59 @@ class Recorder extends Service {
         this.recording = false;
         this.changed('recording');
         GLib.source_remove(this.#interval);
-        Utils.execAsync([
+
+        const res = await Utils.execAsync([
             'notify-send',
             '-A', 'files=Show in Files',
             '-A', 'view=View',
             '-i', 'video-x-generic-symbolic',
             'Screenrecord',
             this.#file,
-        ])
-            .then(res => {
-                if (res === 'files')
-                    Utils.execAsync('xdg-open ' + this.#path);
+        ]);
 
-                if (res === 'view')
-                    Utils.execAsync('xdg-open ' + this.#file);
-            })
-            .catch(err => console.error(err));
+        if (res === 'files')
+            Utils.execAsync('xdg-open ' + this.#path);
+
+        if (res === 'view')
+            Utils.execAsync('xdg-open ' + this.#file);
     }
 
     async screenshot(full = false) {
-        try {
-            const area = full ? null : await Utils.execAsync('slurp');
-            const path = GLib.get_home_dir() + '/Pictures/Screenshots';
-            const file = `${path}/${now()}.png`;
-            Utils.ensureDirectory(path);
+        if (!(await dependencies(['slurp', 'wayshot'])))
+            return;
 
-            area ? await Utils.execAsync(['wayshot', '-s', area, '-f', file])
-                : await Utils.execAsync(['wayshot', '-f', file]);
+        const path = GLib.get_home_dir() + '/Pictures/Screenshots';
+        const file = `${path}/${now()}.png`;
+        Utils.ensureDirectory(path);
 
-            Utils.execAsync(['bash', '-c', `wl-copy < ${file}`]);
+        await Utils.execAsync([
+            'wayshot',
+            '-f', file,
+        ].concat(full ? [] : [
+            '-s', await Utils.execAsync('slurp'),
+        ]));
 
-            const res = await Utils.execAsync([
-                'notify-send',
-                '-A', 'files=Show in Files',
-                '-A', 'view=View',
-                '-A', 'edit=Edit',
-                '-i', file,
-                'Screenshot',
-                file,
-            ]);
-            if (res === 'files')
-                Utils.execAsync('xdg-open ' + path);
+        Utils.execAsync(['bash', '-c', `wl-copy < ${file}`]);
 
-            if (res === 'view')
-                Utils.execAsync('xdg-open ' + file);
+        const res = await Utils.execAsync([
+            'notify-send',
+            '-A', 'files=Show in Files',
+            '-A', 'view=View',
+            '-A', 'edit=Edit',
+            '-i', file,
+            'Screenshot',
+            file,
+        ]);
+        if (res === 'files')
+            Utils.execAsync('xdg-open ' + path);
 
-            if (res === 'edit')
-                Utils.execAsync(['swappy', '-f', file]);
+        if (res === 'view')
+            Utils.execAsync('xdg-open ' + file);
 
-            App.closeWindow('dashboard');
-        } catch (/** @type {any} */error) {
-            console.error(error);
-        }
+        if (res === 'edit')
+            Utils.execAsync(['swappy', '-f', file]);
+
+        App.closeWindow('dashboard');
     }
 }
 
