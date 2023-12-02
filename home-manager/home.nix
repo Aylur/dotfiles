@@ -20,6 +20,7 @@ in
     ./theme.nix
     ./tmux.nix
     ./wezterm.nix
+    ./mimelist.nix
   ];
 
   news.display = "show";
