@@ -29,7 +29,7 @@ const Workspaces = () => {
     });
 };
 
-export default () => Widget.Box({
+export default () => Widget.EventBox({
     class_name: 'workspaces panel-button',
     child: Widget.Box({
         // its nested like this to keep it consistent with other PanelButton widgets

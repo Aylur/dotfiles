@@ -12,6 +12,7 @@ return {
                 "html",
                 "javascript",
                 "json",
+                "jsdoc",
                 "yaml",
                 "svelte",
                 "scss",

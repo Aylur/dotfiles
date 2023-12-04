@@ -1,5 +1,4 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import GLib from 'gi://GLib';
 
@@ -46,25 +45,6 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
 
 /** @param {import('types/service/notifications').Notification} notification */
 export default notification => {
-    const hovered = Variable(false);
-    let block = false;
-
-    const hover = () => {
-        hovered.value = true;
-        block = true;
-
-        Utils.timeout(100, () => block = false);
-    };
-
-    const hoverLost = () => GLib.idle_add(0, () => {
-        if (block)
-            return GLib.SOURCE_REMOVE;
-
-        hovered.value = false;
-        notification.dismiss();
-        return GLib.SOURCE_REMOVE;
-    });
-
     const content = Widget.Box({
         class_name: 'content',
         children: [
@@ -92,7 +72,6 @@ export default notification => {
                                 label: GLib.DateTime.new_from_unix_local(notification.time).format('%H:%M'),
                             }),
                             Widget.Button({
-                                on_hover: hover,
                                 class_name: 'close-button',
                                 vpack: 'start',
                                 child: Widget.Icon('window-close-symbolic'),
@@ -116,13 +95,10 @@ export default notification => {
 
     const actionsbox = Widget.Revealer({
         transition: 'slide_down',
-        binds: [['revealChild', hovered]],
         child: Widget.EventBox({
-            on_hover: hover,
             child: Widget.Box({
                 class_name: 'actions horizontal',
                 children: notification.actions.map(action => Widget.Button({
-                    on_hover: hover,
                     class_name: 'action-button',
                     on_clicked: () => notification.invoke(action.id),
                     hexpand: true,
@@ -135,13 +111,14 @@ export default notification => {
     return Widget.EventBox({
         class_name: `notification ${notification.urgency}`,
         vexpand: false,
-        on_primary_click: () => {
-            hovered.value = false;
+        on_primary_click: () => notification.dismiss(),
+        on_hover() {
+            actionsbox.reveal_child = true;
+        },
+        on_hover_lost() {
+            actionsbox.reveal_child = true;
             notification.dismiss();
         },
-        properties: [['hovered', hovered]],
-        on_hover: hover,
-        on_hover_lost: hoverLost,
         child: Widget.Box({
             vertical: true,
             children: [

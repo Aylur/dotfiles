@@ -39,10 +39,6 @@ const TextBox = player => Widget.Box({
         mpris.CoverArt(player, {
             hpack: 'end',
             hexpand: false,
-            child: Widget.Box({
-                class_name: 'shader',
-                hexpand: true,
-            }),
         }),
         Widget.Box({
             hexpand: true,
@@ -68,10 +64,8 @@ const TextBox = player => Widget.Box({
 const PlayerBox = player => Widget.Box({
     class_name: `player ${player.name}`,
     child: mpris.BlurredCoverArt(player, {
-        class_name: 'cover-art-bg',
         hexpand: true,
         child: Widget.Box({
-            class_name: 'shader',
             hexpand: true,
             vertical: true,
             children: [

@@ -4,6 +4,7 @@ window#quicksettings .window-content {
 
     .avatar {
         @include widget;
+        opacity: 0.9;
     }
 
     .header {

@@ -14,6 +14,8 @@
     profiles.default = {
       name = "Default";
       settings = {
+        "browser.tabs.loadInBackground" = true;
+
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "svg.context-properties.content.enabled" = true;
         "gnomeTheme.hideSingleTab" = true;

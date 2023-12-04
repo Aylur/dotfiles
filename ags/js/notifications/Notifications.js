@@ -12,7 +12,7 @@ const Popups = parent => {
         if (!id || !map.has(id))
             return;
 
-        if (map.get(id)._hovered.value && !force)
+        if (map.get(id).isHovered() && !force)
             return;
 
         if (map.size - 1 === 0)

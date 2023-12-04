@@ -32,28 +32,19 @@
         text-shadow: $text-shadow;
     }
 
-    .shader {
-        @include shader;
+    .blurred-cover, .cover {
+        background-size: cover;
+        background-position: center;
+        border-radius: $radii*0.8;
+        opacity: 0.8;
     }
 
     .cover {
-        border-radius: $radii*0.8;
         min-height: 100px;
         min-width: 100px;
         box-shadow: 2px 2px 2px 0 $shadow;
         margin: $padding;
-
-        .shader {
-            background-color: transparent;
-            border-radius: max($radii*0.8 - 1px, 0);
-            box-shadow: inset 0 0 0 999px transparentize($bg-color, 0.8);
-        }
-    }
-
-    .blurred-cover, .cover {
-        background-size: cover;
-        background-position: center;
-        border-radius: max($radii - $border-width, 0);
+        opacity: 0.9;
     }
 
     .labels {

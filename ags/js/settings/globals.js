@@ -8,14 +8,20 @@ export async function globals() {
     globalThis.recorder = (await import('../services/screenrecord.js')).default;
     globalThis.brightness = (await import('../services/brightness.js')).default;
     globalThis.indicator = (await import('../services/onScreenIndicator.js')).default;
+
     Mpris.players.forEach(player => {
         player.connect('changed', player => {
             globalThis.mpris = player || Mpris.players[0];
         });
     });
+
     Mpris.connect('player-added', (mpris, bus) => {
         mpris.getPlayer(bus)?.connect('changed', player => {
             globalThis.mpris = player || Mpris.players[0];
         });
+    });
+
+    Mpris.connect('player-closed', () => {
+        globalThis.mpris = Mpris.players[0];
     });
 }

@@ -67,6 +67,7 @@
       "networkmanager"
       "wheel"
       "audio"
+      "video"
       "libvirtd"
     ];
   };
