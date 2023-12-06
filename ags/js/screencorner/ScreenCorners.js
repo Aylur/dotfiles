@@ -55,17 +55,6 @@ export default monitor => places.map(place => Widget.Window({
     monitor,
     class_name: 'corner',
     anchor: [place.includes('top') ? 'top' : 'bottom', place.includes('right') ? 'right' : 'left'],
-    child: Widget.Box({
-        children: [
-            place.includes('right') && Widget.Label({
-                label: 'for some reason single chidren sometimes dont render',
-                css: 'color: transparent;',
-            }),
-            Corner(place),
-            place.includes('left') && Widget.Label({
-                label: 'for some reason single chidren sometimes dont render',
-                css: 'color: transparent;',
-            }),
-        ],
-    }),
+    binds: [['visible', options.desktop.screen_corners]],
+    child: Corner(place),
 }));

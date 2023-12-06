@@ -1,6 +1,6 @@
 window.corner .corner {
-    background-color: if($screen-corners, $bg-color, transparent);
-    border-radius: if($screen-corners, $radii * 2, 0);
+    background-color: $bg-color;
+    border-radius: $radii * 2;
 }
 
 window.desktop {
