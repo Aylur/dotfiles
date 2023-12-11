@@ -42,11 +42,6 @@ export async function reloadScss() {
         window#quicksettings .window-content {
             margin-right: $wm-gaps;
         }
-
-        window#quicksettings .window-content,
-        window#dashboard .window-content {
-            margin-top: 0;
-        }
     `;
 
     try {

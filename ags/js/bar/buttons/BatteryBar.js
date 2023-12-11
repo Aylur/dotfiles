@@ -24,32 +24,57 @@ const PercentLabel = () => Widget.Revealer({
 });
 
 const LevelBar = () => Widget.LevelBar({
-    vpack: 'center',
+    connections: [[options.battery.bar.full, self => {
+        const full = options.battery.bar.full.value;
+        self.vpack = full ? 'fill' : 'center';
+        self.hpack = full ? 'fill' : 'center';
+    }]],
     binds: [['value', Battery, 'percent', p => p / 100]],
 });
 
-export default () => {
-    const revaler = PercentLabel();
+const WholeButton = () => Widget.Overlay({
+    class_name: 'whole-button',
+    child: LevelBar(),
+    pass_through: true,
+    overlays: [Widget.Box({
+        hpack: 'center',
+        children: [
+            FontIcon({
+                icon: icons.battery.charging,
+                binds: [['visible', Battery, 'charging']],
+            }),
+            Widget.Box({
+                hpack: 'center',
+                vpack: 'center',
+                child: PercentLabel(),
+            }),
+        ],
+    })],
+});
 
-    return PanelButton({
-        class_name: 'battery-bar',
-        on_clicked: () => {
-            const v = options.battery.show_percentage.value;
-            options.battery.show_percentage.value = !v;
-        },
-        content: Widget.Box({
-            binds: [['visible', Battery, 'available']],
-            connections: [[Battery, w => {
+export default () => PanelButton({
+    class_name: 'battery-bar',
+    on_clicked: () => {
+        const v = options.battery.show_percentage.value;
+        options.battery.show_percentage.value = !v;
+    },
+    content: Widget.Box({
+        connections: [
+            [Battery, w => {
                 w.toggleClassName('charging', Battery.charging || Battery.charged);
                 w.toggleClassName('medium', Battery.percent < options.battery.medium.value);
                 w.toggleClassName('low', Battery.percent < options.battery.low.value);
                 w.toggleClassName('half', Battery.percent < 48);
-            }]],
-            children: [
-                Indicator(),
-                Widget.Box({ child: revaler }),
-                LevelBar(),
-            ],
-        }),
-    });
-};
+            }],
+        ],
+        binds: [
+            ['visible', Battery, 'available'],
+            ['children', options.battery.bar.full, 'value', full => full
+                ? [WholeButton()] : [
+                    Indicator(),
+                    PercentLabel(),
+                    LevelBar(),
+                ]],
+        ],
+    }),
+});

@@ -22,6 +22,7 @@
   environment.systemPackages = with pkgs.gnome; [
     adwaita-icon-theme
     nautilus
+    baobab
     gnome-calendar
     gnome-boxes
     gnome-system-monitor

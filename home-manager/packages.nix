@@ -1,5 +1,12 @@
 { pkgs, ... }:
 {
+  xdg.desktopEntries = {
+    "lf" = {
+      name = "lf";
+      noDisplay = true;
+    };
+  };
+
   home.packages = with pkgs; with nodePackages_latest; with gnome; [
     # colorscript
     (import ./colorscript.nix { inherit pkgs; })
@@ -20,6 +27,7 @@
     teams-for-linux
     icon-library
     dconf-editor
+    figma-linux
 
     # tools
     bat

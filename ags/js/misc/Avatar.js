@@ -12,7 +12,7 @@ export default props => Widget.Box({
         `)],
         ['draw', box => {
             const h = box.get_allocated_height();
-            box.set_size_request(h, -1);
+            box.set_size_request(Math.ceil(h * 1.1), -1);
         }],
     ],
 });
