@@ -5,13 +5,14 @@ in
 {
   imports = [
     ./ags.nix
-    ./bspwm.nix
     ./blackbox.nix
     ./browser.nix
+    ./bspwm.nix
     ./dconf.nix
     ./git.nix
     ./hyprland.nix
     ./lf.nix
+    ./mimelist.nix
     ./neofetch.nix
     ./neovim.nix
     ./packages.nix
@@ -20,7 +21,6 @@ in
     ./theme.nix
     ./tmux.nix
     ./wezterm.nix
-    ./mimelist.nix
   ];
 
   news.display = "show";

@@ -8,17 +8,9 @@ window#quicksettings .window-content {
     }
 
     .header {
-        @include spacing;
-    }
-
-    .system-box {
-        @include widget;
         @include spacing($rec: true);
 
-        padding: $padding;
-
-
-        button, .uptime {
+        button, .uptime, .battery {
             @include button;
             padding: $padding;
             font-weight: bold;
@@ -29,6 +21,11 @@ window#quicksettings .window-content {
                 font-size: 1.2em;
             }
         }
+
+        .battery {
+            @include spacing($multiplier: 0.5);
+        }
+
     }
 
     .battery-progress {
@@ -144,7 +141,7 @@ window#quicksettings .window-content {
 
     .simple-toggle {
         @include button;
-        padding: $padding;
+        padding: $padding $padding * 1.1;
     }
 
     .media {

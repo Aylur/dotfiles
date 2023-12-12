@@ -22,6 +22,7 @@
       gnome-photos
       gnome-tour
       gnome-connections
+      snapshot
     ]) ++ (with pkgs.gnome; [
       cheese # webcam tool
       gnome-music

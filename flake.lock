@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1701731887,
-        "narHash": "sha256-xgfThireUGD8/X6OYKXOpdGAkTUgPbpwW2FySBIjURc=",
+        "lastModified": 1702164088,
+        "narHash": "sha256-mtxhL83jc7Sbsk2jWNRQtJEeqcrqVkcgIbG5xbvFf1s=",
         "owner": "Aylur",
         "repo": "ags",
-        "rev": "93af4d4cbbc190c1116a02cdea99d327b0c5cec2",
+        "rev": "81bf370b715cbce3172da7029c537856a729ffa1",
         "type": "github"
       },
       "original": {
@@ -21,14 +21,17 @@
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1694725325,
-        "narHash": "sha256-kWNuxFWEkK2LtxMi3I+L/55dTrAdtCaXyPalClclD8s=",
-        "type": "tarball",
-        "url": "https://github.com/rafaelmardojai/firefox-gnome-theme/archive/master.tar.gz"
+        "lastModified": 1702138393,
+        "narHash": "sha256-2jRm1yzX+gKpSCtdpYt1olIgWVEkJnS7FeK00o9X1ko=",
+        "owner": "rafaelmardojai",
+        "repo": "firefox-gnome-theme",
+        "rev": "d2e6cfdd63651ae8168e5905d94138f406580dd6",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://github.com/rafaelmardojai/firefox-gnome-theme/archive/master.tar.gz"
+        "owner": "rafaelmardojai",
+        "repo": "firefox-gnome-theme",
+        "type": "github"
       }
     },
     "home-manager": {
@@ -38,11 +41,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1701728041,
-        "narHash": "sha256-x0pyrI1vC8evVDxCxyO6olOyr4wlFg9+VS3C3p4xFYQ=",
+        "lastModified": 1702159252,
+        "narHash": "sha256-4mYOL1EhOmt92OtYsHXRViWrSHvR5obLfCllMmQsUzY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ac7216918cd65f3824ba7817dea8f22e61221eaf",
+        "rev": "e6b7303bd149723c57ca23f5a9428482d6b07306",
         "type": "github"
       },
       "original": {
@@ -60,11 +63,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1701715678,
-        "narHash": "sha256-cCW30ir7VojARVLCVGFf4zSWDe8QOTlgWjYo9VOzTRc=",
+        "lastModified": 1702147292,
+        "narHash": "sha256-6M+OEv8WEV4v5fkZCRhXde1h6iBMI91zCE4JfJLYmnU=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "aa46aaed04f089b849c45a077e81e8b562be23df",
+        "rev": "af6aae4e12b96fff701d8ae8fcb48ea8bb51009f",
         "type": "github"
       },
       "original": {
@@ -78,11 +81,11 @@
         "hyprland": "hyprland_2"
       },
       "locked": {
-        "lastModified": 1701339708,
-        "narHash": "sha256-4j9bTAAnWwtX7hOwB6DrMbQzsPCT+8rI+bX0aTX4WGo=",
+        "lastModified": 1701881833,
+        "narHash": "sha256-U2645JvxkqJvDFliZwwSjZhnZPCmikGMbQNhyANXMl8=",
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
-        "rev": "efee74a7404495dbda70205824d6e9fc923ccdae",
+        "rev": "cc8f72a32e0936d94fd36e78d8ce417b4c6ec436",
         "type": "github"
       },
       "original": {
@@ -168,13 +171,17 @@
     "lf-icons": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-huCezig50vS1924wqipNDmG9B99sr0h79dXZ7CH/yi8=",
-        "type": "file",
-        "url": "https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example"
+        "lastModified": 1701153464,
+        "narHash": "sha256-yxcihtNV/YBTEwJb8tWERo67g3+VAYFVevb/+jc4Hok=",
+        "owner": "gokcehan",
+        "repo": "lf",
+        "rev": "6abce048550a582aff0105012baaf92e940a51da",
+        "type": "github"
       },
       "original": {
-        "type": "file",
-        "url": "https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example"
+        "owner": "gokcehan",
+        "repo": "lf",
+        "type": "github"
       }
     },
     "more-waita": {
@@ -182,12 +189,15 @@
       "locked": {
         "lastModified": 1700249054,
         "narHash": "sha256-A/XigUb903ebJo7TmhdqOm4uy5HWcCSHFaxhb5plPQE=",
-        "type": "tarball",
-        "url": "https://github.com/somepaulo/MoreWaita/archive/refs/heads/main.zip"
+        "owner": "somepaulo",
+        "repo": "MoreWaita",
+        "rev": "05c406b47326cdb0f481486156a6c9c9b28ef304",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://github.com/somepaulo/MoreWaita/archive/refs/heads/main.zip"
+        "owner": "somepaulo",
+        "repo": "MoreWaita",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -240,11 +250,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1701436327,
-        "narHash": "sha256-tRHbnoNI8SIM5O5xuxOmtSLnswEByzmnQcGGyNRjxsE=",
+        "lastModified": 1701718080,
+        "narHash": "sha256-6ovz0pG76dE0P170pmmZex1wWcQoeiomUZGggfH9XPs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "91050ea1e57e50388fa87a3302ba12d188ef723a",
+        "rev": "2c7f3c0fb7c08a0814627611d9d7d45ab6d75335",
         "type": "github"
       },
       "original": {

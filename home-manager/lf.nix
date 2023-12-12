@@ -96,5 +96,5 @@
     '';
   };
 
-  xdg.configFile."lf/icons".source = inputs.lf-icons;
+  xdg.configFile."lf/icons".source = "${inputs.lf-icons}/etc/icons.example";
 }

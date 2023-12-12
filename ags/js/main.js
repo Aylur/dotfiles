@@ -40,7 +40,7 @@ export default {
     onConfigParsed: init,
     windows: windows().flat(1),
     maxStreamVolume: 1.05,
-    cacheNotificationActions: true,
+    cacheNotificationActions: false,
     closeWindowDelay: {
         'quicksettings': options.transition.value,
         'dashboard': options.transition.value,
