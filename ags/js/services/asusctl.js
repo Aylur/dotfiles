@@ -9,7 +9,9 @@ class Asusctl extends Service {
         });
     }
 
+    profiles = Object.freeze(['Performance', 'Balanced', 'Quiet']);
     #profile = 'Balanced';
+    #mode = 'Hyprid';
 
     nextProfile() {
         Utils.execAsync('asusctl profile -n')
@@ -31,9 +33,9 @@ class Asusctl extends Service {
     }
 
     nextMode() {
-        Utils.execAsync(`supergfxctl -m ${this._mode === 'Hybrid' ? 'Integrated' : 'Hybrid'}`)
+        Utils.execAsync(`supergfxctl -m ${this.#mode === 'Hybrid' ? 'Integrated' : 'Hybrid'}`)
             .then(() => {
-                this._mode = Utils.exec('supergfxctl -g');
+                this.#mode = Utils.exec('supergfxctl -g');
                 this.changed('profile');
             })
             .catch(console.error);
@@ -45,17 +47,15 @@ class Asusctl extends Service {
         if (Utils.exec('which asusctl')) {
             this.available = true;
             this.#profile = Utils.exec('asusctl profile -p').split(' ')[3];
-            Utils.execAsync('supergfxctl -g').then(mode => this._mode = mode);
+            Utils.execAsync('supergfxctl -g').then(mode => this.#mode = mode);
         }
         else {
             this.available = false;
         }
     }
 
-    /** @returns {['Performance', 'Balanced', 'Quiet']} */
-    get profiles() { return ['Performance', 'Balanced', 'Quiet']; }
     get profile() { return this.#profile; }
-    get mode() { return this._mode || 'Hybrid'; }
+    get mode() { return this.#mode; }
 }
 
 export default new Asusctl();

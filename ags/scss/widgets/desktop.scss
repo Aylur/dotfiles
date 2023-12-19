@@ -1,6 +1,8 @@
 window.corner .corner {
     background-color: $bg-color;
     border-radius: $radii * 2;
+    min-width: 2px;
+    min-height: 2px;
 }
 
 window.desktop {

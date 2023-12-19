@@ -106,8 +106,8 @@ $button-radius: if($bar-style == 'floating', max(0, $radii - $bar-spacing), $rad
     }
 
     .focused-client > box > box,
-    .quicksettings > box {
-        @include spacing(1, if($bar-spacing == 0, $padding / 2, $bar-spacing));
+    .quicksettings > box > box {
+        @include spacing($spacing: if($bar-spacing == 0, $padding / 2, $bar-spacing));
     }
 
     /* stylelint-disable-next-line selector-not-notation */

@@ -14,9 +14,10 @@ export default monitor => {
                 if (Hyprland.getMonitor(monitor)?.name === ws?.monitor)
                     self.reveal_child = ws?.windows === 0;
             };
-            self.connectTo(Hyprland, update, 'client-added');
-            self.connectTo(Hyprland, update, 'client-removed');
-            self.connectTo(Hyprland.active.workspace, update);
+            self
+                .hook(Hyprland, update, 'client-added')
+                .hook(Hyprland, update, 'client-removed')
+                .hook(Hyprland.active.workspace, update);
         },
     });
 
