@@ -78,8 +78,7 @@ in
       };
 
       gestures = {
-        workspace_swipe = "on";
-        workspace_swipe_direction_lock = false;
+        workspace_swipe = true;
         workspace_swipe_forever = true;
         workspace_swipe_numbered = true;
       };

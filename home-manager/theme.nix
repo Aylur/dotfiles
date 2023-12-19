@@ -34,6 +34,7 @@ in
       moreWaita
     ];
     sessionVariables.XCURSOR_THEME = cursor-theme;
+    sessionVariables.XCURSOR_SIZE = "24";
     pointerCursor = {
       package = cursor-package;
       name = cursor-theme;
@@ -67,7 +68,7 @@ in
   gtk = {
     enable = true;
     font.name = "Ubuntu Nerd Font";
-    theme.name = "adw-gtk3";
+    theme.name = "adw-gtk3-dark";
     cursorTheme = {
       name = cursor-theme;
       package = cursor-package;
