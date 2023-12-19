@@ -111,7 +111,7 @@ in
     escapeTime = 0;
     keyMode = "vi";
     mouse = true;
-    shell = "${pkgs.zsh}/bin/zsh";
+    shell = "${pkgs.nushell}/bin/nu";
     extraConfig = ''
       set-option -sa terminal-overrides ",xterm*:Tc"
       bind v copy-mode

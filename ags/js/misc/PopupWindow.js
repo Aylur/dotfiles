@@ -4,7 +4,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import options from '../options.js';
 import GObject from 'gi://GObject';
 
-class PopupWindow2 extends AgsWindow {
+class PopupWindow extends AgsWindow {
     static { GObject.registerClass(this); }
 
     /** @param {import('types/widgets/window').WindowProps & {
@@ -54,4 +54,4 @@ class PopupWindow2 extends AgsWindow {
  *      transition?: import('types/widgets/revealer').RevealerProps['transition']
  *  }} config
  */
-export default config => new PopupWindow2(config);
+export default config => new PopupWindow(config);

@@ -16,9 +16,6 @@ return {
                 lua_ls = {},
                 gopls = {},
                 ruff_lsp = {},
-
-                -- FIXME: remove after uni
-                sqlls = {},
             },
         },
     },

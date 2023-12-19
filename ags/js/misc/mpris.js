@@ -1,9 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import icons from '../icons.js';
-import GLib from 'gi://GLib';
-
-const MEDIA_CACHE_PATH = Utils.CACHE_DIR + '/media';
+import { blurImg } from '../utils.js';
 
 /**
  * @param {import('types/service/mpris').MprisPlayer} player
@@ -23,25 +21,9 @@ export const CoverArt = (player, props) => Widget.Box({
 export const BlurredCoverArt = (player, props) => Widget.Box({
     ...props,
     class_name: 'blurred-cover',
-    connections: [[player, box => {
-        const url = player.cover_path;
-        if (!url)
-            return;
-
-        const blurredPath = MEDIA_CACHE_PATH + '/blurred';
-        const blurred = blurredPath +
-            url.substring(MEDIA_CACHE_PATH.length);
-
-        if (GLib.file_test(blurred, GLib.FileTest.EXISTS)) {
-            box.setCss(`background-image: url("${blurred}")`);
-            return;
-        }
-
-        Utils.ensureDirectory(blurredPath);
-        Utils.execAsync(['convert', url, '-blur', '0x22', blurred])
-            .then(() => box.setCss(`background-image: url("${blurred}")`))
-            .catch(err => console.error(err));
-    }, 'notify::cover-path']],
+    connections: [[player, box => blurImg(player.cover_path).then(img => {
+        img && box.setCss(`background-image: url("${img}")`);
+    }), 'notify::cover-path']],
 });
 
 /**

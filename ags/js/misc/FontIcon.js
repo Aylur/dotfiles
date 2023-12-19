@@ -1,13 +1,16 @@
 import Gtk from 'gi://Gtk';
+import { createCtor } from 'resource:///com/github/Aylur/ags/widget.js';
 import AgsLabel from 'resource:///com/github/Aylur/ags/widgets/label.js';
 import GObject from 'gi://GObject';
 
-class FontIcon extends AgsLabel {
+export default createCtor(class FontIcon extends AgsLabel {
     static { GObject.registerClass(this); }
 
     /** @param {string | import('types/widgets/label').Props & { icon?: string }} params */
     constructor(params = '') {
+        // @ts-expect-error
         const { icon = '', ...rest } = params;
+
         super(typeof params === 'string' ? {} : rest);
         this.toggleClassName('font-icon');
 
@@ -35,7 +38,4 @@ class FontIcon extends AgsLabel {
     vfunc_get_preferred_width() {
         return [this.size, this.size];
     }
-}
-
-/** @param {string | import('types/widgets/label').Props & { icon?: string }} params */
-export default params => new FontIcon(params);
+});
