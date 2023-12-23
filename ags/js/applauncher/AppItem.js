@@ -24,7 +24,7 @@ export default app => {
 
     const icon = Widget.Icon({
         icon: lookUpIcon(app.icon_name || '') ? app.icon_name || '' : '',
-        binds: [['size', options.applauncher.icon_size]],
+        size: options.applauncher.icon_size.bind('value'),
     });
 
     const textBox = Widget.Box({
@@ -35,13 +35,13 @@ export default app => {
 
     return Widget.Button({
         class_name: 'app-item',
-        setup: self => self.app = app,
+        attribute: app,
+        child: Widget.Box({
+            children: [icon, textBox],
+        }),
         on_clicked: () => {
             App.closeWindow('applauncher');
             app.launch();
         },
-        child: Widget.Box({
-            children: [icon, textBox],
-        }),
     });
 };
