@@ -66,6 +66,7 @@ const Applauncher = () => {
             if (win !== WINDOW_NAME)
                 return;
 
+            entry.text = '-';
             entry.text = '';
             if (visible) {
                 entry.grab_focus();
