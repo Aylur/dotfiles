@@ -79,7 +79,7 @@ in
           }
 
           table: {
-            mode: compact # thin, rounded
+            mode: rounded # compact, thin, rounded
             index_mode: never # always, auto
           }
 

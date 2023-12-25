@@ -20,4 +20,5 @@ symlink() {
 remove
 if ! [[ $1 == 'remove' ]]; then
 	symlink
+	rm ~/.config/mimeapps.list
 fi

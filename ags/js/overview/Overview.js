@@ -1,7 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import PopupWindow from '../misc/PopupWindow.js';
 import Workspace from './Workspace.js';
 import options from '../options.js';
@@ -14,10 +13,12 @@ const update = box => {
     if (App.windows.has('overview') && !App.getWindow('overview')?.visible)
         return;
 
-    Utils.execAsync('hyprctl -j clients')
+    Hyprland.sendMessage('j/clients')
         .then(clients => {
-            const json = JSON.parse(clients);
-            box.children.forEach(ch => ch.update(json));
+            box.children.forEach(ws => {
+                // @ts-expect-error
+                ws.attribute(JSON.parse(clients));
+            });
         })
         .catch(console.error);
 };
@@ -26,7 +27,7 @@ const update = box => {
 const children = box => {
     if (ws.value === 0) {
         box.children = Hyprland.workspaces
-            .sort((ws1, ws2) => ws1.id > ws2.id)
+            .sort((ws1, ws2) => ws1.id - ws2.id)
             .map(({ id }) => Workspace(id));
     }
 };

@@ -15,7 +15,7 @@ const dispatch = args => Utils.execAsync(`hyprctl dispatch ${args}`);
 export default index => {
     const fixed = Gtk.Fixed.new();
 
-    const widget = Widget.Box({
+    return Widget.Box({
         class_name: 'workspace',
         vpack: 'center',
         css: `
@@ -37,20 +37,19 @@ export default index => {
             },
             child: fixed,
         }),
+
+        /** @param {Array<import('types/service/hyprland').Client>} clients */
+        attribute: clients => {
+            fixed.get_children().forEach(ch => ch.destroy());
+            clients
+                .filter(({ workspace: { id } }) => id === index)
+                .forEach(c => {
+                    c.at[0] -= Hyprland.getMonitor(c.monitor)?.x || 0;
+                    c.at[1] -= Hyprland.getMonitor(c.monitor)?.y || 0;
+                    c.mapped && fixed.put(Client(c), c.at[0] * SCALE, c.at[1] * SCALE);
+                });
+
+            fixed.show_all();
+        },
     });
-
-    widget.update = clients => {
-        fixed.get_children().forEach(ch => ch.destroy());
-        clients
-            .filter(({ workspace: { id } }) => id === index)
-            .forEach(c => {
-                c.at[0] -= Hyprland.getMonitor(c.monitor)?.x || 0;
-                c.at[1] -= Hyprland.getMonitor(c.monitor)?.y || 0;
-                c.mapped && fixed.put(Client(c), c.at[0] * SCALE, c.at[1] * SCALE);
-            });
-
-        fixed.show_all();
-    };
-
-    return widget;
 };
