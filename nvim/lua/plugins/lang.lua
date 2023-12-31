@@ -24,14 +24,37 @@ return {
                 "luadoc",
                 "luap",
 
-                "markdown",
-                "markdown_inline",
-
                 "python",
                 "query",
                 "regex",
                 "vim",
                 "vimdoc",
+
+                -- FIXME: remove after uni
+                "sql",
+            },
+        },
+    },
+    {
+        "neovim/nvim-lspconfig",
+        opts = {
+            servers = {
+                bashls = {},
+                clangd = {},
+                cssls = {},
+                eslint = {},
+                stylelint_lsp = {},
+                html = {},
+                svelte = {},
+                tsserver = {},
+                nil_ls = {},
+                lua_ls = {},
+                gopls = {},
+                ruff_lsp = {},
+                nushell = {},
+
+                -- FIXME: remove after uni
+                sqlls = {},
             },
         },
     },
