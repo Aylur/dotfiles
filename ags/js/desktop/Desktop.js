@@ -7,28 +7,26 @@ const DesktopClock = () => Widget.Box({
     class_name: 'clock-box-shadow',
     child: Widget.CenterBox({
         class_name: 'clock-box',
-        children: [
-            Clock({
-                class_name: 'clock',
-                hpack: 'center',
-                format: '%H',
-            }),
-            Widget.Box({
-                class_name: 'separator-box',
-                vertical: true,
-                hexpand: true,
-                hpack: 'center',
-                children: [
-                    Widget.Separator({ vpack: 'center', vexpand: true }),
-                    Widget.Separator({ vpack: 'center', vexpand: true }),
-                ],
-            }),
-            Clock({
-                class_name: 'clock',
-                hpack: 'center',
-                format: '%M',
-            }),
-        ],
+        start_widget: Clock({
+            class_name: 'clock',
+            hpack: 'center',
+            format: '%H',
+        }),
+        center_widget: Widget.Box({
+            class_name: 'separator-box',
+            vertical: true,
+            hexpand: true,
+            hpack: 'center',
+            children: [
+                Widget.Separator({ vpack: 'center', vexpand: true }),
+                Widget.Separator({ vpack: 'center', vexpand: true }),
+            ],
+        }),
+        end_widget: Clock({
+            class_name: 'clock',
+            hpack: 'center',
+            format: '%M',
+        }),
     }),
 });
 
@@ -38,15 +36,15 @@ const Desktop = () => Widget.EventBox({
         vertical: true,
         vexpand: true,
         hexpand: true,
-        binds: [['visible', options.desktop.clock.enable]],
-        connections: [[options.desktop.clock.position, box => {
+        visible: options.desktop.clock.enable.bind('value'),
+        setup: self => self.hook(options.desktop.clock.position, () => {
             const [hpack = 'center', vpack = 'center', offset = 64] =
                 options.desktop.clock.position.value.split(' ') || [];
 
             // @ts-expect-error
-            box.hpack = hpack; box.vpack = vpack;
-            box.setCss(`margin: ${Number(offset)}px;`);
-        }]],
+            self.hpack = hpack; self.vpack = vpack;
+            self.setCss(`margin: ${Number(offset)}px;`);
+        }),
         children: [
             DesktopClock(),
             Clock({ format: '%B %e. %A', class_name: 'date' }),

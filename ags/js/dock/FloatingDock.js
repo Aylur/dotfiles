@@ -35,15 +35,10 @@ export default monitor => {
                 }),
             ],
         }),
-        connections: [
-            ['enter-notify-event', () => {
-                revealer.reveal_child = true;
-            }],
-            ['leave-notify-event', () => {
-                revealer.reveal_child = false;
-            }],
-        ],
-        binds: [['visible', options.bar.position, 'value', v => v !== 'bottom']],
+        setup: self => self
+            .on('enter-notify-event', () => revealer.reveal_child = true)
+            .on('leave-notify-event', () => revealer.reveal_child = false)
+            .bind('visible', options.bar.position, 'value', v => v !== 'bottom'),
     });
 };
 

@@ -7,7 +7,7 @@ import options from '../../options.js';
 /**
  * @param {import('types/widgets/revealer').default} revealer
  * @param {'left' | 'right' | 'up' | 'down'} direction
- * @param {import('types/variable').Variable} items
+ * @param {import('types/variable').Variable<number>} items
  */
 const Arrow = (revealer, direction, items) => {
     let deg = 0;
@@ -29,9 +29,7 @@ const Arrow = (revealer, direction, items) => {
 
     return Widget.Button({
         class_name: 'panel-button sub-menu',
-        connections: [[items, btn => {
-            btn.tooltip_text = `${items.value} Items`;
-        }]],
+        tooltip_text: items.bind().transform(v => `${v} Items`),
         on_clicked: () => {
             animate();
             revealer.reveal_child = !revealer.reveal_child;

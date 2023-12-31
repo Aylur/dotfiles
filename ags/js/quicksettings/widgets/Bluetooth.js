@@ -6,53 +6,48 @@ import { Menu, ArrowToggleButton } from '../ToggleButton.js';
 export const BluetoothToggle = () => ArrowToggleButton({
     name: 'bluetooth',
     icon: Widget.Icon({
-        connections: [[Bluetooth, icon => {
-            icon.icon = Bluetooth.enabled
-                ? icons.bluetooth.enabled
-                : icons.bluetooth.disabled;
-        }]],
+        icon: Bluetooth.bind('enabled').transform(p => icons.bluetooth[p ? 'enabled' : 'disabled']),
     }),
     label: Widget.Label({
         truncate: 'end',
-        connections: [[Bluetooth, label => {
+        setup: self => self.hook(Bluetooth, () => {
             if (!Bluetooth.enabled)
-                return label.label = 'Disabled';
+                return self.label = 'Disabled';
 
-            if (Bluetooth.connectedDevices.length === 0)
-                return label.label = 'Not Connected';
+            if (Bluetooth.connected_devices.length === 0)
+                return self.label = 'Not Connected';
 
-            if (Bluetooth.connectedDevices.length === 1)
-                return label.label = Bluetooth.connectedDevices[0].alias;
+            if (Bluetooth.connected_devices.length === 1)
+                return self.label = Bluetooth.connected_devices[0].alias;
 
-            label.label = `${Bluetooth.connectedDevices.length} Connected`;
-        }]],
+            self.label = `${Bluetooth.connected_devices.length} Connected`;
+        }),
     }),
     connection: [Bluetooth, () => Bluetooth.enabled],
     deactivate: () => Bluetooth.enabled = false,
     activate: () => Bluetooth.enabled = true,
 });
 
+/** @param {import('types/service/bluetooth').BluetoothDevice} device */
 const DeviceItem = device => Widget.Box({
     children: [
         Widget.Icon(device.icon_name + '-symbolic'),
         Widget.Label(device.name),
         Widget.Label({
             label: `${device.battery_percentage}%`,
-            binds: [['visible', device, 'battery-percentage', p => p > 0]],
+            visible: device.bind('battery_percentage').transform(p => p > 0),
         }),
         Widget.Box({ hexpand: true }),
         Widget.Spinner({
-            binds: [
-                ['active', device, 'connecting'],
-                ['visible', device, 'connecting'],
-            ],
+            active: device.bind('connecting'),
+            visible: device.bind('connecting'),
         }),
         Widget.Switch({
             active: device.connected,
-            binds: [['visible', device, 'connecting', c => !c]],
-            connections: [['notify::active', ({ active }) => {
-                device.setConnection(active);
-            }]],
+            visible: device.bind('connecting').transform(p => !p),
+            setup: self => self.on('notify::active', () => {
+                device.setConnection(self.active);
+            }),
         }),
     ],
 });
@@ -65,9 +60,9 @@ export const BluetoothDevices = () => Menu({
         Widget.Box({
             hexpand: true,
             vertical: true,
-            binds: [['children', Bluetooth, 'devices', ds => ds
+            children: Bluetooth.bind('devices').transform(ds => ds
                 .filter(d => d.name)
-                .map(DeviceItem)]],
+                .map(DeviceItem)),
         }),
     ],
 });

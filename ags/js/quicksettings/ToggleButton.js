@@ -18,22 +18,20 @@ App.connect('window-toggled', (_, name, visible) => {
 export const Arrow = (name, activate) => {
     let deg = 0;
     let iconOpened = false;
+    const icon = Widget.Icon(icons.ui.arrow.right).hook(opened, () => {
+        if (opened.value === name && !iconOpened || opened.value !== name && iconOpened) {
+            const step = opened.value === name ? 10 : -10;
+            iconOpened = !iconOpened;
+            for (let i = 0; i < 9; ++i) {
+                Utils.timeout(15 * i, () => {
+                    deg += step;
+                    icon.setCss(`-gtk-icon-transform: rotate(${deg}deg);`);
+                });
+            }
+        }
+    });
     return Widget.Button({
-        child: Widget.Icon({
-            icon: icons.ui.arrow.right,
-            connections: [[opened, icon => {
-                if (opened.value === name && !iconOpened || opened.value !== name && iconOpened) {
-                    const step = opened.value === name ? 10 : -10;
-                    iconOpened = !iconOpened;
-                    for (let i = 0; i < 9; ++i) {
-                        Utils.timeout(15 * i, () => {
-                            deg += step;
-                            icon.setCss(`-gtk-icon-transform: rotate(${deg}deg);`);
-                        });
-                    }
-                }
-            }]],
-        }),
+        child: icon,
         on_clicked: () => {
             opened.value = opened.value === name ? '' : name;
             if (typeof activate === 'function')
@@ -62,9 +60,9 @@ export const ArrowToggleButton = ({
     connection: [service, condition],
 }) => Widget.Box({
     class_name: 'toggle-button',
-    connections: [[service, box => {
-        box.toggleClassName('active', condition());
-    }]],
+    setup: self => self.hook(service, () => {
+        self.toggleClassName('active', condition());
+    }),
     children: [
         Widget.Button({
             child: Widget.Box({
@@ -95,7 +93,7 @@ export const ArrowToggleButton = ({
  */
 export const Menu = ({ name, icon, title, content }) => Widget.Revealer({
     transition: 'slide_down',
-    binds: [['reveal-child', opened, 'value', v => v === name]],
+    reveal_child: opened.bind().transform(v => v === name),
     child: Widget.Box({
         class_names: ['menu', name],
         vertical: true,
@@ -122,9 +120,9 @@ export const SimpleToggleButton = ({
     connection: [service, condition],
 }) => Widget.Button({
     class_name: 'simple-toggle',
-    connections: [[service, box => {
-        box.toggleClassName('active', condition());
-    }]],
+    setup: self => self.hook(service, () => {
+        self.toggleClassName('active', condition());
+    }),
     child: icon,
     on_clicked: toggle,
 });
