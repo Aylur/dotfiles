@@ -20,6 +20,7 @@
   };
 
   environment.systemPackages = with pkgs.gnome; [
+    pkgs.loupe
     adwaita-icon-theme
     nautilus
     baobab
@@ -29,6 +30,7 @@
     gnome-control-center
     gnome-weather
     gnome-calculator
+    gnome-clocks
     gnome-software # for flatpak
   ];
 

@@ -14,7 +14,7 @@ export default ({
 } = {}) => Widget.Label({
     class_name: 'clock',
     ...rest,
-    connections: [[interval, label =>
-        label.label = GLib.DateTime.new_now_local().format(format) || 'wrong format',
-    ]],
+    setup: self => self.poll(interval, () => {
+        self.label = GLib.DateTime.new_now_local().format(format) || 'wrong format';
+    }),
 });

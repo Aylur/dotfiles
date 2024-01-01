@@ -11,21 +11,25 @@ const Workspaces = () => {
     const ws = options.workspaces.value;
     return Widget.Box({
         children: range(ws || 20).map(i => Widget.Button({
-            setup: btn => btn.id = i,
+            attribute: i,
             on_clicked: () => dispatch(i),
             child: Widget.Label({
                 label: `${i}`,
                 class_name: 'indicator',
                 vpack: 'center',
             }),
-            connections: [[Hyprland, btn => {
-                btn.toggleClassName('active', Hyprland.active.workspace.id === i);
-                btn.toggleClassName('occupied', Hyprland.getWorkspace(i)?.windows > 0);
-            }]],
+            setup: self => self.hook(Hyprland, () => {
+                self.toggleClassName('active', Hyprland.active.workspace.id === i);
+                self.toggleClassName('occupied', (Hyprland.getWorkspace(i)?.windows || 0) > 0);
+            }),
         })),
-        connections: ws ? [] : [[Hyprland.active.workspace, box => box.children.map(btn => {
-            btn.visible = Hyprland.workspaces.some(ws => ws.id === btn.id);
-        })]],
+        setup: box => {
+            if (ws === 0) {
+                box.hook(Hyprland.active.workspace, () => box.children.map(btn => {
+                    btn.visible = Hyprland.workspaces.some(ws => ws.id === btn.attribute);
+                }));
+            }
+        },
     });
 };
 
@@ -37,7 +41,7 @@ export default () => Widget.EventBox({
             on_scroll_up: () => dispatch('m+1'),
             on_scroll_down: () => dispatch('m-1'),
             class_name: 'eventbox',
-            binds: [['child', options.workspaces, 'value', Workspaces]],
+            child: options.workspaces.bind('value').transform(Workspaces),
         }),
     }),
 });

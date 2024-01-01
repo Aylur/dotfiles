@@ -6,7 +6,7 @@ const Padding = windowName => Widget.EventBox({
     class_name: 'padding',
     hexpand: true,
     vexpand: true,
-    connections: [['button-press-event', () => App.toggleWindow(windowName)]],
+    setup: w => w.on('button-press-event', () => App.toggleWindow(windowName)),
 });
 
 /**
@@ -28,17 +28,13 @@ export default ({ name, child, ...rest }) => Widget.Window({
     child: Widget.CenterBox({
         class_name: 'shader',
         css: 'min-width: 5000px; min-height: 3000px;',
-        children: [
-            Padding(name),
-            Widget.CenterBox({
-                vertical: true,
-                children: [
-                    Padding(name),
-                    child,
-                    Padding(name),
-                ],
-            }),
-            Padding(name),
-        ],
+        start_widget: Padding(name),
+        end_widget: Padding(name),
+        center_widget: Widget.CenterBox({
+            vertical: true,
+            start_widget: Padding(name),
+            end_widget: Padding(name),
+            center_widget: child,
+        }),
     }),
 });

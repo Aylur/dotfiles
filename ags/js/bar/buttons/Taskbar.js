@@ -24,9 +24,6 @@ const setChildren = box => box.children = Hyprland.clients.map(client => {
     }
 });
 
-export default () => Widget.Box({
-    connections: [
-        [Hyprland, setChildren, 'notify::clients'],
-        [Hyprland, setChildren, 'notify::active'],
-    ],
-});
+export default () => Widget.Box()
+    .hook(Hyprland, setChildren, 'notify::clients')
+    .hook(Hyprland, setChildren, 'notify::active');

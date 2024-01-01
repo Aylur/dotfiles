@@ -76,6 +76,7 @@
 
     # langs
     nodejs
+    bun
     go
     gcc
     typescript

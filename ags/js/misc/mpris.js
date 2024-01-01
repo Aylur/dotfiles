@@ -10,8 +10,8 @@ import { blurImg } from '../utils.js';
 export const CoverArt = (player, props) => Widget.Box({
     ...props,
     class_name: 'cover',
-    binds: [['css', player, 'cover-path',
-        path => `background-image: url("${path}")`]],
+    css: player.bind('cover_path').transform(p =>
+        `background-image: url("${p}")`),
 });
 
 /**
@@ -21,9 +21,9 @@ export const CoverArt = (player, props) => Widget.Box({
 export const BlurredCoverArt = (player, props) => Widget.Box({
     ...props,
     class_name: 'blurred-cover',
-    connections: [[player, box => blurImg(player.cover_path).then(img => {
+    setup: self => self.hook(player, box => blurImg(player.cover_path).then(img => {
         img && box.setCss(`background-image: url("${img}")`);
-    }), 'notify::cover-path']],
+    }), 'notify::cover-path'),
 });
 
 /**
@@ -33,7 +33,7 @@ export const BlurredCoverArt = (player, props) => Widget.Box({
 export const TitleLabel = (player, props) => Widget.Label({
     ...props,
     class_name: 'title',
-    binds: [['label', player, 'track-title']],
+    label: player.bind('track_title'),
 });
 
 /**
@@ -43,7 +43,7 @@ export const TitleLabel = (player, props) => Widget.Label({
 export const ArtistLabel = (player, props) => Widget.Label({
     ...props,
     class_name: 'artist',
-    binds: [['label', player, 'track-artists', a => a.join(', ') || '']],
+    label: player.bind('track_artists').transform(a => a.join(', ') || ''),
 });
 
 /**
@@ -54,12 +54,12 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => Widget
     ...props,
     class_name: 'player-icon',
     tooltip_text: player.identity || '',
-    connections: [[player, icon => {
+    setup: self => self.hook(player, icon => {
         const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
         Utils.lookUpIcon(name)
             ? icon.icon = name
             : icon.icon = icons.mpris.fallback;
-    }]],
+    }),
 });
 
 /**
@@ -70,22 +70,20 @@ export const PositionSlider = (player, props) => Widget.Slider({
     ...props,
     class_name: 'position-slider',
     draw_value: false,
-    on_change: ({ value }) => {
-        player.position = player.length * value;
-    },
-    properties: [['update', slider => {
-        if (slider.dragging)
-            return;
+    on_change: ({ value }) => player.position = player.length * value,
+    setup: self => {
+        const update = () => {
+            if (self.dragging)
+                return;
 
-        slider.visible = player.length > 0;
-        if (player.length > 0)
-            slider.value = player.position / player.length;
-    }]],
-    connections: [
-        [player, s => s._update(s)],
-        [player, s => s._update(s), 'position'],
-        [1000, s => s._update(s)],
-    ],
+            self.visible = player.length > 0;
+            if (player.length > 0)
+                self.value = player.position / player.length;
+        };
+        self.hook(player, update);
+        self.hook(player, update, 'position');
+        self.poll(1000, update);
+    },
 });
 
 /** @param {number} length */
@@ -98,32 +96,27 @@ function lengthStr(length) {
 
 /** @param {import('types/service/mpris').MprisPlayer} player */
 export const PositionLabel = player => Widget.Label({
-    properties: [['update', (label, time) => {
-        player.length > 0
-            ? label.label = lengthStr(time || player.position)
-            : label.visible = !!player;
-    }]],
-    connections: [
-        [player, (l, time) => l._update(l, time), 'position'],
-        [1000, l => l._update(l)],
-    ],
+    setup: self => {
+        const update = (_, time) => {
+            player.length > 0
+                ? self.label = lengthStr(time || player.position)
+                : self.visible = !!player;
+        };
+        self.hook(player, update, 'position');
+        self.poll(1000, update);
+    },
 });
 
 /** @param {import('types/service/mpris').MprisPlayer} player */
 export const LengthLabel = player => Widget.Label({
-    connections: [[player, label => {
-        player.length > 0
-            ? label.label = lengthStr(player.length)
-            : label.visible = !!player;
-    }]],
+    label: player.bind('length').transform(l => lengthStr(l)),
+    visible: player.bind('length').transform(l => l > 0),
 });
 
 /** @param {import('types/service/mpris').MprisPlayer} player */
 export const Slash = player => Widget.Label({
     label: '/',
-    connections: [[player, label => {
-        label.visible = player.length > 0;
-    }]],
+    visible: player.bind('length').transform(l => l > 0),
 });
 
 /**
@@ -136,12 +129,9 @@ export const Slash = player => Widget.Label({
  * @param {any} o.cantValue
  */
 const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) => Widget.Button({
-    child: Widget.Stack({
-        items,
-        binds: [['shown', player, prop, p => `${p}`]],
-    }),
-    on_clicked: player[onClick].bind(player),
-    binds: [['visible', player, canProp, c => c !== cantValue]],
+    child: Widget.Stack({ items }).bind('shown', player, prop, p => `${p}`),
+    on_clicked: () => player[onClick](),
+    visible: player.bind(canProp).transform(c => c === cantValue),
 });
 
 /** @param {import('types/service/mpris').MprisPlayer} player */
