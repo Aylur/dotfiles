@@ -104,6 +104,10 @@ export default {
         cpu: 'org.gnome.SystemMonitor-symbolic',
         ram: 'drive-harddisk-solidstate-symbolic',
         temp: 'temperature-symbolic',
+        home: 'user-home-symbolic',
+        root: 'drive-harddisk-system-symbolic',
+        updates: 'software-update-available-symbolic',
+        no_updates: 'security-high-symbolic'
     },
     dialog: {
         Search: '',
@@ -118,4 +122,15 @@ export default {
         Theme: '󰃟',
         Notifications: '󰂚 ',
     },
+    mail: {
+        unread: 'mail-unread-symbolic',
+        empty: 'mail-read-symbolic',
+    },
+    vpn: {
+        connected: 'network-vpn-symbolic',
+        disconnected: 'network-vpn-disconnected-symbolic',
+    },
+    docker: "'",
+    timer_on: "󱫡",
+    timer_off: "󰔞"
 };

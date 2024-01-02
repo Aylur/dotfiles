@@ -49,6 +49,41 @@ $button-radius: if($bar-style == 'floating', max(0, $radii - $bar-spacing), $rad
 }
 
 .panel {
+    .cpu {
+        color: $accent;
+    }
+
+    .ram {
+        color: $yellow;
+    }
+
+    .temp {
+        color: $magenta;
+    }
+
+    .disk {
+        color: $teal;
+    }
+
+    .high {
+        color: $red;
+    }
+
+    .system-resources-box {
+        margin: $spacing/2;
+
+        .circular-progress {
+            min-height: $spacing * 3;
+            min-width: $spacing * 3;
+            font-size: 0.2em;
+            background-color: $accent_fg;
+            image {
+                font-size: 4em;
+                color: $fg_color;
+            }
+        }
+    }
+
     @if $bar-style == 'normal' {
         background-color: $bg-color;
     }
@@ -137,33 +172,55 @@ $button-radius: if($bar-style == 'floating', max(0, $radii - $bar-spacing), $rad
             > box { padding: 0; }
         }
 
-        image, .font-icon {
-            margin-right: $bar-spacing * .5;
-        }
-
-        levelbar trough {
+    @mixin panel-bar {
+        color: darken($fg_color, 30%);
+        image { margin-right: $spacing/2; }
+        progressbar trough {
             @include widget;
-            min-width: $battery-bar-width;
-            min-height: $battery-bar-height;
-
+            min-width: 60px;
+            min-height: 6px;
+            background: $accent_fg;
+            border-color: darken($fg_color, 30%);
+            progress {
+                border-radius: $radii;
+                min-height: 6px;
+                background-image: linear-gradient(to right, darken($fg_color, 30%), darken($fg_color, 20%));
+            }
             block.filled {
-                border-radius: max($radii - $border-width, 0);
-                background-image: $active-gradient;
+                border-radius: max($radii - $border_width, 0);
+                background-image: $active_gradient;
             }
         }
 
-        @mixin color($color) {
-            image, label { color: $color }
+    }
 
-            block.filled {
-                background-image: linear-gradient(to right, $color, lighten($color, 6%));
+    @mixin color($color) {
+        image, label, text { color: $color }
+
+        block.filled {
+            background-image: linear-gradient(to right, $color, lighten($color, 6%));
+        }
+        progressbar trough {
+            border-color: darken($color, 30%);
+            progress {
+                background-image: linear-gradient(to right, $color, lighten($color, 10%));
             }
         }
+    }
 
+
+    .disk-bar {
+        @include panel-bar;
+       .high { @include color($red) }
+    }
+
+    .battery-bar {
+        @include panel-bar;
         .medium { @include color($yellow) }
         .low { @include color($red) }
         .charging { @include color($green) }
         &:active { @include color($accent-fg) }
+    }
 
         .whole-button {
             label {
@@ -185,14 +242,13 @@ $button-radius: if($bar-style == 'floating', max(0, $radii - $bar-spacing), $rad
         all: unset;
 
         .indicator {
-            font-size: 0;
-            min-width: 8px;
-            min-height: 8px;
+            min-height: 20px;
             border-radius: $radii*0.6;
             box-shadow: inset 0 0 0 $border-width $border-color;
             margin: 0 $padding/2;
             transition: $transition/2;
             background-color: transparentize($fg-color, 0.8);
+            min-width: 20px;
         }
 
         &.occupied .indicator {
@@ -204,14 +260,53 @@ $button-radius: if($bar-style == 'floating', max(0, $radii - $bar-spacing), $rad
         &:hover .indicator {
             box-shadow: inset 0 0 0 10px transparentize($fg-color, 0.8);
         }
+        &.occupied .indicator {
+            background-color: transparentize($fg-color, 0.5);
+            min-width: 20px;
+            min-height: 20px;
+        }
+
+        &.active .indicator, &:active .indicator {
+            background-color: $accent;
+        }
 
         &.active .indicator, &:active .indicator {
             background-color: $accent;
         }
 
         &.active .indicator {
-            min-width: 24px;
+            min-width: 20px;
             min-height: 16px;
+        }
+    }
+
+    .counter {
+        font-size: 0.8em;
+        image { margin-right: $spacing/2; }
+        .font-icon {
+            margin-right: $spacing/2;
+            font-size: 1em;
+        }
+        label, image {
+            color: $red;
+        }
+        &.docker {
+            label, image {
+                color: $blue;
+            }
+        }
+        &.empty {
+            label, image {
+                color: darken($fg_color, 30%);
+            }
+        }
+    }
+
+    .active-task {
+        image { margin-right: $spacing; }
+        .font-icon {
+            margin-right: $spacing;
+            font-size: 1.2em;
         }
     }
 }

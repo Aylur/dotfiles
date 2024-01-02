@@ -139,12 +139,12 @@ export default {
     }),
 
     font: {
-        font: Option('Ubuntu Nerd Font', {
+        font: Option('Iosevka Comfy Wide', {
             'type': 'font',
             'title': 'Font',
             'scss': 'font',
         }),
-        mono: Option('Mononoki Nerd Font', {
+        mono: Option('Iosevka Comfy Wide Fixed', {
             'title': 'Monospaced Font',
             'scss': 'mono-font',
         }),
@@ -258,7 +258,7 @@ export default {
         }),
     },
 
-    workspaces: Option(7, {
+    workspaces: Option(0, {
         'category': 'Bar',
         'title': 'No. workspaces on bar and overview',
         'note': 'Set it to 0 to make it dynamic',

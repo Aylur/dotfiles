@@ -1,9 +1,9 @@
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
+import Widget from 'resource:com/github/Aylur/ags/widget.js';
+import Variable from 'resource:com/github/Aylur/ags/variable.js';
+import Notifications from 'resource:com/github/Aylur/ags/service/notifications.js';
+import Mpris from 'resource:com/github/Aylur/ags/service/mpris.js';
+import Battery from 'resource:com/github/Aylur/ags/service/battery.js';
 import OverviewButton from './buttons/OverviewButton.js';
 import Workspaces from './buttons/Workspaces.js';
 import FocusedClient from './buttons/FocusedClient.js';
@@ -18,9 +18,13 @@ import ScreenRecord from './buttons/ScreenRecord.js';
 import BatteryBar from './buttons/BatteryBar.js';
 import SubMenu from './buttons/SubMenu.js';
 import Recorder from '../services/screenrecord.js';
-// import * as System from './buttons/System.js';
-// import Taskbar from './buttons/Taskbar.js';
+import MountFree from './buttons/Disk.js'
+import MailCounter from './buttons/MailCounter.js';
+import UpdateCounter from './buttons/UpdateCounter.js';
+import ActiveTask from './buttons/ActiveTask.js';
+import DockerIndicator from './buttons/DockerIndicator.js';
 import options from '../options.js';
+import SysProgress from './buttons/SysProgress.js';
 
 const submenuItems = Variable(1);
 SystemTray.connect('changed', () => {
@@ -60,6 +64,8 @@ const Start = () => Widget.Box({
         Workspaces(),
         SeparatorDot(),
         FocusedClient(),
+        SeparatorDot(),
+        ActiveTask(),
         Widget.Box({ hexpand: true }),
         NotificationIndicator(),
         SeparatorDot(Notifications, n => n.notifications.length > 0 || n.dnd),
@@ -87,14 +93,26 @@ const End = () => Widget.Box({
                 ColorPicker(),
             ],
         }),
-
-        SeparatorDot(),
-        ScreenRecord(),
+        Widget.Box({
+            className: 'system-info',
+            children: [
+                SysProgress('cpu', 'CPU', '%'),
+                SysProgress('ram', 'Memory', '%'),
+                SysProgress('temp', 'Temperature', '°C'),
+                MountFree('lvhome', 'Home', 'home'),
+                MountFree('lvroot', 'Root', 'root'),
+            ],
+        }),
         SeparatorDot(Recorder, r => r.recording),
-        SystemIndicators(),
+        ScreenRecord(),
         SeparatorDot(Battery, b => b.available),
         BatteryBar(),
         SeparatorDot(),
+        MailCounter(),
+        UpdateCounter(),
+        DockerIndicator(),
+        SeparatorDot(),
+        SystemIndicators(),
         PowerMenu(),
     ],
 });

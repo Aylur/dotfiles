@@ -53,3 +53,23 @@ export const temp = Variable(0, {
         return Number.parseInt(n) / 100_000;
     }],
 });
+
+export const mailcounter = Variable(0, {
+  poll: [intval, ['bash', '-c','notmuch count tag:unread and not tag:delete']],
+});
+
+export const updates = Variable(0, {
+  poll: [720 * intval, ['bash', '-c', "(/usr/bin/checkupdates; /usr/bin/yay -Qu --color never | sed 's/Get .*//') | sort -u -t' ' -k1,1 | wc -l"]],
+});
+
+export const vpn = Variable('no vpn', {
+    poll: [intval, '/home/peter/scripts/nordvpn.sh']
+});
+
+export const docker = Variable('no vpn', {
+    poll: [intval, '/home/peter/scripts/docker_running_stats.sh']
+});
+
+export const task = Variable('', {
+    poll: [intval, ['bash' , '-c', 'cat /home/peter/.config/emacs/.task']]
+});

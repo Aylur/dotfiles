@@ -6,6 +6,13 @@ import { Theme, WP, lightColors } from './settings/theme.js';
 
 export default [
     Theme({
+        name: 'bird dark',
+        icon: "🐦",
+        'desktop.wallpaper.img': WP + 'geometric_bird_nord.png',
+        border_width: 4,
+        hypr_active_border: 'rgba(9077e7FF)',
+    }),
+    Theme({
         name: 'Kitty Dark',
         icon: '󰄛',
         'desktop.wallpaper.img': WP + 'kittybl.jpeg',
@@ -63,4 +70,5 @@ export default [
         'theme.widget.opacity': 95,
         'bar.flat_buttons': false,
     }),
+
 ];
