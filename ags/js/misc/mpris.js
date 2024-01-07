@@ -131,7 +131,7 @@ export const Slash = player => Widget.Label({
 const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) => Widget.Button({
     child: Widget.Stack({ items }).bind('shown', player, prop, p => `${p}`),
     on_clicked: () => player[onClick](),
-    visible: player.bind(canProp).transform(c => c === cantValue),
+    visible: player.bind(canProp).transform(c => c !== cantValue),
 });
 
 /** @param {import('types/service/mpris').MprisPlayer} player */

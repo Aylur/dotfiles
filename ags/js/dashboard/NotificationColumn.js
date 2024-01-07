@@ -43,7 +43,7 @@ const Placeholder = () => Widget.Box({
     hpack: 'center',
     vexpand: true,
     hexpand: true,
-    visible: Notifications.bind('notifications').transform(n => n.length > 0),
+    visible: Notifications.bind('notifications').transform(n => n.length === 0),
     children: [
         Widget.Icon(icons.notifications.silent),
         Widget.Label('Your inbox is empty'),

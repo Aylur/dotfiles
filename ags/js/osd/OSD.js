@@ -16,7 +16,7 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.B
             width,
             height,
             vertical: true,
-            setup: self => self.hook(Indicator, (_, value) => self.setValue(value)),
+            setup: self => self.hook(Indicator, (_, value) => self.attribute(value)),
             child: Widget.Stack({
                 vpack: 'start',
                 hpack: 'center',

@@ -235,7 +235,7 @@ export default {
 
     notifications: {
         black_list: Option(['Spotify'], { 'note': 'app-name | entry' }),
-        position: Option(['top'], { 'note': 'anchor' }),
+        position: Option(['top', 'right'], { 'note': 'anchor' }),
         width: Option(450),
     },
 
