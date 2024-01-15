@@ -11,6 +11,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     ags.url = "github:Aylur/ags";
+    stm.url = "github:Aylur/stm";
     lf-icons = {
       url = "github:gokcehan/lf";
       flake = false;
@@ -29,6 +30,10 @@
   let
     username = "demeter";
     system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
   in
   {
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
@@ -37,10 +42,7 @@
     };
 
     homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      inherit pkgs;
       extraSpecialArgs = { inherit inputs username; };
       modules = [ ./home-manager/home.nix ];
     };

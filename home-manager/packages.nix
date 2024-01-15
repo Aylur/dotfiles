@@ -8,6 +8,7 @@
   };
 
   home.packages = with pkgs; with nodePackages_latest; with gnome; [
+    sway
     # colorscript
     (import ./colorscript.nix { inherit pkgs; })
 
@@ -60,14 +61,8 @@
     swww
 
     # fun
-    fortune
-    jp2a
-    pywal
     glow
-    vhs
-    gum
     slides
-    charm
     skate
     yabridge
     yabridgectl
@@ -76,6 +71,7 @@
 
     # langs
     nodejs
+    cargo
     bun
     go
     gcc

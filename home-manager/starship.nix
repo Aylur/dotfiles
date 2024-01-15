@@ -37,7 +37,7 @@ in
         when = ''! test $env'';
         format = "  ";
       };
-      continuation_prompt = "[∙](bright-black) ";
+      continuation_prompt = "∙  ┆ ";
       line_break = { disabled = false; };
       status = {
         symbol = "✗";
