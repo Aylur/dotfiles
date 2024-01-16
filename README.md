@@ -45,13 +45,13 @@ bind=CTRL SHIFT, R,  exec, ags quit; ags -b hypr
 opening windows
 ```
 bind=SUPER, R,       exec, ags -t applauncher
-bind=,XF86PowerOff, exec, ags -t powermenu
+bind=,XF86PowerOff,  exec, ags -t powermenu
 bind=SUPER, Tab,     exec, ags -t overview
 ```
 
 screenshot & screenrecord
 ```
-bind=,XF86Launch4,  exec, ags -r 'recorder.start()'
+bind=,XF86Launch4,   exec, ags -r 'recorder.start()'
 bind=,Print,         exec, ags -r 'recorder.screenshot()'
 bind=SHIFT,Print,    exec, ags -r 'recorder.screenshot(true)'
 ```

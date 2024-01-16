@@ -1,37 +1,33 @@
+-- lazy.lang
+-- clangd, go, json, markdown, python, rust, typescript, yaml
+
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        dependencies = {
+            { "nushell/tree-sitter-nu" },
+        },
         opts = {
             ensure_installed = {
                 "bash",
-                "c",
-                "cpp",
-                "go",
                 "nix",
+                "nu",
 
                 "html",
                 "javascript",
-                "json",
                 "jsdoc",
-                "yaml",
                 "svelte",
                 "scss",
                 "css",
-                "tsx",
-                "typescript",
 
                 "lua",
                 "luadoc",
                 "luap",
 
-                "python",
                 "query",
                 "regex",
                 "vim",
                 "vimdoc",
-
-                -- FIXME: remove after uni
-                "sql",
             },
         },
     },
@@ -40,21 +36,14 @@ return {
         opts = {
             servers = {
                 bashls = {},
-                clangd = {},
                 cssls = {},
                 eslint = {},
                 stylelint_lsp = {},
                 html = {},
                 svelte = {},
-                tsserver = {},
                 nil_ls = {},
                 lua_ls = {},
-                gopls = {},
-                ruff_lsp = {},
                 nushell = {},
-
-                -- FIXME: remove after uni
-                sqlls = {},
             },
         },
     },

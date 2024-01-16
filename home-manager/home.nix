@@ -10,6 +10,7 @@ in
     ./bspwm.nix
     ./dconf.nix
     ./git.nix
+    ./helix.nix
     ./hyprland.nix
     ./lf.nix
     ./mimelist.nix
@@ -18,6 +19,8 @@ in
     ./packages.nix
     ./sh.nix
     ./starship.nix
+    ./stm.nix
+    ./sway.nix
     ./theme.nix
     ./tmux.nix
     ./wezterm.nix
@@ -44,7 +47,7 @@ in
       NIXPKGS_ALLOW_INSECURE = "1";
       BAT_THEME = "base16";
       GOPATH = "${homeDirectory}/.local/share/go";
-      GOMODCACHE="${homeDirectory}/./go/pkg/mod";
+      GOMODCACHE="${homeDirectory}/.cache/go/pkg/mod";
     };
 
     sessionPath = [

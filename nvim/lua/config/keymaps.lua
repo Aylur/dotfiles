@@ -2,7 +2,7 @@ local km = vim.keymap.set
 
 -- Telescope
 km("n", "<leader>fg", require("telescope.builtin").live_grep, { desc = "[F]ind in file using Telescope" })
-km("n", "f", function()
+km("n", "<C-f>", function()
     require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({ previewer = false }))
 end, { desc = "Telescope [f]ind file" })
 
@@ -22,9 +22,7 @@ km(
 -- buffers
 km({ "n", "i", "v" }, "<A-l>", vim.cmd.bnext, { desc = "Switch to next Buffer" })
 km({ "n", "i", "v" }, "<A-h>", vim.cmd.bprev, { desc = "Switch to prev Buffer" })
-km("n", "q", function()
-    vim.cmd("bw")
-end, { desc = "Close Buffer" })
+km("n", "<C-q>", function() vim.cmd("bw"); end, { desc = "Close Buffer" })
 
 -- selection
 km("n", "<C-a>", "ggVG")
@@ -44,7 +42,7 @@ km({ "n", "i", "v" }, "<C-k>", vim.cmd.TmuxNavigateUp)
 km({ "n", "i", "v" }, "<C-l>", vim.cmd.TmuxNavigateRight)
 
 -- tranparency
-km("n", "<leader>o", function() 
+km("n", "<leader>o", function()
     vim.cmd("highlight Normal guibg=NONE")
     vim.cmd("highlight NonText guibg=NONE")
     vim.cmd("highlight NonText ctermbg=NONE")
