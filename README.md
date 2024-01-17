@@ -39,7 +39,7 @@ some bindings you might want in your hyprland.conf
 
 reload
 ```
-bind=CTRL SHIFT, R,  exec, ags quit; ags -b hypr
+bind=CTRL SHIFT, R,  exec, ags -q; ags
 ```
 
 opening windows
