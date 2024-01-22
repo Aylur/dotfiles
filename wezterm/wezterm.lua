@@ -1,5 +1,5 @@
 return {
-    enable_wayland = false,
+    enable_wayland = true,
 	color_schemes = {
 		["Gnome Light"] = require("gnome"),
 		["Charmful Dark"] = require("charmful"),

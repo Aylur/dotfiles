@@ -1,6 +1,17 @@
 { pkgs, config, ... }:
 let
-  aliases = {
+  hm = pkgs.writeShellScript "hm" ''
+    ${../symlink.nu} -r
+    home-manager switch --flake ~/Projects/dotfiles/. --impure
+    ${../symlink.nu} -a
+  '';
+  vault = pkgs.writeShellScript "vault" ''
+    cd ~/Vault
+    git add .
+    gc -m 'sync $(date '+%Y-%m-%d %H:%M')'
+    git push
+  '';
+  shellAliases = {
     "db" = "distrobox";
     "arch" = "distrobox-enter Arch -- zsh";
     "fedora" = "distrobox-enter Fedora -- zsh";
@@ -21,19 +32,16 @@ let
     "gr" = "git reset --soft HEAD~1";
     "f" = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
     "del" = "gio trash";
-  };
-  vault = {
-    "vault" = "ga . && gc -m 'sync $(date '+%Y-%m-%d %H:%M')' && git push";
-  };
-  vault_nu = {
-    "vault" = ''do { ga .; gc -m $"sync (^date '+%Y-%m-%d %H:%M')"; git push; }'';
+    "hm" = "${hm}";
+    "vault" = "${vault}";
   };
 in
-{ 
+{
   programs = {
     thefuck.enable = true;
 
     zsh = {
+      inherit shellAliases;
       enable = true;
       enableCompletion = true;
       enableAutosuggestions = true;
@@ -44,18 +52,17 @@ in
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
       '';
-      shellAliases = aliases // vault;
     };
 
     bash = {
+      inherit shellAliases;
       enable = true;
       initExtra = "SHELL=${pkgs.bash}";
-      shellAliases = aliases // vault;
     };
 
     nushell = {
+      inherit shellAliases;
       enable = true;
-      shellAliases = aliases // vault_nu;
       environmentVariables = {
         PROMPT_INDICATOR_VI_INSERT = "\"  \"";
         PROMPT_INDICATOR_VI_NORMAL = "\"∙ \"";
@@ -67,40 +74,52 @@ in
         EDITOR = config.home.sessionVariables.EDITOR;
         VISUAL = config.home.sessionVariables.VISUAL;
       };
-      extraConfig = ''$env.config = ${builtins.toJSON {
-        show_banner = false;
-        edit_mode = "vi";
-        shell_integration = true;
+      extraConfig = let
+        conf = builtins.toJSON {
+          show_banner = false;
+          edit_mode = "vi";
+          shell_integration = true;
 
-        ls.clickable_links = true;
-        rm.always_trash = true;
+          ls.clickable_links = true;
+          rm.always_trash = true;
 
-        table = {
-          mode = "thin"; # compact thin rounded
-          index_mode = "auto"; # alway never
-        };
-
-        cursor_shape = {
-          vi_insert = "line";
-          vi_normal = "block";
-        };
-
-        menus = [({
-          name =  "completion_menu";
-          only_buffer_difference = false;
-          marker = "? ";
-          type = {
-            layout = "columnar"; # list, description
-            columns = 4;
-            col_padding = 2;
+          table = {
+            mode = "compact"; # compact thin rounded
+            index_mode = "always"; # alway never auto
+            header_on_separator = false;
           };
-          style = {
-            text = "magenta";
-            selected_text = "blue_reverse";
-            description_text = "yellow";
+
+          cursor_shape = {
+            vi_insert = "line";
+            vi_normal = "block";
           };
-        })];
-      }}'';
+
+          menus = [({
+            name =  "completion_menu";
+            only_buffer_difference = false;
+            marker = "? ";
+            type = {
+              layout = "columnar"; # list, description
+              columns = 4;
+              col_padding = 2;
+            };
+            style = {
+              text = "magenta";
+              selected_text = "blue_reverse";
+              description_text = "yellow";
+            };
+          })];
+        };
+        completion = name: ''
+          source ${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${name}/${name}-completions.nu
+        '';
+        completions = names: builtins.foldl'
+          (prev: str: "${prev}\n${str}") ""
+          (map (name: completion name) names);
+      in ''
+        $env.config = ${conf};
+        ${completions ["cargo" "git" "nix" "npm"]}
+      '';
     };
   };
 }

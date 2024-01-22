@@ -9,9 +9,14 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.nixpkgs.follows = "hyprland";
+    };
+
     ags.url = "github:Aylur/ags";
     stm.url = "github:Aylur/stm";
+
     lf-icons = {
       url = "github:gokcehan/lf";
       flake = false;

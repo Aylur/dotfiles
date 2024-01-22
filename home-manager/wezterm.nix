@@ -1,18 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
+  wezterm = inputs.wezterm.packages.${pkgs.system}.default;
   xterm = pkgs.writeShellScriptBin "xterm" ''
-    ${pkgs.wezterm}/bin/wezterm "$@"
+    ${wezterm}/bin/wezterm "$@"
   '';
   kgx = pkgs.writeShellScriptBin "kgx" ''
-    ${pkgs.wezterm}/bin/wezterm "$@"
+    ${wezterm}/bin/wezterm "$@"
   '';
 in
 {
-  home.packages = [
-    pkgs.wezterm
-    xterm
-    kgx
-  ];
-
+  # home.packages = [wezterm xterm kgx];
   xdg.configFile.wezterm.source = ../wezterm;
 }
