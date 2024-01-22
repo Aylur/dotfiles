@@ -6,33 +6,30 @@ let
   fg2 = "white";
   color = c: "#{@${c}}";
 
-  indicator = rec {
+  indicator = let
     accent = color "indicator_color";
     content = "  ";
-    module = "#[reverse,fg=${accent}]#{?client_prefix,${content},}";
-  };
+  in "#[reverse,fg=${accent}]#{?client_prefix,${content},}";
 
-  current_window = rec {
+  current_window = let
     accent = color "main_accent";
     index = "#[reverse,fg=${accent},bg=${fg}] #I ";
     name = "#[fg=${bg2},bg=${fg2}] #W ";
-	flags = "#{?window_flags,#{window_flags}, }";
-	module =  "${index}${name}";
-  };
+    # flags = "#{?window_flags,#{window_flags}, }";
+  in "${index}${name}";
 
-  window_status = rec {
+  window_status = let
     accent = color "window_color";
     index = "#[reverse,fg=${accent},bg=${fg}] #I ";
     name = "#[fg=${bg2},bg=${fg2}] #W ";
-	flags = "#{?window_flags,#{window_flags}, }";
-	module =  "${index}${name}";
-  };
+    # flags = "#{?window_flags,#{window_flags}, }";
+  in "${index}${name}";
 
-  time = rec {
+  time = let
     accent = color "main_accent";
     format = "%H:%M";
 
-    icon = pkgs.writeShellScriptBin "icon" ''
+    icon = pkgs.writeShellScript "icon" ''
       hour=$(date +%H)
       if   [ "$hour" == "00" ] || [ "$hour" == "12" ]; then printf "󱑖"
       elif [ "$hour" == "01" ] || [ "$hour" == "13" ]; then printf "󱑋"
@@ -47,59 +44,54 @@ let
       elif [ "$hour" == "10" ] || [ "$hour" == "22" ]; then printf "󱑔"
       elif [ "$hour" == "11" ] || [ "$hour" == "23" ]; then printf "󱑕"
       fi
-    '' + "/bin/icon";
+    '';
 
-	module = "#[reverse,fg=${accent}] ${format} #(${icon}) ";
-  };
+	in "#[reverse,fg=${accent}] ${format} #(${icon}) ";
 
-  bat = rec {
-    percentage = pkgs.writeShellScriptBin "percentage" ''
+  battery = let
+    percentage = pkgs.writeShellScript "percentage" ''
       path="/org/freedesktop/UPower/devices/DisplayDevice"
       percentage=$(${pkgs.upower}/bin/upower -i $path | grep percentage | awk '{print $2}' | tr '%' ' ')
       echo $percentage
-    '' + "/bin/percentage";
+    '';
 
-    state = pkgs.writeShellScriptBin "state" ''
+    state = pkgs.writeShellScript "state" ''
       path="/org/freedesktop/UPower/devices/DisplayDevice"
       state=$(${pkgs.upower}/bin/upower -i $path | grep state | awk '{print $2}')
       echo $state
-    '' + "/bin/state";
+    '';
 
-    icon = pkgs.writeShellScriptBin "icon" ''
+    icon = pkgs.writeShellScript "icon" ''
       percentage=$(${percentage})
       state=$(${state})
-      if [ "$state" == "charging" ] || [ "$state" == "fully-charged" ]; then
-          echo "󰂄"
-      elif [ $percentage -ge 75 ]; then printf "󱊣"
-      elif [ $percentage -ge 50 ]; then printf "󱊢"
-      elif [ $percentage -ge 25 ]; then printf "󱊡"
-      elif [ $percentage -ge 0  ]; then printf "󰂎"
+      if [ "$state" == "charging" ] || [ "$state" == "fully-charged" ]; then echo "󰂄"
+      elif [ $percentage -ge 75 ]; then echo "󱊣"
+      elif [ $percentage -ge 50 ]; then echo "󱊢"
+      elif [ $percentage -ge 25 ]; then echo "󱊡"
+      elif [ $percentage -ge 0  ]; then echo "󰂎"
       fi
-    '' + "/bin/icon";
+    '';
 
-    color = pkgs.writeShellScriptBin "color" ''
+    color = pkgs.writeShellScript "color" ''
       percentage=$(${percentage})
       state=$(${state})
-      if [ "$state" == "charging" ] || [ "$state" == "fully-charged" ]; then
-          echo "green"
-      elif [ $percentage -ge 75 ]; then printf "green"
-      elif [ $percentage -ge 50 ]; then printf "${fg2}"
-      elif [ $percentage -ge 25 ]; then printf "yellow"
-      elif [ $percentage -ge 0  ]; then printf "red"
+      if [ "$state" == "charging" ] || [ "$state" == "fully-charged" ]; then echo "green"
+      elif [ $percentage -ge 75 ]; then echo "green"
+      elif [ $percentage -ge 50 ]; then echo "${fg2}"
+      elif [ $percentage -ge 30 ]; then echo "yellow"
+      elif [ $percentage -ge 0  ]; then echo "red"
       fi
-    '' + "/bin/color";
+    '';
 
-    module = "#[fg=#(${color})]#(${icon}) #[fg=${fg}]#(${percentage})%";
-  };
+  in "#[fg=#(${color})]#(${icon}) #[fg=${fg}]#(${percentage})%";
 
-  pwd = rec {
+  pwd = let
     accent = color "main_accent";
     icon = "#[fg=${accent}] ";
     format = "#[fg=${fg}]#{b:pane_current_path}";
-    module = "${icon}${format}";
-  };
+  in "${icon}${format}";
 in
-{ 
+{
   programs.tmux = {
     enable = true;
     plugins = with pkgs.tmuxPlugins; [
@@ -125,11 +117,13 @@ in
       set-option -g @indicator_color "yellow"
       set-option -g @window_color "magenta"
       set-option -g @main_accent "blue"
+      set-option -g pane-active-border fg=black
+      set-option -g pane-border-style fg=black
       set-option -g status-style "bg=${bg} fg=${fg}"
-      set-option -g status-left "${indicator.module}"
-      set-option -g status-right "${pwd.module} | ${bat.module} ${time.module}"
-      set-option -g window-status-current-format "${current_window.module}"
-      set-option -g window-status-format "${window_status.module}"
+      set-option -g status-left "${indicator}"
+      set-option -g status-right "${pwd} | ${battery} ${time}"
+      set-option -g window-status-current-format "${current_window}"
+      set-option -g window-status-format "${window_status}"
       set-option -g window-status-separator ""
       '';
   };

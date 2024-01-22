@@ -9,6 +9,7 @@ export async function globals() {
         globalThis.recorder = (await import('../services/screenrecord.js')).default;
         globalThis.brightness = (await import('../services/brightness.js')).default;
         globalThis.indicator = (await import('../services/onScreenIndicator.js')).default;
+        globalThis.app = (await import('resource:///com/github/Aylur/ags/app.js')).default;
 
         Mpris.players.forEach(player => {
             player.connect('changed', player => {

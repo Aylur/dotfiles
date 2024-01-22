@@ -10,7 +10,6 @@ def remove [dir] {
     let backup = $"($target).backup"
     rm -rf $target
     rm -rf $backup
-    echo $"rm ($target)"
 }
 
 def link [dir] {
@@ -22,9 +21,16 @@ def link [dir] {
 def main [
     ...directories: string
     -r # remove all
+    -a # symlink all
     -m # remove mimelist.list
 ] {
     if $m { rm -f ~/.config/mimeapps.list }
-    $all | each {|d| remove $d }
-    $directories | each {|d| link $d }
+    if $r { $all | each {|d| remove $d } }
+    if $a {
+        $all | each {|d| remove $d; link $d }
+        $all
+    } else {
+        $directories | each {|d| remove $d; link $d }
+        $directories
+    }
 }

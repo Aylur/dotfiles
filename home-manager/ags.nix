@@ -10,9 +10,9 @@
   programs.ags = {
     enable = true;
     configDir = ../ags;
-    extraPackages = with pkgs; [
-      libgtop
-      libsoup_3
-    ];
+    # extraPackages = with pkgs; [
+    #   libgtop
+    #   libnotify
+    # ];
   };
 }

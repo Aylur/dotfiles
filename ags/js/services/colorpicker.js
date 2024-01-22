@@ -1,8 +1,8 @@
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import { Variable } from 'resource:///com/github/Aylur/ags/variable.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Service from 'resource:///com/github/Aylur/ags/service.js';
 import { dependencies } from '../utils.js';
+import icons from '../icons.js';
 
 const COLORS_CACHE = Utils.CACHE_DIR + '/colorpicker.json';
 
@@ -55,12 +55,15 @@ class Colors extends Service {
                 .catch(err => console.error(err));
         }
 
-        this.#notifID = Notifications.Notify(
-            'Color Picker',
-            this.#notifID,
-            'color-select-symbolic',
-            color, '', [], {},
-        );
+        const n = await Utils.notify({
+            id: this.#notifID,
+            iconName: icons.ui.colorpicker,
+            summary: color,
+            actions: {
+                'Copy': () => this.wlCopy(color),
+            },
+        });
+        this.#notifID = n.id;
     }
 }
 

@@ -3,6 +3,15 @@ return {
     { "Mofiqul/adwaita.nvim" },
     { "nyoom-engineering/oxocarbon.nvim" },
     {
+        "rose-pine/neovim",
+        name = 'rose-pine',
+        opts = {
+            groups = {
+                background = "#171717",
+            },
+        },
+    },
+    {
         "LazyVim/LazyVim",
         opts = { colorscheme = "catppuccin" },
     },

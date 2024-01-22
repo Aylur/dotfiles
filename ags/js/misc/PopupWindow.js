@@ -4,6 +4,29 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import options from '../options.js';
 import GObject from 'gi://GObject';
 
+const keyGrabber = Widget.Window({
+    name: 'key-grabber',
+    popup: true,
+    anchor: ['top', 'left', 'right', 'bottom'],
+    css: 'background-color: transparent;',
+    visible: false,
+    exclusivity: 'ignore',
+    focusable: true,
+    layer: 'top',
+    attribute: { list: [] },
+    setup: self => self.on('notify::visible', ({ visible }) => {
+        if (!visible)
+            self.attribute.list.forEach(name => App.closeWindow(name));
+    }),
+    child: Widget.EventBox({ vexpand: true }).on('button-press-event', () => {
+        App.closeWindow('key-grabber');
+        keyGrabber.attribute.list.forEach(name => App.closeWindow(name));
+    }),
+});
+
+// add before any PopupWindow is instantiated
+App.addWindow(keyGrabber);
+
 export class PopupWindow extends AgsWindow {
     static { GObject.registerClass(this); }
 
@@ -13,6 +36,7 @@ export class PopupWindow extends AgsWindow {
             name,
             popup: true,
             focusable: true,
+            layer: 'overlay',
             class_names: ['popup-window', name],
         });
 
@@ -34,6 +58,9 @@ export class PopupWindow extends AgsWindow {
 
         this.show_all();
         this.visible = visible;
+
+        keyGrabber.bind('visible', this, 'visible');
+        keyGrabber.attribute.list.push(name);
     }
 
     set transition(dir) { this.revealer.transition = dir; }
