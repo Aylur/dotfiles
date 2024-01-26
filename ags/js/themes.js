@@ -66,10 +66,11 @@ export default [
     Theme({
         name: 'Custom',
         icon: 'C',
-        'desktop.wallpaper.img': WP + 'space.jpg',
+        'desktop.wallpaper.img': '~/.config/nixos/macos-wallpaper.jpg',
+        'desktop.avatar': '~/.config/nixos/user-avatar.jpg',
         'spacing': 8,
         'padding': 8,
-        'radii': 8,
+        'radii': 12,
         'theme.accent.accent': '$magenta',
         'desktop.screen_corners': true,
         'desktop.clock.enable': false,
