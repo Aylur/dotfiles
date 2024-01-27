@@ -10,7 +10,8 @@ const Padding = windowName => Widget.EventBox({
 });
 
 /**
- * @param {import('types/widgets/window').WindowProps & {
+ * @template {import('gi://Gtk?version=3.0').default.Widget} T
+ * @param {import('types/widgets/window').WindowProps<T> & {
  *      name: string
  *      child: import('types/widgets/box').default
  *  }} o
@@ -21,7 +22,7 @@ export default ({ name, child, ...rest }) => Widget.Window({
     name,
     visible: false,
     popup: true,
-    focusable: true,
+    keymode: 'on-demand',
     setup() {
         child.toggleClassName('window-content');
     },

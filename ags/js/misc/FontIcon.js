@@ -1,10 +1,9 @@
-import Gtk from 'gi://Gtk';
-import { createCtor } from 'resource:///com/github/Aylur/ags/widget.js';
+import Gtk from 'gi://Gtk?version=3.0';
+import { subclass, register } from 'resource:///com/github/Aylur/ags/widget.js';
 import AgsLabel from 'resource:///com/github/Aylur/ags/widgets/label.js';
-import GObject from 'gi://GObject';
 
-export default createCtor(class FontIcon extends AgsLabel {
-    static { GObject.registerClass(this); }
+class FontIcon extends AgsLabel {
+    static { register(this); }
 
     /** @param {string | import('types/widgets/label').Props & { icon?: string }} params */
     constructor(params = '') {
@@ -38,4 +37,6 @@ export default createCtor(class FontIcon extends AgsLabel {
     vfunc_get_preferred_width() {
         return [this.size, this.size];
     }
-});
+}
+
+export default subclass(FontIcon);
