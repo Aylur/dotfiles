@@ -1,5 +1,3 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import PopupWindow from '../misc/PopupWindow.js';
 import Workspace from './Workspace.js';
@@ -8,9 +6,24 @@ import { range } from '../utils.js';
 
 const ws = options.workspaces;
 
-/** @param {import('types/widgets/box').default} box */
+const Overview = () => Widget.Box({
+    children: [Workspace(0)], // for type infer
+    setup: self => Utils.idle(() => {
+        self.hook(ws, () => {
+            self.children = range(ws.value).map(Workspace);
+            update(self);
+            children(self);
+        });
+        self.hook(Hyprland, update);
+        self.hook(Hyprland, children, 'notify::workspaces');
+        update(self);
+        children(self);
+    }),
+});
+
+/** @param {ReturnType<typeof Overview>} box */
 const update = box => {
-    if (App.windows.has('overview') && !App.getWindow('overview')?.visible)
+    if (!box.get_parent()?.visible)
         return;
 
     Hyprland.sendMessage('j/clients')
@@ -33,16 +46,5 @@ const children = box => {
 
 export default () => PopupWindow({
     name: 'overview',
-    child: Widget.Box({
-        setup: self => {
-            self.hook(ws, () => {
-                self.children = range(ws.value).map(Workspace);
-                update(self);
-                children(self);
-            });
-            self.hook(Hyprland, update);
-            self.hook(Hyprland, children, 'notify::workspaces');
-            update(self);
-        },
-    }),
+    child: Overview(),
 });

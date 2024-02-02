@@ -5,7 +5,7 @@ import AgsLabel from 'resource:///com/github/Aylur/ags/widgets/label.js';
 class FontIcon extends AgsLabel {
     static { register(this); }
 
-    /** @param {string | import('types/widgets/label').Props & { icon?: string }} params */
+    /** @param {string | import('types/widgets/label').Props<any> & { icon?: string }} params */
     constructor(params = '') {
         // @ts-expect-error
         const { icon = '', ...rest } = params;
