@@ -122,14 +122,14 @@ export const Slash = player => Widget.Label({
 /**
  * @param {Object} o
  * @param {import('types/service/mpris').MprisPlayer} o.player
- * @param {import('types/widgets/stack').StackProps['items']} o.items
+ * @param {import('types/widgets/stack').StackProps['children']} o.children
  * @param {'shuffle' | 'loop' | 'playPause' | 'previous' | 'next'} o.onClick
  * @param {string} o.prop
  * @param {string} o.canProp
  * @param {any} o.cantValue
  */
-const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) => Widget.Button({
-    child: Widget.Stack({ items }).bind('shown', player, prop, p => `${p}`),
+const PlayerButton = ({ player, children, onClick, prop, canProp, cantValue }) => Widget.Button({
+    child: Widget.Stack({ children }).bind('shown', player, prop, p => `${p}`),
     on_clicked: () => player[onClick](),
     visible: player.bind(canProp).transform(c => c !== cantValue),
 });
@@ -137,16 +137,16 @@ const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) => W
 /** @param {import('types/service/mpris').MprisPlayer} player */
 export const ShuffleButton = player => PlayerButton({
     player,
-    items: [
-        ['true', Widget.Label({
+    children: {
+        'true': Widget.Label({
             class_name: 'shuffle enabled',
             label: icons.mpris.shuffle.enabled,
-        })],
-        ['false', Widget.Label({
+        }),
+        'false': Widget.Label({
             class_name: 'shuffle disabled',
             label: icons.mpris.shuffle.disabled,
-        })],
-    ],
+        }),
+    },
     onClick: 'shuffle',
     prop: 'shuffle-status',
     canProp: 'shuffle-status',
@@ -156,20 +156,20 @@ export const ShuffleButton = player => PlayerButton({
 /** @param {import('types/service/mpris').MprisPlayer} player */
 export const LoopButton = player => PlayerButton({
     player,
-    items: [
-        ['None', Widget.Label({
+    children: {
+        'None': Widget.Label({
             class_name: 'loop none',
             label: icons.mpris.loop.none,
-        })],
-        ['Track', Widget.Label({
+        }),
+        'Track': Widget.Label({
             class_name: 'loop track',
             label: icons.mpris.loop.track,
-        })],
-        ['Playlist', Widget.Label({
+        }),
+        'Playlist': Widget.Label({
             class_name: 'loop playlist',
             label: icons.mpris.loop.playlist,
-        })],
-    ],
+        }),
+    },
     onClick: 'loop',
     prop: 'loop-status',
     canProp: 'loop-status',
@@ -179,20 +179,20 @@ export const LoopButton = player => PlayerButton({
 /** @param {import('types/service/mpris').MprisPlayer} player */
 export const PlayPauseButton = player => PlayerButton({
     player,
-    items: [
-        ['Playing', Widget.Label({
+    children: {
+        'Playing': Widget.Label({
             class_name: 'playing',
             label: icons.mpris.playing,
-        })],
-        ['Paused', Widget.Label({
+        }),
+        'Paused': Widget.Label({
             class_name: 'paused',
             label: icons.mpris.paused,
-        })],
-        ['Stopped', Widget.Label({
+        }),
+        'Stopped': Widget.Label({
             class_name: 'stopped',
             label: icons.mpris.stopped,
-        })],
-    ],
+        }),
+    },
     onClick: 'playPause',
     prop: 'play-back-status',
     canProp: 'can-play',
@@ -202,12 +202,12 @@ export const PlayPauseButton = player => PlayerButton({
 /** @param {import('types/service/mpris').MprisPlayer} player */
 export const PreviousButton = player => PlayerButton({
     player,
-    items: [
-        ['true', Widget.Label({
+    children: {
+        'true': Widget.Label({
             class_name: 'previous',
             label: icons.mpris.prev,
-        })],
-    ],
+        }),
+    },
     onClick: 'previous',
     prop: 'can-go-prev',
     canProp: 'can-go-prev',
@@ -217,12 +217,12 @@ export const PreviousButton = player => PlayerButton({
 /** @param {import('types/service/mpris').MprisPlayer} player */
 export const NextButton = player => PlayerButton({
     player,
-    items: [
-        ['true', Widget.Label({
+    children: {
+        'true': Widget.Label({
             class_name: 'next',
             label: icons.mpris.next,
-        })],
-    ],
+        }),
+    },
     onClick: 'next',
     prop: 'can-go-next',
     canProp: 'can-go-next',
