@@ -71,8 +71,9 @@
 
     # langs
     nodejs
-    cargo
+    gjs
     bun
+    cargo
     go
     gcc
     typescript

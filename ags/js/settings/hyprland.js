@@ -30,9 +30,9 @@ export function hyprlandInit() {
     if (readFile('/tmp/ags/hyprland-init'))
         return;
 
-    sendBatch(Array.from(App.windows).flatMap(([name]) => [
+    sendBatch(App.windows.flatMap(({ name }) => [
         `layerrule blur, ${name}`,
-        noIgnorealpha.some(skip => name.includes(skip))
+        noIgnorealpha.some(skip => name?.includes(skip))
             ? '' : `layerrule ignorealpha 0.6, ${name}`,
     ]));
 

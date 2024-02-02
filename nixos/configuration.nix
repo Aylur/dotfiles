@@ -63,7 +63,9 @@
   # user
   users.users.${username} = {
     isNormalUser = true;
+    initialPassword = username;
     extraGroups = [
+      "nixosvmtest"
       "networkmanager"
       "wheel"
       "audio"

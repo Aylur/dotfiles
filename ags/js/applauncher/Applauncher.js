@@ -1,5 +1,3 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
 import PopupWindow from '../misc/PopupWindow.js';
 import AppItem from './AppItem.js';
