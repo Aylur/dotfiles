@@ -16,7 +16,6 @@ const update = box => {
     Hyprland.sendMessage('j/clients')
         .then(clients => {
             box.children.forEach(ws => {
-                // @ts-expect-error
                 ws.attribute(JSON.parse(clients));
             });
         })

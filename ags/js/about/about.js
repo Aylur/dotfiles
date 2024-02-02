@@ -1,5 +1,5 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import PopupWindow from '../misc/PopupWindow.js';
 import icons from '../icons.js';

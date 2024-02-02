@@ -2,7 +2,7 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gdk from 'gi://Gdk';
-import Gtk from 'gi://Gtk';
+import Gtk from 'gi://Gtk?version=3.0';
 import Client from './Client.js';
 
 const SCALE = 0.08;

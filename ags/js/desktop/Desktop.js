@@ -55,6 +55,7 @@ const Desktop = () => Widget.EventBox({
 /** @param {number} monitor */
 export default monitor => Widget.Window({
     monitor,
+    keymode: 'on-demand',
     name: `desktop${monitor}`,
     layer: 'background',
     class_name: 'desktop',

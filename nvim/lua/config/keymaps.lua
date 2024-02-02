@@ -28,6 +28,9 @@ km("n", "<C-q>", function() vim.cmd("bw"); end, { desc = "Close Buffer" })
 km("n", "<C-a>", "ggVG")
 km("v", "V", "j")
 
+-- paste
+km("n", "<leader>p", "\"_dP")
+
 -- colors
 km("n", "<leader>cc", vim.cmd.ColorizerToggle, { desc = "[C]olorizer" })
 km("n", "<leader>cp", vim.cmd.PickColor, { desc = "[P]ick Color" })

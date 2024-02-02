@@ -11,16 +11,16 @@ const keyGrabber = Widget.Window({
     css: 'background-color: transparent;',
     visible: false,
     exclusivity: 'ignore',
-    focusable: true,
+    keymode: 'on-demand',
     layer: 'top',
     attribute: { list: [] },
     setup: self => self.on('notify::visible', ({ visible }) => {
         if (!visible)
-            self.attribute.list.forEach(name => App.closeWindow(name));
+            self.attribute?.list.forEach(name => App.closeWindow(name));
     }),
     child: Widget.EventBox({ vexpand: true }).on('button-press-event', () => {
         App.closeWindow('key-grabber');
-        keyGrabber.attribute.list.forEach(name => App.closeWindow(name));
+        keyGrabber.attribute?.list.forEach(name => App.closeWindow(name));
     }),
 });
 
@@ -35,7 +35,7 @@ export class PopupWindow extends AgsWindow {
             ...rest,
             name,
             popup: true,
-            focusable: true,
+            keymode: 'exclusive',
             layer: 'overlay',
             class_names: ['popup-window', name],
         });
@@ -60,7 +60,7 @@ export class PopupWindow extends AgsWindow {
         this.visible = visible;
 
         keyGrabber.bind('visible', this, 'visible');
-        keyGrabber.attribute.list.push(name);
+        keyGrabber.attribute?.list.push(name);
     }
 
     set transition(dir) { this.revealer.transition = dir; }

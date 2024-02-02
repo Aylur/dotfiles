@@ -2,7 +2,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { createSurfaceFromWidget, substitute } from '../utils.js';
 import Gdk from 'gi://Gdk';
-import Gtk from 'gi://Gtk';
+import Gtk from 'gi://Gtk?version=3.0';
 import options from '../options.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
