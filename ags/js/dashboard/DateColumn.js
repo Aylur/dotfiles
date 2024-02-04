@@ -32,7 +32,7 @@ export default () => Widget.Box({
             class_name: 'clock-box',
             vertical: true,
             children: [
-                Clock({ format: '%H:%M' }),
+                Clock({ format: '%I:%M %p' }),
                 Widget.Label({
                     class_name: 'uptime',
                     label: vars.uptime.bind('value').transform(t => `uptime: ${t}`),

@@ -69,7 +69,7 @@ export default notification => {
                             Widget.Label({
                                 class_name: 'time',
                                 vpack: 'start',
-                                label: GLib.DateTime.new_from_unix_local(notification.time).format('%H:%M'),
+                                label: GLib.DateTime.new_from_unix_local(notification.time).format('%I:%M %p'),
                             }),
                             Widget.Button({
                                 class_name: 'close-button',
