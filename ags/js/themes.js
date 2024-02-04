@@ -66,8 +66,8 @@ export default [
     Theme({
         name: 'Custom',
         icon: 'C',
-        'desktop.wallpaper.img': '~/.config/nixos/macos-wallpaper.jpg',
-        'desktop.avatar': '~/.config/nixos/user-avatar.jpg',
+        'desktop.wallpaper.img': WP + 'macos-wallpaper.jpg',
+        'desktop.avatar': WP + 'user.jpg',
         'spacing': 8,
         'padding': 8,
         'radii': 12,
