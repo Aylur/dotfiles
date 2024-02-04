@@ -21,19 +21,19 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) => Widget.B
                 vpack: 'start',
                 hpack: 'center',
                 hexpand: false,
-                items: [
-                    ['true', Widget.Icon({
+                children: {
+                    true: Widget.Icon({
                         hpack: 'center',
                         size: width,
                         setup: w => w.hook(Indicator, (_, _v, name) => w.icon = name || ''),
-                    })],
-                    ['false', FontIcon({
+                    }),
+                    false: FontIcon({
                         hpack: 'center',
                         hexpand: true,
                         css: `font-size: ${width}px;`,
                         setup: w => w.hook(Indicator, (_, _v, name) => w.label = name || ''),
-                    })],
-                ],
+                    }),
+                },
                 setup: self => self.hook(Indicator, (_, _v, name) => {
                     self.shown = `${!!Utils.lookUpIcon(name)}`;
                 }),

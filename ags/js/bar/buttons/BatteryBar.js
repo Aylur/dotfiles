@@ -6,10 +6,10 @@ import options from '../../options.js';
 import PanelButton from '../PanelButton.js';
 
 const Indicator = () => Widget.Stack({
-    items: [
-        ['false', Widget.Icon({ icon: Battery.bind('icon_name') })],
-        ['true', FontIcon(icons.battery.charging)],
-    ],
+    children: {
+        false: Widget.Icon({ icon: Battery.bind('icon_name') }),
+        true: FontIcon(icons.battery.charging),
+    },
     visible: options.battery.bar.show_icon.bind('value'),
     setup: self => self.hook(Battery, () => {
         self.shown = `${Battery.charging || Battery.charged}`;
