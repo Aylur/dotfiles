@@ -19,7 +19,12 @@ export function range(length, start = 1) {
   * @returns {string}
   */
 export function substitute(collection, item) {
-    return collection.find(([from]) => from === item)?.[1] || item;
+    const icon = collection.find(([from]) => from === item)?.[1] || item;
+    if (Utils.lookUpIcon(icon))
+        return icon;
+
+    console.warn('no icon', icon);
+    return icons.fallback.executable;
 }
 
 /**
