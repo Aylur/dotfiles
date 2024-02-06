@@ -39,7 +39,9 @@ const AppButton = ({ icon, pinned = false, ...rest }) => {
 const Taskbar = () => Widget.Box({
     children: Hyprland.bind('clients').transform(c => c.map(client => {
         for (const appName of options.desktop.dock.pinned_apps.value) {
-            if (client.class.toLowerCase().includes(appName.toLowerCase()))
+            if (client.class.toLowerCase().includes(appName.toLowerCase())) // ignore if app is pinned
+                return null;
+            if (client.workspace.name === "special") // ignore if on special workspace
                 return null;
         }
         for (const app of Applications.list) {
@@ -77,7 +79,7 @@ const PinnedApps = () => Widget.Box({
             tooltip_text: app.name,
             setup: button => button.hook(Hyprland, () => {
                 const running = Hyprland.clients
-                    .filter(client => client.class.toLowerCase().includes(term));
+                    .filter(client => client.class.toLowerCase().includes(term) && client.workspace.name !== "special");
 
                 const focused = running.find(client =>
                     client.address === Hyprland.active.client.address);
