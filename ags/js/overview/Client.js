@@ -5,6 +5,7 @@ import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk?version=3.0';
 import options from '../options.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import icons from '../icons.js';
 
 const SCALE = 0.08;
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
@@ -13,7 +14,14 @@ const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 const dispatch = args => Hyprland.sendMessage(`dispatch ${args}`);
 
 /** @param {string} str */
-const icon = str => substitute(options.substitutions.icons, str);
+const icon = str => {
+    const icon = substitute(options.substitutions.icons, str);
+    if (Utils.lookUpIcon(icon))
+        return icon;
+
+    console.warn('no icon', icon);
+    return icons.fallback.executable;
+}
 
 export default ({ address, size: [w, h], class: c, title }) => Widget.Button({
     class_name: 'client',

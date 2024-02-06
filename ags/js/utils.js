@@ -19,12 +19,7 @@ export function range(length, start = 1) {
   * @returns {string}
   */
 export function substitute(collection, item) {
-    const icon = collection.find(([from]) => from === item)?.[1] || item;
-    if (Utils.lookUpIcon(icon))
-        return icon;
-
-    console.warn('no icon', icon);
-    return icons.fallback.executable;
+    return collection.find(([from]) => from === item)?.[1] || item;
 }
 
 /**
@@ -37,7 +32,7 @@ export function forMonitors(widget) {
 }
 
 /**
-  * @param {import('gi://Gtk').Gtk.Widget} widget
+  * @param {import('gi://Gtk?version=3.0').default.Widget} widget
   * @returns {any} - missing cairo type
   */
 export function createSurfaceFromWidget(widget) {
