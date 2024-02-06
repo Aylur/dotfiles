@@ -29,24 +29,28 @@ export const WifiSelection = () => Menu({
     }),
     title: Widget.Label('Wifi Selection'),
     content: [
-        Widget.Box({
-            vertical: true,
-            setup: self => self.hook(Network, () => self.children =
-                Network.wifi?.access_points.map(ap => Widget.Button({
-                    on_clicked: () => Utils.execAsync(`nmcli device wifi connect ${ap.bssid}`),
-                    child: Widget.Box({
-                        children: [
-                            Widget.Icon(ap.iconName),
-                            Widget.Label(ap.ssid || ''),
-                            ap.active && Widget.Icon({
-                                icon: icons.ui.tick,
-                                hexpand: true,
-                                hpack: 'end',
-                            }),
-                        ],
-                    }),
-                })),
-            ),
+        Widget.Scrollable({
+            vexpand: true,
+            css: 'min-height: 256px',
+            child: Widget.Box({
+                vertical: true,
+                setup: self => self.hook(Network, () => self.children =
+                    Network.wifi?.access_points.map(ap => Widget.Button({
+                        on_clicked: () => Utils.execAsync(`nmcli device wifi connect ${ap.bssid}`),
+                        child: Widget.Box({
+                            children: [
+                                Widget.Icon(ap.iconName),
+                                Widget.Label(ap.ssid || ''),
+                                ap.active && Widget.Icon({
+                                    icon: icons.ui.tick,
+                                    hexpand: true,
+                                    hpack: 'end',
+                                }),
+                            ],
+                        }),
+                    })),
+                ),
+            }),
         }),
         Widget.Separator(),
         Widget.Button({
