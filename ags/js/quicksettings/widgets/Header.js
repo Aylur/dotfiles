@@ -18,6 +18,7 @@ export default () => Widget.Box({
             children: [
                 Widget.Box({
                     class_name: 'battery horizontal',
+                    visible: Battery.bind('available'),
                     children: [
                         Widget.Icon({ icon: Battery.bind('icon_name') }),
                         Widget.Label({ label: Battery.bind('percent').transform(p => `${p}%`) }),

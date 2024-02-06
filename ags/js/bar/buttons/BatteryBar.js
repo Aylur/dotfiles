@@ -55,12 +55,12 @@ const WholeButton = () => Widget.Overlay({
 
 export default () => PanelButton({
     class_name: 'battery-bar',
+    visible: Battery.bind('available'),
     on_clicked: () => {
         const v = options.battery.show_percentage.value;
         options.battery.show_percentage.value = !v;
     },
     content: Widget.Box({
-        visible: Battery.bind('available'),
         children: options.battery.bar.full.bind('value').transform(full => full
             ? [WholeButton()] : [
                 Indicator(),
