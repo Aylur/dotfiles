@@ -121,12 +121,18 @@ $button-radius: if($bar-style == 'floating', max(0, $radii - $bar-spacing), $rad
     }
 
     .media {
+        box label {
+            margin-left: $bar-spacing;
+        }
         &.spotify image { color: $green; }
         &.firefox image { color: $orange; }
         &.mpv image { color: $magenta; }
     }
 
     .notifications {
+        box label {
+            margin-right: $bar-spacing;
+        }
         image { color: $yellow; }
     }
 
