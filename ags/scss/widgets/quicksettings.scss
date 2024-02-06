@@ -1,6 +1,7 @@
 window#quicksettings .window-content {
     @include floating-widget;
     @include spacing;
+    min-width: 384px;
 
     .avatar {
         @include widget;
