@@ -218,18 +218,16 @@ export default {
         dock: {
             icon_size: Option(56),
             pinned_apps: Option([
-                'firefox',
-                'org.wezfurlong.wezterm',
-                'org.gnome.Nautilus',
-                'org.gnome.Calendar',
-                'obsidian',
-                'transmission-gtk',
-                'caprine',
-                'teams-for-linux',
+                'brave',
+                'nautilus',
                 'discord',
+                'vesktop',
                 'spotify',
-                'com.usebottles.bottles',
-                'org.gnome.Software',
+                'alacritty',
+                'steam',
+                'obsidian',
+                'software',
+                'easyeffects',
             ], { 'scss': 'exclude' }),
         },
     },
@@ -274,6 +272,8 @@ export default {
             ['blueberry.py', 'bluetooth'],
             ['Caprine', 'facebook-messenger'],
             ['', 'preferences-desktop-display'],
+
+            ['vesktop', 'discord'],
         ],
         titles: [
             ['com.github.Aylur.ags', 'AGS'],
@@ -290,6 +290,10 @@ export default {
             ['org.gnome.Nautilus', 'Files'],
             ['libreoffice-writer', 'Writer'],
             ['', 'Desktop'],
+
+            ['brave-browser', 'Brave'],
+            ['steam', 'Steam'],
+            ['vesktop', 'Discord'],
         ],
     },
 };
