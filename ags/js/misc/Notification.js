@@ -75,7 +75,7 @@ export default notification => {
                                 class_name: 'close-button',
                                 vpack: 'start',
                                 child: Widget.Icon('window-close-symbolic'),
-                                on_clicked: () => notification.close(),
+                                on_clicked: notification.close,
                             }),
                         ],
                     }),
@@ -86,6 +86,7 @@ export default notification => {
                         xalign: 0,
                         justification: 'left',
                         label: notification.body,
+                        max_width_chars: 24,
                         wrap: true,
                     }),
                 ],
@@ -93,7 +94,7 @@ export default notification => {
         ],
     });
 
-    const actionsbox = Widget.Revealer({
+    const actionsbox = notification.actions.length > 0 ? Widget.Revealer({
         transition: 'slide_down',
         child: Widget.EventBox({
             child: Widget.Box({
@@ -106,25 +107,25 @@ export default notification => {
                 })),
             }),
         }),
-    });
+    }) : null;
 
     return Widget.EventBox({
         class_name: `notification ${notification.urgency}`,
         vexpand: false,
         on_primary_click: () => notification.dismiss(),
         on_hover() {
-            actionsbox.reveal_child = true;
+            if (actionsbox)
+                actionsbox.reveal_child = true;
         },
         on_hover_lost() {
-            actionsbox.reveal_child = true;
+            if (actionsbox)
+                actionsbox.reveal_child = true;
+
             notification.dismiss();
         },
         child: Widget.Box({
             vertical: true,
-            children: [
-                content,
-                notification.actions.length > 0 && actionsbox,
-            ],
+            children: actionsbox ? [content, actionsbox] : [content],
         }),
     });
 };

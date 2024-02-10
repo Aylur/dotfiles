@@ -1,6 +1,6 @@
 {
     "name": "ags-dotfiles",
-    "version": "1.7.5",
+    "version": "1.7.6",
     "description": "My config files for AGS",
     "main": "config.js",
     "scripts": {
