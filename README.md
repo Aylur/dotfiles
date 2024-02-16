@@ -1,3 +1,6 @@
+> [!WARNING]
+> this branch is no longer maintained
+
 # Hyprland
 
 ![2023-11-18_18-17-48](https://github.com/Aylur/dotfiles/assets/104676705/2c256b0f-8103-4f2a-8211-647c9feaa078)
