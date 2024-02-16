@@ -59,8 +59,7 @@ export function mkOptions<T extends object>(cacheFile: string, object: T) {
     for (const opt of getOptions(object))
         opt.init(cacheFile)
 
-    // ---  FIXME: remove after gui
-    const configFile = `/tmp/ags/config-${Date.now()}.json`
+    const configFile = "/tmp/ags/config.json"
     const values = getOptions(object).reduce((obj, { id, value }) => ({ [id]: value, ...obj }), {})
     Utils.writeFileSync(JSON.stringify(values, null, 2), configFile)
     Utils.monitorFile(configFile, () => {
@@ -70,7 +69,6 @@ export function mkOptions<T extends object>(cacheFile: string, object: T) {
                 opt.value = cache[opt.id]
         }
     })
-    // ---
 
     async function reset(
         [opt, ...list] = getOptions(object),

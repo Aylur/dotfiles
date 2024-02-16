@@ -1,4 +1,4 @@
-import Gtk from "gi://Gtk?version=3.0"
+import RegularWindow from "widget/RegularWindow"
 import layout from "./layout"
 import icons from "lib/icons"
 import options from "options"
@@ -41,9 +41,6 @@ const PagesStack = () => Widget.Stack({
     children: layout.reduce((obj, page) => ({ ...obj, [page.attribute.name]: page }), {}),
     shown: current.bind() as never,
 })
-
-// eslint-disable-next-line max-len
-const RegularWindow = Widget.subclass<typeof Gtk.Window, Gtk.Window.ConstructorProperties>(Gtk.Window)
 
 export default () => RegularWindow({
     name: "settings-dialog",

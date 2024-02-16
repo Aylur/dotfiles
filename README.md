@@ -7,6 +7,7 @@ WIP
 - [aylurs-gtk-shell](https://github.com/Aylur/ags/)
 - bun
 - dart-sass
+- fd
 - brightnessctl
 - swww
 

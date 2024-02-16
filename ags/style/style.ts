@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 import { type Opt } from "lib/option"
 import options from "options"
-import { bash } from "lib/utils"
+import { bash, dependencies, sh } from "lib/utils"
 
-const deps = ["font", "theme", "bar.flatButtons", "bar.position"]
-
-const dirs = [
-    `${App.configDir}/style/mixins`,
-    `${App.configDir}/style/widget`,
+const deps = [
+    "font",
+    "theme",
+    "bar.flatButtons",
+    "bar.position",
 ]
 
 const {
@@ -77,24 +77,27 @@ const variables = () => [
 ]
 
 async function resetCss() {
+    if (!dependencies("dart-sass", "fd"))
+        return App.quit()
+
     const vars = "/tmp/ags/variables.scss"
     await Utils.writeFile(variables().join("\n"), vars)
 
-    const files = dirs.flatMap(dir => Utils.exec(`ls ${dir}`)
-        .split(/\s+/)
-        .map(file => `@import '${dir}/${file}';`))
-
+    const fd = await sh(`fd ".scss" ${App.configDir}`)
+    const files = fd.split(/\s+/).map(f => `@import '${f}';`)
     const scss = [`@import '${vars}';`, ...files].join("\n")
     const css = await bash`echo "${scss}" | sass --stdin`
     const file = "/tmp/ags/style.css"
 
     await Utils.writeFile(css, file)
+
     App.resetCss()
     App.applyCss(file)
 }
 
 export default function init() {
-    dirs.forEach(dir => Utils.monitorFile(dir, resetCss))
+    Utils.monitorFile(`${App.configDir}/widget`, resetCss)
+    Utils.monitorFile(`${App.configDir}/style`, resetCss)
     options.handler(deps, resetCss)
     resetCss()
 }

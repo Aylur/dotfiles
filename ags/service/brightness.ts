@@ -1,4 +1,7 @@
-import { bash, sh } from "lib/utils"
+import { bash, dependencies, sh } from "lib/utils"
+
+if (!dependencies("brightnessctl"))
+    App.quit()
 
 const get = (args: string) => Number(Utils.exec(`brightnessctl ${args}`))
 const screen = await bash`ls -w1 /sys/class/backlight | head -1`

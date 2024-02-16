@@ -1,4 +1,4 @@
-@import "./notifications.scss";
+@import "../notifications/notifications.scss";
 
 @mixin calendar {
     @include widget;

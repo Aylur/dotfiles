@@ -1,7 +1,7 @@
 import { type BarWidget } from "widget/bar/Bar"
 import { opt, mkOptions } from "lib/option"
 
-const options = mkOptions(Utils.CACHE_DIR + "/options2.json", {
+const options = mkOptions(`${Utils.CACHE_DIR}/options.json`, {
     autotheme: opt(false),
 
     wallpaper: opt(`/home/${Utils.USER}/.config/background`),

@@ -3,7 +3,6 @@ import { dependencies, sh } from "./utils"
 import GLib from "gi://GLib?version=2.0"
 
 async function wallpaper() {
-    print("hello?")
     const pos = await sh("hyprctl cursorpos")
 
     await sh([
