@@ -1,0 +1,15 @@
+@mixin hidden {
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+    box-shadow: none;
+    -gtk-icon-transform: scale(0);
+
+    * {
+        background-color: transparent;
+        background-image: none;
+        border-color: transparent;
+        box-shadow: none;
+        -gtk-icon-transform: scale(0);
+    }
+}

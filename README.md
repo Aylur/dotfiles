@@ -1,34 +1,29 @@
 # Hyprland
 
-![2023-11-18_18-17-48](https://github.com/Aylur/dotfiles/assets/104676705/2c256b0f-8103-4f2a-8211-647c9feaa078)
-![2023-11-18_18-17-10](https://github.com/Aylur/dotfiles/assets/104676705/e8bbd929-9367-4f08-be65-34b03ef52a8e)
-![2023-11-18_18-18-44](https://github.com/Aylur/dotfiles/assets/104676705/09a5b5a9-262f-4c29-9627-3cf48b6790ae)
-![2023-11-18_18-28-40](https://github.com/Aylur/dotfiles/assets/104676705/d4ad404d-e5e7-448a-a7a7-a3f0b0858253)
+WIP
 
 ## Dependencies
 
 - [aylurs-gtk-shell](https://github.com/Aylur/ags/)
-- sassc
-- swww
-- nerdfonts
+- bun
+- dart-sass
 - brightnessctl
+- swww
 
 ### Optional Dependencies
 
-- asusctl
-- supergfxctl
+- [matugen](https://github.com/InioX/matugen)
 - hyprpicker
 - slurp
 - wf-recorder
+- wl-clipboard
 - wayshot
-- imagemagick
-- wl-gammactl
-- pavucontrol
 - swappy
-- python
-- python-pam
+- asusctl
+- supergfxctl
 
 ```bash
+# make sure to instal the dependencies first
 git clone https://github.com/Aylur/dotfiles.git
 cp -r dotfiles/ags $HOME/.config/ags
 
@@ -57,20 +52,6 @@ screenshot & screenrecord
 bind=,XF86Launch4,   exec, ags -r 'recorder.start()'
 bind=,Print,         exec, ags -r 'recorder.screenshot()'
 bind=SHIFT,Print,    exec, ags -r 'recorder.screenshot(true)'
-```
-
-brightness adjusting
-```
-bindle=,XF86MonBrightnessUp,   exec, ags -r 'brightness.screen += 0.05; indicator.display()'
-bindle=,XF86MonBrightnessDown, exec, ags -r 'brightness.screen -= 0.05; indicator.display()'
-bindle=,XF86KbdBrightnessUp,   exec, ags -r 'brightness.kbd++; indicator.kbd()'
-bindle=,XF86KbdBrightnessDown, exec, ags -r 'brightness.kbd--; indicator.kbd()'
-```
-
-volume adjusting
-```
-bindle=,XF86AudioRaiseVolume,  exec, ags -r 'audio.speaker.volume += 0.05; indicator.speaker()'
-bindle=,XF86AudioLowerVolume,  exec, ags -r 'audio.speaker.volume -= 0.05; indicator.speaker()'
 ```
 
 Please understand that this is my personal configuration for my setup.

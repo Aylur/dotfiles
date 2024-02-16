@@ -22,9 +22,7 @@ def main [
     ...directories: string
     -r # remove all
     -a # symlink all
-    -m # remove mimelist.list
 ] {
-    if $m { rm -f ~/.config/mimeapps.list }
     if $r { $all | each {|d| remove $d } }
     if $a {
         $all | each {|d| remove $d; link $d }

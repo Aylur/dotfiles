@@ -3,6 +3,15 @@ let
   hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
   plugins = inputs.hyprland-plugins.packages.${pkgs.system};
 
+  yt = pkgs.writeShellScript "yt" ''
+    notify-send "Opening video" "$(wl-paste)"
+    mpv "$(wl-paste)"
+  '';
+
+  playerctl = "${pkgs.playerctl}/bin/playerctl";
+  brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+  pactl = "${pkgs.pulseaudio}/bin/pactl";
+
   launcher = pkgs.writeShellScriptBin "hypr" ''
     #!/${pkgs.bash}/bin/bash
 
@@ -50,14 +59,12 @@ in
       };
 
       misc = {
-        layers_hog_keyboard_focus = false;
         disable_splash_rendering = true;
-        force_default_wallpaper = 0;
+        force_default_wallpaper = 1;
       };
 
       input = {
         kb_layout = "hu";
-        kb_model = "pc104";
         follow_mouse = 1;
         touchpad = {
           natural_scroll = "yes";
@@ -87,19 +94,19 @@ in
       windowrule = let
         f = regex: "float, ^(${regex})$";
       in [
-		(f "org.gnome.Calculator")
-		(f "org.gnome.Nautilus")
-		(f "pavucontrol")
-		(f "nm-connection-editor")
-		(f "blueberry.py")
-		(f "org.gnome.Settings")
-		(f "org.gnome.design.Palette")
-		(f "Color Picker")
-		(f "xdg-desktop-portal")
-		(f "xdg-desktop-portal-gnome")
-		(f "transmission-gtk")
-		(f "com.github.Aylur.ags")
-		"workspace 7, title:Spotify"
+        (f "org.gnome.Calculator")
+        (f "org.gnome.Nautilus")
+        (f "pavucontrol")
+        (f "nm-connection-editor")
+        (f "blueberry.py")
+        (f "org.gnome.Settings")
+        (f "org.gnome.design.Palette")
+        (f "Color Picker")
+        (f "xdg-desktop-portal")
+        (f "xdg-desktop-portal-gnome")
+        (f "transmission-gtk")
+        (f "com.github.Aylur.ags")
+        "workspace 7, title:Spotify"
       ];
 
       bind = let
@@ -111,16 +118,12 @@ in
         mvtows = binding "SUPER SHIFT" "movetoworkspace";
         e = "exec, ags -b hypr";
         arr = [1 2 3 4 5 6 7 8 9];
-        yt = pkgs.writeShellScriptBin "yt" ''
-            notify-send "Opening video" "$(wl-paste)"
-            mpv "$(wl-paste)"
-        '';
       in [
         "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
         "SUPER, R,       ${e} -t applauncher"
-        ", XF86PowerOff, ${e} -t powermenu"
         "SUPER, Tab,     ${e} -t overview"
-        ", XF86Launch4,  ${e} -r 'recorder.start()'"
+        ",XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
+        ",XF86Launch4,   ${e} -r 'recorder.start()'"
         ",Print,         ${e} -r 'recorder.screenshot()'"
         "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
         "SUPER, Return, exec, xterm" # xterm is a symlink, not actually xterm
@@ -128,7 +131,7 @@ in
         "SUPER, E, exec, wezterm -e lf"
 
         # youtube
-        ", XF86Launch1,  exec, ${yt}/bin/yt"
+        ", XF86Launch1,  exec, ${yt}"
 
         "ALT, Tab, focuscurrentorlast"
         "CTRL ALT, Delete, exit"
@@ -158,22 +161,22 @@ in
       ++ (map (i: ws (toString i) (toString i)) arr)
       ++ (map (i: mvtows (toString i) (toString i)) arr);
 
-      bindle = let e = "exec, ags -b hypr -r"; in [
-        ",XF86MonBrightnessUp,   ${e} 'brightness.screen += 0.05; indicator.display()'"
-        ",XF86MonBrightnessDown, ${e} 'brightness.screen -= 0.05; indicator.display()'"
-        ",XF86KbdBrightnessUp,   ${e} 'brightness.kbd++; indicator.kbd()'"
-        ",XF86KbdBrightnessDown, ${e} 'brightness.kbd--; indicator.kbd()'"
-        ",XF86AudioRaiseVolume,  ${e} 'audio.speaker.volume += 0.05; indicator.speaker()'"
-        ",XF86AudioLowerVolume,  ${e} 'audio.speaker.volume -= 0.05; indicator.speaker()'"
+      bindle = [
+        ",XF86MonBrightnessUp,   exec, ${brightnessctl} set +5%"
+        ",XF86MonBrightnessDown, exec, ${brightnessctl} set  5%-"
+        ",XF86KbdBrightnessUp,   exec, ${brightnessctl} -d asus::kbd_backlight set +1"
+        ",XF86KbdBrightnessDown, exec, ${brightnessctl} -d asus::kbd_backlight set  1-"
+        ",XF86AudioRaiseVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ +5%"
+        ",XF86AudioLowerVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ -5%"
       ];
 
-      bindl = let e = "exec, ags -b hypr -r"; in [
-        ",XF86AudioPlay,    ${e} 'mpris?.playPause()'"
-        ",XF86AudioStop,    ${e} 'mpris?.stop()'"
-        ",XF86AudioPause,   ${e} 'mpris?.pause()'"
-        ",XF86AudioPrev,    ${e} 'mpris?.previous()'"
-        ",XF86AudioNext,    ${e} 'mpris?.next()'"
-        ",XF86AudioMicMute, ${e} 'audio.microphone.isMuted = !audio.microphone.isMuted'"
+      bindl =  [
+        ",XF86AudioPlay,    exec, ${playerctl} play-pause"
+        ",XF86AudioStop,    exec, ${playerctl} pause"
+        ",XF86AudioPause,   exec, ${playerctl} pause"
+        ",XF86AudioPrev,    exec, ${playerctl} previous"
+        ",XF86AudioNext,    exec, ${playerctl} next"
+        ",XF86AudioMicMute, exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
       bindm = [
@@ -197,6 +200,7 @@ in
           noise = 0.01;
           contrast = 0.9;
           brightness = 0.8;
+          popups = true;
         };
       };
 

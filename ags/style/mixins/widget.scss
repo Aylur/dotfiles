@@ -1,0 +1,7 @@
+@mixin widget {
+    transition: $transition;
+    border-radius: $radius;
+    color: $fg;
+    background-color: $widget-bg;
+    border: $border;
+}

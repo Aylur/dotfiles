@@ -1,4 +1,3 @@
-{ lib, ... }:
 let
   lang = icon: color: {
     symbol = icon;
@@ -15,7 +14,7 @@ in
     enable = true;
     settings = {
       add_newline = true;
-      format = lib.strings.concatStrings [
+      format = builtins.concatStringsSep "" [
         "$nix_shell"
         "$os"
         "$directory"

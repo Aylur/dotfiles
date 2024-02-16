@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: {
+{ pkgs, username, hostname, ... }: {
 
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -76,7 +76,7 @@
 
   # network
   networking = {
-    hostName = "nixos";
+    hostName = hostname;
     networkmanager.enable = true;
   };
 

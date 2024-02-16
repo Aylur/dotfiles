@@ -1,0 +1,110 @@
+window#powermenu,
+window#verification {
+    // the fraction has to be more than hyprland ignorealpha
+    background-color: rgba(0, 0, 0, .4);
+}
+
+window#verification .verification {
+    @include floating-widget;
+    padding: $popover-padding * 1.5;
+    min-width: 300px;
+    min-height: 100px;
+
+    .text-box {
+        margin-bottom: $spacing;
+
+        .title {
+            font-size: 1.6em;
+        }
+
+        .desc {
+            color: transparentize($fg, 0.1);
+            font-size: 1.1em;
+        }
+    }
+
+    .buttons {
+        @include spacing;
+        margin-top: $padding;
+
+        button {
+            @include button;
+            font-size: 1.5em;
+            padding: $padding;
+        }
+    }
+}
+
+window#powermenu .powermenu {
+    @include floating-widget;
+
+    &.line {
+        padding: $popover-padding * 1.5;
+
+        button {
+            padding: $popover-padding;
+        }
+
+        label {
+            margin-bottom: $spacing * -.5;
+        }
+    }
+
+    &.box {
+        padding: $popover-padding * 2;
+
+        button {
+            padding: $popover-padding * 1.5;
+        }
+
+        label {
+            margin-bottom: $spacing * -1;
+        }
+    }
+
+    button {
+        @include unset;
+
+        image {
+            @include button;
+            border-radius: $radius + ($popover-padding * 1.4);
+            min-width: 1.7em;
+            min-height: 1.7em;
+            font-size: 4em;
+        }
+
+        label,
+        image {
+            color: transparentize($fg, 0.1);
+        }
+
+        label {
+            margin-top: $spacing * .3;
+        }
+
+        &:hover {
+            image {
+                @include button-hover;
+            }
+
+            label {
+                color: $fg;
+            }
+        }
+
+        &:focus image {
+            @include button-focus;
+        }
+
+        &:active image {
+            @include button-active;
+        }
+
+        &:focus,
+        &:active {
+            label {
+                color: $primary-bg;
+            }
+        }
+    }
+}

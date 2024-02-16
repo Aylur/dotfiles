@@ -1,0 +1,30 @@
+@mixin scrollable {
+
+    scrollbar,
+    scrollbar * {
+        all: unset;
+    }
+
+    scrollbar.vertical {
+        transition: $transition;
+        background-color: transparentize($bg, 0.7);
+
+        &:hover {
+            background-color: transparentize($bg, 0.3);
+
+            slider {
+                background-color: transparentize($fg, 0.3);
+                min-width: .6em;
+            }
+        }
+    }
+
+
+    scrollbar.vertical slider {
+        background-color: transparentize($fg, 0.5);
+        border-radius: $radius;
+        min-width: .4em;
+        min-height: 2em;
+        transition: $transition;
+    }
+}

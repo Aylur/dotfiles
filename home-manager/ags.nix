@@ -3,16 +3,16 @@
   imports = [ inputs.ags.homeManagerModules.default ];
 
   home.packages = with pkgs; [
-    sassc
-    (python311.withPackages (p: [ p.python-pam ]))
+    inputs.matugen.packages.${pkgs.system}.default
+    dart-sass
+    gtk3 # gtk-launch
   ];
 
   programs.ags = {
     enable = true;
     configDir = ../ags;
     # extraPackages = with pkgs; [
-    #   libgtop
-    #   libnotify
+    #   gtksourceview
     # ];
   };
 }

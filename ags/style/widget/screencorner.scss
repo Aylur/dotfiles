@@ -1,0 +1,50 @@
+$_shadow-size: $padding;
+$_radius: $radius * $hyprland-gaps-multiplier;
+$_margin: 99px;
+
+window.screen-corner {
+    box.shadow {
+        margin-right: $_margin * -1;
+        margin-left: $_margin * -1;
+
+        @if $shadows {
+            box-shadow: inset 0 0 $_shadow-size 0 $shadow-color;
+        }
+
+        @if $bar-position =="top" {
+            margin-bottom: $_margin * -1;
+        }
+
+        @if $bar-position =="bottom" {
+            margin-top: $_margin * -1;
+        }
+    }
+
+    box.border {
+        @if $bar-position =="top" {
+            border-top: $border-width solid $bg;
+        }
+
+        @if $bar-position =="bottom" {
+            border-bottom: $border-width solid $bg;
+        }
+
+        margin-right: $_margin;
+        margin-left: $_margin;
+    }
+
+    box.corner {
+        box-shadow: 0 0 0 $border-width $border-color;
+    }
+
+    &.corners {
+        box.border {
+            border-radius: if($radius>0, $radius * $hyprland-gaps-multiplier, 0);
+            box-shadow: 0 0 0 $_radius $bg;
+        }
+
+        box.corner {
+            border-radius: if($radius>0, $radius * $hyprland-gaps-multiplier, 0);
+        }
+    }
+}

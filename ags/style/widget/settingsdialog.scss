@@ -1,0 +1,111 @@
+window.settings-dialog {
+    background-color: $bg;
+    color: $fg;
+
+    .header {
+        .pager {
+            @include spacing(.5);
+        }
+
+        padding: $padding;
+
+        button {
+            @include button;
+            font-weight: bold;
+            padding: $padding*.5 $padding;
+
+            box {
+                @include spacing($spacing: .3em);
+            }
+        }
+
+        button.close {
+            padding: $padding * .4;
+        }
+
+        button.reset {
+            @include button($flat: true);
+            padding: $padding*.5;
+        }
+    }
+
+    .page {
+        padding: $padding*2;
+        padding-top: 0;
+    }
+
+    .group {
+        .group-title {
+            color: $primary-bg;
+            margin-bottom: $spacing*.5;
+        }
+
+        &:not(:first-child) {
+            margin-top: $spacing;
+        }
+    }
+
+    .row {
+        background-color: $widget-bg;
+        padding: $padding;
+        border: $border;
+        border-top: none;
+
+        &:first-child {
+            border-radius: $radius $radius 0 0;
+            border: $border;
+        }
+
+        &:last-child {
+            border-radius: 0 0 $radius $radius;
+        }
+
+        label.id,
+        label.note {
+            color: transparentize($fg, .4)
+        }
+
+        entry,
+        button {
+            @include button;
+            padding: $padding;
+        }
+
+        switch {
+            @include switch;
+        }
+
+        spinbutton {
+            @include unset;
+
+            entry {
+                border-radius: $radius 0 0 $radius;
+            }
+
+            button {
+                border-radius: 0;
+            }
+
+            button:last-child {
+                border-radius: 0 $radius $radius 0;
+            }
+        }
+
+        .enum-setter {
+            label {
+                background-color: $widget-bg;
+                border: $border;
+                padding: 0 $padding;
+                border-radius: $radius 0 0 $radius;
+            }
+
+            button {
+                border-radius: 0;
+            }
+
+            button:last-child {
+                border-radius: 0 $radius $radius 0;
+            }
+        }
+    }
+}

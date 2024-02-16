@@ -13,7 +13,6 @@ in
     ./helix.nix
     ./hyprland.nix
     ./lf.nix
-    ./mimelist.nix
     ./neofetch.nix
     ./neovim.nix
     ./packages.nix

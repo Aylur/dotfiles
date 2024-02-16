@@ -15,15 +15,12 @@
       inputs.nixpkgs.follows = "hyprland";
     };
 
+    matugen.url = "github:InioX/matugen";
     ags.url = "github:Aylur/ags";
     stm.url = "github:Aylur/stm";
 
     lf-icons = {
       url = "github:gokcehan/lf";
-      flake = false;
-    };
-    more-waita = {
-      url = "github:somepaulo/MoreWaita";
       flake = false;
     };
     firefox-gnome-theme = {
@@ -35,6 +32,7 @@
   outputs = { home-manager, nixpkgs, ... }@inputs:
   let
     username = "demeter";
+    hostname = "nixos";
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -42,15 +40,30 @@
     };
   in
   {
-    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs username system; };
-      modules = [ ./nixos/configuration.nix ];
+    nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs username hostname system; };
+      modules = [
+        ./nixos/configuration.nix
+        # home-manager.nixosModules.home-manager {
+        #   home-manager = {
+        #     extraSpecialArgs = { inherit inputs username; };
+        #     users.${username} = import ./home-manager/home.nix;
+        #   };
+        # }
+      ];
     };
 
-    homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = { inherit inputs username; };
       modules = [ ./home-manager/home.nix ];
+    };
+
+    packages.${system} = let
+      config = pkgs.callPackage ./ags { inherit inputs; };
+    in {
+      config = config.config;
+      default = config.script;
     };
   };
 }

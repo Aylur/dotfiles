@@ -1,0 +1,90 @@
+@use "sass:math";
+@use "sass:color";
+
+window#applauncher .applauncher {
+    @include floating_widget;
+
+    .quicklaunch {
+        @include spacing;
+
+        button {
+            @include button($flat: true);
+            padding: $padding;
+        }
+    }
+
+    entry {
+        @include button;
+        padding: $padding;
+        margin: $spacing;
+
+        selection {
+            color: color.mix($fg, $bg, 50%);
+            background-color: transparent;
+        }
+
+        label,
+        image {
+            color: $fg;
+        }
+    }
+
+    separator {
+        margin: 4pt 0;
+        min-height: 1px;
+        background-color: $popover-border-color;
+    }
+
+    button.app-item {
+        @include button($flat: true, $reactive: false);
+
+        >box {
+            @include spacing(0.5);
+        }
+
+        transition: $transition;
+        padding: $padding;
+
+        label {
+            transition: $transition;
+
+            &.title {
+                color: $fg;
+            }
+
+            &.description {
+                color: transparentize($fg, 0.3);
+            }
+        }
+
+        image {
+            transition: $transition;
+        }
+
+        &:hover,
+        &:focus {
+            .title {
+                color: $primary-bg;
+            }
+
+            .description {
+
+                color: transparentize($primary-bg, .4);
+            }
+
+            image {
+                -gtk-icon-shadow: 2px 2px $primary-bg;
+            }
+        }
+
+        &:active {
+            background-color: transparentize($primary-bg, 0.5);
+            border-radius: $radius;
+            box-shadow: inset 0 0 0 $border-width $border-color;
+
+            .title {
+                color: $fg;
+            }
+        }
+    }
+}
