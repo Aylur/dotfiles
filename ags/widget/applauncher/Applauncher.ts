@@ -3,6 +3,7 @@ import { AppItem, QuickButton } from "./AppItem"
 import icons from "lib/icons"
 import options from "options"
 import type Gtk from "gi://Gtk?version=3.0"
+import { launchApp } from "lib/utils"
 
 const apps = await Service.import("applications")
 const { query } = apps
@@ -32,7 +33,7 @@ const Applauncher = () => {
         hexpand: true,
         primary_icon_name: icons.ui.search,
         on_accept: () => {
-            entry.text !== "" && first?.launch()
+            entry.text !== "" && launchApp(first)
             App.toggleWindow("applauncher")
         },
         on_change: ({ text }) => {
