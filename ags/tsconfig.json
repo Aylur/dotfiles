@@ -11,7 +11,8 @@
         "noImplicitAny": false,
         "baseUrl": ".",
         "typeRoots": [
-            "./types"
+            "./types",
+            "./node_modules/@girs"
         ],
         "skipLibCheck": true
     }

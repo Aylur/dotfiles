@@ -1,3 +1,4 @@
+import "lib/session"
 import "lib/init"
 import options from "options"
 import Bar from "widget/bar/Bar"

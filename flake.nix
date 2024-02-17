@@ -29,8 +29,7 @@
     };
   };
 
-  outputs = { home-manager, nixpkgs, ... }@inputs:
-  let
+  outputs = { home-manager, nixpkgs, ... }@inputs: let
     username = "demeter";
     hostname = "nixos";
     system = "x86_64-linux";
@@ -38,10 +37,13 @@
       inherit system;
       config.allowUnfree = true;
     };
-  in
-  {
+    asztal = pkgs.callPackage ./ags { inherit inputs; };
+  in {
     nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs username hostname system; };
+      specialArgs = {
+        inherit inputs username hostname system;
+        greeter = asztal.greeter;
+      };
       modules = [
         ./nixos/configuration.nix
         # home-manager.nixosModules.home-manager {
@@ -59,11 +61,10 @@
       modules = [ ./home-manager/home.nix ];
     };
 
-    packages.${system} = let
-      config = pkgs.callPackage ./ags { inherit inputs; };
-    in {
-      config = config.config;
-      default = config.script;
+    packages.${system} = {
+      config = asztal.desktop.config;
+      default = asztal.desktop.script;
+      greeter = asztal.greeter.script;
     };
   };
 }

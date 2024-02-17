@@ -3,6 +3,7 @@
   imports = [
     /etc/nixos/hardware-configuration.nix
     ./audio.nix
+    ./greeter.nix
     # ./gnome.nix
     ./hyprland.nix
     ./laptop.nix

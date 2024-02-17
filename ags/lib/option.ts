@@ -12,9 +12,8 @@ export class Opt<T = unknown> extends Variable<T> {
 
     initial: T
     id = ""
-    toString() {
-        return `${this.value}`
-    }
+    toString() { return `${this.value}` }
+    toJSON() { return `opt:${this.value}` }
 
     init(cacheFile: string) {
         const cacheV = JSON.parse(Utils.readFile(cacheFile) || "{}")[this.id]
@@ -59,7 +58,7 @@ export function mkOptions<T extends object>(cacheFile: string, object: T) {
     for (const opt of getOptions(object))
         opt.init(cacheFile)
 
-    const configFile = "/tmp/ags/config.json"
+    const configFile = `${TMP}/config.json`
     const values = getOptions(object).reduce((obj, { id, value }) => ({ [id]: value, ...obj }), {})
     Utils.writeFileSync(JSON.stringify(values, null, 2), configFile)
     Utils.monitorFile(configFile, () => {

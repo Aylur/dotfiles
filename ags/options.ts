@@ -1,10 +1,10 @@
 import { type BarWidget } from "widget/bar/Bar"
 import { opt, mkOptions } from "lib/option"
 
-const options = mkOptions(`${Utils.CACHE_DIR}/options.json`, {
+const options = mkOptions(OPTIONS, {
     autotheme: opt(false),
 
-    wallpaper: opt(`/home/${Utils.USER}/.config/background`),
+    wallpaper: opt(`/home/${USER}/.config/background`),
 
     theme: {
         dark: {

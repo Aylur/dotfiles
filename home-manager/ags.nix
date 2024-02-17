@@ -1,4 +1,7 @@
 { inputs, pkgs, ... }:
+let
+  config = pkgs.callPackage ../ags { inherit inputs; };
+in
 {
   imports = [ inputs.ags.homeManagerModules.default ];
 
@@ -10,9 +13,9 @@
 
   programs.ags = {
     enable = true;
-    configDir = ../ags;
-    # extraPackages = with pkgs; [
-    #   gtksourceview
-    # ];
+    configDir = config.config;
+    extraPackages = with pkgs; [
+      accountsservice
+    ];
   };
 }

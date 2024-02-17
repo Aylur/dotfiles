@@ -11,19 +11,8 @@ let
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
-
-  launcher = pkgs.writeShellScriptBin "hypr" ''
-    #!/${pkgs.bash}/bin/bash
-
-    export WLR_NO_HARDWARE_CURSORS=1
-    export _JAVA_AWT_WM_NONREPARENTING=1
-
-    exec ${hyprland}/bin/Hyprland
-  '';
 in
 {
-  home.packages = [ launcher ];
-
   xdg.desktopEntries."org.gnome.Settings" = {
     name = "Settings";
     comment = "Gnome Control Center";

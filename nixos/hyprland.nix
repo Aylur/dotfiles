@@ -1,23 +1,6 @@
-{ inputs, pkgs, config, ... }:
-let
-  ags = inputs.ags.packages.${pkgs.system}.ags;
-  conf = pkgs.writeText "config" ''
-    exec-once = ${ags}/bin/ags -c ${./greeter/greeter.js}; hyprctl dispatch exit
-    misc {
-      disable_splash_rendering = true
-      force_default_wallpaper = 1
-    }
-    input {
-      kb_layout = ${config.services.xserver.xkb.layout}
-    }
-  '';
-in
+{ inputs, pkgs, config, username, greeter, ... }:
 {
   services.xserver.displayManager.startx.enable = true;
-  services.greetd = {
-    enable = true;
-    settings.default_session.command = "Hyprland --config ${conf}";
-  };
 
   programs.hyprland = {
     enable = true;

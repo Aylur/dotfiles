@@ -41,6 +41,7 @@ const variables = () => [
     $("error-bg", t(dark.error.bg, light.error.bg)),
     $("error-fg", t(dark.error.fg, light.error.fg)),
 
+    $("scheme", scheme),
     $("padding", `${padding}pt`),
     $("spacing", `${spacing}pt`),
     $("radius", `${radius}px`),
@@ -78,16 +79,16 @@ const variables = () => [
 
 async function resetCss() {
     if (!dependencies("dart-sass", "fd"))
-        return App.quit()
+        return
 
-    const vars = "/tmp/ags/variables.scss"
+    const vars = `${TMP}/variables.scss`
     await Utils.writeFile(variables().join("\n"), vars)
 
     const fd = await sh(`fd ".scss" ${App.configDir}`)
     const files = fd.split(/\s+/).map(f => `@import '${f}';`)
     const scss = [`@import '${vars}';`, ...files].join("\n")
     const css = await bash`echo "${scss}" | sass --stdin`
-    const file = "/tmp/ags/style.css"
+    const file = `${TMP}/style.css`
 
     await Utils.writeFile(css, file)
 
@@ -96,8 +97,7 @@ async function resetCss() {
 }
 
 export default function init() {
-    Utils.monitorFile(`${App.configDir}/widget`, resetCss)
-    Utils.monitorFile(`${App.configDir}/style`, resetCss)
+    Utils.monitorFile(App.configDir, resetCss)
     options.handler(deps, resetCss)
     resetCss()
 }
