@@ -57,7 +57,7 @@
 
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      extraSpecialArgs = { inherit inputs username; };
+      extraSpecialArgs = { inherit inputs username asztal; };
       modules = [ ./home-manager/home.nix ];
     };
 

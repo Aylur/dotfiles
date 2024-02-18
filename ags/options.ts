@@ -99,6 +99,7 @@ const options = mkOptions(OPTIONS, {
         },
         battery: {
             bar: opt<"hidden" | "regular" | "whole">("regular"),
+            charging: opt("#00D787"),
             percentage: opt(true),
             blocks: opt(10),
             width: opt(70),
@@ -134,12 +135,11 @@ const options = mkOptions(OPTIONS, {
 
     applauncher: {
         iconSize: opt(62),
-        width: opt(400),
+        width: opt(0),
         margin: opt(80),
         maxItem: opt(6),
         favorites: opt([
-            "firefox",
-            "blackbox",
+            "org.gnome.Nautilus",
             "org.gnome.Calendar",
             "obsidian",
             "discord",
@@ -171,7 +171,7 @@ const options = mkOptions(OPTIONS, {
         position: opt<"left" | "center" | "right">("right"),
         networkSettings: opt("gtk-launch gnome-control-center"),
         media: {
-            monochromeIcon: opt(false),
+            monochromeIcon: opt(true),
             coverSize: opt(100),
         },
     },

@@ -11,7 +11,7 @@ async function wallpaper() {
         "swww", "img",
         "--transition-type", "grow",
         "--transition-pos", pos.replace(" ", ""),
-        WP,
+        options.wallpaper.value,
     ])
 }
 
@@ -19,18 +19,9 @@ export default async function init() {
     if (!dependencies("swww"))
         return
 
-    async function cp() {
-        const wp = options.wallpaper.value
-        if (wp !== WP) {
-            await sh(`rm ${WP}`)
-            await sh(`cp ${options.wallpaper.value} ${WP}`)
-        }
-    }
+    Utils.monitorFile(WP, () => options.wallpaper.setValue(WP))
+    options.wallpaper.connect("changed", wallpaper)
 
-    Utils.monitorFile(WP, wallpaper)
-    options.wallpaper.connect("changed", cp)
-
-    await cp()
     await sh("swww init")
     wallpaper()
 }

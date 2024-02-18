@@ -1,7 +1,4 @@
-{ inputs, pkgs, ... }:
-let
-  config = pkgs.callPackage ../ags { inherit inputs; };
-in
+{ inputs, pkgs, asztal, ... }:
 {
   imports = [ inputs.ags.homeManagerModules.default ];
 
@@ -13,7 +10,7 @@ in
 
   programs.ags = {
     enable = true;
-    configDir = config.config;
+    configDir = asztal.desktop.config;
     extraPackages = with pkgs; [
       accountsservice
     ];

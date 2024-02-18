@@ -51,6 +51,7 @@ export const Header = () => Widget.Box<Gtk.Widget>(
         vpack: "center",
         child: Widget.Icon(icons.ui.settings),
         on_clicked: () => {
+            App.closeWindow("quicksettings")
             App.closeWindow("settings-dialog")
             App.openWindow("settings-dialog")
         },

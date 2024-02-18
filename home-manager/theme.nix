@@ -21,6 +21,7 @@ in
       font-awesome
       nerdfonts
       morewaita-icon-theme
+      cantarell-fonts
       # papirus-icon-theme
       # qogir-icon-theme
       # whitesur-icon-theme

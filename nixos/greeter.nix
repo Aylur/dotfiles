@@ -23,10 +23,16 @@ in
   ];
 
   system.activationScripts.wallpaper = ''
-    cp /home/${username}/.config/background         /var/cache/greeter/background
-    ${pkgs.coreutils}/bin/chown greeter:greeter     /var/cache/greeter/background
-    cp /home/${username}/.cache/ags/options.json    /var/cache/greeter/options.json
-    ${pkgs.coreutils}/bin/chown greeter:greeter     /var/cache/greeter/options.json
+    CACHE="/var/cache/greeter"
+    OPTS="$CACHE/options.json"
+
+    cp /home/${username}/.cache/ags/options.json $OPTS
+    ${pkgs.coreutils}/bin/chown greeter:greeter $OPTS
+
+    BG=$(cat $OPTS | ${pkgs.jq}/bin/jq -r '.wallpaper // "/home/${username}/.config/background"')
+
+    cp $BG $CACHE/background
+    ${pkgs.coreutils}/bin/chown greeter:greeter $CACHE/background
   '';
 
   environment.systemPackages = with pkgs; [

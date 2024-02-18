@@ -96,7 +96,7 @@ export function launchApp(app: Application) {
         .filter(str => !str.startsWith("%") && !str.startsWith("@"))
         .join(" ")
 
-    sh(exe)
+    bash(`${exe} &`)
     app.frequency += 1
 }
 

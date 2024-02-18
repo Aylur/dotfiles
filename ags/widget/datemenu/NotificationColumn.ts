@@ -1,9 +1,20 @@
+import { type Notification as Notif } from "types/service/notifications"
 import Notification from "widget/notifications/Notification"
 import options from "options"
 import icons from "lib/icons"
 
 const notifications = await Service.import("notifications")
 const notifs = notifications.bind("notifications")
+
+const Animated = (n: Notif) => Widget.Revealer({
+    transition_duration: options.transition.value,
+    transition: "slide_down",
+    child: Notification(n),
+    setup: self => Utils.timeout(options.transition.value, () => {
+        if (!self.is_destroyed)
+            self.reveal_child = true
+    }),
+})
 
 const ClearButton = () => Widget.Button({
     on_clicked: () => {
@@ -32,16 +43,26 @@ const Header = () => Widget.Box({
 })
 
 const NotificationList = () => {
-    const map: Map<number, ReturnType<typeof Widget.Box>> = new Map
+    const map: Map<number, ReturnType<typeof Animated>> = new Map
     const box = Widget.Box({
         vertical: true,
-        children: notifications.notifications.map(Notification),
+        children: notifications.notifications.map(n => {
+            const w = Animated(n)
+            map.set(n.id, w)
+            return w
+        }),
         visible: notifs.as(n => n.length > 0),
     })
 
     function remove(_: unknown, id: number) {
-        map.get(id)?.destroy()
-        map.delete(id)
+        const n = map.get(id)
+        if (n) {
+            n.reveal_child = false
+            Utils.timeout(options.transition.value, () => {
+                n.destroy()
+                map.delete(id)
+            })
+        }
     }
 
     return box
@@ -52,7 +73,7 @@ const NotificationList = () => {
                     remove(null, id)
 
                 const n = notifications.getNotification(id)!
-                const w = Notification(n)
+                const w = Animated(n)
                 map.set(id, w)
                 box.children = [w, ...box.children]
             }

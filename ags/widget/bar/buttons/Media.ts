@@ -37,10 +37,10 @@ const Content = (player: MprisPlayer) => {
     })
 
     const playericon = Widget.Icon({
-        icon: player.bind("entry").as(entry => {
+        icon: Utils.merge([player.bind("entry"), monochrome.bind()], (entry => {
             const name = `${entry}${monochrome.value ? "-symbolic" : ""}`
             return icon(name, icons.fallback.audio)
-        }),
+        })),
     })
 
     return Widget.Box({

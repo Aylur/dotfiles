@@ -8,6 +8,8 @@ const deps = [
     "theme",
     "bar.flatButtons",
     "bar.position",
+    "bar.battery.charging",
+    "bar.battery.blocks",
 ]
 
 const {
@@ -70,8 +72,7 @@ const variables = () => [
     $("font-name", options.font.name),
 
     // etc
-    $("charging-bg", "#00D787"),
-    $("charging-fg", "#141414"),
+    $("charging-bg", options.bar.battery.charging),
     $("bar-battery-blocks", options.bar.battery.blocks),
     $("bar-position", options.bar.position),
     $("hyprland-gaps-multiplier", options.hyprland.gaps),

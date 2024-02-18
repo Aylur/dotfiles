@@ -42,6 +42,8 @@ export async function matugen(
         () => {
             dark.primary.bg.value = c.dark.primary
             light.primary.bg.value = c.light.primary
+            options.bar.battery.charging.value = options.theme.scheme.value === "dark"
+                ? c.dark.primary : c.light.primary
         },
         () => {
             dark.primary.fg.value = c.dark.on_primary
