@@ -22,6 +22,6 @@ export default async function init() {
     Utils.monitorFile(WP, () => options.wallpaper.setValue(WP))
     options.wallpaper.connect("changed", wallpaper)
 
-    await sh("swww init")
+    Utils.execAsync("swww init").catch(() => { })
     wallpaper()
 }

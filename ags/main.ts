@@ -1,3 +1,5 @@
+App.addIcons(`${App.configDir}/assets`)
+
 import "lib/session"
 import "lib/init"
 import options from "options"
@@ -16,7 +18,6 @@ import { setupDateMenu } from "widget/datemenu/DateMenu"
 import { init } from "lib/init"
 
 export default config({
-    icons: "./assets",
     onConfigParsed: () => {
         setupQuickSettings()
         setupDateMenu()
