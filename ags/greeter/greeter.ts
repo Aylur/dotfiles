@@ -38,5 +38,5 @@ export default {
     },
     icons: "./assets",
     windows: [win],
-    iconTheme: GLib.getenv("XCURSOR_THEME"),
+    cursorTheme: GLib.getenv("XCURSOR_THEME"),
 }

@@ -74,7 +74,13 @@ export default Widget.Box({
                     vertical: true,
                 },
                 avatar,
-                Widget.Label(realName || userName),
+                Widget.Box({
+                    hpack: "center",
+                    children: [
+                        Widget.Icon(icons.ui.person),
+                        Widget.Label(realName || userName),
+                    ],
+                }),
                 Widget.Box<Gtk.Widget>(
                     {
                         class_name: "password",

@@ -33,6 +33,7 @@ export default {
         time: "hourglass-symbolic",
         toolbars: "toolbars-symbolic",
         warning: "dialog-warning-symbolic",
+        person: "person-symbolic",
         arrow: {
             right: "pan-end-symbolic",
             left: "pan-start-symbolic",
