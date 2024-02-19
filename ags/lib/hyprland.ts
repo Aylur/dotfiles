@@ -6,6 +6,7 @@ const {
     spacing,
     radius,
     border: { width },
+    blur,
     shadows,
     dark: { primary: { bg: darkActive } },
     light: { primary: { bg: lightActive } },
@@ -16,6 +17,7 @@ const deps = [
     "hyprland",
     spacing.id,
     radius.id,
+    blur.id,
     width.id,
     shadows.id,
     darkActive.id,
@@ -42,27 +44,10 @@ function sendBatch(batch: string[]) {
         .map(x => `keyword ${x}`)
         .join("; ")
 
-    messageAsync(`[[BATCH]]/${cmd}`)
+    return messageAsync(`[[BATCH]]/${cmd}`)
 }
 
-function blur(name: string) {
-    const blur = hyprland.blur.value
-    const alpha = hyprland.alpha.value
-    const rule = [
-        `layerrule unset, ${name}`,
-        `layerrule blur, ${name}`,
-    ]
-
-    if (blur === "*")
-        return [...rule, `layerrule ignorealpha ${alpha}, ${name}`]
-
-    if (blur.some(b => name.includes(b)))
-        return [...rule, `layerrule ignorealpha ${alpha}, ${name}`]
-
-    return []
-}
-
-function setupHyprland() {
+async function setupHyprland() {
     const wm_gaps = Math.floor(hyprland.gaps.value * spacing.value)
 
     sendBatch([
@@ -75,5 +60,13 @@ function setupHyprland() {
         `decoration:drop_shadow ${shadows.value ? "yes" : "no"}`,
     ])
 
-    sendBatch(App.windows.flatMap(({ name }) => blur(name!)))
+    await sendBatch(App.windows.map(({ name }) => `layerrule unset, ${name}`))
+
+    if (blur.value > 0) {
+        sendBatch(App.windows.flatMap(({ name }) => [
+            `layerrule unset, ${name}`,
+            `layerrule blur, ${name}`,
+            `layerrule ignorealpha ${/* based on shadow color */.29}, ${name}`,
+        ]))
+    }
 }

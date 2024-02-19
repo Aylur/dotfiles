@@ -21,6 +21,7 @@ const {
 const {
     dark,
     light,
+    blur,
     scheme,
     padding,
     spacing,
@@ -36,6 +37,7 @@ export default [
             Row({ opt: wp, title: "Wallpaper", type: "img" }),
             Row({ opt: at, title: "Auto Generate Color Scheme" }),
             Row({ opt: scheme, title: "Color Scheme", type: "enum", enums: ["dark", "light"] }),
+            Row({ opt: blur, title: "Blur", note: "0 to disable", max: 70 }),
         ),
         Group("Dark Colors",
             Row({ opt: dark.bg, title: "Background", type: "color" }),

@@ -3,7 +3,10 @@
     padding: $padding;
 
     .cover {
-        box-shadow: 2px 2px 2px 0 $shadow-color;
+        @if $shadows {
+            box-shadow: 2px 2px 2px 0 $shadow-color;
+        }
+
         background-size: cover;
         background-position: center;
         border-radius: $radius*0.8;

@@ -22,7 +22,10 @@ export type RowProps<T> = {
 }
 
 export default <T>(props: RowProps<T>) => Widget.Box<Gtk.Widget>(
-    { class_name: "row" },
+    {
+        class_name: "row",
+        tooltip_text: props.note ? `note: ${props.note}` : "",
+    },
     Widget.Box<Gtk.Widget>(
         { vertical: true, vpack: "center" },
         Widget.Label({
