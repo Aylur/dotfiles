@@ -48,52 +48,52 @@ const revealer = Widget.Revealer({
     child: response,
 })
 
-export default Widget.Box<Gtk.Widget>(
-    {
-        class_name: "auth",
-        attribute: { password },
-        vertical: true,
-    },
-    Widget.Overlay({
-        child: Widget.Box(
-            {
-                css: "min-width: 200px; min-height: 200px;",
-                vertical: true,
-            },
-            Widget.Box({
-                class_name: "wallpaper",
-                css: `background-image: url('${WALLPAPER}')`,
-            }),
-            Widget.Box({
-                class_name: "wallpaper-contrast",
-                vexpand: true,
-            }),
-        ),
-        overlay: Widget.Box<Gtk.Widget>(
-            {
-                vpack: "end",
-                vertical: true,
-            },
-            avatar,
-            Widget.Label(realName || userName),
-            Widget.Box<Gtk.Widget>(
+export default Widget.Box({
+    class_name: "auth",
+    attribute: { password },
+    vertical: true,
+    children: [
+        Widget.Overlay({
+            child: Widget.Box(
                 {
-                    class_name: "password",
+                    css: "min-width: 200px; min-height: 200px;",
+                    vertical: true,
                 },
-                Widget.Spinner({
-                    visible: loggingin.bind(),
-                    active: true,
+                Widget.Box({
+                    class_name: "wallpaper",
+                    css: `background-image: url('${WALLPAPER}')`,
                 }),
-                Widget.Icon({
-                    visible: loggingin.bind().as(b => !b),
-                    icon: icons.ui.lock,
+                Widget.Box({
+                    class_name: "wallpaper-contrast",
+                    vexpand: true,
                 }),
-                password,
             ),
+            overlay: Widget.Box<Gtk.Widget>(
+                {
+                    vpack: "end",
+                    vertical: true,
+                },
+                avatar,
+                Widget.Label(realName || userName),
+                Widget.Box<Gtk.Widget>(
+                    {
+                        class_name: "password",
+                    },
+                    Widget.Spinner({
+                        visible: loggingin.bind(),
+                        active: true,
+                    }),
+                    Widget.Icon({
+                        visible: loggingin.bind().as(b => !b),
+                        icon: icons.ui.lock,
+                    }),
+                    password,
+                ),
+            ),
+        }),
+        Widget.Box(
+            { class_name: "response-box" },
+            revealer,
         ),
-    }),
-    Widget.Box(
-        { class_name: "response-box" },
-        revealer,
-    ),
-)
+    ],
+})

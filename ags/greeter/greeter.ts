@@ -1,4 +1,5 @@
 import "./session"
+import GLib from "gi://GLib?version=2.0"
 import style from "style/style"
 import gtk from "lib/gtk"
 import RegularWindow from "widget/RegularWindow"
@@ -37,4 +38,5 @@ export default {
     },
     icons: "./assets",
     windows: [win],
+    iconTheme: GLib.getenv("XCURSOR_THEME"),
 }

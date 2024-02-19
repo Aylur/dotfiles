@@ -1,7 +1,6 @@
 // these are functionalities that I might include in ags
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable max-len */
 import { Binding } from "types/service"
 import { Variable } from "resource:///com/github/Aylur/ags/variable.js"
 import { App } from "resource:///com/github/Aylur/ags/app.js"
@@ -10,6 +9,7 @@ import GObject from "gi://GObject?version=2.0"
 type GObj = GObject.Object | App
 type B<T> = Binding<Variable<T>, any, T>
 
+// eslint-disable-next-line max-len
 export function watch<T>(init: T, objs: Array<GObj | [GObj, signal?: string]>, callback: () => T): B<T>
 export function watch<T>(init: T, obj: GObj, signal: string, callback: () => T): B<T>
 export function watch<T>(init: T, obj: GObj, callback: () => T): B<T>

@@ -73,7 +73,7 @@ export default {
         },
     },
     battery: {
-        charging: "flash-symbolic",
+        charging: "battery-flash-symbolic",
         warning: "battery-empty-symbolic",
     },
     bluetooth: {

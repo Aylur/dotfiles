@@ -79,22 +79,26 @@ const variables = () => [
 ]
 
 async function resetCss() {
-    if (!dependencies("dart-sass", "fd"))
+    if (!dependencies("sass", "fd"))
         return
 
-    const vars = `${TMP}/variables.scss`
-    await Utils.writeFile(variables().join("\n"), vars)
+    try {
+        const vars = `${TMP}/variables.scss`
+        await Utils.writeFile(variables().join("\n"), vars)
 
-    const fd = await sh(`fd ".scss" ${App.configDir}`)
-    const files = fd.split(/\s+/).map(f => `@import '${f}';`)
-    const scss = [`@import '${vars}';`, ...files].join("\n")
-    const css = await bash`echo "${scss}" | sass --stdin`
-    const file = `${TMP}/style.css`
+        const fd = await sh(`fd ".scss" ${App.configDir}`)
+        const files = fd.split(/\s+/).map(f => `@import '${f}';`)
+        const scss = [`@import '${vars}';`, ...files].join("\n")
+        const css = await bash`echo "${scss}" | sass --stdin`
+        const file = `${TMP}/style.css`
 
-    await Utils.writeFile(css, file)
+        await Utils.writeFile(css, file)
 
-    App.resetCss()
-    App.applyCss(file)
+        App.resetCss()
+        App.applyCss(file)
+    } catch (error) {
+        logError(error)
+    }
 }
 
 export default function init() {

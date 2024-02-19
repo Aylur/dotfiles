@@ -139,6 +139,7 @@ const options = mkOptions(OPTIONS, {
         margin: opt(80),
         maxItem: opt(6),
         favorites: opt([
+            "firefox",
             "org.gnome.Nautilus",
             "org.gnome.Calendar",
             "obsidian",
