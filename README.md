@@ -10,7 +10,7 @@
 
 ## Dependencies
 
-- [aylurs-gtk-shell](https://github.com/Aylur/ags/)
+- [aylurs-gtk-shell](https://github.com/Aylur/ags/), and its optional dependencies
 - bun
 - dart-sass
 - fd
