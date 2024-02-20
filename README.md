@@ -1,6 +1,11 @@
 # Hyprland
 
-WIP
+![2024-02-20_16-15-35](https://github.com/Aylur/dotfiles/assets/104676705/199c3441-c92e-49ee-b804-8de625f42329)
+![2024-02-20_16-17-55](https://github.com/Aylur/dotfiles/assets/104676705/39cac513-998e-453f-b9e2-4b4f6f8d9c50)
+![2024-02-20_16-17-23](https://github.com/Aylur/dotfiles/assets/104676705/80fdbc3c-7bc8-48d0-b33f-e743ecbdc2ff)
+![2024-02-20_16-16-57](https://github.com/Aylur/dotfiles/assets/104676705/a66e6640-98d6-4ba3-83af-8df292cc3014)
+![2024-02-20_16-30-56](https://github.com/Aylur/dotfiles/assets/104676705/71e54a51-8748-40e7-9c2e-b69c763506a1)
+
 
 ## Dependencies
 
