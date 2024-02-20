@@ -2,16 +2,22 @@ import { Variable } from "resource:///com/github/Aylur/ags/variable.js"
 import { wait } from "./utils"
 import options from "options"
 
+type OptProps = {
+    persistent?: boolean
+}
+
 export class Opt<T = unknown> extends Variable<T> {
     static { Service.register(this) }
 
-    constructor(initial: T) {
+    constructor(initial: T, { persistent = false }: OptProps = {}) {
         super(initial)
         this.initial = initial
+        this.persistent = persistent
     }
 
     initial: T
     id = ""
+    persistent: boolean
     toString() { return `${this.value}` }
     toJSON() { return `opt:${this.value}` }
 
@@ -28,6 +34,9 @@ export class Opt<T = unknown> extends Variable<T> {
     }
 
     reset() {
+        if (this.persistent)
+            return
+
         if (JSON.stringify(this.value) !== JSON.stringify(this.initial)) {
             this.value = this.initial
             return this.id
@@ -35,7 +44,7 @@ export class Opt<T = unknown> extends Variable<T> {
     }
 }
 
-export const opt = <T>(initial: T) => new Opt(initial)
+export const opt = <T>(initial: T, opts?: OptProps) => new Opt(initial, opts)
 
 function getOptions(object: object, path = ""): Opt[] {
     return Object.keys(object).flatMap(key => {

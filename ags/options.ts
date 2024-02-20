@@ -4,7 +4,7 @@ import { opt, mkOptions } from "lib/option"
 const options = mkOptions(OPTIONS, {
     autotheme: opt(false),
 
-    wallpaper: opt(`/home/${USER}/.config/background`),
+    wallpaper: opt(`/home/${USER}/.config/background`, { persistent: true }),
 
     theme: {
         dark: {

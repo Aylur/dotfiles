@@ -42,14 +42,6 @@ in
       gtk.enable = true;
     };
     file = {
-      ".local/share/fonts" = {
-        recursive = true;
-        source = "${nerdfonts}/share/fonts/truetype/NerdFonts";
-      };
-      ".fonts" = {
-        recursive = true;
-        source = "${nerdfonts}/share/fonts/truetype/NerdFonts";
-      };
       ".config/gtk-4.0/gtk.css" = {
         text = ''
           window.messagedialog .response-area > button,
@@ -61,6 +53,8 @@ in
       };
     };
   };
+
+  fonts.fontconfig.enable = true;
 
   gtk = {
     enable = true;

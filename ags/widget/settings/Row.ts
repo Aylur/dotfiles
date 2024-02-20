@@ -1,6 +1,7 @@
 import { Opt } from "lib/option"
 import Setter from "./Setter"
 import type Gtk from "gi://Gtk?version=3.0"
+import icons from "lib/icons"
 
 export type RowProps<T> = {
     opt: Opt<T>
@@ -44,4 +45,11 @@ export default <T>(props: RowProps<T>) => Widget.Box<Gtk.Widget>(
         { vpack: "center" },
         Setter(props),
     ),
+    Widget.Button({
+        vpack: "center",
+        class_name: "reset",
+        child: Widget.Icon(icons.ui.refresh),
+        on_clicked: () => props.opt.reset(),
+        sensitive: props.opt.bind().as(v => v !== props.opt.initial),
+    }),
 )

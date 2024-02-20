@@ -65,6 +65,10 @@ window.settings-dialog {
             border: $border;
         }
 
+        button.reset {
+            margin-left: $spacing;
+        }
+
         label.id,
         label.note {
             color: transparentize($fg, .4)

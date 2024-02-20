@@ -65,8 +65,9 @@ export default function Setter<T>({
             show_size: false,
             use_size: false,
             setup: self => self
-                .on("notify::font", ({ font }) => opt.value = font as T)
-                .hook(opt, () => self.font = opt.value as string),
+                .hook(opt, () => self.font = opt.value as string)
+                .on("font-set", ({ font }) => opt.value = font!
+                    .split(" ").slice(0, -1).join(" ") as T),
         })
         case "color": return Widget.ColorButton({
             setup: self => self

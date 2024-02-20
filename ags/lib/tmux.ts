@@ -9,6 +9,6 @@ export async function tmux() {
 }
 
 export default function init() {
-    options.wallpaper.connect("changed", tmux)
-    options.autotheme.connect("changed", tmux)
+    options.theme.dark.primary.bg.connect("changed", tmux)
+    options.theme.light.primary.bg.connect("changed", tmux)
 }
