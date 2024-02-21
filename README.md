@@ -7,7 +7,13 @@
 ![2024-02-20_16-50-17](https://github.com/Aylur/dotfiles/assets/104676705/0679ad78-75e9-4982-b0cb-71bda87cce17)
 ![2024-02-20_16-49-14](https://github.com/Aylur/dotfiles/assets/104676705/afb646d9-be8c-41c9-b176-6b3d279dfa8f)
 
+> [!NOTE]
+> I use an Asus laptop and the powerprofile widget
+> in the quicksettings menu uses asusctl
+
 ## Installation
+
+### With Nix
 
 install nix
 
@@ -23,13 +29,15 @@ install desktop
 nix profile install github:Aylur/dotfiles
 ```
 
-login into hyprland and run
+login into Hyprland and run
 
 ```bash
 asztal
 ```
 
-## Dependencies
+### Without Nix
+
+install these dependencies
 
 - [aylurs-gtk-shell](https://github.com/Aylur/ags/), and its optional dependencies
 - bun
@@ -37,10 +45,10 @@ asztal
 - fd
 - brightnessctl
 - swww
-
-### Optional Dependencies
-
 - [matugen](https://github.com/InioX/matugen)
+
+optionally these too
+
 - hyprpicker
 - slurp
 - wf-recorder
@@ -50,12 +58,16 @@ asztal
 - asusctl
 - supergfxctl
 
+git clone, copy files
+
 ```bash
-# make sure to instal the dependencies first
 git clone https://github.com/Aylur/dotfiles.git
 cp -r dotfiles/ags $HOME/.config/ags
+```
 
-# then run
+login to Hyprland then run
+
+```bash
 ags
 ```
 
