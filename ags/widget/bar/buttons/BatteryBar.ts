@@ -79,6 +79,7 @@ export default () => PanelButton({
     class_name: "battery-bar",
     hexpand: false,
     on_clicked: () => { percentage.value = !percentage.value },
+    visible: battery.bind("available"),
     child: Widget.Box({
         expand: true,
         visible: battery.bind("available"),

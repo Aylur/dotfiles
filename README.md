@@ -7,6 +7,27 @@
 ![2024-02-20_16-50-17](https://github.com/Aylur/dotfiles/assets/104676705/0679ad78-75e9-4982-b0cb-71bda87cce17)
 ![2024-02-20_16-49-14](https://github.com/Aylur/dotfiles/assets/104676705/afb646d9-be8c-41c9-b176-6b3d279dfa8f)
 
+## Installation
+
+install nix
+
+```bash
+sh <(curl -L https://nixos.org/nix/install) --no-daemon
+ . ~/.nix-profile/etc/profile.d/nix.sh
+export NIX_CONFIG="experimental-features = nix-command flakes"
+```
+
+install desktop
+
+```bash
+nix profile install github:Aylur/dotfiles
+```
+
+login into hyprland and run
+
+```bash
+asztal
+```
 
 ## Dependencies
 
@@ -43,19 +64,22 @@ ags
 some bindings you might want in your hyprland.conf
 
 reload
-```
+
+```ini
 bind=CTRL SHIFT, R,  exec, ags -q; ags
 ```
 
 opening windows
-```
+
+```ini
 bind=SUPER, R,       exec, ags -t applauncher
 bind=,XF86PowerOff,  exec, ags -t powermenu
 bind=SUPER, Tab,     exec, ags -t overview
 ```
 
 screenshot & screenrecord
-```
+
+```ini
 bind=,XF86Launch4,   exec, ags -r 'recorder.start()'
 bind=,Print,         exec, ags -r 'recorder.screenshot()'
 bind=SHIFT,Print,    exec, ags -r 'recorder.screenshot(true)'
@@ -63,5 +87,6 @@ bind=SHIFT,Print,    exec, ags -r 'recorder.screenshot(true)'
 
 Please understand that this is my personal configuration for my setup.
 If something doesn't work, feel free to open up an issue or message me,
-and I will try to help. However, before doing that, make sure you read the error output,
-use some common sense, and try to solve the problem yourself if it is something simple.
+and I will try to help. However, before doing that,
+make sure you read the error output, use some common sense,
+and try to solve the problem yourself if it is something simple.

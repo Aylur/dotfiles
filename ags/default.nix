@@ -8,6 +8,14 @@
 , fd
 , brightnessctl
 , accountsservice
+, slurp
+, wf-recorder
+, wl-clipboard
+, wayshot
+, swappy
+, hyprpicker
+, pavucontrol
+, networkmanager
 }:
 let
   ags = inputs.ags.packages.${system}.default.override {
@@ -42,22 +50,34 @@ let
       cp -f greeter.js $out/greeter.js
     '';
   };
+
+  addBins = list: builtins.concatStringsSep ":" (builtins.map (p: "${p}/bin") list);
 in {
   desktop = {
     inherit config;
     script = writeShellScriptBin pname ''
-      export PATH=$PATH:${dart-sass}/bin
-      export PATH=$PATH:${fd}/bin
-      export PATH=$PATH:${brightnessctl}/bin
-      export PATH=$PATH:${swww}/bin
+      export PATH=$PATH:${addBins [
+        dart-sass
+        fd
+        brightnessctl
+        swww
+        inputs.matugen.packages.${system}.default
+        slurp
+        wf-recorder
+        wl-clipboard
+        wayshot
+        swappy
+        hyprpicker
+        pavucontrol
+        networkmanager
+      ]}
       ${ags}/bin/ags -b ${pname} -c ${config}/config.js $@
     '';
   };
   greeter = {
     inherit config;
     script = writeShellScriptBin "greeter" ''
-      export PATH=$PATH:${dart-sass}/bin
-      export PATH=$PATH:${fd}/bin
+      export PATH=$PATH:${addBins [dart-sass fd]}
       ${ags}/bin/ags -b ${pname} -c ${config}/greeter.js $@
     '';
   };
