@@ -5,6 +5,16 @@
     font-family: $font-name;
 }
 
+separator {
+    &.horizontal {
+        min-height: $border-width;
+    }
+
+    &.vertical {
+        min-width: $border-width;
+    }
+}
+
 window.popup {
     >* {
         border: none;

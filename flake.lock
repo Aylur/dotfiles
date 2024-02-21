@@ -41,11 +41,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708294481,
-        "narHash": "sha256-DZtxmeb4OR7iCaKUUuq05ADV2rX8WReZEF7Tq//W0+Y=",
+        "lastModified": 1708451036,
+        "narHash": "sha256-tgZ38NummEdnXvxj4D0StHBzXgceAw8CptytHljH790=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a54e05bc12d88ff2df941d0dc1183cb5235fa438",
+        "rev": "517601b37c6d495274454f63c5a483c8e3ca6be1",
         "type": "github"
       },
       "original": {
@@ -64,11 +64,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1708390504,
-        "narHash": "sha256-OnkrI+Sn3AwWWx68WhS2wrCHGvvkfQHaMdlhaYxe4Mg=",
+        "lastModified": 1708452876,
+        "narHash": "sha256-UrFrNfIwd0pcCTZYc6RAppzvpL6icfhelFMgufY5vxU=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "030ed27cc8dee5712f5d38dff9af0b1b3a97bd9c",
+        "rev": "13d985489788fa5349b3457d6eb1c19bad8f37e9",
         "type": "github"
       },
       "original": {
@@ -238,11 +238,11 @@
     "lf-icons": {
       "flake": false,
       "locked": {
-        "lastModified": 1707694077,
-        "narHash": "sha256-V7meG0MhkCF8VvQztTo5pWat5D0hNqMzvxvYnhQBE1Y=",
+        "lastModified": 1708395869,
+        "narHash": "sha256-OQ2+9p7pzQ31gk2BSxvu3k5BMF05QGhp+u3dOOwH5pg=",
         "owner": "gokcehan",
         "repo": "lf",
-        "rev": "cf996263bb80b7da8fffbea81eba5fa2c0d02378",
+        "rev": "0c02239b177a14526b84df41a07405c685cedaba",
         "type": "github"
       },
       "original": {

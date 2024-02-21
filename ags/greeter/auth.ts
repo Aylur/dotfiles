@@ -77,7 +77,7 @@ export default Widget.Box({
                 Widget.Box({
                     hpack: "center",
                     children: [
-                        Widget.Icon(icons.ui.person),
+                        Widget.Icon(icons.ui.avatar),
                         Widget.Label(realName || userName),
                     ],
                 }),

@@ -6,7 +6,7 @@ const { format, action } = options.bar.date
 const time = Utils.derive([clock, format], (c, f) => c.format(f) || "")
 
 export default () => PanelButton({
-    window: "dashboard",
+    window: "datemenu",
     on_clicked: action.bind(),
     child: Widget.Label({ label: time.bind() }),
 })

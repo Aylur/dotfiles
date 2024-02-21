@@ -80,7 +80,7 @@ class Recorder extends Service {
                 "Show in Files": () => sh(`xdg-open ${this.#screenshots}`),
                 "View": () => sh(`xdg-open ${file}`),
                 "Edit": () => {
-                    if (!dependencies("swappy"))
+                    if (dependencies("swappy"))
                         sh(`swappy, -f ${file}`)
                 },
             },

@@ -68,6 +68,7 @@ const NotificationList = () => {
                     remove(null, id)
 
                 const n = notifications.getNotification(id)!
+
                 const w = Animated(n)
                 map.set(id, w)
                 box.children = [w, ...box.children]

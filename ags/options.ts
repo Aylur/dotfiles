@@ -102,8 +102,8 @@ const options = mkOptions(OPTIONS, {
             bar: opt<"hidden" | "regular" | "whole">("regular"),
             charging: opt("#00D787"),
             percentage: opt(true),
-            blocks: opt(10),
-            width: opt(70),
+            blocks: opt(7),
+            width: opt(50),
             low: opt(30),
         },
         workspaces: {

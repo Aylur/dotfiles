@@ -51,7 +51,7 @@ export default () => RegularWindow({
             win.hide()
             return true
         })
-        win.set_default_size(600, 500)
+        win.set_default_size(500, 600)
     },
     child: Widget.Box({
         vertical: true,

@@ -8,7 +8,7 @@ in
   home = {
     packages = with pkgs; [
       blackbox-terminal
-      xterm
+      # xterm
     ];
     sessionVariables.TERMINAL = "blackbox";
   };
