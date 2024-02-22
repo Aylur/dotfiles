@@ -1,7 +1,6 @@
 import { launchApp, icon } from "lib/utils"
 import icons from "lib/icons"
 import options from "options"
-import { watch } from "lib/experiments"
 import PanelButton from "../PanelButton"
 
 const hyprland = await Service.import("hyprland")
@@ -40,7 +39,7 @@ const AppItem = (address: string) => {
     return Widget.Box(
         {
             attribute: { address },
-            visible: watch(true, [exclusive, hyprland], () => {
+            visible: Utils.watch(true, [exclusive, hyprland], () => {
                 return exclusive.value
                     ? hyprland.active.workspace.id === client.workspace.id
                     : true

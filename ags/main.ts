@@ -1,5 +1,3 @@
-App.addIcons(`${App.configDir}/assets`)
-
 import "lib/session"
 import "lib/init"
 import options from "options"

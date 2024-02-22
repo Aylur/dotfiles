@@ -7,6 +7,7 @@ const { iconSize } = options.applauncher
 
 export const QuickButton = (app: Application) => Widget.Button({
     hexpand: true,
+    tooltip_text: app.name,
     on_clicked: () => {
         App.closeWindow("applauncher")
         launchApp(app)
