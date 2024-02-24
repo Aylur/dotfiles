@@ -1,4 +1,3 @@
-import type Gtk from "gi://Gtk?version=3.0"
 import icons from "lib/icons"
 import { uptime } from "lib/variables"
 import options from "options"
@@ -29,7 +28,7 @@ const SysButton = (action: Action) => Widget.Button({
     on_clicked: () => powermenu.action(action),
 })
 
-export const Header = () => Widget.Box<Gtk.Widget>(
+export const Header = () => Widget.Box(
     { class_name: "header horizontal" },
     Avatar(),
     Widget.Box({

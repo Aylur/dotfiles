@@ -1,6 +1,5 @@
 import { type MprisPlayer } from "types/service/mpris"
 import icons from "lib/icons"
-import type Gtk from "gi://Gtk?version=3.0"
 import options from "options"
 import { icon } from "lib/utils"
 
@@ -19,10 +18,14 @@ const Player = (player: MprisPlayer) => {
     const cover = Widget.Box({
         class_name: "cover",
         vpack: "start",
-        css: Utils.merge([player.bind("cover_path"), media.coverSize.bind()], (path, size) => `
+        css: Utils.merge([
+            player.bind("cover_path"),
+            player.bind("track_cover_url"),
+            media.coverSize.bind(),
+        ], (path, url, size) => `
             min-width: ${size}px;
             min-height: ${size}px;
-            background-image: url('${path}');
+            background-image: url('${path || url}');
         `),
     })
 
@@ -120,7 +123,7 @@ const Player = (player: MprisPlayer) => {
     return Widget.Box(
         { class_name: "player", vexpand: false },
         cover,
-        Widget.Box<Gtk.Widget>(
+        Widget.Box(
             { vertical: true },
             Widget.Box([
                 title,

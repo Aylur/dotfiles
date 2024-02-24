@@ -1,4 +1,3 @@
-import type Gtk from "gi://Gtk?version=3.0"
 import { type Stream } from "types/service/audio"
 import { Arrow, Menu } from "../ToggleButton"
 import { dependencies, icon, sh } from "lib/utils"
@@ -51,7 +50,7 @@ export const Microhone = () => Widget.Box({
     ],
 })
 
-const MixerItem = (stream: Stream) => Widget.Box<Gtk.Widget>(
+const MixerItem = (stream: Stream) => Widget.Box(
     {
         hexpand: true,
         class_name: "mixer-item horizontal",
@@ -64,7 +63,7 @@ const MixerItem = (stream: Stream) => Widget.Box<Gtk.Widget>(
                 : icons.fallback.audio
         }),
     }),
-    Widget.Box<Gtk.Widget>(
+    Widget.Box(
         { vertical: true },
         Widget.Label({
             xalign: 0,

@@ -7,10 +7,6 @@
 ![2024-02-20_16-50-17](https://github.com/Aylur/dotfiles/assets/104676705/0679ad78-75e9-4982-b0cb-71bda87cce17)
 ![2024-02-20_16-49-14](https://github.com/Aylur/dotfiles/assets/104676705/afb646d9-be8c-41c9-b176-6b3d279dfa8f)
 
-> [!NOTE]
-> I use an Asus laptop and the powerprofile widget
-> in the quicksettings menu uses asusctl
-
 ## Installation
 
 ### With Nix

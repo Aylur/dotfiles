@@ -1,4 +1,3 @@
-import type Gtk from "gi://Gtk?version=3.0"
 import AccountsService from "gi://AccountsService?version=1.0"
 import icons from "lib/icons"
 
@@ -29,6 +28,7 @@ const password = Widget.Entry({
         login(text!).catch(res => {
             loggingin.value = false
             response.label = res?.description || JSON.stringify(res)
+            password.text = ""
             revealer.reveal_child = true
         })
     },
@@ -68,7 +68,7 @@ export default Widget.Box({
                     vexpand: true,
                 }),
             ),
-            overlay: Widget.Box<Gtk.Widget>(
+            overlay: Widget.Box(
                 {
                     vpack: "end",
                     vertical: true,
@@ -81,7 +81,7 @@ export default Widget.Box({
                         Widget.Label(realName || userName),
                     ],
                 }),
-                Widget.Box<Gtk.Widget>(
+                Widget.Box(
                     {
                         class_name: "password",
                     },

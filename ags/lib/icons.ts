@@ -63,6 +63,11 @@ export default {
         },
         mixer: "mixer-symbolic",
     },
+    powerprofile: {
+        balanced: "power-profile-balanced-symbolic",
+        "power-saver": "power-profile-power-saver-symbolic",
+        performance: "power-profile-performance-symbolic",
+    },
     asusctl: {
         profile: {
             Balanced: "power-profile-balanced-symbolic",

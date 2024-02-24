@@ -58,16 +58,16 @@ const Layout = (name: string, child: Child, transition?: Transition) => ({
     ),
     "top": () => Widget.CenterBox({},
         Padding(name),
-        Widget.Box<Gtk.Widget>(
+        Widget.Box(
             { vertical: true },
             PopupRevealer(name, child, transition),
             Padding(name),
         ),
         Padding(name),
     ),
-    "top-right": () => Widget.Box<Gtk.Widget>({},
+    "top-right": () => Widget.Box({},
         Padding(name),
-        Widget.Box<Gtk.Widget>(
+        Widget.Box(
             {
                 hexpand: false,
                 vertical: true,
@@ -76,20 +76,9 @@ const Layout = (name: string, child: Child, transition?: Transition) => ({
             Padding(name),
         ),
     ),
-    "top-center": () => Widget.Box<Gtk.Widget>({},
+    "top-center": () => Widget.Box({},
         Padding(name),
-        Widget.Box<Gtk.Widget>(
-            {
-                hexpand: false,
-                vertical: true,
-            },
-            PopupRevealer(name, child, transition),
-            Padding(name),
-        ),
-        Padding(name),
-    ),
-    "top-left": () => Widget.Box<Gtk.Widget>({},
-        Widget.Box<Gtk.Widget>(
+        Widget.Box(
             {
                 hexpand: false,
                 vertical: true,
@@ -99,8 +88,19 @@ const Layout = (name: string, child: Child, transition?: Transition) => ({
         ),
         Padding(name),
     ),
-    "bottom-left": () => Widget.Box<Gtk.Widget>({},
-        Widget.Box<Gtk.Widget>(
+    "top-left": () => Widget.Box({},
+        Widget.Box(
+            {
+                hexpand: false,
+                vertical: true,
+            },
+            PopupRevealer(name, child, transition),
+            Padding(name),
+        ),
+        Padding(name),
+    ),
+    "bottom-left": () => Widget.Box({},
+        Widget.Box(
             {
                 hexpand: false,
                 vertical: true,
@@ -110,9 +110,9 @@ const Layout = (name: string, child: Child, transition?: Transition) => ({
         ),
         Padding(name),
     ),
-    "bottom-center": () => Widget.Box<Gtk.Widget>({},
+    "bottom-center": () => Widget.Box({},
         Padding(name),
-        Widget.Box<Gtk.Widget>(
+        Widget.Box(
             {
                 hexpand: false,
                 vertical: true,
@@ -122,9 +122,9 @@ const Layout = (name: string, child: Child, transition?: Transition) => ({
         ),
         Padding(name),
     ),
-    "bottom-right": () => Widget.Box<Gtk.Widget>({},
+    "bottom-right": () => Widget.Box({},
         Padding(name),
-        Widget.Box<Gtk.Widget>(
+        Widget.Box(
             {
                 hexpand: false,
                 vertical: true,

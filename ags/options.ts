@@ -143,16 +143,10 @@ const options = mkOptions(OPTIONS, {
             [
                 "firefox",
                 "org.gnome.Nautilus",
-                "obsidian",
-                "spotify",
-                "bottles",
-            ],
-            [
-                "wezterm",
                 "org.gnome.Calendar",
+                "obsidian",
                 "discord",
-                "teams-for-linux",
-                "caprine",
+                "spotify",
             ],
         ]),
     },

@@ -1,6 +1,5 @@
 import { Opt } from "lib/option"
 import Setter from "./Setter"
-import type Gtk from "gi://Gtk?version=3.0"
 import icons from "lib/icons"
 
 export type RowProps<T> = {
@@ -22,12 +21,12 @@ export type RowProps<T> = {
     min?: number
 }
 
-export default <T>(props: RowProps<T>) => Widget.Box<Gtk.Widget>(
+export default <T>(props: RowProps<T>) => Widget.Box(
     {
         class_name: "row",
         tooltip_text: props.note ? `note: ${props.note}` : "",
     },
-    Widget.Box<Gtk.Widget>(
+    Widget.Box(
         { vertical: true, vpack: "center" },
         Widget.Label({
             xalign: 0,
