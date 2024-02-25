@@ -1,6 +1,38 @@
 {
   description = "Home Manager and NixOS configuration of Aylur";
 
+  outputs = { home-manager, nixpkgs, ... }@inputs: let
+    username = "demeter";
+    hostname = "nixos";
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+    asztal = pkgs.callPackage ./ags { inherit inputs; };
+  in {
+    nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = { inherit inputs username hostname asztal; };
+      modules = [
+        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+        ./nixos/configuration.nix
+      ];
+    };
+
+    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      extraSpecialArgs = { inherit inputs username asztal; };
+      modules = [ ./home-manager/home.nix ];
+    };
+
+    packages.${system} = {
+      config = asztal.config;
+      default = asztal.asztal;
+      greeter = asztal.greeter;
+    };
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -10,10 +42,7 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.nixpkgs.follows = "hyprland";
-    };
+    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
 
     matugen.url = "github:InioX/matugen";
     ags.url = "github:Aylur/ags";
@@ -29,42 +58,4 @@
     };
   };
 
-  outputs = { home-manager, nixpkgs, ... }@inputs: let
-    username = "demeter";
-    hostname = "nixos";
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-    asztal = pkgs.callPackage ./ags { inherit inputs; };
-  in {
-    nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs username hostname system;
-        greeter = asztal.greeter;
-      };
-      modules = [
-        ./nixos/configuration.nix
-        # home-manager.nixosModules.home-manager {
-        #   home-manager = {
-        #     extraSpecialArgs = { inherit inputs username; };
-        #     users.${username} = import ./home-manager/home.nix;
-        #   };
-        # }
-      ];
-    };
-
-    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      extraSpecialArgs = { inherit inputs username asztal; };
-      modules = [ ./home-manager/home.nix ];
-    };
-
-    packages.${system} = {
-      config = asztal.desktop.config;
-      default = asztal.desktop.script;
-      greeter = asztal.greeter.script;
-    };
-  };
 }

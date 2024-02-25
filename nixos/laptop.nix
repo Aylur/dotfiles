@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   # asusctl
   services.asusd = {
     enable = true;

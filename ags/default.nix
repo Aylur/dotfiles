@@ -1,7 +1,9 @@
 { inputs
 , system
 , stdenv
+, writeShellScript
 , writeShellScriptBin
+, cage
 , swww
 , bun
 , dart-sass
@@ -53,33 +55,31 @@ let
 
   addBins = list: builtins.concatStringsSep ":" (builtins.map (p: "${p}/bin") list);
 in {
-  desktop = {
-    inherit config;
-    script = writeShellScriptBin pname ''
-      export PATH=$PATH:${addBins [
-        dart-sass
-        fd
-        brightnessctl
-        swww
-        inputs.matugen.packages.${system}.default
-        slurp
-        wf-recorder
-        wl-clipboard
-        wayshot
-        swappy
-        hyprpicker
-        pavucontrol
-        networkmanager
-      ]}
-      ${ags}/bin/ags -b ${pname} -c ${config}/config.js $@
-    '';
-  };
-  greeter = {
-    inherit config;
-    script = writeShellScriptBin "greeter" ''
-      export PATH=$PATH:${addBins [dart-sass fd]}
-      ${ags}/bin/ags -b ${pname} -c ${config}/greeter.js $@
-    '';
-  };
+  inherit config;
+  greeter = { layout, cursor }: writeShellScript "greeter" ''
+    export XKB_DEFAULT_LAYOUT=${layout}
+    export XCURSOR_THEME=${cursor}
+    export PATH=$PATH:${dart-sass}/bin
+    export PATH=$PATH:${fd}/bin
+    ${cage}/bin/cage -ds -m last ${ags}/bin/ags -- -c ${config}/greeter.js
+  '';
+  asztal = writeShellScriptBin pname ''
+    export PATH=$PATH:${addBins [
+      dart-sass
+      fd
+      brightnessctl
+      swww
+      inputs.matugen.packages.${system}.default
+      slurp
+      wf-recorder
+      wl-clipboard
+      wayshot
+      swappy
+      hyprpicker
+      pavucontrol
+      networkmanager
+    ]}
+    ${ags}/bin/ags -b ${pname} -c ${config}/config.js $@
+  '';
 }
 

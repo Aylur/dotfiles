@@ -1,5 +1,4 @@
-{ inputs, pkgs, config, username, greeter, ... }:
-{
+{ inputs, pkgs, ... }: {
   services.xserver.displayManager.startx.enable = true;
 
   programs.hyprland = {

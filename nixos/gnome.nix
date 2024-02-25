@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   environment = {
     sessionVariables = {
       NAUTILUS_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
