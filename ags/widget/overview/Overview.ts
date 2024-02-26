@@ -17,14 +17,14 @@ const Overview = (ws: number) => Widget.Box({
         if (ws > 0)
             return
 
-        w.hook(hyprland, (w, id?: number) => {
+        w.hook(hyprland, (w, id?: string) => {
             if (id === undefined)
                 return
 
             w.children = w.children
                 .filter(ch => ch.attribute.id !== Number(id))
         }, "workspace-removed")
-        w.hook(hyprland, (w, id?: number) => {
+        w.hook(hyprland, (w, id?: string) => {
             if (id === undefined)
                 return
 

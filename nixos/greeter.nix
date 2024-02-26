@@ -1,10 +1,11 @@
 { pkgs, config, username, asztal, ... }: {
   services.greetd = {
     enable = true;
-    settings.default_session.command = asztal.greeter {
-      cursor = "Qogir";
-      layout = config.services.xserver.xkb.layout;
-    };
+    settings.default_session.command = pkgs.writeShellScript "greeter" ''
+      export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
+      export XCURSOR_THEME=Qogir
+      ${asztal}/bin/greeter
+    '';
   };
 
   systemd.tmpfiles.rules = [

@@ -1,5 +1,8 @@
 import { type BarWidget } from "widget/bar/Bar"
 import { opt, mkOptions } from "lib/option"
+import { distro } from "lib/variables"
+import { icon } from "lib/utils"
+import icons from "lib/icons"
 
 const options = mkOptions(OPTIONS, {
     autotheme: opt(false),
@@ -86,7 +89,7 @@ const options = mkOptions(OPTIONS, {
         launcher: {
             icon: {
                 colored: opt(true),
-                icon: opt("system-search-symbolic"),
+                icon: opt(icon(distro, icons.ui.search)),
             },
             label: {
                 colored: opt(false),
@@ -110,6 +113,7 @@ const options = mkOptions(OPTIONS, {
             workspaces: opt(7),
         },
         taskbar: {
+            iconSize: opt(0),
             monochrome: opt(true),
             exclusive: opt(false),
         },

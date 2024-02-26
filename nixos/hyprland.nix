@@ -19,8 +19,8 @@
     pam.services.ags = {};
   };
 
-  environment.systemPackages = with pkgs.gnome; [
-    pkgs.loupe
+  environment.systemPackages = with pkgs; with gnome; [
+    loupe
     adwaita-icon-theme
     nautilus
     baobab
@@ -32,6 +32,12 @@
     gnome-calculator
     gnome-clocks
     gnome-software # for flatpak
+    wl-gammactl
+    wl-clipboard
+    wayshot
+    pavucontrol
+    brightnessctl
+    swww
   ];
 
   systemd = {

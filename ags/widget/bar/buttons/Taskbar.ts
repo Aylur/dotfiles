@@ -5,7 +5,7 @@ import PanelButton from "../PanelButton"
 
 const hyprland = await Service.import("hyprland")
 const apps = await Service.import("applications")
-const { monochrome, exclusive } = options.bar.taskbar
+const { monochrome, exclusive, iconSize } = options.bar.taskbar
 const { position } = options.bar
 
 const focus = (address: string) => hyprland.messageAsync(
@@ -25,10 +25,13 @@ const AppItem = (address: string) => {
 
     const btn = PanelButton({
         class_name: "panel-button",
-        tooltip_text: client.title,
+        tooltip_text: Utils.watch(client.title, hyprland, () =>
+            hyprland.getClient(address)?.title || "",
+        ),
         on_primary_click: () => focus(address),
         on_middle_click: () => app && launchApp(app),
         child: Widget.Icon({
+            size: iconSize.bind(),
             icon: monochrome.bind().as(m => icon(
                 (app?.icon_name || client.class) + (m ? "-symbolic" : ""),
                 icons.fallback.executable,

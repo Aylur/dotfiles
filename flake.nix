@@ -14,10 +14,7 @@
     nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = { inherit inputs username hostname asztal; };
-      modules = [
-        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-        ./nixos/configuration.nix
-      ];
+      modules = [ ./nixos/configuration.nix ];
     };
 
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
@@ -26,11 +23,7 @@
       modules = [ ./home-manager/home.nix ];
     };
 
-    packages.${system} = {
-      config = asztal.config;
-      default = asztal.asztal;
-      greeter = asztal.greeter;
-    };
+    packages.${system}.default = asztal;
   };
 
   inputs = {
@@ -57,5 +50,4 @@
       flake = false;
     };
   };
-
 }

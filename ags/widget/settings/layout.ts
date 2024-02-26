@@ -89,6 +89,7 @@ export default [
             Row({ opt: b.workspaces.workspaces, title: "Number of Workspaces", note: "0 to make it dynamic" }),
         ),
         Group("Taskbar",
+            Row({ opt: b.taskbar.iconSize, title: "Icon Size" }),
             Row({ opt: b.taskbar.monochrome, title: "Monochrome" }),
             Row({ opt: b.taskbar.exclusive, title: "Exclusive to workspaces" }),
         ),
