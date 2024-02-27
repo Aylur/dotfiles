@@ -57,6 +57,14 @@ export async function matugen(
             dark.error.fg.value = c.dark.on_error
             light.error.fg.value = c.light.on_error
         },
+        () => {
+            dark.secondary.bg.value = c.dark.tertiary
+            light.secondary.bg.value = c.light.tertiary
+        },
+        () => {
+            dark.secondary.fg.value = c.dark.on_tertiary
+            light.secondary.fg.value = c.light.on_tertiary
+        },
     )
 }
 

@@ -3,7 +3,7 @@ import options from "options"
 import { sh, range } from "lib/utils"
 
 const hyprland = await Service.import("hyprland")
-const { workspaces } = options.bar.workspaces
+const { workspaces, colorMonitors } = options.bar.workspaces
 
 const dispatch = (arg: string | number) => {
     sh(`hyprctl dispatch workspace ${arg}`)
@@ -15,8 +15,15 @@ const Workspaces = (ws: number) => Widget.Box({
         vpack: "center",
         label: `${i}`,
         setup: self => self.hook(hyprland, () => {
+            const ws = hyprland.getWorkspace(i);
+
+            const monitorClass = (ws?.monitorID === 0) ? 'Primary' : 'Secondary';
+            const isActive = hyprland.active.workspace.id === i || ws?.windows > 0;
+            const toggleMonitorClass = isActive && colorMonitors.value;
+            self.toggleClassName(`monitor${monitorClass}`, toggleMonitorClass);
+
             self.toggleClassName("active", hyprland.active.workspace.id === i)
-            self.toggleClassName("occupied", (hyprland.getWorkspace(i)?.windows || 0) > 0)
+            self.toggleClassName("occupied", (ws?.windows || 0) > 0)
         }),
     })),
     setup: box => {

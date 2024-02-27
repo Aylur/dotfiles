@@ -19,6 +19,10 @@ const options = mkOptions(OPTIONS, {
                 bg: opt("#e55f86"),
                 fg: opt("#141414"),
             },
+            secondary: {
+                bg: opt("#e7df51"),
+                fg: opt("#141414")
+            },
             bg: opt("#171717"),
             fg: opt("#eeeeee"),
             widget: opt("#eeeeee"),
@@ -31,6 +35,10 @@ const options = mkOptions(OPTIONS, {
             },
             error: {
                 bg: opt("#b13558"),
+                fg: opt("#eeeeee"),
+            },
+            secondary: {
+                bg: opt("#bcde42"),
                 fg: opt("#eeeeee"),
             },
             bg: opt("#fffffa"),
@@ -111,6 +119,7 @@ const options = mkOptions(OPTIONS, {
         },
         workspaces: {
             workspaces: opt(7),
+            colorMonitors: opt(false),
         },
         taskbar: {
             iconSize: opt(0),

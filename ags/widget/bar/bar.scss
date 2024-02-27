@@ -71,6 +71,9 @@ $button-radius: $radius;
                 min-width: 20pt;
                 min-height: 12pt;
             }
+
+            &.monitorPrimary   { background: $primary-bg; }
+            &.monitorSecondary { background: $secondary-bg; }
         }
 
         &.active,
