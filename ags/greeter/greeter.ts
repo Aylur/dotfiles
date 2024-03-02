@@ -31,12 +31,12 @@ const win = RegularWindow({
     }),
 })
 
-export default {
+App.config({
     onConfigParsed() {
         style()
         gtk()
     },
     icons: "./assets",
     windows: [win],
-    cursorTheme: GLib.getenv("XCURSOR_THEME"),
-}
+    cursorTheme: GLib.getenv("XCURSOR_THEME")!,
+})

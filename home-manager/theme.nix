@@ -1,7 +1,5 @@
 { pkgs, ... }:
 let
-  gtk-theme = "adw-gtk3-dark";
-
   nerdfonts = (pkgs.nerdfonts.override { fonts = [
     "Ubuntu"
     "UbuntuMono"
@@ -11,60 +9,62 @@ let
     "Mononoki"
   ]; });
 
-  cursor-theme = "Qogir";
-  cursor-package = pkgs.qogir-icon-theme;
+  theme = {
+    name = "adw-gtk3-dark";
+    package = pkgs.adw-gtk3;
+  };
+  font = {
+    name = "Ubuntu Nerd Font";
+    package = nerdfonts;
+  };
+  cursorTheme = {
+    name = "Qogir";
+    size = 24;
+    package = pkgs.qogir-icon-theme;
+  };
+  iconTheme = {
+    name = "MoreWaita";
+    package = pkgs.morewaita-icon-theme;
+  };
 in
 {
   home = {
     packages = with pkgs; [
-      adw-gtk3
-      font-awesome
-      nerdfonts
-      morewaita-icon-theme
       cantarell-fonts
-      # papirus-icon-theme
-      # qogir-icon-theme
-      # whitesur-icon-theme
-      # colloid-icon-theme
-      # qogir-theme
-      # yaru-theme
-      # whitesur-gtk-theme
-      # orchis-theme
+      font-awesome
+      theme.package
+      font.package
+      cursorTheme.package
+      iconTheme.package
+      gnome.adwaita-icon-theme
     ];
     sessionVariables = {
-      XCURSOR_THEME = cursor-theme;
-      XCURSOR_SIZE = "24";
+      XCURSOR_THEME = cursorTheme.name;
+      XCURSOR_SIZE = "${toString cursorTheme.size}";
     };
-    pointerCursor = {
-      package = cursor-package;
-      name = cursor-theme;
-      size = 24;
+    pointerCursor = cursorTheme // {
       gtk.enable = true;
     };
     file = {
-      ".config/gtk-4.0/gtk.css" = {
-        text = ''
-          window.messagedialog .response-area > button,
-          window.dialog.message .dialog-action-area > button,
-          .background.csd{
-            border-radius: 0;
-          }
-        '';
+      ".local/share/themes/${theme.name}" = {
+        source = "${theme.package}/share/themes/${theme.name}";
       };
+      ".config/gtk-4.0/gtk.css".text = ''
+        window.messagedialog .response-area > button,
+        window.dialog.message .dialog-action-area > button,
+        .background.csd{
+          border-radius: 0;
+        }
+      '';
     };
   };
 
   fonts.fontconfig.enable = true;
 
   gtk = {
+    inherit font cursorTheme iconTheme;
+    theme.name = theme.name;
     enable = true;
-    font.name = "Ubuntu Nerd Font";
-    theme.name = gtk-theme;
-    cursorTheme = {
-      name = cursor-theme;
-      package = cursor-package;
-    };
-    iconTheme.name = "MoreWaita";
     gtk3.extraCss = ''
       headerbar, .titlebar,
       .csd:not(.popup):not(tooltip):not(messagedialog) decoration{

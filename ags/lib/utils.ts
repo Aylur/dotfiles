@@ -1,14 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { type Config } from "types/app"
 import { type Application } from "types/service/applications"
 import icons, { substitutes } from "./icons"
 import Gtk from "gi://Gtk?version=3.0"
 import Gdk from "gi://Gdk"
 import GLib from "gi://GLib?version=2.0"
-
-export function config<T extends Gtk.Window>(config: Config<T>) {
-    return config
-}
 
 /**
   * @returns substitute icon || name || fallback icon
