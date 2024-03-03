@@ -1,5 +1,8 @@
 { inputs, pkgs, asztal, ... }: {
-  imports = [ inputs.ags.homeManagerModules.default ];
+  imports = [
+    inputs.ags.homeManagerModules.default
+    inputs.astal.homeManagerModules.default
+  ];
 
   home.packages = with pkgs; [
     asztal
@@ -19,6 +22,13 @@
     networkmanager
     gtk3
   ];
+
+  programs.astal = {
+    enable = true;
+    extraPackages = with pkgs; [
+      libadwaita
+    ];
+  };
 
   programs.ags = {
     enable = true;

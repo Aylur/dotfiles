@@ -39,6 +39,7 @@
 
     matugen.url = "github:InioX/matugen";
     ags.url = "github:Aylur/ags";
+    astal.url = "github:Aylur/astal";
     stm.url = "github:Aylur/stm";
 
     lf-icons = {

@@ -16,6 +16,7 @@ import { setupDateMenu } from "widget/datemenu/DateMenu"
 import { init } from "lib/init"
 
 App.config({
+    icons: "./assets",
     onConfigParsed: () => {
         setupQuickSettings()
         setupDateMenu()
@@ -27,7 +28,7 @@ App.config({
         "quicksettings": options.transition.value,
         "datemenu": options.transition.value,
     },
-    windows: [
+    windows: () => [
         ...forMonitors(Bar),
         ...forMonitors(NotificationPopups),
         ...forMonitors(ScreenCorners),
