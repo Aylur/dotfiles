@@ -60,15 +60,6 @@ export function range(length: number, start = 1) {
 }
 
 /**
- * promisified timeout
- */
-export function wait<T>(ms: number, callback: () => T): Promise<T> {
-    return new Promise(resolve => Utils.timeout(ms, () => {
-        resolve(callback())
-    }))
-}
-
-/**
  * @returns true if all of the `bins` are found
  */
 export function dependencies(...bins: string[]) {
