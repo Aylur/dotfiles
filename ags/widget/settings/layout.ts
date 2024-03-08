@@ -16,6 +16,7 @@ const {
     powermenu: pm,
     quicksettings: qs,
     osd,
+    hyprland: h,
 } = options
 
 const {
@@ -113,6 +114,9 @@ export default [
         ),
     ),
     Page("General", icons.ui.settings,
+        Group("Hyprland",
+            Row({ opt: h.gapsWhenOnly, title: "Gaps When Only" }),
+        ),
         Group("Applauncher",
             Row({ opt: al.iconSize, title: "Icon Size" }),
             Row({ opt: al.width, title: "Width" }),
