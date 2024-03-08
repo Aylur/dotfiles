@@ -7,7 +7,7 @@
     };
   };
 
-  home.packages = with pkgs; with nodePackages_latest; with gnome; [
+  home.packages = with pkgs; with gnome; [
     # colorscript
     (import ./colorscript.nix { inherit pkgs; })
 
@@ -45,15 +45,5 @@
     yabridgectl
     wine-staging
     distrobox
-
-    # langs
-    nodejs
-    gjs
-    bun
-    cargo
-    go
-    gcc
-    typescript
-    eslint
   ];
 }

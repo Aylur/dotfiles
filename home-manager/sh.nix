@@ -21,7 +21,7 @@ let
     "éé" = "eza";
     "és" = "eza";
     "l" = "eza";
-    "nv" = "nvim";
+    "nvim" = "nv";
     ":q" = "exit";
     "q" = "exit";
     "gs" = "git status";

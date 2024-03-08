@@ -44,6 +44,10 @@ return {
                 nil_ls = {},
                 lua_ls = {},
                 nushell = {},
+                denols = {},
+                tsserver = {
+                    root_dir = require('lspconfig').util.root_pattern("package.json")
+                },
             },
         },
     },
