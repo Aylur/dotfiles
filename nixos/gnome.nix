@@ -9,23 +9,24 @@
     ];
 
     systemPackages = with pkgs; [
+      qogir-icon-theme
       gnome-extension-manager
       nautilus-open-any-terminal
-      qogir-icon-theme
       gnome.nautilus-python
+      wl-clipboard
     ];
 
     gnome.excludePackages = (with pkgs; [
-      gnome-text-editor
+      # gnome-text-editor
       gnome-console
       gnome-photos
       gnome-tour
       gnome-connections
       snapshot
+      gedit
     ]) ++ (with pkgs.gnome; [
       cheese # webcam tool
       gnome-music
-      gedit # text editor
       epiphany # web browser
       geary # email reader
       evince # document viewer
