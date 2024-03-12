@@ -1,7 +1,7 @@
 @use "sass:math";
 @use "sass:color";
 
-window#applauncher .applauncher {
+window#launcher .launcher {
     @include floating_widget;
 
     .quicklaunch {
@@ -27,6 +27,11 @@ window#applauncher .applauncher {
         image {
             color: $fg;
         }
+    }
+
+    image.spinner {
+        color: $primary-bg;
+        margin-right: $spacing;
     }
 
     separator {
@@ -67,7 +72,6 @@ window#applauncher .applauncher {
             }
 
             .description {
-
                 color: transparentize($primary-bg, .4);
             }
 
@@ -84,6 +88,56 @@ window#applauncher .applauncher {
             .title {
                 color: $fg;
             }
+        }
+    }
+
+    button.help,
+    button.nix-item {
+        @include button($flat: true, $reactive: false);
+        padding: 0 ($padding * .5);
+
+        label {
+            transition: $transition;
+            color: $fg;
+        }
+
+        .name {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .description {
+            color: transparentize($fg, .3)
+        }
+
+        &:hover,
+        &:focus {
+            label {
+                text-shadow: $text-shadow;
+            }
+
+            .name,
+            .version {
+                color: $primary-bg;
+            }
+
+            .description {
+                color: transparentize($primary-bg, .3)
+            }
+        }
+    }
+
+    button.sh-item {
+        @include button($flat: true, $reactive: false);
+        padding: 0 ($padding * .5);
+
+        transition: $transition;
+        color: $fg;
+
+        &:hover,
+        &:focus {
+            color: $primary-bg;
+            text-shadow: $text-shadow;
         }
     }
 }

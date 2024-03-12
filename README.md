@@ -45,6 +45,7 @@ install these dependencies
 
 optionally these too
 
+- fzf
 - hyprpicker
 - slurp
 - wf-recorder

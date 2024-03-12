@@ -110,7 +110,7 @@ in
         arr = [1 2 3 4 5 6 7 8 9];
       in [
         "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
-        "SUPER, R,       ${e} -t applauncher"
+        "SUPER, R,       ${e} -t launcher"
         "SUPER, Tab,     ${e} -t overview"
         ",XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
         ",XF86Launch4,   ${e} -r 'recorder.start()'"

@@ -7,6 +7,7 @@
 , bun
 , dart-sass
 , fd
+, fzf
 , brightnessctl
 , accountsservice
 , slurp
@@ -31,6 +32,7 @@ let
     which
     dart-sass
     fd
+    fzf
     brightnessctl
     swww
     inputs.matugen.packages.${system}.default

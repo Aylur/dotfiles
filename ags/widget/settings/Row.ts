@@ -23,6 +23,7 @@ export type RowProps<T> = {
 
 export default <T>(props: RowProps<T>) => Widget.Box(
     {
+        attribute: { opt: props.opt },
         class_name: "row",
         tooltip_text: props.note ? `note: ${props.note}` : "",
     },
