@@ -136,7 +136,11 @@
 
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];
-        uris = ["qemu:///system"];
+      uris = ["qemu:///system"];
+    };
+
+    "org/gnome/TextEditor" = {
+      keybindings = "vim";
     };
   };
 }

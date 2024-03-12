@@ -39,6 +39,7 @@
     glib
 
     # fun
+    yarn
     glow
     slides
     yabridge

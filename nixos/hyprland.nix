@@ -25,6 +25,7 @@
     adwaita-icon-theme
     nautilus
     baobab
+    gnome-text-editor
     gnome-calendar
     gnome-boxes
     gnome-system-monitor

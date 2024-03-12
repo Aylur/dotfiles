@@ -37,6 +37,7 @@ in
       cursorTheme.package
       iconTheme.package
       gnome.adwaita-icon-theme
+      papirus-icon-theme
     ];
     sessionVariables = {
       XCURSOR_THEME = cursorTheme.name;
