@@ -1,11 +1,12 @@
-import options from "options"
 import { clock } from "lib/variables"
+import options from "options"
 import icons from "lib/icons"
 import BatteryBar from "widget/bar/buttons/BatteryBar"
 import PanelButton from "widget/bar/PanelButton"
 
 const { scheme } = options.theme
 const { monochrome } = options.bar.powermenu
+const { format } = options.bar.date
 
 const poweroff = PanelButton({
     class_name: "powermenu",
@@ -20,7 +21,7 @@ const poweroff = PanelButton({
 const date = PanelButton({
     class_name: "date",
     child: Widget.Label({
-        label: clock.bind().as(c => c.format(options.bar.date.format.value) || ""),
+        label: clock.bind().as(c => c.format(`${format}`)!),
     }),
 })
 

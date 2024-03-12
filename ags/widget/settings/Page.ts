@@ -10,6 +10,7 @@ export default <T>(
     child: Widget.Scrollable({
         css: "min-height: 300px;",
         child: Widget.Box({
+            class_name: "page-content",
             vexpand: true,
             vertical: true,
             children: groups,

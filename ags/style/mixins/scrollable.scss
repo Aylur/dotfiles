@@ -1,4 +1,16 @@
-@mixin scrollable {
+@mixin scrollable($top: false, $bottom: false) {
+
+    @if $top and $shadows {
+        undershoot.top {
+            background: linear-gradient(to bottom, $shadow-color, transparent, transparent, transparent, transparent, transparent);
+        }
+    }
+
+    @if $bottom and $shadows {
+        undershoot.bottom {
+            background: linear-gradient(to top, $shadow-color, transparent, transparent, transparent, transparent, transparent);
+        }
+    }
 
     scrollbar,
     scrollbar * {

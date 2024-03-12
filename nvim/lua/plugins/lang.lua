@@ -28,6 +28,8 @@ return {
                 "regex",
                 "vim",
                 "vimdoc",
+
+                "gleam",
             },
         },
     },
@@ -46,8 +48,9 @@ return {
                 nushell = {},
                 denols = {},
                 tsserver = {
-                    root_dir = require('lspconfig').util.root_pattern("package.json")
+                    root_dir = require("lspconfig").util.root_pattern("package.json"),
                 },
+                gleam = {},
             },
         },
     },

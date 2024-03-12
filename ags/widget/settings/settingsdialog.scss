@@ -20,7 +20,7 @@ window.settings-dialog {
         }
 
         button.close {
-            padding: $padding * .4;
+            padding: $padding * .5;
         }
 
         button.reset {
@@ -30,14 +30,28 @@ window.settings-dialog {
     }
 
     .page {
-        padding: $padding*2;
-        padding-top: 0;
+        @include scrollable($top: true);
+
+        .page-content {
+            padding: $padding*2;
+            padding-top: 0;
+        }
     }
 
     .group {
         .group-title {
             color: $primary-bg;
             margin-bottom: $spacing*.5;
+        }
+
+        .group-reset {
+            @include button($flat: true);
+            margin: $spacing * .5;
+            padding: $padding * .5;
+
+            &:disabled {
+                color: transparent;
+            }
         }
 
         &:not(:first-child) {
