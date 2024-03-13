@@ -81,7 +81,7 @@ bind=CTRL SHIFT, R,  exec, ags -q; ags
 opening windows
 
 ```ini
-bind=SUPER, R,       exec, ags -t applauncher
+bind=SUPER, R,       exec, ags -t launcher
 bind=,XF86PowerOff,  exec, ags -t powermenu
 bind=SUPER, Tab,     exec, ags -t overview
 ```
