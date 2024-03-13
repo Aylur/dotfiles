@@ -1,5 +1,6 @@
 import "lib/session"
 import "lib/init"
+import "style/style"
 import options from "options"
 import Bar from "widget/bar/Bar"
 import Launcher from "widget/launcher/Launcher"
@@ -13,13 +14,11 @@ import Verification from "widget/powermenu/Verification"
 import { forMonitors } from "lib/utils"
 import { setupQuickSettings } from "widget/quicksettings/QuickSettings"
 import { setupDateMenu } from "widget/datemenu/DateMenu"
-import { init } from "lib/init"
 
 App.config({
     onConfigParsed: () => {
         setupQuickSettings()
         setupDateMenu()
-        init()
     },
     closeWindowDelay: {
         "launcher": options.transition.value,
