@@ -15,7 +15,6 @@ require("lazy").setup({
     spec = {
         { "LazyVim/LazyVim", import = "lazyvim.plugins" },
         { import = "plugins" },
-        { import = "lazyvim.plugins.extras.formatting.black" },
         { import = "lazyvim.plugins.extras.linting.eslint" },
         { import = "lazyvim.plugins.extras.lsp.none-ls" },
         { import = "lazyvim.plugins.extras.lang.clangd" },

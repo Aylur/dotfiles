@@ -1,8 +1,8 @@
 return {
-    { "ziontee113/color-picker.nvim", opts = {}  },
-    { "danymat/neogen", opts = {} },
-    "norcalli/nvim-colorizer.lua",
     "christoomey/vim-tmux-navigator",
-    "f-person/git-blame.nvim",
-    { "LhKipp/nvim-nu", opts = {} },
+    { "LhKipp/nvim-nu",                 opts = {} },
+    { "danymat/neogen",                 opts = {} },
+    { "f-person/git-blame.nvim",        opts = {} },
+    { "norcalli/nvim-colorizer.lua",    opts = {} },
+    { "ziontee113/color-picker.nvim",   opts = {} },
 }

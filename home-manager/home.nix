@@ -4,6 +4,7 @@ let
 in
 {
   imports = [
+    ../nvim
     ./ags.nix
     ./blackbox.nix
     ./browser.nix
@@ -14,7 +15,6 @@ in
     ./hyprland.nix
     ./lf.nix
     ./neofetch.nix
-    ./neovim.nix
     ./packages.nix
     ./sh.nix
     ./starship.nix

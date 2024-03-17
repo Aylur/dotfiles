@@ -21,7 +21,7 @@ let
     "éé" = "eza";
     "és" = "eza";
     "l" = "eza";
-    "nvim" = "nv";
+    "nv" = "nvim";
     ":q" = "exit";
     "q" = "exit";
     "gs" = "git status";
@@ -44,7 +44,7 @@ in
       inherit shellAliases;
       enable = true;
       enableCompletion = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       initExtra = ''
         SHELL=${pkgs.zsh}/bin/zsh

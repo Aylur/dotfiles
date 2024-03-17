@@ -5,10 +5,13 @@
 
     extraPackages = with pkgs; with nodePackages; [
       vscode-langservers-extracted
-      gopls gotools
-      typescript typescript-language-server
+      gopls
+      gotools
+      typescript
+      typescript-language-server
       marksman
-      nil nixpkgs-fmt
+      nil
+      nixpkgs-fmt
       clang-tools
       lua-language-server
       rust-analyzer
