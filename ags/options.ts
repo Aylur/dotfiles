@@ -130,6 +130,7 @@ const options = mkOptions(OPTIONS, {
             monochrome: opt(true),
             preferred: opt("spotify"),
             direction: opt<"left" | "right">("right"),
+            format: opt("{artists} - {title}"),
             length: opt(40),
         },
         powermenu: {

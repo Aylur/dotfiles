@@ -5,7 +5,7 @@ import icons from "lib/icons"
 import { icon } from "lib/utils"
 
 const mpris = await Service.import("mpris")
-const { length, direction, preferred, monochrome } = options.bar.media
+const { length, direction, preferred, monochrome, format } = options.bar.media
 
 const getPlayer = (name = preferred.value) =>
     mpris.getPlayer(name) || mpris.players[0] || null
@@ -30,9 +30,19 @@ const Content = (player: MprisPlayer) => {
         },
         child: Widget.Label({
             truncate: "end",
-            max_width_chars: length.bind(),
-            label: player.bind("track_title").as(() =>
-                `${player.track_artists.join(", ")} - ${player.track_title}`),
+            max_width_chars: length.bind().as(n => n > 0 ? n : -1),
+            label: Utils.merge([
+                player.bind("track_title"),
+                player.bind("track_artists"),
+                format.bind(),
+            ], () => `${format}`
+                .replace("{title}", player.track_title)
+                .replace("{artists}", player.track_artists.join(", "))
+                .replace("{artist}", player.track_artists[0] || "")
+                .replace("{album}", player.track_album)
+                .replace("{name}", player.name)
+                .replace("{identity}", player.identity),
+            ),
         }),
     })
 
