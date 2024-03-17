@@ -69,8 +69,10 @@ export function dependencies(...bins: string[]) {
         return !Utils.exec(`which ${bin}`)
     })
 
-    if (missing.length > 0)
+    if (missing.length > 0) {
         console.warn("missing dependencies:", missing.join(", "))
+        Utils.notify(`missing dependencies: ${missing.join(", ")}`)
+    }
 
     return missing.length === 0
 }

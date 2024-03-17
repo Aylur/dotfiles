@@ -39,5 +39,5 @@ class PowerMenu extends Service {
 }
 
 const powermenu = new PowerMenu
-globalThis["powermenu"] = powermenu
+Object.assign(globalThis, { powermenu })
 export default powermenu

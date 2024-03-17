@@ -99,5 +99,4 @@ class Nix extends Service {
     }
 }
 
-const nix = new Nix
-export default nix
+export default new Nix

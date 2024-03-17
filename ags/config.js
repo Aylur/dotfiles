@@ -5,7 +5,7 @@ const entry = `${App.configDir}/main.ts`
 const bundler = GLib.getenv("AGS_BUNDLER") || "bun"
 
 const v = {
-    ags: pkg.version.split(".").map(Number),
+    ags: pkg.version?.split(".").map(Number) || [],
     expect: [1, 8, 0],
 }
 

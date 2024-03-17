@@ -11,7 +11,7 @@ class ColorPicker extends Service {
         })
     }
 
-    notifID = 0
+    #notifID = 0
     #colors = JSON.parse(Utils.readFile(COLORS_CACHE) || "[]") as string[]
 
     get colors() { return [...this.#colors] }
@@ -26,7 +26,8 @@ class ColorPicker extends Service {
             bash(`wl-copy ${color}`)
     }
 
-    async pick() {
+    // eslint-disable-next-line space-before-function-paren
+    readonly pick = async () => {
         if (!dependencies("hyprpicker"))
             return
 
@@ -34,24 +35,23 @@ class ColorPicker extends Service {
         if (!color)
             return
 
-        colorpicker.wlCopy(color)
-        const list = colorpicker.colors
+        this.wlCopy(color)
+        const list = this.colors
         if (!list.includes(color)) {
             list.push(color)
             if (list.length > MAX_NUM_COLORS)
                 list.shift()
 
-            colorpicker.colors = list
+            this.colors = list
             Utils.writeFile(JSON.stringify(list, null, 2), COLORS_CACHE)
         }
 
-        colorpicker.notifID = await Utils.notify({
-            id: colorpicker.notifID,
+        this.#notifID = await Utils.notify({
+            id: this.#notifID,
             iconName: icons.ui.colorpicker,
             summary: color,
         })
     }
 }
 
-const colorpicker = new ColorPicker
-export default colorpicker
+export default new ColorPicker

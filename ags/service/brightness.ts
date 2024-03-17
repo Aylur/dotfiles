@@ -66,4 +66,4 @@ class Brightness extends Service {
     }
 }
 
-export default new Brightness()
+export default new Brightness

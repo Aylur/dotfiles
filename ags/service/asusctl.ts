@@ -49,4 +49,4 @@ class Asusctl extends Service {
     get mode() { return this.#mode }
 }
 
-export default new Asusctl()
+export default new Asusctl
