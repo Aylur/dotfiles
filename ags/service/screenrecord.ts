@@ -75,13 +75,13 @@ class Recorder extends Service {
         Utils.notify({
             image: file,
             summary: "Screenshot",
-            body: this.#file,
+            body: file,
             actions: {
                 "Show in Files": () => sh(`xdg-open ${this.#screenshots}`),
                 "View": () => sh(`xdg-open ${file}`),
                 "Edit": () => {
                     if (dependencies("swappy"))
-                        sh(`swappy, -f ${file}`)
+                        sh(`swappy -f ${file}`)
                 },
             },
         })
