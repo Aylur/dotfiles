@@ -7,7 +7,6 @@ import icons from "lib/icons"
 
 const monochrome = options.overview.monochromeIcon
 const TARGET = [Gtk.TargetEntry.new("text/plain", Gtk.TargetFlags.SAME_APP, 0)]
-const scale = (size: number) => (options.overview.scale.value / 100) * size
 const hyprland = await Service.import("hyprland")
 const apps = await Service.import("applications")
 const dispatch = (args: string) => hyprland.messageAsync(`dispatch ${args}`)
@@ -17,10 +16,10 @@ export default ({ address, size: [w, h], class: c, title }: Client) => Widget.Bu
     attribute: { address },
     tooltip_text: `${title}`,
     child: Widget.Icon({
-        css: `
-            min-width: ${scale(w)}px;
-            min-height: ${scale(h)}px;
-        `,
+        css: options.overview.scale.bind().as(v => `
+            min-width: ${(v / 100) * w}px;
+            min-height: ${(v / 100) * h}px;
+        `),
         icon: monochrome.bind().as(m => {
             const app = apps.list.find(app => app.match(c))
             if (!app)

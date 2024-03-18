@@ -19,41 +19,50 @@ const size = (id: number) => {
     return mon ? { h: mon.height, w: mon.width } : def
 }
 
-export default (id: number) => Widget.Box({
-    attribute: { id },
-    tooltipText: `${id}`,
-    class_name: "workspace",
-    vpack: "center",
-    css: `
-        min-width: ${scale(size(id).w)}px;
-        min-height: ${scale(size(id).h)}px;
-    `,
-    setup: box => box.hook(hyprland, () => {
-        box.toggleClassName("active", hyprland.active.workspace.id === id)
-    }),
-    child: Widget.EventBox({
-        expand: true,
-        on_primary_click: () => {
-            App.closeWindow("overview")
-            dispatch(`workspace ${id}`)
-        },
-        setup: eventbox => {
-            eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY)
-            eventbox.connect("drag-data-received", (_w, _c, _x, _y, data) => {
-                const address = new TextDecoder().decode(data.get_data())
-                dispatch(`movetoworkspacesilent ${id},address:${address}`)
+export default (id: number) => {
+    const fixed = Widget.Fixed()
+
+    function update() {
+        fixed.get_children().forEach(ch => ch.destroy())
+        hyprland.clients
+            .filter(({ workspace }) => workspace.id === id)
+            .forEach(c => {
+                const x = c.at[0] - (hyprland.getMonitor(c.monitor)?.x || 0)
+                const y = c.at[1] - (hyprland.getMonitor(c.monitor)?.y || 0)
+                c.mapped && fixed.put(Window(c), scale(x), scale(y))
             })
-        },
-        child: Widget.Fixed().hook(hyprland, fixed => {
-            fixed.get_children().forEach(ch => ch.destroy())
-            hyprland.clients
-                .filter(({ workspace }) => workspace.id === id)
-                .forEach(c => {
-                    const x = c.at[0] - (hyprland.getMonitor(c.monitor)?.x || 0)
-                    const y = c.at[1] - (hyprland.getMonitor(c.monitor)?.y || 0)
-                    c.mapped && fixed.put(Window(c), scale(x), scale(y))
+        fixed.show_all()
+    }
+
+    return Widget.Box({
+        attribute: { id },
+        tooltipText: `${id}`,
+        class_name: "workspace",
+        vpack: "center",
+        css: options.overview.scale.bind().as(v => `
+            min-width: ${(v / 100) * size(id).w}px;
+            min-height: ${(v / 100) * size(id).h}px;
+        `),
+        setup: box => box
+            .hook(hyprland, () => {
+                box.toggleClassName("active", hyprland.active.workspace.id === id)
+                update()
+            })
+            .hook(options.overview.scale, update, "notify::clients"),
+        child: Widget.EventBox({
+            expand: true,
+            on_primary_click: () => {
+                App.closeWindow("overview")
+                dispatch(`workspace ${id}`)
+            },
+            setup: eventbox => {
+                eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY)
+                eventbox.connect("drag-data-received", (_w, _c, _x, _y, data) => {
+                    const address = new TextDecoder().decode(data.get_data())
+                    dispatch(`movetoworkspacesilent ${id},address:${address}`)
                 })
-            fixed.show_all()
-        }, "notify::clients"),
-    }),
-})
+            },
+            child: fixed,
+        }),
+    })
+}
