@@ -125,7 +125,7 @@ export default [
         ),
         Group("Overview",
             Row({ opt: ov.scale, title: "Scale", max: 100 }),
-            Row({ opt: ov.workspaces, title: "workspaces", max: 11, note: "set this to 0 to make it dynamic" }),
+            Row({ opt: ov.workspaces, title: "Workspaces", max: 11, note: "set this to 0 to make it dynamic" }),
             Row({ opt: ov.monochromeIcon, title: "Monochrome Icons" }),
         ),
         Group("Powermenu",
