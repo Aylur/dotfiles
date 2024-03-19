@@ -40,12 +40,10 @@
     glib
 
     # fun
-    yarn
     glow
     slides
     yabridge
     yabridgectl
     wine-staging
-    distrobox
   ];
 }

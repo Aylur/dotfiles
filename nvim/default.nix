@@ -1,14 +1,26 @@
 { pkgs, ... }: let
   deps = with pkgs; with nodePackages_latest; [
+    # js, html
     vscode-langservers-extracted
     tailwindcss-language-server
     typescript-language-server
+    eslint
+    typescript
+
+    # markup
     marksman
     markdownlint-cli
-    eslint
-    taplo
-    typescript
+    taplo # toml
     yaml-language-server
+
+    # python
+    ruff
+    ruff-lsp
+    pyright
+    vscode-html-languageserver-bin
+
+    # bash
+    shfmt
     bash-language-server
   ];
 in {
@@ -40,6 +52,7 @@ in {
     withPython3 = true;
 
     extraPackages = with pkgs; [
+      git
       nil
       lua-language-server
       gcc13

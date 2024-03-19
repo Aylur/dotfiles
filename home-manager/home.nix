@@ -10,6 +10,7 @@ in
     ./browser.nix
     ./bspwm.nix
     ./dconf.nix
+    ./distrobox.nix
     ./git.nix
     ./helix.nix
     ./hyprland.nix
@@ -61,6 +62,8 @@ in
     "file://${homeDirectory}/Videos"
     "file://${homeDirectory}/Downloads"
     "file://${homeDirectory}/Desktop"
+    "file://${homeDirectory}/Work"
+    "file://${homeDirectory}/School"
     "file://${homeDirectory}/Projects"
     "file://${homeDirectory}/Vault"
     "file://${homeDirectory}/Vault/School"
