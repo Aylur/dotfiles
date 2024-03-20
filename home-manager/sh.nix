@@ -1,11 +1,11 @@
 { pkgs, config, ... }:
 let
-  hm = pkgs.writeShellScript "hm" ''
+  nx-switch = pkgs.writeShellScriptBin "nx-switch" ''
     ${../symlink.nu} -r
-    home-manager switch --flake ~/Projects/dotfiles/. --impure
+    sudo nixos-rebuild switch --flake ${../flake.nix} --impure
     ${../symlink.nu} -a
   '';
-  vault = pkgs.writeShellScript "vault" ''
+  vault = pkgs.writeShellScriptBin "vault" ''
     cd ~/Vault
     git add .
     gc -m 'sync $(date '+%Y-%m-%d %H:%M')'
@@ -30,11 +30,11 @@ let
     "gr" = "git reset --soft HEAD~1";
     "f" = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
     "del" = "gio trash";
-    "hm" = "${hm}";
-    "vault" = "${vault}";
   };
 in
 {
+  home.packages = [nx-switch vault];
+
   programs = {
     thefuck.enable = true;
 

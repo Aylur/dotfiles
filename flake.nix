@@ -1,29 +1,40 @@
 {
-  description = "Home Manager and NixOS configuration of Aylur";
+  description = "Configurations of Aylur";
 
-  outputs = { home-manager, nixpkgs, ... }@inputs: let
-    username = "demeter";
-    hostname = "nixos";
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-    asztal = pkgs.callPackage ./ags { inherit inputs; };
-  in {
-    nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit inputs username hostname asztal; };
-      modules = [ ./nixos/configuration.nix ];
-    };
+  outputs = inputs@{ self, home-manager, nixpkgs, ... }: {
+    packages.x86_64-linux.default =
+      nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags {inherit inputs;};
 
-    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      extraSpecialArgs = { inherit inputs username asztal; };
-      modules = [ ./home-manager/home.nix ];
+    # nixos config
+    nixosConfigurations = {
+      "nixos" = let
+        username = "demeter";
+      in
+      nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs username;
+          hostname = "nixos";
+          asztal = self.packages.x86_64-linux.default;
+        };
+        modules = [
+          ./nixos/nixos.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              users.${username} = {
+                home.username = username;
+                home.homeDirectory = "/home/demeter";
+                imports = [./nixos/home.nix];
+              };
+            };
+          }
+        ];
+      };
     };
-
-    packages.${system}.default = asztal;
   };
 
   inputs = {
