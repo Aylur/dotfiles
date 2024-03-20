@@ -1,17 +1,23 @@
 import options from "options"
 const { messageAsync } = await Service.import("hyprland")
 
-const { hyprland } = options
 const {
-    spacing,
-    radius,
-    border: { width },
-    blur,
-    shadows,
-    dark: { primary: { bg: darkActive } },
-    light: { primary: { bg: lightActive } },
-    scheme,
-} = options.theme
+    hyprland,
+    theme: {
+        spacing,
+        radius,
+        border: { width },
+        blur,
+        shadows,
+        dark: {
+            primary: { bg: darkActive },
+        },
+        light: {
+            primary: { bg: lightActive },
+        },
+        scheme,
+    },
+} = options
 
 const deps = [
     "hyprland",
@@ -24,11 +30,6 @@ const deps = [
     lightActive.id,
     scheme.id,
 ]
-
-export default function init() {
-    options.handler(deps, setupHyprland)
-    setupHyprland()
-}
 
 function activeBorder() {
     const color = scheme.value === "dark"
@@ -71,4 +72,9 @@ async function setupHyprland() {
             `layerrule ignorealpha ${/* based on shadow color */.29}, ${name}`,
         ]))
     }
+}
+
+export default function init() {
+    options.handler(deps, setupHyprland)
+    setupHyprland()
 }
