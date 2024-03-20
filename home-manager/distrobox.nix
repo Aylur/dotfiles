@@ -1,4 +1,4 @@
-{ pkgs, config, username, ... }: with builtins; let
+{ pkgs, config, ... }: with builtins; let
   mkHome = box: ".local/share/distrobox/${box}";
 
   boxes = {
@@ -30,7 +30,7 @@
   in listToAttrs (map (link: {
     name = "${box.home}/${link}";
     value = {
-      source = ln "/home/${username}/${link}";
+      source = ln "${config.home.homeDirectory}/${link}";
     };
   }) links);
 
@@ -53,7 +53,7 @@
     if ! ${db} list | grep ${box.alias}; then
         ${db} create \
           --name "${box.alias}" \
-          --home /home/${username}/${box.home} \
+          --home ${config.home.homeDirectory}/${box.home} \
           --image "${box.img}"
     fi
 

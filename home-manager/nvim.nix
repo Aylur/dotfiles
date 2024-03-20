@@ -1,6 +1,9 @@
-{ pkgs, ... }: let
+{ pkgs, lib, ... }: let
+  ifLinux = lib.mkIf pkgs.stdenv.isLinux;
+
   deps = with pkgs; with nodePackages_latest; [
     # js, html
+    vscode-html-languageserver-bin
     vscode-langservers-extracted
     tailwindcss-language-server
     typescript-language-server
@@ -17,29 +20,28 @@
     ruff
     ruff-lsp
     pyright
-    vscode-html-languageserver-bin
 
     # bash
     shfmt
     bash-language-server
   ];
 in {
-  xdg.configFile.nvim.source = ./.;
+  xdg = ifLinux {
+    configFile.nvim.source = ./.;
+    desktopEntries."nvim" = {
+      name = "NeoVim";
+      comment = "Edit text files";
+      icon = "nvim";
+      exec = "xterm -e ${pkgs.neovim}/bin/nvim %F";
+      categories = [ "TerminalEmulator" ];
+      terminal = false;
+      mimeType = [ "text/plain" ];
+    };
+  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
-  };
-
-  xdg.desktopEntries."nvim" = {
-    name = "NeoVim";
-    comment = "Edit text files";
-    icon = "nvim";
-    # xterm is a symlink and not actually xterm
-    exec = "xterm -e ${pkgs.neovim}/bin/nvim %F";
-    categories = [ "TerminalEmulator" ];
-    terminal = false;
-    mimeType = [ "text/plain" ];
   };
 
   programs.neovim = {

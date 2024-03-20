@@ -1,6 +1,4 @@
-{ username, config, ... }: let
-  homeDirectory = "/home/${username}";
-in {
+{ config, ... }: {
   imports = [
     ../home-manager/nvim.nix
     ../home-manager/ags.nix
@@ -39,8 +37,8 @@ in {
       NIXPKGS_ALLOW_UNFREE = "1";
       NIXPKGS_ALLOW_INSECURE = "1";
       BAT_THEME = "base16";
-      GOPATH = "${homeDirectory}/.local/share/go";
-      GOMODCACHE="${homeDirectory}/.cache/go/pkg/mod";
+      GOPATH = "${config.home.homeDirectory}/.local/share/go";
+      GOMODCACHE="${config.home.homeDirectory}/.cache/go/pkg/mod";
     };
 
     sessionPath = [

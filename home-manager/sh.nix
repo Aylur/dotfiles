@@ -2,7 +2,7 @@
 let
   nx-switch = pkgs.writeShellScriptBin "nx-switch" ''
     ${../symlink.nu} -r
-    sudo nixos-rebuild switch --flake ${../flake.nix} --impure
+    sudo nixos-rebuild switch --flake ${../.} --impure
     ${../symlink.nu} -a
   '';
   vault = pkgs.writeShellScriptBin "vault" ''

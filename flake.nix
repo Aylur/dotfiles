@@ -9,17 +9,36 @@
     nixosConfigurations = {
       "nixos" = let
         username = "demeter";
+        hostname = "nixos";
       in
       nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
-          inherit inputs username;
-          hostname = "nixos";
+          inherit inputs;
           asztal = self.packages.x86_64-linux.default;
         };
         modules = [
           ./nixos/nixos.nix
           home-manager.nixosModules.home-manager
+          {
+            users.users.${username} = {
+              isNormalUser = true;
+              initialPassword = username;
+              extraGroups = [
+                "nixosvmtest"
+                "networkmanager"
+                "wheel"
+                "audio"
+                "video"
+                "libvirtd"
+                "docker"
+              ];
+            };
+            networking = {
+              hostName = hostname;
+              networkmanager.enable = true;
+            };
+          }
           {
             home-manager = {
               useGlobalPkgs = true;
@@ -27,7 +46,7 @@
               extraSpecialArgs = specialArgs;
               users.${username} = {
                 home.username = username;
-                home.homeDirectory = "/home/demeter";
+                home.homeDirectory = "/home/${username}";
                 imports = [./nixos/home.nix];
               };
             };

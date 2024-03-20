@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, username, asztal, ... }: {
+{ pkgs, inputs, config, asztal, ... }: {
   services.xserver.displayManager.startx.enable = true;
 
   programs.hyprland = {
@@ -87,15 +87,15 @@
   ];
 
   system.activationScripts.wallpaper = ''
-    PATH=$PATH:${pkgs.coreutils}/bin:${pkgs.gawk}/bin:${pkgs.jq}/bin
+    PATH=$PATH:${pkgs.busybox}/bin:${pkgs.jq}/bin
     CACHE="/var/cache/greeter"
     OPTS="$CACHE/options.json"
+    HOME=$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)
 
-    cp /home/${username}/.cache/ags/options.json $OPTS
+    cp $HOME/.cache/ags/options.json $OPTS
     chown greeter:greeter $OPTS
 
-    BG=$(cat $OPTS | jq -r '.wallpaper // "/home/${username}/.config/background"')
-
+    BG=$(cat $OPTS | jq -r '.wallpaper // "$HOME/.config/background"')
     cp $BG $CACHE/background
     chown greeter:greeter $CACHE/background
   '';

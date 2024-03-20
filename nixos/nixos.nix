@@ -1,4 +1,4 @@
-{ pkgs, username, hostname, ... }: {
+{ pkgs, ... }: {
 
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -62,26 +62,8 @@
     allowedUDPPortRanges = allowedTCPPortRanges;
   };
 
-  # user
-  users.users.${username} = {
-    isNormalUser = true;
-    initialPassword = username;
-    extraGroups = [
-      "nixosvmtest"
-      "networkmanager"
-      "wheel"
-      "audio"
-      "video"
-      "libvirtd"
-      "docker"
-    ];
-  };
-
   # network
-  networking = {
-    hostName = hostname;
-    networkmanager.enable = true;
-  };
+  networking.networkmanager.enable = true;
 
   # bluetooth
   hardware.bluetooth = {
