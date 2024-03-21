@@ -1,7 +1,7 @@
 {
   description = "Configurations of Aylur";
 
-  outputs = inputs@{ self, home-manager, nixpkgs, ... }: {
+  outputs = inputs@{ self, home-manager, nix-darwin, nixpkgs, ... }: {
     packages.x86_64-linux.default =
       nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags {inherit inputs;};
 
@@ -34,12 +34,7 @@
                 "docker"
               ];
             };
-            networking = {
-              hostName = hostname;
-              networkmanager.enable = true;
-            };
-          }
-          {
+            networking.hostName = hostname;
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
@@ -54,6 +49,39 @@
         ];
       };
     };
+
+    # macos
+    darwinConfigurations = {
+      "macos" = let
+        username = "demeter";
+      in
+        nix-darwin.lib.darwinSystem {
+        modules = [
+          ./macos/macos.nix
+          home-manager.darwinModules.home-manager
+          {
+            users.users.${username} = {
+              name = username;
+              home = "/Users/${username}";
+            };
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = { inherit inputs; };
+              users."${username}" = {
+                home.username = username;
+                home.homeDirectory = "/Users/${username}";
+                imports = [./macos/home.nix];
+              };
+            };
+            networking = {
+              hostName = "macos";
+              computerName = "macos";
+            };
+          }
+        ];
+      };
+    };
   };
 
   inputs = {
@@ -61,6 +89,11 @@
 
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

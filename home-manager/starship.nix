@@ -97,6 +97,7 @@ in
         openSUSE = os "" "green";
         SUSE = os "" "green";
         Ubuntu = os "" "bright-purple";
+        Macos = os "" "white";
       };
       python = lang "" "yellow";
       nodejs = lang " " "yellow";

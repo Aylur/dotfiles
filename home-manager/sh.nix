@@ -2,7 +2,10 @@
 let
   nx-switch = pkgs.writeShellScriptBin "nx-switch" ''
     ${../symlink.nu} -r
-    sudo nixos-rebuild switch --flake ${../.} --impure
+    ${if pkgs.stdenv.isDarwin
+      then "darwin-rebuild switch --flake . --impure"
+      else "sudo nixos-rebuild switch --flake . --impure"
+    }
     ${../symlink.nu} -a
   '';
   vault = pkgs.writeShellScriptBin "vault" ''

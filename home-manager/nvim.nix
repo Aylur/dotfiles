@@ -26,9 +26,9 @@
     bash-language-server
   ];
 in {
-  xdg = ifLinux {
-    configFile.nvim.source = ./.;
-    desktopEntries."nvim" = {
+  xdg = {
+    configFile.nvim.source = ../nvim;
+    desktopEntries."nvim" = ifLinux {
       name = "NeoVim";
       comment = "Edit text files";
       icon = "nvim";
@@ -57,12 +57,15 @@ in {
       git
       nil
       lua-language-server
-      gcc13
+      gcc
       gnumake
       unzip
       wget
       curl
       tree-sitter
+      ripgrep
+      fd
+      fzf
     ] ++ deps;
   };
 }

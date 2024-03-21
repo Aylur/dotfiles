@@ -1,3 +1,12 @@
+local start = [[
+if [ "$(uname)" == "Darwin" ]; then
+    # zsh -c "/run/current-system/sw/bin/tmux new-session -d -s session '/run/current-system/sw/bin/nu' && tmux attach-session -t session"\
+    zsh -c "nu"
+else
+    tmux
+fi
+]]
+
 return {
     enable_wayland = false,
     color_schemes = {
@@ -9,7 +18,7 @@ return {
     cell_width = 0.9,
     default_cursor_style = "BlinkingBar",
 
-    default_prog = { "tmux" },
+    default_prog = { "bash", "-c", start },
     window_close_confirmation = "NeverPrompt",
     hide_tab_bar_if_only_one_tab = true,
 

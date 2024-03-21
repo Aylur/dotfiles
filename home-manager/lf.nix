@@ -1,4 +1,12 @@
 { inputs, pkgs, ... }: {
+  home.packages = with pkgs; [
+    glib
+    fzf
+    bat
+    unzip
+    gnutar
+  ];
+
   programs.lf = {
     enable = true;
 
@@ -18,7 +26,7 @@
         esac
       }}'';
 
-      fzf = ''''${{
+      fzf =  ''''${{
         res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location')"
         if [ -n "$res" ]; then
             if [ -d "$res" ]; then
@@ -52,7 +60,7 @@
       }}'';
 
       pager = ''
-        $bat --paging=always "$f"
+        bat --paging=always "$f"
       '';
 
       on-select = ''&{{
@@ -81,19 +89,6 @@
       icons = true;
       cursorpreviewfmt = "";
     };
-
-    previewer = {
-      keybinding = "i";
-      source = "${pkgs.ctpv}/bin/ctpv";
-    };
-
-    extraConfig = ''
-      $mkdir -p ~/.trash
-
-      &${pkgs.ctpv}/bin/ctpv -s $id
-      cmd on-quit %${pkgs.ctpv}/bin/ctpv -e $id
-      set cleaner ${pkgs.ctpv}/bin/ctpvclear
-    '';
   };
 
   xdg.configFile."lf/icons".source = "${inputs.lf-icons}/etc/icons.example";

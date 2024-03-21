@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{ pkgs, ... }: let
   wez = ''${pkgs.wezterm}/bin/wezterm "$@"'';
   xterm = pkgs.writeShellScriptBin "xterm" wez;
   kgx = pkgs.writeShellScriptBin "kgx" wez;
