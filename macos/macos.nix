@@ -16,6 +16,19 @@
     tmux
   ];
 
+  homebrew = {
+    enable = true;
+    brews = [
+      "nushell"
+      "tmux"
+    ];
+    casks = [
+      "spotify"
+      "zed"
+      "wezterm"
+    ];
+  };
+
   environment.etc."paths.d/20-nix" = {
     text = "
       /run/current-system/sw/bin
