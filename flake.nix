@@ -8,8 +8,8 @@
     # nixos config
     nixosConfigurations = {
       "nixos" = let
-        username = "demeter";
         hostname = "nixos";
+        username = "demeter";
       in
       nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -46,6 +46,37 @@
               };
             };
           }
+        ];
+      };
+    };
+
+    # nixos hm config
+    homeConfigurations = let
+      username = "demeter";
+    in {
+      "${username}" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {
+          inherit inputs;
+          asztal = self.packages.x86_64-linux.default;
+        };
+        modules = [
+          ./nixos/home.nix
+          ({ pkgs, ... }: {
+            nix.package = pkgs.nix;
+            home = {
+              packages = [(pkgs.writeShellScriptBin "hm" ''
+                ${./symlink.nu} -r
+                home-manager switch --flake .
+                ${./symlink.nu} -a
+              '')];
+              username = username;
+              homeDirectory = "/home/${username}";
+            };
+          })
         ];
       };
     };
