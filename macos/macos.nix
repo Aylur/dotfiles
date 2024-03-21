@@ -26,6 +26,7 @@
       "spotify"
       "zed"
       "wezterm"
+      "docker"
     ];
   };
 

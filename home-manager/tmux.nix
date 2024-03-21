@@ -49,17 +49,23 @@ let
 	in "#[reverse,fg=${accent}] ${format} #(${icon}) ";
 
   battery = let
-    percentage = pkgs.writeShellScript "percentage" ''
+    percentage = pkgs.writeShellScript "percentage" (if pkgs.stdenv.isDarwin
+    then ''
+      echo $(pmset -g batt | grep -o "[0-9]\+%" | tr '%' ' ')
+    ''
+    else ''
       path="/org/freedesktop/UPower/devices/DisplayDevice"
-      percentage=$(${pkgs.upower}/bin/upower -i $path | grep percentage | awk '{print $2}' | tr '%' ' ')
-      echo $percentage
-    '';
+      echo $(${pkgs.upower}/bin/upower -i $path | grep -o "[0-9]\+%" | tr '%' ' ')
+    '');
 
-    state = pkgs.writeShellScript "state" ''
+    state = pkgs.writeShellScript "state" (if pkgs.stdenv.isDarwin
+    then ''
+      echo $(pmset -g batt | awk '{print $4}')
+    ''
+    else ''
       path="/org/freedesktop/UPower/devices/DisplayDevice"
-      state=$(${pkgs.upower}/bin/upower -i $path | grep state | awk '{print $2}')
-      echo $state
-    '';
+      echo $(${pkgs.upower}/bin/upower -i $path | grep state | awk '{print $2}')
+    '');
 
     icon = pkgs.writeShellScript "icon" ''
       percentage=$(${percentage})
@@ -121,7 +127,7 @@ in
       set-option -g pane-border-style fg=black
       set-option -g status-style "bg=${bg} fg=${fg}"
       set-option -g status-left "${indicator}"
-      set-option -g status-right "${pwd} | ${time}"
+      set-option -g status-right "${pwd} | ${battery} ${time}"
       set-option -g window-status-current-format "${current_window}"
       set-option -g window-status-format "${window_status}"
       set-option -g window-status-separator ""

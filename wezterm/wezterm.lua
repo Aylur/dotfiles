@@ -1,7 +1,7 @@
 local start = [[
 if [ "$(uname)" == "Darwin" ]; then
-    # zsh -c "/run/current-system/sw/bin/tmux new-session -d -s session '/run/current-system/sw/bin/nu' && tmux attach-session -t session"\
-    zsh -c "nu"
+    zsh -c "/run/current-system/sw/bin/tmux new-session -d -s session '/run/current-system/sw/bin/nu'"
+    zsh -c "/run/current-system/sw/bin/tmux attach-session -t session"
 else
     tmux
 fi
