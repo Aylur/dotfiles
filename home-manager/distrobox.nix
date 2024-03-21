@@ -23,6 +23,7 @@
     ln = config.lib.file.mkOutOfStoreSymlink;
     links = [
       ".bashrc"
+      ".zshrc"
       ".config/"
       ".local/"
       ".cache/"
@@ -36,19 +37,6 @@
 
   mkBoxAlias = let
     db = "${pkgs.distrobox}/bin/distrobox";
-    bins = map (p: "${p}/bin") (with pkgs; [
-      podman
-      busybox
-      neovim
-      git
-      nix
-      nushell
-      bat
-      eza
-      fd
-      ripgrep
-      fzf
-    ]);
   in box: pkgs.writeShellScriptBin box.alias ''
     if ! ${db} list | grep ${box.alias}; then
         ${db} create \
@@ -57,7 +45,6 @@
           --image "${box.img}"
     fi
 
-    export PATH="${concatStringsSep ":" bins}"
     ${db} enter ${box.alias}
   '';
 in {
