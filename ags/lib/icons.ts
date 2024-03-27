@@ -21,7 +21,7 @@ export default {
         terminal: "terminal-symbolic",
     },
     fallback: {
-        executable: "application-x-executable-symbolic",
+        executable: "application-x-executable",
         notification: "dialog-information-symbolic",
         video: "video-x-generic-symbolic",
         audio: "audio-x-generic-symbolic",
