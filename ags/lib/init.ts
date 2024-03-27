@@ -6,14 +6,16 @@ import lowBattery from "./battery"
 import swww from "./swww"
 import notifications from "./notifications"
 
-try {
-    gtk()
-    tmux()
-    matugen()
-    lowBattery()
-    notifications()
-    hyprland()
-    swww()
-} catch (error) {
-    logError(error)
+export default function init() {
+    try {
+        gtk()
+        tmux()
+        matugen()
+        lowBattery()
+        notifications()
+        hyprland()
+        swww()
+    } catch (error) {
+        logError(error)
+    }
 }
