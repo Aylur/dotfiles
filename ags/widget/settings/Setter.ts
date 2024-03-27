@@ -42,24 +42,26 @@ export default function Setter<T>({
                 self.hook(opt, () => self.value = opt.value as number)
             },
         })
+
         case "float":
         case "object": return Widget.Entry({
             on_accept: self => opt.value = JSON.parse(self.text || ""),
             setup: self => self.hook(opt, () => self.text = JSON.stringify(opt.value)),
         })
+
         case "string": return Widget.Entry({
             on_accept: self => opt.value = self.text as T,
             setup: self => self.hook(opt, () => self.text = opt.value as string),
         })
+
         case "enum": return EnumSetter(opt as unknown as Opt<string>, enums!)
         case "boolean": return Widget.Switch()
             .on("notify::active", self => opt.value = self.active as T)
             .hook(opt, self => self.active = opt.value as boolean)
 
-        case "img": return Widget.FileChooserButton()
-            .on("selection-changed", self => {
-                opt.value = self.get_uri()?.replace("file://", "") as T
-            })
+        case "img": return Widget.FileChooserButton({
+            on_file_set: ({ uri }) => { opt.value = uri!.replace("file://", "") as T },
+        })
 
         case "font": return Widget.FontButton({
             show_size: false,
@@ -69,21 +71,21 @@ export default function Setter<T>({
                 .on("font-set", ({ font }) => opt.value = font!
                     .split(" ").slice(0, -1).join(" ") as T),
         })
-        case "color": return Widget.ColorButton({
-            setup: self => self
-                .hook(opt, () => {
-                    const rgba = new Gdk.RGBA()
-                    rgba.parse(opt.value as string)
-                    self.rgba = rgba
-                })
-                .on("color-set", ({ rgba: { red, green, blue } }) => {
-                    const hex = (n: number) => {
-                        const c = Math.floor(255 * n).toString(16)
-                        return c.length === 1 ? `0${c}` : c
-                    }
-                    opt.value = `#${hex(red)}${hex(green)}${hex(blue)}` as T
-                }),
-        })
+
+        case "color": return Widget.ColorButton()
+            .hook(opt, self => {
+                const rgba = new Gdk.RGBA()
+                rgba.parse(opt.value as string)
+                self.rgba = rgba
+            })
+            .on("color-set", ({ rgba: { red, green, blue } }) => {
+                const hex = (n: number) => {
+                    const c = Math.floor(255 * n).toString(16)
+                    return c.length === 1 ? `0${c}` : c
+                }
+                opt.value = `#${hex(red)}${hex(green)}${hex(blue)}` as T
+            })
+
         default: return Widget.Label({
             label: `no setter with type ${type}`,
         })

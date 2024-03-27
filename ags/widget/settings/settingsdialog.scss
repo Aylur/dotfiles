@@ -130,5 +130,15 @@ window.settings-dialog {
                 border-radius: 0 $radius $radius 0;
             }
         }
+
+        &.wallpaper {
+            button {
+                margin-top: $spacing * .5;
+            }
+
+            .preview {
+                border-radius: $radius;
+            }
+        }
     }
 }
