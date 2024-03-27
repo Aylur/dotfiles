@@ -24,7 +24,10 @@
     links = [
       ".bashrc"
       ".zshrc"
-      ".config/"
+      ".config/nushell"
+      ".config/nvim"
+      ".config/nix"
+      ".config/starship.toml"
       ".local/"
       ".cache/"
     ];
@@ -47,6 +50,16 @@
 
     ${db} enter ${box.alias}
   '';
+
+  path = [
+    "/bin"
+    "/sbin"
+    "/usr/bin"
+    "/usr/sbin"
+    "/usr/local/bin"
+    "/usr/sbin"
+    "${pkgs.nix}/bin"
+  ];
 in {
   home.packages = let
     aliases = mapAttrs (name: value: mkBoxAlias value) boxes;
@@ -55,4 +68,22 @@ in {
   home.file = let
     links = mapAttrs (name: value: mkBoxLinks value) boxes;
   in foldl' (x: y: x // y) {} (attrValues links);
+
+  programs.bash.initExtra = ''
+    if [[ -f "/run/.containerenv" ]]; then
+      export PATH="${concatStringsSep ":" path}"
+    fi
+  '';
+
+  programs.zsh.initExtra = ''
+    if [[ -f "/run/.containerenv" ]]; then
+      export PATH="${concatStringsSep ":" path}"
+    fi
+  '';
+
+  programs.nushell.extraConfig = ''
+    if ("/run/.containerenv" | path exists) {
+      $env.PATH = [${concatStringsSep " " (map (x: "${x}") path)}]
+    }
+  '';
 }

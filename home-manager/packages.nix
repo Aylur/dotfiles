@@ -1,5 +1,11 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./scripts/blocks.nix
+    ./scripts/nx-switch.nix
+    ./scripts/vault.nix
+  ];
+
   xdg.desktopEntries = {
     "lf" = {
       name = "lf";
@@ -8,9 +14,6 @@
   };
 
   home.packages = with pkgs; with gnome; [
-    # colorscript
-    (import ./colorscript.nix { inherit pkgs; })
-
     # gui
     obsidian
     (mpv.override { scripts = [mpvScripts.mpris]; })
@@ -25,6 +28,7 @@
     teams-for-linux
     icon-library
     dconf-editor
+    gnome-secrets
 
     # tools
     steam-run # fhs envs

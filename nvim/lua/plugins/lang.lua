@@ -2,7 +2,10 @@
 -- clangd, go, json, markdown, python, rust, typescript, yaml
 
 return {
-    { "williamboman/mason.nvim", enabled = false },
+    {
+        "williamboman/mason.nvim",
+        enabled = io.open("/run/.containerenv", "r") ~= nil,
+    },
     {
         "nvim-treesitter/nvim-treesitter",
         dependencies = {

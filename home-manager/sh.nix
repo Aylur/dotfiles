@@ -1,46 +1,29 @@
 { pkgs, config, ... }:
 let
-  nx-switch = pkgs.writeShellScriptBin "nx-switch" ''
-    ${../symlink.nu} -r
-    ${if pkgs.stdenv.isDarwin
-      then "darwin-rebuild switch --flake . --impure"
-      else "sudo nixos-rebuild switch --flake . --impure"
-    }
-    ${../symlink.nu} -a
-  '';
-  vault = pkgs.writeShellScriptBin "vault" ''
-    cd ~/Vault
-    git add .
-    gc -m 'sync $(date '+%Y-%m-%d %H:%M')'
-    git push
-  '';
   shellAliases = {
     "db" = "distrobox";
-    "eza" = "eza -l --sort type --no-permissions --no-user --no-time --header --icons --no-filesize --group-directories-first";
     "tree" = "eza --tree";
-    "ll" = "eza";
-    "éé" = "eza";
-    "és" = "eza";
-    "l" = "eza";
     "nv" = "nvim";
+
+    "ll" = "ls";
+    "éé" = "ls";
+    "és" = "ls";
+    "l" = "ls";
+
     ":q" = "exit";
     "q" = "exit";
+
     "gs" = "git status";
     "gb" = "git branch";
     "gch" = "git checkout";
     "gc" = "git commit";
     "ga" = "git add";
     "gr" = "git reset --soft HEAD~1";
-    "f" = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
+
     "del" = "gio trash";
   };
-in
-{
-  home.packages = [nx-switch vault];
-
+in {
   programs = {
-    thefuck.enable = true;
-
     zsh = {
       inherit shellAliases;
       enable = true;
@@ -52,6 +35,7 @@ in
         zstyle ':completion:*' menu select
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
+        unsetopt BEEP
       '';
     };
 

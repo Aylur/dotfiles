@@ -90,7 +90,7 @@
     PATH=$PATH:${pkgs.busybox}/bin:${pkgs.jq}/bin
     CACHE="/var/cache/greeter"
     OPTS="$CACHE/options.json"
-    HOME=$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)
+    HOME="/home/$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)"
 
     cp $HOME/.cache/ags/options.json $OPTS
     chown greeter:greeter $OPTS

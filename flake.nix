@@ -2,6 +2,11 @@
   description = "Configurations of Aylur";
 
   outputs = inputs@{ self, home-manager, nix-darwin, nixpkgs, ... }: {
+    formatter = {
+      x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+      x86_64-darwin = nixpkgs.legacyPackages.x86_64-darwin.alejandra;
+    };
+
     packages.x86_64-linux.default =
       nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags {inherit inputs;};
 
@@ -68,11 +73,6 @@
           ({ pkgs, ... }: {
             nix.package = pkgs.nix;
             home = {
-              packages = [(pkgs.writeShellScriptBin "hm" ''
-                ${./symlink.nu} -r
-                home-manager switch --flake .
-                ${./symlink.nu} -a
-              '')];
               username = username;
               homeDirectory = "/home/${username}";
             };

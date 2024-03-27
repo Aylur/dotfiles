@@ -24,6 +24,8 @@
     # bash
     shfmt
     bash-language-server
+
+    nushell
   ];
 in {
   xdg = {

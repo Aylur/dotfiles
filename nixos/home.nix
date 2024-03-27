@@ -4,11 +4,11 @@
     ../home-manager/ags.nix
     ../home-manager/blackbox.nix
     ../home-manager/browser.nix
-    ../home-manager/bspwm.nix
+    # ../home-manager/bspwm.nix
     ../home-manager/dconf.nix
     ../home-manager/distrobox.nix
     ../home-manager/git.nix
-    ../home-manager/helix.nix
+    # ../home-manager/helix.nix
     ../home-manager/hyprland.nix
     ../home-manager/lf.nix
     ../home-manager/neofetch.nix
@@ -16,15 +16,13 @@
     ../home-manager/sh.nix
     ../home-manager/starship.nix
     ../home-manager/stm.nix
-    ../home-manager/sway.nix
+    # ../home-manager/sway.nix
     ../home-manager/theme.nix
     ../home-manager/tmux.nix
     ../home-manager/wezterm.nix
   ];
 
   news.display = "show";
-
-  targets.genericLinux.enable = true;
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
@@ -56,10 +54,9 @@
     "file://${home}/Downloads"
     "file://${home}/Desktop"
     "file://${home}/Work"
-    "file://${home}/School"
     "file://${home}/Projects"
     "file://${home}/Vault"
-    "file://${home}/Vault/School"
+    "file://${home}/Vault/School School"
     "file://${home}/.config Config"
     "file://${home}/.local/share Local"
   ];
