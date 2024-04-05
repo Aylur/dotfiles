@@ -3,3 +3,4 @@ types
 package-lock.json
 bun.lockb
 flake.lock
+.weather

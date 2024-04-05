@@ -29,7 +29,7 @@ class Recorder extends Service {
 
         Utils.ensureDirectory(this.#recordings)
         this.#file = `${this.#recordings}/${now()}.mp4`
-        sh(`wf-recorder -g ${await sh("slurp")} -f ${this.#file} --pixel-format yuv420p`)
+        sh(`wf-recorder -g "${await sh("slurp")}" -f ${this.#file} --pixel-format yuv420p`)
 
         this.recording = true
         this.changed("recording")

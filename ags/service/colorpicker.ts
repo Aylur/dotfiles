@@ -26,7 +26,6 @@ class ColorPicker extends Service {
             bash(`wl-copy ${color}`)
     }
 
-    // eslint-disable-next-line space-before-function-paren
     readonly pick = async () => {
         if (!dependencies("hyprpicker"))
             return
