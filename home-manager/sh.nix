@@ -1,5 +1,8 @@
-{ pkgs, config, ... }:
-let
+{
+  pkgs,
+  config,
+  ...
+}: let
   shellAliases = {
     "db" = "distrobox";
     "tree" = "eza --tree";
@@ -79,26 +82,30 @@ in {
             vi_normal = "block";
           };
 
-          menus = [({
-            name =  "completion_menu";
-            only_buffer_difference = false;
-            marker = "? ";
-            type = {
-              layout = "columnar"; # list, description
-              columns = 4;
-              col_padding = 2;
-            };
-            style = {
-              text = "magenta";
-              selected_text = "blue_reverse";
-              description_text = "yellow";
-            };
-          })];
+          menus = [
+            {
+              name = "completion_menu";
+              only_buffer_difference = false;
+              marker = "? ";
+              type = {
+                layout = "columnar"; # list, description
+                columns = 4;
+                col_padding = 2;
+              };
+              style = {
+                text = "magenta";
+                selected_text = "blue_reverse";
+                description_text = "yellow";
+              };
+            }
+          ];
         };
-        completion = name: ''
-          source ${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${name}/${name}-completions.nu
-        '';
-        completions = names: builtins.foldl'
+        completions = let
+          completion = name: ''
+            source ${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${name}/${name}-completions.nu
+          '';
+        in names:
+          builtins.foldl'
           (prev: str: "${prev}\n${str}") ""
           (map (name: completion name) names);
       in ''

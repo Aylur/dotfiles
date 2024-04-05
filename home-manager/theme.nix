@@ -1,13 +1,14 @@
-{ pkgs, ... }:
-let
-  nerdfonts = (pkgs.nerdfonts.override { fonts = [
-    "Ubuntu"
-    "UbuntuMono"
-    "CascadiaCode"
-    "FantasqueSansMono"
-    "FiraCode"
-    "Mononoki"
-  ]; });
+{pkgs, ...}: let
+  nerdfonts = pkgs.nerdfonts.override {
+    fonts = [
+      "Ubuntu"
+      "UbuntuMono"
+      "CascadiaCode"
+      "FantasqueSansMono"
+      "FiraCode"
+      "Mononoki"
+    ];
+  };
 
   theme = {
     name = "adw-gtk3-dark";
@@ -26,8 +27,7 @@ let
     name = "MoreWaita";
     package = pkgs.morewaita-icon-theme;
   };
-in
-{
+in {
   home = {
     packages = with pkgs; [
       cantarell-fonts
@@ -43,9 +43,11 @@ in
       XCURSOR_THEME = cursorTheme.name;
       XCURSOR_SIZE = "${toString cursorTheme.size}";
     };
-    pointerCursor = cursorTheme // {
-      gtk.enable = true;
-    };
+    pointerCursor =
+      cursorTheme
+      // {
+        gtk.enable = true;
+      };
     file = {
       ".local/share/themes/${theme.name}" = {
         source = "${theme.package}/share/themes/${theme.name}";

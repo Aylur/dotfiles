@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # packages
   environment.systemPackages = with pkgs; [
     neovim

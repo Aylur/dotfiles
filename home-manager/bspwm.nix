@@ -1,13 +1,11 @@
 # I don't actually use bpswm
 # I just need an x11 window manager to test things
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.file.".xinitrc".text = "bspwm";
   xsession.windowManager.bspwm = {
     enable = true;
 
-    startupPrograms = [ "sxhkd" ];
+    startupPrograms = ["sxhkd"];
 
     monitors = rec {
       eDP-1 = ["1" "2" "3" "4" "5"];

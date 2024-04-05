@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.neofetch ];
+{pkgs, ...}: {
+  home.packages = [pkgs.neofetch];
   home.file.".config/neofetch/config.conf".text = ''
     print_info() {
     prin " \n \n ╭───────┤ $(color 5) NixOS $(color 15)├───────╮"
@@ -44,5 +44,5 @@
     crop_mode="normal" # normal fit fill
     crop_offset="center" # northwest north northeast west center east southwest south southeast
     gap=1 # num -num
-'';
+  '';
 }

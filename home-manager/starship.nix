@@ -1,4 +1,8 @@
-{ config, pkgs, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   lang = icon: color: {
     symbol = icon;
     format = "[$symbol ](${color})";
@@ -34,7 +38,7 @@
       format = "  ";
     };
     continuation_prompt = "∙  ┆ ";
-    line_break = { disabled = false; };
+    line_break = {disabled = false;};
     status = {
       symbol = "✗";
       not_found_symbol = "󰍉 Not Found";
@@ -103,7 +107,7 @@
     c = lang "" "blue";
     golang = lang "" "blue";
   };
-  tomlFormat = pkgs.formats.toml { };
+  tomlFormat = pkgs.formats.toml {};
   starshipCmd = "${pkgs.starship}/bin/starship";
 in {
   xdg.configFile."starship.toml" = {

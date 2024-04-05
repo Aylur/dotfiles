@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./scripts/blocks.nix
     ./scripts/nx-switch.nix
@@ -16,7 +15,7 @@
   home.packages = with pkgs; with gnome; [
     # gui
     obsidian
-    (mpv.override { scripts = [mpvScripts.mpris]; })
+    (mpv.override {scripts = [mpvScripts.mpris];})
     libreoffice
     spotify
     caprine-bin

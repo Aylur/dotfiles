@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   bg = "default";
   fg = "default";
   bg2 = "brightblack";
@@ -45,27 +44,30 @@ let
       elif [ "$hour" == "11" ] || [ "$hour" == "23" ]; then printf "󱑕"
       fi
     '';
-
-	in "#[reverse,fg=${accent}] ${format} #(${icon}) ";
+  in "#[reverse,fg=${accent}] ${format} #(${icon}) ";
 
   battery = let
-    percentage = pkgs.writeShellScript "percentage" (if pkgs.stdenv.isDarwin
-    then ''
-      echo $(pmset -g batt | grep -o "[0-9]\+%" | tr '%' ' ')
-    ''
-    else ''
-      path="/org/freedesktop/UPower/devices/DisplayDevice"
-      echo $(${pkgs.upower}/bin/upower -i $path | grep -o "[0-9]\+%" | tr '%' ' ')
-    '');
+    percentage = pkgs.writeShellScript "percentage" (
+      if pkgs.stdenv.isDarwin
+      then ''
+        echo $(pmset -g batt | grep -o "[0-9]\+%" | tr '%' ' ')
+      ''
+      else ''
+        path="/org/freedesktop/UPower/devices/DisplayDevice"
+        echo $(${pkgs.upower}/bin/upower -i $path | grep -o "[0-9]\+%" | tr '%' ' ')
+      ''
+    );
 
-    state = pkgs.writeShellScript "state" (if pkgs.stdenv.isDarwin
-    then ''
-      echo $(pmset -g batt | awk '{print $4}')
-    ''
-    else ''
-      path="/org/freedesktop/UPower/devices/DisplayDevice"
-      echo $(${pkgs.upower}/bin/upower -i $path | grep state | awk '{print $2}')
-    '');
+    state = pkgs.writeShellScript "state" (
+      if pkgs.stdenv.isDarwin
+      then ''
+        echo $(pmset -g batt | awk '{print $4}')
+      ''
+      else ''
+        path="/org/freedesktop/UPower/devices/DisplayDevice"
+        echo $(${pkgs.upower}/bin/upower -i $path | grep state | awk '{print $2}')
+      ''
+    );
 
     icon = pkgs.writeShellScript "icon" ''
       percentage=$(${percentage})
@@ -88,7 +90,6 @@ let
       elif [ $percentage -ge 0  ]; then echo "red"
       fi
     '';
-
   in "#[fg=#(${color})]#(${icon}) #[fg=${fg}]#(${percentage})%";
 
   pwd = let
@@ -96,8 +97,7 @@ let
     icon = "#[fg=${accent}] ";
     format = "#[fg=${fg}]#{b:pane_current_path}";
   in "${icon}${format}";
-in
-{
+in {
   programs.tmux = {
     enable = true;
     plugins = with pkgs.tmuxPlugins; [

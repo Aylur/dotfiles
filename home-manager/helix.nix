@@ -1,9 +1,9 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.helix = {
     enable = true;
 
-    extraPackages = with pkgs; with nodePackages; [
+    extraPackages = with pkgs;
+    with nodePackages; [
       vscode-langservers-extracted
       gopls
       gotools
@@ -49,7 +49,7 @@
           C-q = ":bclose";
           A-l = "goto_next_buffer";
           A-h = "goto_previous_buffer";
-        };        
+        };
       };
 
       theme = "base16_transparent";

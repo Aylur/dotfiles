@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ../home-manager/git.nix
     ../home-manager/lf.nix
@@ -9,7 +9,7 @@
   ];
 
   news.display = "show";
- 
+
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "${pkgs.nushell}/bin/nu";
@@ -22,7 +22,7 @@
   };
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = ["nix-command" "flakes"];
     warn-dirty = false;
   };
 

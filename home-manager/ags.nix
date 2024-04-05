@@ -1,4 +1,9 @@
-{ inputs, pkgs, asztal, ... }: {
+{
+  inputs,
+  pkgs,
+  asztal,
+  ...
+}: {
   imports = [
     inputs.ags.homeManagerModules.default
     inputs.astal.homeManagerModules.default

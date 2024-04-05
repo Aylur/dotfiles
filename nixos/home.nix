@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   imports = [
     ../home-manager/nvim.nix
     ../home-manager/ags.nix
@@ -25,7 +25,7 @@
   news.display = "show";
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = ["nix-command" "flakes"];
     warn-dirty = false;
   };
 
@@ -36,7 +36,7 @@
       NIXPKGS_ALLOW_INSECURE = "1";
       BAT_THEME = "base16";
       GOPATH = "${config.home.homeDirectory}/.local/share/go";
-      GOMODCACHE="${config.home.homeDirectory}/.cache/go/pkg/mod";
+      GOMODCACHE = "${config.home.homeDirectory}/.cache/go/pkg/mod";
     };
 
     sessionPath = [

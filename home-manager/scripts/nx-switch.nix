@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{pkgs, ...}: let
   symlink = pkgs.writeShellScript "symlink" ''
     if [[ "$1" == "-r" ]]; then
       rm -rf "$HOME/.config/nvim"
@@ -19,7 +19,8 @@
   nx-switch = pkgs.writeShellScriptBin "nx-switch" ''
     ${symlink} -r
 
-    ${if pkgs.stdenv.isDarwin
+    ${
+      if pkgs.stdenv.isDarwin
       then "darwin-rebuild switch --flake . --impure"
       else "sudo nixos-rebuild switch --flake . --impure"
     }

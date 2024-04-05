@@ -1,4 +1,10 @@
-{ pkgs, inputs, config, asztal, ... }: {
+{
+  pkgs,
+  inputs,
+  config,
+  asztal,
+  ...
+}: {
   services.xserver.displayManager.startx.enable = true;
 
   programs.hyprland = {
@@ -19,7 +25,8 @@
     pam.services.ags = {};
   };
 
-  environment.systemPackages = with pkgs; with gnome; [
+  environment.systemPackages = with pkgs;
+  with gnome; [
     gnome.adwaita-icon-theme
     loupe
     adwaita-icon-theme
@@ -45,9 +52,9 @@
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";

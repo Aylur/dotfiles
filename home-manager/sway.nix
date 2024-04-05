@@ -6,7 +6,7 @@ in {
     enable = true;
     config = {
       input = {
-        "*" =  {
+        "*" = {
           xkb_layout = "hu";
           natural_scroll = "disabled";
         };

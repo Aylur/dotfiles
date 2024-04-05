@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{pkgs, ...}: let
   vault = pkgs.writeShellScriptBin "vault" ''
     cd ~/Vault
     git add .
