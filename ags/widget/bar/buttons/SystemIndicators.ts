@@ -74,7 +74,7 @@ const NetworkIndicator = () => Widget.Icon().hook(network, self => {
 })
 
 const AudioIndicator = () => Widget.Icon({
-    icon: Utils.merge([audio.speaker.bind('volume'), audio.speaker.bind('is_muted')], (vol, is_muted) => {
+    icon: Utils.merge([audio.speaker.bind("volume"), audio.speaker.bind("is_muted")], (vol, is_muted) => {
         const { muted, low, medium, high, overamplified } = icons.audio.volume
         const cons = [[101, overamplified], [67, high], [34, medium], [1, low], [0, muted]] as const
         const icon = cons.find(([n]) => n <= vol * 100)?.[1] || ""
