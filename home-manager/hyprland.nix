@@ -27,7 +27,11 @@ in
     package = hyprland;
     systemd.enable = true;
     xwayland.enable = true;
-    # plugins = with plugins; [ hyprbars borderspp ];
+    plugins = with plugins; [
+      hyprexpo
+      # hyprbars
+      # borderspp
+    ];
 
     settings = {
       exec-once = [
@@ -131,6 +135,8 @@ in
         "SUPER, O, fakefullscreen"
         "SUPER, P, togglesplit"
 
+        "SUPER, space, hyprexpo:expo, toggle"
+
         (mvfocus "k" "u")
         (mvfocus "j" "d")
         (mvfocus "l" "r")
@@ -207,6 +213,15 @@ in
       };
 
       plugin = {
+        hyprexpo = {
+            columns = 3;
+            gap_size = 5;
+            bg_col = "rgb(232323)";
+            workspace_method = "center current";
+            enable_gesture = true;
+            gesture_distance = 300;
+            gesture_positive = false;
+        };
         hyprbars = {
           bar_color = "rgb(2a2a2a)";
           bar_height = 28;

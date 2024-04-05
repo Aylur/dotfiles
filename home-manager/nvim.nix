@@ -7,8 +7,10 @@
     vscode-langservers-extracted
     tailwindcss-language-server
     typescript-language-server
+    svelte-language-server
     eslint
     typescript
+    nodePackages_latest."@astrojs/language-server"
 
     # markup
     marksman

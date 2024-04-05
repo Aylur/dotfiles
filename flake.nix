@@ -55,32 +55,6 @@
       };
     };
 
-    # nixos hm config
-    homeConfigurations = let
-      username = "demeter";
-    in {
-      "${username}" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-        };
-        extraSpecialArgs = {
-          inherit inputs;
-          asztal = self.packages.x86_64-linux.default;
-        };
-        modules = [
-          ./nixos/home.nix
-          ({ pkgs, ... }: {
-            nix.package = pkgs.nix;
-            home = {
-              username = username;
-              homeDirectory = "/home/${username}";
-            };
-          })
-        ];
-      };
-    };
-
     # macos
     darwinConfigurations = {
       "macos" = let
@@ -129,7 +103,10 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
 
     matugen.url = "github:InioX/matugen";
     ags.url = "github:Aylur/ags";

@@ -53,6 +53,7 @@ return {
                 html = {},
 
                 svelte = {},
+                astro = {},
                 denols = {},
                 gleam = {},
 

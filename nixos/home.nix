@@ -56,9 +56,8 @@
     "file://${home}/Work"
     "file://${home}/Projects"
     "file://${home}/Vault"
-    "file://${home}/Vault/School School"
+    "file://${home}/School"
     "file://${home}/.config Config"
-    "file://${home}/.local/share Local"
   ];
 
   services = {

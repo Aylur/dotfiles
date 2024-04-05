@@ -30,6 +30,12 @@
     dconf-editor
     gnome-secrets
 
+    # langs
+    poetry
+    nodejs
+    yarn
+    go
+
     # tools
     steam-run # fhs envs
     bat

@@ -1,5 +1,7 @@
 local km = vim.keymap.set
 
+km("n", "Q", "@q")
+
 -- Telescope
 km("n", "<leader>fg", require("telescope.builtin").live_grep, { desc = "[F]ind in file using Telescope" })
 km("n", "<C-f>", function()
