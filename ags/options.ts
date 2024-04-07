@@ -202,10 +202,10 @@ const options = mkOptions(OPTIONS, {
             interval: opt(60_000),
             unit: opt<"metric" | "imperial" | "standard">("metric"),
             key: opt<string>(
-                JSON.parse(Utils.readFile(`${App.configDir}/.weather`))?.key ?? "",
+                JSON.parse(Utils.readFile(`${App.configDir}/.weather`) || "{}")?.key || "",
             ),
             cities: opt<Array<number>>(
-                JSON.parse(Utils.readFile(`${App.configDir}/.weather`))?.cities ?? [],
+                JSON.parse(Utils.readFile(`${App.configDir}/.weather`) || "{}")?.cities || [],
             ),
         },
     },
