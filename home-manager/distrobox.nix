@@ -79,7 +79,17 @@ with builtins; let
     "/usr/local/bin"
     "/usr/sbin"
     "${pkgs.nix}/bin"
+    "${pkgs.nushell}/bin"
+    "${pkgs.zsh}/bin"
     "${yay}/bin"
+  ];
+
+  shPath = path ++ [
+    "$HOME/.local/bin"
+  ];
+
+  nuPath = path ++ [
+    "$\"($env.HOME)/.local/bin\""
   ];
 in {
   home.packages = let
@@ -94,19 +104,19 @@ in {
 
   programs.bash.initExtra = ''
     if [[ -f "/run/.containerenv" ]]; then
-      export PATH="${concatStringsSep ":" path}"
+      export PATH="${concatStringsSep ":" shPath}"
     fi
   '';
 
   programs.zsh.initExtra = ''
     if [[ -f "/run/.containerenv" ]]; then
-      export PATH="${concatStringsSep ":" path}"
+      export PATH="${concatStringsSep ":" shPath}"
     fi
   '';
 
   programs.nushell.extraConfig = ''
     if ("/run/.containerenv" | path exists) {
-      $env.PATH = [${concatStringsSep " " (map (x: "${x}") path)}]
+      $env.PATH = [${concatStringsSep " " nuPath}]
     }
   '';
 }
