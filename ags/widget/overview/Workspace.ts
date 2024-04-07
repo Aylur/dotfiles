@@ -23,7 +23,11 @@ export default (id: number) => {
     const fixed = Widget.Fixed()
 
     // TODO: early return if position is unchaged
-    const update = () => hyprland.messageAsync("j/clients").then(json => {
+    async function update() {
+        const json = await hyprland.messageAsync("j/clients").catch(() => null)
+        if (!json)
+            return
+
         fixed.get_children().forEach(ch => ch.destroy())
         const clients = JSON.parse(json) as typeof hyprland.clients
         clients
@@ -34,7 +38,7 @@ export default (id: number) => {
                 c.mapped && fixed.put(Window(c), scale(x), scale(y))
             })
         fixed.show_all()
-    })
+    }
 
     return Widget.Box({
         attribute: { id },
