@@ -11,7 +11,10 @@ class Asusctl extends Service {
         })
     }
 
-    available = !!Utils.exec("which asusctl")
+    get available() {
+        return Utils.exec("which asusctl", () => true, () => false)
+    }
+
     #profile: Profile = "Balanced"
     #mode: Mode = "Hybrid"
 

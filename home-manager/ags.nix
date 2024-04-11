@@ -38,8 +38,8 @@
   programs.ags = {
     enable = true;
     configDir = ../ags;
-    # extraPackages = with pkgs; [
-    #   accountsservice
-    # ];
+    extraPackages = with pkgs; [
+      accountsservice
+    ];
   };
 }

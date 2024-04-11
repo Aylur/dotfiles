@@ -29,11 +29,11 @@ in {
     package = hyprland;
     systemd.enable = true;
     xwayland.enable = true;
-    plugins = with plugins; [
-      hyprexpo
-      # hyprbars
-      # borderspp
-    ];
+    # plugins = with plugins; [
+    #   hyprexpo
+    #   hyprbars
+    #   borderspp
+    # ];
 
     settings = {
       exec-once = [

@@ -1,9 +1,9 @@
-@import "../style/mixins/floating-widget.scss";
-@import "../style/mixins/widget.scss";
-@import "../style/mixins/spacing.scss";
-@import "../style/mixins/unset.scss";
-@import "../style/mixins/a11y-button.scss";
-@import "../widget/bar/bar.scss";
+@import "../mixins/floating-widget.scss";
+@import "../mixins/widget.scss";
+@import "../mixins/spacing.scss";
+@import "../mixins/unset.scss";
+@import "../mixins/a11y-button.scss";
+@import "./bar.scss";
 
 window#greeter {
     background-color: lighten($bg, 6%);

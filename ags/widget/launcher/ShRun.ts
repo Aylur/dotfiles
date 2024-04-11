@@ -1,33 +1,7 @@
 import icons from "lib/icons"
-import options from "options"
-import { bash, dependencies } from "lib/utils"
+import sh from "service/sh"
 
 const iconVisible = Variable(false)
-
-const MAX = options.launcher.sh.max
-const BINS = `${Utils.CACHE_DIR}/binaries`
-bash("{ IFS=:; ls -H $PATH; } | sort ")
-    .then(bins => Utils.writeFile(bins, BINS))
-
-async function query(filter: string) {
-    if (!dependencies("fzf"))
-        return [] as string[]
-
-    return bash(`cat ${BINS} | fzf -f ${filter} | head -n ${MAX}`)
-        .then(str => Array.from(new Set(str.split("\n").filter(i => i)).values()))
-        .catch(err => { print(err); return [] })
-}
-
-function run(args: string) {
-    Utils.execAsync(args)
-        .then(out => {
-            print(`:sh ${args.trim()}:`)
-            print(out)
-        })
-        .catch(err => {
-            Utils.notify("ShRun Error", err, icons.app.terminal)
-        })
-}
 
 function Item(bin: string) {
     return Widget.Box(
@@ -79,11 +53,14 @@ export function ShRun() {
             revealer.reveal_child = false
 
         if (term.trim()) {
-            const found = await query(term)
+            const found = await sh.query(term)
             list.children = found.map(Item)
             revealer.reveal_child = true
         }
     }
 
-    return Object.assign(revealer, { filter, run })
+    return Object.assign(revealer, {
+        filter,
+        run: sh.run,
+    })
 }

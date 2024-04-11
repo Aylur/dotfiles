@@ -32,7 +32,9 @@ class Nix extends Service {
 
     get db() { return this.#db }
     get ready() { return this.#ready }
-    get available() { return Utils.exec("which nix") }
+    get available() {
+        return Utils.exec("which nix", () => true, () => false)
+    }
 
     constructor() {
         super()

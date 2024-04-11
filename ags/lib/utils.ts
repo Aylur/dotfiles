@@ -65,12 +65,14 @@ export function range(length: number, start = 1) {
  * @returns true if all of the `bins` are found
  */
 export function dependencies(...bins: string[]) {
-    const missing = bins.filter(bin => {
-        return !Utils.exec(`which ${bin}`)
-    })
+    const missing = bins.filter(bin => Utils.exec({
+        cmd: `which ${bin}`,
+        out: () => false,
+        err: () => true,
+    }))
 
     if (missing.length > 0) {
-        console.warn("missing dependencies:", missing.join(", "))
+        console.warn(Error(`missing dependencies: ${missing.join(", ")}`))
         Utils.notify(`missing dependencies: ${missing.join(", ")}`)
     }
 
