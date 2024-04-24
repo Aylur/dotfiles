@@ -26,7 +26,12 @@ const widget = {
     powermenu: PowerMenu,
     systray: SysTray,
     system: SystemIndicators,
-    taskbar: Taskbar,
+    taskbar: () => Widget.Scrollable({
+        hscroll: "automatic",
+        vscroll: "never",
+        setup: self => self.set_size_request(500, -1), // set minimum height to 300px
+        child: Taskbar(),
+    }),
     workspaces: Workspaces,
     screenrecord: ScreenRecord,
     messages: Messages,
