@@ -60,7 +60,18 @@ return {
                 tsserver = {
                     root_dir = require("lspconfig").util.root_pattern("package.json"),
                 },
+
+                vala_ls = {},
+                mesonlsp = {},
             },
         },
+    },
+    {
+        "stevearc/conform.nvim",
+        opts = {
+            formatters_by_ft = {
+                vala = { "clang-format" },
+            },
+        }
     },
 }

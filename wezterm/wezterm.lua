@@ -38,4 +38,6 @@ return {
     text_background_opacity = 1.0,
 
     keys = require("keys"),
+
+    audible_bell = "Disabled",
 }

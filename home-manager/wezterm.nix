@@ -5,4 +5,8 @@
 in {
   home.packages = [pkgs.wezterm xterm kgx];
   xdg.configFile.wezterm.source = ../wezterm;
+
+  dconf = {
+    settings."com/github/stunkymonkey/nautilus-open-any-terminal".terminal = "wezterm";
+  };
 }

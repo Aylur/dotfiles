@@ -131,10 +131,6 @@ with lib.hm.gvariant; {
       region = "hu_HU.UTF-8";
     };
 
-    "com/github/stunkymonkey/nautilus-open-any-terminal" = {
-      terminal = "wezterm";
-    };
-
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];
       uris = ["qemu:///system"];

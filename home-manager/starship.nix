@@ -63,22 +63,17 @@
       format = "[$symbol ](yellow dimmed)";
     };
     directory = {
-      format = " [${pad.left}](fg:bright-black)[$path](bg:bright-black fg:white)[${pad.right}](fg:bright-black)";
-      truncation_length = 6;
-      truncation_symbol = "~/󰇘/";
+      format = builtins.concatStringsSep "" [
+        " [${pad.left}](fg:bright-black)"
+        "[$path](bg:bright-black fg:white)"
+        "[${pad.right}](fg:bright-black)"
+        " [$read_only](fg:yellow)"
+      ];
+      read_only = "";
+      truncate_to_repo = true;
+      truncation_length = 4;
+      truncation_symbol = "";
     };
-    # directory.substitutions = {
-    #   "Documents" = "󰈙 ";
-    #   "Downloads" = " ";
-    #   "Music" = " ";
-    #   "Pictures" = " ";
-    #   "Videos" = " ";
-    #   "Projects" = "󱌢 ";
-    #   "School" = "󰑴 ";
-    #   "GitHub" = "";
-    #   ".config" = " ";
-    #   "Vault" = "󱉽 ";
-    # };
     git_branch = {
       symbol = "";
       style = "";
@@ -90,6 +85,7 @@
     };
     os.symbols = {
       Arch = os "" "bright-blue";
+      Alpine = os "" "bright-blue";
       Debian = os "" "red)";
       EndeavourOS = os "" "purple";
       Fedora = os "" "blue";
@@ -100,12 +96,16 @@
       Macos = os "" "white";
     };
     python = lang "" "yellow";
-    nodejs = lang " " "yellow";
+    nodejs = lang "󰛦" "bright-blue";
+    bun = lang "󰛦" "blue";
+    deno = lang "󰛦" "blue";
     lua = lang "󰢱" "blue";
     rust = lang "" "red";
     java = lang "" "red";
     c = lang "" "blue";
     golang = lang "" "blue";
+    dart = lang "" "blue";
+    elixir = lang "" "purple";
   };
   tomlFormat = pkgs.formats.toml {};
   starshipCmd = "${pkgs.starship}/bin/starship";

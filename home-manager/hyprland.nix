@@ -4,7 +4,7 @@
   ...
 }: let
   hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  plugins = inputs.hyprland-plugins.packages.${pkgs.system};
+  # plugins = inputs.hyprland-plugins.packages.${pkgs.system};
 
   yt = pkgs.writeShellScript "yt" ''
     notify-send "Opening video" "$(wl-paste)"
@@ -29,11 +29,12 @@ in {
     package = hyprland;
     systemd.enable = true;
     xwayland.enable = true;
-    # plugins = with plugins; [
-    #   hyprexpo
-    #   hyprbars
-    #   borderspp
-    # ];
+    plugins = [
+      # inputs.hyprland-hyprspace.packages.${pkgs.system}.default
+      # plugins.hyprexpo
+      # plugins.hyprbars
+      # plugins.borderspp
+    ];
 
     settings = {
       exec-once = [
@@ -83,8 +84,7 @@ in {
 
       gestures = {
         workspace_swipe = true;
-        workspace_swipe_forever = true;
-        workspace_swipe_numbered = true;
+        workspace_swipe_use_r = true;
       };
 
       windowrule = let
@@ -113,7 +113,7 @@ in {
         mvactive = binding "SUPER ALT" "moveactive";
         mvtows = binding "SUPER SHIFT" "movetoworkspace";
         e = "exec, ags -b hypr";
-        arr = [1 2 3 4 5 6 7 8 9];
+        arr = [1 2 3 4 5 6 7];
       in
         [
           "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
@@ -137,8 +137,6 @@ in {
           "SUPER, G, fullscreen"
           "SUPER, O, fakefullscreen"
           "SUPER, P, togglesplit"
-
-          "SUPER, space, hyprexpo:expo, toggle"
 
           (mvfocus "k" "u")
           (mvfocus "j" "d")
@@ -216,14 +214,15 @@ in {
       };
 
       plugin = {
-        hyprexpo = {
-          columns = 3;
-          gap_size = 5;
-          bg_col = "rgb(232323)";
-          workspace_method = "center current";
-          enable_gesture = true;
-          gesture_distance = 300;
-          gesture_positive = false;
+        overview = {
+          centerAligned = true;
+          hideTopLayers = true;
+          hideOverlayLayers = true;
+          showNewWorkspace = true;
+          exitOnClick = true;
+          exitOnSwitch = true;
+          drawActiveWorkspace = true;
+          reverseSwipe = true;
         };
         hyprbars = {
           bar_color = "rgb(2a2a2a)";

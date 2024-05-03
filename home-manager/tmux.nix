@@ -27,7 +27,6 @@
   time = let
     accent = color "main_accent";
     format = "%H:%M";
-
     icon = pkgs.writeShellScript "icon" ''
       hour=$(date +%H)
       if   [ "$hour" == "00" ] || [ "$hour" == "12" ]; then printf "󱑖"
@@ -57,7 +56,6 @@
         echo $(${pkgs.upower}/bin/upower -i $path | grep -o "[0-9]\+%" | tr '%' ' ')
       ''
     );
-
     state = pkgs.writeShellScript "state" (
       if pkgs.stdenv.isDarwin
       then ''
@@ -68,7 +66,6 @@
         echo $(${pkgs.upower}/bin/upower -i $path | grep state | awk '{print $2}')
       ''
     );
-
     icon = pkgs.writeShellScript "icon" ''
       percentage=$(${percentage})
       state=$(${state})
@@ -79,7 +76,6 @@
       elif [ $percentage -ge 0  ]; then echo "󰂎"
       fi
     '';
-
     color = pkgs.writeShellScript "color" ''
       percentage=$(${percentage})
       state=$(${state})
@@ -97,6 +93,17 @@
     icon = "#[fg=${accent}] ";
     format = "#[fg=${fg}]#{b:pane_current_path}";
   in "${icon}${format}";
+
+  git = let
+    icon = pkgs.writeShellScript "branch" ''
+      git -C "$1" branch && echo " "
+    '';
+    branch = pkgs.writeShellScript "branch" ''
+      git -C "$1" rev-parse --abbrev-ref HEAD
+    '';
+  in "#[fg=magenta]#(${icon} #{pane_current_path})#(${branch} #{pane_current_path})";
+
+  separator = "#[fg=${fg}]|";
 in {
   programs.tmux = {
     enable = true;
@@ -120,6 +127,7 @@ in {
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
 
+      set-option -g status-right-length 100
       set-option -g @indicator_color "yellow"
       set-option -g @window_color "magenta"
       set-option -g @main_accent "blue"
@@ -127,7 +135,7 @@ in {
       set-option -g pane-border-style fg=black
       set-option -g status-style "bg=${bg} fg=${fg}"
       set-option -g status-left "${indicator}"
-      set-option -g status-right "${pwd} | ${battery} ${time}"
+      set-option -g status-right "${git} ${pwd} ${separator} ${battery} ${time}"
       set-option -g window-status-current-format "${current_window}"
       set-option -g window-status-format "${window_status}"
       set-option -g window-status-separator ""

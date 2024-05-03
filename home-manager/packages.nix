@@ -5,54 +5,49 @@
     ./scripts/vault.nix
   ];
 
-  xdg.desktopEntries = {
-    "lf" = {
-      name = "lf";
-      noDisplay = true;
-    };
-  };
-
-  home.packages = with pkgs; with gnome; [
+  home.packages = with pkgs;
+  with gnome; [
     # gui
-    obsidian
+    # obsidian
     (mpv.override {scripts = [mpvScripts.mpris];})
-    libreoffice
+    # libreoffice
     spotify
-    caprine-bin
-    d-spy
-    github-desktop
-    gimp
+    # caprine-bin
+    # d-spy
+    # github-desktop
+    # gimp
     transmission_4-gtk
-    discord
-    teams-for-linux
-    icon-library
-    dconf-editor
+    # discord
+    # teams-for-linux
+    # icon-library
+    # dconf-editor
     gnome-secrets
 
     # langs
-    poetry
-    nodejs
-    yarn
-    go
+    # poetry
+    # nodejs
+    # yarn
+    # go
 
     # tools
-    steam-run # fhs envs
+    # steam-run
     bat
     eza
     fd
     ripgrep
     fzf
-    libnotify
-    killall
-    zip
-    unzip
-    glib
+    # libnotify
+    # killall
+    # zip
+    # unzip
+    # glib
+    lazydocker
 
     # fun
-    glow
-    slides
-    yabridge
-    yabridgectl
-    wine-staging
+    # glow
+    # slides
+    # yabridge
+    # yabridgectl
+    # wine-staging
   ];
 }

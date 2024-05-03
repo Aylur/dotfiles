@@ -1,5 +1,5 @@
-import { type Props as IconProps } from "types/widgets/icon"
-import { type Props as LabelProps } from "types/widgets/label"
+import { type IconProps } from "types/widgets/icon"
+import { type LabelProps } from "types/widgets/label"
 import type GObject from "gi://GObject?version=2.0"
 import type Gtk from "gi://Gtk?version=3.0"
 import icons from "lib/icons"

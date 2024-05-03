@@ -16,6 +16,7 @@
     eslint
     typescript
     nodePackages_latest."@astrojs/language-server"
+    stylelint
 
     # markup
     marksman
@@ -28,11 +29,18 @@
     ruff-lsp
     pyright
 
-    # bash
+    # sh
     shfmt
     bash-language-server
-
     nushell
+
+    # c
+    clang-tools
+
+    # vala
+    vala
+    vala-language-server
+    vala-lint
   ];
 in {
   xdg = {

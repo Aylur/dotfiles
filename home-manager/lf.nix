@@ -3,10 +3,18 @@
   pkgs,
   ...
 }: {
+  xdg.desktopEntries = {
+    "lf" = {
+      name = "lf";
+      noDisplay = true;
+    };
+  };
+
   home.packages = with pkgs; [
     glib
     fzf
     bat
+    zip
     unzip
     gnutar
   ];

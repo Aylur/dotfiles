@@ -20,9 +20,8 @@
     nixosConfigurations = {
       "nixos" = let
         hostname = "nixos";
-        username = "demeter";
       in
-        nixpkgs.lib.nixosSystem rec {
+        nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
@@ -31,32 +30,7 @@
           modules = [
             ./nixos/nixos.nix
             home-manager.nixosModules.home-manager
-            {
-              users.users.${username} = {
-                isNormalUser = true;
-                initialPassword = username;
-                extraGroups = [
-                  "nixosvmtest"
-                  "networkmanager"
-                  "wheel"
-                  "audio"
-                  "video"
-                  "libvirtd"
-                  "docker"
-                ];
-              };
-              networking.hostName = hostname;
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = specialArgs;
-                users.${username} = {
-                  home.username = username;
-                  home.homeDirectory = "/home/${username}";
-                  imports = [./nixos/home.nix];
-                };
-              };
-            }
+            {networking.hostName = hostname;}
           ];
         };
     };
@@ -109,22 +83,33 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
+
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    hyprland-hyprspace = {
+      url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
     };
 
     matugen.url = "github:InioX/matugen";
     ags.url = "github:Aylur/ags";
     astal.url = "github:Aylur/astal";
-    stm.url = "github:Aylur/stm";
 
     lf-icons = {
       url = "github:gokcehan/lf";
       flake = false;
     };
+
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
+      flake = false;
+    };
+
+    turtle-git = {
+      url = "git+https://gitlab.gnome.org/philippun1/turtle";
       flake = false;
     };
   };

@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  asztal,
   ...
 }: {
   imports = [
@@ -10,7 +9,6 @@
   ];
 
   home.packages = with pkgs; [
-    asztal
     bun
     dart-sass
     fd

@@ -104,10 +104,11 @@ in {
           completion = name: ''
             source ${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${name}/${name}-completions.nu
           '';
-        in names:
-          builtins.foldl'
-          (prev: str: "${prev}\n${str}") ""
-          (map (name: completion name) names);
+        in
+          names:
+            builtins.foldl'
+            (prev: str: "${prev}\n${str}") ""
+            (map (name: completion name) names);
       in ''
         $env.config = ${conf};
         ${completions ["cargo" "git" "nix" "npm"]}

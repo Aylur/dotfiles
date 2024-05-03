@@ -1,104 +1,71 @@
-{pkgs, ...}: {
+{inputs, lib, ...}: let
+  username = "demeter";
+in {
   imports = [
     /etc/nixos/hardware-configuration.nix
+    ./system.nix
     ./audio.nix
     ./locale.nix
-    # ./gnome.nix
+    ./nautilus.nix
+    ./laptop.nix
     ./hyprland.nix
-    # ./laptop.nix
+    ./gnome.nix
   ];
 
-  # nix
-  documentation.nixos.enable = false; # .desktop
-  nixpkgs.config.allowUnfree = true;
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    auto-optimise-store = true;
-  };
+  hyprland.enable = true;
+  asusLaptop.enable = true;
+  gnome.enable = false;
 
-  # camera
-  programs.droidcam.enable = true;
-
-  # virtualisation
-  programs.virt-manager.enable = true;
-  virtualisation = {
-    podman.enable = true;
-    docker.enable = true;
-    libvirtd.enable = true;
-  };
-
-  # dconf
-  programs.dconf.enable = true;
-
-  # packages
-  environment.systemPackages = with pkgs; [
-    home-manager
-    neovim
-    git
-    wget
-  ];
-
-  # services
-  services = {
-    xserver = {
-      enable = true;
-      excludePackages = [pkgs.xterm];
-    };
-    printing.enable = true;
-    flatpak.enable = true;
-  };
-
-  # logind
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-    HandleLidSwitch=suspend
-    HandleLidSwitchExternalPower=ignore
-  '';
-
-  # kde connect
-  networking.firewall = rec {
-    allowedTCPPortRanges = [
-      {
-        from = 1714;
-        to = 1764;
-      }
+  users.users.${username} = {
+    isNormalUser = true;
+    initialPassword = username;
+    extraGroups = [
+      "nixosvmtest"
+      "networkmanager"
+      "wheel"
+      "audio"
+      "video"
+      "libvirtd"
+      "docker"
     ];
-    allowedUDPPortRanges = allowedTCPPortRanges;
   };
 
-  # network
-  networking.networkmanager.enable = true;
-
-  # bluetooth
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = false;
-    settings.General.Experimental = true; # for gnome-bluetooth percentage
-  };
-
-  # bootloader
-  boot = {
-    tmp.cleanOnBoot = true;
-    supportedFilesystems = ["ntfs"];
-    loader = {
-      timeout = 2;
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    plymouth = rec {
-      enable = true;
-      # black_hud circle_hud cross_hud square_hud
-      # circuit connect cuts_alt seal_2 seal_3
-      theme = "connect";
-      themePackages = with pkgs; [
-        (
-          adi1090x-plymouth-themes.override {
-            selected_themes = [theme];
-          }
-        )
+  home-manager = {
+    backupFileExtension = "backup";
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    extraSpecialArgs = {inherit inputs;};
+    users.${username} = {
+      home.username = username;
+      home.homeDirectory = "/home/${username}";
+      imports = [
+        ./home.nix
+        ../home-manager/nvim.nix
+        ../home-manager/ags.nix
+        ../home-manager/blackbox.nix
+        ../home-manager/browser.nix
+        ../home-manager/dconf.nix
+        ../home-manager/distrobox.nix
+        ../home-manager/git.nix
+        ../home-manager/hyprland.nix
+        ../home-manager/lf.nix
+        ../home-manager/packages.nix
+        ../home-manager/sh.nix
+        ../home-manager/starship.nix
+        # ../home-manager/sway.nix
+        ../home-manager/theme.nix
+        ../home-manager/tmux.nix
+        ../home-manager/wezterm.nix
       ];
     };
   };
 
-  system.stateVersion = "23.05";
+  specialisation = {
+    gnome.configuration = {
+      system.nixos.tags = ["Gnome"];
+      hyprland.enable = lib.mkForce false;
+      asusLaptop.enable = lib.mkForce true;
+      gnome.enable = lib.mkForce true;
+    };
+  };
 }

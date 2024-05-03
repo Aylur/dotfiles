@@ -22,8 +22,14 @@ with builtins; let
       alias = "arch";
       img = "docker.io/library/archlinux:latest";
     };
+    alpine = {
+      home = mkHome "Alpine";
+      alias = "alpine";
+      img = "quay.io/toolbx-images/alpine-toolbox:latest";
+    };
   };
 
+  # TODO: custom OCI image
   yay = pkgs.writeShellScriptBin "yay" ''
     if [[ ! -f "/bin/yay" ]]; then
       pacman -S --needed git base-devel
@@ -77,20 +83,23 @@ with builtins; let
     "/usr/bin"
     "/usr/sbin"
     "/usr/local/bin"
-    "/usr/sbin"
     "${pkgs.nix}/bin"
     "${pkgs.nushell}/bin"
     "${pkgs.zsh}/bin"
     "${yay}/bin"
   ];
 
-  shPath = path ++ [
-    "$HOME/.local/bin"
-  ];
+  shPath =
+    path
+    ++ [
+      "$HOME/.local/bin"
+    ];
 
-  nuPath = path ++ [
-    "$\"($env.HOME)/.local/bin\""
-  ];
+  nuPath =
+    path
+    ++ [
+      "$\"($env.HOME)/.local/bin\""
+    ];
 in {
   home.packages = let
     aliases = mapAttrs (name: value: mkBoxAlias value) boxes;
