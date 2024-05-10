@@ -31,6 +31,7 @@ class Wallpaper extends Service {
         sh("hyprctl cursorpos").then(pos => {
             sh([
                 "swww", "img",
+                "--invert-y",
                 "--transition-type", "grow",
                 "--transition-pos", pos.replace(" ", ""),
                 WP,
