@@ -1,7 +1,7 @@
 import type Gtk from "gi://Gtk?version=3.0"
 import { ProfileSelector, ProfileToggle } from "./widgets/PowerProfile"
 import { Header } from "./widgets/Header"
-import { Volume, Microhone, SinkSelector, AppMixer } from "./widgets/Volume"
+import { Volume, Microphone, SinkSelector, AppMixer } from "./widgets/Volume"
 import { Brightness } from "./widgets/Brightness"
 import { NetworkToggle, WifiSelection } from "./widgets/Network"
 import { BluetoothToggle, BluetoothDevices } from "./widgets/Bluetooth"
@@ -47,7 +47,7 @@ const Settings = () => Widget.Box({
                     [Volume],
                     [SinkSelector, AppMixer],
                 ),
-                Microhone(),
+                Microphone(),
                 Brightness(),
             ],
         }),

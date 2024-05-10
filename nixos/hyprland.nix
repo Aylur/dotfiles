@@ -40,9 +40,10 @@
 
     environment.systemPackages = with pkgs;
     with gnome; [
-      gnome.adwaita-icon-theme
-      loupe
+      morewaita-icon-theme
       adwaita-icon-theme
+      qogir-icon-theme
+      loupe
       nautilus
       baobab
       gnome-text-editor

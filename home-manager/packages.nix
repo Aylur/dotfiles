@@ -24,10 +24,8 @@
     gnome-secrets
 
     # langs
-    # poetry
-    # nodejs
-    # yarn
-    # go
+    poetry
+    nodejs
 
     # tools
     # steam-run

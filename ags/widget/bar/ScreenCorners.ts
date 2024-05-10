@@ -1,6 +1,6 @@
 import options from "options"
 
-const { corners } = options.bar
+const { corners, transparent } = options.bar
 
 export default (monitor: number) => Widget.Window({
     monitor,
@@ -19,7 +19,11 @@ export default (monitor: number) => Widget.Window({
             }),
         }),
     }),
-    setup: self => self.hook(corners, () => {
-        self.toggleClassName("corners", corners.value)
-    }),
+    setup: self => self
+        .hook(corners, () => {
+            self.toggleClassName("corners", corners.value)
+        })
+        .hook(transparent, () => {
+            self.toggleClassName("hidden", transparent.value)
+        }),
 })

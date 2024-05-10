@@ -32,7 +32,7 @@ with builtins; let
   # TODO: custom OCI image
   yay = pkgs.writeShellScriptBin "yay" ''
     if [[ ! -f "/bin/yay" ]]; then
-      pacman -S --needed git base-devel
+      sudo pacman -S --needed git base-devel
       git clone https://aur.archlinux.org/yay-bin.git $HOME/yay-bin
       cd $HOME/yay-bin
       makepkg -si

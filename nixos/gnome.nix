@@ -11,6 +11,7 @@
   config = lib.mkIf config.gnome.enable {
     environment = {
       systemPackages = with pkgs; [
+        morewaita-icon-theme
         qogir-icon-theme
         gnome-extension-manager
         wl-clipboard

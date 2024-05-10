@@ -22,6 +22,7 @@ $button-radius: $radius;
 }
 
 .bar {
+    transition: $transition;
     background-color: $bg;
 
     .panel-button {
@@ -230,5 +231,35 @@ $button-radius: $radius;
         &:active image {
             color: $primary-fg
         }
+    }
+}
+
+.bar.transparent {
+    background-color: transparent;
+
+    .panel-button {
+        &:hover>* {
+            box-shadow: 1px 1px 3px 0 $shadow-color, inset 0 0 0 $border-width $border-color;
+            background-color: $bg;
+        }
+
+        &:not(:hover):not(.active) {
+
+            label,
+            image {
+                text-shadow: $text-shadow;
+                -gtk-icon-shadow: $text-shadow;
+            }
+        }
+    }
+
+    .workspaces label {
+        box-shadow: inset 0 0 0 $border-width $border-color,
+            1px 1px 3px 0 $shadow-color;
+    }
+
+    .battery-bar trough {
+        box-shadow: 1px 1px 3px 0 $shadow-color;
+
     }
 }

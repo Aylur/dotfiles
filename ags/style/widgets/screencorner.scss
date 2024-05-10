@@ -2,7 +2,9 @@ $_shadow-size: $padding;
 $_radius: $radius * $hyprland-gaps-multiplier;
 $_margin: 99px;
 
-window.screen-corner {
+window.screen-corner:not(.hidden) {
+    transition: $transition;
+
     box.shadow {
         margin-right: $_margin * -1;
         margin-left: $_margin * -1;

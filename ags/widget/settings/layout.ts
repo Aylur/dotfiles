@@ -76,6 +76,7 @@ export default [
     ),
     Page("Bar", icons.ui.toolbars,
         Group("General",
+            Row({ opt: b.transparent, title: "Transparent Bar", note: "Works best on empty-ish wallpapers" }),
             Row({ opt: b.flatButtons, title: "Flat Buttons" }),
             Row({ opt: b.position, title: "Position", type: "enum", enums: ["top", "bottom"] }),
             Row({ opt: b.corners, title: "Corners" }),

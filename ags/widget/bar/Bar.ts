@@ -13,7 +13,7 @@ import Messages from "./buttons/Messages"
 import options from "options"
 
 const { start, center, end } = options.bar.layout
-const pos = options.bar.position.bind()
+const { transparent, position } = options.bar
 
 export type BarWidget = keyof typeof widget
 
@@ -38,7 +38,7 @@ export default (monitor: number) => Widget.Window({
     class_name: "bar",
     name: `bar${monitor}`,
     exclusivity: "exclusive",
-    anchor: pos.as(pos => [pos, "right", "left"]),
+    anchor: position.bind().as(pos => [pos, "right", "left"]),
     child: Widget.CenterBox({
         css: "min-width: 2px; min-height: 2px;",
         startWidget: Widget.Box({
@@ -53,5 +53,8 @@ export default (monitor: number) => Widget.Window({
             hexpand: true,
             children: end.bind().as(e => e.map(w => widget[w]())),
         }),
+    }),
+    setup: self => self.hook(transparent, () => {
+        self.toggleClassName("transparent", transparent.value)
     }),
 })

@@ -36,7 +36,6 @@
     brightnessctl
     swww
     inputs.matugen.packages.${system}.default
-    inputs.hyprland.packages.${system}.default
     slurp
     wf-recorder
     wl-clipboard
