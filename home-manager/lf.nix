@@ -1,9 +1,10 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: {
-  xdg.desktopEntries = {
+  xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
     "lf" = {
       name = "lf";
       noDisplay = true;

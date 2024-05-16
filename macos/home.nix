@@ -1,24 +1,30 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   imports = [
     ../home-manager/git.nix
     ../home-manager/lf.nix
     ../home-manager/nvim.nix
+    ../home-manager/packages.nix
     ../home-manager/sh.nix
     ../home-manager/starship.nix
     ../home-manager/tmux.nix
   ];
 
+  packages.host = [];
   news.display = "show";
 
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "${pkgs.nushell}/bin/nu";
+    NIXPKGS_ALLOW_UNFREE = "1";
+    NIXPKGS_ALLOW_INSECURE = "1";
+    BAT_THEME = "base16";
+    GOPATH = "${config.home.homeDirectory}/.local/share/go";
+    GOMODCACHE = "${config.home.homeDirectory}/.cache/go/pkg/mod";
   };
 
   xdg = {
     enable = true;
     configFile.wezterm.source = ../wezterm;
-    configFile.test.text = "hello";
   };
 
   nix.settings = {

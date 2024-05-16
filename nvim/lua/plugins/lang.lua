@@ -1,10 +1,20 @@
 -- lazy.lang
 -- clangd, go, json, markdown, python, rust, typescript, yaml
 
+local function uname()
+    local handle = io.popen("uname")
+    if handle then
+        local res = handle:read("a")
+        handle:close()
+        return string.match(res, "^%s*(.-)%s*$")
+    end
+    return nil
+end
+
 return {
     {
         "williamboman/mason.nvim",
-        enabled = io.open("/run/.containerenv", "r") ~= nil,
+        enabled = io.open("/run/.containerenv", "r") ~= nil or uname() == "Darwin",
     },
     {
         "nvim-treesitter/nvim-treesitter",

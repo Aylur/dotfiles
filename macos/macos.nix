@@ -3,25 +3,16 @@
   environment.systemPackages = with pkgs; [
     neovim
     git
-    glow
-    slides
     bat
-    eza
     fd
     ripgrep
     fzf
-    gnumake
-    gcc
     nushell
     tmux
   ];
 
   homebrew = {
     enable = true;
-    brews = [
-      "nushell"
-      "tmux"
-    ];
     casks = [
       "spotify"
       "zed"

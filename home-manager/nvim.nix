@@ -3,49 +3,54 @@
   lib,
   ...
 }: let
-  ifLinux = lib.mkIf pkgs.stdenv.isLinux;
+  deps =
+    if pkgs.stdenv.isLinux
+    then
+      with pkgs;
+      with nodePackages_latest; [
+        nil
+        lua-language-server
 
-  deps = with pkgs;
-  with nodePackages_latest; [
-    # js, html
-    vscode-html-languageserver-bin
-    vscode-langservers-extracted
-    tailwindcss-language-server
-    typescript-language-server
-    svelte-language-server
-    eslint
-    typescript
-    nodePackages_latest."@astrojs/language-server"
-    stylelint
+        # js, html
+        vscode-html-languageserver-bin
+        vscode-langservers-extracted
+        tailwindcss-language-server
+        typescript-language-server
+        svelte-language-server
+        eslint
+        typescript
+        nodePackages_latest."@astrojs/language-server"
+        stylelint
 
-    # markup
-    marksman
-    markdownlint-cli
-    taplo # toml
-    yaml-language-server
+        # markup
+        marksman
+        markdownlint-cli
+        taplo # toml
+        yaml-language-server
 
-    # python
-    ruff
-    ruff-lsp
-    pyright
+        # python
+        ruff
+        ruff-lsp
+        pyright
 
-    # sh
-    shfmt
-    bash-language-server
-    nushell
+        # sh
+        shfmt
+        bash-language-server
+        nushell
 
-    # c
-    clang-tools
+        # c
+        clang-tools
 
-    # vala
-    vala
-    vala-language-server
-    vala-lint
-  ];
+        # vala
+        vala
+        vala-language-server
+        vala-lint
+      ]
+    else [];
 in {
   xdg = {
     configFile.nvim.source = ../nvim;
-    desktopEntries."nvim" = ifLinux {
+    desktopEntries."nvim" = lib.mkIf pkgs.stdenv.isLinux {
       name = "NeoVim";
       comment = "Edit text files";
       icon = "nvim";
@@ -71,10 +76,8 @@ in {
     withPython3 = true;
 
     extraPackages = with pkgs;
-      [
+      deps ++ [
         git
-        nil
-        lua-language-server
         gcc
         gnumake
         unzip
@@ -84,7 +87,6 @@ in {
         ripgrep
         fd
         fzf
-      ]
-      ++ deps;
+      ];
   };
 }
