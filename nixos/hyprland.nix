@@ -126,6 +126,7 @@
           chown greeter:greeter "$CACHE/background"
         fi
       '';
-    in builtins.readFile wp;
+    in
+      builtins.readFile wp;
   };
 }

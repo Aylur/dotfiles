@@ -20,19 +20,19 @@
     ${symlink} -r
     ${
       if pkgs.stdenv.isDarwin
-      then "darwin-rebuild switch --flake . --impure"
-      else "sudo nixos-rebuild switch --flake . --impure"
+      then "darwin-rebuild switch --flake . --impure $@"
+      else "sudo nixos-rebuild switch --flake . --impure $@"
     }
     ${symlink} -a
   '';
   nx-boot = pkgs.writeShellScriptBin "nx-boot" ''
     ${symlink} -r
-    "sudo nixos-rebuild boot --flake . --impure"
+    sudo nixos-rebuild boot --flake . --impure $@
     ${symlink} -a
   '';
   nx-test = pkgs.writeShellScriptBin "nx-test" ''
     ${symlink} -r
-    "sudo nixos-rebuild test --flake . --impure"
+    sudo nixos-rebuild test --flake . --impure $@
     ${symlink} -a
   '';
 in {

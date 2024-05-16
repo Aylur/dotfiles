@@ -9,6 +9,7 @@ opt.incsearch = true -- incremental search
 opt.scrolloff = 4 -- scroll offset
 opt.clipboard = "unnamedplus" -- sync clipboard with os
 opt.breakindent = true
+opt.inccommand = "split"
 
 opt.tabstop = 4
 opt.softtabstop = 4

@@ -1,131 +1,115 @@
 {
   pkgs,
   config,
+  lib,
   ...
-}:
-with builtins; let
-  mkHome = box: ".local/share/distrobox/${box}";
-
-  boxes = {
-    fedora = {
-      home = mkHome "Fedora";
-      alias = "fedora";
+}: let
+  boxes = mkBoxes {
+    Alpine = {
+      img = "docker.io/library/alpine:latest";
+    };
+    Fedora = {
+      packages = "nodejs npm poetry gcc mysql-devel python3-devel";
       img = "quay.io/fedora/fedora:rawhide";
+      nixPackages = [
+        (pkgs.writeShellScriptBin "pr" "poetry run $@")
+        (pkgs.writeShellScriptBin "prpm" "poetry run python manage.py $@")
+      ];
     };
-    ubuntu = {
-      home = mkHome "Ubuntu";
-      alias = "ubuntu";
-      img = "docker.io/library/ubuntu:22.04";
-    };
-    arch = {
-      home = mkHome "Arch";
-      alias = "arch";
+    Arch = {
       img = "docker.io/library/archlinux:latest";
-    };
-    alpine = {
-      home = mkHome "Alpine";
-      alias = "alpine";
-      img = "quay.io/toolbx-images/alpine-toolbox:latest";
+      packages = "base-devel";
+      nixPackages = [
+        (pkgs.writeShellScriptBin "yay" ''
+          if [[ ! -f /bin/yay ]]; then
+            tmpdir="$HOME/.yay-bin"
+            if [[ -d "$tmpdir" ]]; then sudo rm -r "$tmpdir"; fi
+            git clone https://aur.archlinux.org/yay-bin.git "$tmpdir"
+            cd "$tmpdir"
+            makepkg -si
+            sudo rm -r "$tmpdir"
+          fi
+          /bin/yay $@
+        '')
+      ];
     };
   };
 
-  # TODO: custom OCI image
-  yay = pkgs.writeShellScriptBin "yay" ''
-    if [[ ! -f "/bin/yay" ]]; then
-      sudo pacman -S --needed git base-devel
-      git clone https://aur.archlinux.org/yay-bin.git $HOME/yay-bin
-      cd $HOME/yay-bin
-      makepkg -si
-    fi
+  symlinks = [
+    ".bashrc"
+    ".zshrc"
+    ".config/nushell"
+    ".config/nvim"
+    ".config/nix"
+    ".config/starship.toml"
+    ".local/"
+    ".cache/"
+  ];
 
-    /bin/yay $@
-  '';
+  mkBoxes = let
+    mkBox = name: {
+      img,
+      home ? ".local/share/distrobox/${name}",
+      packages ? "",
+      init ? "true",
+      flags ? "",
+      path ? [],
+      nixPackages ? [],
+    }: {
+      inherit home img flags;
+      init = pkgs.writeShellScript "init" init;
+      alias = lib.strings.toLower name;
+      packages = packages + " git neovim wl-clipboard";
+      path =
+        path
+        ++ config.packages.cli
+        ++ [
+          "/bin"
+          "/sbin"
+          "/usr/bin"
+          "/usr/sbin"
+          "/usr/local/bin"
+          "$HOME/.local/bin"
+        ]
+        ++ (map (p: "${p}/bin") nixPackages);
+    };
+  in
+    attrs:
+      builtins.attrValues
+      (builtins.mapAttrs mkBox attrs);
 
   mkBoxLinks = box: let
     ln = config.lib.file.mkOutOfStoreSymlink;
-    links = [
-      ".bashrc"
-      ".zshrc"
-      ".config/nushell"
-      ".config/nvim"
-      ".config/nix"
-      ".config/starship.toml"
-      ".local/"
-      ".cache/"
-    ];
   in
-    listToAttrs (map (link: {
+    builtins.listToAttrs (map (link: {
         name = "${box.home}/${link}";
         value = {
           source = ln "${config.home.homeDirectory}/${link}";
         };
       })
-      links);
+      symlinks);
 
-  mkBoxAlias = let
+  mkBoxAlias = box: let
     db = "${pkgs.distrobox}/bin/distrobox";
+    exec = pkgs.writeShellScript "db-exec" ''
+      export PATH="${builtins.concatStringsSep ":" box.path}"
+      ${pkgs.nushell}/bin/nu
+    '';
   in
-    box:
-      pkgs.writeShellScriptBin box.alias ''
-        if ! ${db} list | grep ${box.alias}; then
-            ${db} create \
-              --name "${box.alias}" \
-              --home ${config.home.homeDirectory}/${box.home} \
-              --image "${box.img}"
-        fi
-
-        ${db} enter ${box.alias}
-      '';
-
-  path = [
-    "/bin"
-    "/sbin"
-    "/usr/bin"
-    "/usr/sbin"
-    "/usr/local/bin"
-    "${pkgs.nix}/bin"
-    "${pkgs.nushell}/bin"
-    "${pkgs.zsh}/bin"
-    "${yay}/bin"
-  ];
-
-  shPath =
-    path
-    ++ [
-      "$HOME/.local/bin"
-    ];
-
-  nuPath =
-    path
-    ++ [
-      "$\"($env.HOME)/.local/bin\""
-    ];
+    pkgs.writeShellScriptBin box.alias ''
+      if ! ${db} list | grep ${box.alias}; then
+         ${db} create ${box.flags} \
+           --pull \
+           --yes \
+           --name "${box.alias}" \
+           --home ${config.home.homeDirectory}/${box.home} \
+           --image "${box.img}" \
+           --init-hooks "${box.init}" \
+           --additional-packages "${box.packages}"
+      fi
+      ${db} enter ${box.alias} --  ${exec}
+    '';
 in {
-  home.packages = let
-    aliases = mapAttrs (name: value: mkBoxAlias value) boxes;
-  in
-    (attrValues aliases) ++ [pkgs.distrobox];
-
-  home.file = let
-    links = mapAttrs (name: value: mkBoxLinks value) boxes;
-  in
-    foldl' (x: y: x // y) {} (attrValues links);
-
-  programs.bash.initExtra = ''
-    if [[ -f "/run/.containerenv" ]]; then
-      export PATH="${concatStringsSep ":" shPath}"
-    fi
-  '';
-
-  programs.zsh.initExtra = ''
-    if [[ -f "/run/.containerenv" ]]; then
-      export PATH="${concatStringsSep ":" shPath}"
-    fi
-  '';
-
-  programs.nushell.extraConfig = ''
-    if ("/run/.containerenv" | path exists) {
-      $env.PATH = [${concatStringsSep " " nuPath}]
-    }
-  '';
+  home.packages = [pkgs.distrobox] ++ (map mkBoxAlias boxes);
+  home.file = builtins.foldl' (acc: x: acc // x) {} (map mkBoxLinks boxes);
 }

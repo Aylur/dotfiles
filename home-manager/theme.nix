@@ -1,5 +1,8 @@
-{pkgs, config, ...}: let
-  ln = config.lib.file.mkOutOfStoreSymlink;
+{
+  pkgs,
+  config,
+  ...
+}: let
   nerdfonts = pkgs.nerdfonts.override {
     fonts = [
       "Ubuntu"
