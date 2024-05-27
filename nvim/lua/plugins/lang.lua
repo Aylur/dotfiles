@@ -14,6 +14,7 @@ end
 return {
     {
         "williamboman/mason.nvim",
+        -- enable in containers and Mac, but not NixOS
         enabled = io.open("/run/.containerenv", "r") ~= nil or uname() == "Darwin",
     },
     {
@@ -80,8 +81,8 @@ return {
         "stevearc/conform.nvim",
         opts = {
             formatters_by_ft = {
-                vala = { "clang-format" },
+                nix = { "alejandra" },
             },
-        }
+        },
     },
 }

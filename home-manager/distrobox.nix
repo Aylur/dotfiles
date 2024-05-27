@@ -7,10 +7,11 @@
   boxes = mkBoxes {
     Alpine = {
       img = "docker.io/library/alpine:latest";
+      packages = "git neovim";
     };
     Fedora = {
-      packages = "nodejs npm poetry gcc mysql-devel python3-devel";
-      img = "quay.io/fedora/fedora:rawhide";
+      packages = "nodejs npm poetry gcc mysql-devel python3-devel git neovim wl-clipboard";
+      img = "registry.fedoraproject.org/fedora-toolbox:rawhide";
       nixPackages = [
         (pkgs.writeShellScriptBin "pr" "poetry run $@")
         (pkgs.writeShellScriptBin "prpm" "poetry run python manage.py $@")
@@ -18,7 +19,7 @@
     };
     Arch = {
       img = "docker.io/library/archlinux:latest";
-      packages = "base-devel";
+      packages = "base-devel git neovim wl-clipboard";
       nixPackages = [
         (pkgs.writeShellScriptBin "yay" ''
           if [[ ! -f /bin/yay ]]; then
@@ -42,24 +43,21 @@
     ".config/nvim"
     ".config/nix"
     ".config/starship.toml"
-    ".local/"
-    ".cache/"
   ];
 
   mkBoxes = let
     mkBox = name: {
       img,
       home ? ".local/share/distrobox/${name}",
-      packages ? "",
+      packages ? "git neovim",
       init ? "true",
       flags ? "",
       path ? [],
       nixPackages ? [],
     }: {
-      inherit home img flags;
+      inherit home img flags packages;
       init = pkgs.writeShellScript "init" init;
       alias = lib.strings.toLower name;
-      packages = packages + " git neovim wl-clipboard";
       path =
         path
         ++ config.packages.cli
@@ -92,6 +90,16 @@
   mkBoxAlias = box: let
     db = "${pkgs.distrobox}/bin/distrobox";
     exec = pkgs.writeShellScript "db-exec" ''
+      data_dirs=()
+      IFS=':'
+      read -ra segments <<<"$XDG_DATA_DIRS"
+      for segment in "''${segments[@]}"; do
+        if [[ $segment != *"/nix"* ]]; then
+          data_dirs+=("$segment")
+        fi
+      done
+
+      export XDG_DATA_DIRS="''${data_dirs[*]}"
       export PATH="${builtins.concatStringsSep ":" box.path}"
       ${pkgs.nushell}/bin/nu
     '';
@@ -102,12 +110,12 @@
            --pull \
            --yes \
            --name "${box.alias}" \
-           --home ${config.home.homeDirectory}/${box.home} \
+           --home "${config.home.homeDirectory}/${box.home}" \
            --image "${box.img}" \
            --init-hooks "${box.init}" \
            --additional-packages "${box.packages}"
       fi
-      ${db} enter ${box.alias} --  ${exec}
+      ${db} enter ${box.alias} -- ${exec}
     '';
 in {
   home.packages = [pkgs.distrobox] ++ (map mkBoxAlias boxes);

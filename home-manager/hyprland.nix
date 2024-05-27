@@ -52,7 +52,6 @@ in {
       general = {
         layout = "dwindle";
         resize_on_border = true;
-        no_cursor_warps = true;
       };
 
       misc = {

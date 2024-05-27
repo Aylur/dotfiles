@@ -69,7 +69,7 @@
         "[${pad.right}](fg:bright-black)"
         " [$read_only](fg:yellow)"
       ];
-      read_only = "";
+      read_only = " ";
       truncate_to_repo = true;
       truncation_length = 4;
       truncation_symbol = "";

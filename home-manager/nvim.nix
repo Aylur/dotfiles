@@ -10,6 +10,8 @@
       with nodePackages_latest; [
         nil
         lua-language-server
+        stylua
+        alejandra
 
         # js, html
         vscode-html-languageserver-bin
