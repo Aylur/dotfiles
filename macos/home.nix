@@ -1,4 +1,8 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ../home-manager/git.nix
     ../home-manager/lf.nix
@@ -9,8 +13,12 @@
     ../home-manager/tmux.nix
   ];
 
-  packages.host = [];
   news.display = "show";
+
+  shellAliases = {
+    "pr" = "poetry run";
+    "prpm" = "poetry run python3 manage.py";
+  };
 
   home.sessionVariables = {
     EDITOR = "nvim";

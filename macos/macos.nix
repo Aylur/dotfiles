@@ -14,10 +14,9 @@
   homebrew = {
     enable = true;
     casks = [
-      "spotify"
-      "zed"
       "wezterm"
-      "docker"
+      "firefox"
+      "keepassxc"
     ];
   };
 

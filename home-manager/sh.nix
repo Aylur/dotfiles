@@ -1,9 +1,10 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: let
-  shellAliases = {
+  aliases = {
     "db" = "distrobox";
     "tree" = "eza --tree";
     "nv" = "nvim";
@@ -26,9 +27,14 @@
     "del" = "gio trash";
   };
 in {
-  programs = {
+  options.shellAliases = with lib; mkOption {
+    type = types.attrsOf types.str;
+    default = {};
+  };
+
+  config.programs = {
     zsh = {
-      inherit shellAliases;
+      shellAliases = aliases // config.shellAliases;
       enable = true;
       enableCompletion = true;
       autosuggestion.enable = true;
@@ -43,13 +49,13 @@ in {
     };
 
     bash = {
-      inherit shellAliases;
+      shellAliases = aliases // config.shellAliases;
       enable = true;
       initExtra = "SHELL=${pkgs.bash}";
     };
 
     nushell = {
-      inherit shellAliases;
+      shellAliases = aliases // config.shellAliases;
       enable = true;
       environmentVariables = {
         PROMPT_INDICATOR_VI_INSERT = "\"  \"";

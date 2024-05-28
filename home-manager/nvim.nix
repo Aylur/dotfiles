@@ -78,7 +78,8 @@ in {
     withPython3 = true;
 
     extraPackages = with pkgs;
-      deps ++ [
+      deps
+      ++ [
         git
         gcc
         gnumake
@@ -89,6 +90,7 @@ in {
         ripgrep
         fd
         fzf
+        cargo
       ];
   };
 }

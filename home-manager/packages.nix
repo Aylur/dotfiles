@@ -12,7 +12,7 @@
       };
 in {
   options.packages = with lib; let
-    host = with pkgs; [
+    linux = with pkgs; [
       (mpv.override {scripts = [mpvScripts.mpris];})
       spotify
       transmission_4-gtk
@@ -21,8 +21,6 @@ in {
       # yabridgectl
       # wine-staging
       nodejs
-      lazydocker
-      lazygit
     ];
     cli = with pkgs; [
       bat
@@ -30,9 +28,11 @@ in {
       fd
       ripgrep
       fzf
+      lazydocker
+      lazygit
     ];
   in {
-    host = packagesType host;
+    linux = packagesType linux;
     cli = packagesType cli;
   };
 
@@ -43,6 +43,8 @@ in {
   ];
 
   config = {
-    home.packages = with config.packages; cli ++ host;
+    home.packages = with config.packages; if pkgs.stdenv.isLinux
+      then cli ++ linux
+      else cli;
   };
 }
