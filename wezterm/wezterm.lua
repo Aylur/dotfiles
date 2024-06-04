@@ -8,7 +8,7 @@ fi
 ]]
 
 return {
-	enable_wayland = true,
+	enable_wayland = false,
 	color_schemes = {
 		["Gnome Light"] = require("gnome"),
 		["Charmful Dark"] = require("charmful"),

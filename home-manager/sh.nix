@@ -117,7 +117,11 @@ in {
             (map (name: completion name) names);
       in ''
         $env.config = ${conf};
-        ${completions ["cargo" "git" "nix" "npm"]}
+        ${completions ["cargo" "git" "nix" "npm" "poetry" "curl"]}
+
+        alias pueue = ${pkgs.pueue}/bin/pueue
+        alias pueued = ${pkgs.pueue}/bin/pueued
+        use ${pkgs.nu_scripts}/share/nu_scripts/modules/background_task/task.nu
       '';
     };
   };

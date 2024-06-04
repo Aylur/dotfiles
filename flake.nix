@@ -8,64 +8,55 @@
     nixpkgs,
     ...
   }: {
-    formatter = {
-      x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-      x86_64-darwin = nixpkgs.legacyPackages.x86_64-darwin.alejandra;
-    };
-
     packages.x86_64-linux.default =
       nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags {inherit inputs;};
 
     # nixos config
     nixosConfigurations = {
-      "nixos" = let
-        hostname = "nixos";
-      in
-        nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-            asztal = self.packages.x86_64-linux.default;
-          };
-          modules = [
-            ./nixos/nixos.nix
-            home-manager.nixosModules.home-manager
-            {networking.hostName = hostname;}
-          ];
+      "nixos" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          asztal = self.packages.x86_64-linux.default;
         };
+        modules = [
+          ./nixos/nixos.nix
+          home-manager.nixosModules.home-manager
+          {networking.hostName = "nixos";}
+        ];
+      };
     };
 
     # macos
     darwinConfigurations = {
-      "macos" = let
-        username = "demeter";
-      in
-        nix-darwin.lib.darwinSystem {
-          modules = [
-            ./macos/macos.nix
-            home-manager.darwinModules.home-manager
-            {
-              users.users.${username} = {
-                name = username;
-                home = "/Users/${username}";
+      "macos" = nix-darwin.lib.darwinSystem {
+        modules = [
+          ./macos/macos.nix
+          home-manager.darwinModules.home-manager
+          (let
+            username = "demeter";
+          in {
+            users.users.${username} = {
+              name = username;
+              home = "/Users/${username}";
+            };
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = {inherit inputs;};
+              users."${username}" = {
+                home.username = username;
+                home.homeDirectory = "/Users/${username}";
+                imports = [./macos/home.nix];
               };
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {inherit inputs;};
-                users."${username}" = {
-                  home.username = username;
-                  home.homeDirectory = "/Users/${username}";
-                  imports = [./macos/home.nix];
-                };
-              };
-              networking = {
-                hostName = "macos";
-                computerName = "macos";
-              };
-            }
-          ];
-        };
+            };
+            networking = {
+              hostName = "macos";
+              computerName = "macos";
+            };
+          })
+        ];
+      };
     };
   };
 
@@ -105,11 +96,6 @@
 
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
-      flake = false;
-    };
-
-    turtle-git = {
-      url = "git+https://gitlab.gnome.org/philippun1/turtle";
       flake = false;
     };
   };

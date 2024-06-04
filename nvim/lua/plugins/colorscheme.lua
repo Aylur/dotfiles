@@ -2,15 +2,10 @@ return {
     { "Mofiqul/vscode.nvim" },
     { "Mofiqul/adwaita.nvim" },
     { "nyoom-engineering/oxocarbon.nvim" },
-    {
-        "rose-pine/neovim",
-        name = 'rose-pine',
-        opts = {
-            groups = {
-                background = "#171717",
-            },
-        },
-    },
+    { "rebelot/kanagawa.nvim" },
+    { "rose-pine/neovim" },
+    { "navarasu/onedark.nvim" },
+    { "projekt0n/github-nvim-theme" },
     {
         "LazyVim/LazyVim",
         opts = { colorscheme = "catppuccin" },

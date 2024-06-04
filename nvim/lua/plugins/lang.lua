@@ -1,6 +1,3 @@
--- lazy.lang
--- clangd, go, json, markdown, python, rust, typescript, yaml
-
 local function uname()
     local handle = io.popen("uname")
     if handle then
@@ -65,11 +62,10 @@ return {
 
                 svelte = {},
                 astro = {},
-                denols = {},
                 gleam = {},
 
-                tsserver = {
-                    root_dir = require("lspconfig").util.root_pattern("package.json"),
+                denols = {
+                    root_dir = require("lspconfig").util.root_pattern("deno.json"),
                 },
 
                 vala_ls = {},

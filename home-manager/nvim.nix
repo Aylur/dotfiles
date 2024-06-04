@@ -12,41 +12,6 @@
         lua-language-server
         stylua
         alejandra
-
-        # js, html
-        vscode-html-languageserver-bin
-        vscode-langservers-extracted
-        tailwindcss-language-server
-        typescript-language-server
-        svelte-language-server
-        eslint
-        typescript
-        nodePackages_latest."@astrojs/language-server"
-        stylelint
-
-        # markup
-        marksman
-        markdownlint-cli
-        taplo # toml
-        yaml-language-server
-
-        # python
-        ruff
-        ruff-lsp
-        pyright
-
-        # sh
-        shfmt
-        bash-language-server
-        nushell
-
-        # c
-        clang-tools
-
-        # vala
-        vala
-        vala-language-server
-        vala-lint
       ]
     else [];
 in {

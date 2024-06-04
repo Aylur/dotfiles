@@ -1,6 +1,6 @@
 {
   inputs,
-  lib,
+  # lib,
   ...
 }: let
   username = "demeter";
@@ -18,7 +18,6 @@ in {
 
   hyprland.enable = true;
   asusLaptop.enable = false;
-  gnome.enable = false;
 
   users.users.${username} = {
     isNormalUser = true;
@@ -67,8 +66,7 @@ in {
   #   gnome.configuration = {
   #     system.nixos.tags = ["Gnome"];
   #     hyprland.enable = lib.mkForce false;
-  #     asusLaptop.enable = lib.mkForce true;
-  #     gnome.enable = lib.mkForce true;
+  #     gnome.enable = true;
   #   };
   # };
 }
