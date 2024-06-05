@@ -21,6 +21,7 @@
   font = {
     name = "Ubuntu Nerd Font";
     package = nerdfonts;
+    size = 11;
   };
   cursorTheme = {
     name = "Qogir";

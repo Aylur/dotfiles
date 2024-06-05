@@ -123,10 +123,6 @@ with lib.hm.gvariant; {
       current-workspace-only = false;
     };
 
-    "org/gnome/shell/keybindings" = {
-      toggle-application-view = ["<Super>r"];
-    };
-
     "system/locale" = {
       region = "hu_HU.UTF-8";
     };

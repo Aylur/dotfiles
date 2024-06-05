@@ -1,6 +1,6 @@
 {
   inputs,
-  # lib,
+  lib,
   ...
 }: let
   username = "demeter";
@@ -62,11 +62,11 @@ in {
     };
   };
 
-  # specialisation = {
-  #   gnome.configuration = {
-  #     system.nixos.tags = ["Gnome"];
-  #     hyprland.enable = lib.mkForce false;
-  #     gnome.enable = true;
-  #   };
-  # };
+  specialisation = {
+    gnome.configuration = {
+      system.nixos.tags = ["Gnome"];
+      hyprland.enable = lib.mkForce false;
+      gnome.enable = true;
+    };
+  };
 }
