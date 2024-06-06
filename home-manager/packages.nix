@@ -1,18 +1,13 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}: let
-  packagesType = with lib;
-    def:
-      mkOption {
-        type = types.listOf types.package;
-        default = def;
-      };
-in {
-  options.packages = with lib; let
-    linux = with pkgs; [
+{pkgs, ...}: {
+  imports = [
+    ./modules/packages.nix
+    ./scripts/blocks.nix
+    ./scripts/nx-switch.nix
+    ./scripts/vault.nix
+  ];
+
+  packages = with pkgs; {
+    linux = [
       (mpv.override {scripts = [mpvScripts.mpris];})
       spotify
       transmission_4-gtk
@@ -22,7 +17,7 @@ in {
       # wine-staging
       nodejs
     ];
-    cli = with pkgs; [
+    cli = [
       bat
       eza
       fd
@@ -31,20 +26,5 @@ in {
       lazydocker
       lazygit
     ];
-  in {
-    linux = packagesType linux;
-    cli = packagesType cli;
-  };
-
-  imports = [
-    ./scripts/blocks.nix
-    ./scripts/nx-switch.nix
-    ./scripts/vault.nix
-  ];
-
-  config = {
-    home.packages = with config.packages; if pkgs.stdenv.isLinux
-      then cli ++ linux
-      else cli;
   };
 }
