@@ -72,7 +72,6 @@ in {
         conf = builtins.toJSON {
           show_banner = false;
           edit_mode = "vi";
-          shell_integration = true;
 
           ls.clickable_links = true;
           rm.always_trash = true;

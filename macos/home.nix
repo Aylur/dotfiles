@@ -11,6 +11,7 @@
     ../home-manager/sh.nix
     ../home-manager/starship.nix
     ../home-manager/tmux.nix
+    ../home-manager/wezterm.nix
   ];
 
   news.display = "show";
@@ -20,6 +21,28 @@
     "prpm" = "poetry run python3 manage.py";
   };
 
+  terminals.wezterm.sessionVariable = true;
+
+  programs.nushell.extraEnv = ''
+    $env.PATH = ($env.PATH | split row (char esep)
+      | append "${config.home.homeDirectory}/.nix-profile/bin"
+      | append "/nix/var/nix/profiles/default/bin")
+  '';
+
+  fonts.fontconfig.enable = true;
+
+  home.packages = let
+    nerdfonts = pkgs.nerdfonts.override {
+      fonts = [
+        "Ubuntu"
+        "UbuntuMono"
+        "CascadiaCode"
+        "FantasqueSansMono"
+        "FiraCode"
+      ];
+    };
+  in [nerdfonts];
+
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "${pkgs.nushell}/bin/nu";
@@ -28,11 +51,6 @@
     BAT_THEME = "base16";
     GOPATH = "${config.home.homeDirectory}/.local/share/go";
     GOMODCACHE = "${config.home.homeDirectory}/.cache/go/pkg/mod";
-  };
-
-  xdg = {
-    enable = true;
-    configFile.wezterm.source = ../wezterm;
   };
 
   nix.settings = {

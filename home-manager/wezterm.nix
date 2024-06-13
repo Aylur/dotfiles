@@ -117,24 +117,7 @@
 
       audible_bell = "Disabled";
 
-      default_prog = [
-        (
-          if pkgs.stdenv.isDarwin
-          then let
-            tmux = "${pkgs.tmux}/bin/tmux";
-            nu = "${pkgs.nu}/bin/nu";
-          in
-            pkgs.writeShellScript "darwin-tmux" ''
-              if [ "$(uname)" == "Darwin" ]; then
-                  zsh -c "${tmux} new-session -d -s session '${nu}'"
-                  zsh -c "${tmux} attach-session -t session"
-              else
-                  tmux
-              fi
-            ''
-          else "tmux"
-        )
-      ];
+      default_prog = ["${pkgs.tmux}/bin/tmux"];
     };
 
     extraLua = ''

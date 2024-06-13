@@ -2,19 +2,7 @@
   pkgs,
   lib,
   ...
-}: let
-  deps =
-    if pkgs.stdenv.isLinux
-    then
-      with pkgs;
-      with nodePackages_latest; [
-        nil
-        lua-language-server
-        stylua
-        alejandra
-      ]
-    else [];
-in {
+}: {
   xdg = {
     configFile.nvim.source = ../nvim;
     desktopEntries."nvim" = lib.mkIf pkgs.stdenv.isLinux {
@@ -42,20 +30,23 @@ in {
     withNodeJs = true;
     withPython3 = true;
 
-    extraPackages = with pkgs;
-      deps
-      ++ [
-        git
-        gcc
-        gnumake
-        unzip
-        wget
-        curl
-        tree-sitter
-        ripgrep
-        fd
-        fzf
-        cargo
-      ];
+    extraPackages = with pkgs; [
+      git
+      gcc
+      gnumake
+      unzip
+      wget
+      curl
+      tree-sitter
+      ripgrep
+      fd
+      fzf
+      cargo
+
+      nil
+      lua-language-server
+      stylua
+      alejandra
+    ];
   };
 }

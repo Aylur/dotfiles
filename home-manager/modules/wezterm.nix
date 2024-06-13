@@ -57,11 +57,11 @@ in {
 
   config = mkIf cfg.enable {
     home = {
-      packages = let
+      packages = mkIf pkgs.stdenv.isLinux (let
         term = ''${pkgs.wezterm}/bin/wezterm "$@"'';
         aliases = map (n: pkgs.writeShellScriptBin n term) cfg.alias;
       in
-        [pkgs.wezterm] ++ aliases;
+        [pkgs.wezterm] ++ aliases);
 
       sessionVariables.TERMINAL = mkIf cfg.sessionVariable "wezterm";
     };
