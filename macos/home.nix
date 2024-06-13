@@ -25,6 +25,7 @@
 
   programs.nushell.extraEnv = ''
     $env.PATH = ($env.PATH | split row (char esep)
+      | append "/usr/local/bin"
       | append "${config.home.homeDirectory}/.nix-profile/bin"
       | append "/nix/var/nix/profiles/default/bin")
   '';
