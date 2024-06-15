@@ -21,7 +21,7 @@ export default (monitor: number) => Widget.Window({
     }),
     setup: self => self
         .hook(corners, () => {
-            self.toggleClassName("corners", corners.value)
+            self.toggleClassName("corners", corners.value > 0)
         })
         .hook(transparent, () => {
             self.toggleClassName("hidden", transparent.value)

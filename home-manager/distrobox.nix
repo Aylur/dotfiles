@@ -26,11 +26,10 @@
           pkgs.git
         ];
     in {
-      # Alpine = {
-      #   inherit exec symlinks;
-      #   img = "docker.io/library/alpine:latest";
-      #   packages = "git neovim";
-      # };
+      Alpine = {
+        inherit exec symlinks;
+        img = "docker.io/library/alpine:latest";
+      };
       Fedora = {
         inherit exec symlinks;
         packages = "nodejs npm poetry gcc mysql-devel python3-devel wl-clipboard";

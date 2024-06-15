@@ -6,6 +6,7 @@ import { bash, dependencies } from "lib/utils"
 const deps = [
     "font",
     "theme",
+    "bar.corners",
     "bar.flatButtons",
     "bar.position",
     "bar.battery.charging",
@@ -78,6 +79,7 @@ const variables = () => [
     $("bar-battery-blocks", options.bar.battery.blocks),
     $("bar-position", options.bar.position),
     $("hyprland-gaps-multiplier", options.hyprland.gaps),
+    $("screen-corner-multiplier", `${options.bar.corners.value * 0.01}`),
 ]
 
 async function resetCss() {

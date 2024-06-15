@@ -16,32 +16,11 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter",
-        dependencies = {
-            { "nushell/tree-sitter-nu" },
-        },
         opts = {
             ensure_installed = {
                 "lua",
                 "nix",
-
-                -- "bash",
-                -- "nu",
-                --
-                -- "javascript",
-                -- "jsdoc",
-                -- "html",
-                -- "scss",
-                -- "css",
-                -- "svelte",
-                --
-                -- "luadoc",
-                -- "luap",
-                -- "query",
-                -- "regex",
-                -- "vim",
-                -- "vimdoc",
-                --
-                -- "gleam"
+                "bash",
             },
         },
     },
@@ -51,18 +30,7 @@ return {
             servers = {
                 nil_ls = {},
                 lua_ls = {},
-
                 bashls = {},
-                nushell = {},
-
-                cssls = {},
-                eslint = {},
-                stylelint_lsp = {},
-                html = {},
-
-                svelte = {},
-                astro = {},
-                gleam = {},
 
                 denols = {
                     root_dir = require("lspconfig").util.root_pattern("deno.json"),

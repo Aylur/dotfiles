@@ -1,5 +1,5 @@
 $_shadow-size: $padding;
-$_radius: $radius * $hyprland-gaps-multiplier;
+$_radius: $radius * $hyprland-gaps-multiplier * $screen-corner-multiplier;
 $_margin: 99px;
 
 window.screen-corner:not(.hidden) {
@@ -41,12 +41,12 @@ window.screen-corner:not(.hidden) {
 
     &.corners {
         box.border {
-            border-radius: if($radius>0, $radius * $hyprland-gaps-multiplier, 0);
+            border-radius: if($radius>0, $_radius, 0);
             box-shadow: 0 0 0 $_radius $bg;
         }
 
         box.corner {
-            border-radius: if($radius>0, $radius * $hyprland-gaps-multiplier, 0);
+            border-radius: if($radius>0, $_radius, 0);
         }
     }
 }
