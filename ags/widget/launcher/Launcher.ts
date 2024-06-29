@@ -124,7 +124,7 @@ function Launcher() {
 
     return Widget.Box(
         { vertical: true, css: "padding: 1px" },
-        Padding("applauncher", {
+        Padding("launcher", {
             css: margin.bind().as(v => `min-height: ${v}pt;`),
             vexpand: false,
         }),

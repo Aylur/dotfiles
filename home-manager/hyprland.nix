@@ -40,7 +40,7 @@ in {
       exec-once = [
         "ags -b hypr"
         "hyprctl setcursor Qogir 24"
-        "transmission-gtk"
+        "fragments"
       ];
 
       monitor = [
@@ -99,7 +99,7 @@ in {
         (f "Color Picker")
         (f "xdg-desktop-portal")
         (f "xdg-desktop-portal-gnome")
-        (f "transmission-gtk")
+        (f "de.haeckerfelix.Fragments")
         (f "com.github.Aylur.ags")
         "workspace 7, title:Spotify"
       ];

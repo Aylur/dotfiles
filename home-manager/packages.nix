@@ -10,8 +10,8 @@
     linux = [
       (mpv.override {scripts = [mpvScripts.mpris];})
       spotify
-      transmission_4-gtk
       gnome-secrets
+      fragments
       # yabridge
       # yabridgectl
       # wine-staging
