@@ -41,7 +41,7 @@ in {
       font.package
       cursorTheme.package
       iconTheme.package
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
       papirus-icon-theme
     ];
     sessionVariables = {

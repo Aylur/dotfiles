@@ -37,6 +37,7 @@
     };
     printing.enable = true;
     flatpak.enable = true;
+    openssh.enable = true;
   };
 
   # logind

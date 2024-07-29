@@ -60,7 +60,7 @@ in {
       };
 
       input = {
-        kb_layout = "hu";
+        kb_layout = "hu,us";
         follow_mouse = 1;
         touchpad = {
           natural_scroll = "yes";

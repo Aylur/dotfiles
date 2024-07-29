@@ -26,25 +26,25 @@
           gnome-connections
           snapshot
           gedit
-        ])
-        ++ (with pkgs.gnome; [
           cheese # webcam tool
-          gnome-music
           epiphany # web browser
           geary # email reader
           evince # document viewer
-          gnome-characters
           totem # video player
+          yelp # Help view
+          gnome-font-viewer
+        ])
+        ++ (with pkgs.gnome; [
+          gnome-music
+          gnome-characters
           tali # poker game
           iagno # go game
           hitori # sudoku game
           atomix # puzzle game
-          yelp # Help view
           gnome-contacts
           gnome-initial-setup
           gnome-shell-extensions
           gnome-maps
-          gnome-font-viewer
         ]);
     };
 

@@ -13,4 +13,9 @@ in {
     userEmail = "k.demeter@protonmail.com";
     userName = name;
   };
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+  };
+  services.ssh-agent.enable = true;
 }

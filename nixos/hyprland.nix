@@ -38,8 +38,7 @@
       pam.services.ags = {};
     };
 
-    environment.systemPackages = with pkgs;
-    with gnome; [
+    environment.systemPackages = with pkgs; [
       morewaita-icon-theme
       adwaita-icon-theme
       qogir-icon-theme
@@ -48,13 +47,13 @@
       baobab
       gnome-text-editor
       gnome-calendar
-      gnome-boxes
+      gnome.gnome-boxes
       gnome-system-monitor
-      gnome-control-center
-      gnome-weather
+      gnome.gnome-control-center
+      gnome.gnome-weather
       gnome-calculator
-      gnome-clocks
-      gnome-software # for flatpak
+      gnome.gnome-clocks
+      gnome.gnome-software # for flatpak
       wl-gammactl
       wl-clipboard
       wayshot

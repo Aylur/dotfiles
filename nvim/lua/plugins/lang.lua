@@ -36,6 +36,8 @@ return {
                     root_dir = require("lspconfig").util.root_pattern("deno.json"),
                 },
 
+                cssls = {},
+                cssmodules_ls = {},
                 vala_ls = {},
                 mesonlsp = {},
             },
