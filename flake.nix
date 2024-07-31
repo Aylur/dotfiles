@@ -7,17 +7,11 @@
     nixpkgs,
     ...
   }: {
-    packages.x86_64-linux.default =
-      nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags {inherit inputs;};
-
     # nixos config
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          asztal = self.packages.x86_64-linux.default;
-        };
+        specialArgs = {inherit inputs;};
         modules = [
           ./nixos/nixos.nix
           home-manager.nixosModules.home-manager
@@ -51,21 +45,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
+    my-shell = {
+      url = "git+ssh://git@github.com/Aylur/my-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland-hyprspace = {
-      url = "github:KZDKM/Hyprspace";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    matugen.url = "github:InioX/matugen?ref=v2.2.0";
-    ags.url = "github:Aylur/ags";
-    astal.url = "github:Aylur/astal";
+    # hyprland-hyprspace = {
+    #   url = "github:KZDKM/Hyprspace";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     lf-icons = {
       url = "github:gokcehan/lf";

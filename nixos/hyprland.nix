@@ -1,8 +1,6 @@
 {
   pkgs,
-  inputs,
   config,
-  asztal,
   lib,
   ...
 }: {
@@ -20,11 +18,7 @@
 
     services.xserver.displayManager.startx.enable = true;
 
-    programs.hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-      xwayland.enable = true;
-    };
+    programs.hyprland.enable = true;
 
     xdg.portal = {
       enable = true;
@@ -54,12 +48,8 @@
       gnome-calculator
       gnome.gnome-clocks
       gnome.gnome-software # for flatpak
-      wl-gammactl
       wl-clipboard
-      wayshot
-      pavucontrol
-      brightnessctl
-      swww
+      wl-gammactl
     ];
 
     systemd = {
@@ -97,37 +87,38 @@
 
     services.greetd = {
       enable = true;
-      settings.default_session.command = pkgs.writeShellScript "greeter" ''
-        export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
-        export XCURSOR_THEME=Qogir
-        ${asztal}/bin/greeter
-      '';
+      settings.default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+      };
+      # settings.default_session.command = pkgs.writeShellScript "greeter" ''
+      #   export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
+      #   export XCURSOR_THEME=Qogir
+      #   ${asztal}/bin/greeter
+      # '';
     };
 
     systemd.tmpfiles.rules = [
       "d '/var/cache/greeter' - greeter greeter - -"
     ];
 
-    system.activationScripts.wallpaper = let
-      wp = pkgs.writeShellScript "wp" ''
-        CACHE="/var/cache/greeter"
-        OPTS="$CACHE/options.json"
-        HOME="/home/$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)"
-
-        mkdir -p "$CACHE"
-        chown greeter:greeter $CACHE
-
-        if [[ -f "$HOME/.cache/ags/options.json" ]]; then
-          cp $HOME/.cache/ags/options.json $OPTS
-          chown greeter:greeter $OPTS
-        fi
-
-        if [[ -f "$HOME/.config/background" ]]; then
-          cp "$HOME/.config/background" $CACHE/background
-          chown greeter:greeter "$CACHE/background"
-        fi
-      '';
-    in
-      builtins.readFile wp;
+    # TODO:
+    # system.activationScripts.wallpaper = builtins.readFile pkgs.writeShellScript "wp" ''
+    #   CACHE="/var/cache/greeter"
+    #   OPTS="$CACHE/options.json"
+    #   HOME="/home/$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)"
+    #
+    #   mkdir -p "$CACHE"
+    #   chown greeter:greeter $CACHE
+    #
+    #   if [[ -f "$HOME/.cache/ags/options.json" ]]; then
+    #     cp $HOME/.cache/ags/options.json $OPTS
+    #     chown greeter:greeter $OPTS
+    #   fi
+    #
+    #   if [[ -f "$HOME/.config/background" ]]; then
+    #     cp "$HOME/.config/background" $CACHE/background
+    #     chown greeter:greeter "$CACHE/background"
+    #   fi
+    # '';
   };
 }

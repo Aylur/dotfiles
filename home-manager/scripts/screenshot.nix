@@ -5,7 +5,7 @@ pkgs: let
   swappy = "${pkgs.swappy}/bin/swappy";
   wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
 in
-  pkgs.writeShellScript "screenshot" ''
+  pkgs.writeShellScriptBin "screenshot" ''
     SCREENSHOTS="$HOME/Pictures/Screenshots"
     NOW=$(date +%Y-%m-%d_%H-%M-%S)
     TARGET="$SCREENSHOTS/$NOW.png"
