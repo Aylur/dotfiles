@@ -11,6 +11,8 @@
     pulseaudio # pactl
     playerctl
     swww
+    wf-recorder
+    slurp
   ];
 
   xdg.desktopEntries."org.gnome.Settings" = {
@@ -32,6 +34,7 @@
     settings = {
       exec-once = [
         "my-shell"
+        "swww-daemon"
         "hyprctl setcursor Qogir 24"
         "fragments"
       ];

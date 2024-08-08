@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722435904,
-        "narHash": "sha256-DLPq/5pIc5+v1GD34G+JhPm1cywThWtnju0fG76UDn0=",
+        "lastModified": 1722797349,
+        "narHash": "sha256-dnYs+KB6iOZAt/Z6sl0XkO0b7e/JIogj1tjk1/yEgrw=",
         "owner": "astal-sh",
         "repo": "libastal",
-        "rev": "a0680e3b88c767da23186648024a5b05c4a2f013",
+        "rev": "2591355234f7058c491838a640653077267b8a49",
         "type": "github"
       },
       "original": {
@@ -92,11 +92,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721998917,
-        "narHash": "sha256-1NOeVqcP9dzOKabIWzyjk3YhgNp3ghXLbVSHH9qhyCo=",
+        "lastModified": 1723154290,
+        "narHash": "sha256-VGdRLPLkfR5sHQQtSqdK7RKdQxxwLHrs5vwnjohNQEI=",
         "owner": "astal-sh",
         "repo": "bluetooth",
-        "rev": "b6ca176cb8a2d23a625cb293681f870c4fc8aae1",
+        "rev": "ce866f7b0af13511cf6ab95998b252cb9b7c93aa",
         "type": "github"
       },
       "original": {
@@ -108,11 +108,11 @@
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1721276923,
-        "narHash": "sha256-HJKuwVvi+yGv+8n9Ez4EwaJA0B79JRss9J30vpgy/GI=",
+        "lastModified": 1723137499,
+        "narHash": "sha256-MOE9NeU2i6Ws1GhGmppMnjOHkNLl2MQMJmGhaMzdoJM=",
         "owner": "rafaelmardojai",
         "repo": "firefox-gnome-theme",
-        "rev": "cc70ec20e2775df7cd2bccdd20dcdecc3e0a733b",
+        "rev": "fb5b578a4f49ae8705e5fea0419242ed1b8dba70",
         "type": "github"
       },
       "original": {
@@ -128,11 +128,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722407237,
-        "narHash": "sha256-wcpVHUc2nBSSgOM7UJSpcRbyus4duREF31xlzHV5T+A=",
+        "lastModified": 1723015306,
+        "narHash": "sha256-jQnFEtH20/OsDPpx71ntZzGdRlpXhUENSQCGTjn//NA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "58cef3796271aaeabaed98884d4abaab5d9d162d",
+        "rev": "b3d5ea65d88d67d4ec578ed11d4d2d51e3de525e",
         "type": "github"
       },
       "original": {
@@ -165,11 +165,11 @@
     "lf-icons": {
       "flake": false,
       "locked": {
-        "lastModified": 1722314802,
-        "narHash": "sha256-sTjPnxwXgewJ0lTAP/U0VBPFrwbDbNKzcTJMMI0CUuw=",
+        "lastModified": 1723012162,
+        "narHash": "sha256-u/Qx7nxRWdcgBW+1sqkhLyEdPhy3A5jzrSkAMeNUO2o=",
         "owner": "gokcehan",
         "repo": "lf",
-        "rev": "c2224cb97ab80b97f8a9c6809c2d7b11706f8ea6",
+        "rev": "0f8359f3018c39c5c02853fd321b5e4ff5c35483",
         "type": "github"
       },
       "original": {
@@ -186,11 +186,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722426894,
-        "narHash": "sha256-8N61/ahMUZWKgN+MQeXo1ma+bfPoIoylZ0hSD6Rglog=",
+        "lastModified": 1722736234,
+        "narHash": "sha256-bzg5v9HKq3wKdGLXq3aeffhw1RiNBvQfSJAtfpwUfqI=",
         "owner": "astal-sh",
         "repo": "mpris",
-        "rev": "48533788f6ab018ee3dfd8d59caeb6bc8bbec989",
+        "rev": "995098bbc7635a4e2b90ce07b1fb42dbab8a563c",
         "type": "github"
       },
       "original": {
@@ -208,6 +208,7 @@
         "bluetooth": "bluetooth",
         "hyprland": "hyprland",
         "mpris": "mpris",
+        "network": "network",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -217,11 +218,11 @@
         "wireplumber": "wireplumber"
       },
       "locked": {
-        "lastModified": 1722436824,
-        "narHash": "sha256-DZbHSisj7BwwQMe/SlBBmRSyRHK3d+uCrzDfQ5hhIMo=",
+        "lastModified": 1723157180,
+        "narHash": "sha256-pERUCb2DBbxlqvCBQ+ge/CKYe2q4Xp72KCSmFglgKbE=",
         "ref": "refs/heads/main",
-        "rev": "30c59e7386385f59eb7f2c87dcc8e09512185c3a",
-        "revCount": 10,
+        "rev": "95368316a30da70511c22a5734b4815d97875261",
+        "revCount": 26,
         "type": "git",
         "url": "ssh://git@github.com/Aylur/my-shell"
       },
@@ -230,13 +231,34 @@
         "url": "ssh://git@github.com/Aylur/my-shell"
       }
     },
+    "network": {
+      "inputs": {
+        "nixpkgs": [
+          "my-shell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1722727879,
+        "narHash": "sha256-UcA9SPUQ923U1OZJO4TIi7mYDumT2k6MkOxBhdpAJf0=",
+        "owner": "astal-sh",
+        "repo": "network",
+        "rev": "652e23a6fd7da58461bbf0a1b022be0d0a0896f4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astal-sh",
+        "repo": "network",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1722185531,
-        "narHash": "sha256-veKR07psFoJjINLC8RK4DiLniGGMgF3QMlS4tb74S6k=",
+        "lastModified": 1722813957,
+        "narHash": "sha256-IAoYyYnED7P8zrBFMnmp7ydaJfwTnwcnqxUElC1I26Y=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "52ec9ac3b12395ad677e8b62106f0b98c1f8569d",
+        "rev": "cb9a96f23c491c081b38eab96d22fa958043c9fa",
         "type": "github"
       },
       "original": {
