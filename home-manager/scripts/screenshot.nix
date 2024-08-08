@@ -15,7 +15,8 @@ in
     if [[ -n "$1" ]]; then
         ${wayshot} -f $TARGET
     else
-        ${wayshot} -f $TARGET -s "$(${slurp})"
+        selection=$(${slurp}) || exit 1
+        ${wayshot} -f $TARGET -s "$selection"
     fi
 
     ${wl-copy} < $TARGET
