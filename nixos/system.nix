@@ -35,6 +35,7 @@
       enable = true;
       excludePackages = [pkgs.xterm];
     };
+    sysprof.enable = true;
     printing.enable = true;
     flatpak.enable = true;
     openssh.enable = true;

@@ -4,8 +4,9 @@
   ...
 }: {
   home.packages = with pkgs; [
-    inputs.my-shell.packages.${pkgs.system}.my-shell
+    inputs.my-shell.packages.${pkgs.system}.default
     inputs.my-shell.packages.${pkgs.system}.astal
+    inputs.my-shell.packages.${pkgs.system}.screenrecord
     (import ./scripts/screenshot.nix pkgs)
     brightnessctl
     pulseaudio # pactl
@@ -26,14 +27,16 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.default;
 
-    # plugins = [
-    #   inputs.hyprland-hyprspace.packages.${pkgs.system}.default
-    # ];
+    plugins = [
+      # inputs.hyprland-hyprspace.packages.${pkgs.system}.default
+      inputs.hyprgrass.packages.${pkgs.system}.default
+    ];
 
     settings = {
       exec-once = [
-        "my-shell"
+        "asztal"
         "swww-daemon"
         "hyprctl setcursor Qogir 24"
         "fragments"
@@ -79,6 +82,7 @@
 
       gestures = {
         workspace_swipe = true;
+        workspace_swipe_touch = true;
         workspace_swipe_use_r = true;
       };
 
@@ -109,11 +113,12 @@
         arr = [1 2 3 4 5 6 7];
       in
         [
-          "CTRL SHIFT, R, exec,     my-shell quit; my-shell"
-          "SUPER, R, exec,          my-shell toggle launcher"
-          "SUPER, Tab, exec,        my-shell evel \"launcher('h')\""
-          ",XF86PowerOff, exec,     my-shell toggle powermenu"
-          # TODO: screenrecord ",XF86Launch4, exec,  "
+          "CTRL SHIFT, R, exec,     asztal quit; my-shell"
+          "SUPER, R, exec,          asztal toggle launcher"
+          "SUPER, Tab, exec,        asztal evel \"launcher('h')\""
+          ",XF86PowerOff, exec,     asztal toggle powermenu"
+          ",XF86Launch4, exec,      screenrecord"
+          "SHIFT,XF86Launch4, exec, screenrecord --full"
           ",Print,         exec,    screenshot"
           "SHIFT,Print,    exec,    screenshot --full"
           "SUPER, Return, exec,     xterm" # xterm is a symlink, not actually xterm
@@ -125,7 +130,6 @@
           "ALT, Q,              killactive"
           "SUPER, F,            togglefloating"
           "SUPER, G,            fullscreen"
-          "SUPER, O,            fakefullscreen"
           "SUPER, P,            togglesplit"
 
           (mvfocus "k" "u")
@@ -203,31 +207,44 @@
         ];
       };
 
-      plugin = {
-        overview = {
-          centerAligned = true;
-          hideTopLayers = true;
-          hideOverlayLayers = true;
-          showNewWorkspace = true;
-          exitOnClick = true;
-          exitOnSwitch = true;
-          drawActiveWorkspace = true;
-          reverseSwipe = true;
-        };
-        hyprbars = {
-          bar_color = "rgb(2a2a2a)";
-          bar_height = 28;
-          col_text = "rgba(ffffffdd)";
-          bar_text_size = 11;
-          bar_text_font = "Ubuntu Nerd Font";
-
-          buttons = {
-            button_size = 0;
-            "col.maximize" = "rgba(ffffff11)";
-            "col.close" = "rgba(ff111133)";
-          };
-        };
+      "plugin:touch_gestures" = {
+        sensitivity = 8.0;
+        workspace_swipe_fingers = 3;
+        long_press_delay = 400;
+        edge_margin = 16;
+        hyprgrass-bind = [
+          ", edge:r:l, workspace, +1"
+          ", edge:l:r, workspace, -1"
+          ", edge:d:u, exec, my-shell toggle launcher"
+        ];
       };
+
+      # plugin = {
+      #   overview = {
+      #     centerAligned = true;
+      #     hideTopLayers = true;
+      #     hideOverlayLayers = true;
+      #     showNewWorkspace = true;
+      #     exitOnClick = true;
+      #     exitOnSwitch = true;
+      #     drawActiveWorkspace = true;
+      #     reverseSwipe = true;
+      #   };
+      #
+      #   hyprbars = {
+      #     bar_color = "rgb(2a2a2a)";
+      #     bar_height = 28;
+      #     col_text = "rgba(ffffffdd)";
+      #     bar_text_size = 11;
+      #     bar_text_font = "Ubuntu Nerd Font";
+      #
+      #     buttons = {
+      #       button_size = 0;
+      #       "col.maximize" = "rgba(ffffff11)";
+      #       "col.close" = "rgba(ff111133)";
+      #     };
+      #   };
+      # };
     };
   };
 }

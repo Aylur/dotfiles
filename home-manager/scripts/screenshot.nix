@@ -32,7 +32,7 @@ in
         $TARGET)
 
     case "$RES" in
-        "file") xdg-open "$SCREENSHOTS" ;;
+        "file") $FILE_MANAGER "$SCREENSHOTS" ;;
         "view") xdg-open $TARGET ;;
         "edit") ${swappy} -f $TARGET ;;
         *) ;;

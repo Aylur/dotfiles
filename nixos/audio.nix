@@ -1,4 +1,6 @@
-{
+{pkgs, ...}: {
+  environment.systemPackages = [pkgs.alsa-utils];
+
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {

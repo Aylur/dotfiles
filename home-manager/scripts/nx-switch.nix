@@ -1,3 +1,5 @@
+# home-manager fails to clone private repo after nix-collect-garbage
+# nix build git+ssh://git@github.com/Aylur/my-shell
 {pkgs, ...}: let
   symlink = pkgs.writeShellScript "symlink" ''
     if [[ "$1" == "-r" ]]; then
