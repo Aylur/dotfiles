@@ -121,14 +121,19 @@ $button-radius: $radius;
         @include spacing($spacing: if($bar-spacing==0, $padding / 2, $bar-spacing));
     }
 
+    .quicksettings > bluetooth {
+        label {
+           font-size: $font-size * .7;
+           text-shadow: $text-shadow;
+        }
+    }
+    
     .quicksettings:not(.active):not(:active) {
         .bluetooth {
             color: $primary-bg;
 
             label {
-                font-size: $font-size * .7;
                 color: $fg;
-                text-shadow: $text-shadow;
             }
         }
     }
