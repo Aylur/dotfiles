@@ -113,9 +113,9 @@
         arr = [1 2 3 4 5 6 7];
       in
         [
-          "CTRL SHIFT, R, exec,     asztal quit; my-shell"
+          "CTRL SHIFT, R, exec,     asztal quit; asztal"
           "SUPER, R, exec,          asztal toggle launcher"
-          "SUPER, Tab, exec,        asztal evel \"launcher('h')\""
+          "SUPER, Tab, exec,        asztal eval \"launcher('h')\""
           ",XF86PowerOff, exec,     asztal toggle powermenu"
           ",XF86Launch4, exec,      screenrecord"
           "SHIFT,XF86Launch4, exec, screenrecord --full"
