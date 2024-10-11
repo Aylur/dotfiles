@@ -90,6 +90,10 @@ in {
             vi_normal = "block";
           };
 
+          display_errors = {
+            exit_code = false;
+          };
+
           menus = [
             {
               name = "completion_menu";
