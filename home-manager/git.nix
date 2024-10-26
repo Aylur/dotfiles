@@ -1,4 +1,8 @@
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   name = "Aylur";
 in {
   programs.git = {
@@ -17,5 +21,7 @@ in {
     enable = true;
     addKeysToAgent = "yes";
   };
-  services.ssh-agent.enable = true;
+  services.ssh-agent = {
+    enable = lib.modules.mkIf pkgs.stdenv.isLinux true;
+  };
 }
