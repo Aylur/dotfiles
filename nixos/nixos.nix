@@ -22,6 +22,7 @@ in {
 
   hyprland.enable = true;
   asusLaptop.enable = false;
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   users.users.${username} = {
     isNormalUser = true;
@@ -47,6 +48,7 @@ in {
       home.homeDirectory = "/home/${username}";
       imports = [
         ../home-manager/nvim.nix
+        ../home-manager/ags.nix
         ../home-manager/blackbox.nix
         ../home-manager/browser.nix
         ../home-manager/dconf.nix

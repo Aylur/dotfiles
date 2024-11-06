@@ -40,6 +40,7 @@ return {
                 cssmodules_ls = {},
                 vala_ls = {},
                 mesonlsp = {},
+                blueprint_ls = {},
             },
         },
     },

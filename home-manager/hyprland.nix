@@ -4,8 +4,8 @@
   ...
 }: {
   home.packages = with pkgs; [
-    inputs.my-shell.packages.${pkgs.system}.default
     inputs.my-shell.packages.${pkgs.system}.astal
+    inputs.my-shell.packages.${pkgs.system}.asztal
     inputs.my-shell.packages.${pkgs.system}.screenrecord
     (import ./scripts/screenshot.nix pkgs)
     brightnessctl
@@ -20,7 +20,7 @@
     name = "Settings";
     comment = "Gnome Control Center";
     icon = "org.gnome.Settings";
-    exec = "env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome.gnome-control-center}/bin/gnome-control-center";
+    exec = "env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-control-center}/bin/gnome-control-center";
     categories = ["X-Preferences"];
     terminal = false;
   };
@@ -31,14 +31,14 @@
 
     plugins = [
       # inputs.hyprland-hyprspace.packages.${pkgs.system}.default
-      inputs.hyprgrass.packages.${pkgs.system}.default
+      # inputs.hyprgrass.packages.${pkgs.system}.default
     ];
 
     settings = {
       exec-once = [
+        "hyprctl setcursor Qogir 24"
         "asztal"
         "swww-daemon"
-        "hyprctl setcursor Qogir 24"
         "fragments"
       ];
 
