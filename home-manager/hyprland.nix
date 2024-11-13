@@ -177,7 +177,7 @@
 
       decoration = {
         shadow = {
-          range = 17;
+          range = 6;
           render_power = 2;
         };
 

@@ -10,7 +10,6 @@
     # nixos config
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
           ./nixos/nixos.nix
@@ -47,11 +46,6 @@
 
     my-shell = {
       url = "git+ssh://git@github.com/Aylur/my-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ags = {
-      url = "github:aylur/ags/v2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
