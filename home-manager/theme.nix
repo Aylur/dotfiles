@@ -53,15 +53,6 @@ in {
       // {
         gtk.enable = true;
       };
-    file = {
-      ".config/gtk-4.0/gtk.css".text = ''
-        window.messagedialog .response-area > button,
-        window.dialog.message .dialog-action-area > button,
-        .background.csd{
-          border-radius: 0;
-        }
-      '';
-    };
   };
 
   fonts.fontconfig.enable = true;
@@ -70,12 +61,6 @@ in {
     inherit font cursorTheme iconTheme;
     theme.name = theme.name;
     enable = true;
-    gtk3.extraCss = ''
-      headerbar, .titlebar,
-      .csd:not(.popup):not(tooltip):not(messagedialog) decoration{
-        border-radius: 0;
-      }
-    '';
   };
 
   qt = {

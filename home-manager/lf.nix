@@ -27,7 +27,7 @@
       trash = ''
         ''${{
           set -f
-          gio trash $fx
+          gio trash "$fx"
         }}
       '';
     in {

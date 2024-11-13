@@ -26,6 +26,7 @@
       fzf
       lazydocker
       lazygit
+      btop
     ];
   };
 }

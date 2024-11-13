@@ -25,12 +25,15 @@
     "gr" = "git reset --soft HEAD~1";
 
     "del" = "gio trash";
+
+    "nix-gc" = "nix-collect-garbage --delete-older-than 7d";
   };
 in {
-  options.shellAliases = with lib; mkOption {
-    type = types.attrsOf types.str;
-    default = {};
-  };
+  options.shellAliases = with lib;
+    mkOption {
+      type = types.attrsOf types.str;
+      default = {};
+    };
 
   config.programs = {
     zsh = {
@@ -58,13 +61,13 @@ in {
       shellAliases = aliases // config.shellAliases;
       enable = true;
       environmentVariables = {
-        PROMPT_INDICATOR_VI_INSERT = "\"  \"";
-        PROMPT_INDICATOR_VI_NORMAL = "\"∙ \"";
-        PROMPT_COMMAND = ''""'';
-        PROMPT_COMMAND_RIGHT = ''""'';
+        PROMPT_INDICATOR_VI_INSERT = "  ";
+        PROMPT_INDICATOR_VI_NORMAL = "∙ ";
+        PROMPT_COMMAND = "";
+        PROMPT_COMMAND_RIGHT = "";
         NIXPKGS_ALLOW_UNFREE = "1";
         NIXPKGS_ALLOW_INSECURE = "1";
-        SHELL = ''"${pkgs.nushell}/bin/nu"'';
+        SHELL = "${pkgs.nushell}/bin/nu";
         EDITOR = config.home.sessionVariables.EDITOR;
         VISUAL = config.home.sessionVariables.VISUAL;
       };
@@ -85,6 +88,10 @@ in {
           cursor_shape = {
             vi_insert = "line";
             vi_normal = "block";
+          };
+
+          display_errors = {
+            exit_code = false;
           };
 
           menus = [
@@ -113,14 +120,23 @@ in {
           names:
             builtins.foldl'
             (prev: str: "${prev}\n${str}") ""
-            (map (name: completion name) names);
+            (map completion names);
       in ''
         $env.config = ${conf};
         ${completions ["cargo" "git" "nix" "npm" "poetry" "curl"]}
 
-        alias pueue = ${pkgs.pueue}/bin/pueue
-        alias pueued = ${pkgs.pueue}/bin/pueued
-        use ${pkgs.nu_scripts}/share/nu_scripts/modules/background_task/task.nu
+        # alias pueue = ${pkgs.pueue}/bin/pueue
+        # alias pueued = ${pkgs.pueue}/bin/pueued
+        # use ${pkgs.nu_scripts}/share/nu_scripts/modules/background_task/task.nu
+        source ${pkgs.nu_scripts}/share/nu_scripts/modules/formats/from-env.nu
+
+        const path = "~/.nushellrc.nu"
+        const null = "/dev/null"
+        source (if ($path | path exists) {
+            $path
+        } else {
+            $null
+        })
       '';
     };
   };

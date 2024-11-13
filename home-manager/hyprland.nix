@@ -2,45 +2,43 @@
   inputs,
   pkgs,
   ...
-}: let
-  hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  # plugins = inputs.hyprland-plugins.packages.${pkgs.system};
+}: {
+  home.packages = with pkgs; [
+    inputs.my-shell.packages.${pkgs.system}.astal
+    inputs.my-shell.packages.${pkgs.system}.asztal
+    inputs.my-shell.packages.${pkgs.system}.screenrecord
+    (import ./scripts/screenshot.nix pkgs)
+    brightnessctl
+    pulseaudio # pactl
+    playerctl
+    swww
+    wf-recorder
+    slurp
+  ];
 
-  yt = pkgs.writeShellScript "yt" ''
-    notify-send "Opening video" "$(wl-paste)"
-    mpv "$(wl-paste)"
-  '';
-
-  playerctl = "${pkgs.playerctl}/bin/playerctl";
-  brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-  pactl = "${pkgs.pulseaudio}/bin/pactl";
-  screenshot = import ./scripts/screenshot.nix pkgs;
-in {
   xdg.desktopEntries."org.gnome.Settings" = {
     name = "Settings";
     comment = "Gnome Control Center";
     icon = "org.gnome.Settings";
-    exec = "env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome.gnome-control-center}/bin/gnome-control-center";
+    exec = "env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-control-center}/bin/gnome-control-center";
     categories = ["X-Preferences"];
     terminal = false;
   };
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = hyprland;
-    systemd.enable = true;
-    xwayland.enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.default;
+
     plugins = [
       # inputs.hyprland-hyprspace.packages.${pkgs.system}.default
-      # plugins.hyprexpo
-      # plugins.hyprbars
-      # plugins.borderspp
+      # inputs.hyprgrass.packages.${pkgs.system}.default
     ];
 
     settings = {
       exec-once = [
-        "ags -b hypr"
         "hyprctl setcursor Qogir 24"
+        "asztal"
+        "swww-daemon"
         "fragments"
       ];
 
@@ -84,6 +82,7 @@ in {
 
       gestures = {
         workspace_swipe = true;
+        workspace_swipe_touch = true;
         workspace_swipe_use_r = true;
       };
 
@@ -101,7 +100,6 @@ in {
         (f "xdg-desktop-portal")
         (f "xdg-desktop-portal-gnome")
         (f "de.haeckerfelix.Fragments")
-        (f "com.github.Aylur.ags")
         "workspace 7, title:Spotify"
       ];
 
@@ -112,31 +110,27 @@ in {
         resizeactive = binding "SUPER CTRL" "resizeactive";
         mvactive = binding "SUPER ALT" "moveactive";
         mvtows = binding "SUPER SHIFT" "movetoworkspace";
-        e = "exec, ags -b hypr";
         arr = [1 2 3 4 5 6 7];
       in
         [
-          "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
-          "SUPER, R,       ${e} -t launcher"
-          "SUPER, Tab,     ${e} -t overview"
-          ",XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
-          ",XF86Launch4,   ${e} -r 'recorder.start()'"
-          ",Print,         exec, ${screenshot}"
-          "SHIFT,Print,    exec, ${screenshot} --full"
-          "SUPER, Return, exec, xterm" # xterm is a symlink, not actually xterm
-          "SUPER, W, exec, firefox"
-          "SUPER, E, exec, wezterm -e lf"
+          "CTRL SHIFT, R, exec,     asztal quit; asztal"
+          "SUPER, R, exec,          asztal toggle launcher"
+          "SUPER, Tab, exec,        asztal eval \"launcher('h')\""
+          ",XF86PowerOff, exec,     asztal toggle powermenu"
+          ",XF86Launch4, exec,      screenrecord"
+          "SHIFT,XF86Launch4, exec, screenrecord --full"
+          ",Print,         exec,    screenshot"
+          "SHIFT,Print,    exec,    screenshot --full"
+          "SUPER, Return, exec,     xterm" # xterm is a symlink, not actually xterm
+          "SUPER, W, exec,          firefox"
+          "SUPER, E, exec,          wezterm -e lf"
 
-          # youtube
-          ", XF86Launch1,  exec, ${yt}"
-
-          "ALT, Tab, focuscurrentorlast"
-          "CTRL ALT, Delete, exit"
-          "ALT, Q, killactive"
-          "SUPER, F, togglefloating"
-          "SUPER, G, fullscreen"
-          "SUPER, O, fakefullscreen"
-          "SUPER, P, togglesplit"
+          "ALT, Tab,            focuscurrentorlast"
+          "CTRL ALT, Delete,    exit"
+          "ALT, Q,              killactive"
+          "SUPER, F,            togglefloating"
+          "SUPER, G,            fullscreen"
+          "SUPER, P,            togglesplit"
 
           (mvfocus "k" "u")
           (mvfocus "j" "d")
@@ -159,21 +153,21 @@ in {
         ++ (map (i: mvtows (toString i) (toString i)) arr);
 
       bindle = [
-        ",XF86MonBrightnessUp,   exec, ${brightnessctl} set +5%"
-        ",XF86MonBrightnessDown, exec, ${brightnessctl} set  5%-"
-        ",XF86KbdBrightnessUp,   exec, ${brightnessctl} -d asus::kbd_backlight set +1"
-        ",XF86KbdBrightnessDown, exec, ${brightnessctl} -d asus::kbd_backlight set  1-"
-        ",XF86AudioRaiseVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ +5%"
-        ",XF86AudioLowerVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ -5%"
+        ",XF86MonBrightnessUp,   exec, brightnessctl set +5%"
+        ",XF86MonBrightnessDown, exec, brightnessctl set  5%-"
+        ",XF86KbdBrightnessUp,   exec, brightnessctl -d asus::kbd_backlight set +1"
+        ",XF86KbdBrightnessDown, exec, brightnessctl -d asus::kbd_backlight set  1-"
+        ",XF86AudioRaiseVolume,  exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+        ",XF86AudioLowerVolume,  exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
       ];
 
       bindl = [
-        ",XF86AudioPlay,    exec, ${playerctl} play-pause"
-        ",XF86AudioStop,    exec, ${playerctl} pause"
-        ",XF86AudioPause,   exec, ${playerctl} pause"
-        ",XF86AudioPrev,    exec, ${playerctl} previous"
-        ",XF86AudioNext,    exec, ${playerctl} next"
-        ",XF86AudioMicMute, exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+        ",XF86AudioPlay,    exec, playerctl play-pause"
+        ",XF86AudioStop,    exec, playerctl pause"
+        ",XF86AudioPause,   exec, playerctl pause"
+        ",XF86AudioPrev,    exec, playerctl previous"
+        ",XF86AudioNext,    exec, playerctl next"
+        ",XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
       bindm = [
@@ -182,10 +176,10 @@ in {
       ];
 
       decoration = {
-        drop_shadow = "yes";
-        shadow_range = 8;
-        shadow_render_power = 2;
-        "col.shadow" = "rgba(00000044)";
+        shadow = {
+          range = 6;
+          render_power = 2;
+        };
 
         dim_inactive = false;
 
@@ -213,31 +207,44 @@ in {
         ];
       };
 
-      plugin = {
-        overview = {
-          centerAligned = true;
-          hideTopLayers = true;
-          hideOverlayLayers = true;
-          showNewWorkspace = true;
-          exitOnClick = true;
-          exitOnSwitch = true;
-          drawActiveWorkspace = true;
-          reverseSwipe = true;
-        };
-        hyprbars = {
-          bar_color = "rgb(2a2a2a)";
-          bar_height = 28;
-          col_text = "rgba(ffffffdd)";
-          bar_text_size = 11;
-          bar_text_font = "Ubuntu Nerd Font";
-
-          buttons = {
-            button_size = 0;
-            "col.maximize" = "rgba(ffffff11)";
-            "col.close" = "rgba(ff111133)";
-          };
-        };
+      "plugin:touch_gestures" = {
+        sensitivity = 8.0;
+        workspace_swipe_fingers = 3;
+        long_press_delay = 400;
+        edge_margin = 16;
+        hyprgrass-bind = [
+          ", edge:r:l, workspace, +1"
+          ", edge:l:r, workspace, -1"
+          ", edge:d:u, exec, my-shell toggle launcher"
+        ];
       };
+
+      # plugin = {
+      #   overview = {
+      #     centerAligned = true;
+      #     hideTopLayers = true;
+      #     hideOverlayLayers = true;
+      #     showNewWorkspace = true;
+      #     exitOnClick = true;
+      #     exitOnSwitch = true;
+      #     drawActiveWorkspace = true;
+      #     reverseSwipe = true;
+      #   };
+      #
+      #   hyprbars = {
+      #     bar_color = "rgb(2a2a2a)";
+      #     bar_height = 28;
+      #     col_text = "rgba(ffffffdd)";
+      #     bar_text_size = 11;
+      #     bar_text_font = "Ubuntu Nerd Font";
+      #
+      #     buttons = {
+      #       button_size = 0;
+      #       "col.maximize" = "rgba(ffffff11)";
+      #       "col.close" = "rgba(ff111133)";
+      #     };
+      #   };
+      # };
     };
   };
 }
