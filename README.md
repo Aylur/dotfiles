@@ -1,7 +1,4 @@
-# Hyprland
+🚧 WIP 🚧
 
 <!--TODO: screenshots-->
-
-## Installation
-
 <!--TODO: ko-fi links-->
