@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [./modules/wezterm.nix];
 
   terminals.wezterm = let
@@ -80,6 +84,8 @@
     };
   in {
     enable = true;
+    package = inputs.wezterm.packages.${pkgs.system}.default;
+
     font = "CaskaydiaCove NF";
 
     themes = {

@@ -33,6 +33,10 @@ in {
       type = types.listOf types.str;
       default = [];
     };
+    package = mkOption {
+      type = types.package;
+      default = pkgs.wezterm;
+    };
     sessionVariable = mkOption {
       type = types.bool;
       default = false;
@@ -58,10 +62,10 @@ in {
   config = mkIf cfg.enable {
     home = {
       packages = mkIf pkgs.stdenv.isLinux (let
-        term = ''${pkgs.wezterm}/bin/wezterm "$@"'';
+        term = ''${cfg.package}/bin/wezterm "$@"'';
         aliases = map (n: pkgs.writeShellScriptBin n term) cfg.alias;
       in
-        [pkgs.wezterm] ++ aliases);
+        [cfg.package] ++ aliases);
 
       sessionVariables.TERMINAL = mkIf cfg.sessionVariable "wezterm";
     };
