@@ -69,6 +69,11 @@
     #   inputs.hyprland.follows = "hyprland";
     # };
 
+    morewaita = {
+      url = "github:somepaulo/MoreWaita";
+      flake = false;
+    };
+
     lf-icons = {
       url = "github:gokcehan/lf";
       flake = false;

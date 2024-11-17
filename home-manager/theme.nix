@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: let
   nerdfonts = pkgs.nerdfonts.override {
@@ -30,7 +31,9 @@
   };
   iconTheme = {
     name = "MoreWaita";
-    package = pkgs.morewaita-icon-theme;
+    package = pkgs.morewaita-icon-theme.overrideAttrs {
+      src = inputs.morewaita;
+    };
   };
 in {
   home = {

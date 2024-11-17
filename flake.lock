@@ -401,6 +401,22 @@
         "type": "github"
       }
     },
+    "morewaita": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1731748099,
+        "narHash": "sha256-ddhB8WG1jsdFSfe3jW8q8IR296L+EwnhPp1CftIvF/w=",
+        "owner": "somepaulo",
+        "repo": "MoreWaita",
+        "rev": "aaf4ff31895cc793842a60382a62a615d1f707ed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "somepaulo",
+        "repo": "MoreWaita",
+        "type": "github"
+      }
+    },
     "my-shell": {
       "inputs": {
         "ags": "ags",
@@ -484,6 +500,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "lf-icons": "lf-icons",
+        "morewaita": "morewaita",
         "my-shell": "my-shell",
         "nixpkgs": "nixpkgs",
         "wezterm": "wezterm"
