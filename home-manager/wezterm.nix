@@ -85,6 +85,7 @@
   in {
     enable = true;
     package = inputs.wezterm.packages.${pkgs.system}.default;
+    alias = ["xterm"];
 
     font = "CaskaydiaCove NF";
 

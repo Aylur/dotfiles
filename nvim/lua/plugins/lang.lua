@@ -1,18 +1,14 @@
-local function uname()
-    local handle = io.popen("uname")
-    if handle then
-        local res = handle:read("a")
-        handle:close()
-        return string.match(res, "^%s*(.-)%s*$")
-    end
-    return nil
+local function enable_mason()
+    local id = vim.fn.system("cat /etc/os-release | grep ^ID=")
+    local os_name = id:match("^%s*(.-)%s*$"):gsub("ID=", "")
+    local container = io.open("/run/.containerenv", "r") ~= nil
+    return container or os_name ~= "nixos"
 end
 
 return {
     {
         "williamboman/mason.nvim",
-        -- enable in containers and Mac, but not NixOS
-        enabled = io.open("/run/.containerenv", "r") ~= nil or uname() == "Darwin",
+        enabled = enable_mason(),
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -31,16 +27,6 @@ return {
                 nil_ls = {},
                 lua_ls = {},
                 bashls = {},
-
-                denols = {
-                    root_dir = require("lspconfig").util.root_pattern("deno.json"),
-                },
-
-                cssls = {},
-                cssmodules_ls = {},
-                vala_ls = {},
-                mesonlsp = {},
-                blueprint_ls = {},
             },
         },
     },

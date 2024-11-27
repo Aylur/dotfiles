@@ -25,8 +25,6 @@
     "gr" = "git reset --soft HEAD~1";
 
     "del" = "gio trash";
-
-    "nix-gc" = "nix-collect-garbage --delete-older-than 7d";
   };
 in {
   options.shellAliases = with lib;

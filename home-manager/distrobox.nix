@@ -20,7 +20,7 @@
         ".config/nix"
         ".config/starship.toml"
       ];
-      packages = ["wl-clipboard" "git" "neovim"];
+      packages = ["wl-clipboard" "git"];
       nixPackages =
         config.packages.cli
         ++ [
@@ -31,16 +31,8 @@
         ];
     in {
       Ubuntu = {
-        inherit exec symlinks nixPackages;
-        packages = ["nodejs" "npm" "python3-dev" "pipx" "git" "wl-clipboard"];
-        init = ''
-          npm install -g corepack
-          corepack enable
-          pipx install poetry
-        '';
+        inherit exec symlinks nixPackages packages;
         img = "quay.io/toolbx/ubuntu-toolbox:latest";
-        home = "dev";
-        alias = "dev";
       };
       Alpine = {
         inherit exec symlinks nixPackages packages;

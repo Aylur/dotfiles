@@ -1,7 +1,8 @@
-{pkgs, ...}: let
+pkgs: let
   dark = "\\e[\${!j}\${i}m";
   bright = "\\e[9\${i}m";
-  blocks = pkgs.writeShellScriptBin "blocks" ''
+in
+  pkgs.writeShellScriptBin "blocks" ''
     f=3 b=4
     for j in f b; do
       for i in {0..7}; do
@@ -59,7 +60,4 @@
     	8)	1x8;;
     	*)  1x6;;
     esac
-  '';
-in {
-  home.packages = [blocks];
-}
+  ''

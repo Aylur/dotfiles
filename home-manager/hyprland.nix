@@ -113,17 +113,17 @@
         arr = [1 2 3 4 5 6 7];
       in
         [
-          "CTRL SHIFT, R, exec,     asztal quit; asztal"
-          "SUPER, R, exec,          asztal toggle launcher"
-          "SUPER, Tab, exec,        asztal eval \"launcher('h')\""
-          ",XF86PowerOff, exec,     asztal toggle powermenu"
-          ",XF86Launch4, exec,      screenrecord"
-          "SHIFT,XF86Launch4, exec, screenrecord --full"
-          ",Print,         exec,    screenshot"
-          "SHIFT,Print,    exec,    screenshot --full"
-          "SUPER, Return, exec,     xterm" # xterm is a symlink, not actually xterm
-          "SUPER, W, exec,          firefox"
-          "SUPER, E, exec,          wezterm -e lf"
+          "CTRL SHIFT, R, exec,         asztal quit; asztal"
+          "SUPER, R, exec,              asztal toggle launcher"
+          "SUPER, Tab, exec,            asztal eval \"launcher('h')\""
+          ",XF86PowerOff, exec,         asztal toggle powermenu"
+          ",XF86Launch4, exec,          screenrecord"
+          "SHIFT, XF86Launch4, exec,    screenrecord --full"
+          ",Print, exec,                screenshot"
+          "SHIFT, Print, exec,          screenshot --full"
+          "SUPER, Return, exec,         xterm" # xterm is a symlink, not actually xterm
+          "SUPER, W, exec,              firefox"
+          "SUPER, E, exec,              xterm -e lf"
 
           "ALT, Tab,            focuscurrentorlast"
           "CTRL ALT, Delete,    exit"

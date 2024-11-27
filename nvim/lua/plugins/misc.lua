@@ -3,11 +3,8 @@ return {
         "nvim-lspconfig",
         opts = { inlay_hints = { enabled = false } },
     },
-    { "folke/noice.nvim", enabled = false },
-    { "rcarriga/nvim-notify", enabled = false },
-    { "stevearc/dressing.nvim", enabled = false },
 
-    { "nvim-pack/nvim-spectre", enabled = false },
+    { "folke/noice.nvim", enabled = false },
 
     { "norcalli/nvim-colorizer.lua" },
     { "christoomey/vim-tmux-navigator" },

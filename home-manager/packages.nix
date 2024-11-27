@@ -1,22 +1,25 @@
-{pkgs, ...}: {
-  imports = [
-    ./modules/packages.nix
-    ./scripts/blocks.nix
-    ./scripts/nx-switch.nix
-    ./scripts/vault.nix
-  ];
+{pkgs, ...}: let
+  nx = import ./scripts/nx.nix pkgs;
+  blocks = import ./scripts/blocks.nix pkgs;
+  vault = import ./scripts/vault.nix pkgs;
+in {
+  imports = [./modules/packages.nix];
 
   packages = with pkgs; {
     linux = [
       (mpv.override {scripts = [mpvScripts.mpris];})
       spotify
-      # gnome-secrets
       fragments
       figma-linux
       # yabridge
       # yabridgectl
       # wine-staging
-      nodejs
+
+      blocks
+      vault
+      nx.switch
+      nx.test
+      nx.gc
     ];
     cli = [
       bat

@@ -13,12 +13,7 @@ in {
     ./nautilus.nix
     ./laptop.nix
     ./hyprland.nix
-    ./gnome.nix
   ];
-
-  # FIXME: tmp
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = ["demeter"];
 
   hyprland.enable = true;
   asusLaptop.enable = false;
@@ -68,6 +63,7 @@ in {
 
   specialisation = {
     gnome.configuration = {
+      imports = [./gnome.nix];
       system.nixos.tags = ["Gnome"];
       hyprland.enable = lib.mkForce false;
       gnome.enable = true;

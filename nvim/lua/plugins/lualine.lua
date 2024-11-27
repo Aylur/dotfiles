@@ -21,32 +21,23 @@ local diagnostic = {
 
 local filename = {
     "filename",
-    cond = function()
-        local bufs_loaded = {}
-
-        for i, buf_hndl in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.api.nvim_buf_is_loaded(buf_hndl) then
-                bufs_loaded[i] = buf_hndl
-            end
-        end
-
-        return #bufs_loaded == 2
-    end,
+    -- cond = function()
+    --     local bufs_loaded = {}
+    --
+    --     for i, buf_hndl in ipairs(vim.api.nvim_list_bufs()) do
+    --         if vim.api.nvim_buf_is_loaded(buf_hndl) then
+    --             bufs_loaded[i] = buf_hndl
+    --         end
+    --     end
+    --
+    --     return #bufs_loaded == 2
+    -- end,
     symbols = {
         modified = " ",
         readonly = "[ro]",
         unnamed = "[unnamed]",
         newfile = "[new]",
     },
-}
-
-local navic = {
-    function()
-        return require("nvim-navic").get_location()
-    end,
-    cond = function()
-        return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-    end,
 }
 
 local position = {
@@ -72,7 +63,7 @@ return {
                 sections = {
                     lualine_a = { "mode" },
                     lualine_b = { "branch", diff },
-                    lualine_c = { diagnostic, navic },
+                    lualine_c = { diagnostic },
                     lualine_x = { "searchcount", "selectioncount", "encoding", "filetype" },
                     lualine_y = { filename },
                     lualine_z = { position },
