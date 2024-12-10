@@ -44,7 +44,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    my-shell = {
+    marble = {
       url = "git+ssh://git@github.com/Aylur/my-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };

@@ -7,7 +7,9 @@
   inherit (lib) types;
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption;
+  inherit (builtins) concatStringsSep filter attrValues mapAttrs typeOf;
 
+  boxScript = (import ../../scripts pkgs).box;
   cfg = config.programs.distrobox;
 in {
   options.programs.distrobox = {
@@ -21,23 +23,17 @@ in {
   config = let
     mkBoxes = let
       mkBox = name: {
-        img,
+        image,
+        exec ? "bash",
         home ? ".local/share/distrobox/${name}",
         packages ? ["git" "neovim"],
         init ? "true",
-        flags ? "",
-        path ? [],
-        nixPackages ? [],
-        symlinks ? [],
-        alias ? lib.strings.toLower name,
-        exec ? "bash",
       }: {
-        inherit home img flags alias symlinks exec;
-        packages = builtins.concatStringsSep " " packages;
+        inherit name home image exec;
+        packages = concatStringsSep " " (filter (p: typeOf p == "string") packages);
         init = pkgs.writeShellScript "init" init;
         path =
-          path
-          ++ [
+          [
             "/bin"
             "/sbin"
             "/usr/bin"
@@ -45,64 +41,28 @@ in {
             "/usr/local/bin"
             "$HOME/.local/bin"
           ]
-          ++ (map (p: "${p}/bin") nixPackages);
+          ++ (map (p: "${p}/bin") (filter (p: typeOf p == "set") packages));
       };
     in
-      attrs:
-        builtins.attrValues
-        (builtins.mapAttrs mkBox attrs);
-
-    mkBoxLinks = box: let
-      ln = config.lib.file.mkOutOfStoreSymlink;
-    in
-      builtins.listToAttrs (map (link: {
-          name = "${box.home}/${link}";
-          value = {
-            source = ln "${config.home.homeDirectory}/${link}";
-          };
-        })
-        box.symlinks);
+      attrs: attrValues (mapAttrs mkBox attrs);
 
     mkBoxAlias = box: let
-      db = "${pkgs.distrobox}/bin/distrobox";
       exec = pkgs.writeShellScript "db-exec" ''
-        data_dirs=()
-        IFS=':'
-        read -ra segments <<<"$XDG_DATA_DIRS"
-        for segment in "''${segments[@]}"; do
-          if [[ $segment != *"/nix"* ]]; then
-            data_dirs+=("$segment")
-          fi
-        done
-
-        export XDG_DATA_DIRS="''${data_dirs[*]}"
+        export XDG_DATA_DIRS="/usr/share:/usr/local/share"
         export PATH="${builtins.concatStringsSep ":" box.path}"
-        ${box.exec}
+        if [ $# -eq 0 ]; then ${box.exec}; else bash -c "$@"; fi
       '';
     in
-      pkgs.writeShellScriptBin box.alias ''
-        if ! ${db} list | grep ${box.alias}; then
-           ${db} create ${box.flags} \
-             --pull \
-             --yes \
-             --name "${box.alias}" \
-             --home "${config.home.homeDirectory}/${box.home}" \
-             --image "${box.img}" \
-             --init-hooks "${box.init}" \
-             --additional-packages "${box.packages}"
-        fi
-
-        if [ $# -eq 0 ]; then
-          ${db} enter ${box.alias} -- ${exec}
-        else
-          ${db} enter ${box.alias} -- $@
-        fi
+      pkgs.writeShellScriptBin box.name ''
+        ${boxScript} ${box.name} ${box.image} ${exec} $@ \
+          --home "${config.home.homeDirectory}/${box.home}" \
+          --pkgs "${box.packages}" \
+          --init "${box.init}"
       '';
 
     boxes = mkBoxes cfg.boxes;
   in
     mkIf cfg.enable {
       home.packages = [pkgs.distrobox] ++ (map mkBoxAlias boxes);
-      home.file = builtins.foldl' (acc: x: acc // x) {} (map mkBoxLinks boxes);
     };
 }

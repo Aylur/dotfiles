@@ -15,12 +15,15 @@
     };
 
     # nvidia
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
 
+    # openrgb
+    services.hardware.openrgb.enable = true;
+
+    # nvidia
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
@@ -40,7 +43,7 @@
 
       open = true;
       nvidiaSettings = false; # gui app
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.production;
     };
   };
 }

@@ -4,24 +4,13 @@
   inputs,
   ...
 }: let
-  nerdfonts = pkgs.nerdfonts.override {
-    fonts = [
-      "Ubuntu"
-      "UbuntuMono"
-      "CascadiaCode"
-      "FantasqueSansMono"
-      "FiraCode"
-      "Mononoki"
-    ];
-  };
-
   theme = {
     name = "adw-gtk3-dark";
     package = pkgs.adw-gtk3;
   };
   font = {
     name = "Ubuntu Nerd Font";
-    package = nerdfonts;
+    package = pkgs.nerd-fonts.ubuntu;
     size = 11;
   };
   cursorTheme = {
@@ -46,6 +35,8 @@ in {
       iconTheme.package
       adwaita-icon-theme
       papirus-icon-theme
+      nerd-fonts.ubuntu-mono
+      nerd-fonts.caskaydia-cove
     ];
     sessionVariables = {
       XCURSOR_THEME = cursorTheme.name;

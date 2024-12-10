@@ -13,8 +13,8 @@
       systemPackages = with pkgs; [
         morewaita-icon-theme
         qogir-icon-theme
-        gnome-extension-manager
         wl-clipboard
+        gnomeExtensions.just-perfection
       ];
 
       gnome.excludePackages = with pkgs; [
@@ -44,6 +44,8 @@
         gnome-initial-setup
       ];
     };
+
+    programs.kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
 
     services.xserver = {
       displayManager.gdm.enable = true;

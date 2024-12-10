@@ -4,10 +4,10 @@
   ...
 }: {
   home.packages = with pkgs; [
-    inputs.my-shell.packages.${pkgs.system}.astal
-    inputs.my-shell.packages.${pkgs.system}.asztal
-    inputs.my-shell.packages.${pkgs.system}.screenrecord
-    (import ./scripts/screenshot.nix pkgs)
+    inputs.marble.packages.${pkgs.system}.astal
+    inputs.marble.packages.${pkgs.system}.marble
+    inputs.marble.packages.${pkgs.system}.screenrecord
+    ((import ../scripts pkgs).screenshot)
     brightnessctl
     pulseaudio # pactl
     playerctl
@@ -37,7 +37,7 @@
     settings = {
       exec-once = [
         "hyprctl setcursor Qogir 24"
-        "asztal"
+        "marble"
         "swww-daemon"
         "fragments"
       ];
@@ -113,10 +113,10 @@
         arr = [1 2 3 4 5 6 7];
       in
         [
-          "CTRL SHIFT, R, exec,         asztal quit; asztal"
-          "SUPER, R, exec,              asztal toggle launcher"
-          "SUPER, Tab, exec,            asztal eval \"launcher('h')\""
-          ",XF86PowerOff, exec,         asztal toggle powermenu"
+          "CTRL SHIFT, R, exec,         marble quit; marble"
+          "SUPER, R, exec,              marble toggle launcher"
+          "SUPER, Tab, exec,            marble eval \"launcher('h')\""
+          ",XF86PowerOff, exec,         marble toggle powermenu"
           ",XF86Launch4, exec,          screenrecord"
           "SHIFT, XF86Launch4, exec,    screenrecord --full"
           ",Print, exec,                screenshot"
@@ -215,7 +215,7 @@
         hyprgrass-bind = [
           ", edge:r:l, workspace, +1"
           ", edge:l:r, workspace, -1"
-          ", edge:d:u, exec, my-shell toggle launcher"
+          ", edge:d:u, exec, marble toggle launcher"
         ];
       };
 

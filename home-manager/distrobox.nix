@@ -9,46 +9,34 @@
     enable = true;
 
     boxes = let
-      exec = "${pkgs.nushell}/bin/nu";
-      symlinks = [
-        ".bashrc"
-        ".zshrc"
-        ".git-credentials"
-        ".config/git"
-        ".config/nushell"
-        ".config/nvim"
-        ".config/nix"
-        ".config/starship.toml"
+      exec = "nu";
+      packages = [
+        "wl-clipboard"
+        "git"
+        config.programs.neovim.finalPackage
+        pkgs.nushell
       ];
-      packages = ["wl-clipboard" "git"];
-      nixPackages =
-        config.packages.cli
-        ++ [
-          config.programs.neovim.finalPackage
-          pkgs.nix
-          pkgs.git
-          pkgs.nushell
-        ];
     in {
-      Ubuntu = {
-        inherit exec symlinks nixPackages packages;
-        img = "quay.io/toolbx/ubuntu-toolbox:latest";
+      ubuntu = {
+        inherit exec packages;
+        image = "quay.io/toolbx/ubuntu-toolbox:latest";
       };
-      Alpine = {
-        inherit exec symlinks nixPackages packages;
-        img = "docker.io/library/alpine:latest";
+      alpine = {
+        inherit exec packages;
+        image = "docker.io/library/alpine:latest";
       };
-      Fedora = {
-        inherit exec symlinks nixPackages packages;
-        img = "registry.fedoraproject.org/fedora-toolbox:rawhide";
+      fedora = {
+        inherit exec;
+        packages = packages ++ ["poetry python-devel mysql-devel"];
+        image = "registry.fedoraproject.org/fedora-toolbox:rawhide";
       };
-      Arch = {
-        inherit exec symlinks;
-        img = "docker.io/library/archlinux:latest";
-        packages = packages ++ ["base-devel"];
-        nixPackages =
-          nixPackages
+      arch = {
+        inherit exec;
+        image = "docker.io/library/archlinux:latest";
+        packages =
+          packages
           ++ [
+            "base-devel"
             (pkgs.writeShellScriptBin "yay" ''
               if [[ ! -f /bin/yay ]]; then
                 tmpdir="$HOME/.yay-bin"

@@ -1,12 +1,22 @@
 {pkgs, ...}: let
-  nx = import ./scripts/nx.nix pkgs;
-  blocks = import ./scripts/blocks.nix pkgs;
-  vault = import ./scripts/vault.nix pkgs;
+  mkIf = cond: value:
+    if cond
+    then value
+    else [];
 in {
-  imports = [./modules/packages.nix];
+  home.packages = pkgs.lib.flatten (with pkgs; [
+    bat
+    eza
+    fd
+    ripgrep
+    fzf
+    lazydocker
+    lazygit
+    btop
 
-  packages = with pkgs; {
-    linux = [
+    ((import ../scripts pkgs).blocks)
+
+    (mkIf pkgs.stdenv.isLinux [
       (mpv.override {scripts = [mpvScripts.mpris];})
       spotify
       fragments
@@ -14,22 +24,8 @@ in {
       # yabridge
       # yabridgectl
       # wine-staging
+    ])
 
-      blocks
-      vault
-      nx.switch
-      nx.test
-      nx.gc
-    ];
-    cli = [
-      bat
-      eza
-      fd
-      ripgrep
-      fzf
-      lazydocker
-      lazygit
-      btop
-    ];
-  };
+    # (mkIf pkgs.stdenv.isDarwin [])
+  ]);
 }

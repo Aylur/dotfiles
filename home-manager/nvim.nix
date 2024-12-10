@@ -42,6 +42,7 @@
       fd
       fzf
       cargo
+      lazygit
 
       nil
       lua-language-server

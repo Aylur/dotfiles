@@ -7,7 +7,6 @@
     ../home-manager/git.nix
     ../home-manager/lf.nix
     ../home-manager/nvim.nix
-    ../home-manager/packages.nix
     ../home-manager/sh.nix
     ../home-manager/starship.nix
     ../home-manager/tmux.nix
@@ -32,17 +31,11 @@
 
   fonts.fontconfig.enable = true;
 
-  home.packages = let
-    nerdfonts = pkgs.nerdfonts.override {
-      fonts = [
-        "Ubuntu"
-        "UbuntuMono"
-        "CascadiaCode"
-        "FantasqueSansMono"
-        "FiraCode"
-      ];
-    };
-  in [nerdfonts];
+  home.packages = with pkgs.nerd-fonts; [
+    ubuntu
+    ubuntu-mono
+    caskaydia-cove
+  ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
