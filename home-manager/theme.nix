@@ -47,6 +47,8 @@ in {
       // {
         gtk.enable = true;
       };
+    file.".local/share/fonts".source = "${config.home.path}/share/fonts";
+    file.".local/share/icons".source = "${config.home.path}/share/icons";
   };
 
   fonts.fontconfig.enable = true;

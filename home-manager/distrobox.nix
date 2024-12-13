@@ -2,54 +2,72 @@
   pkgs,
   config,
   ...
-}: {
-  imports = [./modules/distrobox.nix];
+}: let
+  inherit (builtins) concatStringsSep filter typeOf;
+  inherit (import ../scripts pkgs) box;
 
-  programs.distrobox = {
-    enable = true;
+  mkBox = {
+    name,
+    image,
+    exec ? "nu",
+    packages ? [],
+  }: let
+    distropkgs = concatStringsSep " " (filter
+      (p: typeOf p == "string")
+      (packages ++ ["wl-clipboard" "git"]));
 
-    boxes = let
-      exec = "nu";
-      packages = [
-        "wl-clipboard"
-        "git"
-        config.programs.neovim.finalPackage
-        pkgs.nushell
-      ];
-    in {
-      ubuntu = {
-        inherit exec packages;
-        image = "quay.io/toolbx/ubuntu-toolbox:latest";
-      };
-      alpine = {
-        inherit exec packages;
-        image = "docker.io/library/alpine:latest";
-      };
-      fedora = {
-        inherit exec;
-        packages = packages ++ ["poetry python-devel mysql-devel"];
-        image = "registry.fedoraproject.org/fedora-toolbox:rawhide";
-      };
-      arch = {
-        inherit exec;
-        image = "docker.io/library/archlinux:latest";
-        packages =
-          packages
-          ++ [
-            "base-devel"
-            (pkgs.writeShellScriptBin "yay" ''
-              if [[ ! -f /bin/yay ]]; then
-                tmpdir="$HOME/.yay-bin"
-                if [[ -d "$tmpdir" ]]; then sudo rm -r "$tmpdir"; fi
-                git clone https://aur.archlinux.org/yay-bin.git "$tmpdir"
-                cd "$tmpdir"
-                makepkg -si
-                sudo rm -r "$tmpdir"
-              fi
-              /bin/yay $@
-            '')
-          ];
-      };
-    };
-  };
+    path =
+      [
+        "/bin"
+        "/sbin"
+        "/usr/bin"
+        "/usr/sbin"
+        "/usr/local/bin"
+        "$HOME/.local/bin"
+      ]
+      ++ ["${config.programs.neovim.finalPackage}/bin" "${pkgs.nushell}/bin"]
+      ++ (map (p: "${p}/bin") (filter (p: typeOf p == "set") packages));
+
+    db-exec = pkgs.writeShellScript "db-exec" ''
+      export XDG_DATA_DIRS="/usr/share:/usr/local/share"
+      export PATH="${builtins.concatStringsSep ":" path}"
+      if [ $# -eq 0 ]; then ${exec}; else bash -c "$@"; fi
+    '';
+  in
+    pkgs.writeShellScriptBin name ''
+      ${box} ${name} ${image} ${db-exec} $@ --pkgs "${distropkgs}"
+    '';
+in {
+  home.packages = [
+    (mkBox {
+      name = "ubuntu";
+      image = "quay.io/toolbx/ubuntu-toolbox:latest";
+    })
+    (mkBox {
+      name = "fedora";
+      image = "registry.fedoraproject.org/fedora-toolbox:rawhide";
+      packages = ["poetry python-devel mysql-devel"];
+    })
+    (mkBox {
+      name = "alpine";
+      image = "docker.io/library/alpine:latest";
+    })
+    (mkBox {
+      name = "arch";
+      image = "docker.io/library/alpine:latest";
+      packages = let
+        yay = pkgs.writeShellScriptBin "yay" ''
+          if [[ ! -f /bin/yay ]]; then
+            tmpdir="$HOME/.yay-bin"
+            if [[ -d "$tmpdir" ]]; then sudo rm -r "$tmpdir"; fi
+            git clone https://aur.archlinux.org/yay-bin.git "$tmpdir"
+            cd "$tmpdir"
+            makepkg -si
+            sudo rm -r "$tmpdir"
+          fi
+          /bin/yay $@
+        '';
+      in ["base-devel" yay];
+    })
+  ];
 }

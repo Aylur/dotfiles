@@ -27,21 +27,26 @@ def nx [...packages: string] {
 }
 
 # Enter into a nix shell that contains programs needed for developing JavaScript
-def "jsh" [] {
-    (nx
-        nodejs
-        deno
-        bun
-        yarn
-        pnpm
-        tailwindcss-language-server
-        svelte-language-server
-        astro-language-server
-        vue-language-server
-        vscode-langservers-extracted
-        vtsls
-    )
-}
+alias jsh = nx ...([
+    nodejs
+    deno
+    bun
+    yarn
+    pnpm
+    tailwindcss-language-server
+    svelte-language-server
+    astro-language-server
+    vue-language-server
+    vscode-langservers-extracted
+    vtsls
+])
+
+# Enter into a nix shell that contains programs needed for developing Vala
+alias vsh = nx ...([
+    vala-language-server
+    mesonlsp
+    blueprint-compiler
+])
 
 # Push private vault repo to remote
 def vault [] {
