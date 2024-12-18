@@ -39,6 +39,7 @@
     '';
 in {
   home.packages = [
+    pkgs.distrobox
     (mkBox {
       name = "ubuntu";
       image = "quay.io/toolbx/ubuntu-toolbox:latest";
@@ -46,7 +47,7 @@ in {
     (mkBox {
       name = "fedora";
       image = "registry.fedoraproject.org/fedora-toolbox:rawhide";
-      packages = ["poetry python-devel mysql-devel"];
+      packages = ["gcc poetry python-devel mysql-devel pango-devel nodejs npm cargo" pkgs.lazygit];
     })
     (mkBox {
       name = "alpine";

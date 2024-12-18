@@ -45,7 +45,7 @@
     };
 
     marble = {
-      url = "git+ssh://git@github.com/Aylur/my-shell";
+      url = "git+ssh://git@github.com/marble-shell/shell.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

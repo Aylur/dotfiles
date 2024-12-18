@@ -5,8 +5,8 @@ alias "nx test" = sudo nixos-rebuild test --flake . --impure
 
 # Shortcut for "nix-collect-garbage"
 def "nx gc" [older_than = "7d"] {
-    nix-collect-garbage --delete-older-than $older_than
     sudo nix-collect-garbage --delete-older-than $older_than
+    nix-collect-garbage --delete-older-than $older_than
 }
 
 # Shortcut for "nix shell"

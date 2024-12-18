@@ -9,7 +9,8 @@
     "tree" = "eza --tree";
     "nv" = "nvim";
 
-    "ll" = "ls";
+    "ll" = "eza -la --sort name --group-directories-first --no-permissions --no-filesize --no-user --no-time";
+
     "éé" = "ls";
     "és" = "ls";
     "l" = "ls";
