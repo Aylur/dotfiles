@@ -24,7 +24,7 @@ def main [
         wayshot -f $TARGET -s (slurp)
     }
 
-    $TARGET | wl-copy
+    open $TARGET | wl-copy
 
     let res = (notify-send
         -a "Screenshot"

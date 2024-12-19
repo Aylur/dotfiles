@@ -1,4 +1,4 @@
-# nix build git+ssh://git@github.com/Aylur/my-shell
+# nix build git+ssh://git@github.com/marble-shell/shell
 
 alias "nx switch" = sudo nixos-rebuild switch --flake . --impure
 alias "nx test" = sudo nixos-rebuild test --flake . --impure
