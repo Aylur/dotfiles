@@ -14,8 +14,6 @@ in {
     lazygit
     btop
 
-    ((import ../scripts pkgs).blocks)
-
     (mkIf pkgs.stdenv.isLinux [
       (mpv.override {scripts = [mpvScripts.mpris];})
       spotify

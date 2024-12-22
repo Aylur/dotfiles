@@ -1,64 +1,87 @@
 #!/usr/bin/env nu
 
-let r = ansi reset
+export def main [
+    columns:number = 6
+    rows:number = 1
+    --neutrals (-n) # Include black and white colors
+    --pattern (-p): closure # Example: {|col, row| $col + $row }
+] {
+    const r = ansi reset
 
-let colors = [
-    red
-    green
-    yellow
-    blue
-    magenta
-    cyan
-    black
-    white
-]
-
-let brights = [
-    light_red
-    light_green
-    light_yellow
-    light_blue
-    light_magenta
-    light_cyan
-    dark_gray
-    light_gray
-]
-
-def block [color: int]: nothing -> list<string> {
-    let c = ansi ($colors | get $color)
-    let b = ansi ($brights | get $color)
-
-    return [
-        $"($c)████ ($r)"
-        $"($c)████($b)█($r)"
-        $"($c)████($b)█($r)"
-        $"($b) ▀▀▀▀($r)"
+    const colors = [
+        red
+        green
+        yellow
+        blue
+        magenta
+        cyan
     ]
-}
 
-def hjoin [block2: list<string>]: list<string> -> list<string> {
-    let block1: list<string> = $in
+    const neutral_colors = [
+        black
+        white
+    ]
 
-    $block1 | enumerate | each {|it|
-        $it.item + "  " + ($block2 | get $it.index)
+    const brights = [
+        light_red
+        light_green
+        light_yellow
+        light_blue
+        light_magenta
+        light_cyan
+    ]
+
+    const neutral_brights = [
+        dark_gray
+        light_gray
+    ]
+
+    def block [color:int]: nothing -> list<string> {
+        let list = if $neutrals {
+            $colors | append $neutral_colors
+        } else {
+            $colors
+        }
+
+        let blist = if $neutrals {
+            $brights | append $neutral_brights
+        } else {
+            $brights
+        }
+
+        let n = $color mod ($list | length)
+        let c = ansi ($list | get $n)
+        let b = ansi ($blist | get $n)
+
+        return [
+            $"($c)████ ($r)"
+            $"($c)████($b)█($r)"
+            $"($c)████($b)█($r)"
+            $"($b) ▀▀▀▀($r)"
+        ]
     }
-}
 
-def main [pattern: string = "6"] {
-    let layout = match $pattern {
-        "8" => [(seq 0 7)],
-        "1x8" => [(seq 0 7)],
-        "4" => [(seq 0 3) (seq 4 7)],
-        "2x4" => [(seq 0 3) (seq 4 7)],
-        _ => [(seq 0 5)],
+    def hjoin [block2:list<string>]: list<string> -> list<string> {
+        let block1: list<string> = $in
+
+        $block1 | enumerate | each {|it|
+            $it.item + "  " + ($block2 | get $it.index)
+        }
     }
 
-    let blocks = $layout | each {|row|
-        $row
-        | each { (block $in) }
-        | reduce {|it, acc| $acc | hjoin $it }
+    def mx []: list<list<number>> -> string {
+        let blocks = ($in | default [(seq 0 5)]) | each {|row|
+            $row
+            | each {|n| (block $n) }
+            | reduce {|it, acc| $acc | hjoin $it }
+        }
+
+        $"\n($blocks | flatten | each { '  ' + $in } | to text)"
     }
 
-    let str = $blocks | flatten | each { "  " + $in } | to text
-    $"\n($str)"
+    let p = $pattern | default { $in + 0 }
+
+    seq 0 ($rows - 1)
+    | each {|row| seq 0 ($columns - 1) | each { do $p $in $row } }
+    | mx
 }

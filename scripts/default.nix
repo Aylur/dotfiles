@@ -11,10 +11,6 @@ pkgs: {
     ];
   } (builtins.readFile ./screenshot.nu);
 
-  blocks = pkgs.writers.writeNuBin "blocks" (
-    builtins.readFile ./blocks.nu
-  );
-
   box = pkgs.writers.writeNu "box" {
     makeWrapperArgs = with pkgs; [
       "--prefix PATH : ${pkgs.lib.makeBinPath [distrobox]}"

@@ -128,6 +128,7 @@ in {
       # alias pueued = ${pkgs.pueue}/bin/pueued
       # use ${pkgs.nu_scripts}/share/nu_scripts/modules/background_task/task.nu
       source ${pkgs.nu_scripts}/share/nu_scripts/modules/formats/from-env.nu
+      use ${../scripts}/blocks.nu
 
       const path = "~/.nushellrc.nu"
       const null = "/dev/null"
