@@ -4,7 +4,10 @@ export def main [
     columns:number = 6
     rows:number = 1
     --neutrals (-n) # Include black and white colors
-    --pattern (-p): closure # Example: {|col, row| $col + $row }
+    --pattern (-p): closure # Example: {|x, y| $x + $y }
+]: [
+    list<list<int>> -> string
+    nothing -> string
 ] {
     const r = ansi reset
 
@@ -69,19 +72,32 @@ export def main [
         }
     }
 
-    def mx []: list<list<number>> -> string {
-        let blocks = ($in | default [(seq 0 5)]) | each {|row|
-            $row
-            | each {|n| (block $n) }
-            | reduce {|it, acc| $acc | hjoin $it }
-        }
-
-        $"\n($blocks | flatten | each { '  ' + $in } | to text)"
-    }
-
+    let mx = $in | default []
     let p = $pattern | default { $in + 0 }
 
-    seq 0 ($rows - 1)
-    | each {|row| seq 0 ($columns - 1) | each { do $p $in $row } }
-    | mx
+    let res = if ($mx | length) > 0 {
+        $mx
+        | each {
+            $in
+            | enumerate
+            | each {|row|
+                $row.item
+                | each {|col| do $p $col $row.index}
+            }
+        }
+    } else {
+        seq 0 ($rows - 1)
+        | each {|row|
+            seq 0 ($columns - 1)
+            | each { do $p $in $row }
+        }
+    }
+
+    let blocks = $res | each {|row|
+        $row
+        | each {|n| (block $n) }
+        | reduce {|it, acc| $acc | hjoin $it }
+    }
+
+    $"\n($blocks | flatten | each { '  ' + $in } | to text)"
 }
