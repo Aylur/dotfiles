@@ -2,7 +2,10 @@
   "nodes": {
     "ags": {
       "inputs": {
-        "astal": "astal",
+        "astal": [
+          "marble",
+          "astal"
+        ],
         "nixpkgs": [
           "marble",
           "nixpkgs"
@@ -56,28 +59,6 @@
       }
     },
     "astal": {
-      "inputs": {
-        "nixpkgs": [
-          "marble",
-          "ags",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1733520119,
-        "narHash": "sha256-6K07ZJTnFu1xASBCMtVc9cFTbBEauwSc7gGBmjLkLSk=",
-        "owner": "aylur",
-        "repo": "astal",
-        "rev": "4c19d8d06fa25cc6389f37abe8839b4d8be5c0d6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aylur",
-        "repo": "astal",
-        "type": "github"
-      }
-    },
-    "astal_2": {
       "inputs": {
         "nixpkgs": [
           "marble",
@@ -211,11 +192,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1734344598,
-        "narHash": "sha256-wNX3hsScqDdqKWOO87wETUEi7a/QlPVgpC/Lh5rFOuA=",
+        "lastModified": 1734893333,
+        "narHash": "sha256-0Ft7iTkl3UWAix72teY5nflYQD7GE0KvIiT+ox4wkB8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "83ecd50915a09dca928971139d3a102377a8d242",
+        "rev": "1f74238a4c8e534a1b6be72cb5153043071ffd17",
         "type": "github"
       },
       "original": {
@@ -300,11 +281,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1734563337,
-        "narHash": "sha256-VfnGFBNC/tfe+bH8Di6fV+GCD9PLLkBcGonQgAwNlak=",
+        "lastModified": 1734888033,
+        "narHash": "sha256-eDt2OAyKjBeUxhRxTPxn0KL5ntOVD2JL12/9tqU2FDA=",
         "ref": "refs/heads/main",
-        "rev": "23e7d8f6a7d4e25c2dc6be33af07249570e66940",
-        "revCount": 5568,
+        "rev": "1830296df3515222bf0f03b90822e3b23e74b775",
+        "revCount": 5580,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -484,17 +465,17 @@
     "marble": {
       "inputs": {
         "ags": "ags",
-        "astal": "astal_2",
+        "astal": "astal",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1734565139,
-        "narHash": "sha256-jbGwtKuoIhxzpDbppnTH33XZY0PwVOoemp+bGcWiAGA=",
+        "lastModified": 1734902625,
+        "narHash": "sha256-WRbkJXQhSqWXRV1nM9sOoUpy+omiM9RkGQP971ukGFI=",
         "ref": "refs/heads/main",
-        "rev": "0509f6264509f337bc247047d03fec14f33a32f5",
-        "revCount": 84,
+        "rev": "229057b9ab47fb55117eaf8b6e048a79feeb462b",
+        "revCount": 86,
         "type": "git",
         "url": "ssh://git@github.com/marble-shell/shell.git"
       },
@@ -506,11 +487,11 @@
     "morewaita": {
       "flake": false,
       "locked": {
-        "lastModified": 1734563930,
-        "narHash": "sha256-c8DwwamI8HMYCnGy8BLc7C74dvNJ2GNtM/yBUQai+IA=",
+        "lastModified": 1734651855,
+        "narHash": "sha256-+hgZOSwHv2GVfJVTY4PoTNyxV7cwCHMqmmZ1lAHrMtU=",
         "owner": "somepaulo",
         "repo": "MoreWaita",
-        "rev": "981e4fad1722f33ae9d2d42a1869bb734384063f",
+        "rev": "eae7ea8d7ca6c60b01757d8dcb0156e8f56c0d1a",
         "type": "github"
       },
       "original": {
@@ -521,11 +502,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1734424634,
-        "narHash": "sha256-cHar1vqHOOyC7f1+tVycPoWTfKIaqkoe1Q6TnKzuti4=",
+        "lastModified": 1734649271,
+        "narHash": "sha256-4EVBRhOjMDuGtMaofAIqzJbg4Ql7Ai0PSeuVZTHjyKQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d3c42f187194c26d9f0309a8ecc469d6c878ce33",
+        "rev": "d70bd19e0a38ad4790d3913bf08fcbfc9eeca507",
         "type": "github"
       },
       "original": {

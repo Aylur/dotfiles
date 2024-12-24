@@ -6,6 +6,7 @@ export def main [
     --neutrals (-n) # Include black and white colors
     --pattern (-p): closure # Example: {|x, y| $x + $y }
 ]: [
+    list<int> -> string
     list<list<int>> -> string
     nothing -> string
 ] {
@@ -40,6 +41,16 @@ export def main [
     ]
 
     def block [color:int]: nothing -> list<string> {
+        if $color < 0 {
+            return [
+                "     "
+                "     "
+                "     "
+                "     "
+            ]
+
+        }
+
         let list = if $neutrals {
             $colors | append $neutral_colors
         } else {
@@ -72,8 +83,13 @@ export def main [
         }
     }
 
-    let mx = $in | default []
+    let input = $in
     let p = $pattern | default { $in + 0 }
+    let mx = if ($input | describe) == "list<int>" {
+        [$input]
+    } else {
+        $input | default []
+    }
 
     let res = if ($mx | length) > 0 {
         $mx
