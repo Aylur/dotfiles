@@ -122,7 +122,7 @@ in {
           (map completion names);
     in ''
       $env.config = ${conf};
-      ${completions ["cargo" "git" "nix" "npm" "poetry" "curl"]}
+      ${completions ["cargo" "git" "nix" "npm" "curl"]}
 
       # alias pueue = ${pkgs.pueue}/bin/pueue
       # alias pueued = ${pkgs.pueue}/bin/pueued

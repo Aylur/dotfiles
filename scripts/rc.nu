@@ -15,6 +15,12 @@ def nx [...packages: string] {
         if ($pkg | str starts-with "github:") {
             return $pkg
         }
+        if ($pkg | str starts-with ".") {
+            return $pkg
+        }
+        if ($pkg | str starts-with "/") {
+            return $pkg
+        }
         if ($pkg | str contains "#") {
             return $pkg
         }
