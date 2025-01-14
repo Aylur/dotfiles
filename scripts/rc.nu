@@ -45,6 +45,7 @@ alias jsh = nx ...([
     vue-language-server
     vscode-langservers-extracted
     vtsls
+    markdownlint-cli2
 ])
 
 # Enter into a nix shell that contains programs needed for developing Vala

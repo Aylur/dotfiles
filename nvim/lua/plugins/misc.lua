@@ -12,4 +12,9 @@ return {
     { "ziontee113/color-picker.nvim", opts = {} },
     { "danymat/neogen", opts = {} },
     { "j-hui/fidget.nvim", opts = {} },
+
+    {
+        "folke/snacks.nvim",
+        opts = { scroll = { enabled = false } },
+    },
 }
