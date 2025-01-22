@@ -9,6 +9,27 @@ def "nx gc" [older_than = "7d"] {
     nix-collect-garbage --delete-older-than $older_than
 }
 
+# Shortcut for "home-manager switch"
+def "nx hm" [] {
+    home-manager switch --flake . -b backup
+}
+
+# Shortcut for "nix search"
+def "nx search" [name: string] {
+    nix search nixpkgs $name --json
+    | from json
+    | transpose
+    | get column0
+    | each {
+        $in
+        | split row "."
+        | reverse
+        | drop 2
+        | reverse
+        | str join "."
+    }
+}
+
 # Shortcut for "nix shell"
 def nx [...packages: string] {
     let pkgs = $packages | each {|pkg|
