@@ -74,6 +74,15 @@ alias vsh = nx ...([
     vala-language-server
     mesonlsp
     blueprint-compiler
+    meson
+    pkg-config
+    ninja
+])
+
+# Enter into a nix shell that contains programs needed for developing Elixir
+alias esh = nx ...([
+    elixir
+    elixir-ls
 ])
 
 # Push private vault repo to remote
