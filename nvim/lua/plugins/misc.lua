@@ -1,4 +1,5 @@
 return {
+	{ "ibhagwan/fzf-lua", enabled = false },
 	{
 		"nvim-lspconfig",
 		opts = { inlay_hints = { enabled = false } },

@@ -17,7 +17,6 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.lang.nix" },
 		{ import = "lazyvim.plugins.extras.lang.nushell" },
 		{ import = "lazyvim.plugins.extras.editor.telescope" },
-		{ import = "lazyvim.plugins.extras.coding.nvim-cmp" },
 		{ import = "lazyvim.plugins.extras.ui.indent-blankline" },
 		{ import = "plugins" },
 	},
