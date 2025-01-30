@@ -14,6 +14,26 @@ def "nx hm" [] {
     home-manager switch --flake . -b backup
 }
 
+# Shortcut for "nix run"
+def "nx run" [pkg: string] {
+    let name = do {
+        if ($pkg | str starts-with "github:") {
+            return $pkg
+        }
+        if ($pkg | str starts-with ".") {
+            return $pkg
+        }
+        if ($pkg | str starts-with "/") {
+            return $pkg
+        }
+        if ($pkg | str contains "#") {
+            return $pkg
+        }
+        $"nixpkgs#($pkg)"
+    }
+    nix run $name
+}
+
 # Shortcut for "nix search"
 def "nx search" [name: string] {
     nix search nixpkgs $name --json

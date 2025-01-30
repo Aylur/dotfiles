@@ -27,7 +27,6 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.default;
 
     plugins = [
       # inputs.hyprland-hyprspace.packages.${pkgs.system}.default
@@ -177,8 +176,9 @@
 
       decoration = {
         shadow = {
-          range = 6;
-          render_power = 2;
+          range = 11;
+          render_power = 0;
+          color = "rgba(0,0,0,0.3)";
         };
 
         dim_inactive = false;

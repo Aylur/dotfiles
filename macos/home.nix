@@ -11,6 +11,7 @@
     ../home-manager/sh.nix
     ../home-manager/starship.nix
     ../home-manager/tmux.nix
+    ../home-manager/ghostty.nix
     ../home-manager/wezterm.nix
   ];
 
@@ -20,8 +21,6 @@
     "pr" = "poetry run";
     "prpm" = "poetry run python3 manage.py";
   };
-
-  terminals.wezterm.sessionVariable = true;
 
   programs.nushell.extraEnv = ''
     $env.PATH = ($env.PATH | split row (char esep)

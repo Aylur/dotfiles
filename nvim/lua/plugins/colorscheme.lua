@@ -51,7 +51,7 @@ return {
 					crust = "#0a0a0a",
 				},
 				latte = {
-					base = "#fffffa",
+					base = "#fafafa",
 					mantle = "#e7e8e9",
 					crust = "#d3d4d5",
 				},

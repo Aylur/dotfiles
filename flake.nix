@@ -49,26 +49,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # hyprgrass = {
-    #   url = "github:horriblename/hyprgrass";
-    #   inputs.hyprland.follows = "hyprland";
-    # };
-
-    # hyprland-hyprspace = {
-    #   url = "github:KZDKM/Hyprspace";
-    #   inputs.hyprland.follows = "hyprland";
-    # };
-
     morewaita = {
       url = "github:somepaulo/MoreWaita";
       flake = false;
