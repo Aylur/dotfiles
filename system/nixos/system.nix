@@ -7,9 +7,6 @@
     auto-optimise-store = true;
   };
 
-  # camera
-  programs.droidcam.enable = true;
-
   # virtualisation
   programs.virt-manager.enable = true;
   virtualisation = {
@@ -41,19 +38,6 @@
     openssh.enable = true;
   };
 
-  # programs
-  programs = {
-    kdeconnect.enable = true;
-    steam.enable = true;
-  };
-
-  # logind
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-    HandleLidSwitch=suspend
-    HandleLidSwitchExternalPower=ignore
-  '';
-
   # network
   networking.networkmanager.enable = true;
 
@@ -61,7 +45,7 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;
-    settings.General.Experimental = true; # for gnome-bluetooth percentage
+    settings.General.Experimental = true; # bluetooth percentage
   };
 
   # bootloader

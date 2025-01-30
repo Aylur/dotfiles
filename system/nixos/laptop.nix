@@ -3,11 +3,11 @@
   lib,
   ...
 }: {
-  options.asusLaptop = {
+  options.asus = {
     enable = lib.mkEnableOption "Asus Laptop";
   };
 
-  config = lib.mkIf config.asusLaptop.enable {
+  config = lib.mkIf config.asus.enable {
     # asusctl
     services.asusd = {
       enable = true;

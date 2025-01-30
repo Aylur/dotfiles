@@ -1,10 +1,8 @@
-{
+username: {
   inputs,
   lib,
   ...
-}: let
-  username = "demeter";
-in {
+}: {
   imports = [
     /etc/nixos/hardware-configuration.nix
     ./system.nix
@@ -14,10 +12,13 @@ in {
     ./laptop.nix
     ./hyprland.nix
     ./laptop.nix
+    ./gnome.nix
   ];
 
   hyprland.enable = true;
-  asusLaptop.enable = true;
+  gnome.enable = false;
+  asus.enable = false;
+
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   users.users.${username} = {
@@ -48,10 +49,9 @@ in {
 
   specialisation = {
     gnome.configuration = {
-      imports = [./gnome.nix];
       system.nixos.tags = ["Gnome"];
       hyprland.enable = lib.mkForce false;
-      gnome.enable = true;
+      gnome.enable = lib.mkForce true;
     };
   };
 }

@@ -55,6 +55,9 @@ in {
       copy-on-select = true
       gtk-single-instance = false
       adw-toolbar-style = flat
+
+      keybind = ctrl+shift+plus=increase_font_size:1
+      keybind = ctrl+shift+minus=decrease_font_size:1
     '';
 
     "ghostty/themes/charmful-dark".text = colors (import ./colors.nix {scheme = "dark";});

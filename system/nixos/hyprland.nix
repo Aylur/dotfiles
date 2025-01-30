@@ -9,16 +9,15 @@
   };
 
   config = lib.mkIf config.hyprland.enable {
-    nix.settings = {
-      substituters = ["https://hyprland.cachix.org"];
-      trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
-    };
-
+    programs.hyprland.enable = true;
+    programs.kdeconnect.enable = true;
     services.xserver.displayManager.startx.enable = true;
 
-    programs.hyprland.enable = true;
+    services.logind.extraConfig = ''
+      HandlePowerKey=ignore
+      HandleLidSwitch=suspend
+      HandleLidSwitchExternalPower=ignore
+    '';
 
     xdg.portal = {
       enable = true;
@@ -90,35 +89,10 @@
       settings.default_session = {
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
       };
-      # settings.default_session.command = pkgs.writeShellScript "greeter" ''
-      #   export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
-      #   export XCURSOR_THEME=Qogir
-      #   ${asztal}/bin/greeter
-      # '';
     };
 
     systemd.tmpfiles.rules = [
       "d '/var/cache/greeter' - greeter greeter - -"
     ];
-
-    # TODO:
-    # system.activationScripts.wallpaper = builtins.readFile pkgs.writeShellScript "wp" ''
-    #   CACHE="/var/cache/greeter"
-    #   OPTS="$CACHE/options.json"
-    #   HOME="/home/$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)"
-    #
-    #   mkdir -p "$CACHE"
-    #   chown greeter:greeter $CACHE
-    #
-    #   if [[ -f "$HOME/.cache/ags/options.json" ]]; then
-    #     cp $HOME/.cache/ags/options.json $OPTS
-    #     chown greeter:greeter $OPTS
-    #   fi
-    #
-    #   if [[ -f "$HOME/.config/background" ]]; then
-    #     cp "$HOME/.config/background" $CACHE/background
-    #     chown greeter:greeter "$CACHE/background"
-    #   fi
-    # '';
   };
 }

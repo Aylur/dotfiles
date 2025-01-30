@@ -12,7 +12,7 @@
       "nixos" = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./nixos/nixos.nix
+          (import ./system/nixos "demeter")
           home-manager.nixosModules.home-manager
           {networking.hostName = "nixos";}
         ];
@@ -29,7 +29,7 @@
             nix.package = pkgs.nix;
             home.username = "demeter";
             home.homeDirectory = "/Users/demeter";
-            imports = [./macos/home.nix];
+            imports = [./system/macos/home.nix];
           })
         ];
       };
