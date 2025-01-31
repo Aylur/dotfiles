@@ -27,21 +27,9 @@
   time = let
     accent = color "main_accent";
     format = "%H:%M";
-    icon = pkgs.writeShellScript "icon" ''
-      hour=$(date +%H)
-      if   [ "$hour" == "00" ] || [ "$hour" == "12" ]; then printf "󱑖"
-      elif [ "$hour" == "01" ] || [ "$hour" == "13" ]; then printf "󱑋"
-      elif [ "$hour" == "02" ] || [ "$hour" == "14" ]; then printf "󱑌"
-      elif [ "$hour" == "03" ] || [ "$hour" == "15" ]; then printf "󱑍"
-      elif [ "$hour" == "04" ] || [ "$hour" == "16" ]; then printf "󱑎"
-      elif [ "$hour" == "05" ] || [ "$hour" == "17" ]; then printf "󱑏"
-      elif [ "$hour" == "06" ] || [ "$hour" == "18" ]; then printf "󱑐"
-      elif [ "$hour" == "07" ] || [ "$hour" == "19" ]; then printf "󱑑"
-      elif [ "$hour" == "08" ] || [ "$hour" == "20" ]; then printf "󱑒"
-      elif [ "$hour" == "09" ] || [ "$hour" == "21" ]; then printf "󱑓"
-      elif [ "$hour" == "10" ] || [ "$hour" == "22" ]; then printf "󱑔"
-      elif [ "$hour" == "11" ] || [ "$hour" == "23" ]; then printf "󱑕"
-      fi
+    icon = pkgs.writers.writeNu "icon" ''
+      [ 󱑖 󱑋 󱑌 󱑍 󱑎 󱑏 󱑐 󱑑 󱑒 󱑓 󱑔 󱑕 ]
+      | get ((date now | into record | get hour) mod 12)
     '';
   in "#[reverse,fg=${accent}] ${format} #(${icon}) ";
 
