@@ -5,6 +5,7 @@
     else [];
 in {
   home.packages = pkgs.lib.flatten (with pkgs; [
+    (import ../scripts pkgs).lorem
     bat
     eza
     fd

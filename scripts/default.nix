@@ -16,4 +16,8 @@ pkgs: {
       "--prefix PATH : ${pkgs.lib.makeBinPath [distrobox]}"
     ];
   } (builtins.readFile ./distrobox.nu);
+
+  lorem =
+    pkgs.writers.writeNuBin "lorem" {}
+    (builtins.readFile ./lorem.nu);
 }
