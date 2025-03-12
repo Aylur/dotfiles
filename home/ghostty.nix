@@ -55,6 +55,7 @@ in {
       copy-on-select = true
       gtk-single-instance = false
       adw-toolbar-style = flat
+      confirm-close-surface = false
 
       keybind = ctrl+shift+plus=increase_font_size:1
       keybind = ctrl+shift+minus=decrease_font_size:1

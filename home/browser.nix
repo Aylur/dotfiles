@@ -21,6 +21,7 @@
         "gnomeTheme.bookmarksToolbarUnderTabs" = true;
         "gnomeTheme.normalWidthTabs" = false;
         "gnomeTheme.tabsAsHeaderbar" = false;
+        "browser.fullscreen.autohide" = false;
       };
       userChrome = ''
         @import "firefox-gnome-theme/userChrome.css";

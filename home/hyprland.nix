@@ -7,10 +7,10 @@
     inputs.marble.packages.${pkgs.system}.astal
     inputs.marble.packages.${pkgs.system}.marble
     inputs.marble.packages.${pkgs.system}.screenrecord
+    astal.mpris
     ((import ../scripts pkgs).screenshot)
     brightnessctl
     pulseaudio # pactl
-    playerctl
     swww
     wf-recorder
     slurp
@@ -85,20 +85,8 @@
         workspace_swipe_use_r = true;
       };
 
-      windowrule = let
-        f = regex: "float, ^(${regex})$";
-      in [
-        (f "org.gnome.Calculator")
-        (f "org.gnome.Nautilus")
-        (f "pavucontrol")
-        (f "nm-connection-editor")
-        (f "blueberry.py")
-        (f "org.gnome.Settings")
-        (f "org.gnome.design.Palette")
-        (f "Color Picker")
-        (f "xdg-desktop-portal")
-        (f "xdg-desktop-portal-gnome")
-        (f "de.haeckerfelix.Fragments")
+      windowrulev2 = [
+        "float, class:(.*)"
         "workspace 7, title:Spotify"
       ];
 
@@ -161,11 +149,11 @@
       ];
 
       bindl = [
-        ",XF86AudioPlay,    exec, playerctl play-pause"
-        ",XF86AudioStop,    exec, playerctl pause"
-        ",XF86AudioPause,   exec, playerctl pause"
-        ",XF86AudioPrev,    exec, playerctl previous"
-        ",XF86AudioNext,    exec, playerctl next"
+        ",XF86AudioPlay,    exec, astal-mpris play-pause"
+        ",XF86AudioStop,    exec, astal-mpris pause"
+        ",XF86AudioPause,   exec, astal-mpris pause"
+        ",XF86AudioPrev,    exec, astal-mpris previous"
+        ",XF86AudioNext,    exec, astal-mpris next"
         ",XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 

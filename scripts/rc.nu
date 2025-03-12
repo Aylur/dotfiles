@@ -112,3 +112,8 @@ def vault [] {
     git commit -m $"sync (^date '+%Y-%m-%d %H:%M')"
     git push
 }
+
+def coredump [] {
+    # ulimit -c unlimited
+    nix shell nixpkgs#gdb -c coredumpctl gdb -1
+}
