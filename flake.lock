@@ -3,21 +3,23 @@
     "ags": {
       "inputs": {
         "astal": "astal",
+        "gjsx": "gjsx",
         "nixpkgs": [
           "marble",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1735485506,
-        "narHash": "sha256-7CWr3Q83KnGiLUn0oaboafLMOXQ0X9/fjFRVY1xopbM=",
+        "lastModified": 1742389159,
+        "narHash": "sha256-ATKcc5zNv6GO7CA1O4bdNCQKp7oB3UkDvFdYdxFAzHw=",
         "owner": "aylur",
         "repo": "ags",
-        "rev": "251d39413543264361898b02035775aa3e46fe52",
+        "rev": "32bf35a1d9d904dfd3351785cbb0243977170674",
         "type": "github"
       },
       "original": {
         "owner": "aylur",
+        "ref": "v3",
         "repo": "ags",
         "type": "github"
       }
@@ -31,16 +33,36 @@
         ]
       },
       "locked": {
-        "lastModified": 1735576092,
-        "narHash": "sha256-fxj82J3BHVaxUG1/umATdyeLq4xiw2DowJo3g3EeYl4=",
+        "lastModified": 1741863581,
+        "narHash": "sha256-datQsagelizLX/7Mb7aSOic7X49GZUzZsWzBzDZOY4U=",
         "owner": "aylur",
         "repo": "astal",
-        "rev": "ce9ba0d07b44c52700fef44ea6c9cbad33c3fe44",
+        "rev": "69efb4c91e590adcb5a3d8938454f987982e3891",
         "type": "github"
       },
       "original": {
         "owner": "aylur",
         "repo": "astal",
+        "type": "github"
+      }
+    },
+    "battery-notifier": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1742237136,
+        "narHash": "sha256-LuzHqoTBNApxd3XTIKBmBVoTA/tkNvF0AATqHZM+OVg=",
+        "owner": "aylur",
+        "repo": "battery-notifier",
+        "rev": "043ccbf959a339bedfa10253eebe229d45d68499",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "battery-notifier",
         "type": "github"
       }
     },
@@ -57,6 +79,22 @@
       "original": {
         "owner": "rafaelmardojai",
         "repo": "firefox-gnome-theme",
+        "type": "github"
+      }
+    },
+    "gjsx": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741867558,
+        "narHash": "sha256-fy3vqaeH3IU6GWxmZcvn7jfBeg5J38LXtNndcrWbGME=",
+        "owner": "aylur",
+        "repo": "gjsx",
+        "rev": "7e74fc361f6198fd798cfedcea89ce8f75495696",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "gjsx",
         "type": "github"
       }
     },
@@ -77,6 +115,26 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "icon-browser": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1742261382,
+        "narHash": "sha256-ikMTpwtF+CgNJLp1LaF0Nrm4MEfwbqbJXgtjdJ0zupI=",
+        "owner": "aylur",
+        "repo": "icon-browser",
+        "rev": "036b062d2d79ad814e16bd6521ae4a6e16594440",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "icon-browser",
         "type": "github"
       }
     },
@@ -104,17 +162,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1737052343,
-        "narHash": "sha256-RB9jRDFXDGrrVFVPLAu9e+jJFNU+gB/AxC2wrMrehaY=",
-        "ref": "refs/heads/main",
-        "rev": "3f5b3ac7a12ca23c608c1bf016bc61a93bafd7b1",
-        "revCount": 6,
+        "lastModified": 1742390548,
+        "narHash": "sha256-uuKwgl5aWeKDIDXulfKuayDrotPeHTF5KX5XsCvdnes=",
+        "ref": "gtk4",
+        "rev": "076b5bfd6952de47bc2717071cea1ff11d9cc454",
+        "revCount": 17,
         "type": "git",
-        "url": "ssh://git@github.com/marble-shell/shell.git"
+        "url": "ssh://git@github.com/marble-shell/shell"
       },
       "original": {
+        "ref": "gtk4",
         "type": "git",
-        "url": "ssh://git@github.com/marble-shell/shell.git"
+        "url": "ssh://git@github.com/marble-shell/shell"
       }
     },
     "morewaita": {
@@ -151,8 +210,10 @@
     },
     "root": {
       "inputs": {
+        "battery-notifier": "battery-notifier",
         "firefox-gnome-theme": "firefox-gnome-theme",
         "home-manager": "home-manager",
+        "icon-browser": "icon-browser",
         "lf-icons": "lf-icons",
         "marble": "marble",
         "morewaita": "morewaita",

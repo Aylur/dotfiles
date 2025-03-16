@@ -1,6 +1,4 @@
 {
-  description = "Configurations of Aylur";
-
   outputs = inputs @ {
     self,
     home-manager,
@@ -45,7 +43,17 @@
     };
 
     marble = {
-      url = "git+ssh://git@github.com/marble-shell/shell.git";
+      url = "git+ssh://git@github.com/marble-shell/shell?ref=gtk4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    icon-browser = {
+      url = "github:aylur/icon-browser";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    battery-notifier = {
+      url = "github:aylur/battery-notifier";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

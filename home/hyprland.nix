@@ -5,8 +5,9 @@
 }: {
   home.packages = with pkgs; [
     inputs.marble.packages.${pkgs.system}.astal
-    inputs.marble.packages.${pkgs.system}.marble
-    inputs.marble.packages.${pkgs.system}.screenrecord
+    inputs.marble.packages.${pkgs.system}.default
+    inputs.battery-notifier.packages.${pkgs.system}.default
+    # inputs.marble.packages.${pkgs.system}.screenrecord
     astal.mpris
     ((import ../scripts pkgs).screenshot)
     brightnessctl
@@ -37,8 +38,10 @@
       exec-once = [
         "hyprctl setcursor Qogir 24"
         "marble"
+        "marble-launcher"
         "swww-daemon"
         "fragments"
+        "battery-notifier"
       ];
 
       monitor = [
@@ -55,6 +58,7 @@
       misc = {
         disable_splash_rendering = true;
         force_default_wallpaper = 1;
+        focus_on_activate = true;
       };
 
       input = {
@@ -100,19 +104,19 @@
         arr = [1 2 3 4 5 6 7];
       in
         [
-          "CTRL SHIFT, R, exec,         marble quit; marble"
-          "SUPER, R, exec,              marble toggle launcher"
-          "SUPER, Tab, exec,            marble eval \"launcher('h')\""
-          ",XF86PowerOff, exec,         marble toggle powermenu"
-          ",XF86Launch4, exec,          screenrecord"
-          "SHIFT, XF86Launch4, exec,    screenrecord --full"
+          "CTRL SHIFT, R, exec,         astal -i marble -q; marble"
+          "SUPER, R, exec,              marble-launcher --open"
+          "SUPER, Tab, exec,            marble-launcher ':h'"
+          ",XF86PowerOff, exec,         marble shutdown"
+          # ",XF86Launch4, exec,          screenrecord"
+          # "SHIFT, XF86Launch4, exec,    screenrecord --full"
           ",Print, exec,                screenshot"
           "SHIFT, Print, exec,          screenshot --full"
           "SUPER, Return, exec,         xterm" # xterm is a symlink, not actually xterm
           "SUPER, W, exec,              firefox"
           "SUPER, E, exec,              xterm -e lf"
 
-          "ALT, Tab,            focuscurrentorlast"
+          "ALT, Tab, exec,      hyprctl dispatch focuscurrentorlast; hyprctl dispatch alterzorder top"
           "CTRL ALT, Delete,    exit"
           "ALT, Q,              killactive"
           "SUPER, F,            togglefloating"
@@ -195,17 +199,17 @@
         ];
       };
 
-      "plugin:touch_gestures" = {
-        sensitivity = 8.0;
-        workspace_swipe_fingers = 3;
-        long_press_delay = 400;
-        edge_margin = 16;
-        hyprgrass-bind = [
-          ", edge:r:l, workspace, +1"
-          ", edge:l:r, workspace, -1"
-          ", edge:d:u, exec, marble toggle launcher"
-        ];
-      };
+      # "plugin:touch_gestures" = {
+      #   sensitivity = 8.0;
+      #   workspace_swipe_fingers = 3;
+      #   long_press_delay = 400;
+      #   edge_margin = 16;
+      #   hyprgrass-bind = [
+      #     ", edge:r:l, workspace, +1"
+      #     ", edge:l:r, workspace, -1"
+      #     ", edge:d:u, exec, marble toggle launcher"
+      #   ];
+      # };
 
       # plugin = {
       #   overview = {

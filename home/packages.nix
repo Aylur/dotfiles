@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   mkIf = cond: value:
     if cond
     then value
@@ -20,6 +24,7 @@ in {
       spotify
       fragments
       figma-linux
+      inputs.icon-browser.packages.${pkgs.system}.default
       # yabridge
       # yabridgectl
       # wine-staging

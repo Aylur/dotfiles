@@ -1,13 +1,9 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
+{pkgs, ...}: let
   inherit (builtins) concatStringsSep filter typeOf;
   inherit (import ../scripts pkgs) box;
+  nvim = import ../nvim {inherit pkgs;};
 
-  mkBox = {
-    name,
+  mkBox = name: {
     image,
     exec ? "nu",
     packages ? [],
@@ -25,7 +21,7 @@
         "/usr/local/bin"
         "$HOME/.local/bin"
       ]
-      ++ ["${config.programs.neovim.finalPackage}/bin" "${pkgs.nushell}/bin"]
+      ++ ["${nvim}/bin" "${pkgs.nushell}/bin"]
       ++ (map (p: "${p}/bin") (filter (p: typeOf p == "set") packages));
 
     db-exec = pkgs.writeShellScript "db-exec" ''
@@ -40,21 +36,17 @@
 in {
   home.packages = [
     pkgs.distrobox
-    (mkBox {
-      name = "ubuntu";
+    (mkBox "ubuntu" {
       image = "quay.io/toolbx/ubuntu-toolbox:latest";
     })
-    (mkBox {
-      name = "fedora";
+    (mkBox "fedora" {
       image = "registry.fedoraproject.org/fedora-toolbox:rawhide";
       packages = ["gcc poetry python-devel mysql-devel pango-devel nodejs npm cargo" pkgs.lazygit];
     })
-    (mkBox {
-      name = "alpine";
+    (mkBox "alpine" {
       image = "docker.io/library/alpine:latest";
     })
-    (mkBox {
-      name = "arch";
+    (mkBox "arch" {
       image = "docker.io/library/alpine:latest";
       packages = let
         yay = pkgs.writeShellScriptBin "yay" ''
