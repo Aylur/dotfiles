@@ -9,6 +9,7 @@
   };
 
   config = lib.mkIf config.hyprland.enable {
+    programs.hyprland.withUWSM = true;
     programs.hyprland.enable = true;
     programs.kdeconnect.enable = true;
     services.xserver.displayManager.startx.enable = true;
@@ -84,11 +85,9 @@
       };
     };
 
-    services.greetd = {
+    services.xserver.displayManager.lightdm = {
       enable = true;
-      settings.default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
-      };
+      greeters.gtk.enable = true;
     };
 
     systemd.tmpfiles.rules = [

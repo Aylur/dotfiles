@@ -1,7 +1,4 @@
 return {
-	recommended = {
-		ft = "vala",
-	},
 	{
 		"neovim/nvim-lspconfig",
 		opts = {

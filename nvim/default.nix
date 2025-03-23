@@ -14,11 +14,15 @@ with pkgs; let
     cargo
     lazygit
     nodePackages.npm
+    python3
+    luajitPackages.luarocks
+    lua51Packages.lua
 
     nil
     lua-language-server
     stylua
     alejandra
+    shfmt
 
     # ts
     nodejs
@@ -26,6 +30,8 @@ with pkgs; let
     bun
     yarn
     pnpm
+    nodePackages.npm
+    nodePackages.prettier
     tailwindcss-language-server
     svelte-language-server
     astro-language-server
@@ -63,6 +69,6 @@ in
     withNodeJs = true;
     withPython3 = true;
     wrapRc = false;
-    luaRcContent = "print('hello')";
+    # luaRcContent = "print('hello')";
     wrapperArgs = ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
   }

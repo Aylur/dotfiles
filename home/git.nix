@@ -22,6 +22,6 @@ in {
     addKeysToAgent = "yes";
   };
   services.ssh-agent = {
-    enable = lib.modules.mkIf pkgs.stdenv.isLinux true;
+    enable = pkgs.stdenv.isLinux;
   };
 }

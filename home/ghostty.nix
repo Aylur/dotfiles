@@ -48,7 +48,7 @@ in {
       theme = light:charmful-light,dark:charmful-dark
       window-padding-x = 12
       window-padding-y = 6
-      window-decoration = ${boolToString pkgs.stdenv.isDarwin}
+      window-decoration = auto
       window-theme = system
       window-height = 26
       window-width = 90

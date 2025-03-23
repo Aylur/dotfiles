@@ -27,40 +27,31 @@
 in {
   home = {
     packages = with pkgs; [
-      cantarell-fonts
-      font-awesome
       theme.package
       font.package
       cursorTheme.package
       iconTheme.package
-      adwaita-icon-theme
-      papirus-icon-theme
-      nerd-fonts.ubuntu-mono
       nerd-fonts.caskaydia-cove
     ];
-    sessionVariables = {
-      XCURSOR_THEME = cursorTheme.name;
-      XCURSOR_SIZE = "${toString cursorTheme.size}";
-    };
-    pointerCursor =
-      cursorTheme
-      // {
-        gtk.enable = true;
-      };
+    # sessionVariables = {
+    #   XCURSOR_THEME = cursorTheme.name;
+    #   XCURSOR_SIZE = "${toString cursorTheme.size}";
+    # };
+    # pointerCursor = cursorTheme // {gtk.enable = true;};
   };
 
   fonts.fontconfig.enable = true;
 
-  gtk = {
-    inherit font cursorTheme iconTheme;
-    theme.name = theme.name;
-    enable = true;
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "kde";
-  };
+  # gtk = {
+  #   inherit font cursorTheme iconTheme;
+  #   theme.name = theme.name;
+  #   enable = true;
+  # };
+  #
+  # qt = {
+  #   enable = true;
+  #   platformTheme.name = "kde";
+  # };
 
   home.file.".local/share/flatpak/overrides/global".text = let
     dirs = [

@@ -19,8 +19,6 @@
     "q" = "exit";
 
     "gs" = "git status";
-    "gb" = "git branch";
-    "gch" = "git checkout";
     "gc" = "git commit";
     "ga" = "git add";
     "gr" = "git reset --soft HEAD~1";
@@ -50,12 +48,6 @@ in {
     '';
   };
 
-  config.programs.bash = {
-    shellAliases = aliases // config.shellAliases;
-    enable = true;
-    initExtra = "SHELL=${pkgs.bash}";
-  };
-
   config.programs.nushell = {
     shellAliases = aliases // config.shellAliases;
     enable = true;
@@ -80,7 +72,7 @@ in {
 
         table = {
           mode = "compact"; # compact thin rounded
-          index_mode = "always"; # alway never auto
+          index_mode = "always"; # always never auto
           header_on_separator = false;
         };
 
@@ -124,9 +116,6 @@ in {
       $env.config = ${conf};
       ${completions ["cargo" "git" "nix" "npm" "curl"]}
 
-      # alias pueue = ${pkgs.pueue}/bin/pueue
-      # alias pueued = ${pkgs.pueue}/bin/pueued
-      # use ${pkgs.nu_scripts}/share/nu_scripts/modules/background_task/task.nu
       source ${pkgs.nu_scripts}/share/nu_scripts/modules/formats/from-env.nu
       use ${../scripts}/blocks.nu
 

@@ -1,14 +1,17 @@
 {pkgs, ...}: {
   # nix
-  documentation.nixos.enable = false; # .desktop
+  documentation.nixos.enable = false;
   nixpkgs.config.allowUnfree = true;
+
   nix.settings = {
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
+    warn-dirty = false;
   };
 
   # virtualisation
   programs.virt-manager.enable = true;
+
   virtualisation = {
     podman.enable = true;
     docker.enable = true;
@@ -24,6 +27,8 @@
     neovim
     git
     wget
+    firefox
+    chromium
   ];
 
   # services

@@ -14,15 +14,9 @@
     ../../home/starship.nix
     ../../home/theme.nix
     ../../home/tmux.nix
-    ../../home/wezterm.nix
   ];
 
   news.display = "show";
-
-  nix.settings = {
-    experimental-features = ["nix-command" "flakes"];
-    warn-dirty = false;
-  };
 
   home = {
     sessionVariables = {
@@ -39,19 +33,19 @@
     ];
   };
 
-  gtk.gtk3.bookmarks = let
+  xdg.configFile."gtk-3.0/bookmarks".text = let
     home = config.home.homeDirectory;
-  in [
-    "file://${home}/Documents"
-    "file://${home}/Music"
-    "file://${home}/Pictures"
-    "file://${home}/Videos"
-    "file://${home}/Downloads"
-    "file://${home}/Desktop"
-    "file://${home}/Projects"
-    "file://${home}/Vault"
-    "file://${home}/.config Config"
-  ];
+  in ''
+    file://${home}/Projects
+    file://${home}/Desktop
+    file://${home}/Downloads
+    file://${home}/Documents
+    file://${home}/.config Config
+    file://${home}/Vault
+    file://${home}/Music
+    file://${home}/Pictures
+    file://${home}/Videos
+  '';
 
   programs.home-manager.enable = true;
   home.stateVersion = "21.11";

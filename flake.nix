@@ -44,7 +44,6 @@
 
     marble = {
       url = "git+ssh://git@github.com/marble-shell/shell?ref=gtk4";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     icon-browser = {

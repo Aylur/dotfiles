@@ -2,12 +2,16 @@
 with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
-      sources = [(mkTuple ["xkb" "hu"])];
-      xkb-options = ["terminate:ctrl_alt_bksp"];
+      sources = [(mkTuple ["xkb" "hu"]) (mkTuple ["xkb" "us"])];
     };
 
     "org/gnome/desktop/interface" = {
       show-battery-percentage = true;
+      font-name = "Ubuntu Nerd Font 11";
+      monospace-font-name = "CaskaydiaCove Nerd Font 10";
+      cursor-theme = "Qogir";
+      icon-theme = "MoreWaita";
+      gtk-theme = "adw-gtk3";
     };
 
     "org/gnome/desktop/peripherals/touchpad" = {
@@ -72,7 +76,7 @@ with lib.hm.gvariant; {
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Super>Return";
-      command = "xterm";
+      command = "gnome-terminal";
       name = "term";
     };
 

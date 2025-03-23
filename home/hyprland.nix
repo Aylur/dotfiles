@@ -28,11 +28,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-
-    plugins = [
-      # inputs.hyprland-hyprspace.packages.${pkgs.system}.default
-      # inputs.hyprgrass.packages.${pkgs.system}.default
-    ];
+    systemd.enable = false;
 
     settings = {
       exec-once = [
@@ -44,11 +40,7 @@
         "battery-notifier"
       ];
 
-      monitor = [
-        # "eDP-1, 1920x1080, 0x0, 1"
-        # "HDMI-A-1, 2560x1440, 1920x0, 1"
-        ",preferred,auto,1"
-      ];
+      monitor = [",preferred,auto,1"];
 
       general = {
         layout = "dwindle";
@@ -80,7 +72,6 @@
       dwindle = {
         pseudotile = "yes";
         preserve_split = "yes";
-        # no_gaps_when_only = "yes";
       };
 
       gestures = {
@@ -198,45 +189,6 @@
           "workspaces, 1, 6, default"
         ];
       };
-
-      # "plugin:touch_gestures" = {
-      #   sensitivity = 8.0;
-      #   workspace_swipe_fingers = 3;
-      #   long_press_delay = 400;
-      #   edge_margin = 16;
-      #   hyprgrass-bind = [
-      #     ", edge:r:l, workspace, +1"
-      #     ", edge:l:r, workspace, -1"
-      #     ", edge:d:u, exec, marble toggle launcher"
-      #   ];
-      # };
-
-      # plugin = {
-      #   overview = {
-      #     centerAligned = true;
-      #     hideTopLayers = true;
-      #     hideOverlayLayers = true;
-      #     showNewWorkspace = true;
-      #     exitOnClick = true;
-      #     exitOnSwitch = true;
-      #     drawActiveWorkspace = true;
-      #     reverseSwipe = true;
-      #   };
-      #
-      #   hyprbars = {
-      #     bar_color = "rgb(2a2a2a)";
-      #     bar_height = 28;
-      #     col_text = "rgba(ffffffdd)";
-      #     bar_text_size = 11;
-      #     bar_text_font = "Ubuntu Nerd Font";
-      #
-      #     buttons = {
-      #       button_size = 0;
-      #       "col.maximize" = "rgba(ffffff11)";
-      #       "col.close" = "rgba(ff111133)";
-      #     };
-      #   };
-      # };
     };
   };
 }

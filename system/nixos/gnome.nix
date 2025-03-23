@@ -14,7 +14,11 @@
         morewaita-icon-theme
         qogir-icon-theme
         wl-clipboard
+        ghostty
+
         gnomeExtensions.just-perfection
+        gnomeExtensions.arcmenu
+        gnomeExtensions.color-picker
       ];
 
       gnome.excludePackages = with pkgs; [
