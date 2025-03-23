@@ -45,3 +45,6 @@ map("n", "<leader>o", function()
 	vim.cmd("highlight NonText ctermbg=NONE")
 	vim.cmd("highlight NonText ctermbg=NONE")
 end, { desc = "Toggle background opacity" })
+
+-- diagnostics
+map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })

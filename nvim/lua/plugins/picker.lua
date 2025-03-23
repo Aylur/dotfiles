@@ -3,7 +3,11 @@ local function picker()
 end
 
 local function explorer()
-	Snacks.explorer({ layout = "right", auto_close = true })
+	Snacks.explorer({
+		layout = "right",
+		auto_close = true,
+		follow_file = false,
+	})
 end
 
 local function file_select()
