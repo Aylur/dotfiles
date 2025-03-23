@@ -12,7 +12,6 @@
     ../../home/starship.nix
     ../../home/tmux.nix
     ../../home/ghostty.nix
-    ../../home/wezterm.nix
   ];
 
   news.display = "show";

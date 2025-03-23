@@ -41,14 +41,6 @@ with pkgs; let
     markdownlint-cli2
     marksman
 
-    # vala
-    vala-language-server
-    mesonlsp
-    blueprint-compiler
-    meson
-    pkg-config
-    ninja
-
     # go
     go
     gopls
@@ -61,6 +53,19 @@ with pkgs; let
     pyright
     poetry
   ];
+
+  tools =
+    if pkgs.stdenv.isDarwin
+    then []
+    else [
+      # vala
+      vala-language-server
+      mesonlsp
+      blueprint-compiler
+      meson
+      pkg-config
+      ninja
+    ];
 in
   wrapNeovimUnstable neovim-unwrapped {
     # viAlias = true;
@@ -70,5 +75,5 @@ in
     withPython3 = true;
     wrapRc = false;
     # luaRcContent = "print('hello')";
-    wrapperArgs = ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
+    wrapperArgs = ''--suffix PATH : "${lib.makeBinPath (extraPackages ++ tools)}"'';
   }

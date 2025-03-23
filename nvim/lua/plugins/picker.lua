@@ -13,7 +13,7 @@ return {
 		keys = {
             -- stylua: ignore start
 			{ "<leader>pp", function() Snacks.picker() end, desc = "Open Picker" },
-			{ "<leader>e", function() Snacks.explorer({ layout = "default", auto_close = true }) end, desc = "File Explorer" },
+			{ "<leader>e", function() Snacks.explorer({ layout = "select", auto_close = true }) end, desc = "File Explorer" },
 			{ "<leader><space>", function() Snacks.picker.smart({ layout = "select" }) end, desc = "Find Files", },
 			{ "<leader>ff", function() Snacks.picker.smart() end, desc = "Find Files", },
             { "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
