@@ -95,18 +95,19 @@ return {
 		end,
 	},
 
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {},
-		dependencies = { "MunifTanjim/nui.nvim" },
-	},
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {},
+	-- 	dependencies = { "MunifTanjim/nui.nvim" },
+	-- },
 
 	{
 		"folke/snacks.nvim",
 		lazy = false,
 		opts = {
 			dashboard = { enabled = true },
+			notifier = { enabled = true },
 			indent = {
 				enabled = true,
 				indent = {

@@ -56,7 +56,17 @@ return {
 		dependencies = {
 			"saghen/blink.cmp",
 			{ "j-hui/fidget.nvim", opts = {} },
-			{ "folke/lazydev.nvim", ft = "lua", opts = {} },
+			{
+				"folke/lazydev.nvim",
+				ft = "lua",
+				opts = {
+					library = {
+						{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+						{ path = "snacks.nvim", words = { "Snacks" } },
+						{ path = "lazy.nvim", words = { "LazyVim" } },
+					},
+				},
+			},
 		},
 		opts = {
 			servers = { lua_ls = {} },

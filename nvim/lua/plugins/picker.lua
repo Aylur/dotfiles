@@ -3,10 +3,9 @@ local function picker()
 end
 
 local function explorer()
-	Snacks.explorer({
-		layout = "right",
+	Snacks.picker.explorer({
+		layout = { preset = "sidebar", preview = true },
 		auto_close = true,
-		follow_file = false,
 	})
 end
 
@@ -19,7 +18,7 @@ local function file_picker()
 end
 
 local function live_grep()
-	Snacks.picker.smart({ layout = "default" })
+	Snacks.picker.grep({ layout = "dropdown" })
 end
 
 local function terminal()
@@ -37,10 +36,19 @@ return {
 		opts = {
 			styles = {
 				terminal = { border = "rounded" },
+				sidebar = { position = "right" },
 			},
-			picker = { enabled = true },
-			explorer = { enabled = true },
 			lazygit = { configure = true },
+			picker = {
+				enabled = true,
+				sources = {
+					explorer = {
+						layout = {
+							layout = { position = "right" },
+						},
+					},
+				},
+			},
 		},
 		keys = {
 			{ "<leader>pp", picker, desc = "Open Picker" },

@@ -32,6 +32,7 @@ with pkgs; let
     pnpm
     nodePackages.npm
     nodePackages.prettier
+    prettierd
     tailwindcss-language-server
     svelte-language-server
     astro-language-server
