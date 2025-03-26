@@ -16,10 +16,6 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-require("options")
-require("keymaps")
-require("autocmds")
-
 require("lazy").setup({
 	lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
 	checker = {
@@ -35,3 +31,7 @@ require("lazy").setup({
 		enabled = false,
 	},
 })
+
+require("options")
+require("keymaps")
+require("autocmds")

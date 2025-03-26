@@ -21,8 +21,8 @@ in {
 
     (mkIf pkgs.stdenv.isLinux [
       (mpv.override {scripts = [mpvScripts.mpris];})
-      # spotify
-      # fragments
+      spotify
+      fragments
       # figma-linux
       inputs.icon-browser.packages.${pkgs.system}.default
       # yabridge

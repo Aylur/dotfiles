@@ -2,6 +2,12 @@ local map = vim.keymap.set
 
 map("n", "Q", "@q")
 
+-- better up/down
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+
 -- move selected lines
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
@@ -48,3 +54,27 @@ end, { desc = "Toggle background opacity" })
 
 -- diagnostics
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+
+-- toggles
+Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+Snacks.toggle.diagnostics():map("<leader>ud")
+Snacks.toggle.line_number():map("<leader>ul")
+
+-- format
+Snacks.toggle({
+	name = "Auto Format",
+	get = function()
+		return vim.g.autoformat
+	end,
+	set = function(state)
+		vim.g.autoformat = state
+	end,
+}):map("<leader>uf")
+
+map("n", "<leader>F", function()
+	require("conform").format({ async = true, lsp_format = "fallback" })
+end, {
+	desc = "Format",
+})

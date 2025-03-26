@@ -1,6 +1,7 @@
 local opt = vim.opt
 
 opt.wrap = false
+opt.linebreak = true
 opt.conceallevel = 1
 opt.cursorline = false
 opt.number = true -- Print line number

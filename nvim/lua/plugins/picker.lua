@@ -3,10 +3,7 @@ local function picker()
 end
 
 local function explorer()
-	Snacks.picker.explorer({
-		layout = { preset = "sidebar", preview = true },
-		auto_close = true,
-	})
+	Snacks.picker.explorer({ auto_close = true })
 end
 
 local function file_select()
@@ -39,16 +36,7 @@ return {
 				sidebar = { position = "right" },
 			},
 			lazygit = { configure = true },
-			picker = {
-				enabled = true,
-				sources = {
-					explorer = {
-						layout = {
-							layout = { position = "right" },
-						},
-					},
-				},
-			},
+			picker = { enabled = true },
 		},
 		keys = {
 			{ "<leader>pp", picker, desc = "Open Picker" },

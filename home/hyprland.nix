@@ -33,10 +33,11 @@
     settings = {
       exec-once = [
         "hyprctl setcursor Qogir 24"
-        "marble"
-        "marble-launcher"
+        "uwsm app -- marble"
+        "uwsm app -- marble-launcher"
         "swww-daemon"
         "fragments"
+        # TODO: systemd unit
         "battery-notifier"
       ];
 
