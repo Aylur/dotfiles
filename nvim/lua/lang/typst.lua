@@ -1,5 +1,13 @@
 return {
 	{
+		"folke/ts-comments.nvim",
+		opts = {
+			lang = {
+				typst = "// %s",
+			},
+		},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		opts = { servers = { tinymist = {} } },
 	},
@@ -9,6 +17,6 @@ return {
 	},
 	{
 		"stevearc/conform.nvim",
-		opts = { formatters_by_ft = { typ = { "typstyle -i" } } },
+		opts = { formatters_by_ft = { typst = { "typstyle" } } },
 	},
 }

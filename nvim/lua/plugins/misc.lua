@@ -56,6 +56,9 @@ return {
 				delay = 300,
 			},
 		},
+		init = function()
+			vim.opt.signcolumn = "yes"
+		end,
 	},
 
 	{

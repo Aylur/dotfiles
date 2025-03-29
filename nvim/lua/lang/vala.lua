@@ -1,5 +1,15 @@
 return {
 	{
+		"folke/ts-comments.nvim",
+		opts = {
+			lang = {
+				vala = "// %s",
+				meson = "# %s",
+				blueprint = "// %s",
+			},
+		},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		opts = {
 			servers = {

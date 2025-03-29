@@ -2,7 +2,6 @@ local prettier = { "prettierd", "prettier", stop_after_first = true }
 
 return {
 	{ "roobert/tailwindcss-colorizer-cmp.nvim", opts = {} },
-
 	{
 		"stevearc/conform.nvim",
 		opts = {
@@ -13,6 +12,8 @@ return {
 				javascriptreact = prettier,
 				["typescript.jsx"] = prettier,
 				["javascript.jsx"] = prettier,
+				css = prettier,
+				scss = prettier,
 			},
 		},
 	},
@@ -23,6 +24,18 @@ return {
 				vtsls = {},
 				eslint = {},
 				tailwindcss = {},
+			},
+		},
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = {
+			ensure_installed = {
+				"typescript",
+				"javascript",
+				"jsdoc",
+				"vue",
+				"svelte",
 			},
 		},
 	},

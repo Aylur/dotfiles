@@ -1,5 +1,10 @@
 return {
 	{
+		"folke/ts-comments.nvim",
+		event = "VeryLazy",
+		opts = {},
+	},
+	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
@@ -16,6 +21,7 @@ return {
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				xml = { "xmllint" },
 			},
 		},
 		init = function()

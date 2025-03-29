@@ -17,11 +17,18 @@ with pkgs; let
     python3
     luajitPackages.luarocks
     lua51Packages.lua
+    libxml2
+    imagemagick
 
-    nil
+    # lua
     lua-language-server
     stylua
+
+    # nix
+    nil
     alejandra
+
+    # bash
     shfmt
 
     # ts

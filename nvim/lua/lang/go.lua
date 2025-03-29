@@ -5,11 +5,7 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		opts = {
-			servers = {
-				gopls = {},
-			},
-		},
+		opts = { servers = { gopls = {} } },
 	},
 	{
 		"stevearc/conform.nvim",

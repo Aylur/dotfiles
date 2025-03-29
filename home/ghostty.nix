@@ -5,7 +5,6 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (pkgs.stdenv) isLinux;
-  inherit (lib.trivial) boolToString;
 
   colors = scheme: ''
     background = ${scheme.bg}
@@ -54,7 +53,7 @@ in {
       window-width = 90
       copy-on-select = true
       gtk-single-instance = false
-      adw-toolbar-style = flat
+      gtk-titlebar = false
       confirm-close-surface = false
 
       keybind = ctrl+shift+plus=increase_font_size:1

@@ -17,7 +17,6 @@
         ghostty
 
         gnomeExtensions.just-perfection
-        gnomeExtensions.arcmenu
         gnomeExtensions.color-picker
       ];
 
