@@ -1,5 +1,43 @@
 return {
 	{
+		"folke/tokyonight.nvim",
+		opts = {
+			on_colors = function(c)
+				if vim.opt.background == "dark" then
+					c.bg = "#151515"
+					c.bg_dark = "#212121"
+					c.bg_dark1 = "#252525"
+					c.bg_float = "#191919"
+					c.bg_highlight = "#212121"
+					c.bg_popup = "#212121"
+					c.bg_search = "#212121"
+					c.bg_sidebar = "#191919"
+					c.bg_statusline = "#191919"
+
+					c.bg_visual = "#282828"
+					c.black = "#111111"
+
+					c.fg = "#fafafa"
+					c.fg_dark = "#eaeaea"
+					c.fg_float = "#fafafa"
+					c.fg_gutter = "#343434"
+					c.fg_sidebar = "#eaeaea"
+
+					c.border = "#585858"
+					c.comment = "#585858"
+				end
+			end,
+			terminal_colors = false,
+			cache = false,
+			styles = {
+				comments = { italic = false },
+				keywords = { italic = false },
+				sidebars = "dark", -- "dark", "transparent" or "normal"
+				floats = "dark",
+			},
+		},
+	},
+	{
 		"catppuccin/nvim",
 		lazy = false,
 		name = "catppuccin",

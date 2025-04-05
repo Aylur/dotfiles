@@ -16,12 +16,6 @@ map("v", "K", ":m '<-2<CR>gv=gv")
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- save file
-map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
-
--- lazy
-map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
-
 -- buffers
 map({ "n", "i", "v" }, "<A-l>", vim.cmd.bnext, { desc = "Switch to next Buffer" })
 map({ "n", "i", "v" }, "<A-h>", vim.cmd.bprev, { desc = "Switch to prev Buffer" })
@@ -51,30 +45,3 @@ map("n", "<leader>o", function()
 	vim.cmd("highlight NonText ctermbg=NONE")
 	vim.cmd("highlight NonText ctermbg=NONE")
 end, { desc = "Toggle background opacity" })
-
--- diagnostics
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-
--- toggles
-Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-Snacks.toggle.diagnostics():map("<leader>ud")
-Snacks.toggle.line_number():map("<leader>ul")
-
--- format
-Snacks.toggle({
-	name = "Auto Format",
-	get = function()
-		return vim.g.autoformat
-	end,
-	set = function(state)
-		vim.g.autoformat = state
-	end,
-}):map("<leader>uf")
-
-map("n", "<leader>F", function()
-	require("conform").format({ async = true, lsp_format = "fallback" })
-end, {
-	desc = "Format",
-})

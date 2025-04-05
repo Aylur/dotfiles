@@ -1,6 +1,6 @@
 {pkgs ? import <nixpkgs> {}}:
 with pkgs; let
-  extraPackages = [
+  bins = [
     git
     gcc
     gnumake
@@ -62,7 +62,7 @@ with pkgs; let
     poetry
   ];
 
-  tools =
+  linuxBins =
     if pkgs.stdenv.isDarwin
     then []
     else [
@@ -83,5 +83,5 @@ in
     withPython3 = true;
     wrapRc = false;
     # luaRcContent = "print('hello')";
-    wrapperArgs = ''--suffix PATH : "${lib.makeBinPath (extraPackages ++ tools)}"'';
+    wrapperArgs = ''--suffix PATH : "${lib.makeBinPath (bins ++ linuxBins)}"'';
   }

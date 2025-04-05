@@ -1,12 +1,5 @@
 return {
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = { ensure_installed = { "go", "gomod", "gowork", "gosum" } },
-	},
-	{
-		"neovim/nvim-lspconfig",
-		opts = { servers = { gopls = {} } },
-	},
+	{ import = "lazyvim.plugins.extras.lang.go" },
 	{
 		"stevearc/conform.nvim",
 		optional = true,

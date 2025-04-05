@@ -5,7 +5,7 @@
 
   mkBox = name: {
     image,
-    exec ? "nu",
+    exec ? "${pkgs.nushell}/bin",
     packages ? [],
   }: let
     distropkgs = concatStringsSep " " (filter
