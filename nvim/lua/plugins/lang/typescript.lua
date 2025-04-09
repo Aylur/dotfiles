@@ -3,6 +3,7 @@ local prettier = { "prettierd", "prettier", stop_after_first = true }
 return {
 	{ "echasnovski/mini.icons" },
 	{ "roobert/tailwindcss-colorizer-cmp.nvim", opts = {} },
+	{ import = "lazyvim.plugins.extras.linting.eslint" },
 	{ import = "lazyvim.plugins.extras.lang.typescript" },
 	{ import = "lazyvim.plugins.extras.lang.json" },
 	{ import = "lazyvim.plugins.extras.lang.tailwind" },

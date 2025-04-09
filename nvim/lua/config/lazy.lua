@@ -1,12 +1,12 @@
 require("lazy").setup({
 	lockfile = vim.fn.stdpath("cache") .. "/lazy-lock.json",
 	spec = {
-		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
+		{
+			"LazyVim/LazyVim",
+			import = "lazyvim.plugins",
+			opts = { colorscheme = "nucharm" },
+		},
 		{ import = "plugins" },
-		{ import = "lang" },
-		{ "LazyVim/LazyVim", opts = {
-			colorscheme = "nucharm",
-		} },
 	},
 	defaults = {
 		version = false,

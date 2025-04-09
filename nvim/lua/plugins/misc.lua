@@ -1,18 +1,14 @@
 return {
 	{ "ibhagwan/fzf-lua", enabled = false },
+	{ "folke/persistence.nvim", enable = false },
+
 	{
 		"nvim-lspconfig",
 		opts = { inlay_hints = { enabled = false } },
 	},
 	{
-		"folke/persistence.nvim",
-		enable = false,
-	},
-	{
 		"folke/snacks.nvim",
-		opts = {
-			scroll = { enabled = false },
-		},
+		opts = { scroll = { enabled = false } },
 	},
 	{
 		"ziontee113/color-picker.nvim",
@@ -24,7 +20,6 @@ return {
 	},
 	{ "norcalli/nvim-colorizer.lua" },
 	{ "christoomey/vim-tmux-navigator" },
-
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {

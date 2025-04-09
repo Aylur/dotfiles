@@ -9,14 +9,15 @@
   in "#[fg=${accent}]${left}${icon}${right}";
 
   current_window = let
-    style = "#[bold,fg=${accent}]";
-    reset = "#[bold,fg=default]";
-  in "${style}#I[${reset}#W${style}] ";
+    bracket = "#[bold,fg=${accent}]";
+    name = "#[bold,fg=default]#W";
+  in "${bracket}#I[${name}${bracket}] ";
 
   window_status = let
-    style = "#[none]";
-    content = "#I #W  ";
-  in "${style}${content}";
+    bracket = "#[bold,fg=black]";
+    index = "#[bold,fg=default]#I";
+    name = "#[nobold,fg=default]#W";
+  in "${index}${bracket}[${name}${bracket}] ";
 
   time = let
     format = "%H:%M";

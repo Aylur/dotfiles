@@ -16,7 +16,7 @@ function M.get(c)
         ["@lsp.type.escapeSequence"]               = "@string.escape",
         ["@lsp.type.formatSpecifier"]              = "@markup.list",
         ["@lsp.type.generic"]                      = "@variable",
-        ["@lsp.type.interface"]                    = { fg = c.blue },
+        ["@lsp.type.interface"]                    = "@type",
         ["@lsp.type.keyword"]                      = "@keyword",
         ["@lsp.type.lifetime"]                     = "@keyword.storage",
         ["@lsp.type.namespace"]                    = "@module",
@@ -29,6 +29,7 @@ function M.get(c)
         ["@lsp.type.selfTypeKeyword"]              = "@variable.builtin",
         ["@lsp.type.string"]                       = "@string",
         ["@lsp.type.typeAlias"]                    = "@type.definition",
+        ["@lsp.type.typeParameter"]                = "@type",
         ["@lsp.type.unresolvedReference"]          = { undercurl = true, sp = c.red },
         ["@lsp.type.variable"]                     = {}, -- use treesitter styles for regular variables
         ["@lsp.typemod.class.defaultLibrary"]      = "@type.builtin",

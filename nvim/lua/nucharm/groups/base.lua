@@ -99,7 +99,7 @@ function M.get(c)
 		DiagnosticWarn = { fg = c.orange }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 		DiagnosticInfo = { fg = c.blue }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 		DiagnosticHint = { fg = c.cyan }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-		DiagnosticUnnecessary = {}, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+		DiagnosticUnnecessary = { undercurl = true }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 		DiagnosticVirtualTextError = { bg = darken(c.red, 0.1), fg = c.red }, -- Used for "Error" diagnostic virtual text
 		DiagnosticVirtualTextWarn = { bg = darken(c.orange, 0.1), fg = c.orange }, -- Used for "Warning" diagnostic virtual text
 		DiagnosticVirtualTextInfo = { bg = darken(c.blue, 0.1), fg = c.blue }, -- Used for "Information" diagnostic virtual text
