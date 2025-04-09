@@ -29,7 +29,7 @@
     };
 
     sessionPath = [
-      "$HOME/.local/bin"
+      "${config.home.homeDirectory}/.local/bin"
     ];
   };
 

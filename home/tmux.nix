@@ -1,37 +1,30 @@
 {pkgs, ...}: let
-  bg = "default";
-  fg = "default";
-  bg2 = "brightblack";
-  fg2 = "white";
-  color = c: "#{@${c}}";
+  accent = "#{@main_accent}";
 
   indicator = let
-    accent = color "indicator_color";
-    content = "  ";
-  in "#[reverse,fg=${accent}]#{?client_prefix,${content},}";
+    accent = "#{@indicator_color}";
+    left = "#[noreverse]#{?client_prefix,,}";
+    right = "#[noreverse]#{?client_prefix, ,}";
+    icon = "#[reverse]#{?client_prefix,,}";
+  in "#[fg=${accent}]${left}${icon}${right}";
 
   current_window = let
-    accent = color "main_accent";
-    index = "#[reverse,fg=${accent},bg=${fg}] #I ";
-    name = "#[fg=${bg2},bg=${fg2}] #W ";
-    # flags = "#{?window_flags,#{window_flags}, }";
-  in "${index}${name}";
+    style = "#[bold,fg=${accent}]";
+    reset = "#[bold,fg=default]";
+  in "${style}#I[${reset}#W${style}] ";
 
   window_status = let
-    accent = color "window_color";
-    index = "#[reverse,fg=${accent},bg=${fg}] #I ";
-    name = "#[fg=${bg2},bg=${fg2}] #W ";
-    # flags = "#{?window_flags,#{window_flags}, }";
-  in "${index}${name}";
+    style = "#[none]";
+    content = "#I #W  ";
+  in "${style}${content}";
 
   time = let
-    accent = color "main_accent";
     format = "%H:%M";
     icon = pkgs.writers.writeNu "icon" ''
       [ 󱑖 󱑋 󱑌 󱑍 󱑎 󱑏 󱑐 󱑑 󱑒 󱑓 󱑔 󱑕 ]
       | get ((date now | into record | get hour) mod 12)
     '';
-  in "#[reverse,fg=${accent}] ${format} #(${icon}) ";
+  in " #[fg=${accent}]#(${icon}) #[bold,fg=default]${format}";
 
   battery = let
     percentage = pkgs.writeShellScript "percentage" (
@@ -69,17 +62,16 @@
       state=$(${state})
       if [ "$state" == "charging" ] || [ "$state" == "fully-charged" ]; then echo "green"
       elif [ $percentage -ge 75 ]; then echo "green"
-      elif [ $percentage -ge 50 ]; then echo "${fg2}"
+      elif [ $percentage -ge 50 ]; then echo "default"
       elif [ $percentage -ge 30 ]; then echo "yellow"
       elif [ $percentage -ge 0  ]; then echo "red"
       fi
     '';
-  in "#[fg=#(${color})]#(${icon}) #[fg=${fg}]#(${percentage})%";
+  in "#[fg=#(${color})]#(${icon}) #[fg=default]#(${percentage})%";
 
   pwd = let
-    accent = color "main_accent";
     icon = "#[fg=${accent}] ";
-    format = "#[fg=${fg}]#{b:pane_current_path}";
+    format = "#[fg=default]#{b:pane_current_path}";
   in "${icon}${format}";
 
   git = let
@@ -89,9 +81,7 @@
     branch = pkgs.writeShellScript "branch" ''
       git -C "$1" rev-parse --abbrev-ref HEAD
     '';
-  in "#[fg=magenta]#(${icon} #{pane_current_path})#(${branch} #{pane_current_path})";
-
-  separator = "#[fg=${fg}]|";
+  in "#[fg=#{@git_branch}]#(${icon} #{pane_current_path})#(${branch} #{pane_current_path})";
 in {
   programs.tmux = {
     enable = true;
@@ -119,13 +109,13 @@ in {
       set-option -g default-terminal "screen-256color"
       set-option -g status-right-length 100
       set-option -g @indicator_color "yellow"
-      set-option -g @window_color "magenta"
       set-option -g @main_accent "blue"
+      set-option -g @git_branch "magenta"
       set-option -g pane-active-border fg=black
       set-option -g pane-border-style fg=black
-      set-option -g status-style "bg=${bg} fg=${fg}"
+      set-option -g status-style "bg=default fg=default"
       set-option -g status-left "${indicator}"
-      set-option -g status-right "${git} ${pwd} ${separator} ${battery} ${time}"
+      set-option -g status-right "${git}  ${pwd}  ${battery} ${time}"
       set-option -g window-status-current-format "${current_window}"
       set-option -g window-status-format "${window_status}"
       set-option -g window-status-separator ""

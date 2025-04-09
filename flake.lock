@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742567396,
-        "narHash": "sha256-OlO1yQ2cvDjOt3BCT8QyRPgFMuIf/bHv3N0rh0NDMY4=",
+        "lastModified": 1743958353,
+        "narHash": "sha256-n0PsjP4dbHGoA/cf0c8/yNaoHIGq+VUR/NjSbj1SNCg=",
         "owner": "aylur",
         "repo": "ags",
-        "rev": "2340267a06d50b78f8fd7925a2e0c8bdea8254b4",
+        "rev": "fc6031006f732eafa991ae5a2318888621dcb7d2",
         "type": "github"
       },
       "original": {
@@ -33,11 +33,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741863581,
-        "narHash": "sha256-datQsagelizLX/7Mb7aSOic7X49GZUzZsWzBzDZOY4U=",
+        "lastModified": 1742571008,
+        "narHash": "sha256-5WgfJAeBpxiKbTR/gJvxrGYfqQRge5aUDcGKmU1YZ1Q=",
         "owner": "aylur",
         "repo": "astal",
-        "rev": "69efb4c91e590adcb5a3d8938454f987982e3891",
+        "rev": "dc0e5d37abe9424c53dcbd2506a4886ffee6296e",
         "type": "github"
       },
       "original": {
@@ -85,11 +85,11 @@
     "gjsx": {
       "flake": false,
       "locked": {
-        "lastModified": 1741867558,
-        "narHash": "sha256-fy3vqaeH3IU6GWxmZcvn7jfBeg5J38LXtNndcrWbGME=",
+        "lastModified": 1743941834,
+        "narHash": "sha256-gerrB/hVJ+vg85PH649ByfjvNC9h9o0UgNeYVKFF2BU=",
         "owner": "aylur",
         "repo": "gjsx",
-        "rev": "7e74fc361f6198fd798cfedcea89ce8f75495696",
+        "rev": "d41d320970734c4d698bbcfb22d565edb67f205b",
         "type": "github"
       },
       "original": {
@@ -160,11 +160,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1742843849,
-        "narHash": "sha256-GkZ70HxzKUiN4sjeUIDY1QNgmzVSGbc8Rmpzy136Wm0=",
+        "lastModified": 1743958841,
+        "narHash": "sha256-4pPwqYQWsl9W6wgmXzXpOF3C3GpXAtAKg89jWtDOu3E=",
         "ref": "gtk4",
-        "rev": "5a1787372d56ca018a4378440b5104fc86e21acc",
-        "revCount": 29,
+        "rev": "3f78fc3f4c61aeafdea88d30ca40e277ff4d3b57",
+        "revCount": 33,
         "type": "git",
         "url": "ssh://git@github.com/marble-shell/shell"
       },
@@ -192,11 +192,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1742288794,
-        "narHash": "sha256-Txwa5uO+qpQXrNG4eumPSD+hHzzYi/CdaM80M9XRLCo=",
+        "lastModified": 1743827369,
+        "narHash": "sha256-rpqepOZ8Eo1zg+KJeWoq1HAOgoMCDloqv5r2EAa9TSA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b6eaf97c6960d97350c584de1b6dcff03c9daf42",
+        "rev": "42a1c966be226125b48c384171c44c651c236c22",
         "type": "github"
       },
       "original": {

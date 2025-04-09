@@ -1,6 +1,6 @@
 local o = vim.opt
 
-o.wrap = false
+o.wrap = true
 o.linebreak = true
 o.conceallevel = 0
 o.cursorline = false
@@ -22,3 +22,5 @@ o.expandtab = true
 o.termguicolors = true
 o.swapfile = false
 o.completeopt = "menu,menuone,preview"
+
+vim.cmd("colorscheme nucharm")
