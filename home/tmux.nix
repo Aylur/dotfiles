@@ -135,6 +135,18 @@ in {
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
 
+      # navigate windows with Alt-N
+      bind-key -n M-1 select-window -t 1
+      bind-key -n M-2 select-window -t 2
+      bind-key -n M-3 select-window -t 3
+      bind-key -n M-4 select-window -t 4
+
+      # fallback where terminals use Alt-N for tab navigations
+      bind-key -n M-F1 select-window -t 1
+      bind-key -n M-F2 select-window -t 2
+      bind-key -n M-F3 select-window -t 3
+      bind-key -n M-F4 select-window -t 4
+
       set-option -g focus-events on
       set-option -g default-terminal "screen-256color"
 

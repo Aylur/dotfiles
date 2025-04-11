@@ -56,7 +56,13 @@ in {
       gtk-titlebar = false
       confirm-close-surface = false
 
-      keybind = ctrl+shift+plus=increase_font_size:1
+      # using tmux instead
+      keybind = alt+one=unbind
+      keybind = alt+two=unbind
+      keybind = alt+three=unbind
+      keybind = alt+four=unbind
+
+      keybind = ctrl+shift+minus=decrease_font_size:1
       keybind = ctrl+shift+minus=decrease_font_size:1
     '';
 
