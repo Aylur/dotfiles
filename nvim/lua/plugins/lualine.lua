@@ -5,6 +5,17 @@ return {
 		opts = function()
 			local icons = LazyVim.config.icons
 			local noice = require("noice")
+			local color = Snacks.util.color
+
+			local mode = {
+				"mode",
+				padding = { left = 0, right = 1 },
+			}
+
+			local branch = {
+				"branch",
+				color = { fg = color("Keyword") },
+			}
 
 			local diff = {
 				"diff",
@@ -37,7 +48,7 @@ return {
 
 			local location = {
 				"location",
-				padding = { left = 1, right = 1 },
+				color = { fg = color("Title") },
 			}
 
 			local command = {
@@ -49,7 +60,7 @@ return {
 				end,
 			}
 
-			local mode = {
+			local macro = {
 				function()
 					return noice.api.status.mode.get()
 				end,
@@ -57,27 +68,35 @@ return {
 					return noice.api.status.mode.has()
 				end,
 				color = function()
-					return { fg = Snacks.util.color("Constant") }
+					return { fg = color("Constant") }
 				end,
 			}
 
 			return {
 				options = {
-					component_separators = { left = "│", right = "│" },
+					component_separators = { left = "", right = "" },
 					section_separators = { left = "", right = "" },
-					theme = "auto",
 					globalstatus = true,
+					theme = {
+						normal = {
+							a = { fg = color("Normal", "fg") },
+							b = { fg = color("Normal", "fg") },
+							c = { fg = color("Normal", "fg") },
+						},
+						insert = { a = { fg = color("GitSignsAdd") } },
+						visual = { a = { fg = color("Visual", "bg") } },
+						replace = { a = { fg = color("GitSignsChange") } },
+						command = { a = { fg = color("Title") } },
+						terminal = { a = { fg = color("Keyword") } },
+					},
 				},
 				sections = {
-					lualine_a = { "mode" },
-					lualine_b = { "branch" },
-					lualine_c = {
-						{ LazyVim.lualine.pretty_path() },
-						diff,
-					},
+					lualine_a = { mode },
+					lualine_b = { branch, LazyVim.lualine.pretty_path() },
+					lualine_c = { diff },
 					lualine_x = {
 						diagnostic,
-						mode,
+						macro,
 						"searchcount",
 						"selectioncount",
 					},

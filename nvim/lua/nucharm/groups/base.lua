@@ -4,10 +4,6 @@ local M = {}
 
 ---@type fun(c: nucharm.Palette):table<string,vim.api.keyset.highlight|string>
 function M.get(c)
-	local lighten = function(color, alpha)
-		return Util.blend(color, alpha, c.neutral[9])
-	end
-
 	local darken = function(color, alpha)
 		return Util.blend(color, alpha, c.neutral[1])
 	end
@@ -99,7 +95,7 @@ function M.get(c)
 		DiagnosticWarn = { fg = c.orange }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 		DiagnosticInfo = { fg = c.blue }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 		DiagnosticHint = { fg = c.cyan }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-		DiagnosticUnnecessary = { undercurl = true }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+		DiagnosticUnnecessary = { bg = darken(c.orange, 0.3) }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 		DiagnosticVirtualTextError = { bg = darken(c.red, 0.1), fg = c.red }, -- Used for "Error" diagnostic virtual text
 		DiagnosticVirtualTextWarn = { bg = darken(c.orange, 0.1), fg = c.orange }, -- Used for "Warning" diagnostic virtual text
 		DiagnosticVirtualTextInfo = { bg = darken(c.blue, 0.1), fg = c.blue }, -- Used for "Information" diagnostic virtual text
@@ -113,6 +109,11 @@ function M.get(c)
 		healthError = { fg = c.red },
 		healthSuccess = { fg = c.green },
 		healthWarning = { fg = c.orange },
+
+		-- Git
+		GitSignsAdd = { fg = c.green },
+		GitSignsChange = { fg = c.yellow },
+		GitSignsDelete = { fg = c.red },
 	}
 end
 
