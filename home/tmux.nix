@@ -1,8 +1,7 @@
 {pkgs, ...}: let
   accent = "#{@main_accent}";
 
-  indicator = let
-    accent = "#{@indicator_color}";
+  client_prefix = let
     left = "#[noreverse]#{?client_prefix,,}";
     right = "#[noreverse]#{?client_prefix, ,}";
     icon = "#[reverse]#{?client_prefix,,}";
@@ -20,55 +19,80 @@
   in "${index}${bracket}[${name}${bracket}] ";
 
   time = let
-    format = "%H:%M";
-    icon = pkgs.writers.writeNu "icon" ''
-      [ 󱑖 󱑋 󱑌 󱑍 󱑎 󱑏 󱑐 󱑑 󱑒 󱑓 󱑔 󱑕 ]
-      | get ((date now | into record | get hour) mod 12)
-    '';
-  in " #[fg=${accent}]#(${icon}) #[bold,fg=default]${format}";
+    icon =
+      pkgs.writers.writeNu "icon"
+      # nu
+      ''
+        [ 󱑖 󱑋 󱑌 󱑍 󱑎 󱑏 󱑐 󱑑 󱑒 󱑓 󱑔 󱑕 ]
+        | get ((date now | into record | get hour) mod 12)
+      '';
+  in " #[fg=${accent}]#(${icon}) #[bold,fg=default]%H:%M";
 
   battery = let
-    percentage = pkgs.writeShellScript "percentage" (
-      if pkgs.stdenv.isDarwin
-      then ''
-        echo $(pmset -g batt | grep -o "[0-9]\+%" | tr '%' ' ')
+    script =
+      pkgs.writers.writeNu "battery"
+      # nu
       ''
-      else ''
-        path="/org/freedesktop/UPower/devices/DisplayDevice"
-        echo $(${pkgs.upower}/bin/upower -i $path | grep -o "[0-9]\+%" | tr '%' ' ')
-      ''
-    );
-    state = pkgs.writeShellScript "state" (
-      if pkgs.stdenv.isDarwin
-      then ''
-        echo $(pmset -g batt | awk '{print $4}')
-      ''
-      else ''
-        path="/org/freedesktop/UPower/devices/DisplayDevice"
-        echo $(${pkgs.upower}/bin/upower -i $path | grep state | awk '{print $2}')
-      ''
-    );
-    icon = pkgs.writeShellScript "icon" ''
-      percentage=$(${percentage})
-      state=$(${state})
-      if [ "$state" == "charging" ] || [ "$state" == "fully-charged" ]; then echo "󰂄"
-      elif [ $percentage -ge 75 ]; then echo "󱊣"
-      elif [ $percentage -ge 50 ]; then echo "󱊢"
-      elif [ $percentage -ge 25 ]; then echo "󱊡"
-      elif [ $percentage -ge 0  ]; then echo "󰂎"
-      fi
-    '';
-    color = pkgs.writeShellScript "color" ''
-      percentage=$(${percentage})
-      state=$(${state})
-      if [ "$state" == "charging" ] || [ "$state" == "fully-charged" ]; then echo "green"
-      elif [ $percentage -ge 75 ]; then echo "green"
-      elif [ $percentage -ge 50 ]; then echo "default"
-      elif [ $percentage -ge 30 ]; then echo "yellow"
-      elif [ $percentage -ge 0  ]; then echo "red"
-      fi
-    '';
-  in "#[fg=#(${color})]#(${icon}) #[fg=default]#(${percentage})%";
+        let low_threshhold = 25
+
+        let percent = (
+            open /sys/class/power_supply/*/capacity
+            | match ($in | describe) {
+                "string" => $in,
+                "list<string>" => ($in | get 0),
+                _ => "-1",
+            }
+            | ($in | into int) / 100
+        )
+
+        let is_charging = (
+            open /sys/class/power_supply/*/status
+            | match ($in | describe) {
+                "string" => $in,
+                "list<string>" => ($in | get 0),
+                _ => "Unknown",
+            }
+            | str trim
+            | do { ($in == "Charging") or ($in == "Full" and $percent == 1) }
+        )
+
+        let icons: list<string> = (
+            if $is_charging {
+                "󰢜 :󰂆 :󰂇 :󰂈 :󰢝 :󰂉 :󰢞 :󰂊 :󰂋 :󰂅 "
+            } else {
+                "󱃍 :󰁺 :󰁻 :󰁼 :󰁽 :󰁿 :󰁾 :󰂀 :󰂁 :󰂂 :󰁹 "
+            }
+            | split row ":"
+        )
+
+        let icon: string = $icons | get (
+            ($percent) * (($icons | length) - 1)
+            | math floor
+        )
+
+        let icon_fg = (
+            if $is_charging {
+                "green"
+            } else if ($percent * 100) <= ($low_threshhold) {
+                "red"
+            } else {
+                "default"
+            }
+        )
+
+        let label = $"($percent * 100 | math floor)%"
+
+        let label_fg = (
+            if ($percent * 100) <= ($low_threshhold) {
+                "red"
+            } else {
+                "default"
+            }
+        )
+
+        $"#[fg=($icon_fg)]($icon)#[fg=($label_fg)]($label)"
+      '';
+  in "#(${script})";
 
   pwd = let
     icon = "#[fg=${accent}] ";
@@ -76,13 +100,18 @@
   in "${icon}${format}";
 
   git = let
-    icon = pkgs.writeShellScript "branch" ''
-      git -C "$1" branch && echo " "
-    '';
-    branch = pkgs.writeShellScript "branch" ''
-      git -C "$1" rev-parse --abbrev-ref HEAD
-    '';
-  in "#[fg=#{@git_branch}]#(${icon} #{pane_current_path})#(${branch} #{pane_current_path})";
+    script =
+      pkgs.writers.writeNu "git"
+      # nu
+      ''
+        def main [dir: string] {
+            let branch = git -C $dir rev-parse --abbrev-ref HEAD | complete
+            if ($branch.exit_code) == 0 {
+                $"#[fg=magenta] ($branch.stdout | str trim)"
+            }
+        }
+      '';
+  in "#(${script} #{pane_current_path})";
 in {
   programs.tmux = {
     enable = true;
@@ -108,14 +137,13 @@ in {
 
       set-option -g focus-events on
       set-option -g default-terminal "screen-256color"
-      set-option -g status-right-length 100
-      set-option -g @indicator_color "yellow"
+
       set-option -g @main_accent "blue"
-      set-option -g @git_branch "magenta"
+      set-option -g status-right-length 100
       set-option -g pane-active-border fg=black
       set-option -g pane-border-style fg=black
       set-option -g status-style "bg=default fg=default"
-      set-option -g status-left "${indicator}"
+      set-option -g status-left "${client_prefix}"
       set-option -g status-right "${git}  ${pwd}  ${battery} ${time}"
       set-option -g window-status-current-format "${current_window}"
       set-option -g window-status-format "${window_status}"
