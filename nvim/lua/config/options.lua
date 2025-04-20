@@ -22,5 +22,3 @@ o.expandtab = true
 o.termguicolors = true
 o.swapfile = false
 o.completeopt = "menu,menuone,preview"
-
-vim.cmd("colorscheme nucharm")
