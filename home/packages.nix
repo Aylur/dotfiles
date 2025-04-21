@@ -7,9 +7,12 @@
     if cond
     then value
     else [];
+
+  scripts = import ../scripts pkgs;
 in {
   home.packages = pkgs.lib.flatten (with pkgs; [
-    (import ../scripts pkgs).lorem
+    scripts.lorem
+    scripts.blocks
     bat
     eza
     fd

@@ -112,20 +112,26 @@ in {
           builtins.foldl'
           (prev: str: "${prev}\n${str}") ""
           (map completion names);
-    in ''
-      $env.config = ${conf};
-      ${completions ["cargo" "git" "nix" "npm" "curl"]}
+    in
+      # nu
+      ''
+        $env.config = ${conf};
+        ${completions ["git" "nix"]}
 
-      source ${pkgs.nu_scripts}/share/nu_scripts/modules/formats/from-env.nu
-      use ${../scripts}/blocks.nu
+        source ${pkgs.nu_scripts}/share/nu_scripts/modules/formats/from-env.nu
 
-      const path = "~/.nushellrc.nu"
-      const null = "/dev/null"
-      source (if ($path | path exists) {
-          $path
-      } else {
-          $null
-      })
-    '';
+        const path = "~/.nushellrc.nu"
+        const null = "/dev/null"
+        source (if ($path | path exists) {
+            $path
+        } else {
+            $null
+        })
+      '';
+    extraEnv =
+      # nu
+      ''
+        $env.PATH = ($env.PATH | append "${config.home.homeDirectory}/.local/bin")
+      '';
   };
 }
