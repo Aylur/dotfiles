@@ -1,5 +1,3 @@
-local prettier = { "prettierd", "prettier", stop_after_first = true }
-
 return {
 	{
 		"b0o/SchemaStore.nvim",
@@ -26,9 +24,9 @@ return {
 		"stevearc/conform.nvim",
 		opts = {
 			formatters_by_ft = {
-				json = prettier,
-				jsonc = prettier,
-				json5 = prettier,
+				json = { "prettier" },
+				jsonc = { "prettier" },
+				json5 = { "prettier" },
 			},
 		},
 	},
