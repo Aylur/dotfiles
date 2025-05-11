@@ -133,11 +133,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742261382,
-        "narHash": "sha256-ikMTpwtF+CgNJLp1LaF0Nrm4MEfwbqbJXgtjdJ0zupI=",
+        "lastModified": 1746457836,
+        "narHash": "sha256-NqYVZKLxf/FtrJwv0wEG1Ik0C360VNIbNtusLznUkNU=",
         "owner": "aylur",
         "repo": "icon-browser",
-        "rev": "036b062d2d79ad814e16bd6521ae4a6e16594440",
+        "rev": "76b37e28e57d04d7f881e729572adb6ccbfdca32",
         "type": "github"
       },
       "original": {

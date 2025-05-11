@@ -72,6 +72,10 @@ with pkgs; let
       meson
       pkg-config
       ninja
+
+      # clipboard
+      wl-clipboard
+      xsel
     ];
 in
   wrapNeovimUnstable neovim-unwrapped {

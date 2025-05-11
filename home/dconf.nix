@@ -25,6 +25,7 @@ with lib.hm.gvariant; {
 
     "org/gnome/desktop/wm/keybindings" = {
       close = ["<Alt>q"];
+      minimize = []; # <Super>H
       move-to-workspace-1 = ["<Shift><Super>1"];
       move-to-workspace-2 = ["<Shift><Super>2"];
       move-to-workspace-3 = ["<Shift><Super>3"];
@@ -35,7 +36,10 @@ with lib.hm.gvariant; {
       switch-to-workspace-3 = ["<Super>3"];
       switch-to-workspace-4 = ["<Super>4"];
       switch-to-workspace-5 = ["<Super>5"];
+      switch-to-workspace-right = ["<Super>l"];
+      switch-to-workspace-left = ["<Super>h"];
       toggle-fullscreen = ["<Super>g"];
+      toggle-maximized = ["<Super>f"];
     };
 
     "org/gnome/shell/keybindings" = {
@@ -54,13 +58,12 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/mutter" = {
-      dynamic-workspaces = false;
       edge-tiling = true;
-      num-workspaces = 5;
       workspaces-only-on-primary = true;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
+      screensaver = []; # <Super>L
       custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"];
       mic-mute = ["AudioMicMute"];
       next = ["AudioNext"];
