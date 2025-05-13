@@ -5,18 +5,17 @@ username: {
 }: {
   imports = [
     /etc/nixos/hardware-configuration.nix
-    ./system.nix
+    ./asus.nix
     ./audio.nix
+    ./gnome.nix
+    ./hyprland.nix
     ./locale.nix
     ./nautilus.nix
-    ./laptop.nix
-    ./hyprland.nix
-    ./laptop.nix
-    ./gnome.nix
+    ./system.nix
   ];
 
-  hyprland.enable = true;
-  gnome.enable = false;
+  gnome.enable = true;
+  hyprland.enable = false;
   asus.enable = false;
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
@@ -52,10 +51,10 @@ username: {
   };
 
   specialisation = {
-    gnome.configuration = {
-      system.nixos.tags = ["Gnome"];
-      hyprland.enable = lib.mkForce false;
-      gnome.enable = lib.mkForce true;
+    hyprland.configuration = {
+      system.nixos.tags = ["Hyprland"];
+      hyprland.enable = lib.mkForce true;
+      gnome.enable = lib.mkForce false;
     };
   };
 }

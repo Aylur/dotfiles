@@ -72,11 +72,11 @@
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1742173552,
-        "narHash": "sha256-8EQS6zY47hVa3jWG9d2MuHK+1JmG/6vdp8gEd2eKFow=",
+        "lastModified": 1744642301,
+        "narHash": "sha256-5A6LL7T0lttn1vrKsNOKUk9V0ittdW0VEqh6AtefxJ4=",
         "owner": "rafaelmardojai",
         "repo": "firefox-gnome-theme",
-        "rev": "072ee5d3e8b6f575a31cc294054537dc841d5049",
+        "rev": "59e3de00f01e5adb851d824cf7911bd90c31083a",
         "type": "github"
       },
       "original": {
@@ -113,11 +113,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742588233,
-        "narHash": "sha256-Fi5g8H5FXMSRqy+mU6gPG0v+C9pzjYbkkiePtz8+PpA=",
+        "lastModified": 1747081732,
+        "narHash": "sha256-VnR33UmH0KzvTuVg+6oYkDVpnPuHanQisNUXytCRBPQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "296ddc64627f4a6a4eb447852d7346b9dd16197d",
+        "rev": "f0a7db5ec1d369721e770a45e4d19f8e48186a69",
         "type": "github"
       },
       "original": {
@@ -149,11 +149,11 @@
     "lf-icons": {
       "flake": false,
       "locked": {
-        "lastModified": 1742543773,
-        "narHash": "sha256-fjoje8OJlm7eOJmxvQJUPRZyscsCf8M0Fv0YdKRXoO4=",
+        "lastModified": 1747042140,
+        "narHash": "sha256-Rcd/LbxG3thfEutyvDS6gL109b2zJt4gltruivUIUTU=",
         "owner": "gokcehan",
         "repo": "lf",
-        "rev": "ad6fa3fa736104ad3061797c6c74cf2e57ebe27d",
+        "rev": "4666a0b8755e398b3a4e35f5725cc04531cefc35",
         "type": "github"
       },
       "original": {
@@ -183,22 +183,6 @@
         "url": "ssh://git@github.com/marble-shell/shell"
       }
     },
-    "morewaita": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1742424649,
-        "narHash": "sha256-pA55GNi3Nr/zGMlLEfxga4TVXX7F2NCN81kCqgxNQOs=",
-        "owner": "somepaulo",
-        "repo": "MoreWaita",
-        "rev": "84b7f2ede346275dd0981b0d84aaafd6b0c7becb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "somepaulo",
-        "repo": "MoreWaita",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1744463964,
@@ -217,11 +201,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1742422364,
-        "narHash": "sha256-mNqIplmEohk5jRkqYqG19GA8MbQ/D4gQSK0Mu4LvfRQ=",
+        "lastModified": 1746904237,
+        "narHash": "sha256-3e+AVBczosP5dCLQmMoMEogM57gmZ2qrVSrmq9aResQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a84ebe20c6bc2ecbcfb000a50776219f48d134cc",
+        "rev": "d89fc19e405cb2d55ce7cc114356846a0ee5e956",
         "type": "github"
       },
       "original": {
@@ -239,7 +223,6 @@
         "icon-browser": "icon-browser",
         "lf-icons": "lf-icons",
         "marble": "marble",
-        "morewaita": "morewaita",
         "nixpkgs": "nixpkgs_2"
       }
     }

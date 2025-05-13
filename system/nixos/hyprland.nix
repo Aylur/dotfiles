@@ -85,11 +85,6 @@
       };
     };
 
-    services.xserver.displayManager.lightdm = {
-      enable = true;
-      greeters.gtk.enable = true;
-    };
-
     systemd.tmpfiles.rules = [
       "d '/var/cache/greeter' - greeter greeter - -"
     ];

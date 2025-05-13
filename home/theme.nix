@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }: let
   theme = {
@@ -20,9 +19,7 @@
   };
   iconTheme = {
     name = "MoreWaita";
-    package = pkgs.morewaita-icon-theme.overrideAttrs {
-      src = inputs.morewaita;
-    };
+    package = pkgs.morewaita-icon-theme;
   };
 in {
   home = {

@@ -39,7 +39,7 @@ in {
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    initExtra = ''
+    initContent = ''
       SHELL=${pkgs.zsh}/bin/zsh
       zstyle ':completion:*' menu select
       bindkey "^[[1;5C" forward-word

@@ -2,6 +2,7 @@
 
 alias "nx switch" = sudo nixos-rebuild switch --flake . --impure
 alias "nx test" = sudo nixos-rebuild test --flake . --impure
+alias "nx boot" = sudo nixos-rebuild boot --flake . --impure
 
 # Shortcut for "nix-collect-garbage"
 def "nx gc" [older_than = "7d"] {
