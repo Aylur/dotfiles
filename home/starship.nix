@@ -44,7 +44,7 @@
       status = {
         symbol = "✗";
         not_found_symbol = "󰍉 Not Found";
-        not_executable_symbol = " Can't Execute E";
+        not_executable_symbol = " Can't Execute";
         sigint_symbol = "󰂭 ";
         signal_symbol = "󱑽 ";
         success_symbol = "";

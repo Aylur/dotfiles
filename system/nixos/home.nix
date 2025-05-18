@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../home/blackbox.nix
     ../../home/browser.nix
@@ -24,6 +28,7 @@
       NIXPKGS_ALLOW_UNFREE = "1";
       NIXPKGS_ALLOW_INSECURE = "1";
       BAT_THEME = "base16";
+      PAGER = "${pkgs.bat}/bin/bat";
       GOPATH = "${config.home.homeDirectory}/.local/share/go";
       GOMODCACHE = "${config.home.homeDirectory}/.cache/go/pkg/mod";
     };

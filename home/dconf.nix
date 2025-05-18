@@ -52,9 +52,8 @@ with lib.hm.gvariant; {
 
     "org/gnome/desktop/wm/preferences" = {
       mouse-button-modifier = "<Super>";
-      num-workspaces = 5;
       resize-with-right-button = true;
-      focus-mode = "sloppy";
+      focus-mode = "sloppy"; # focus follows mouse hover
     };
 
     "org/gnome/mutter" = {
@@ -105,6 +104,11 @@ with lib.hm.gvariant; {
 
     "org/gnome/TextEditor" = {
       keybindings = "vim";
+    };
+
+    "/org/gnome/nautilus/preferences" = {
+      show-create-link = true;
+      show-delete-permanently = true;
     };
   };
 }

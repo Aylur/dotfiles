@@ -1,21 +1,15 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
-  name = "Aylur";
-in {
+{pkgs, ...}: {
   programs.git = {
     enable = true;
     extraConfig = {
       color.ui = true;
       core.editor = "nvim";
       credential.helper = "store";
-      github.user = name;
+      github.user = "Aylur";
       push.autoSetupRemote = true;
     };
     userEmail = "k.demeter@protonmail.com";
-    userName = name;
+    userName = "Aylur";
   };
   programs.ssh = {
     enable = true;
