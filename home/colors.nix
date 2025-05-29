@@ -1,7 +1,7 @@
 {scheme ? "dark"}: let
   schemes = {
     dark = {
-      bg = "#151515";
+      bg = "#151519";
       fg = "#b2b5b3";
 
       selection = {

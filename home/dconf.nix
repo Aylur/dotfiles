@@ -105,10 +105,5 @@ with lib.hm.gvariant; {
     "org/gnome/TextEditor" = {
       keybindings = "vim";
     };
-
-    "/org/gnome/nautilus/preferences" = {
-      show-create-link = true;
-      show-delete-permanently = true;
-    };
   };
 }

@@ -18,6 +18,7 @@
 
         gnomeExtensions.just-perfection
         gnomeExtensions.color-picker
+        gnomeExtensions.user-themes
       ];
 
       gnome.excludePackages = with pkgs; [
@@ -50,12 +51,15 @@
 
     programs.kdeconnect = {
       enable = true;
-      package = pkgs.gnomeExtensions.gsconnect;
+      # package = pkgs.gnomeExtensions.gsconnect;
     };
 
     services.xserver = {
-      displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
+      displayManager.gdm = {
+        enable = true;
+        wayland = true;
+      };
     };
 
     programs.dconf.profiles.gdm.databases = [

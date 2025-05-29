@@ -29,6 +29,9 @@ in {
       cursorTheme.package
       iconTheme.package
       nerd-fonts.caskaydia-cove
+
+      pkgs.yaru-theme
+      pkgs.papirus-icon-theme
     ];
     # sessionVariables = {
     #   XCURSOR_THEME = cursorTheme.name;

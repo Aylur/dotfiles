@@ -9,11 +9,19 @@ return {
 				"color-scheme",
 			})
 
-			if vim.fn.trim(scheme, "") == "'prefer-dark'" then
-				vim.opt.background = "dark"
-			else
+			if vim.fn.trim(scheme, "") ~= "'prefer-dark'" then
 				vim.opt.background = "light"
+			else
+				vim.opt.background = "dark"
 			end
+
+			require("nucharm").setup({
+				on_colors = function(palette)
+					palette.neutral[1] = "#111115"
+					palette.neutral[2] = "#151519"
+					palette.neutral[3] = "#222226"
+				end,
+			})
 
 			vim.cmd("colorscheme nucharm")
 		end,
