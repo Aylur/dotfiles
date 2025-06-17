@@ -15,7 +15,7 @@ username: {
   ];
 
   gnome.enable = true;
-  hyprland.enable = false;
+  hyprland.enable = true;
   asus.enable = false;
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
@@ -50,11 +50,11 @@ username: {
     };
   };
 
-  specialisation = {
-    hyprland.configuration = {
-      system.nixos.tags = ["Hyprland"];
-      hyprland.enable = lib.mkForce true;
-      gnome.enable = lib.mkForce false;
-    };
-  };
+  # specialisation = {
+  #   hyprland.configuration = {
+  #     system.nixos.tags = ["Hyprland"];
+  #     hyprland.enable = lib.mkForce true;
+  #     gnome.enable = lib.mkForce false;
+  #   };
+  # };
 }

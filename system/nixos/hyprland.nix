@@ -20,12 +20,25 @@
       HandleLidSwitchExternalPower=ignore
     '';
 
-    xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-      ];
-    };
+    # xdg.portal = {
+    #   enable = true;
+    #   extraPortals = with pkgs; [
+    #     xdg-desktop-portal-gtk
+    #     xdg-desktop-portal-hyprland
+    #     xdg-desktop-portal-wlr
+    #     xdg-desktop-portal-gnome
+    #   ];
+    #   configPackages = with pkgs; [
+    #     xdg-desktop-portal-gtk
+    #     xdg-desktop-portal-hyprland
+    #     xdg-desktop-portal-wlr
+    #     xdg-desktop-portal-gnome
+    #   ];
+    #   config.common = {
+    #     default = ["gnome" "hyprland" "gtk"];
+    #     "org.freedesktop.impl.portal.Settings" = "gnome";
+    #   };
+    # };
 
     security = {
       polkit.enable = true;
@@ -51,22 +64,6 @@
       wl-clipboard
       wl-gammactl
     ];
-
-    systemd = {
-      user.services.polkit-gnome-authentication-agent-1 = {
-        description = "polkit-gnome-authentication-agent-1";
-        wantedBy = ["graphical-session.target"];
-        wants = ["graphical-session.target"];
-        after = ["graphical-session.target"];
-        serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-      };
-    };
 
     services = {
       gvfs.enable = true;

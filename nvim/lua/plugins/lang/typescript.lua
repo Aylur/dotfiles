@@ -6,7 +6,7 @@ return {
 	{ import = "lazyvim.plugins.extras.lang.tailwind" },
 	{ import = "lazyvim.plugins.extras.lang.astro" },
 	{ import = "lazyvim.plugins.extras.lang.svelte" },
-	{ import = "lazyvim.plugins.extras.lang.vue" },
+	-- { import = "lazyvim.plugins.extras.lang.vue" },
 	{
 		"stevearc/conform.nvim",
 		opts = {

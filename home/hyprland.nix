@@ -28,16 +28,15 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    systemd.enable = false;
+    systemd.enable = true;
 
     settings = {
       exec-once = [
         "hyprctl setcursor Qogir 24"
-        "uwsm app -- marble"
-        "uwsm app -- marble-launcher"
+        "marble"
+        "marble-launcher"
         "swww-daemon"
         "fragments"
-        # TODO: systemd unit
         "battery-notifier"
       ];
 
