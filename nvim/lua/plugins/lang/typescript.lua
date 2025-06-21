@@ -23,6 +23,7 @@ return {
 				astro = { "prettier" },
 				svelte = { "prettier" },
 				vue = { "prettier" },
+				graphql = { "prettier" },
 			},
 		},
 	},
