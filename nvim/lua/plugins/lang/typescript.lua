@@ -24,6 +24,7 @@ return {
 				svelte = { "prettier" },
 				vue = { "prettier" },
 				graphql = { "prettier" },
+				yaml = { "prettier" },
 			},
 		},
 	},

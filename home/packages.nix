@@ -60,6 +60,7 @@ in {
       nodePackages.npm
       nodejs
       bun
+      pnpm
       gjs-wrapped
       python3
     ])
