@@ -4,10 +4,8 @@
   ...
 }: {
   home.packages = with pkgs; [
-    inputs.marble.packages.${pkgs.system}.astal
     inputs.marble.packages.${pkgs.system}.default
     inputs.battery-notifier.packages.${pkgs.system}.default
-    # inputs.marble.packages.${pkgs.system}.screenrecord
     astal.mpris
     ((import ../scripts pkgs).screenshot)
     brightnessctl
@@ -34,7 +32,6 @@
       exec-once = [
         "hyprctl setcursor Qogir 24"
         "marble"
-        "marble-launcher"
         "swww-daemon"
         "fragments"
         "battery-notifier"
@@ -95,10 +92,9 @@
         arr = [1 2 3 4 5 6 7];
       in
         [
-          "CTRL SHIFT, R, exec,         astal -i marble -q; marble"
-          "SUPER, R, exec,              marble-launcher --open"
-          "SUPER, Tab, exec,            marble-launcher ':h'"
-          ",XF86PowerOff, exec,         marble shutdown"
+          "SUPER, R, exec,              marble launcher"
+          # "SUPER, Tab, exec,            marble launcher"
+          ",XF86PowerOff, exec,         marble poweroff"
           # ",XF86Launch4, exec,          screenrecord"
           # "SHIFT, XF86Launch4, exec,    screenrecord --full"
           ",Print, exec,                screenshot"

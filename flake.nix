@@ -43,7 +43,7 @@
     };
 
     marble = {
-      url = "git+ssh://git@github.com/marble-shell/shell?ref=gtk4";
+      url = "git+ssh://git@github.com/marble-shell/shell";
     };
 
     icon-browser = {
