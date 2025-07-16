@@ -47,17 +47,15 @@ return {
 				tailwindcss = function(_, opts)
 					opts.settings = {
 						tailwindCSS = {
-							-- FIXME: migrate to classFunctions once nixpkgs updates to >=0.14.10
-							-- classFunctions = { "clsx" },
-							experimental = {
-								classRegex = {
-									{ "clsx\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
-								},
-							},
+							classFunctions = { "clsx" },
 						},
 					}
 				end,
 			},
 		},
+	},
+	{
+		"themaxmarchuk/tailwindcss-colors.nvim",
+		opts = {},
 	},
 }

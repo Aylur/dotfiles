@@ -120,11 +120,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1752194961,
-        "narHash": "sha256-mK5CKBbv3aQ0jn0inXVAMrExqLO3iALOrN+rloCUJq4=",
+        "lastModified": 1752685618,
+        "narHash": "sha256-4nNTr2iNVNsv4CBgQNnZAoVFtvxSfSBPZIvaKHzcJxM=",
         "ref": "refs/heads/main",
-        "rev": "c1a265dc601b3fece9910f24218a688b219ab13a",
-        "revCount": 62,
+        "rev": "9a854d6098a93714cc2c297a3cf2c83c6e4baa01",
+        "revCount": 71,
         "type": "git",
         "url": "ssh://git@github.com/marble-shell/shell"
       },
