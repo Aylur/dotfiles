@@ -47,7 +47,7 @@ in {
       image = "docker.io/library/alpine:latest";
     })
     (mkBox "arch" {
-      image = "docker.io/library/alpine:latest";
+      image = "docker.io/library/archlinux:latest";
       packages = let
         yay = pkgs.writeShellScriptBin "yay" ''
           if [[ ! -f /bin/yay ]]; then
