@@ -10,7 +10,6 @@
     ((import ../scripts pkgs).screenshot)
     brightnessctl
     pulseaudio # pactl
-    swww
     wf-recorder
     slurp
   ];
@@ -32,7 +31,6 @@
       exec-once = [
         "hyprctl setcursor Qogir 24"
         "marble"
-        "swww-daemon"
         "fragments"
         "battery-notifier"
       ];

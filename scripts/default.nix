@@ -20,8 +20,4 @@ pkgs: {
   lorem =
     pkgs.writers.writeNuBin "lorem" {}
     (builtins.readFile ./lorem.nu);
-
-  blocks =
-    pkgs.writers.writeNuBin "blocks" {}
-    (builtins.readFile ./blocks.nu);
 }

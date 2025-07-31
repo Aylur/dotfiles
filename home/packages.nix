@@ -36,7 +36,6 @@
 in {
   home.packages = pkgs.lib.flatten (with pkgs; [
     scripts.lorem
-    scripts.blocks
     bat
     eza
     fd

@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-export def main [
+export def blocks [
     columns:number = 6
     rows:number = 1
     --neutrals (-n) # Include black and white colors
