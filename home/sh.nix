@@ -24,7 +24,7 @@
     "gr" = "git reset --soft HEAD~1";
 
     "del" = "gio trash";
-    "dev" = "nix develop -c nvim";
+    "dev" = "nix develop -c nu '-c' nvim";
   };
 in {
   options.shellAliases = with lib;

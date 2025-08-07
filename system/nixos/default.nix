@@ -11,11 +11,13 @@ username: {
     ./hyprland.nix
     ./locale.nix
     ./nautilus.nix
+    ./niri.nix
     ./system.nix
   ];
 
   gnome.enable = true;
   hyprland.enable = true;
+  niri.enable = true;
   asus.enable = false;
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];

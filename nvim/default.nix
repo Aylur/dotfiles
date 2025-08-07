@@ -59,6 +59,10 @@ with pkgs; let
     ruff
     pyright
     poetry
+
+    # c
+    clang-tools
+    glib
   ];
 
   linuxBins =
