@@ -1,7 +1,13 @@
 {pkgs, ...}: let
   inherit (builtins) concatStringsSep filter typeOf;
-  inherit (import ../scripts pkgs) box;
-  nvim = import ../nvim {inherit pkgs;};
+
+  nvim = import ../../nvim {inherit pkgs;};
+
+  box = pkgs.writers.writeNu "box" {
+    makeWrapperArgs = with pkgs; [
+      "--prefix PATH : ${lib.makeBinPath [distrobox]}"
+    ];
+  } (builtins.readFile ./box.nu);
 
   mkBox = name: {
     image,

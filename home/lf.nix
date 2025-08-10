@@ -3,7 +3,29 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  new =
+    pkgs.writers.writeNuBin "new" {}
+    # nu
+    ''
+      def main [filename: string] {
+        let target = $"($env.PWD)/($filename)"
+        if ($filename | str ends-with "/") {
+          mkdir $target
+        } else {
+          touch $target
+        }
+      }
+    '';
+
+  trash =
+    pkgs.writers.writeNu "lf-trash" {}
+    # nu
+    ''
+      let files = $env.fx | split row "\n"
+      gio trash ...$files
+    '';
+in {
   xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
     "lf" = {
       name = "lf";
@@ -11,100 +33,32 @@
     };
   };
 
-  home.packages = with pkgs; [
-    glib
-    fzf
-    bat
-    zip
-    unzip
-    gnutar
-  ];
+  home.packages =
+    [new]
+    ++ (with pkgs; [
+      glib
+      fzf
+      bat
+      zip
+      unzip
+      gnutar
+    ]);
 
   programs.lf = {
     enable = true;
 
-    commands = let
-      trash = ''
-        ''${{
-          set -f
-          gio trash "$fx"
-        }}
-      '';
-    in {
-      trash = trash;
-      delete = trash;
-
-      open = ''
-        ''${{
-          case $(file --mime-type -Lb $f) in
-              text/*) lf -remote "send $id \$$EDITOR \$fx";;
-              *) for f in $fx; do $OPENER "$f" > /dev/null 2> /dev/null & done;;
-          esac
-        }}
-      '';
-
-      fzf = ''
-        ''${{
-          res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location')"
-          if [ -n "$res" ]; then
-              if [ -d "$res" ]; then
-                  cmd="cd"
-              else
-                  cmd="select"
-              fi
-              res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-              lf -remote "send $id $cmd \"$res\""
-          fi
-        }}
-      '';
-
-      unzip = ''
-        ''${{
-          set -f
-          case $f in
-              *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
-              *.tar.gz|*.tgz) tar xzvf $f;;
-              *.tar.xz|*.txz) tar xJvf $f;;
-              *.zip) unzip $f;;
-              *.rar) unzip x $f;;
-              *.7z) 7z x $f;;
-          esac
-        }}
-      '';
-
-      zip = ''
-        ''${{
-          set -f
-          mkdir $1
-          cp -r $fx $1
-          zip -r $1.zip $1
-          rm -rf $1
-        }}
-      '';
-
-      pager = ''
-        bat --paging=always "$f"
-      '';
-
-      on-select = ''
-        &{{
-          lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
-        }}
-      '';
-
-      q = "quit";
+    commands = {
+      trash = "$" + trash;
+      delete = "$" + trash;
     };
 
     keybindings = {
-      a = "push %mkdir<space>";
-      t = "push %touch<space>";
+      a = "push %new<space>";
       r = "push :rename<space>";
-      x = "trash";
+      d = "trash";
       "." = "set hidden!";
       "<delete>" = "trash";
       "<enter>" = "open";
-      V = "pager";
-      f = "fzf";
     };
 
     settings = {
@@ -113,8 +67,12 @@
       drawbox = true;
       icons = true;
       cursorpreviewfmt = "";
+      borderfmt = "\\033[30m";
+      statfmt = "\\033[33m%p| \\033[34m%s| \\033[0m%t| \\033[33m->\\033[36m%l";
+      errorfmt = "\\033[1;31m";
     };
   };
 
-  xdg.configFile."lf/icons".source = "${inputs.lf-icons}/etc/icons.example";
+  xdg.configFile."lf/icons".source = "${inputs.lf}/etc/icons_colored.example";
+  xdg.configFile."lf/colors".source = "${inputs.lf}/etc/colors.example";
 }

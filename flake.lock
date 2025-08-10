@@ -98,14 +98,14 @@
         "type": "github"
       }
     },
-    "lf-icons": {
+    "lf": {
       "flake": false,
       "locked": {
-        "lastModified": 1753945921,
-        "narHash": "sha256-DHncyuJrU7Zne7TTc2mSqgQ9o+Kofhtojud8f0W+WRA=",
+        "lastModified": 1754624145,
+        "narHash": "sha256-3q/TX71+hztYaq9cWNDwnFEDUWKoQqPrfqAGbEzOjgU=",
         "owner": "gokcehan",
         "repo": "lf",
-        "rev": "0a05a7106df42d14fb841df71a5fbbd33813b1f5",
+        "rev": "3ac42fe1ad0f0fc93b160090fcf86c1613809096",
         "type": "github"
       },
       "original": {
@@ -120,11 +120,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1754563655,
-        "narHash": "sha256-mZW3WWoOz+oJIIlOfdlR65yayx63XxrU3DLa32RL+TU=",
+        "lastModified": 1754641406,
+        "narHash": "sha256-LDAPEAjDqzU4OoHNb7kubp19a9oHXa+QKpTYjdFGz2k=",
         "ref": "refs/heads/main",
-        "rev": "3fad0f8516c118456b2aeee97485e3cb0ff37595",
-        "revCount": 94,
+        "rev": "cfe66be2aac8c0f826fb9ac8d01f1d6ba45c05ca",
+        "revCount": 95,
         "type": "git",
         "url": "ssh://git@github.com/marble-shell/shell"
       },
@@ -171,7 +171,7 @@
         "firefox-gnome-theme": "firefox-gnome-theme",
         "home-manager": "home-manager",
         "icon-browser": "icon-browser",
-        "lf-icons": "lf-icons",
+        "lf": "lf",
         "marble": "marble",
         "nixpkgs": "nixpkgs_2"
       }

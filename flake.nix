@@ -56,7 +56,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lf-icons = {
+    lf = {
       url = "github:gokcehan/lf";
       flake = false;
     };

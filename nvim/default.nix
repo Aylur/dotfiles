@@ -59,6 +59,7 @@ with pkgs; let
     ruff
     pyright
     poetry
+    uv
 
     # c
     clang-tools

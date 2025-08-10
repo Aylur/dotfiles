@@ -1,5 +1,3 @@
-# nix build git+ssh://git@github.com/marble-shell/shell
-
 alias "nx switch" = sudo nixos-rebuild switch --flake . --impure
 alias "nx test" = sudo nixos-rebuild test --flake . --impure
 alias "nx boot" = sudo nixos-rebuild boot --flake . --impure
@@ -73,38 +71,6 @@ def nx [...packages: string] {
     echo $pkgs
     nix shell ...$pkgs
 }
-
-# Enter into a nix shell that contains programs needed for developing JavaScript
-alias jsh = nx ...([
-    nodejs
-    deno
-    bun
-    yarn
-    pnpm
-    tailwindcss-language-server
-    svelte-language-server
-    astro-language-server
-    vue-language-server
-    vscode-langservers-extracted
-    vtsls
-    markdownlint-cli2
-])
-
-# Enter into a nix shell that contains programs needed for developing Vala
-alias vsh = nx ...([
-    vala-language-server
-    mesonlsp
-    blueprint-compiler
-    meson
-    pkg-config
-    ninja
-])
-
-# Enter into a nix shell that contains programs needed for developing Elixir
-alias esh = nx ...([
-    elixir
-    elixir-ls
-])
 
 # Push private vault repo to remote
 def vault [] {

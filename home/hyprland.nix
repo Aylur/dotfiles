@@ -7,7 +7,6 @@
     inputs.marble.packages.${pkgs.system}.default
     inputs.battery-notifier.packages.${pkgs.system}.default
     astal.mpris
-    ((import ../scripts pkgs).screenshot)
     brightnessctl
     pulseaudio # pactl
     wf-recorder

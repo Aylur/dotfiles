@@ -4,10 +4,9 @@
   ...
 }: {
   imports = [
-    ../../home/blackbox.nix
     ../../home/browser.nix
     ../../home/dconf.nix
-    ../../home/distrobox.nix
+    ../../home/distrobox
     ../../home/ghostty.nix
     ../../home/git.nix
     ../../home/hyprland.nix
@@ -42,13 +41,14 @@
     home = config.home.homeDirectory;
   in ''
     file://${home}/Projects
+    file://${home}/Work
     file://${home}/Desktop
     file://${home}/Downloads
     file://${home}/Documents
     file://${home}/.config Config
     file://${home}/Vault
-    file://${home}/Music
     file://${home}/Pictures
+    file://${home}/Music
     file://${home}/Videos
   '';
 

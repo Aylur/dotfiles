@@ -8,7 +8,21 @@
     then value
     else [];
 
-  scripts = import ../scripts pkgs;
+  screenshot = pkgs.writers.writeNuBin "screenshot" {
+    makeWrapperArgs = with pkgs; [
+      "--prefix PATH : ${lib.makeBinPath [
+        libnotify
+        slurp
+        wayshot
+        swappy
+        wl-clipboard
+      ]}"
+    ];
+  } (builtins.readFile ../scripts/screenshot.nu);
+
+  lorem =
+    pkgs.writers.writeNuBin "lorem" {}
+    (builtins.readFile ../scripts/lorem.nu);
 
   gjs-wrapped = pkgs.stdenv.mkDerivation {
     name = "gjs";
@@ -34,36 +48,42 @@
     '';
   };
 in {
-  home.packages = pkgs.lib.flatten (with pkgs; [
-    scripts.lorem
-    bat
-    eza
-    fd
-    ripgrep
-    fzf
-    lazydocker
-    lazygit
-    btop
-
-    (mkIf pkgs.stdenv.isLinux [
-      (mpv.override {scripts = [mpvScripts.mpris];})
-      spotify
-      fragments
-      # figma-linux
+  home.packages =
+    [
       inputs.icon-browser.packages.${pkgs.system}.default
-      # yabridge
-      # yabridgectl
-      # wine-staging
-
-      esbuild
-      nodePackages.npm
-      nodejs
-      bun
-      pnpm
-      gjs-wrapped
-      python3
+      screenshot
+      lorem
+    ]
+    ++ (with pkgs; [
+      bat
+      eza
+      fd
+      ripgrep
+      fzf
+      lazydocker
+      lazygit
+      btop
     ])
+    ++ (
+      mkIf pkgs.stdenv.isLinux (with pkgs; [
+        (mpv.override {scripts = [mpvScripts.mpris];})
+        spotify
+        fragments
+        # figma-linux
+        # yabridge
+        # yabridgectl
+        # wine-staging
 
-    # (mkIf pkgs.stdenv.isDarwin [])
-  ]);
+        esbuild
+        nodePackages.npm
+        nodejs
+        pnpm
+        yarn
+        gjs-wrapped
+
+        python3
+        uv
+        poetry
+      ])
+    );
 }
