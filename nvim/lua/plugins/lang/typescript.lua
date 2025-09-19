@@ -1,5 +1,5 @@
 return {
-	{ "echasnovski/mini.icons" },
+	{ "nvim-mini/mini.icons" },
 	{ "roobert/tailwindcss-colorizer-cmp.nvim", opts = {} },
 	{ import = "lazyvim.plugins.extras.linting.eslint" },
 	{ import = "lazyvim.plugins.extras.lang.typescript" },

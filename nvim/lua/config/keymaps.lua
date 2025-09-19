@@ -29,14 +29,21 @@ end, { desc = "Close Buffer" })
 map("n", "<C-a>", "ggVG")
 map("v", "V", "j")
 
--- paste
-map("n", "<leader>p", '"_dP')
+-- copy
+map("n", "<leader>y", '"+y')
 
 -- tmux
 map({ "n", "i", "v" }, "<C-h>", vim.cmd.TmuxNavigateLeft)
 map({ "n", "i", "v" }, "<C-j>", vim.cmd.TmuxNavigateDown)
 map({ "n", "i", "v" }, "<C-k>", vim.cmd.TmuxNavigateUp)
 map({ "n", "i", "v" }, "<C-l>", vim.cmd.TmuxNavigateRight)
+
+-- terminal
+local function terminal()
+	Snacks.terminal.toggle("nu")
+end
+map("n", "<leader>t", terminal)
+map("n", "<leader>ft", terminal)
 
 -- tranparency
 map("n", "<leader>o", function()

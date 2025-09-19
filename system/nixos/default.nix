@@ -22,10 +22,6 @@ username: {
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
-  # FIXME: remove
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = ["demeter"];
-
   users.users.${username} = {
     isNormalUser = true;
     initialPassword = username;

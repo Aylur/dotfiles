@@ -47,11 +47,13 @@
       cp ${pkgs.gjs}/bin/gjs $out/bin/gjs
     '';
   };
+
+  python = pkgs.python3.withPackages (p: [
+    p.requests
+  ]);
 in {
   home.packages =
     [
-      inputs.icon-browser.packages.${pkgs.system}.default
-      screenshot
       lorem
     ]
     ++ (with pkgs; [
@@ -66,10 +68,13 @@ in {
     ])
     ++ (
       mkIf pkgs.stdenv.isLinux (with pkgs; [
+        inputs.icon-browser.packages.${pkgs.system}.default
+        inputs.nix-search.packages.${pkgs.system}.default
+        screenshot
+
         (mpv.override {scripts = [mpvScripts.mpris];})
         spotify
         fragments
-        # figma-linux
         # yabridge
         # yabridgectl
         # wine-staging
@@ -81,7 +86,7 @@ in {
         yarn
         gjs-wrapped
 
-        python3
+        python
         uv
         poetry
       ])

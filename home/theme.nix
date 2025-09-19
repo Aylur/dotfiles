@@ -2,56 +2,20 @@
   pkgs,
   config,
   ...
-}: let
-  theme = {
-    name = "adw-gtk3-dark";
-    package = pkgs.adw-gtk3;
-  };
-  font = {
-    name = "Ubuntu Nerd Font";
-    package = pkgs.nerd-fonts.ubuntu;
-    size = 11;
-  };
-  cursorTheme = {
-    name = "Qogir";
-    size = 24;
-    package = pkgs.qogir-icon-theme;
-  };
-  iconTheme = {
-    name = "MoreWaita";
-    package = pkgs.morewaita-icon-theme;
-  };
-in {
+}: {
   home = {
     packages = with pkgs; [
-      theme.package
-      font.package
-      cursorTheme.package
-      iconTheme.package
+      adw-gtk3
+      nerd-fonts.ubuntu
+      qogir-icon-theme
+      morewaita-icon-theme
       nerd-fonts.caskaydia-cove
-
-      pkgs.yaru-theme
-      pkgs.papirus-icon-theme
+      yaru-theme
+      papirus-icon-theme
     ];
-    # sessionVariables = {
-    #   XCURSOR_THEME = cursorTheme.name;
-    #   XCURSOR_SIZE = "${toString cursorTheme.size}";
-    # };
-    # pointerCursor = cursorTheme // {gtk.enable = true;};
   };
 
   fonts.fontconfig.enable = true;
-
-  # gtk = {
-  #   inherit font cursorTheme iconTheme;
-  #   theme.name = theme.name;
-  #   enable = true;
-  # };
-  #
-  # qt = {
-  #   enable = true;
-  #   platformTheme.name = "kde";
-  # };
 
   home.file.".local/share/flatpak/overrides/global".text = let
     dirs = [

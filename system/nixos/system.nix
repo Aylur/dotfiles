@@ -2,7 +2,6 @@
   # nix
   documentation.nixos.enable = false;
   nixpkgs.config.allowUnfree = true;
-
   nix.settings = {
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
@@ -11,7 +10,6 @@
 
   # virtualisation
   programs.virt-manager.enable = true;
-
   virtualisation = {
     podman.enable = true;
     docker.enable = true;
@@ -38,7 +36,7 @@
       excludePackages = [pkgs.xterm];
     };
     sysprof.enable = true;
-    printing.enable = true;
+    printing.enable = false;
     flatpak.enable = true;
     openssh.enable = true;
   };
@@ -49,7 +47,7 @@
   # bluetooth
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = false;
+    powerOnBoot = true;
     settings.General.Experimental = true; # bluetooth percentage
   };
 

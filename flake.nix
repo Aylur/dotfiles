@@ -16,22 +16,6 @@
         ];
       };
     };
-
-    # macos hm config
-    homeConfigurations = {
-      "demeter" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-darwin;
-        extraSpecialArgs = {inherit inputs;};
-        modules = [
-          ({pkgs, ...}: {
-            nix.package = pkgs.nix;
-            home.username = "demeter";
-            home.homeDirectory = "/Users/demeter";
-            imports = [./system/macos/home.nix];
-          })
-        ];
-      };
-    };
   };
 
   inputs = {
@@ -48,6 +32,11 @@
 
     icon-browser = {
       url = "github:aylur/icon-browser";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-search = {
+      url = "github:aylur/nix-search";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

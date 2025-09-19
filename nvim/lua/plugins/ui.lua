@@ -2,24 +2,31 @@ return {
 	{
 		"aylur/nucharm.nvim",
 		config = function()
-			local scheme = vim.fn.system({
-				"gsettings",
-				"get",
-				"org.gnome.desktop.interface",
-				"color-scheme",
-			})
+			local ok, scheme = pcall(function()
+				return vim.fn.system({
+					"gsettings",
+					"get",
+					"org.gnome.desktop.interface",
+					"color-scheme",
+				})
+			end)
 
-			if vim.fn.trim(scheme, "") ~= "'prefer-dark'" then
+			local prefer = "dark"
+
+			if ok and vim.fn.trim(scheme, "") ~= "'prefer-dark'" then
 				vim.opt.background = "light"
+				prefer = "light"
 			else
 				vim.opt.background = "dark"
 			end
 
 			require("nucharm").setup({
 				on_colors = function(palette)
-					palette.neutral[1] = "#111115"
-					palette.neutral[2] = "#151519"
-					palette.neutral[3] = "#222226"
+					if ok and prefer == "dark" then
+						palette.neutral[1] = "#111115"
+						palette.neutral[2] = "#151519"
+						palette.neutral[3] = "#222226"
+					end
 				end,
 			})
 

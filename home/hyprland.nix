@@ -87,6 +87,14 @@
         mvactive = binding "SUPER ALT" "moveactive";
         mvtows = binding "SUPER SHIFT" "movetoworkspace";
         arr = [1 2 3 4 5 6 7];
+        kb_layout_switch =
+          pkgs.writers.writeNu "hypr-kb-switch" {}
+          # nu
+          ''
+            hyprctl devices -j | from json | get keyboards | each {|kyb|
+              hyprctl switchxkblayout $in.name next
+            }
+          '';
       in
         [
           "SUPER, R, exec,              marble launcher"
@@ -100,6 +108,7 @@
           "SUPER, W, exec,              firefox"
           "SUPER, E, exec,              xterm -e lf"
 
+          "SUPER, Space, exec,  ${kb_layout_switch}"
           "ALT, Tab, exec,      hyprctl dispatch focuscurrentorlast; hyprctl dispatch alterzorder top"
           "CTRL ALT, Delete,    exit"
           "ALT, Q,              killactive"

@@ -70,6 +70,7 @@
           };
           "org/gnome/desktop/interface" = {
             cursor-theme = "Qogir";
+            font-name = "Ubuntu Nerd Font 11";
           };
         };
       }

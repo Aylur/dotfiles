@@ -2,8 +2,11 @@ vim.g.lazyvim_check_order = false
 
 return {
 	{
-		"williamboman/mason.nvim",
-		-- only enable mason when nix is not in path
+		"mason-org/mason.nvim",
+		enabled = vim.fn.executable("nix") == 0,
+	},
+	{
+		"mason-org/mason-lspconfig.nvim",
 		enabled = vim.fn.executable("nix") == 0,
 	},
 

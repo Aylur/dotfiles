@@ -84,12 +84,12 @@ with pkgs; let
     ];
 in
   wrapNeovimUnstable neovim-unwrapped {
-    # viAlias = true;
-    # vimAlias = true;
     withRuby = true;
     withNodeJs = true;
     withPython3 = true;
     wrapRc = false;
-    # luaRcContent = "print('hello')";
-    wrapperArgs = ''--suffix PATH : "${lib.makeBinPath (bins ++ linuxBins)}"'';
+    wrapperArgs = lib.strings.concatStringsSep " " [
+      ''--set SHELL ${lib.getExe pkgs.bash}''
+      ''--suffix PATH : "${lib.makeBinPath (bins ++ linuxBins)}"''
+    ];
   }
