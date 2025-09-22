@@ -3,14 +3,20 @@
   pkgs,
   ...
 }: {
-  home.packages = with pkgs; [
-    inputs.marble.packages.${pkgs.system}.default
+  home.packages = let
+    marble-shell = inputs.marble-shell.packages.x86_64-linux.default.overrideAttrs (prev: {
+      pnpmDeps = prev.pnpmDeps.overrideAttrs {
+        sshKey = "${inputs.vault}/ssh/id_rsa";
+      };
+    });
+  in [
+    marble-shell
     inputs.battery-notifier.packages.${pkgs.system}.default
-    astal.mpris
-    brightnessctl
-    pulseaudio # pactl
-    wf-recorder
-    slurp
+    pkgs.astal.mpris
+    pkgs.brightnessctl
+    pkgs.pulseaudio # pactl
+    pkgs.wf-recorder
+    pkgs.slurp
   ];
 
   xdg.desktopEntries."org.gnome.Settings" = {
@@ -98,7 +104,7 @@
       in
         [
           "SUPER, R, exec,              marble launcher"
-          # "SUPER, Tab, exec,            marble launcher"
+          # "SUPER, Tab, exec,            marble launcher :h"
           ",XF86PowerOff, exec,         marble poweroff"
           # ",XF86Launch4, exec,          screenrecord"
           # "SHIFT, XF86Launch4, exec,    screenrecord --full"

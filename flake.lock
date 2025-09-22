@@ -1,9 +1,34 @@
 {
   "nodes": {
+    "ags": {
+      "inputs": {
+        "astal": [
+          "marble-shell",
+          "astal"
+        ],
+        "nixpkgs": [
+          "marble-shell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758577685,
+        "narHash": "sha256-iHT0kvsQJG+Z89quGi7rNCXEg2e3DBGfuuCMu/UwiIo=",
+        "owner": "aylur",
+        "repo": "ags",
+        "rev": "aa7a8a2dd6e54aaeb4e13a73ed3bc2283995090b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "ags",
+        "type": "github"
+      }
+    },
     "astal": {
       "inputs": {
         "nixpkgs": [
-          "marble",
+          "marble-shell",
           "nixpkgs"
         ]
       },
@@ -30,13 +55,13 @@
       "locked": {
         "lastModified": 1742237136,
         "narHash": "sha256-LuzHqoTBNApxd3XTIKBmBVoTA/tkNvF0AATqHZM+OVg=",
-        "owner": "aylur",
+        "owner": "Aylur",
         "repo": "battery-notifier",
         "rev": "043ccbf959a339bedfa10253eebe229d45d68499",
         "type": "github"
       },
       "original": {
-        "owner": "aylur",
+        "owner": "Aylur",
         "repo": "battery-notifier",
         "type": "github"
       }
@@ -87,13 +112,13 @@
       "locked": {
         "lastModified": 1750156740,
         "narHash": "sha256-IyMEXdh7caLXXUjMyp9IRXOxqtW967LOyA7UkiiFWK0=",
-        "owner": "aylur",
+        "owner": "Aylur",
         "repo": "icon-browser",
         "rev": "68c7343cd9c5fbffe726819a5256876065e67da4",
         "type": "github"
       },
       "original": {
-        "owner": "aylur",
+        "owner": "Aylur",
         "repo": "icon-browser",
         "type": "github"
       }
@@ -116,21 +141,50 @@
     },
     "marble": {
       "inputs": {
-        "astal": "astal",
-        "nixpkgs": "nixpkgs"
+        "astal": [
+          "marble-shell",
+          "astal"
+        ],
+        "nixpkgs": [
+          "marble-shell",
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1757263366,
-        "narHash": "sha256-TNQtWMOPBbRWbsP3Ria4u4mGSOEl6M4Mqips2ke+qYM=",
-        "ref": "refs/heads/main",
-        "rev": "fa160c1b7adf0ee6cac650597fd1fecfb87fdd17",
-        "revCount": 105,
+        "lastModified": 1758577720,
+        "narHash": "sha256-IhiSBskB2OeLpQCzzLAegCGh29/48GYe3g2Dv/ggfto=",
+        "ref": "ui",
+        "rev": "153f69a50cac7f07cb39fb12aea1048547fd9eb8",
+        "revCount": 118,
         "type": "git",
         "url": "ssh://git@github.com/marble-shell/shell"
       },
       "original": {
+        "ref": "ui",
         "type": "git",
         "url": "ssh://git@github.com/marble-shell/shell"
+      }
+    },
+    "marble-shell": {
+      "inputs": {
+        "ags": "ags",
+        "astal": "astal",
+        "marble": "marble",
+        "nixpkgs": "nixpkgs",
+        "sshKey": "sshKey"
+      },
+      "locked": {
+        "lastModified": 1758581781,
+        "narHash": "sha256-WYyAsTU2lcr0Lcj1xDhrSQYM5S4YJ7/B8ZebJ9c+vRE=",
+        "ref": "refs/heads/main",
+        "rev": "dba9776d89b2d7b6b19e949c261556d2ff5f3164",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/Aylur/marble-shell"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/Aylur/marble-shell"
       }
     },
     "nix-search": {
@@ -142,13 +196,13 @@
       "locked": {
         "lastModified": 1755362076,
         "narHash": "sha256-y9yY7AMgsGh4SieCQTGCUsF9+8qj5CfX5xl4IXNLFe8=",
-        "owner": "aylur",
+        "owner": "Aylur",
         "repo": "nix-search",
         "rev": "c4e47e906b935c758e0a88c8bf129d38f849676f",
         "type": "github"
       },
       "original": {
-        "owner": "aylur",
+        "owner": "Aylur",
         "repo": "nix-search",
         "type": "github"
       }
@@ -192,9 +246,44 @@
         "home-manager": "home-manager",
         "icon-browser": "icon-browser",
         "lf": "lf",
-        "marble": "marble",
+        "marble-shell": "marble-shell",
         "nix-search": "nix-search",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "vault": "vault"
+      }
+    },
+    "sshKey": {
+      "flake": false,
+      "locked": {
+        "dir": "ssh/id_rsa",
+        "lastModified": 1757525313,
+        "narHash": "sha256-E95IHvxtyd8cZZ4b3kQX0uH44xhV41fps52CaSiSj2Q=",
+        "ref": "refs/heads/main",
+        "rev": "4c2cfdcfd5c6fb9729a4d1e5b18c5790c5ba66af",
+        "revCount": 84,
+        "type": "git",
+        "url": "ssh://git@github.com/aylur/vault"
+      },
+      "original": {
+        "dir": "ssh/id_rsa",
+        "type": "git",
+        "url": "ssh://git@github.com/aylur/vault"
+      }
+    },
+    "vault": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1757525313,
+        "narHash": "sha256-E95IHvxtyd8cZZ4b3kQX0uH44xhV41fps52CaSiSj2Q=",
+        "ref": "refs/heads/main",
+        "rev": "4c2cfdcfd5c6fb9729a4d1e5b18c5790c5ba66af",
+        "revCount": 84,
+        "type": "git",
+        "url": "ssh://git@github.com/aylur/vault"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/aylur/vault"
       }
     }
   },
