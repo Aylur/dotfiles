@@ -1,58 +1,54 @@
-username: {
-  inputs,
-  lib,
-  ...
-}: {
-  imports = [
-    /etc/nixos/hardware-configuration.nix
-    ./asus.nix
-    ./audio.nix
-    ./gnome.nix
-    ./hyprland.nix
-    ./locale.nix
-    ./nautilus.nix
-    ./niri.nix
-    ./system.nix
+inputs:
+inputs.nixpkgs.lib.nixosSystem {
+  system = "x86_64-linux";
+  specialArgs = {inherit inputs;};
+  modules = [
+    {
+      imports = [
+        inputs.home-manager.nixosModules.home-manager
+        /etc/nixos/hardware-configuration.nix
+        ./asus.nix
+        ./audio.nix
+        ./gnome.nix
+        ./hyprland.nix
+        ./locale.nix
+        ./nautilus.nix
+        ./niri.nix
+        ./system.nix
+      ];
+
+      gnome.enable = true;
+      hyprland.enable = true;
+      niri.enable = true;
+      asus.enable = false;
+
+      nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+
+      users.users.demeter = {
+        isNormalUser = true;
+        initialPassword = "demeter";
+        extraGroups = [
+          "nixosvmtest"
+          "networkmanager"
+          "wheel"
+          "audio"
+          "video"
+          "libvirtd"
+          "docker"
+        ];
+      };
+
+      home-manager = {
+        backupFileExtension = "backup";
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        extraSpecialArgs = {inherit inputs;};
+        users.demeter = {
+          home.username = "demeter";
+          home.homeDirectory = "/home/demeter";
+          imports = [./home.nix];
+        };
+      };
+    }
   ];
-
-  gnome.enable = true;
-  hyprland.enable = true;
-  niri.enable = true;
-  asus.enable = false;
-
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-
-  users.users.${username} = {
-    isNormalUser = true;
-    initialPassword = username;
-    extraGroups = [
-      "nixosvmtest"
-      "networkmanager"
-      "wheel"
-      "audio"
-      "video"
-      "libvirtd"
-      "docker"
-    ];
-  };
-
-  home-manager = {
-    backupFileExtension = "backup";
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = {inherit inputs;};
-    users.${username} = {
-      home.username = username;
-      home.homeDirectory = "/home/${username}";
-      imports = [./home.nix];
-    };
-  };
-
-  # specialisation = {
-  #   hyprland.configuration = {
-  #     system.nixos.tags = ["Hyprland"];
-  #     hyprland.enable = lib.mkForce true;
-  #     gnome.enable = lib.mkForce false;
-  #   };
-  # };
 }

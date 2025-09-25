@@ -1,14 +1,7 @@
 {
   outputs = inputs: {
     nixosConfigurations = {
-      "nixos" = inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          (import ./system/nixos "demeter")
-          inputs.home-manager.nixosModules.home-manager
-          {networking.hostName = "nixos";}
-        ];
-      };
+      "nixos" = import ./system/nixos inputs;
     };
   };
 

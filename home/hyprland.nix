@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = let
-    marble-shell = inputs.marble-shell.packages.x86_64-linux.default.overrideAttrs (prev: {
+    marble-shell = inputs.marble-shell.packages.${pkgs.system}.default.overrideAttrs (prev: {
       pnpmDeps = prev.pnpmDeps.overrideAttrs {
         sshKey = "${inputs.vault}/ssh/id_rsa";
       };

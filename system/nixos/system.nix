@@ -42,7 +42,10 @@
   };
 
   # network
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "nixos";
+    networkmanager.enable = true;
+  };
 
   # bluetooth
   hardware.bluetooth = {
