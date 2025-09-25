@@ -174,10 +174,10 @@
         "sshKey": "sshKey"
       },
       "locked": {
-        "lastModified": 1758581781,
-        "narHash": "sha256-WYyAsTU2lcr0Lcj1xDhrSQYM5S4YJ7/B8ZebJ9c+vRE=",
+        "lastModified": 1758828685,
+        "narHash": "sha256-pXMQAeW3XEN2CBIWHJr1NLlO84sm/2P8o8hdP/zPtB4=",
         "ref": "refs/heads/main",
-        "rev": "dba9776d89b2d7b6b19e949c261556d2ff5f3164",
+        "rev": "e062fff114a8eccf459b45bc88f45095793d52de",
         "revCount": 1,
         "type": "git",
         "url": "ssh://git@github.com/Aylur/marble-shell"

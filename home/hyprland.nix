@@ -104,7 +104,7 @@
       in
         [
           "SUPER, R, exec,              marble launcher"
-          # "SUPER, Tab, exec,            marble launcher :h"
+          "SUPER, Tab, exec,            marble launcher w"
           ",XF86PowerOff, exec,         marble poweroff"
           # ",XF86Launch4, exec,          screenrecord"
           # "SHIFT, XF86Launch4, exec,    screenrecord --full"
