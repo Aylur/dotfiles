@@ -38,8 +38,11 @@
     sysprof.enable = true;
     printing.enable = false;
     flatpak.enable = true;
-    openssh.enable = true;
   };
+
+  # ssh
+  services.openssh.enable = true;
+  programs.ssh.startAgent = true;
 
   # network
   networking = {
