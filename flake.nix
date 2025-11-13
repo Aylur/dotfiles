@@ -38,5 +38,9 @@
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
+    solaar = {
+      url = "github:Svenum/Solaar-Flake/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

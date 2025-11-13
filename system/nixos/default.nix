@@ -5,6 +5,7 @@ inputs.nixpkgs.lib.nixosSystem {
   modules = [
     {
       imports = [
+        inputs.solaar.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
         /etc/nixos/hardware-configuration.nix
         ./asus.nix
@@ -20,8 +21,9 @@ inputs.nixpkgs.lib.nixosSystem {
       gnome.enable = true;
       hyprland.enable = true;
       niri.enable = true;
-      asus.enable = false;
+      asus.enable = true;
 
+      services.solaar.enable = true;
       nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
       users.users.demeter = {
