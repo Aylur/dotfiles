@@ -119,7 +119,7 @@ in {
         ${completions ["git" "nix"]}
 
         source ${pkgs.nu_scripts}/share/nu_scripts/modules/formats/from-env.nu
-        source ${../scripts/blocks.nu}
+        source ${../../scripts/blocks.nu}
 
         const path = "~/.nushellrc.nu"
         const null = "/dev/null"

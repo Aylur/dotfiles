@@ -18,11 +18,11 @@
         wl-clipboard
       ]}"
     ];
-  } (builtins.readFile ../scripts/screenshot.nu);
+  } (builtins.readFile ../../scripts/screenshot.nu);
 
   lorem =
     pkgs.writers.writeNuBin "lorem" {}
-    (builtins.readFile ../scripts/lorem.nu);
+    (builtins.readFile ../../scripts/lorem.nu);
 
   gjs-wrapped = pkgs.stdenv.mkDerivation {
     name = "gjs";

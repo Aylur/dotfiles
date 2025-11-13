@@ -4,19 +4,19 @@
   ...
 }: {
   imports = [
-    ../../home/browser.nix
-    ../../home/dconf.nix
-    ../../home/distrobox
-    ../../home/ghostty.nix
-    ../../home/git.nix
-    ../../home/hyprland.nix
-    ../../home/lf.nix
-    ../../home/nvim.nix
-    ../../home/packages.nix
-    ../../home/sh.nix
-    ../../home/starship.nix
-    ../../home/theme.nix
-    ../../home/tmux.nix
+    ../../home/home-manager/browser.nix
+    ../../home/home-manager/dconf.nix
+    ../../home/home-manager/distrobox
+    ../../home/home-manager/ghostty.nix
+    ../../home/home-manager/git.nix
+    ../../home/home-manager/hyprland.nix
+    ../../home/home-manager/lf.nix
+    ../../home/home-manager/nvim.nix
+    ../../home/home-manager/packages.nix
+    ../../home/home-manager/sh.nix
+    ../../home/home-manager/starship.nix
+    ../../home/home-manager/theme.nix
+    ../../home/home-manager/tmux.nix
   ];
 
   news.display = "show";
