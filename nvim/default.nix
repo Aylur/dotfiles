@@ -61,6 +61,13 @@ with pkgs; let
     poetry
     uv
 
+    # rust
+    cargo
+    rustc
+    rustfmt
+    rust-analyzer
+    clippy
+
     # c
     clang-tools
     glib

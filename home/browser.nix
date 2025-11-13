@@ -15,6 +15,7 @@
       settings = {
         "browser.tabs.loadInBackground" = true;
         "widget.gtk.rounded-bottom-corners.enabled" = true;
+        "widget.disable-swipe-tracker" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "svg.context-properties.content.enabled" = true;
         "gnomeTheme.hideSingleTab" = true;
