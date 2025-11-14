@@ -89,10 +89,10 @@ do {|conf|
     directory: {
         format: (printf "%s" ...[
             " "
-            " [](fg:bright-black)"
+            "[](fg:bright-black)"
             "[$path](bg:bright-black fg:white)"
             "[](fg:bright-black)"
-            " [$read_only](fg:yellow)"
+            "[$read_only](fg:yellow)"
             " "
         ])
         read_only: " "
