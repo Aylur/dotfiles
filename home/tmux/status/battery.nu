@@ -46,8 +46,7 @@ let state = match (uname | get operating-system) {
 
         { percent:$percent is_charging:$is_charging }
     },
-    "Andorid" => {
-        # TODO:
+    _ => {
         { percent:0 is_charging:false }
     }
 }
