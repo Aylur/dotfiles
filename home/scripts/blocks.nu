@@ -1,15 +1,10 @@
 #!/usr/bin/env nu
 
-export def blocks [
-    columns:number = 6
-    rows:number = 1
+def main [
+    pattern = "[0,1,2,3,4,5]"
     --neutrals (-n) # Include black and white colors
-    --pattern (-p): closure # Example: {|x, y| $x + $y }
-]: [
-    list<int> -> string
-    list<list<int>> -> string
-    nothing -> string
-] {
+]: nothing -> string {
+    let input = $in
     const r = ansi reset
 
     const colors = [
@@ -83,33 +78,13 @@ export def blocks [
         }
     }
 
-    let input = $in
-    let p = $pattern | default { $in + 0 }
-    let mx = if ($input | describe) == "list<int>" {
-        [$input]
-    } else {
-        $input | default []
+    let input = $pattern | from json
+    let mx = match ($input | describe) {
+        "list<int>" => [$input]
+        "list<list<int>>" => $input
     }
 
-    let res = if ($mx | length) > 0 {
-        $mx
-        | each {
-            $in
-            | enumerate
-            | each {|row|
-                $row.item
-                | each {|col| do $p $col $row.index}
-            }
-        }
-    } else {
-        seq 0 ($rows - 1)
-        | each {|row|
-            seq 0 ($columns - 1)
-            | each { do $p $in $row }
-        }
-    }
-
-    let blocks = $res | each {|row|
+    let blocks = $mx | each {|row|
         $row
         | each {|n| (block $n) }
         | reduce {|it, acc| $acc | hjoin $it }

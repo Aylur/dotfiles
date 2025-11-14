@@ -48,7 +48,7 @@ inputs.nixpkgs.lib.nixosSystem {
         users.demeter = {
           home.username = "demeter";
           home.homeDirectory = "/home/demeter";
-          imports = [./home.nix];
+          imports = [./home];
         };
       };
     }

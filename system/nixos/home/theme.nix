@@ -3,17 +3,15 @@
   config,
   ...
 }: {
-  home = {
-    packages = with pkgs; [
-      adw-gtk3
-      nerd-fonts.ubuntu
-      qogir-icon-theme
-      morewaita-icon-theme
-      nerd-fonts.caskaydia-cove
-      yaru-theme
-      papirus-icon-theme
-    ];
-  };
+  home.packages = with pkgs; [
+    adw-gtk3
+    nerd-fonts.ubuntu
+    qogir-icon-theme
+    morewaita-icon-theme
+    nerd-fonts.caskaydia-cove
+    yaru-theme
+    papirus-icon-theme
+  ];
 
   fonts.fontconfig.enable = true;
 

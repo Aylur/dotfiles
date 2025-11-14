@@ -9,10 +9,8 @@
   };
 
   config = lib.mkIf config.hyprland.enable {
-    programs.hyprland.withUWSM = true;
     programs.hyprland.enable = true;
     programs.kdeconnect.enable = true;
-    services.xserver.displayManager.startx.enable = true;
 
     services.logind.extraConfig = ''
       HandlePowerKey=ignore
@@ -20,25 +18,18 @@
       HandleLidSwitchExternalPower=ignore
     '';
 
-    # xdg.portal = {
-    #   enable = true;
-    #   extraPortals = with pkgs; [
-    #     xdg-desktop-portal-gtk
-    #     xdg-desktop-portal-hyprland
-    #     xdg-desktop-portal-wlr
-    #     xdg-desktop-portal-gnome
-    #   ];
-    #   configPackages = with pkgs; [
-    #     xdg-desktop-portal-gtk
-    #     xdg-desktop-portal-hyprland
-    #     xdg-desktop-portal-wlr
-    #     xdg-desktop-portal-gnome
-    #   ];
-    #   config.common = {
-    #     default = ["gnome" "hyprland" "gtk"];
-    #     "org.freedesktop.impl.portal.Settings" = "gnome";
-    #   };
-    # };
+    xdg.portal = let
+      portals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gnome
+      ];
+    in {
+      enable = true;
+      extraPortals = portals;
+      configPackages = portals;
+    };
 
     security = {
       polkit.enable = true;
@@ -81,9 +72,5 @@
         tinysparql.enable = true;
       };
     };
-
-    systemd.tmpfiles.rules = [
-      "d '/var/cache/greeter' - greeter greeter - -"
-    ];
   };
 }
