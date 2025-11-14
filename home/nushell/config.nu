@@ -31,7 +31,10 @@ load-env {
     )}
 }
 
-do {|conf| $conf | to toml | save -f $env.STARSHIP_CONFIG } {
+do {|conf|
+    mkdir ($env.STARSHIP_CONFIG | path dirname )
+    $conf | to toml | save -f $env.STARSHIP_CONFIG
+} {
     add_newline: true
     format: (printf "%s" ...[
         "$nix_shell"
@@ -106,6 +109,7 @@ do {|conf| $conf | to toml | save -f $env.STARSHIP_CONFIG } {
         disabled: false
         format: "$symbol"
         symbols: {
+            Android: "[ ](fg:bright-green)"
             Arch: "[ ](fg:bright-blue)"
             Alpine: "[ ](fg:bright-blue)"
             Debian: "[ ](fg:red))"
