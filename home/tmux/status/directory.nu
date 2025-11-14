@@ -6,7 +6,7 @@ def omit [n: number]: string -> string {
 
 def main [dir: string] {
     let path = if ($dir | str starts-with $env.HOME) {
-        $dir | omit 3
+        $dir | omit ($env.HOME | path split | length)
     } else {
         $dir
     }
