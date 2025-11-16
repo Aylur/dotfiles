@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: let
+{pkgs, ...}: let
   gjs-wrapped = pkgs.stdenv.mkDerivation {
     name = "gjs";
     src = null;
@@ -58,17 +54,6 @@
     };
 in {
   home.packages = [
-    pkgs.imagemagick
-    inputs.icon-browser.packages.${pkgs.system}.default
-    inputs.nix-search.packages.${pkgs.system}.default
-
-    (pkgs.mpv.override {scripts = [pkgs.mpvScripts.mpris];})
-    pkgs.spotify
-    pkgs.fragments
-    # yabridge
-    # yabridgectl
-    # wine-staging
-
     pkgs.nodejs
     pkgs.bun
     pkgs.deno

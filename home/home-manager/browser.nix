@@ -1,7 +1,8 @@
-{inputs, ...}: {
-  home.file."firefox-gnome-theme" = {
-    target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
-    source = inputs.firefox-gnome-theme;
+inputs: {
+  home.file = {
+    ".mozilla/firefox/default/chrome/firefox-gnome-theme" = {
+      source = inputs.inputs.firefox-gnome-theme;
+    };
   };
 
   programs.firefox = {

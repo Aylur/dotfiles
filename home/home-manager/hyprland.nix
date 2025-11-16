@@ -1,36 +1,6 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
-  home.packages = let
-    marble-shell = inputs.marble-shell.packages.${pkgs.system}.default.overrideAttrs (prev: {
-      pnpmDeps = prev.pnpmDeps.overrideAttrs {
-        sshKey = "${inputs.vault}/ssh/id_rsa";
-      };
-    });
-  in [
-    marble-shell
-    inputs.battery-notifier.packages.${pkgs.system}.default
-    pkgs.astal.mpris
-    pkgs.brightnessctl
-    pkgs.pulseaudio # pactl
-    pkgs.wf-recorder
-    pkgs.slurp
-  ];
-
-  xdg.desktopEntries."org.gnome.Settings" = {
-    name = "Settings";
-    comment = "Gnome Control Center";
-    icon = "org.gnome.Settings";
-    exec = "env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-control-center}/bin/gnome-control-center";
-    categories = ["X-Preferences"];
-    terminal = false;
-  };
-
+{pkgs, ...}: {
   wayland.windowManager.hyprland = {
     enable = true;
-    systemd.enable = true;
 
     settings = {
       exec-once = [
@@ -80,11 +50,6 @@
         workspace_swipe_use_r = true;
       };
 
-      windowrulev2 = [
-        "float, class:(.*)"
-        "workspace 7, title:Spotify"
-      ];
-
       bind = let
         binding = mod: cmd: key: arg: "${mod}, ${key}, ${cmd}, ${arg}";
         mvfocus = binding "SUPER" "movefocus";
@@ -110,9 +75,9 @@
           # "SHIFT, XF86Launch4, exec,    screenrecord --full"
           ",Print, exec,                screenshot"
           "SHIFT, Print, exec,          screenshot --full"
-          "SUPER, Return, exec,         xterm" # xterm is a symlink, not actually xterm
+          "SUPER, Return, exec,         ghostty"
           "SUPER, W, exec,              firefox"
-          "SUPER, E, exec,              xterm -e lf"
+          "SUPER, E, exec,              nautilus"
 
           "SUPER, Space, exec,  ${kb_layout_switch}"
           "ALT, Tab, exec,      hyprctl dispatch focuscurrentorlast; hyprctl dispatch alterzorder top"

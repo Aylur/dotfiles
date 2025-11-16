@@ -1,5 +1,8 @@
 load-env {
+    SHELL: $nu.current-exe
     PATH: ([~/.local/bin] | append $env.PATH)
+
+    FILE_MANAGER: "nautilus"
     BROWSER: "firefox"
     TERMINAL: "ghostty"
     VISUAL: "nvim"
@@ -26,7 +29,7 @@ load-env {
     PROMPT_COMMAND_RIGHT: ""
     PROMPT_COMMAND: {|| (starship prompt
         --cmd-duration $env.CMD_DURATION_MS
-        --status $"($env.LAST_EXIT_CODE)"
+        $"--status=($env.LAST_EXIT_CODE)"
         --terminal-width (term size).columns
     )}
 }

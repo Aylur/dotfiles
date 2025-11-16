@@ -1,5 +1,6 @@
-{lib, ...}:
-with lib.hm.gvariant; {
+{lib, ...}: let
+  inherit (lib.hm.gvariant) mkTuple mkUint32;
+in {
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
       sources = [(mkTuple ["xkb" "hu"]) (mkTuple ["xkb" "us"])];

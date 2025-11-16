@@ -5,6 +5,6 @@ def main [format: string = "%H:%M"] {
     let icon = [ 󱑖 󱑋 󱑌 󱑍 󱑎 󱑏 󱑐 󱑑 󱑒 󱑓 󱑔 󱑕 ] | get ($hour mod 12)
     let time = date now | format date $format
 
-    $"#[fg=#{@main_accent}]($icon) #[bold fg=default]($time)"
+    $"#[fg=#{@main_accent}]($icon) #[fg=default]($time)"
 }
 

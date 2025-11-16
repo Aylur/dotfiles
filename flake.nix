@@ -22,10 +22,6 @@
       url = "github:Aylur/icon-browser";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-search = {
-      url = "github:Aylur/nix-search";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     battery-notifier = {
       url = "github:Aylur/battery-notifier";
       inputs.nixpkgs.follows = "nixpkgs";

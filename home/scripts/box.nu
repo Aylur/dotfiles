@@ -1,14 +1,10 @@
 #!/use/bin/env nu
 
 let symlinks = [
-    ".bashrc"
-    ".zshrc"
     ".git-credentials"
     ".config/git"
     ".config/nushell"
     ".config/nvim"
-    ".config/nix"
-    ".config/starship.toml"
 ]
 
 def box-exists [box: string]: nothing -> bool {
@@ -22,16 +18,16 @@ def box-exists [box: string]: nothing -> bool {
     | do { $in == 1 }
 }
 
-# Short hand for "distrobox create" and "distrobox enter"
+# Shorthand for `distrobox create` and `distrobox enter`
 def main [
     name: string # arbitrary name used to identify the box
     image: string # docker image to use
     ...exec: string
     --home (-h): string
-    --pkgs (-p): string = "git"
-    --init (-i): string = "true"
+    --pkgs (-p): string
+    --init (-i): string
 ]: nothing -> nothing {
-    let dir = $home | default $"($env.HOME)/.local/share/distrobox/($name)"
+    let dir = $home | default $"($env.XDG_DATA_HOME)/distrobox/($name)"
 
     if not (box-exists $name) {
         (distrobox create
@@ -40,8 +36,8 @@ def main [
             --name $name
             --home $dir
             --image $image
-            --init-hooks $init
-            --additional-packages $pkgs
+            --init-hooks ($init | default "true")
+            --additional-packages ($pkgs | default "git")
         )
     }
 
@@ -58,6 +54,6 @@ def main [
     if ($exec | length) > 0 {
         distrobox enter $name -- ...$exec
     } else {
-        distrobox enter $name -- bash
+        distrobox enter $name -- $nu.current-exe
     }
 }
