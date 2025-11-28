@@ -79,9 +79,9 @@ do {|conf|
     nix_shell: {
         disabled: false
         format: (printf "%s" ...[
-            "[${pad.left}](fg:white)"
+            "[](fg:white)"
             "[ ](bg:white fg:black)"
-            "[${pad.right}](fg:white)"
+            "[](fg:white)"
             " "
         ])
     }
