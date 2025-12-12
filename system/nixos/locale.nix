@@ -18,5 +18,8 @@
   };
 
   console.useXkbConfig = true;
-  services.xserver.xkb.layout = "hu";
+  services.xserver.xkb = {
+    layout = "us,hu";
+    options = "grp:win_space_toggle";
+  };
 }

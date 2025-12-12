@@ -6,11 +6,11 @@
   programs.hyprland.enable = true;
   programs.kdeconnect.enable = true;
 
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-    HandleLidSwitch=suspend
-    HandleLidSwitchExternalPower=ignore
-  '';
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "ignore";
+  };
 
   security = {
     polkit.enable = true;
@@ -18,14 +18,16 @@
   };
 
   environment.systemPackages = let
-    marble-shell = inputs.marble-shell.packages.${pkgs.system}.default.overrideAttrs (prev: {
+    system = pkgs.stdenv.hostPlatform.system;
+    marble-default = inputs.marble-shell.packages.${system}.default;
+    marble-shell = marble-default.overrideAttrs (prev: {
       pnpmDeps = prev.pnpmDeps.overrideAttrs {
         sshKey = "${inputs.vault}/ssh/id_rsa";
       };
     });
   in [
     marble-shell
-    inputs.battery-notifier.packages.${pkgs.system}.default
+    inputs.battery-notifier.packages.${system}.default
     pkgs.astal.mpris
     pkgs.brightnessctl
     pkgs.pulseaudio # pactl

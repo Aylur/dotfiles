@@ -54,11 +54,10 @@
     };
 in {
   home.packages = [
-    pkgs.nodejs
+    pkgs.nodejs_24
     pkgs.bun
     pkgs.deno
     pkgs.esbuild
-    pkgs.nodePackages.npm
     pkgs.pnpm
     pkgs.yarn
     gjs-wrapped

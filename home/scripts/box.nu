@@ -1,4 +1,4 @@
-#!/use/bin/env nu
+#!/usr/bin/env nu
 
 let symlinks = [
     ".git-credentials"

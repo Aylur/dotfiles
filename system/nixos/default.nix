@@ -22,7 +22,6 @@ inputs.nixpkgs.lib.nixosSystem {
       nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
       programs.niri.enable = true;
-      programs.river.enable = true;
 
       environment.sessionVariables = {
         FILE_MANAGER = "nautilus";

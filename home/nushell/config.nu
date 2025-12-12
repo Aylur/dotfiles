@@ -201,6 +201,7 @@ alias "nx boot" = sudo nixos-rebuild boot --flake . --impure
 def "nx gc" [older_than = "7d"] {
     sudo nix-collect-garbage -d --delete-older-than $older_than
     nix-collect-garbage -d --delete-older-than $older_than
+    nix-store --optimise
 }
 
 # Shortcut for "home-manager switch"

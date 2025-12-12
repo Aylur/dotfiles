@@ -88,6 +88,7 @@ with pkgs; let
       # clipboard
       wl-clipboard
       xsel
+      xclip
     ];
 in
   wrapNeovimUnstable neovim-unwrapped {

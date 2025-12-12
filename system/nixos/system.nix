@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   # nix
   documentation.nixos.enable = false;
   nixpkgs.config.allowUnfree = true;
@@ -42,7 +46,7 @@
 
   # ssh
   services.openssh.enable = true;
-  programs.ssh.startAgent = true;
+  programs.ssh.startAgent = !config.services.gnome.gcr-ssh-agent.enable;
 
   # network
   networking = {

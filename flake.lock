@@ -12,11 +12,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759227262,
-        "narHash": "sha256-ibKJckw+KWH6n+pscOA7DWImanr988zKB7R2Z6ZEMLM=",
+        "lastModified": 1764289441,
+        "narHash": "sha256-ak+lgFiYE5PHByN1/BRkO5JP498hno6Ix24C1Qf/vec=",
         "owner": "aylur",
         "repo": "ags",
-        "rev": "f68a0d03fbb94f4beacedd922ffaa0bf0f10397a",
+        "rev": "e169694390548dfd38ff40f1ef2163d6c3ffe3ea",
         "type": "github"
       },
       "original": {
@@ -33,11 +33,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759789924,
-        "narHash": "sha256-ehvUhVa8GOiLBNLs77U5qP7skgADTGj9wfl4H4lyLak=",
+        "lastModified": 1764173295,
+        "narHash": "sha256-Jh4VtPcK2Ov+RTcV9FtyQRsxiJmXFQGfqX6jjM7/mgc=",
         "owner": "aylur",
         "repo": "astal",
-        "rev": "4340f050adad2895c068f2600cfed11d669679f8",
+        "rev": "7d1fac8a4b2a14954843a978d2ddde86168c75ef",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1759418614,
-        "narHash": "sha256-0E3TqvXAy81qeM/jZXWWOTZ14Hs1RT7o78UyZM+Jbr4=",
+        "lastModified": 1764724327,
+        "narHash": "sha256-OkFLrD3pFR952TrjQi1+Vdj604KLcMnkpa7lkW7XskI=",
         "owner": "rafaelmardojai",
         "repo": "firefox-gnome-theme",
-        "rev": "afd438034bf91089cfeb9e6b5cb987bdf5442d0f",
+        "rev": "66b7c635763d8e6eb86bd766de5a1e1fbfcc1047",
         "type": "github"
       },
       "original": {
@@ -85,11 +85,11 @@
     "flake-compat": {
       "flake": false,
       "locked": {
-        "lastModified": 1747046372,
-        "narHash": "sha256-CIVLLkVgvHYbgI2UpXvIIBJ12HWgX+fjA8Xf8PUmqCY=",
+        "lastModified": 1761588595,
+        "narHash": "sha256-XKUZz9zewJNUj46b4AJdiRZJAvSZ0Dqj2BNfXvFlJC4=",
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "9100a0f413b0c601e0533d1d94ffd501ce2e7885",
+        "rev": "f387cd2afec9419c8ee37694406ca490c3f34ee5",
         "type": "github"
       },
       "original": {
@@ -158,16 +158,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1758463745,
-        "narHash": "sha256-uhzsV0Q0I9j2y/rfweWeGif5AWe0MGrgZ/3TjpDYdGA=",
+        "lastModified": 1764776959,
+        "narHash": "sha256-d+5CGloq7Lo1u2SkzhF8oiOdUc6Z5emh22nTXUB9CFA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "3b955f5f0a942f9f60cdc9cacb7844335d0f21c3",
+        "rev": "e1680d594a9281651cbf7d126941a8c8e2396183",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-25.05",
+        "ref": "release-25.11",
         "repo": "home-manager",
         "type": "github"
       }
@@ -195,11 +195,11 @@
     "lf": {
       "flake": false,
       "locked": {
-        "lastModified": 1763182828,
-        "narHash": "sha256-EEbzdIR67pvo8KxJyzQLGQuerA0VTtlTGMSOz5zMhtY=",
+        "lastModified": 1764660191,
+        "narHash": "sha256-CB6NnRw82RlD8LQ+Gy/x0NHl/zcwdQaBmTcZ3k6/mbY=",
         "owner": "gokcehan",
         "repo": "lf",
-        "rev": "c320102865ef310a4aa03e23e5416ac22e74835f",
+        "rev": "6402bafb9a03e9e40c0c18d8b01c4f47bd327e27",
         "type": "github"
       },
       "original": {
@@ -220,11 +220,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759593997,
-        "narHash": "sha256-CzdC/mZWLgVwFqaWFQYp5GvhlPsRIi5McM/7/8ZeyhM=",
+        "lastModified": 1764289796,
+        "narHash": "sha256-QU1xTXdlmU88aM4bKLfhiSHiteh9s5uxREzv1r9t2l8=",
         "ref": "refs/heads/main",
-        "rev": "ef2357b03149ea7554371b03ac48a92b235f72b5",
-        "revCount": 133,
+        "rev": "0842703d4755836594decaa59162c47177fb6bbb",
+        "revCount": 135,
         "type": "git",
         "url": "ssh://git@github.com/marble-shell/kit"
       },
@@ -242,11 +242,11 @@
         "sshKey": "sshKey"
       },
       "locked": {
-        "lastModified": 1759790248,
-        "narHash": "sha256-c9K1r9yRNNMnKQ+HkQBGqvGLUwy6O2Ji+ZV8NhtK7ww=",
+        "lastModified": 1764290073,
+        "narHash": "sha256-3sf9B9DHikab5lBeWhkSXKmMf1v80lzNXQNVRJW/v08=",
         "ref": "refs/heads/main",
-        "rev": "cf830396527019753acd19433ababba1d956bbc5",
-        "revCount": 12,
+        "rev": "216a40aed02e9192060b9ef8e07b52354779c67e",
+        "revCount": 13,
         "type": "git",
         "url": "ssh://git@github.com/Aylur/marble-shell"
       },
@@ -257,11 +257,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1759381078,
-        "narHash": "sha256-gTrEEp5gEspIcCOx9PD8kMaF1iEmfBcTbO0Jag2QhQs=",
+        "lastModified": 1763966396,
+        "narHash": "sha256-6eeL1YPcY1MV3DDStIDIdy/zZCDKgHdkCmsrLJFiZf0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+        "rev": "5ae3b07d8d6527c42f17c876e404993199144b6a",
         "type": "github"
       },
       "original": {
@@ -273,16 +273,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1763049705,
-        "narHash": "sha256-A5LS0AJZ1yDPTa2fHxufZN++n8MCmtgrJDtxFxrH4S8=",
+        "lastModified": 1764522689,
+        "narHash": "sha256-SqUuBFjhl/kpDiVaKLQBoD8TLD+/cTUzzgVFoaHrkqY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "3acb677ea67d4c6218f33de0db0955f116b7588c",
+        "rev": "8bb5646e0bed5dbd3ab08c7a7cc15b75ab4e1d0f",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-25.05",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -333,11 +333,11 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1761840426,
-        "narHash": "sha256-CprKgnLGKpNB0leamU9hw+ZgocRAsEFevyqIuY0FSiY=",
+        "lastModified": 1764670272,
+        "narHash": "sha256-nzbjvav3wEC9gUgl5XH/VRnlNN4P2bLxK4Senz0uaVU=",
         "owner": "Svenum",
         "repo": "Solaar-Flake",
-        "rev": "7b5e221d60195d77fda5c2d69087f7cd1b8d3c20",
+        "rev": "8e70e50873b756ee2e721b907677dfcb4be25a6b",
         "type": "github"
       },
       "original": {
@@ -351,11 +351,11 @@
       "flake": false,
       "locked": {
         "dir": "ssh/id_rsa",
-        "lastModified": 1759522307,
-        "narHash": "sha256-mMukvjTn3czDtv69XEJpW2Sd3OeXaeZErQwBLYvLzcg=",
+        "lastModified": 1763046199,
+        "narHash": "sha256-Tv4qqI6cHUsWkbjfKEs4gPZ3bIVXe1ZbIiDGNS2MowI=",
         "ref": "refs/heads/main",
-        "rev": "35236582717bfdaf572b68d5030e8ee230ea30a4",
-        "revCount": 85,
+        "rev": "9b980bd8213dd2277f7be0b6d08d953b8e372bd7",
+        "revCount": 92,
         "type": "git",
         "url": "ssh://git@github.com/aylur/vault"
       },
