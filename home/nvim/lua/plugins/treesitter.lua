@@ -40,6 +40,7 @@ TS.setup({
 		"vimdoc",
 		"xml",
 		"yaml",
+		"toml",
 		"json5",
 	},
 })
@@ -53,8 +54,8 @@ end
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("my.treesitter", { clear = true }),
 	callback = function(ev)
+		pcall(vim.treesitter.start, ev.buf)
 		if indent_support(ev.match) then
-			pcall(vim.treesitter.start, ev.buf)
 			vim.opt_local.indentexpr = "v:lua.mytreesitter_indentexpr()"
 		end
 	end,
