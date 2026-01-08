@@ -3,7 +3,10 @@
   config,
   lib,
   ...
-}: {
+}: let
+  home = "${config.home.homeDirectory}/Projects/dotfiles";
+  ln = path: config.lib.file.mkOutOfStoreSymlink "${home}/${path}";
+in {
   imports = [
     ./home-manager/browser.nix
     ./home-manager/dconf.nix
@@ -17,10 +20,10 @@
   ];
 
   xdg.configFile = {
-    "tmux".source = ./tmux;
-    "nvim".source = ./nvim;
-    "niri".source = ./niri;
-    "nushell/config.nu".source = ./nushell/config.nu;
+    "tmux".source = ln "home/tmux";
+    "nvim".source = ln "home/nvim";
+    "niri".source = ln "home/niri";
+    "nushell/config.nu".source = ln "home/nushell/config.nu";
 
     "nushell/autoload/vendor.nu".text = let
       scripts = "${pkgs.nu_scripts}/share/nu_scripts";

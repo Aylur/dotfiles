@@ -1,24 +1,49 @@
-local o = vim.opt
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.g.format_on_save = true
 
-o.wrap = true
-o.linebreak = true
-o.conceallevel = 0
-o.cursorline = false
-o.number = true -- Print line number
-o.relativenumber = true -- Relative line numbers
-o.hlsearch = false -- highlight search
-o.incsearch = true -- incremental search
-o.scrolloff = 4 -- scroll offset
-o.clipboard = "unnamedplus" -- sync clipboard with os
-o.breakindent = true
-o.inccommand = "split"
-o.undofile = true
-o.undolevels = 10000
-o.updatetime = 200 -- Save swap file and trigger CursorHold
-o.tabstop = 4
-o.softtabstop = 4
-o.shiftwidth = 4
-o.expandtab = true
-o.termguicolors = true
-o.swapfile = false
-o.completeopt = "menu,menuone,preview"
+vim.opt.breakindent = true
+vim.opt.completeopt = "menu,menuone,preview,noselect"
+vim.opt.confirm = true
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
+vim.opt.expandtab = true
+vim.opt.exrc = true -- source .nvim.
+vim.opt.hlsearch = false
+vim.opt.inccommand = "split"
+vim.opt.incsearch = true
+vim.opt.linebreak = true
+vim.opt.list = true -- show invisible characters
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+vim.opt.smartindent = true
+vim.opt.softtabstop = 4
+vim.opt.swapfile = false
+vim.opt.tabstop = 4
+vim.opt.termguicolors = true
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
+vim.opt.updatetime = 200
+vim.opt.virtualedit = "block"
+vim.opt.winborder = "single"
+vim.opt.wrap = true
+
+vim.diagnostic.config({
+	severity_sort = true,
+	underline = { severity = vim.diagnostic.severity.ERROR },
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅚 ",
+			[vim.diagnostic.severity.WARN] = "󰀪 ",
+			[vim.diagnostic.severity.INFO] = "󰋽 ",
+			[vim.diagnostic.severity.HINT] = "󰌶 ",
+		},
+	},
+	virtual_text = {
+		spacing = 4,
+		source = "if_many",
+		prefix = "●",
+	},
+})
