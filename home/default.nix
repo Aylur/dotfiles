@@ -9,7 +9,6 @@
     ./home-manager/dconf.nix
     ./home-manager/distrobox.nix
     ./home-manager/ghostty.nix
-    ./home-manager/hyprland.nix
     ./home-manager/packages.nix
   ];
 
@@ -20,6 +19,7 @@
   xdg.configFile = {
     "tmux".source = ./tmux;
     "nvim".source = ./nvim;
+    "niri".source = ./niri;
     "nushell/config.nu".source = ./nushell/config.nu;
 
     "nushell/autoload/vendor.nu".text = let

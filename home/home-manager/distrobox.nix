@@ -11,19 +11,13 @@
     bins = map (p: "${p}/bin") (
       filter (p: typeOf p == "set") packages
     );
-    path = concatStringsSep ":" (bins
-      ++ [
-        "/bin"
-        "/sbin"
-        "/usr/bin"
-        "/usr/sbin"
-        "/usr/local/bin"
-        "$HOME/.local/bin"
-      ]);
   in
     pkgs.writeShellScriptBin name ''
-      export PATH="${path}"
-      box ${name} ${image} --pkgs "${distropkgs}" $@
+      box ${name} \
+        --image ${image} \
+        --pkgs "${distropkgs}" \
+        --path "${concatStringsSep ":" bins}" \
+        $@
     '';
 
   yay = pkgs.writeShellScriptBin "yay" ''
@@ -41,17 +35,23 @@ in {
   home.packages = [
     (mkBox "ubuntu" {
       image = "quay.io/toolbx/ubuntu-toolbox:latest";
+      packages = with pkgs; [nushell starship];
     })
     (mkBox "fedora" {
       image = "registry.fedoraproject.org/fedora-toolbox:rawhide";
-      packages = ["gcc poetry python-devel mysql-devel pango-devel nodejs npm cargo" pkgs.lazygit];
+      packages = [
+        "gcc poetry python-devel mysql-devel pango-devel nodejs npm cargo"
+        pkgs.nushell
+        pkgs.starship
+      ];
     })
     (mkBox "alpine" {
       image = "docker.io/library/alpine:latest";
+      packages = with pkgs; [nushell starship];
     })
     (mkBox "arch" {
       image = "docker.io/library/archlinux:latest";
-      packages = ["base-devel" yay];
+      packages = ["base-devel" yay pkgs.nushell pkgs.starship];
     })
   ];
 }

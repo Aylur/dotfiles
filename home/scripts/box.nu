@@ -7,6 +7,17 @@ let symlinks = [
     ".config/nvim"
 ]
 
+let clean_paths = [
+    "/usr/local/bin"
+    "/usr/local/sbin"
+    "/usr/local/bin"
+    "/usr/bin"
+    "/usr/sbin"
+    "/usr/bin"
+    "/sbin"
+    "/bin"
+]
+
 def box-exists [box: string]: nothing -> bool {
     distrobox list
     | split row "\n"
@@ -21,20 +32,22 @@ def box-exists [box: string]: nothing -> bool {
 # Shorthand for `distrobox create` and `distrobox enter`
 def main [
     name: string # arbitrary name used to identify the box
-    image: string # docker image to use
     ...exec: string
-    --home (-h): string
-    --pkgs (-p): string
-    --init (-i): string
+    --image: string # docker image to use
+    --home: string
+    --pkgs: string
+    --init: string
+    --path: string
 ]: nothing -> nothing {
-    let dir = $home | default $"($env.XDG_DATA_HOME)/distrobox/($name)"
+    let data_dir = $env | get -o XDG_DATA_HOME | default $"($env.HOME)/.local/share"
+    let home = $home | default $"($data_dir)/distrobox/($name)"
 
     if not (box-exists $name) {
         (distrobox create
             --pull
             --yes
             --name $name
-            --home $dir
+            --home $home
             --image $image
             --init-hooks ($init | default "true")
             --additional-packages ($pkgs | default "git")
@@ -42,7 +55,7 @@ def main [
     }
 
     for ln in $symlinks {
-        let target = $"($dir)/($ln)"
+        let target = $"($home)/($ln)"
         let source = $"($env.HOME)/($ln)"
 
         if not ($target | path exists) {
@@ -51,9 +64,9 @@ def main [
         }
     }
 
-    if ($exec | length) > 0 {
-        distrobox enter $name -- ...$exec
-    } else {
-        distrobox enter $name -- $nu.current-exe
-    }
+    let paths = if ($path | describe) == "string" { [...$clean_paths $path] } else { $clean_paths }
+    let exe = if ($exec | length) > 0 { $exec } else { [$nu.current-exe] }
+    let flags = $"--env PATH=($paths | str join ":")"
+
+    distrobox enter --additional-flags $flags $name -- ...$exe
 }

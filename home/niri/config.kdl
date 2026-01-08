@@ -1,0 +1,218 @@
+spawn-at-startup "marble"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+cursor {
+    xcursor-theme "Qogir-Dark"
+    hide-after-inactive-ms 10000
+}
+
+switch-events {
+    lid-close { spawn "marble" "lock"; }
+}
+
+input {
+    keyboard {
+        xkb {
+            layout "us,hu"
+            options "grp:win_space_toggle"
+        }
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+        // disabled-on-external-mouse
+    }
+
+    disable-power-key-handling
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+overview {
+    zoom 0.85
+}
+
+layer-rule {
+    match namespace="^niri-backdrop$"
+    place-within-backdrop true
+}
+
+layout {
+    gaps 0
+
+    empty-workspace-above-first
+    center-focused-column "never"
+
+    default-column-width {
+        proportion 0.5
+    }
+
+    focus-ring { off; }
+    border { off; }
+    shadow { off; }
+
+
+    struts {
+        left 0
+        right 0
+        top 1
+        bottom 0
+    }
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// prefer-no-csd
+
+window-rule {
+    match is-floating=true
+
+    tiled-state true
+    geometry-corner-radius 7
+    clip-to-geometry true
+
+    border {
+        off
+        width 1
+        active-color "#51a4e7"
+        inactive-color "#1b1b1b"
+        urgent-color "#ffb86b"
+    }
+
+    shadow {
+        on
+        softness 10
+        spread 6
+        offset x=1 y=1
+        color "rgba(14,14,14,0.6)"
+    }
+}
+
+window-rule {
+    match is-floating=true is-active=true
+
+    shadow {
+        on
+        softness 10
+        spread 4
+        offset x=1 y=1
+        color "rgba(4,4,4,0.7)"
+    }
+}
+
+window-rule {
+    match is-floating=false
+    tiled-state true
+    geometry-corner-radius 0
+}
+
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+binds {
+    Mod+Return { spawn "ghostty"; }
+    Mod+W { spawn "firefox"; }
+    Mod+E { spawn "nautilus"; }
+    Mod+R { spawn "marble" "launcher"; }
+
+    Alt+Q { close-window; }
+
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Down  { move-window-down; }
+    Mod+Shift+Up    { move-window-up; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+H     { move-column-left; }
+    Mod+Shift+J     { move-window-down; }
+    Mod+Shift+K     { move-window-up; }
+    Mod+Shift+L     { move-column-right; }
+
+    Mod+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Ctrl+Down  { move-column-to-monitor-down; }
+    Mod+Ctrl+Up    { move-column-to-monitor-up; }
+    Mod+Ctrl+Right { move-column-to-monitor-right; }
+    Mod+Ctrl+H     { move-column-to-monitor-left; }
+    Mod+Ctrl+J     { move-column-to-monitor-down; }
+    Mod+Ctrl+K     { move-column-to-monitor-up; }
+    Mod+Ctrl+L     { move-column-to-monitor-right; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    Mod+F { toggle-window-floating; }
+    Mod+M { maximize-column; }
+    Mod+G { fullscreen-window; }
+
+    Mod+Minus { set-column-width "-5%"; }
+    Mod+Equal { set-column-width "+5%"; }
+    Mod+Shift+Minus { set-window-height "-5%"; }
+    Mod+Shift+Equal { set-window-height "+5%"; }
+
+    Print { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
+
+    XF86PowerOff { spawn "marble" "poweroff"; }
+
+    XF86MonBrightnessUp allow-when-locked=true {
+        spawn "brightnessctl" "set" "+5%"
+    }
+    XF86MonBrightnessDown allow-when-locked=true {
+        spawn "brightnessctl" "set" "5%-"
+    }
+    XF86KbdBrightnessUp allow-when-locked=true {
+        spawn "brightnessctl" "-d" "asus::kbd_backlight" "set" "+1"
+    }
+    XF86KbdBrightnessDown allow-when-locked=true {
+        spawn "brightnessctl" "-d" "asus::kbd_backlight" "set" "1-"
+    }
+
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    }
+    XF86AudioMicMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
+    }
+
+    XF86AudioPlay allow-when-locked=true {
+        spawn "astal-mpris" "play-pause"
+    }
+    XF86AudioStop allow-when-locked=true {
+        spawn "astal-mpris" "pause"
+    }
+    XF86AudioPause allow-when-locked=true {
+        spawn "astal-mpris" "pause"
+    }
+    XF86AudioPrev allow-when-locked=true {
+        spawn "astal-mpris" "previous"
+    }
+    XF86AudioNext allow-when-locked=true {
+        spawn "astal-mpris" "next"
+    }
+}

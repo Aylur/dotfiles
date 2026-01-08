@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  programs.hyprland.enable = true;
+  programs.niri.enable = true;
   programs.kdeconnect.enable = true;
 
   services.logind.settings.Login = {

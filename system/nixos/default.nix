@@ -3,7 +3,7 @@ inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
-    {
+    ({pkgs, ...}: {
       imports = [
         inputs.solaar.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
@@ -11,17 +11,18 @@ inputs.nixpkgs.lib.nixosSystem {
         ./asus.nix
         ./audio.nix
         ./gnome.nix
-        ./hyprland.nix
+        ./niri.nix
         ./locale.nix
-        ./nautilus.nix
         ./system.nix
         ./packages.nix
       ];
 
+      nixpkgs.overlays = [
+        inputs.neovim-nightly-overlay.overlays.default
+      ];
+
       services.solaar.enable = true;
       nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-
-      programs.niri.enable = true;
 
       environment.sessionVariables = {
         FILE_MANAGER = "nautilus";
@@ -66,6 +67,6 @@ inputs.nixpkgs.lib.nixosSystem {
           imports = [../../home];
         };
       };
-    }
+    })
   ];
 }
