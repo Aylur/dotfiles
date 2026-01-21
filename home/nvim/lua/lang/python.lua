@@ -8,4 +8,7 @@ return {
 		"ninja",
 		"rst",
 	},
+	comments = {
+		jinja = "{#- %s -#}",
+	},
 }

@@ -1,0 +1,27 @@
+{
+  "stdenv.mkDerivation": {
+    "prefix": "mkd",
+    "body": [
+      "stdenv.mkDerivation {",
+      "  pname = \"$1\";",
+      "  version = \"$2\";",
+      "",
+      "  src = $3",
+      "",
+      "  nativeBuildInputs = [",
+      "    $4",
+      "  ];",
+      "  buildInputs = [",
+      "    $0",
+      "  ];",
+      "",
+      "  meta = {",
+      "    description = \"$5\";",
+      "    homepage = \"$6\";",
+      "    license = lib.licenses.$7;",
+      "    maintainers = with lib.maintainers; [ $8 ];",
+      "  };",
+      "};"
+    ]
+  }
+}

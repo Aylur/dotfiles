@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.format_on_save = true
+vim.g.todo_file = "~/Projects/TODO.md"
 
 vim.opt.breakindent = true
 vim.opt.completeopt = "menu,menuone,preview,noselect"
@@ -8,7 +9,8 @@ vim.opt.confirm = true
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
 vim.opt.expandtab = true
-vim.opt.exrc = true -- source .nvim.
+vim.opt.exrc = true -- source .nvim.lua
+vim.opt.guicursor:append("c:ver25")
 vim.opt.hlsearch = false
 vim.opt.inccommand = "split"
 vim.opt.incsearch = true

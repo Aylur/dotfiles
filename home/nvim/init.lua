@@ -1,14 +1,10 @@
 require("config.colorscheme")
-require("config.options")
-require("config.keymaps")
-require("config.autocmds")
 
 -- TODO: add
--- - SchemaStore
--- - render-markdown
 -- - mason (for non nix systems)
 
 vim.pack.add({
+	{ src = "https://github.com/L3MON4D3/LuaSnip" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
@@ -28,16 +24,26 @@ vim.pack.add({
 	{ src = "https://github.com/folke/noice.nvim" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/windwp/nvim-ts-autotag.git" },
+	{ src = "https://github.com/b0o/SchemaStore.nvim.git" },
 })
 
+-- config
+require("config.options")
+require("config.keymaps")
+require("config.autocmds")
+
+-- plugins
 require("plugins.lualine")
 require("plugins.misc")
 require("plugins.treesitter")
+require("plugins.todolist")
 
 -- lang setups
 require("plugins.language").setup({
 	require("lang.go"),
+	require("lang.json"),
 	require("lang.lua"),
+	require("lang.markdown"),
 	require("lang.nix"),
 	require("lang.nu"),
 	require("lang.python"),

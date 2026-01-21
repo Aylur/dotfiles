@@ -1,0 +1,51 @@
+{
+  "name": "my-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "global",
+          "all"
+        ],
+        "path": "./snip/global.json"
+      },
+      {
+        "language": "lua",
+        "path": "./snip/lua.json"
+      },
+      {
+        "language": [
+          "javascript",
+          "typescript",
+          "typescriptreact",
+          "javascriptreact"
+        ],
+        "path": "./snip/javascript.json"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./snip/typescriptreact.json"
+      },
+      {
+        "language": "rust",
+        "path": "./snip/rust.json"
+      },
+      {
+        "language": "nix",
+        "path": "./snip/nix.json"
+      },
+      {
+        "language": "nushell",
+        "path": "./snip/nushell.json"
+      },
+      {
+        "language": "vala",
+        "path": "./snip/vala.json"
+      },
+      {
+        "language": "html",
+        "path": "./snip/html.json"
+      }
+    ]
+  }
+}

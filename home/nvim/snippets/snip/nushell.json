@@ -1,0 +1,23 @@
+{
+  "if": {
+    "prefix": "if",
+    "body": "if ${1:condition} { ${2:block} }"
+  },
+  "for builtin": {
+    "prefix": "for",
+    "description": "\"for\" invocation",
+    "body": "for ${1:variable} in ${2:list} { ${3:block} }"
+  },
+  "def builtin": {
+    "prefix": "def",
+    "body": ["def ${1:name} [] {", "\t$0", "}"]
+  },
+  "while builtin": {
+    "prefix": "while",
+    "body": "while ${1:condition} { ${2:block} }"
+  },
+  "try": {
+    "prefix": "try",
+    "body": "try { ${1:block} } catch { ${2:block} }"
+  }
+}

@@ -6,6 +6,7 @@
 ---@class LangSpec
 ---@field ft? LangSpecFt
 ---@field formatters? table<string, conform.FiletypeFormatter>
+---@field comments? table<string, string>
 ---@field treesitters? string[],
 ---@field icons? table
 
@@ -51,10 +52,10 @@ function M.setup(specs)
 		end
 	end
 
-	require("conform").setup({ formatters_by_ft = join(specs, "formatters") })
 	require("nvim-treesitter").install(flatten(specs, "treesitters"))
 	require("mini.icons").setup({ file = join(specs, "icons") })
 	require("ts-comments").setup({ lang = join(specs, "comments") })
+	require("conform").setup({ formatters_by_ft = join(specs, "formatters") })
 end
 
 return M

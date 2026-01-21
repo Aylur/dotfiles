@@ -84,6 +84,7 @@ with pkgs; let
       meson
       pkg-config
       ninja
+      uncrustify
 
       # clipboard
       wl-clipboard

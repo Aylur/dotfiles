@@ -4,6 +4,14 @@
       "rev": "c64a61734fc9d45470a72603395c02137802bc6f",
       "src": "https://github.com/LazyVim/LazyVim.git"
     },
+    "LuaSnip": {
+      "rev": "3732756842a2f7e0e76a7b0487e9692072857277",
+      "src": "https://github.com/L3MON4D3/LuaSnip"
+    },
+    "SchemaStore.nvim": {
+      "rev": "a0375eb6f7f944723162ef41c200ac6b364f53ac",
+      "src": "https://github.com/b0o/SchemaStore.nvim.git"
+    },
     "blink.cmp": {
       "rev": "b19413d214068f316c78978b08264ed1c41830ec",
       "src": "https://github.com/saghen/blink.cmp",

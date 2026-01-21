@@ -1,0 +1,18 @@
+{
+  "doc": {
+    "prefix": "doc",
+    "body": [
+      "<!DOCTYPE html>",
+      "<html lang=\"$1en\">",
+      "<head>",
+      "\t<meta charset=\"UTF-8\">",
+      "\t<meta name=\"viewport\" content=\"width=${2:device-width}, initial-scale=${3:1.0}\">",
+      "\t<title>${5:Document}</title>",
+      "</head>",
+      "<body>",
+      "\t${6}",
+      "</body>",
+      "</html>"
+    ]
+  }
+}

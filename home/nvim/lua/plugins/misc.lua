@@ -21,7 +21,11 @@ require("snacks").setup({
 	},
 })
 
-require("mini.pairs").setup({})
+require("luasnip.loaders.from_vscode").lazy_load({
+	paths = { vim.fn.stdpath("config") .. "/snippets" },
+})
+
+require("mini.pairs").setup()
 require("mini.icons").mock_nvim_web_devicons()
 
 require("noice").setup({
@@ -78,6 +82,7 @@ require("gitsigns").setup({
 })
 
 require("blink.cmp").setup({
+	snippets = { preset = "luasnip" },
 	sources = {
 		default = { "lsp", "path", "snippets", "buffer" },
 	},

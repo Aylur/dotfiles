@@ -1,0 +1,26 @@
+{
+  "require": {
+    "prefix": "req",
+    "body": ["require(\"${1:module}\")"]
+  },
+  "if": {
+    "prefix": "if",
+    "body": ["if ${1:true} then", "\t$0", "end"]
+  },
+  "for": {
+    "prefix": "for",
+    "body": ["for ${1:i}, ${2:x} in ipairs(${3:t}) do", "\t$0", "end"]
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": ["function ${1:name}($2)", "\t${0}", "end"]
+  },
+  "func": {
+    "prefix": "func",
+    "body": ["function ${1:name}($2)", "\t${0}", "end"]
+  },
+  "while": {
+    "prefix": "while",
+    "body": ["while ${1:true} do", "\t$0", "end"]
+  }
+}

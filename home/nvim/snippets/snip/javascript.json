@@ -1,0 +1,112 @@
+{
+  "map": {
+    "prefix": "map",
+    "body": "${1:iterable}.map((${2:item}) => {\n\t${0}\n})"
+  },
+  "reduce": {
+    "prefix": "reduce",
+    "body": "${1:iterable}.reduce((${2:previous}, ${3:current}) => {\n\t${0}\n}${4:, initial})"
+  },
+  "filter": {
+    "prefix": "filter",
+    "body": "${1:iterable}.filter((${2:item}) => {\n\t${0}\n})"
+  },
+  "find": {
+    "prefix": "find",
+    "body": "${1:iterable}.find((${2:item}) => {\n\t${0}\n})"
+  },
+  "every": {
+    "prefix": "every",
+    "body": "${1:iterable}.every((${2:item}) => {\n\t${0}\n})"
+  },
+  "some": {
+    "prefix": "some",
+    "body": "${1:iterable}.some((${2:item}) => {\n\t${0}\n})"
+  },
+  "import": {
+    "prefix": "import",
+    "body": "import ${2:*} from \"${1:module}\""
+  },
+  "try": {
+    "prefix": "try",
+    "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n}"
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": "function ${1:name}(${2:arguments}) {\n\t${0}\n}"
+  },
+  "func": {
+    "prefix": "func",
+    "body": "function ${1:name}(${2:arguments}) {\n\t${0}\n}"
+  },
+  "arrow function": {
+    "prefix": "af",
+    "body": "(${1:arguments}) => ${2:statement}"
+  },
+  "log": {
+    "prefix": "log",
+    "body": "console.log(${0})"
+  },
+  "console.error": {
+    "prefix": "ce",
+    "body": "console.error(${0})"
+  },
+  "console.warn": {
+    "prefix": "cw",
+    "body": "console.warn(${0})"
+  },
+  "JSON.stringify()": {
+    "prefix": "js",
+    "body": "JSON.stringify($0)"
+  },
+  "JSON.parse()": {
+    "prefix": "jp",
+    "body": "JSON.parse($0)"
+  },
+  "getter": {
+    "prefix": "get",
+    "body": "get ${1:property} () {\n\t${0}\n}"
+  },
+  "setter": {
+    "prefix": "set",
+    "body": "set ${1:property} (${2:value}) {\n\t${0}\n}"
+  },
+  "ternary": {
+    "prefix": "te",
+    "body": "${1:cond} ? ${2:true} : ${3:false}"
+  },
+  "fori": {
+    "prefix": "fori",
+    "body": [
+      "for (let ${1:index} = 0; ${1:index} < ${2:array}.length; ${1:index}++) {",
+      "\tconst ${3:element} = ${2:array}[${1:index}];",
+      "\t$0",
+      "}"
+    ]
+  },
+  "forof": {
+    "prefix": "forof",
+    "body": ["for (const ${1:iterator} of ${2:object}) {", "\t$0", "}"]
+  },
+  "if": {
+    "prefix": "if",
+    "body": ["if (${1:condition}) {", "\t$0", "}"]
+  },
+  "switch": {
+    "prefix": "switch",
+    "body": [
+      "switch (${1:key}) {",
+      "\tcase ${2:value}:",
+      "\t\t$0",
+      "\t\tbreak;",
+      "",
+      "\tdefault:",
+      "\t\tbreak;",
+      "}"
+    ]
+  },
+  "while": {
+    "prefix": "while",
+    "body": ["while (${1:condition}) {", "\t$0", "}"]
+  }
+}

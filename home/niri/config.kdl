@@ -65,20 +65,20 @@ layout {
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-// prefer-no-csd
+prefer-no-csd
 
 window-rule {
     match is-floating=true
 
     tiled-state true
-    geometry-corner-radius 7
+    geometry-corner-radius 13
     clip-to-geometry true
 
     border {
-        off
+        on
         width 1
-        active-color "#51a4e7"
-        inactive-color "#1b1b1b"
+        active-color "#343438"
+        inactive-color "#28282C"
         urgent-color "#ffb86b"
     }
 

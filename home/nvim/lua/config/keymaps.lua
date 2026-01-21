@@ -1,39 +1,46 @@
-local keymap = vim.keymap.set
+-- local map = vim.keymap.set
+local function map(mode, lhs, rhs, desc, opt)
+	local opts = vim.tbl_extend("force", { desc = desc }, opt or {})
+	vim.keymap.set(mode, lhs, rhs, opts)
+end
 
-keymap("n", "Q", "@q")
+map("n", "Q", "@q")
 
 -- better up/down
-keymap({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-keymap({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-keymap({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", "Down", { expr = true, silent = true })
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", "Down", { expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", "Up", { expr = true, silent = true })
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", "Up", { expr = true, silent = true })
 
 -- move selected lines
-keymap("v", "J", ":m '>+1<CR>gv=gv")
-keymap("v", "K", ":m '<-2<CR>gv=gv")
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
 
 -- better indenting
-keymap("v", "<", "<gv")
-keymap("v", ">", ">gv")
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
 -- buffers
-keymap({ "n", "i", "v" }, "<A-l>", vim.cmd.bnext, { desc = "Switch to next Buffer" })
-keymap({ "n", "i", "v" }, "<A-h>", vim.cmd.bprev, { desc = "Switch to prev Buffer" })
-keymap("n", "L", vim.cmd.bnext, { desc = "Switch to next Buffer" })
-keymap("n", "H", vim.cmd.bprev, { desc = "Switch to prev Buffer" })
-keymap("n", "<C-q>", vim.cmd.bwipe, { desc = "Close Buffer" })
+map({ "n", "i", "v" }, "<A-l>", vim.cmd.bnext, "Switch to next Buffer")
+map({ "n", "i", "v" }, "<A-h>", vim.cmd.bprev, "Switch to prev Buffer")
+map("n", "L", vim.cmd.bnext, "Switch to next Buffer")
+map("n", "H", vim.cmd.bprev, "Switch to prev Buffer")
+map("n", "<C-q>", vim.cmd.bwipe, "Close Buffer")
 
 -- selection
-keymap("n", "<C-a>", "ggVG")
+map("n", "<C-a>", "ggVG")
 
 -- save
-keymap("", "<C-s>", vim.cmd.write)
+map("", "<C-s>", vim.cmd.write)
 
 -- tmux
-keymap({ "n", "i", "v" }, "<C-h>", vim.cmd.TmuxNavigateLeft)
-keymap({ "n", "i", "v" }, "<C-j>", vim.cmd.TmuxNavigateDown)
-keymap({ "n", "i", "v" }, "<C-k>", vim.cmd.TmuxNavigateUp)
-keymap({ "n", "i", "v" }, "<C-l>", vim.cmd.TmuxNavigateRight)
+map({ "n", "i", "v" }, "<C-h>", vim.cmd.TmuxNavigateLeft)
+map({ "n", "i", "v" }, "<C-j>", vim.cmd.TmuxNavigateDown)
+map({ "n", "i", "v" }, "<C-k>", vim.cmd.TmuxNavigateUp)
+map({ "n", "i", "v" }, "<C-l>", vim.cmd.TmuxNavigateRight)
+
+-- todo list
+map("n", "<leader>T", vim.cmd.Todolist, "Open todolist")
 
 -- picker
 local function terminal()
@@ -64,21 +71,49 @@ local function lazygit()
 	require("snacks").lazygit()
 end
 
-keymap("n", "<leader>t", terminal, { desc = "Open Terminal" })
-keymap("n", "<leader>ft", terminal, { desc = "Open Terminal" })
-keymap("n", "<leader>pp", picker, { desc = "Open Picker" })
-keymap("n", "<leader>e", explorer, { desc = "File Explorer" })
-keymap("n", "<leader><space>", file_select, { desc = "Find Files" })
-keymap("n", "<leader>ff", file_picker, { desc = "Find Files" })
-keymap("n", "<leader>fg", live_grep, { desc = "Grep" })
-keymap("n", "<leader>gg", lazygit, { desc = "Git Status" })
+local function lsp_symbols()
+	require("snacks").picker.lsp_symbols()
+end
+
+local function diagnostics_buffer()
+	require("snacks").picker.diagnostics_buffer()
+end
+
+map("n", "<leader>t", terminal, "Open Terminal")
+map("n", "<leader>ft", terminal, "Open Terminal")
+map("n", "<leader>pp", picker, "Open Picker")
+map("n", "<leader>e", explorer, "File Explorer")
+map("n", "<leader><space>", file_select, "Find Files")
+map("n", "<leader>ff", file_picker, "Find Files")
+map("n", "<leader>fg", live_grep, "Grep")
+map("n", "<leader>gg", lazygit, "Git Status")
+map("n", "<leader>fs", lsp_symbols, "LSP Symbols")
+map("n", "<leader>fd", diagnostics_buffer, "Diagnostics")
 
 -- toggles
 local function toggle_format()
 	vim.g.format_on_save = not vim.g.format_on_save
+	local status = vim.g.format_on_save and "Enabled" or "Disabled"
+	vim.notify(status .. " auto format on save")
 end
 
-keymap("n", "<leader>uf", toggle_format, { desc = "Toggle Format on Save" })
+local function toggle_diagnostics()
+	local enabled = not vim.diagnostic.is_enabled()
+	vim.diagnostic.enable(enabled)
+	local status = enabled and "Enabled" or "Disabled"
+	vim.notify(status .. " diagnostics")
+end
+
+local function toggle_minimal()
+	vim.g.minimal = not vim.g.minimal
+	vim.o.signcolumn = vim.g.minimal and "no" or "yes"
+	vim.o.number = not vim.g.minimal
+	vim.o.relativenumber = not vim.g.minimal
+end
+
+map("n", "<leader>uf", toggle_format, "Toggle Format on Save")
+map("n", "<leader>ud", toggle_diagnostics, "Toggle Diagnostics")
+map("n", "<leader>um", toggle_minimal, "Toggle Minimal")
 
 -- lsp
 local function lsp_references()
@@ -100,7 +135,7 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("my.keymaps-lsp-attach", { clear = true }),
 	callback = function(event)
-		local map = function(mode, keys, func, desc)
+		local bufmap = function(mode, keys, func, desc)
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
 		end
 
@@ -116,14 +151,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			end
 		end
 
-		map("n", "<leader>cr", vim.lsp.buf.rename, "[C]ode Action [R]ename")
-		map("n", "<leader>co", action("source.organizeImports"), "[C]ode [O]rganize imports")
-		map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+		bufmap("n", "<leader>cr", vim.lsp.buf.rename, "[C]ode Action [R]ename")
+		bufmap("n", "<leader>co", action("source.organizeImports"), "[C]ode [O]rganize imports")
+		bufmap({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+		bufmap({ "n", "x" }, "<leader>cd", vim.diagnostic.open_float, "[C]ode [D]iagnostics")
 
-		map("n", "grr", lsp_references, "[G]oto [R]eferences")
-		map("n", "gri", lsp_implementations, "[G]oto [I]mplementation")
-		map("n", "gd", lsp_definitions, "[G]oto [D]efinition")
-		map("n", "gD", lsp_declarations, "[G]oto [D]eclaration")
+		bufmap("n", "grr", lsp_references, "[G]oto [R]eferences")
+		bufmap("n", "gri", lsp_implementations, "[G]oto [I]mplementation")
+		bufmap("n", "gd", lsp_definitions, "[G]oto [D]efinition")
+		bufmap("n", "gD", lsp_declarations, "[G]oto [D]eclaration")
 	end,
 })
 
@@ -140,6 +176,6 @@ local function blame_line()
 	require("gitsigns").blame_line({ full = true })
 end
 
-keymap("n", "<leader>ghS", stage_buffer, { desc = "Stage Buffer" })
-keymap("n", "<leader>ghR", reset_buffer, { desc = "Reset Buffer" })
-keymap("n", "<leader>ghb", blame_line, { desc = "Blame Line" })
+map("n", "<leader>ghS", stage_buffer, "Stage Buffer")
+map("n", "<leader>ghR", reset_buffer, "Reset Buffer")
+map("n", "<leader>ghb", blame_line, "Blame Line")

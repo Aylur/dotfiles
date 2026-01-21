@@ -1,0 +1,16 @@
+{
+  "typescriptReactFunctionalComponent": {
+    "prefix": "comp",
+    "body": [
+      "type ${TM_FILENAME_BASE}Props = {}",
+      "",
+      "export default function ${TM_FILENAME_BASE}(props: ${TM_FILENAME_BASE}Props) {",
+      "  const {} = props",
+      "",
+      "  return (",
+      "    <${0}></>",
+      "  )",
+      "}"
+    ]
+  }
+}

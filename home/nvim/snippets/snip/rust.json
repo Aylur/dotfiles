@@ -1,0 +1,65 @@
+{
+  "format": {
+    "prefix": "format",
+    "body": "format!(\"${1}\")"
+  },
+  "panic": {
+    "prefix": "panic",
+    "body": "panic!(\"${1}\");"
+  },
+  "print": {
+    "prefix": "print",
+    "body": "print!(\"${1}\");"
+  },
+  "println": {
+    "prefix": "println",
+    "body": "println!(\"${1}\");"
+  },
+  "derive": {
+    "prefix": "derive",
+    "body": "#[derive(${1})]"
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": "fn ${1:name}() -> ${2:RetType} {\n\t${0}\n}"
+  },
+  "for": {
+    "prefix": "for",
+    "body": ["for ${1:pat} in ${2:expr} {", "    ${3:todo!();}", "}"]
+  },
+  "iflet": {
+    "prefix": "iflet",
+    "body": ["if let ${1:Some(pat)} = ${2:expr} {", "    ${0:todo!();}", "}"]
+  },
+  "if": {
+    "prefix": "if",
+    "body": ["if ${1:condition} {", "    ${2:todo!();}", "}"]
+  },
+  "enum": {
+    "prefix": "enum",
+    "body": [
+      "#[derive(Debug)]",
+      "enum ${1:Name} {",
+      "    ${2:Variant1},",
+      "    ${3:Variant2},",
+      "}"
+    ]
+  },
+  "struct": {
+    "prefix": "struct",
+    "body": [
+      "#[derive(Debug)]",
+      "struct ${1:Name} {",
+      "    ${2:field}: ${3:Type}",
+      "}"
+    ]
+  },
+  "trait": {
+    "prefix": "trait",
+    "body": ["trait ${1:Name} {", "    ${2://}", "}", ""]
+  },
+  "while": {
+    "prefix": "while",
+    "body": ["while ${1:condition} {", "    ${2:todo!();}", "}"]
+  }
+}

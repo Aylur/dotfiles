@@ -1,0 +1,22 @@
+{
+  "if": {
+    "prefix": "if",
+    "body": ["if (${1:true}) {", "    $0", "}"]
+  },
+  "foreach": {
+    "prefix": "foreach",
+    "body": ["foreach (var ${1:item} in ${2:iterable}) {", "    $0", "}"]
+  },
+  "for": {
+    "prefix": "for",
+    "body": ["for (var i = ${1:0}; ${2}; ${3:i++}) {", "    $0", "}"]
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": ["void ${1:name}($2) {", "    ${0}", "}"]
+  },
+  "while": {
+    "prefix": "while",
+    "body": ["while (${1:true}) {", "    $0", "}"]
+  }
+}
