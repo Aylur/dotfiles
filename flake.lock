@@ -90,11 +90,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765835352,
-        "narHash": "sha256-XswHlK/Qtjasvhd1nOa1e8MgZ8GS//jBoTqWtrS1Giw=",
+        "lastModified": 1768135262,
+        "narHash": "sha256-PVvu7OqHBGWN16zSi6tEmPwwHQ4rLPU9Plvs8/1TUBY=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "a34fae9c08a15ad73f295041fec82323541400a9",
+        "rev": "80daad04eddbbf5a4d883996a73f3f542fa437ac",
         "type": "github"
       },
       "original": {
@@ -128,11 +128,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766553861,
-        "narHash": "sha256-ZbnG01yA3O8Yr1vUm3+NQ2qk9iRhS5bloAnuXHHy7+c=",
+        "lastModified": 1768949235,
+        "narHash": "sha256-TtjKgXyg1lMfh374w5uxutd6Vx2P/hU81aEhTxrO2cg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0999ed8f965bbbd991437ad9c5ed3434cecbc30e",
+        "rev": "75ed713570ca17427119e7e204ab3590cc3bf2a5",
         "type": "github"
       },
       "original": {
@@ -165,11 +165,11 @@
     "lf": {
       "flake": false,
       "locked": {
-        "lastModified": 1766813055,
-        "narHash": "sha256-ZQsVeb6FrIHcC7kTHHubwF1VkMQInoC/1EvCXttmuxI=",
+        "lastModified": 1769300067,
+        "narHash": "sha256-MM70gmPLoXnjj1CJBArIhp38R7gJocbrKdlOA/axe+I=",
         "owner": "gokcehan",
         "repo": "lf",
-        "rev": "eb01cb7c7b06c0b4e501d9328287a7720ea523ae",
+        "rev": "60deb6e43bffc289a27e0f0dd0c32d8978d7dd8c",
         "type": "github"
       },
       "original": {
@@ -234,11 +234,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767571560,
-        "narHash": "sha256-YVSqPQ9m7sr/SJRGW/lwJ0HsKIhmDryF/GdKiOF6/FA=",
+        "lastModified": 1769472400,
+        "narHash": "sha256-8iNQg6L/77PgmSHRMPfbrIAFCv5s84cVeDSzsAGTsqg=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "966191072e64eb98c74befc6a623798d3d20efc3",
+        "rev": "950b7b20c18ee3e4fccdb1a0314da9e096abaa7b",
         "type": "github"
       },
       "original": {
@@ -250,11 +250,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1767568020,
-        "narHash": "sha256-vOTmVi6QXdHxvOEnzcSuGZebD1bDpr/K4efIq8yEQd0=",
+        "lastModified": 1769469531,
+        "narHash": "sha256-BAEfUrEpH7KZLt86X1mMqESCo6CPHys4dmr7Ai2ZHk8=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "efa6d91132c71d6efca1b813b0129b1085389a48",
+        "rev": "d30d91f3a49e19e61473b74e42adf68e9215220d",
         "type": "github"
       },
       "original": {
@@ -281,11 +281,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1766736597,
-        "narHash": "sha256-BASnpCLodmgiVn0M1MU2Pqyoz0aHwar/0qLkp7CjvSQ=",
+        "lastModified": 1769318308,
+        "narHash": "sha256-Mjx6p96Pkefks3+aA+72lu1xVehb6mv2yTUUqmSet6Q=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f560ccec6b1116b22e6ed15f4c510997d99d5852",
+        "rev": "1cd347bf3355fce6c64ab37d3967b4a2cb4b878c",
         "type": "github"
       },
       "original": {
@@ -317,11 +317,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1765533253,
-        "narHash": "sha256-uqslimZxAt7KtpxKXWBANdOT40/iHKULoEnA8yp/GbI=",
+        "lastModified": 1767894877,
+        "narHash": "sha256-DB9vEEnEYilGUaHCljMRzT1embzD7uEjJugzRJgiLos=",
         "owner": "Svenum",
         "repo": "Solaar-Flake",
-        "rev": "c78dd3ce38b71225d1f9f6255ad8270598734106",
+        "rev": "f5cac914bdeeecac7fca07e99c8fee18336f5bd5",
         "type": "github"
       },
       "original": {
@@ -386,11 +386,11 @@
     "vault": {
       "flake": false,
       "locked": {
-        "lastModified": 1766017505,
-        "narHash": "sha256-DJ6gwt2dIKVp20DOWDx74TQ6cI86enjf1mYtp5XsTa4=",
+        "lastModified": 1767784998,
+        "narHash": "sha256-YBWqekIb5PeE4q2zsXU7gnZIY6nrvIiK/d9sneO/ASU=",
         "ref": "refs/heads/main",
-        "rev": "8168195747bd0e5e5255d4c12b5245b2fa97bda9",
-        "revCount": 94,
+        "rev": "6421966d248a7a625a5fd2bc49a27cffe091b135",
+        "revCount": 95,
         "type": "git",
         "url": "ssh://git@github.com/aylur/vault"
       },
