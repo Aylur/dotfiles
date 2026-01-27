@@ -1,9 +1,8 @@
-require("config.colorscheme")
-
 -- TODO: add
 -- - mason (for non nix systems)
 
 vim.pack.add({
+	{ src = "https://github.com/aylur/nucharm.nvim" },
 	{ src = "https://github.com/L3MON4D3/LuaSnip" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
@@ -37,17 +36,4 @@ require("plugins.lualine")
 require("plugins.misc")
 require("plugins.treesitter")
 require("plugins.todolist")
-
--- lang setups
-require("plugins.language").setup({
-	require("lang.go"),
-	require("lang.json"),
-	require("lang.lua"),
-	require("lang.markdown"),
-	require("lang.nix"),
-	require("lang.nu"),
-	require("lang.python"),
-	require("lang.rust"),
-	require("lang.typescript"),
-	require("lang.vala"),
-})
+require("plugins.lang")

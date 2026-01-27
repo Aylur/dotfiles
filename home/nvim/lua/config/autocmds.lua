@@ -1,14 +1,18 @@
+local function augroup(name)
+	return vim.api.nvim_create_augroup(name, { clear = true })
+end
+
 vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("my.highlight-on-yank", { clear = true }),
 	desc = "Highlight on Yank",
+	group = augroup("my.highlight-on-yank"),
 	callback = function()
 		vim.hl.on_yank()
 	end,
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("my.copy-on-yank", { clear = true }),
 	desc = "Copy text to clipboard",
+	group = augroup("my.copy-on-yank"),
 	callback = function()
 		if vim.v.event.operator == "y" then
 			local text = vim.fn.getreg('"')
@@ -20,7 +24,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("my.hover-lsp-attach", { clear = true }),
+	desc = "Highlight hovered symbols",
+	group = augroup("my.hover-lsp-attach"),
 	callback = function(event)
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 		local docHighlight = vim.lsp.protocol.Methods.textDocument_documentHighlight
@@ -54,7 +59,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.api.nvim_create_autocmd("BufWritePre", {
 	desc = "Format on save",
-	group = vim.api.nvim_create_augroup("my.format-on-save", { clear = true }),
+	group = augroup("my.format-on-save"),
 	callback = function(args)
 		local is_valid = vim.api.nvim_buf_is_valid(args.buf)
 		local is_normal = vim.bo[args.buf].buftype == ""
