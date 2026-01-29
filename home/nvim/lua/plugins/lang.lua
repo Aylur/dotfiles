@@ -119,6 +119,7 @@ do -- lsp
 		},
 		cssls = {},
 		astro = {},
+		html = {},
 		vala_ls = {},
 		mesonlsp = {},
 		blueprint_ls = {},
