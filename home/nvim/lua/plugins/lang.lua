@@ -244,6 +244,11 @@ require("mini.icons").setup({
 		["pnpm-lock.yaml"] = { glyph = "", hl = "MiniIconsYellow" },
 		["pnpm-workspace.yaml"] = { glyph = "", hl = "MiniIconsYellow" },
 		["docker-compose.yaml"] = { glyph = "", hl = "MiniIconsBlue" },
+		["index.ts"] = { glyph = "", hl = "MiniIconsPurple" },
+		["index.tsx"] = { glyph = "", hl = "MiniIconsPurple" },
+		["index.js"] = { glyph = "", hl = "MiniIconsOrange" },
+		["index.jsx"] = { glyph = "", hl = "MiniIconsOrange" },
+		["default.nix"] = { glyph = "󱄅", hl = "MiniIconsCyan" },
 	},
 })
 

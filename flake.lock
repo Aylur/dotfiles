@@ -32,8 +32,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1782000495,
-        "narHash": "sha256-ppj6f7RTxGBWsx0jtNxdmBQ7h3nCACJhxGoPCU0Uhew=",
+        "lastModified": 1782473313,
+        "narHash": "sha256-Gah0/ocIjHdbf8c7nraIW57/3CiXAqQ53ZKP+gh0ihs=",
         "path": "/home/demeter/Projects/astal/",
         "type": "path"
       },
@@ -66,11 +66,11 @@
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1779670703,
-        "narHash": "sha256-UdfMivNMwCCqQsYDg5pSz8X2IOaOrIZLIIy+Bg3CO2o=",
+        "lastModified": 1782007937,
+        "narHash": "sha256-PbnJr+eB+9Czol3ReI83dUgEhcn0sDK6TSy6ODTQm88=",
         "owner": "rafaelmardojai",
         "repo": "firefox-gnome-theme",
-        "rev": "942159e73e40bf785816f7f1f5feed9ef3d7c8f9",
+        "rev": "981bd332015397fb1ca033fa982bd61635160c78",
         "type": "github"
       },
       "original": {
@@ -104,11 +104,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781115013,
-        "narHash": "sha256-3BopHqMvh26sKim6rumZBY568VrISCWtRgqDuLGR/H0=",
+        "lastModified": 1782704057,
+        "narHash": "sha256-G1I1gd32F7mp9LAe1DaZ4ZL7NX5gyiKwdCMwro1Vrck=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "fcbbf5484ab2c733e886ef4fa91e8da1c8c028f5",
+        "rev": "868d0a692de703c2de98fab61968e4e310b7c28e",
         "type": "github"
       },
       "original": {
@@ -183,11 +183,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1780749050,
-        "narHash": "sha256-3av0pIjlOWQ6rDbNOmpUSvbNnJkGORQKKjb4LtCZsIY=",
+        "lastModified": 1782723713,
+        "narHash": "sha256-oPXCU/SSUokcGaJREHibG1CBX3+s/W7orDWQOZDsEeQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+        "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
         "type": "github"
       },
       "original": {
@@ -199,11 +199,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1780902259,
-        "narHash": "sha256-q8yYEC5f1mFlQO9RGna4LTc9QrcvWunX6FYp83munkQ=",
+        "lastModified": 1782847225,
+        "narHash": "sha256-JC9PjqKYG9ve5U8aDOLQipp3+KLANBHUvGdLZlxzdKI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "bd0ff2d3eac24699c3664d5966b9ef36f388e2ca",
+        "rev": "95ca1e203c0750115fd4a6f17d5a245dfe6b1edd",
         "type": "github"
       },
       "original": {
@@ -233,11 +233,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1780933184,
-        "narHash": "sha256-xuqVsDmJf7fhj9Khn1EKDIfhHZ4C7cA6nWVyN1yGlgk=",
+        "lastModified": 1781721497,
+        "narHash": "sha256-Qt4bx0zxdZBPWrDJV0RB2CwqYKlSzQRIpdSi0i2Nq0I=",
         "owner": "Svenum",
         "repo": "Solaar-Flake",
-        "rev": "55fe232b6762aada1d12e8cf7d5307004048e3c2",
+        "rev": "7229b334cad772a5fef7326e7086ec63a6ba421e",
         "type": "github"
       },
       "original": {
@@ -302,11 +302,11 @@
     "vault": {
       "flake": false,
       "locked": {
-        "lastModified": 1779196105,
-        "narHash": "sha256-G/Ux/2N1R7IZVJnT62+Bj6Il9UBj1rOxx2iwwC4/7KI=",
+        "lastModified": 1782758748,
+        "narHash": "sha256-wzAIe/wfQsdqVhwQV6gHTLcipPMLdI0O4YoMjQ5V7iM=",
         "ref": "refs/heads/main",
-        "rev": "9e2cf697ffb095a215423bcf2a0285a549c1783e",
-        "revCount": 102,
+        "rev": "97c6ba0640ce787b4e80b9ea3876f3ddbf9ac5d5",
+        "revCount": 105,
         "type": "git",
         "url": "ssh://git@github.com/aylur/vault"
       },

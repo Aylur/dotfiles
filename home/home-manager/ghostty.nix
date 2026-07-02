@@ -45,29 +45,29 @@ in {
       ];
     };
     "themes/nucharm-light" = values {
-      background = "#fffaf0";
-      foreground = "#151515";
-      selection-background = "#824b14";
-      selection-foreground = "#1a1110";
-      cursor-color = "#151515";
-      cursor-text = "#fefefa";
+      background = "#F8F3ED";
+      foreground = "#14110F";
+      selection-background = "#7A3E00";
+      selection-foreground = "#14110F";
+      cursor-color = "#14110F";
+      cursor-text = "#F8F3ED";
       palette = [
-        "1=#a82238"
-        "9=#941e31"
-        "2=#14634c"
-        "10=#0e4737"
-        "3=#615907"
-        "11=#4f4906"
-        "4=#1d5b8f"
-        "12=#174973"
-        "5=#5d4b96"
-        "13=#483b75"
-        "6=#11635d"
-        "14=#0d4f4b"
-        "0=#afafb0"
-        "8=#bdbebf"
-        "7=#3b3c3d"
-        "15=#2d2d2e"
+        "1=#8F1238"
+        "9=#6E0E2B"
+        "2=#005F3C"
+        "10=#004C30"
+        "3=#5A5400"
+        "11=#464100"
+        "4=#0055A6"
+        "12=#00427F"
+        "5=#4A2AA8"
+        "13=#391F84"
+        "6=#005C66"
+        "14=#004851"
+        "0=#E0E0E3"
+        "8=#B8B8BE"
+        "7=#232328"
+        "15=#0A0A0C"
       ];
     };
     "themes/nucharm-dark" = values {
