@@ -1,7 +1,8 @@
-inputs @ {
+{
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
   home = config.home.homeDirectory;

@@ -1,5 +1,14 @@
 {
-  outputs = inputs: {
+  outputs = inputs: let
+    forAllSystems = inputs.nixpkgs.lib.genAttrs [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
+  in {
+    packages = forAllSystems (system: {
+      nvim = import ./home/nvim inputs;
+    });
+
     nixosConfigurations = {
       "nixos" = import ./system/nixos inputs;
     };

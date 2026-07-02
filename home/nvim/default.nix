@@ -1,9 +1,9 @@
-inputs:
-with inputs.pkgs; let
-  system = pkgs.stdenv.hostPlatform.system;
-  unstable = inputs.inputs.nixpkgs-unstable.legacyPackages.${system};
+inputs: let
+  system = builtins.currentSystem;
+  pkgs = inputs.nixpkgs.legacyPackages.${system};
+  unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
 
-  bins = [
+  bins = with pkgs; [
     git
     gcc
     gnumake
@@ -73,8 +73,8 @@ with inputs.pkgs; let
     glib
   ];
 
-  linuxBins =
-    if pkgs.stdenv.isDarwin
+  linuxBins = with pkgs;
+    if stdenv.isDarwin
     then []
     else [
       # vala
@@ -97,7 +97,8 @@ in
     withNodeJs = true;
     withPython3 = true;
     wrapRc = false;
-    wrapperArgs = lib.strings.concatStringsSep " " [
-      ''--suffix PATH : "${lib.makeBinPath (bins ++ linuxBins)}"''
+    wrapperArgs = pkgs.lib.strings.concatStringsSep " " [
+      # ''--set SHELL ${lib.getExe pkgs.bash}''
+      ''--suffix PATH : "${pkgs.lib.makeBinPath (bins ++ linuxBins)}"''
     ];
   }
