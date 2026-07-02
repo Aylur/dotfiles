@@ -1,15 +1,23 @@
 inputs: {
+  programs.chromium.enable = true;
+
   home.file = {
     ".mozilla/firefox/default/chrome/firefox-gnome-theme" = {
       source = inputs.inputs.firefox-gnome-theme;
     };
   };
 
-  programs.chromium.enable = true;
+  # TODO: migrate to XDG
+  # xdg.configFile = {
+  #   "mozilla/firefox/default/chrome/firefox-gnome-theme" = {
+  #     source = inputs.inputs.firefox-gnome-theme;
+  #   };
+  # };
 
   programs.firefox = {
     enable = true;
-    configPath = "${inputs.config.xdg.configHome}/mozilla/firefox";
+    # configPath = "${inputs.config.xdg.configHome}/mozilla/firefox";
+    configPath = "${inputs.config.home.homeDirectory}/.mozilla/firefox";
     profiles.default = {
       name = "Default";
       settings = {

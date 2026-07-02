@@ -10,7 +10,6 @@ inputs.nixpkgs.lib.nixosSystem {
         /etc/nixos/hardware-configuration.nix
         ./asus.nix
         ./audio.nix
-        ./gnome.nix
         ./niri.nix
         ./locale.nix
         ./system.nix

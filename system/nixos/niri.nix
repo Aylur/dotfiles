@@ -2,7 +2,10 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  system = pkgs.stdenv.hostPlatform.system;
+  astal = inputs.astal.packages.${system};
+in {
   programs.niri.enable = true;
   programs.kdeconnect.enable = true;
 
@@ -12,14 +15,21 @@
     HandleLidSwitchExternalPower = "ignore";
   };
 
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${astal.greet}/bin/astal-greet -i";
+      };
+    };
+  };
+
   security = {
     polkit.enable = true;
     pam.services.astal-auth = {};
   };
 
   environment.systemPackages = let
-    system = pkgs.stdenv.hostPlatform.system;
-    astal = inputs.astal.packages.${system};
     marble-default = inputs.marble-shell.packages.${system}.default;
     marble-shell = marble-default.overrideAttrs (prev: {
       pnpmDeps = prev.pnpmDeps.overrideAttrs {
@@ -30,6 +40,9 @@
     marble-shell
     astal.mpris
     astal.notifd
+    astal.greet
+
+    pkgs.glib # gdbus
     pkgs.brightnessctl
     pkgs.pulseaudio # pactl
     pkgs.slurp

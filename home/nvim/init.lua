@@ -2,7 +2,7 @@
 -- - mason (for non nix systems)
 
 vim.pack.add({
-	{ src = "https://github.com/aylur/nucharm.nvim" },
+	-- { src = "/home/demeter/Projects/nucharm.nvim" },
 	{ src = "https://github.com/L3MON4D3/LuaSnip" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
@@ -26,6 +26,8 @@ vim.pack.add({
 	{ src = "https://github.com/b0o/SchemaStore.nvim" },
 	{ src = "https://github.com/brenoprata10/nvim-highlight-colors" },
 })
+
+vim.opt.rtp:prepend("~/Projects/nucharm.nvim")
 
 -- config
 require("config.options")

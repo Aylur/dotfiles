@@ -98,7 +98,6 @@ in
     withPython3 = true;
     wrapRc = false;
     wrapperArgs = lib.strings.concatStringsSep " " [
-      ''--set SHELL ${lib.getExe pkgs.bash}''
       ''--suffix PATH : "${lib.makeBinPath (bins ++ linuxBins)}"''
     ];
   }

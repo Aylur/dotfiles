@@ -18,7 +18,7 @@
       flake = false;
     };
     astal = {
-      url = "github:aylur/astal";
+      url = "/home/demeter/Projects/astal/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     marble-shell = {
