@@ -27,11 +27,12 @@
       flake = false;
     };
     astal = {
-      url = "/home/demeter/Projects/astal/";
+      url = "github:aylur/astal";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    marble-shell = {
-      url = "git+ssh://git@github.com/Aylur/marble-shell";
+    marble = {
+      url = "/home/demeter/Projects/marble/";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";

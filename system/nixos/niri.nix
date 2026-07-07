@@ -1,10 +1,12 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }: let
   system = pkgs.stdenv.hostPlatform.system;
   astal = inputs.astal.packages.${system};
+  marble = inputs.marble.packages.${system};
 in {
   programs.niri.enable = true;
   programs.kdeconnect.enable = true;
@@ -15,32 +17,16 @@ in {
     HandleLidSwitchExternalPower = "ignore";
   };
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${astal.greet}/bin/astal-greet -i";
-      };
-    };
-  };
-
   security = {
     polkit.enable = true;
     pam.services.astal-auth = {};
   };
 
-  environment.systemPackages = let
-    marble-default = inputs.marble-shell.packages.${system}.default;
-    marble-shell = marble-default.overrideAttrs (prev: {
-      pnpmDeps = prev.pnpmDeps.overrideAttrs {
-        sshKey = "${inputs.vault}/ssh/id_rsa";
-      };
-    });
-  in [
-    marble-shell
+  environment.systemPackages = [
+    marble.default
     astal.mpris
     astal.notifd
-    astal.greet
+    astal.brightness
 
     pkgs.glib # gdbus
     pkgs.brightnessctl
@@ -80,5 +66,42 @@ in {
       localsearch.enable = true;
       tinysparql.enable = true;
     };
+  };
+
+  services.greetd = {
+    enable = true;
+    settings.default_session.command = pkgs.writeShellScript "greeter" ''
+      # export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
+      export XCURSOR_THEME=Qogir
+      ${pkgs.cage}/bin/cage -m last -s -d ${marble.default}/libexec/marble-greeter
+    '';
+  };
+
+  systemd.services.marble-greeter-wallpapers = {
+    wantedBy = ["greetd.service"];
+    before = ["greetd.service"];
+
+    serviceConfig = {
+      Type = "oneshot";
+    };
+
+    script = builtins.readFile (pkgs.writers.writeNu "wp"
+      #nu
+      ''
+        let rundir = "/run/marble-greeter"
+        mkdir $rundir
+        chown greeter:greeter $rundir
+
+        for home in (ls /home | where type == dir | get name) {
+          let background = ($home | path join ".config" "background")
+
+          if ($background | path exists) {
+            let name = ($home | path basename)
+            let target = $"($rundir)/($name)"
+            cp $background $target
+            chown greeter:greeter $target
+          }
+        }
+      '');
   };
 }

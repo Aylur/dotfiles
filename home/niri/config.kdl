@@ -10,7 +10,7 @@ cursor {
 }
 
 switch-events {
-    lid-close { spawn "marble" "lock"; }
+    lid-close { spawn "marble" "system" "lockscreen"; }
 }
 
 input {
@@ -117,9 +117,7 @@ binds {
     Mod+W { spawn "firefox"; }
     Mod+E { spawn "nautilus"; }
     Mod+R { spawn "marble" "launcher"; }
-    Alt+Space { spawn "gdbus" "call" "--session" "--dest" "marble.Shell" "--object-path" "/marble/Shell" "--method" "marble.Shell.OpenLauncher" "''"; }
-
-
+    Alt+Space { spawn "marble" "launcher"; }
 
     Alt+Q { close-window; }
 
@@ -173,19 +171,19 @@ binds {
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
-    XF86PowerOff { spawn "marble" "poweroff"; }
+    XF86PowerOff { spawn "marble" "system" "poweroff"; }
 
     XF86MonBrightnessUp allow-when-locked=true {
-        spawn "brightnessctl" "set" "+5%"
+        spawn "astal-brightness" "set" "+5%"
     }
     XF86MonBrightnessDown allow-when-locked=true {
-        spawn "brightnessctl" "set" "5%-"
+        spawn "astal-brightness" "set" "5%-"
     }
     XF86KbdBrightnessUp allow-when-locked=true {
-        spawn "brightnessctl" "-d" "asus::kbd_backlight" "set" "+1"
+        spawn "astal-brightness" "set" "-s" "leds" "set" "+1"
     }
     XF86KbdBrightnessDown allow-when-locked=true {
-        spawn "brightnessctl" "-d" "asus::kbd_backlight" "set" "1-"
+        spawn "astal-brightness" "set" "-s" "leds" "set" "1-"
     }
 
     XF86AudioRaiseVolume allow-when-locked=true {

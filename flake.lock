@@ -1,30 +1,5 @@
 {
   "nodes": {
-    "ags": {
-      "inputs": {
-        "astal": [
-          "marble-shell",
-          "astal"
-        ],
-        "nixpkgs": [
-          "marble-shell",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1764289441,
-        "narHash": "sha256-ak+lgFiYE5PHByN1/BRkO5JP498hno6Ix24C1Qf/vec=",
-        "owner": "aylur",
-        "repo": "ags",
-        "rev": "e169694390548dfd38ff40f1ef2163d6c3ffe3ea",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aylur",
-        "repo": "ags",
-        "type": "github"
-      }
-    },
     "astal": {
       "inputs": {
         "nixpkgs": [
@@ -32,29 +7,32 @@
         ]
       },
       "locked": {
-        "lastModified": 1782473313,
-        "narHash": "sha256-Gah0/ocIjHdbf8c7nraIW57/3CiXAqQ53ZKP+gh0ihs=",
-        "path": "/home/demeter/Projects/astal/",
-        "type": "path"
+        "lastModified": 1783119102,
+        "narHash": "sha256-bXd034/ARs18ZQ7hWUAw9NwyfBmcKQws8DQHzwYp6jM=",
+        "owner": "aylur",
+        "repo": "astal",
+        "rev": "04454c22094401cc8e682cfe1f8ecc3194cac5f9",
+        "type": "github"
       },
       "original": {
-        "path": "/home/demeter/Projects/astal/",
-        "type": "path"
+        "owner": "aylur",
+        "repo": "astal",
+        "type": "github"
       }
     },
     "astal_2": {
       "inputs": {
         "nixpkgs": [
-          "marble-shell",
+          "marble",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1764173295,
-        "narHash": "sha256-Jh4VtPcK2Ov+RTcV9FtyQRsxiJmXFQGfqX6jjM7/mgc=",
+        "lastModified": 1783119102,
+        "narHash": "sha256-bXd034/ARs18ZQ7hWUAw9NwyfBmcKQws8DQHzwYp6jM=",
         "owner": "aylur",
         "repo": "astal",
-        "rev": "7d1fac8a4b2a14954843a978d2ddde86168c75ef",
+        "rev": "04454c22094401cc8e682cfe1f8ecc3194cac5f9",
         "type": "github"
       },
       "original": {
@@ -104,11 +82,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782704057,
-        "narHash": "sha256-G1I1gd32F7mp9LAe1DaZ4ZL7NX5gyiKwdCMwro1Vrck=",
+        "lastModified": 1783221248,
+        "narHash": "sha256-ESQnuNHEDChsB4IxoLRhscVahqkDWkTb+qdIz8euYt4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "868d0a692de703c2de98fab61968e4e310b7c28e",
+        "rev": "af2beae5f0fae0a4310cc0e6aef2572f56090353",
         "type": "github"
       },
       "original": {
@@ -120,90 +98,29 @@
     },
     "marble": {
       "inputs": {
-        "astal": [
-          "marble-shell",
-          "astal"
-        ],
+        "astal": "astal_2",
         "nixpkgs": [
-          "marble-shell",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1764289796,
-        "narHash": "sha256-QU1xTXdlmU88aM4bKLfhiSHiteh9s5uxREzv1r9t2l8=",
-        "ref": "refs/heads/main",
-        "rev": "0842703d4755836594decaa59162c47177fb6bbb",
-        "revCount": 135,
-        "type": "git",
-        "url": "ssh://git@github.com/marble-shell/kit"
+        "lastModified": 1783447421,
+        "narHash": "sha256-XGEPIgdfxHwhiCSAGAGE6IlY74/wbxLVmu5zZvNDOLg=",
+        "path": "/home/demeter/Projects/marble/",
+        "type": "path"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/marble-shell/kit"
-      }
-    },
-    "marble-shell": {
-      "inputs": {
-        "ags": "ags",
-        "astal": "astal_2",
-        "marble": "marble",
-        "nixpkgs": "nixpkgs",
-        "sshKey": "sshKey"
-      },
-      "locked": {
-        "lastModified": 1764290073,
-        "narHash": "sha256-3sf9B9DHikab5lBeWhkSXKmMf1v80lzNXQNVRJW/v08=",
-        "ref": "refs/heads/main",
-        "rev": "216a40aed02e9192060b9ef8e07b52354779c67e",
-        "revCount": 13,
-        "type": "git",
-        "url": "ssh://git@github.com/Aylur/marble-shell"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/Aylur/marble-shell"
+        "path": "/home/demeter/Projects/marble/",
+        "type": "path"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1763966396,
-        "narHash": "sha256-6eeL1YPcY1MV3DDStIDIdy/zZCDKgHdkCmsrLJFiZf0=",
+        "lastModified": 1783148766,
+        "narHash": "sha256-uslt2pqShTIXDdAHRHv2QkYLsVdY8Oqwz0EA48/RSM8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5ae3b07d8d6527c42f17c876e404993199144b6a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-unstable": {
-      "locked": {
-        "lastModified": 1782723713,
-        "narHash": "sha256-oPXCU/SSUokcGaJREHibG1CBX3+s/W7orDWQOZDsEeQ=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1782847225,
-        "narHash": "sha256-JC9PjqKYG9ve5U8aDOLQipp3+KLANBHUvGdLZlxzdKI=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "95ca1e203c0750115fd4a6f17d5a245dfe6b1edd",
+        "rev": "a50de1b7d8a586adc18d2395c19de7d6058e6030",
         "type": "github"
       },
       "original": {
@@ -213,13 +130,29 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1783224372,
+        "narHash": "sha256-8i/87eeoqiGE4yOTjwSA3Eh/ziJRQEmd/unYU+K27sk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "astal": "astal",
         "firefox-gnome-theme": "firefox-gnome-theme",
         "home-manager": "home-manager",
-        "marble-shell": "marble-shell",
-        "nixpkgs": "nixpkgs_2",
+        "marble": "marble",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "solaar": "solaar",
         "vault": "vault"
@@ -233,11 +166,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1781721497,
-        "narHash": "sha256-Qt4bx0zxdZBPWrDJV0RB2CwqYKlSzQRIpdSi0i2Nq0I=",
+        "lastModified": 1783018147,
+        "narHash": "sha256-mqQiBqpTYNFxA/LyOdTIpvV+B1/cNOB38aYyXj3iXvY=",
         "owner": "Svenum",
         "repo": "Solaar-Flake",
-        "rev": "7229b334cad772a5fef7326e7086ec63a6ba421e",
+        "rev": "1870d5bd8c5ddb54b64eb67c6c32fead1aab9276",
         "type": "github"
       },
       "original": {
@@ -245,24 +178,6 @@
         "ref": "main",
         "repo": "Solaar-Flake",
         "type": "github"
-      }
-    },
-    "sshKey": {
-      "flake": false,
-      "locked": {
-        "dir": "ssh/id_rsa",
-        "lastModified": 1763046199,
-        "narHash": "sha256-Tv4qqI6cHUsWkbjfKEs4gPZ3bIVXe1ZbIiDGNS2MowI=",
-        "ref": "refs/heads/main",
-        "rev": "9b980bd8213dd2277f7be0b6d08d953b8e372bd7",
-        "revCount": 92,
-        "type": "git",
-        "url": "ssh://git@github.com/aylur/vault"
-      },
-      "original": {
-        "dir": "ssh/id_rsa",
-        "type": "git",
-        "url": "ssh://git@github.com/aylur/vault"
       }
     },
     "systems": {
