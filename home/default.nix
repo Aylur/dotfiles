@@ -7,6 +7,7 @@
 }: let
   home = config.home.homeDirectory;
   dotfiles = "${home}/Projects/dotfiles";
+
   ln = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${path}";
 in {
   imports = [
@@ -17,7 +18,10 @@ in {
     ./home-manager/packages.nix
   ];
 
-  home.packages = [(import ./nvim inputs)];
+  home.packages = let
+    system = pkgs.stdenv.hostPlatform.system;
+    unstable-pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
+  in [(import ./nvim {pkgs = unstable-pkgs;})];
 
   xdg.configFile = {
     "environment.d/env.conf".source = ln "home/env.conf";

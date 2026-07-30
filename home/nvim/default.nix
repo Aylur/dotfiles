@@ -1,8 +1,4 @@
-inputs: let
-  system = builtins.currentSystem;
-  pkgs = inputs.nixpkgs.legacyPackages.${system};
-  unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
-
+{pkgs, ...}: let
   bins = with pkgs; [
     git
     gcc
@@ -37,17 +33,21 @@ inputs: let
     # ts
     nodejs
     deno
-    bun
-    yarn
     pnpm
     prettier
+    oxfmt
+    oxlint
     tailwindcss-language-server
     svelte-language-server
     astro-language-server
     vue-language-server
     vscode-langservers-extracted
-    vtsls
+    typescript-language-server
+    typescript
     typescript-go
+    vtsls
+
+    # markdown
     markdownlint-cli2
     marksman
 
@@ -61,6 +61,7 @@ inputs: let
     # python
     ruff
     pyright
+    uv
 
     # rust
     cargo
@@ -92,7 +93,7 @@ inputs: let
       xclip
     ];
 in
-  unstable.wrapNeovimUnstable unstable.neovim-unwrapped {
+  pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped {
     withRuby = true;
     withNodeJs = true;
     withPython3 = true;

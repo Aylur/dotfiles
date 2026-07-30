@@ -28,6 +28,10 @@ in {
     astal.notifd
     astal.brightness
 
+    pkgs.morewaita-icon-theme
+    pkgs.qogir-icon-theme
+    pkgs.nerd-fonts.ubuntu
+
     pkgs.glib # gdbus
     pkgs.brightnessctl
     pkgs.pulseaudio # pactl
@@ -48,7 +52,6 @@ in {
     pkgs.gnome-calculator
     pkgs.gnome-clocks
     pkgs.gnome-software # for flatpak
-    pkgs.nerd-fonts.ubuntu
   ];
 
   services = {
@@ -68,40 +71,61 @@ in {
     };
   };
 
-  services.greetd = {
+  systemd.user.services.niri = {
+    wants = ["marble.service"];
+  };
+
+  services.greetd = let
+    greeter = "${marble.default}/libexec/marble-greeter";
+    dbus-run-session = "${pkgs.dbus}/bin/dbus-run-session";
+    niri = "${pkgs.niri}/bin/niri";
+    niri-greeter-conf = pkgs.writeText "niri-greeter-conf" ''
+      spawn-sh-at-startup "${greeter}; niri msg action quit --skip-confirmation"
+      hotkey-overlay { skip-at-startup; }
+      cursor { xcursor-theme "Qogir-Dark"; }
+      input {
+        touchpad {
+          tap
+        }
+        keyboard {
+          xkb {
+            layout "${config.services.xserver.xkb.layout}"
+            options "${config.services.xserver.xkb.options}"
+          }
+        }
+      }
+    '';
+  in {
     enable = true;
-    settings.default_session.command = pkgs.writeShellScript "greeter" ''
-      # export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
-      export XCURSOR_THEME=Qogir
-      ${pkgs.cage}/bin/cage -m last -s -d ${marble.default}/libexec/marble-greeter
+    settings.default_session.command = ''
+      ${dbus-run-session} ${niri} --config ${niri-greeter-conf}
     '';
   };
 
   systemd.services.marble-greeter-wallpapers = {
     wantedBy = ["greetd.service"];
     before = ["greetd.service"];
+    serviceConfig = {Type = "oneshot";};
+    script = let
+      wp =
+        pkgs.writers.writeNu "wp"
+        #nu
+        ''
+          let rundir = "/run/marble-greeter"
+          mkdir $rundir
+          chown greeter:greeter $rundir
 
-    serviceConfig = {
-      Type = "oneshot";
-    };
+          for home in (ls /home | where type == dir | get name) {
+            let background = ($home | path join ".config" "background")
 
-    script = builtins.readFile (pkgs.writers.writeNu "wp"
-      #nu
-      ''
-        let rundir = "/run/marble-greeter"
-        mkdir $rundir
-        chown greeter:greeter $rundir
-
-        for home in (ls /home | where type == dir | get name) {
-          let background = ($home | path join ".config" "background")
-
-          if ($background | path exists) {
-            let name = ($home | path basename)
-            let target = $"($rundir)/($name)"
-            cp $background $target
-            chown greeter:greeter $target
+            if ($background | path exists) {
+              let name = ($home | path basename)
+              let target = $"($rundir)/($name)"
+              cp $background $target
+              chown greeter:greeter $target
+            }
           }
-        }
-      '');
+        '';
+    in "${wp}";
   };
 }

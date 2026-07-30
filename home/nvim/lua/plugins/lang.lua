@@ -65,7 +65,7 @@ require("conform").setup({
 })
 
 -- lsp
-local specs = {
+local lsp_specs = {
 	gopls = {},
 	jsonls = {
 		settings = {
@@ -73,6 +73,8 @@ local specs = {
 				validate = { enable = true },
 				schemas = require("schemastore").json.schemas({
 					select = {
+						"oxfmt",
+						"oxlint",
 						"package.json",
 						"tsconfig.json",
 					},
@@ -107,8 +109,6 @@ local specs = {
 			},
 		},
 	},
-	-- TODO: migrate to tsgo once it supports code actions
-	-- tsgo = {},
 	vtsls = {
 		filetypes = {
 			"javascript",
@@ -152,11 +152,18 @@ local specs = {
 			},
 		},
 	},
-	eslint = {},
+	oxlint = {},
+	eslint = {
+		settings = {
+			options = {
+				flags = { "unstable_native_nodejs_ts_config" },
+			},
+		},
+	},
 	tailwindcss = {
 		settings = {
 			tailwindCSS = {
-				classFunctions = { "clsx" },
+				classFunctions = { "clsx", "cn", "cx", "tv" },
 			},
 		},
 	},
@@ -170,13 +177,13 @@ local specs = {
 	clangd = {},
 }
 
-for name, opts in pairs(specs) do
+for name, opts in pairs(lsp_specs) do
 	vim.lsp.enable(name)
 	vim.lsp.config(name, opts)
 end
 
 -- ft local options
-local specs = {
+local fmt_specs = {
 	[{ "lua" }] = {
 		shiftwidth = 4,
 		tabstop = 4,
@@ -211,7 +218,7 @@ local specs = {
 	},
 }
 
-for pattern, opts in pairs(specs) do
+for pattern, opts in pairs(fmt_specs) do
 	vim.api.nvim_create_autocmd("FileType", {
 		desc = "Local options for " .. table.concat(pattern, ", "),
 		group = vim.api.nvim_create_augroup("lang." .. table.concat(pattern, "-"), { clear = true }),

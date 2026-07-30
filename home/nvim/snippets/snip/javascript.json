@@ -63,18 +63,6 @@
     "prefix": "jp",
     "body": "JSON.parse($0)"
   },
-  "getter": {
-    "prefix": "get",
-    "body": "get ${1:property} () {\n\t${0}\n}"
-  },
-  "setter": {
-    "prefix": "set",
-    "body": "set ${1:property} (${2:value}) {\n\t${0}\n}"
-  },
-  "ternary": {
-    "prefix": "te",
-    "body": "${1:cond} ? ${2:true} : ${3:false}"
-  },
   "fori": {
     "prefix": "fori",
     "body": [

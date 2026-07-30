@@ -25,6 +25,7 @@ vim.pack.add({
 	{ src = "https://github.com/windwp/nvim-ts-autotag" },
 	{ src = "https://github.com/b0o/SchemaStore.nvim" },
 	{ src = "https://github.com/brenoprata10/nvim-highlight-colors" },
+	{ src = "https://github.com/sindrets/diffview.nvim.git" },
 })
 
 -- config

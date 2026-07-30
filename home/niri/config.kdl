@@ -1,5 +1,3 @@
-spawn-at-startup "marble"
-
 hotkey-overlay {
     skip-at-startup
 }
