@@ -17,7 +17,7 @@ load-env {
 }
 
 do {|conf|
-    mkdir ($env.STARSHIP_CONFIG | path dirname )
+    mkdir ($env.STARSHIP_CONFIG | path dirname)
     $conf | to toml | save -f $env.STARSHIP_CONFIG
 } {
     add_newline: true

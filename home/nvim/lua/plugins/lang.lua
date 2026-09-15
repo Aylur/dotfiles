@@ -32,10 +32,31 @@ require("nvim-treesitter").install({
 })
 
 -- formatters
+local oxfmt_config_files = {
+	".oxfmtrc.json",
+	".oxfmtrc.jsonc",
+	"oxfmt.config.ts",
+}
+
+local function oxfmt_or_prettier(bufnr)
+	local name = vim.api.nvim_buf_get_name(bufnr)
+	local dir = name ~= "" and vim.fs.dirname(name) or vim.fn.getcwd()
+
+	if vim.fs.find(oxfmt_config_files, { path = dir, upward = true })[1] then
+		return { "oxfmt" }
+	end
+
+	return { "prettier" }
+end
+
 require("conform").setup({
 	formatters = {
 		prettier = {
 			prepend_args = { "--prose-wrap", "always" },
+		},
+		valafmt = {
+			command = "valafmt",
+			stdin = true,
 		},
 	},
 	formatters_by_ft = {
@@ -50,13 +71,14 @@ require("conform").setup({
 		xml = { "xmllint" },
 		svg = { "xmllint" },
 		nix = { "alejandra" },
-		javascript = { "prettier" },
-		typescript = { "prettier" },
-		typescriptreact = { "prettier" },
-		javascriptreact = { "prettier" },
+		vala = { "valafmt" },
+		javascript = oxfmt_or_prettier,
+		typescript = oxfmt_or_prettier,
+		typescriptreact = oxfmt_or_prettier,
+		javascriptreact = oxfmt_or_prettier,
 		vue = { "prettier" },
-		["typescript.jsx"] = { "prettier" },
-		["javascript.jsx"] = { "prettier" },
+		["typescript.jsx"] = oxfmt_or_prettier,
+		["javascript.jsx"] = oxfmt_or_prettier,
 		css = { "prettier" },
 		scss = { "prettier" },
 		graphql = { "prettier" },
@@ -171,7 +193,12 @@ local lsp_specs = {
 	astro = {},
 	vue_ls = {},
 	html = {},
-	vala_ls = {},
+	vala_ls = {
+		on_attach = function(client)
+			client.server_capabilities.documentFormattingProvider = false
+			client.server_capabilities.documentRangeFormattingProvider = false
+		end,
+	},
 	mesonlsp = {},
 	blueprint_ls = {},
 	clangd = {},
