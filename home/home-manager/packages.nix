@@ -1,4 +1,13 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
+  unstable-pkgs = import inputs.nixpkgs-unstable {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    inherit (pkgs) config;
+  };
+
   gjs-wrapped = pkgs.stdenv.mkDerivation {
     name = "gjs";
     src = null;
@@ -54,6 +63,12 @@
     };
 in {
   home.packages = [
+    unstable-pkgs.claude-code
+    (import ../nvim {pkgs = unstable-pkgs;})
+
+    pkgs.gettext
+    pkgs.glib.dev
+
     # dev
     pkgs.nodejs_24
     pkgs.bun

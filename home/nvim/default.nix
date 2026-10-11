@@ -44,7 +44,6 @@
     vscode-langservers-extracted
     typescript-language-server
     typescript
-    typescript-go
     vtsls
 
     # markdown

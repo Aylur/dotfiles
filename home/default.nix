@@ -1,8 +1,6 @@
 {
   pkgs,
   config,
-  lib,
-  inputs,
   ...
 }: let
   home = config.home.homeDirectory;
@@ -17,11 +15,6 @@ in {
     ./home-manager/ghostty.nix
     ./home-manager/packages.nix
   ];
-
-  home.packages = let
-    system = pkgs.stdenv.hostPlatform.system;
-    unstable-pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
-  in [(import ./nvim {pkgs = unstable-pkgs;})];
 
   xdg.configFile = {
     "environment.d/env.conf".source = ln "home/env.conf";
@@ -52,7 +45,7 @@ in {
       file://${home}/Videos
     '';
 
-    "git/config".text = lib.generators.toGitINI {
+    "git/config".text = pkgs.lib.generators.toGitINI {
       core.editor = "nvim";
       core.pager = "bat";
       color.ui = true;
