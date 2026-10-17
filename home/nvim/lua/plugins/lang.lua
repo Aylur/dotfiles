@@ -1,297 +1,282 @@
 -- treesitter
 require("nvim-treesitter").install({
-	"go",
-	"gomod",
-	"gowork",
-	"gosum",
-	"json",
-	"lua",
-	"nix",
-	"nu",
-	"ninja",
-	"rst",
-	"rust",
-	"ron",
-	"astro",
-	"styled", -- css
-	"css",
-	"scss",
-	"html",
-	"javascript",
-	"jsdoc",
-	"json",
-	"tsx",
-	"jsx",
-	"typescript",
-	"typescript",
-	"javascript",
-	"jsdoc",
-	"vala",
-	"meson",
-	"cpp",
+    "go",
+    "gomod",
+    "gowork",
+    "gosum",
+    "json",
+    "lua",
+    "nix",
+    "nu",
+    "ninja",
+    "rst",
+    "rust",
+    "ron",
+    "astro",
+    "styled", -- css
+    "css",
+    "scss",
+    "html",
+    "javascript",
+    "jsdoc",
+    "json",
+    "tsx",
+    "jsx",
+    "typescript",
+    "typescript",
+    "javascript",
+    "jsdoc",
+    "vala",
+    "meson",
+    "cpp",
 })
 
 -- formatters
-local oxfmt_config_files = {
-	".oxfmtrc.json",
-	".oxfmtrc.jsonc",
-	"oxfmt.config.ts",
-}
+local oxfmt_config_files = { ".oxfmtrc.json", ".oxfmtrc.jsonc", "oxfmt.config.ts" }
 
 local function oxfmt_or_prettier(bufnr)
-	local name = vim.api.nvim_buf_get_name(bufnr)
-	local dir = name ~= "" and vim.fs.dirname(name) or vim.fn.getcwd()
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    local dir = name ~= "" and vim.fs.dirname(name) or vim.fn.getcwd()
 
-	if vim.fs.find(oxfmt_config_files, { path = dir, upward = true })[1] then
-		return { "oxfmt" }
-	end
+    if vim.fs.find(oxfmt_config_files, { path = dir, upward = true })[1] then
+        return { "oxfmt" }
+    end
 
-	return { "prettier" }
+    return { "prettier" }
 end
 
 require("conform").setup({
-	formatters = {
-		prettier = {
-			prepend_args = { "--prose-wrap", "always" },
-		},
-		valafmt = {
-			command = "valafmt",
-			stdin = true,
-		},
-	},
-	formatters_by_ft = {
-		go = { "goimports", "gofumpt" },
-		json = { "prettier" },
-		jsonc = { "prettier" },
-		json5 = { "prettier" },
-		yaml = { "prettier" },
-		lua = { "stylua" },
-		markdown = { "prettier" },
-		["markdown.mdx"] = { "prettier" },
-		xml = { "xmllint" },
-		svg = { "xmllint" },
-		nix = { "alejandra" },
-		vala = { "valafmt" },
-		javascript = oxfmt_or_prettier,
-		typescript = oxfmt_or_prettier,
-		typescriptreact = oxfmt_or_prettier,
-		javascriptreact = oxfmt_or_prettier,
-		vue = { "prettier" },
-		["typescript.jsx"] = oxfmt_or_prettier,
-		["javascript.jsx"] = oxfmt_or_prettier,
-		css = { "prettier" },
-		scss = { "prettier" },
-		graphql = { "prettier" },
-		astro = { "prettier" },
-	},
+    formatters = {
+        prettier = {
+            prepend_args = { "--prose-wrap", "always" },
+        },
+        valafmt = {
+            command = "valafmt",
+            stdin = true,
+        },
+        luafmt = {
+            command = "luafmt",
+            args = { "--stdin" },
+            stdin = true,
+            -- luafmt looks for .luafmt.toml upwards from cwd when reading stdin
+            cwd = function (_, ctx) return ctx.dirname end,
+        },
+    },
+    formatters_by_ft = {
+        go = { "goimports", "gofumpt" },
+        json = { "prettier" },
+        jsonc = { "prettier" },
+        json5 = { "prettier" },
+        yaml = { "prettier" },
+        lua = { "luafmt" },
+        markdown = { "prettier" },
+        ["markdown.mdx"] = { "prettier" },
+        xml = { "xmllint" },
+        svg = { "xmllint" },
+        nix = { "alejandra" },
+        vala = { "valafmt" },
+        javascript = oxfmt_or_prettier,
+        typescript = oxfmt_or_prettier,
+        typescriptreact = oxfmt_or_prettier,
+        javascriptreact = oxfmt_or_prettier,
+        vue = { "prettier" },
+        ["typescript.jsx"] = oxfmt_or_prettier,
+        ["javascript.jsx"] = oxfmt_or_prettier,
+        css = { "prettier" },
+        scss = { "prettier" },
+        graphql = { "prettier" },
+        astro = { "prettier" },
+    },
 })
 
 -- lsp
 local lsp_specs = {
-	gopls = {},
-	jsonls = {
-		settings = {
-			json = {
-				validate = { enable = true },
-				schemas = require("schemastore").json.schemas({
-					select = {
-						"oxfmt",
-						"oxlint",
-						"package.json",
-						"tsconfig.json",
-					},
-				}),
-			},
-		},
-	},
-	lua_ls = {
-		settings = {
-			Lua = {
-				workspace = {
-					library = vim.list_extend(vim.api.nvim_get_runtime_file("", true), {
-						vim.env.VIMRUNTIME,
-						vim.fn.stdpath("config") .. "/lua",
-					}),
-				},
-			},
-		},
-	},
-	marksman = {},
-	nil_ls = {},
-	nushell = {},
-	ruff = {},
-	ruff_lsp = {},
-	pyright = {},
-	rust_analyzer = {
-		settings = {
-			["rust-analyzer"] = {
-				check = {
-					command = "clippy",
-				},
-			},
-		},
-	},
-	vtsls = {
-		filetypes = {
-			"javascript",
-			"javascriptreact",
-			"typescript",
-			"typescriptreact",
-			"vue",
-		},
-		settings = {
-			complete_function_calls = true,
-			vtsls = {
-				enableMoveToFileCodeAction = true,
-				autoUseWorkspaceTsdk = true,
-				experimental = {
-					maxInlayHintLength = 30,
-					completion = {
-						enableServerSideFuzzyMatch = true,
-					},
-				},
-				tsserver = {
-					globalPlugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = vim.fs.joinpath(
-								vim.fs.dirname(vim.fs.dirname(vim.fn.exepath("vue-language-server"))),
-								"lib",
-								"language-tools",
-								"packages",
-								"language-server"
-							),
-							languages = { "vue" },
-							configNamespace = "typescript",
-							enableForWorkspaceTypeScriptVersions = true,
-						},
-					},
-				},
-			},
-			typescript = {
-				updateImportsOnFileMove = { enabled = "always" },
-				suggest = { completeFunctionCalls = true },
-			},
-		},
-	},
-	oxlint = {},
-	eslint = {
-		settings = {
-			options = {
-				flags = { "unstable_native_nodejs_ts_config" },
-			},
-		},
-	},
-	tailwindcss = {
-		settings = {
-			tailwindCSS = {
-				classFunctions = { "clsx", "cn", "cx", "tv" },
-			},
-		},
-	},
-	cssls = {},
-	astro = {},
-	vue_ls = {},
-	html = {},
-	vala_ls = {
-		on_attach = function(client)
-			client.server_capabilities.documentFormattingProvider = false
-			client.server_capabilities.documentRangeFormattingProvider = false
-		end,
-	},
-	mesonlsp = {},
-	blueprint_ls = {},
-	clangd = {},
+    gopls = {},
+    jsonls = {
+        settings = {
+            json = {
+                validate = { enable = true },
+                schemas = require("schemastore").json.schemas({
+                    select = {
+                        "oxfmt",
+                        "oxlint",
+                        "package.json",
+                        "tsconfig.json",
+                    },
+                }),
+            },
+        },
+    },
+    emmylua_ls = {},
+    marksman = {},
+    nil_ls = {},
+    nushell = {},
+    ruff = {},
+    ruff_lsp = {},
+    pyright = {},
+    rust_analyzer = {
+        settings = {
+            ["rust-analyzer"] = {
+                check = {
+                    command = "clippy",
+                },
+            },
+        },
+    },
+    vtsls = {
+        filetypes = {
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "vue",
+        },
+        settings = {
+            complete_function_calls = true,
+            vtsls = {
+                enableMoveToFileCodeAction = true,
+                autoUseWorkspaceTsdk = true,
+                experimental = {
+                    maxInlayHintLength = 30,
+                    completion = {
+                        enableServerSideFuzzyMatch = true,
+                    },
+                },
+                tsserver = {
+                    globalPlugins = {
+                        {
+                            name = "@vue/typescript-plugin",
+                            location = vim.fs.joinpath(
+                                vim.fs.dirname(
+                                    vim.fs.dirname(vim.fn.exepath("vue-language-server"))
+                                ), "lib", "language-tools", "packages", "language-server"
+                            ),
+                            languages = { "vue" },
+                            configNamespace = "typescript",
+                            enableForWorkspaceTypeScriptVersions = true,
+                        },
+                    },
+                },
+            },
+            typescript = {
+                updateImportsOnFileMove = { enabled = "always" },
+                suggest = { completeFunctionCalls = true },
+            },
+        },
+    },
+    oxlint = {},
+    eslint = {
+        settings = {
+            options = {
+                flags = { "unstable_native_nodejs_ts_config" },
+            },
+        },
+    },
+    tailwindcss = {
+        settings = {
+            tailwindCSS = {
+                classFunctions = { "clsx", "cn", "cx", "tv" },
+            },
+        },
+    },
+    cssls = {},
+    astro = {},
+    vue_ls = {},
+    html = {},
+    vala_ls = {
+        on_attach = function (client)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+    },
+    mesonlsp = {},
+    blueprint_ls = {},
+    clangd = {},
 }
 
 for name, opts in pairs(lsp_specs) do
-	vim.lsp.enable(name)
-	vim.lsp.config(name, opts)
+    vim.lsp.enable(name)
+    vim.lsp.config(name, opts)
 end
 
 -- ft local options
 local fmt_specs = {
-	[{ "lua" }] = {
-		shiftwidth = 4,
-		tabstop = 4,
-	},
-	[{ "md", "markdown" }] = {
-		shiftwidth = 2,
-		tabstop = 2,
-	},
-	[{ "nix" }] = {
-		shiftwidth = 2,
-		tabstop = 2,
-	},
-	[{ "nu" }] = {
-		shiftwidth = 4,
-		tabstop = 4,
-	},
-	[{
-		"css",
-		"typescript.jsx",
-		"javascript.jsx",
-		"typescript",
-		"javacript",
-		"typescriptreact",
-		"javacriptreact",
-	}] = {
-		shiftwidth = 2,
-		tabstop = 2,
-	},
-	[{ "vala" }] = {
-		shiftwidth = 4,
-		tabstop = 4,
-	},
+    [{ "lua" }] = {
+        shiftwidth = 4,
+        tabstop = 4,
+    },
+    [{ "md", "markdown" }] = {
+        shiftwidth = 2,
+        tabstop = 2,
+    },
+    [{ "nix" }] = {
+        shiftwidth = 2,
+        tabstop = 2,
+    },
+    [{ "nu" }] = {
+        shiftwidth = 4,
+        tabstop = 4,
+    },
+    [{
+        "css", "typescript.jsx", "javascript.jsx", "typescript", "javacript", "typescriptreact",
+        "javacriptreact",
+    }] = {
+        shiftwidth = 2,
+        tabstop = 2,
+    },
+    [{ "vala" }] = {
+        shiftwidth = 4,
+        tabstop = 4,
+    },
 }
 
 for pattern, opts in pairs(fmt_specs) do
-	vim.api.nvim_create_autocmd("FileType", {
-		desc = "Local options for " .. table.concat(pattern, ", "),
-		group = vim.api.nvim_create_augroup("lang." .. table.concat(pattern, "-"), { clear = true }),
-		pattern = pattern,
-		callback = function()
-			for k, v in pairs(opts) do
-				vim.opt_local[k] = v
-			end
-		end,
-	})
+    vim.api.nvim_create_autocmd("FileType", {
+        desc = "Local options for " .. table.concat(pattern, ", "),
+        group = vim.api.nvim_create_augroup("lang." .. table.concat(pattern, "-"), { clear = true }),
+        pattern = pattern,
+        callback = function ()
+            for k, v in pairs(opts) do
+                vim.opt_local[k] = v
+            end
+        end,
+    })
 end
 
 -- icons
 require("mini.icons").setup({
-	file = {
-		[".go-version"] = { glyph = "", hl = "MiniIconsBlue" },
-		["nvim-pack-lock.json"] = { glyph = "", hl = "MiniIconsGreen" },
-		["vercel.json"] = { glyph = "", hl = "MiniIconsGray" },
-		["package.json"] = { glyph = "", hl = "MiniIconsGreen" },
-		[".node-version"] = { glyph = "", hl = "MiniIconsGreen" },
-		[".prettierrc"] = { glyph = "", hl = "MiniIconsPurple" },
-		["prettier.config.js"] = { glyph = "", hl = "MiniIconsPurple" },
-		["prettier.config.ts"] = { glyph = "", hl = "MiniIconsPurple" },
-		[".eslintrc.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },
-		["eslint.config.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },
-		["eslint.config.ts"] = { glyph = "󰱺", hl = "MiniIconsAzure" },
-		["tsconfig.json"] = { glyph = "", hl = "MiniIconsBlue" },
-		[".yarnrc.yml"] = { glyph = "", hl = "MiniIconsBlue" },
-		["yarn.lock"] = { glyph = "", hl = "MiniIconsBlue" },
-		["pnpm-lock.yaml"] = { glyph = "", hl = "MiniIconsYellow" },
-		["pnpm-workspace.yaml"] = { glyph = "", hl = "MiniIconsYellow" },
-		["docker-compose.yaml"] = { glyph = "", hl = "MiniIconsBlue" },
-		["index.ts"] = { glyph = "", hl = "MiniIconsPurple" },
-		["index.tsx"] = { glyph = "", hl = "MiniIconsPurple" },
-		["index.js"] = { glyph = "", hl = "MiniIconsOrange" },
-		["index.jsx"] = { glyph = "", hl = "MiniIconsOrange" },
-		["default.nix"] = { glyph = "󱄅", hl = "MiniIconsCyan" },
-	},
+    file = {
+        [".go-version"] = { glyph = "", hl = "MiniIconsBlue" },
+        ["nvim-pack-lock.json"] = { glyph = "", hl = "MiniIconsGreen" },
+        ["vercel.json"] = { glyph = "", hl = "MiniIconsGray" },
+        ["package.json"] = { glyph = "", hl = "MiniIconsGreen" },
+        [".node-version"] = { glyph = "", hl = "MiniIconsGreen" },
+        [".prettierrc"] = { glyph = "", hl = "MiniIconsPurple" },
+        ["prettier.config.js"] = { glyph = "", hl = "MiniIconsPurple" },
+        ["prettier.config.ts"] = { glyph = "", hl = "MiniIconsPurple" },
+        [".eslintrc.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },
+        ["eslint.config.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },
+        ["eslint.config.ts"] = { glyph = "󰱺", hl = "MiniIconsAzure" },
+        ["tsconfig.json"] = { glyph = "", hl = "MiniIconsBlue" },
+        [".yarnrc.yml"] = { glyph = "", hl = "MiniIconsBlue" },
+        ["yarn.lock"] = { glyph = "", hl = "MiniIconsBlue" },
+        ["pnpm-lock.yaml"] = { glyph = "", hl = "MiniIconsYellow" },
+        ["pnpm-workspace.yaml"] = { glyph = "", hl = "MiniIconsYellow" },
+        ["docker-compose.yaml"] = { glyph = "", hl = "MiniIconsBlue" },
+        ["index.ts"] = { glyph = "", hl = "MiniIconsPurple" },
+        ["index.tsx"] = { glyph = "", hl = "MiniIconsPurple" },
+        ["index.js"] = { glyph = "", hl = "MiniIconsOrange" },
+        ["index.jsx"] = { glyph = "", hl = "MiniIconsOrange" },
+        ["default.nix"] = { glyph = "󱄅", hl = "MiniIconsCyan" },
+    },
 })
 
 -- comment syntax
 require("ts-comments").setup({
-	lang = {
-		jinja = "{#- %s -#}",
-		vala = "// %s",
-		meson = "# %s",
-		blueprint = "// %s",
-	},
+    lang = {
+        jinja = "{#- %s -#}",
+        vala = "// %s",
+        meson = "# %s",
+        blueprint = "// %s",
+    },
 })

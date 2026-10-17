@@ -20,8 +20,9 @@
     imagemagick
 
     # lua
-    lua-language-server
     stylua
+    emmylua-ls
+    emmylua-formatter
 
     # nix
     nil

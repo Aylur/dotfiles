@@ -34,19 +34,19 @@ vim.opt.winborder = "single"
 vim.opt.wrap = true
 
 vim.diagnostic.config({
-	severity_sort = true,
-	underline = { severity = vim.diagnostic.severity.ERROR },
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "󰅚 ",
-			[vim.diagnostic.severity.WARN] = "󰀪 ",
-			[vim.diagnostic.severity.INFO] = "󰋽 ",
-			[vim.diagnostic.severity.HINT] = "󰌶 ",
-		},
-	},
-	virtual_text = {
-		spacing = 4,
-		source = "if_many",
-		prefix = "●",
-	},
+    severity_sort = true,
+    underline = { severity = vim.diagnostic.severity.ERROR },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "󰅚 ",
+            [vim.diagnostic.severity.WARN] = "󰀪 ",
+            [vim.diagnostic.severity.INFO] = "󰋽 ",
+            [vim.diagnostic.severity.HINT] = "󰌶 ",
+        },
+    },
+    virtual_text = {
+        spacing = 4,
+        source = "if_many",
+        prefix = "●",
+    },
 })

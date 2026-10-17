@@ -1,0 +1,14 @@
+[syntax]
+level = "LuaJIT"
+
+[indent]
+kind = "Space"
+width = 4
+
+[layout]
+max_line_width = 100
+
+[output]
+trailing_comma = "Multiline"
+single_arg_call_parens = "Always"
+simple_lambda_single_line = "Preserve"
